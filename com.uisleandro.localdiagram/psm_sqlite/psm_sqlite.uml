@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:relations="com.uisleandro" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="com.uisleandro ../pim/relations.profile.uml#_sTnJIH2sEeadmqRkk0UdPw">
+  <uml:Package xmi:id="_mug-kIHuEeanyKYEkMT1QQ" name="RootElement">
+    <packagedElement xmi:type="uml:Class" xmi:id="_mug-kYHuEeanyKYEkMT1QQ" name="system">
+      <ownedAttribute xmi:id="_mug-koHuEeanyKYEkMT1QQ" name="name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-k4HuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-lIHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-lYHuEeanyKYEkMT1QQ" name="enabled">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWr39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-loHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-l4HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_mug-mIHuEeanyKYEkMT1QQ" name="user">
+      <ownedAttribute xmi:id="_mug-mYHuEeanyKYEkMT1QQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-moHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-m4HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-nIHuEeanyKYEkMT1QQ" name="role">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_uqnsgH2bEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-nYHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-noHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-n4HuEeanyKYEkMT1QQ" name="username">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-oIHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-oYHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-ooHuEeanyKYEkMT1QQ" name="password">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-o4HuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-pIHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-pYHuEeanyKYEkMT1QQ" name="name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-poHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-p4HuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-qIHuEeanyKYEkMT1QQ" name="email">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-qYHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-qoHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-q4HuEeanyKYEkMT1QQ" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-rIHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-rYHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-roHuEeanyKYEkMT1QQ" name="last_use_time">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-r4HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-sIHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-sYHuEeanyKYEkMT1QQ" name="last_error_time">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-soHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-s4HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-tIHuEeanyKYEkMT1QQ" name="error_count">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWqX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-tYHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-toHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-t4HuEeanyKYEkMT1QQ" name="active">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWr39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-uIHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-uYHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_mug-uoHuEeanyKYEkMT1QQ" name="sale">
+      <ownedAttribute xmi:id="_mug-u4HuEeanyKYEkMT1QQ" name="sale_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_oUglYH2jEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-vIHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-vYHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-voHuEeanyKYEkMT1QQ" name="interest_rate_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_prCTcH2jEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-v4HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-wIHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-wYHuEeanyKYEkMT1QQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-woHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-w4HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-xIHuEeanyKYEkMT1QQ" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-xYHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-xoHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-x4HuEeanyKYEkMT1QQ" name="total_value">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-yIHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-yYHuEeanyKYEkMT1QQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-yoHuEeanyKYEkMT1QQ" name="user">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_fpudAH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-y4HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-zIHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-zYHuEeanyKYEkMT1QQ" name="client_from_system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_Bri0MH2mEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-zoHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-z4HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_mug-0IHuEeanyKYEkMT1QQ" name="br_basic_client">
+      <ownedAttribute xmi:id="_mug-0YHuEeanyKYEkMT1QQ" name="cpf">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-0oHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-04HuEeanyKYEkMT1QQ" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-1IHuEeanyKYEkMT1QQ" name="name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-1YHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-1oHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-14HuEeanyKYEkMT1QQ" name="rg">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-2IHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-2YHuEeanyKYEkMT1QQ" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-2oHuEeanyKYEkMT1QQ" name="birth_date">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWqn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-24HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-3IHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-3YHuEeanyKYEkMT1QQ" name="birth_city">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-3oHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-34HuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_mug-4IHuEeanyKYEkMT1QQ" name="birth_state">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_mug-4YHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_mug-4oHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhloIHuEeanyKYEkMT1QQ" name="nationality">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhloYHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlooHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhlo4HuEeanyKYEkMT1QQ" name="mothers_name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhlpIHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlpYHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhlpoHuEeanyKYEkMT1QQ" name="fathers_name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhlp4HuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlqIHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhlqYHuEeanyKYEkMT1QQ" name="profession">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhlqoHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlq4HuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhlrIHuEeanyKYEkMT1QQ" name="cep">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhlrYHuEeanyKYEkMT1QQ" value="9"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlroHuEeanyKYEkMT1QQ" value="9"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhlr4HuEeanyKYEkMT1QQ" name="address">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhlsIHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlsYHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhlsoHuEeanyKYEkMT1QQ" name="neighborhood">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhls4HuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhltIHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhltYHuEeanyKYEkMT1QQ" name="city">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhltoHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlt4HuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhluIHuEeanyKYEkMT1QQ" name="state">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhluYHuEeanyKYEkMT1QQ" value="2"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhluoHuEeanyKYEkMT1QQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhlu4HuEeanyKYEkMT1QQ" name="complement">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhlvIHuEeanyKYEkMT1QQ" value="90"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlvYHuEeanyKYEkMT1QQ" value="90"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhlvoHuEeanyKYEkMT1QQ" name="updating_date">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhlv4HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlwIHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhlwYHuEeanyKYEkMT1QQ" name="br_duplicata">
+      <ownedAttribute xmi:id="_muhlwoHuEeanyKYEkMT1QQ" name="sale">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_2JAtgH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhlw4HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlxIHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhlxYHuEeanyKYEkMT1QQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhlxoHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlx4HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhlyIHuEeanyKYEkMT1QQ" name="invoice_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_sumY0H2oEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhlyYHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlyoHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhly4HuEeanyKYEkMT1QQ" name="cpf">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhlzIHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhlzYHuEeanyKYEkMT1QQ" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhlzoHuEeanyKYEkMT1QQ" name="numero">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhlz4HuEeanyKYEkMT1QQ" value="10"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl0IHuEeanyKYEkMT1QQ" value="10"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl0YHuEeanyKYEkMT1QQ" name="data">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl0oHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl04HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl1IHuEeanyKYEkMT1QQ" name="vencimento">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWqn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl1YHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl1oHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl14HuEeanyKYEkMT1QQ" name="valor">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl2IHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl2YHuEeanyKYEkMT1QQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl2oHuEeanyKYEkMT1QQ" name="nosso_numero">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl24HuEeanyKYEkMT1QQ" value="10"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl3IHuEeanyKYEkMT1QQ" value="10"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl3YHuEeanyKYEkMT1QQ" name="quantidade">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWqX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl3oHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl34HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl4IHuEeanyKYEkMT1QQ" name="parcela">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWqX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl4YHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl4oHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl44HuEeanyKYEkMT1QQ" name="foi_pago">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWr39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl5IHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl5YHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl5oHuEeanyKYEkMT1QQ" name="client_from_system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_Bri0MH2mEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl54HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl6IHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl6YHuEeanyKYEkMT1QQ" name="data_de_pagamento">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl6oHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl64HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl7IHuEeanyKYEkMT1QQ" name="valor_recebido">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl7YHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl7oHuEeanyKYEkMT1QQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl74HuEeanyKYEkMT1QQ" name="banco">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_IOwxUH3tEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl8IHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl8YHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhl8oHuEeanyKYEkMT1QQ" name="role">
+      <ownedAttribute xmi:id="_muhl84HuEeanyKYEkMT1QQ" name="name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl9IHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl9YHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhl9oHuEeanyKYEkMT1QQ" name="token">
+      <ownedAttribute xmi:id="_muhl94HuEeanyKYEkMT1QQ" name="user">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_fpudAH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl-IHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl-YHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl-oHuEeanyKYEkMT1QQ" name="token_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_FnHA8H2dEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl-4HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl_IHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhl_YHuEeanyKYEkMT1QQ" name="guid">
+        <type xmi:type="uml:PrimitiveType" href="../pim/types.uml#_4UmrZX9YEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhl_oHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhl_4HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmAIHuEeanyKYEkMT1QQ" name="creation_time">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmAYHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmAoHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmA4HuEeanyKYEkMT1QQ" name="last_use_time">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmBIHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmBYHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmBoHuEeanyKYEkMT1QQ" name="expiration_time">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmB4HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmCIHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhmCYHuEeanyKYEkMT1QQ" name="token_type">
+      <ownedAttribute xmi:id="_muhmCoHuEeanyKYEkMT1QQ" name="name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmC4HuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmDIHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhmDYHuEeanyKYEkMT1QQ" name="stock">
+      <ownedAttribute xmi:id="_muhmDoHuEeanyKYEkMT1QQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmD4HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmEIHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmEYHuEeanyKYEkMT1QQ" name="picture">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_XfdMcH2mEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmEoHuEeanyKYEkMT1QQ" value="2"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmE4HuEeanyKYEkMT1QQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmFIHuEeanyKYEkMT1QQ" name="supplier">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_55j-QH2oEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmFYHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmFoHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmF4HuEeanyKYEkMT1QQ" name="code1">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmGIHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmGYHuEeanyKYEkMT1QQ" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmGoHuEeanyKYEkMT1QQ" name="code2">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmG4HuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmHIHuEeanyKYEkMT1QQ" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmHYHuEeanyKYEkMT1QQ" name="description">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmHoHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmH4HuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmIIHuEeanyKYEkMT1QQ" name="amount">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWqX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmIYHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmIoHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmI4HuEeanyKYEkMT1QQ" name="size">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_qPp2EH3oEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmJIHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmJYHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmJoHuEeanyKYEkMT1QQ" name="gender">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_wYsQ4H3oEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmJ4HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmKIHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmKYHuEeanyKYEkMT1QQ" name="purchase_price">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmKoHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmK4HuEeanyKYEkMT1QQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmLIHuEeanyKYEkMT1QQ" name="sale_price">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmLYHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmLoHuEeanyKYEkMT1QQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmL4HuEeanyKYEkMT1QQ" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWqn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmMIHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmMYHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhmMoHuEeanyKYEkMT1QQ" name="sale_stock">
+      <ownedAttribute xmi:id="_muhmM4HuEeanyKYEkMT1QQ" name="sale">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_2JAtgH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmNIHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmNYHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmNoHuEeanyKYEkMT1QQ" name="stock">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_Slh30H2gEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmN4HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmOIHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhmOYHuEeanyKYEkMT1QQ" name="sale_type">
+      <ownedAttribute xmi:id="_muhmOoHuEeanyKYEkMT1QQ" name="name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmO4HuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmPIHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhmPYHuEeanyKYEkMT1QQ" name="interest_rate_type">
+      <ownedAttribute xmi:id="_muhmPoHuEeanyKYEkMT1QQ" name="name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmP4HuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmQIHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhmQYHuEeanyKYEkMT1QQ" name="client_from_system">
+      <ownedAttribute xmi:id="_muhmQoHuEeanyKYEkMT1QQ" name="my_br_basic_client">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_wj7dQH34EeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmQ4HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmRIHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmRYHuEeanyKYEkMT1QQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmRoHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmR4HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmSIHuEeanyKYEkMT1QQ" name="br_basic_client">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_BsIycH2YEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmSYHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmSoHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhmS4HuEeanyKYEkMT1QQ" name="client_annotation">
+      <ownedAttribute xmi:id="_muhmTIHuEeanyKYEkMT1QQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmTYHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmToHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmT4HuEeanyKYEkMT1QQ" name="client_annotation_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_6yWvMH3vEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmUIHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmUYHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmUoHuEeanyKYEkMT1QQ" name="message">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmU4HuEeanyKYEkMT1QQ" value="90"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmVIHuEeanyKYEkMT1QQ" value="90"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmVYHuEeanyKYEkMT1QQ" name="br_basic_client">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_BsIycH2YEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmVoHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmV4HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhmWIHuEeanyKYEkMT1QQ" name="picture">
+      <ownedAttribute xmi:id="_muhmWYHuEeanyKYEkMT1QQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmWoHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmW4HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmXIHuEeanyKYEkMT1QQ" name="description">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmXYHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmXoHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhmX4HuEeanyKYEkMT1QQ" name="invoice_type">
+      <ownedAttribute xmi:id="_muhmYIHuEeanyKYEkMT1QQ" name="name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmYYHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmYoHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhmY4HuEeanyKYEkMT1QQ" name="supplier">
+      <ownedAttribute xmi:id="_muhmZIHuEeanyKYEkMT1QQ" name="company_name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmZYHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmZoHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmZ4HuEeanyKYEkMT1QQ" name="fantasy_name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmaIHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmaYHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muhmaoHuEeanyKYEkMT1QQ" name="cash_register">
+      <ownedAttribute xmi:id="_muhma4HuEeanyKYEkMT1QQ" name="user">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_fpudAH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muhmbIHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muhmbYHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muhmboHuEeanyKYEkMT1QQ" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiMsIHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiMsYHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muiMsoHuEeanyKYEkMT1QQ" name="opening_value">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiMs4HuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiMtIHuEeanyKYEkMT1QQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muiMtYHuEeanyKYEkMT1QQ" name="received_value">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiMtoHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiMt4HuEeanyKYEkMT1QQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muiMuIHuEeanyKYEkMT1QQ" name="closing_value">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiMuYHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiMuoHuEeanyKYEkMT1QQ" value="2"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muiMu4HuEeanyKYEkMT1QQ" name="cash_launch">
+      <ownedAttribute xmi:id="_muiMvIHuEeanyKYEkMT1QQ" name="cash_register">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_6eODIH2rEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiMvYHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiMvoHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muiMv4HuEeanyKYEkMT1QQ" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiMwIHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiMwYHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muiMwoHuEeanyKYEkMT1QQ" name="justification">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiMw4HuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiMxIHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muiMxYHuEeanyKYEkMT1QQ" name="amount_spent">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiMxoHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiMx4HuEeanyKYEkMT1QQ" value="2"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muiMyIHuEeanyKYEkMT1QQ" name="log">
+      <ownedAttribute xmi:id="_muiMyYHuEeanyKYEkMT1QQ" name="when">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWq39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiMyoHuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiMy4HuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muiMzIHuEeanyKYEkMT1QQ" name="what">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiMzYHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiMzoHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muiMz4HuEeanyKYEkMT1QQ" name="param">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiM0IHuEeanyKYEkMT1QQ" value="90"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiM0YHuEeanyKYEkMT1QQ" value="90"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muiM0oHuEeanyKYEkMT1QQ" name="user">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_fpudAH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiM04HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiM1IHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muiM1YHuEeanyKYEkMT1QQ" name="size">
+      <ownedAttribute xmi:id="_muiM1oHuEeanyKYEkMT1QQ" name="unit">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_s1WF8H3oEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiM14HuEeanyKYEkMT1QQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiM2IHuEeanyKYEkMT1QQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muiM2YHuEeanyKYEkMT1QQ" name="value">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiM2oHuEeanyKYEkMT1QQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiM24HuEeanyKYEkMT1QQ" value="2"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muiM3IHuEeanyKYEkMT1QQ" name="unit">
+      <ownedAttribute xmi:id="_muiM3YHuEeanyKYEkMT1QQ" name="name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiM3oHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiM34HuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muiM4IHuEeanyKYEkMT1QQ" name="gender">
+      <ownedAttribute xmi:id="_muiM4YHuEeanyKYEkMT1QQ" name="name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiM4oHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiM44HuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muiM5IHuEeanyKYEkMT1QQ" name="banco">
+      <ownedAttribute xmi:id="_muiM5YHuEeanyKYEkMT1QQ" name="codigo">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiM5oHuEeanyKYEkMT1QQ" value="5"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiM54HuEeanyKYEkMT1QQ" value="5"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_muiM6IHuEeanyKYEkMT1QQ" name="nome">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiM6YHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiM6oHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muiM64HuEeanyKYEkMT1QQ" name="client_annotation_type">
+      <ownedAttribute xmi:id="_muiM7IHuEeanyKYEkMT1QQ" name="name">
+        <type xmi:type="uml:DataType" href="types_sqlite.uml#_BGCWrn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_muiM7YHuEeanyKYEkMT1QQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_muiM7oHuEeanyKYEkMT1QQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_muiM74HuEeanyKYEkMT1QQ" name="my_br_basic_client"/>
+    <profileApplication xmi:id="_muiM8IHuEeanyKYEkMT1QQ">
+      <eAnnotations xmi:id="_muiM8YHuEeanyKYEkMT1QQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+    </profileApplication>
+    <profileApplication xmi:id="_muiM8oHuEeanyKYEkMT1QQ">
+      <eAnnotations xmi:id="_muiM84HuEeanyKYEkMT1QQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../pim/relations.profile.uml#_sTnJIH2sEeadmqRkk0UdPw"/>
+      </eAnnotations>
+      <appliedProfile href="../pim/relations.profile.uml#_UIKB0H2YEeadmqRkk0UdPw"/>
+    </profileApplication>
+  </uml:Package>
+  <relations:system_module xmi:id="_muiM9IHuEeanyKYEkMT1QQ" base_Class="_mug-kYHuEeanyKYEkMT1QQ"/>
+  <relations:dependency xmi:id="_muiM9YHuEeanyKYEkMT1QQ" base_Class="_mug-kYHuEeanyKYEkMT1QQ"/>
+  <relations:system_module xmi:id="_muiM9oHuEeanyKYEkMT1QQ" base_Class="_mug-mIHuEeanyKYEkMT1QQ"/>
+  <relations:dependency xmi:id="_muiM94HuEeanyKYEkMT1QQ" base_Class="_mug-mIHuEeanyKYEkMT1QQ"/>
+  <relations:sales_module xmi:id="_muiM-IHuEeanyKYEkMT1QQ" base_Class="_mug-uoHuEeanyKYEkMT1QQ"/>
+  <relations:optional xmi:id="_muiM-YHuEeanyKYEkMT1QQ" base_Class="_mug-uoHuEeanyKYEkMT1QQ"/>
+  <relations:invoice_dependency xmi:id="_muiM-oHuEeanyKYEkMT1QQ" base_Class="_mug-uoHuEeanyKYEkMT1QQ"/>
+  <relations:sales_dependency xmi:id="_muiM-4HuEeanyKYEkMT1QQ" base_Class="_mug-0IHuEeanyKYEkMT1QQ"/>
+  <relations:optional xmi:id="_muiM_IHuEeanyKYEkMT1QQ" base_Class="_mug-0IHuEeanyKYEkMT1QQ"/>
+  <relations:client_module xmi:id="_muiM_YHuEeanyKYEkMT1QQ" base_Class="_mug-0IHuEeanyKYEkMT1QQ"/>
+  <relations:invoice_module xmi:id="_muiM_oHuEeanyKYEkMT1QQ" base_Class="_muhlwYHuEeanyKYEkMT1QQ"/>
+  <relations:system_module xmi:id="_muiM_4HuEeanyKYEkMT1QQ" base_Class="_muhl8oHuEeanyKYEkMT1QQ"/>
+  <relations:system_module xmi:id="_muiNAIHuEeanyKYEkMT1QQ" base_Class="_muhl9oHuEeanyKYEkMT1QQ"/>
+  <relations:system_module xmi:id="_muiNAYHuEeanyKYEkMT1QQ" base_Class="_muhmCYHuEeanyKYEkMT1QQ"/>
+  <relations:sales_dependency xmi:id="_muiNAoHuEeanyKYEkMT1QQ" base_Class="_muhmDYHuEeanyKYEkMT1QQ"/>
+  <relations:supply_module xmi:id="_muiNA4HuEeanyKYEkMT1QQ" base_Class="_muhmDYHuEeanyKYEkMT1QQ"/>
+  <relations:sales_module xmi:id="_muiNBIHuEeanyKYEkMT1QQ" base_Class="_muhmMoHuEeanyKYEkMT1QQ"/>
+  <relations:sales_module xmi:id="_muiNBYHuEeanyKYEkMT1QQ" base_Class="_muhmOYHuEeanyKYEkMT1QQ"/>
+  <relations:sales_module xmi:id="_muiNBoHuEeanyKYEkMT1QQ" base_Class="_muhmPYHuEeanyKYEkMT1QQ"/>
+  <relations:invoice_dependency xmi:id="_muiNB4HuEeanyKYEkMT1QQ" base_Class="_muhmQYHuEeanyKYEkMT1QQ"/>
+  <relations:client_module xmi:id="_muiNCIHuEeanyKYEkMT1QQ" base_Class="_muhmQYHuEeanyKYEkMT1QQ"/>
+  <relations:system_module xmi:id="_muiNCYHuEeanyKYEkMT1QQ" base_Class="_muhmWIHuEeanyKYEkMT1QQ"/>
+  <relations:supply_dependency xmi:id="_muiNCoHuEeanyKYEkMT1QQ" base_Class="_muhmWIHuEeanyKYEkMT1QQ"/>
+  <relations:invoice_module xmi:id="_muiNC4HuEeanyKYEkMT1QQ" base_Class="_muhmX4HuEeanyKYEkMT1QQ"/>
+  <relations:supply_module xmi:id="_muiNDIHuEeanyKYEkMT1QQ" base_Class="_muhmY4HuEeanyKYEkMT1QQ"/>
+  <relations:cash_register_module xmi:id="_muiNDYHuEeanyKYEkMT1QQ" base_Class="_muhmaoHuEeanyKYEkMT1QQ"/>
+  <relations:cash_register_module xmi:id="_muiNDoHuEeanyKYEkMT1QQ" base_Class="_muiMu4HuEeanyKYEkMT1QQ"/>
+  <relations:supply_module xmi:id="_muiND4HuEeanyKYEkMT1QQ" base_Class="_muiM1YHuEeanyKYEkMT1QQ"/>
+  <relations:supply_module xmi:id="_muiNEIHuEeanyKYEkMT1QQ" base_Class="_muiM3IHuEeanyKYEkMT1QQ"/>
+  <relations:supply_module xmi:id="_muiNEYHuEeanyKYEkMT1QQ" base_Class="_muiM4IHuEeanyKYEkMT1QQ"/>
+  <relations:client_module xmi:id="_muiNEoHuEeanyKYEkMT1QQ" base_Class="_muiM74HuEeanyKYEkMT1QQ"/>
+</xmi:XMI>

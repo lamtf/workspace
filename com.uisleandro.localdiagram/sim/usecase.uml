@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Cuf3QH2sEeadmqRkk0UdPw" name="RootElement">
+  <packagedElement xmi:type="uml:Actor" xmi:id="_SQ3F4IQjEeaEU96-I2UhNw" name="store_manager"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_YghGEIQjEeaEU96-I2UhNw" name="seller"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_cHxgoIQjEeaEU96-I2UhNw" name="cash_operator"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_mn6ekIQjEeaEU96-I2UhNw" name="system_manager"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_wiZKsIQjEeaEU96-I2UhNw" name="client"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_13iqcIQjEeaEU96-I2UhNw" name="performs the sale"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_4Ys_oIQjEeaEU96-I2UhNw" name="sale endpoing">
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_4t3h4IQkEeaEU96-I2UhNw" name="ExtensionPoint1"/>
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_5WvfwIQkEeaEU96-I2UhNw" name="ExtensionPoint2"/>
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_56-OMIQkEeaEU96-I2UhNw" name="ExtensionPoint3"/>
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_X4SEkIQnEeaEU96-I2UhNw" name="ExtensionPoint4"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_7YzTkIQjEeaEU96-I2UhNw" name="credit sale receiving">
+    <include xmi:type="uml:Include" xmi:id="_OFRSYIQnEeaEU96-I2UhNw" addition="_KKFPMIQnEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_-JWvoIQjEeaEU96-I2UhNw" name="cash sale">
+    <extend xmi:type="uml:Extend" xmi:id="_569nIIQkEeaEU96-I2UhNw" extendedCase="_4Ys_oIQjEeaEU96-I2UhNw" extensionLocation="_56-OMIQkEeaEU96-I2UhNw"/>
+    <include xmi:type="uml:Include" xmi:id="_wJBroIQnEeaEU96-I2UhNw" addition="_OKzkkIQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_BeyaYIQkEeaEU96-I2UhNw" name="credit sale approving">
+    <include xmi:type="uml:Include" xmi:id="_PCyDgIQnEeaEU96-I2UhNw" addition="_KKFPMIQnEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_P1v44IQkEeaEU96-I2UhNw" name="checks the cash registers">
+    <extend xmi:type="uml:Extend" xmi:id="_GhitIIQlEeaEU96-I2UhNw" extendedCase="_Afx_AIQlEeaEU96-I2UhNw" extensionLocation="_Ghj7QIQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_YlsrkIQkEeaEU96-I2UhNw" name="manage users">
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_K78b4IQlEeaEU96-I2UhNw" name="ExtensionPoint1"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_adFD8IQkEeaEU96-I2UhNw" name="set roles and people">
+    <extend xmi:type="uml:Extend" xmi:id="_K77NwIQlEeaEU96-I2UhNw" extendedCase="_YlsrkIQkEeaEU96-I2UhNw" extensionLocation="_K78b4IQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_eSOwkIQkEeaEU96-I2UhNw" name="receive products">
+    <extend xmi:type="uml:Extend" xmi:id="_H39GcIQlEeaEU96-I2UhNw" extendedCase="_Afx_AIQlEeaEU96-I2UhNw" extensionLocation="_H39tgIQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_pCP9kIQkEeaEU96-I2UhNw" name="set the prices">
+    <extend xmi:type="uml:Extend" xmi:id="_EYIwoIQlEeaEU96-I2UhNw" extendedCase="_Afx_AIQlEeaEU96-I2UhNw" extensionLocation="_EYJXsIQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_qestcIQkEeaEU96-I2UhNw" name="set the promotions">
+    <extend xmi:type="uml:Extend" xmi:id="_FQqUEIQlEeaEU96-I2UhNw" extendedCase="_Afx_AIQlEeaEU96-I2UhNw" extensionLocation="_FQriMIQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_xdPz8IQkEeaEU96-I2UhNw" name="manage payable accoints">
+    <extend xmi:type="uml:Extend" xmi:id="_HQhTAIQlEeaEU96-I2UhNw" extendedCase="_Afx_AIQlEeaEU96-I2UhNw" extensionLocation="_HQh6EIQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_7L2nQIQkEeaEU96-I2UhNw" memberEnd="_7MFQwIQkEeaEU96-I2UhNw _7MF30IQkEeaEU96-I2UhNw">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_7L5DgIQkEeaEU96-I2UhNw" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_7L5qkIQkEeaEU96-I2UhNw" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_7MFQwIQkEeaEU96-I2UhNw" name="cash_operator" type="_cHxgoIQjEeaEU96-I2UhNw" association="_7L2nQIQkEeaEU96-I2UhNw"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_7MF30IQkEeaEU96-I2UhNw" name="sale endpoing" type="_4Ys_oIQjEeaEU96-I2UhNw" association="_7L2nQIQkEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_8UV5UIQkEeaEU96-I2UhNw" memberEnd="_8UXHcYQkEeaEU96-I2UhNw _8UXHcoQkEeaEU96-I2UhNw">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_8UWgYIQkEeaEU96-I2UhNw" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_8UXHcIQkEeaEU96-I2UhNw" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_8UXHcYQkEeaEU96-I2UhNw" name="performs the sale" type="_13iqcIQjEeaEU96-I2UhNw" association="_8UV5UIQkEeaEU96-I2UhNw"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_8UXHcoQkEeaEU96-I2UhNw" name="seller" type="_YghGEIQjEeaEU96-I2UhNw" association="_8UV5UIQkEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_Afx_AIQlEeaEU96-I2UhNw" name="make sale analysis">
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_EYJXsIQlEeaEU96-I2UhNw" name="ExtensionPoint1"/>
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_FQriMIQlEeaEU96-I2UhNw" name="ExtensionPoint2"/>
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_Ghj7QIQlEeaEU96-I2UhNw" name="ExtensionPoint3"/>
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_HQh6EIQlEeaEU96-I2UhNw" name="ExtensionPoint4"/>
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_H39tgIQlEeaEU96-I2UhNw" name="ExtensionPoint5"/>
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_cbe04YQlEeaEU96-I2UhNw" name="ExtensionPoint6"/>
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_5kOssIQlEeaEU96-I2UhNw" name="ExtensionPoint7"/>
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_6PGOoIQlEeaEU96-I2UhNw" name="ExtensionPoint8"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_C-QzoIQlEeaEU96-I2UhNw" memberEnd="_C-SBwYQlEeaEU96-I2UhNw _C-SBwoQlEeaEU96-I2UhNw">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_C-RasIQlEeaEU96-I2UhNw" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_C-SBwIQlEeaEU96-I2UhNw" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_C-SBwYQlEeaEU96-I2UhNw" name="make sale analysis" type="_Afx_AIQlEeaEU96-I2UhNw" association="_C-QzoIQlEeaEU96-I2UhNw"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_C-SBwoQlEeaEU96-I2UhNw" name="store_manager" type="_SQ3F4IQjEeaEU96-I2UhNw" association="_C-QzoIQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_KSHbwIQlEeaEU96-I2UhNw" memberEnd="_KSIp4IQlEeaEU96-I2UhNw _KSIp4YQlEeaEU96-I2UhNw">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_KSIC0IQlEeaEU96-I2UhNw" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_KSIC0YQlEeaEU96-I2UhNw" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_KSIp4IQlEeaEU96-I2UhNw" name="manage users" type="_YlsrkIQkEeaEU96-I2UhNw" association="_KSHbwIQlEeaEU96-I2UhNw"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_KSIp4YQlEeaEU96-I2UhNw" name="system_manager" type="_mn6ekIQjEeaEU96-I2UhNw" association="_KSHbwIQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_OKzkkIQlEeaEU96-I2UhNw" name="chart">
+    <include xmi:type="uml:Include" xmi:id="_7JmdIIQnEeaEU96-I2UhNw" addition="_5rL-YIQnEeaEU96-I2UhNw"/>
+    <include xmi:type="uml:Include" xmi:id="_8w9cgIQnEeaEU96-I2UhNw" addition="_8v2CMIQnEeaEU96-I2UhNw"/>
+    <include xmi:type="uml:Include" xmi:id="_BMsoAIQoEeaEU96-I2UhNw" addition="__eyUsIQnEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_abTF0IQlEeaEU96-I2UhNw" name="export data">
+    <extend xmi:type="uml:Extend" xmi:id="_cbe04IQlEeaEU96-I2UhNw" extendedCase="_Afx_AIQlEeaEU96-I2UhNw" extensionLocation="_cbe04YQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_3K76EIQlEeaEU96-I2UhNw" name="sales chart">
+    <extend xmi:type="uml:Extend" xmi:id="_5kOFoIQlEeaEU96-I2UhNw" extendedCase="_Afx_AIQlEeaEU96-I2UhNw" extensionLocation="_5kOssIQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_4TVFgIQlEeaEU96-I2UhNw" name="money chart">
+    <extend xmi:type="uml:Extend" xmi:id="_6PFnkIQlEeaEU96-I2UhNw" extendedCase="_Afx_AIQlEeaEU96-I2UhNw" extensionLocation="_6PGOoIQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_3DOTEIQmEeaEU96-I2UhNw" name="make payments"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_406TIIQmEeaEU96-I2UhNw" memberEnd="_407hQYQmEeaEU96-I2UhNw _408IUIQmEeaEU96-I2UhNw">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4066MIQmEeaEU96-I2UhNw" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_407hQIQmEeaEU96-I2UhNw" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_407hQYQmEeaEU96-I2UhNw" name="make payments" type="_3DOTEIQmEeaEU96-I2UhNw" association="_406TIIQmEeaEU96-I2UhNw"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_408IUIQmEeaEU96-I2UhNw" name="store_manager" type="_SQ3F4IQjEeaEU96-I2UhNw" association="_406TIIQmEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_Eeas4IQnEeaEU96-I2UhNw" name="provide information"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_HfkJsIQnEeaEU96-I2UhNw" memberEnd="_HflX0IQnEeaEU96-I2UhNw _HflX0YQnEeaEU96-I2UhNw">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HfkwwIQnEeaEU96-I2UhNw" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_HfkwwYQnEeaEU96-I2UhNw" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_HflX0IQnEeaEU96-I2UhNw" name="provide information" type="_Eeas4IQnEeaEU96-I2UhNw" association="_HfkJsIQnEeaEU96-I2UhNw"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_HflX0YQnEeaEU96-I2UhNw" name="client" type="_wiZKsIQjEeaEU96-I2UhNw" association="_HfkJsIQnEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_KKFPMIQnEeaEU96-I2UhNw" name="find the client"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_TxDJcIQnEeaEU96-I2UhNw" name="credit sale">
+    <extend xmi:type="uml:Extend" xmi:id="_X4Q2cIQnEeaEU96-I2UhNw" extendedCase="_4Ys_oIQjEeaEU96-I2UhNw" extensionLocation="_X4SEkIQnEeaEU96-I2UhNw"/>
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_jz_BkIQnEeaEU96-I2UhNw" name="ExtensionPoint1"/>
+    <include xmi:type="uml:Include" xmi:id="_Y5seQIQnEeaEU96-I2UhNw" addition="_7YzTkIQjEeaEU96-I2UhNw"/>
+    <include xmi:type="uml:Include" xmi:id="_vttBkIQnEeaEU96-I2UhNw" addition="_OKzkkIQlEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_e9pkwIQnEeaEU96-I2UhNw" name="generate invoice">
+    <extend xmi:type="uml:Extend" xmi:id="_jz9zcIQnEeaEU96-I2UhNw" extendedCase="_TxDJcIQnEeaEU96-I2UhNw" extensionLocation="_jz_BkIQnEeaEU96-I2UhNw"/>
+    <include xmi:type="uml:Include" xmi:id="_l1NScIQnEeaEU96-I2UhNw" addition="_BeyaYIQkEeaEU96-I2UhNw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_5rL-YIQnEeaEU96-I2UhNw" name="find products"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_8v2CMIQnEeaEU96-I2UhNw" name="NFe"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="__eyUsIQnEeaEU96-I2UhNw" name="recipt printing"/>
+</uml:Model>

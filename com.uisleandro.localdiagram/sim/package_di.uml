@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_B5QmgIQ9EeaCGJdAcOtWZg" name="RootElement">
+  <packagedElement xmi:type="uml:Package" xmi:id="_MZz0IIQ9EeaCGJdAcOtWZg" name="system"/>
+  <packagedElement xmi:type="uml:Package" xmi:id="_PXqsYIQ9EeaCGJdAcOtWZg" name="sales">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_dXQzwIQ9EeaCGJdAcOtWZg" client="_PXqsYIQ9EeaCGJdAcOtWZg" supplier="_MZz0IIQ9EeaCGJdAcOtWZg"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_hon7QIQ9EeaCGJdAcOtWZg" client="_PXqsYIQ9EeaCGJdAcOtWZg" supplier="_TQn68IQ9EeaCGJdAcOtWZg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_QvmvsIQ9EeaCGJdAcOtWZg" name="client">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_chNVgIQ9EeaCGJdAcOtWZg" client="_QvmvsIQ9EeaCGJdAcOtWZg" supplier="_MZz0IIQ9EeaCGJdAcOtWZg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_SSZ_MIQ9EeaCGJdAcOtWZg" name="invoice">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_c-tJ0IQ9EeaCGJdAcOtWZg" client="_SSZ_MIQ9EeaCGJdAcOtWZg" supplier="_MZz0IIQ9EeaCGJdAcOtWZg"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_j3x6cIQ9EeaCGJdAcOtWZg" client="_SSZ_MIQ9EeaCGJdAcOtWZg" supplier="_PXqsYIQ9EeaCGJdAcOtWZg"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_lnbTIIQ9EeaCGJdAcOtWZg" client="_SSZ_MIQ9EeaCGJdAcOtWZg" supplier="_QvmvsIQ9EeaCGJdAcOtWZg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_TQn68IQ9EeaCGJdAcOtWZg" name="supply">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_d5dh4IQ9EeaCGJdAcOtWZg" client="_TQn68IQ9EeaCGJdAcOtWZg" supplier="_MZz0IIQ9EeaCGJdAcOtWZg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Package" xmi:id="_WaRzgIQ9EeaCGJdAcOtWZg" name="cash_register">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_cB-b0IQ9EeaCGJdAcOtWZg" client="_WaRzgIQ9EeaCGJdAcOtWZg" supplier="_MZz0IIQ9EeaCGJdAcOtWZg"/>
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_qUCMMIQ9EeaCGJdAcOtWZg" client="_WaRzgIQ9EeaCGJdAcOtWZg" supplier="_PXqsYIQ9EeaCGJdAcOtWZg"/>
+  </packagedElement>
+</uml:Model>

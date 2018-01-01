@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:relations="com.uisleandro" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="com.uisleandro ../pim/relations.profile.uml#_sTnJIH2sEeadmqRkk0UdPw">
+  <uml:Package xmi:id="_opF04IHuEeaAXtCoRk6MfQ" name="RootElement">
+    <packagedElement xmi:type="uml:Class" xmi:id="_opF04YHuEeaAXtCoRk6MfQ" name="system">
+      <ownedAttribute xmi:id="_opF04oHuEeaAXtCoRk6MfQ" name="name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opF044HuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opF05IHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opF05YHuEeaAXtCoRk6MfQ" name="enabled">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYy39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opF05oHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opF054HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opF06IHuEeaAXtCoRk6MfQ" name="user">
+      <ownedAttribute xmi:id="_opF06YHuEeaAXtCoRk6MfQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opF06oHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opF064HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opF07IHuEeaAXtCoRk6MfQ" name="role">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_uqnsgH2bEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opF07YHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opF07oHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opF074HuEeaAXtCoRk6MfQ" name="username">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opF08IHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opF08YHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opF08oHuEeaAXtCoRk6MfQ" name="password">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opF084HuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opF09IHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opF09YHuEeaAXtCoRk6MfQ" name="name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opF09oHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opF094HuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opF0-IHuEeaAXtCoRk6MfQ" name="email">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opF0-YHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opF0-oHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opF0-4HuEeaAXtCoRk6MfQ" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opF0_IHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opF0_YHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opF0_oHuEeaAXtCoRk6MfQ" name="last_use_time">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opF0_4HuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opF1AIHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opF1AYHuEeaAXtCoRk6MfQ" name="last_error_time">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opF1AoHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opF1A4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGb8IHuEeaAXtCoRk6MfQ" name="error_count">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYzH9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGb8YHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGb8oHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGb84HuEeaAXtCoRk6MfQ" name="active">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYy39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGb9IHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGb9YHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opGb9oHuEeaAXtCoRk6MfQ" name="sale">
+      <ownedAttribute xmi:id="_opGb94HuEeaAXtCoRk6MfQ" name="sale_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_oUglYH2jEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGb-IHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGb-YHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGb-oHuEeaAXtCoRk6MfQ" name="interest_rate_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_prCTcH2jEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGb-4HuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGb_IHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGb_YHuEeaAXtCoRk6MfQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGb_oHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGb_4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcAIHuEeaAXtCoRk6MfQ" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcAYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcAoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcA4HuEeaAXtCoRk6MfQ" name="total_value">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYxn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcBIHuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcBYHuEeaAXtCoRk6MfQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcBoHuEeaAXtCoRk6MfQ" name="user">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_fpudAH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcB4HuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcCIHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcCYHuEeaAXtCoRk6MfQ" name="client_from_system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_Bri0MH2mEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcCoHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcC4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opGcDIHuEeaAXtCoRk6MfQ" name="br_basic_client">
+      <ownedAttribute xmi:id="_opGcDYHuEeaAXtCoRk6MfQ" name="cpf">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcDoHuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcD4HuEeaAXtCoRk6MfQ" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcEIHuEeaAXtCoRk6MfQ" name="name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcEYHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcEoHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcE4HuEeaAXtCoRk6MfQ" name="rg">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcFIHuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcFYHuEeaAXtCoRk6MfQ" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcFoHuEeaAXtCoRk6MfQ" name="birth_date">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyX9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcF4HuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcGIHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcGYHuEeaAXtCoRk6MfQ" name="birth_city">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcGoHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcG4HuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcHIHuEeaAXtCoRk6MfQ" name="birth_state">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcHYHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcHoHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcH4HuEeaAXtCoRk6MfQ" name="nationality">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcIIHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcIYHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcIoHuEeaAXtCoRk6MfQ" name="mothers_name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcI4HuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcJIHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcJYHuEeaAXtCoRk6MfQ" name="fathers_name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcJoHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcJ4HuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcKIHuEeaAXtCoRk6MfQ" name="profession">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcKYHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcKoHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcK4HuEeaAXtCoRk6MfQ" name="cep">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcLIHuEeaAXtCoRk6MfQ" value="9"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcLYHuEeaAXtCoRk6MfQ" value="9"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcLoHuEeaAXtCoRk6MfQ" name="address">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcL4HuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcMIHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcMYHuEeaAXtCoRk6MfQ" name="neighborhood">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcMoHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcM4HuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcNIHuEeaAXtCoRk6MfQ" name="city">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcNYHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcNoHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcN4HuEeaAXtCoRk6MfQ" name="state">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcOIHuEeaAXtCoRk6MfQ" value="2"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcOYHuEeaAXtCoRk6MfQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcOoHuEeaAXtCoRk6MfQ" name="complement">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcO4HuEeaAXtCoRk6MfQ" value="90"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcPIHuEeaAXtCoRk6MfQ" value="90"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcPYHuEeaAXtCoRk6MfQ" name="updating_date">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcPoHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcP4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opGcQIHuEeaAXtCoRk6MfQ" name="br_duplicata">
+      <ownedAttribute xmi:id="_opGcQYHuEeaAXtCoRk6MfQ" name="sale">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_2JAtgH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcQoHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcQ4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcRIHuEeaAXtCoRk6MfQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcRYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcRoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcR4HuEeaAXtCoRk6MfQ" name="invoice_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_sumY0H2oEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcSIHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcSYHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcSoHuEeaAXtCoRk6MfQ" name="cpf">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcS4HuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcTIHuEeaAXtCoRk6MfQ" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcTYHuEeaAXtCoRk6MfQ" name="numero">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcToHuEeaAXtCoRk6MfQ" value="10"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcT4HuEeaAXtCoRk6MfQ" value="10"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcUIHuEeaAXtCoRk6MfQ" name="data">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcUYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcUoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcU4HuEeaAXtCoRk6MfQ" name="vencimento">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyX9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcVIHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcVYHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcVoHuEeaAXtCoRk6MfQ" name="valor">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYxn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcV4HuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcWIHuEeaAXtCoRk6MfQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcWYHuEeaAXtCoRk6MfQ" name="nosso_numero">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcWoHuEeaAXtCoRk6MfQ" value="10"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcW4HuEeaAXtCoRk6MfQ" value="10"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcXIHuEeaAXtCoRk6MfQ" name="quantidade">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYzH9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcXYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcXoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcX4HuEeaAXtCoRk6MfQ" name="parcela">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYzH9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcYIHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcYYHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opGcYoHuEeaAXtCoRk6MfQ" name="foi_pago">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYy39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opGcY4HuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opGcZIHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDAIHuEeaAXtCoRk6MfQ" name="client_from_system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_Bri0MH2mEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDAYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDAoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDA4HuEeaAXtCoRk6MfQ" name="data_de_pagamento">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDBIHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDBYHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDBoHuEeaAXtCoRk6MfQ" name="valor_recebido">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYxn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDB4HuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDCIHuEeaAXtCoRk6MfQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDCYHuEeaAXtCoRk6MfQ" name="banco">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_IOwxUH3tEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDCoHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDC4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHDDIHuEeaAXtCoRk6MfQ" name="role">
+      <ownedAttribute xmi:id="_opHDDYHuEeaAXtCoRk6MfQ" name="name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDDoHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDD4HuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHDEIHuEeaAXtCoRk6MfQ" name="token">
+      <ownedAttribute xmi:id="_opHDEYHuEeaAXtCoRk6MfQ" name="user">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_fpudAH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDEoHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDE4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDFIHuEeaAXtCoRk6MfQ" name="token_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_FnHA8H2dEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDFYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDFoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDF4HuEeaAXtCoRk6MfQ" name="guid">
+        <type xmi:type="uml:PrimitiveType" href="../pim/types.uml#_4UmrZX9YEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDGIHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDGYHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDGoHuEeaAXtCoRk6MfQ" name="creation_time">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDG4HuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDHIHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDHYHuEeaAXtCoRk6MfQ" name="last_use_time">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDHoHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDH4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDIIHuEeaAXtCoRk6MfQ" name="expiration_time">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDIYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDIoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHDI4HuEeaAXtCoRk6MfQ" name="token_type">
+      <ownedAttribute xmi:id="_opHDJIHuEeaAXtCoRk6MfQ" name="name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDJYHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDJoHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHDJ4HuEeaAXtCoRk6MfQ" name="stock">
+      <ownedAttribute xmi:id="_opHDKIHuEeaAXtCoRk6MfQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDKYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDKoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDK4HuEeaAXtCoRk6MfQ" name="picture">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_XfdMcH2mEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDLIHuEeaAXtCoRk6MfQ" value="2"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDLYHuEeaAXtCoRk6MfQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDLoHuEeaAXtCoRk6MfQ" name="supplier">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_55j-QH2oEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDL4HuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDMIHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDMYHuEeaAXtCoRk6MfQ" name="code1">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDMoHuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDM4HuEeaAXtCoRk6MfQ" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDNIHuEeaAXtCoRk6MfQ" name="code2">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDNYHuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDNoHuEeaAXtCoRk6MfQ" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDN4HuEeaAXtCoRk6MfQ" name="description">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDOIHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDOYHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDOoHuEeaAXtCoRk6MfQ" name="amount">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYzH9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDO4HuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDPIHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDPYHuEeaAXtCoRk6MfQ" name="size">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_qPp2EH3oEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDPoHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDP4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDQIHuEeaAXtCoRk6MfQ" name="gender">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_wYsQ4H3oEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDQYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDQoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDQ4HuEeaAXtCoRk6MfQ" name="purchase_price">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYxn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDRIHuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDRYHuEeaAXtCoRk6MfQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDRoHuEeaAXtCoRk6MfQ" name="sale_price">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYxn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDR4HuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDSIHuEeaAXtCoRk6MfQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDSYHuEeaAXtCoRk6MfQ" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyX9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDSoHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDS4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHDTIHuEeaAXtCoRk6MfQ" name="sale_stock">
+      <ownedAttribute xmi:id="_opHDTYHuEeaAXtCoRk6MfQ" name="sale">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_2JAtgH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDToHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDT4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDUIHuEeaAXtCoRk6MfQ" name="stock">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_Slh30H2gEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDUYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDUoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHDU4HuEeaAXtCoRk6MfQ" name="sale_type">
+      <ownedAttribute xmi:id="_opHDVIHuEeaAXtCoRk6MfQ" name="name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDVYHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDVoHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHDV4HuEeaAXtCoRk6MfQ" name="interest_rate_type">
+      <ownedAttribute xmi:id="_opHDWIHuEeaAXtCoRk6MfQ" name="name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDWYHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDWoHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHDW4HuEeaAXtCoRk6MfQ" name="client_from_system">
+      <ownedAttribute xmi:id="_opHDXIHuEeaAXtCoRk6MfQ" name="my_br_basic_client">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_wj7dQH34EeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDXYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDXoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDX4HuEeaAXtCoRk6MfQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDYIHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDYYHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDYoHuEeaAXtCoRk6MfQ" name="br_basic_client">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_BsIycH2YEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDY4HuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDZIHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHDZYHuEeaAXtCoRk6MfQ" name="client_annotation">
+      <ownedAttribute xmi:id="_opHDZoHuEeaAXtCoRk6MfQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDZ4HuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDaIHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDaYHuEeaAXtCoRk6MfQ" name="client_annotation_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_6yWvMH3vEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDaoHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDa4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDbIHuEeaAXtCoRk6MfQ" name="message">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDbYHuEeaAXtCoRk6MfQ" value="90"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDboHuEeaAXtCoRk6MfQ" value="90"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDb4HuEeaAXtCoRk6MfQ" name="br_basic_client">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_BsIycH2YEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDcIHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDcYHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHDcoHuEeaAXtCoRk6MfQ" name="picture">
+      <ownedAttribute xmi:id="_opHDc4HuEeaAXtCoRk6MfQ" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDdIHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDdYHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHDdoHuEeaAXtCoRk6MfQ" name="description">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDd4HuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDeIHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHDeYHuEeaAXtCoRk6MfQ" name="invoice_type">
+      <ownedAttribute xmi:id="_opHDeoHuEeaAXtCoRk6MfQ" name="name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDe4HuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDfIHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHDfYHuEeaAXtCoRk6MfQ" name="supplier">
+      <ownedAttribute xmi:id="_opHDfoHuEeaAXtCoRk6MfQ" name="company_name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHDf4HuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHDgIHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqEIHuEeaAXtCoRk6MfQ" name="fantasy_name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqEYHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqEoHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHqE4HuEeaAXtCoRk6MfQ" name="cash_register">
+      <ownedAttribute xmi:id="_opHqFIHuEeaAXtCoRk6MfQ" name="user">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_fpudAH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqFYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqFoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqF4HuEeaAXtCoRk6MfQ" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqGIHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqGYHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqGoHuEeaAXtCoRk6MfQ" name="opening_value">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYxn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqG4HuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqHIHuEeaAXtCoRk6MfQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqHYHuEeaAXtCoRk6MfQ" name="received_value">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYxn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqHoHuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqH4HuEeaAXtCoRk6MfQ" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqIIHuEeaAXtCoRk6MfQ" name="closing_value">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYxn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqIYHuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqIoHuEeaAXtCoRk6MfQ" value="2"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHqI4HuEeaAXtCoRk6MfQ" name="cash_launch">
+      <ownedAttribute xmi:id="_opHqJIHuEeaAXtCoRk6MfQ" name="cash_register">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_6eODIH2rEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqJYHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqJoHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqJ4HuEeaAXtCoRk6MfQ" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqKIHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqKYHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqKoHuEeaAXtCoRk6MfQ" name="justification">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqK4HuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqLIHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqLYHuEeaAXtCoRk6MfQ" name="amount_spent">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYxn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqLoHuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqL4HuEeaAXtCoRk6MfQ" value="2"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHqMIHuEeaAXtCoRk6MfQ" name="log">
+      <ownedAttribute xmi:id="_opHqMYHuEeaAXtCoRk6MfQ" name="when">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYyn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqMoHuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqM4HuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqNIHuEeaAXtCoRk6MfQ" name="what">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqNYHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqNoHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqN4HuEeaAXtCoRk6MfQ" name="param">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqOIHuEeaAXtCoRk6MfQ" value="90"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqOYHuEeaAXtCoRk6MfQ" value="90"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqOoHuEeaAXtCoRk6MfQ" name="user">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_fpudAH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqO4HuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqPIHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHqPYHuEeaAXtCoRk6MfQ" name="size">
+      <ownedAttribute xmi:id="_opHqPoHuEeaAXtCoRk6MfQ" name="unit">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_s1WF8H3oEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqP4HuEeaAXtCoRk6MfQ" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqQIHuEeaAXtCoRk6MfQ" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqQYHuEeaAXtCoRk6MfQ" name="value">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYxn9WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqQoHuEeaAXtCoRk6MfQ" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqQ4HuEeaAXtCoRk6MfQ" value="2"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHqRIHuEeaAXtCoRk6MfQ" name="unit">
+      <ownedAttribute xmi:id="_opHqRYHuEeaAXtCoRk6MfQ" name="name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqRoHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqR4HuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHqSIHuEeaAXtCoRk6MfQ" name="gender">
+      <ownedAttribute xmi:id="_opHqSYHuEeaAXtCoRk6MfQ" name="name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqSoHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqS4HuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHqTIHuEeaAXtCoRk6MfQ" name="banco">
+      <ownedAttribute xmi:id="_opHqTYHuEeaAXtCoRk6MfQ" name="codigo">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqToHuEeaAXtCoRk6MfQ" value="5"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqT4HuEeaAXtCoRk6MfQ" value="5"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_opHqUIHuEeaAXtCoRk6MfQ" name="nome">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqUYHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqUoHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHqU4HuEeaAXtCoRk6MfQ" name="client_annotation_type">
+      <ownedAttribute xmi:id="_opHqVIHuEeaAXtCoRk6MfQ" name="name">
+        <type xmi:type="uml:DataType" href="types_postgres.uml#__mEYx39WEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_opHqVYHuEeaAXtCoRk6MfQ" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_opHqVoHuEeaAXtCoRk6MfQ" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_opHqV4HuEeaAXtCoRk6MfQ" name="my_br_basic_client"/>
+    <profileApplication xmi:id="_opHqWIHuEeaAXtCoRk6MfQ">
+      <eAnnotations xmi:id="_opHqWYHuEeaAXtCoRk6MfQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../pim/relations.profile.uml#_sTnJIH2sEeadmqRkk0UdPw"/>
+      </eAnnotations>
+      <appliedProfile href="../pim/relations.profile.uml#_UIKB0H2YEeadmqRkk0UdPw"/>
+    </profileApplication>
+    <profileApplication xmi:id="_opHqWoHuEeaAXtCoRk6MfQ">
+      <eAnnotations xmi:id="_opHqW4HuEeaAXtCoRk6MfQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+    </profileApplication>
+  </uml:Package>
+  <relations:system_module xmi:id="_opHqXIHuEeaAXtCoRk6MfQ" base_Class="_opF04YHuEeaAXtCoRk6MfQ"/>
+  <relations:dependency xmi:id="_opHqXYHuEeaAXtCoRk6MfQ" base_Class="_opF04YHuEeaAXtCoRk6MfQ"/>
+  <relations:system_module xmi:id="_opHqXoHuEeaAXtCoRk6MfQ" base_Class="_opF06IHuEeaAXtCoRk6MfQ"/>
+  <relations:dependency xmi:id="_opHqX4HuEeaAXtCoRk6MfQ" base_Class="_opF06IHuEeaAXtCoRk6MfQ"/>
+  <relations:sales_module xmi:id="_opHqYIHuEeaAXtCoRk6MfQ" base_Class="_opGb9oHuEeaAXtCoRk6MfQ"/>
+  <relations:optional xmi:id="_opHqYYHuEeaAXtCoRk6MfQ" base_Class="_opGb9oHuEeaAXtCoRk6MfQ"/>
+  <relations:invoice_dependency xmi:id="_opHqYoHuEeaAXtCoRk6MfQ" base_Class="_opGb9oHuEeaAXtCoRk6MfQ"/>
+  <relations:sales_dependency xmi:id="_opHqY4HuEeaAXtCoRk6MfQ" base_Class="_opGcDIHuEeaAXtCoRk6MfQ"/>
+  <relations:optional xmi:id="_opHqZIHuEeaAXtCoRk6MfQ" base_Class="_opGcDIHuEeaAXtCoRk6MfQ"/>
+  <relations:client_module xmi:id="_opHqZYHuEeaAXtCoRk6MfQ" base_Class="_opGcDIHuEeaAXtCoRk6MfQ"/>
+  <relations:invoice_module xmi:id="_opHqZoHuEeaAXtCoRk6MfQ" base_Class="_opGcQIHuEeaAXtCoRk6MfQ"/>
+  <relations:system_module xmi:id="_opHqZ4HuEeaAXtCoRk6MfQ" base_Class="_opHDDIHuEeaAXtCoRk6MfQ"/>
+  <relations:system_module xmi:id="_opHqaIHuEeaAXtCoRk6MfQ" base_Class="_opHDEIHuEeaAXtCoRk6MfQ"/>
+  <relations:system_module xmi:id="_opHqaYHuEeaAXtCoRk6MfQ" base_Class="_opHDI4HuEeaAXtCoRk6MfQ"/>
+  <relations:sales_dependency xmi:id="_opHqaoHuEeaAXtCoRk6MfQ" base_Class="_opHDJ4HuEeaAXtCoRk6MfQ"/>
+  <relations:supply_module xmi:id="_opHqa4HuEeaAXtCoRk6MfQ" base_Class="_opHDJ4HuEeaAXtCoRk6MfQ"/>
+  <relations:sales_module xmi:id="_opHqbIHuEeaAXtCoRk6MfQ" base_Class="_opHDTIHuEeaAXtCoRk6MfQ"/>
+  <relations:sales_module xmi:id="_opHqbYHuEeaAXtCoRk6MfQ" base_Class="_opHDU4HuEeaAXtCoRk6MfQ"/>
+  <relations:sales_module xmi:id="_opHqboHuEeaAXtCoRk6MfQ" base_Class="_opHDV4HuEeaAXtCoRk6MfQ"/>
+  <relations:invoice_dependency xmi:id="_opHqb4HuEeaAXtCoRk6MfQ" base_Class="_opHDW4HuEeaAXtCoRk6MfQ"/>
+  <relations:client_module xmi:id="_opHqcIHuEeaAXtCoRk6MfQ" base_Class="_opHDW4HuEeaAXtCoRk6MfQ"/>
+  <relations:system_module xmi:id="_opHqcYHuEeaAXtCoRk6MfQ" base_Class="_opHDcoHuEeaAXtCoRk6MfQ"/>
+  <relations:supply_dependency xmi:id="_opHqcoHuEeaAXtCoRk6MfQ" base_Class="_opHDcoHuEeaAXtCoRk6MfQ"/>
+  <relations:invoice_module xmi:id="_opHqc4HuEeaAXtCoRk6MfQ" base_Class="_opHDeYHuEeaAXtCoRk6MfQ"/>
+  <relations:supply_module xmi:id="_opHqdIHuEeaAXtCoRk6MfQ" base_Class="_opHDfYHuEeaAXtCoRk6MfQ"/>
+  <relations:cash_register_module xmi:id="_opHqdYHuEeaAXtCoRk6MfQ" base_Class="_opHqE4HuEeaAXtCoRk6MfQ"/>
+  <relations:cash_register_module xmi:id="_opHqdoHuEeaAXtCoRk6MfQ" base_Class="_opHqI4HuEeaAXtCoRk6MfQ"/>
+  <relations:supply_module xmi:id="_opHqd4HuEeaAXtCoRk6MfQ" base_Class="_opHqPYHuEeaAXtCoRk6MfQ"/>
+  <relations:supply_module xmi:id="_opHqeIHuEeaAXtCoRk6MfQ" base_Class="_opHqRIHuEeaAXtCoRk6MfQ"/>
+  <relations:supply_module xmi:id="_opHqeYHuEeaAXtCoRk6MfQ" base_Class="_opHqSIHuEeaAXtCoRk6MfQ"/>
+  <relations:client_module xmi:id="_opHqeoHuEeaAXtCoRk6MfQ" base_Class="_opHqV4HuEeaAXtCoRk6MfQ"/>
+</xmi:XMI>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Ji7VUH9VEeaVP9RPox9M_A" name="pim" URI="com.uisleandro.pim" viewpoint="">
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrUX9YEeaVP9RPox9M_A" name="identifier"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrU39YEeaVP9RPox9M_A" name="money"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrVX9YEeaVP9RPox9M_A" name="medium_text"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrV39YEeaVP9RPox9M_A" name="date"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrWX9YEeaVP9RPox9M_A" name="abbreviature"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrW39YEeaVP9RPox9M_A" name="date_time"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrXX9YEeaVP9RPox9M_A" name="small_text"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrX39YEeaVP9RPox9M_A" name="big_text"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrYX9YEeaVP9RPox9M_A" name="yes_no_question"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrY39YEeaVP9RPox9M_A" name="number"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrZX9YEeaVP9RPox9M_A" name="tguid"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrZ39YEeaVP9RPox9M_A" name="file"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmraX9YEeaVP9RPox9M_A" name="precise_number"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_rhcrcH9kEeaVP9RPox9M_A" name="time"/>
+</uml:Model>

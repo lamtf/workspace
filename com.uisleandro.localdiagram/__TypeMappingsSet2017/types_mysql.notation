@@ -1,0 +1,1316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_JjUW4H9VEeaVP9RPox9M_A" type="PapyrusUMLClassDiagram" name="types_diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_1eAqAKOSEeepy5KvuNIFEQ" type="Package_Shape">
+    <children xmi:type="notation:DecorationNode" xmi:id="_1eB4IKOSEeepy5KvuNIFEQ" type="Package_NameLabel">
+      <element xmi:type="uml:Package" href="types_mysql.uml#_gow5cKOSEeepy5KvuNIFEQ"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_1eB4IaOSEeepy5KvuNIFEQ" type="Package_PackagedElementCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_DQneQKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DQneQqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrU39YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DQoFUKOTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrU39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DQoFUaOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DQoFUqOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DQoFU6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DQoFVKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DQoFVaOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrU39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DQoFVqOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DQoFV6OTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DQoFWKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DQoFWaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DQoFWqOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrU39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DQoFW6OTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrU39YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DQneQaOTEeepy5KvuNIFEQ" x="182" y="156"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DR20YKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DR20YqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrV39YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DR20Y6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrV39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DR20ZKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DR20ZaOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DR3bcKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DR3bcaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DR3bcqOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrV39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DR3bc6OTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DR3bdKOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DR3bdaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DR3bdqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DR3bd6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrV39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DR3beKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrV39YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DR20YaOTEeepy5KvuNIFEQ" x="182" y="832"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DTWCIKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DTWCIqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DTWCI6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DTWCJKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DTWCJaOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DTWCJqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DTWCJ6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DTWCKKOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DTWCKaOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DTWCKqOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DTWCK6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DTWCLKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DTWCLaOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DTWCLqOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DTWCIaOTEeepy5KvuNIFEQ" x="182" y="944"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DULIkKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DULIkqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DULIk6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DULIlKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DULIlaOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DULIlqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DULIl6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DULImKOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DULImaOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DULvoKOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DULvoaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DULvoqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DULvo6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DULvpKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DULIkaOTEeepy5KvuNIFEQ" x="182" y="1512"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DV3KoKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DV3KoqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrX39YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DV3Ko6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrX39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DV3KpKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DV3xsKOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DV3xsaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DV3xsqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DV3xs6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrX39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DV3xtKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DV3xtaOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DV3xtqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DV3xt6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DV3xuKOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrX39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DV3xuaOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrX39YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DV3KoaOTEeepy5KvuNIFEQ" x="182" y="1732"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DW5FYKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DW5scKOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DW5scaOTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DW5scqOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DW5sc6OTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DW5sdKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DW5sdaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DW5sdqOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DW5sd6OTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DW5seKOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DW5seaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DW5seqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DW5se6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DW5sfKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DW5FYaOTEeepy5KvuNIFEQ" x="178" y="44"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DYQXUKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DYQ-YKOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DYQ-YaOTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DYQ-YqOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DYQ-Y6OTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DYQ-ZKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DYQ-ZaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DYQ-ZqOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DYQ-Z6OTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DYQ-aKOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DYQ-aaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DYQ-aqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DYQ-a6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DYQ-bKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DYQXUaOTEeepy5KvuNIFEQ" x="182" y="580"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DZhioKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DZiJsKOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrZX9YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DZiJsaOTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrZX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DZiJsqOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DZiJs6OTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DZiJtKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DZiJtaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DZiJtqOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrZX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DZiJt6OTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DZiJuKOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DZiJuaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DZiJuqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DZiJu6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrZX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DZiJvKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrZX9YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DZhioaOTEeepy5KvuNIFEQ" x="182" y="1392"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DawRsKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DawRsqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrZ39YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DawRs6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrZ39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DawRtKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_Daw4wKOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_Daw4waOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_Daw4wqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_Daw4w6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrZ39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Daw4xKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_Daw4xaOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_Daw4xqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_Daw4x6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_Daw4yKOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrZ39YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Daw4yaOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrZ39YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DawRsaOTEeepy5KvuNIFEQ" x="182" y="1852"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DdQMEKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DdQMEqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_rhcrcH9kEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DdQME6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_rhcrcH9kEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DdQMFKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DdQMFaOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DdQMFqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DdQMF6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DdQMGKOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_rhcrcH9kEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DdQMGaOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DdQMGqOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DdQMG6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DdQMHKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DdQMHaOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_rhcrcH9kEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DdQMHqOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_rhcrcH9kEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DdQMEaOTEeepy5KvuNIFEQ" x="182" y="1056"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_Dewn8KOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_Dewn8qOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_uEjN8KDFEee7v6g5sI4lGQ"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_Dewn86OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_uEjN8KDFEee7v6g5sI4lGQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Dewn9KOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_Dewn9aOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_Dewn9qOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_Dewn96OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_Dewn-KOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_uEjN8KDFEee7v6g5sI4lGQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Dewn-aOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DexPAKOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DexPAaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DexPAqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DexPA6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_uEjN8KDFEee7v6g5sI4lGQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DexPBKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_uEjN8KDFEee7v6g5sI4lGQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Dewn8aOTEeepy5KvuNIFEQ" x="182" y="1292"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DhyGwKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DhyGwqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_7n3pAKDFEee7v6g5sI4lGQ"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DhyGw6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_7n3pAKDFEee7v6g5sI4lGQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DhyGxKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_Dhyt0KOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_Dhyt0aOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_Dhyt0qOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_Dhyt06OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_7n3pAKDFEee7v6g5sI4lGQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Dhyt1KOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_Dhyt1aOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_Dhyt1qOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_Dhyt16OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_Dhyt2KOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_7n3pAKDFEee7v6g5sI4lGQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Dhyt2aOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_7n3pAKDFEee7v6g5sI4lGQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DhyGwaOTEeepy5KvuNIFEQ" x="182" y="692"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DSnCUKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DSnCUqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrWX9YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DSnCU6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrWX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DSnCVKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DSnCVaOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DSnCVqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DSnCV6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DSnCWKOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrWX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DSnCWaOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DSnpYKOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DSnpYaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DSnpYqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DSnpY6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrWX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DSnpZKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrWX9YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DSnCUaOTEeepy5KvuNIFEQ" x="182" y="1172"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DRMGAKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DRMGAqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DRMGA6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DRMGBKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DRMtEKOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_e1hNoKOnEeepy5KvuNIFEQ" source="PapyrusCSSForceValue">
+            <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_e1hNoaOnEeepy5KvuNIFEQ" key="collapsed" value="true"/>
+          </eAnnotations>
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DRMtEaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DRMtEqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DRMtE6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DRMtFKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DRMtFaOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DRMtFqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DRMtF6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DRMtGKOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DRMtGaOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DRMGAaOTEeepy5KvuNIFEQ" x="182" y="1632"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DQMAcKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DQMAcqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrUX9YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DQMAc6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrUX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DQMAdKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DQMngKOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DQMngaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DQMngqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DQMng6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrUX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DQMnhKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DQMnhaOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DQMnhqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DQMnh6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DQMniKOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrUX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DQMniaOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmrUX9YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DQMAcaOTEeepy5KvuNIFEQ" x="182" y="472"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_DgP1sKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_DgP1sqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_upixYKDFEee7v6g5sI4lGQ"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_DgP1s6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_upixYKDFEee7v6g5sI4lGQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_DgQcwKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DgQcwaOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DgQcwqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DgQcw6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DgQcxKOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_upixYKDFEee7v6g5sI4lGQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DgQcxaOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_DgQcxqOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_DgQcx6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_DgQcyKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_DgQcyaOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_upixYKDFEee7v6g5sI4lGQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DgQcyqOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_upixYKDFEee7v6g5sI4lGQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_DgP1saOTEeepy5KvuNIFEQ" x="159" y="376"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_Db5hMKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_Db6IQKOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmraX9YEeaVP9RPox9M_A"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_Db6IQaOTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmraX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_Db6IQqOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_Db6IQ6OTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_Db6IRKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_Db6IRaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_Db6IRqOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmraX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Db6IR6OTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_Db6ISKOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_Db6ISaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_Db6ISqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_Db6IS6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmraX9YEeaVP9RPox9M_A"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Db6ITKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_4UmraX9YEeaVP9RPox9M_A"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Db5hMaOTEeepy5KvuNIFEQ" x="176" y="268"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_1eB4IqOSEeepy5KvuNIFEQ"/>
+      <element xmi:type="uml:Package" href="types_mysql.uml#_gow5cKOSEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_1eB4I6OSEeepy5KvuNIFEQ"/>
+    </children>
+    <element xmi:type="uml:Package" href="types_mysql.uml#_gow5cKOSEeepy5KvuNIFEQ"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_1eAqAaOSEeepy5KvuNIFEQ" x="252" y="100" width="788" height="1980"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_5wl5gKOSEeepy5KvuNIFEQ" type="Package_Shape">
+    <children xmi:type="notation:DecorationNode" xmi:id="_5woVwKOSEeepy5KvuNIFEQ" type="Package_NameLabel">
+      <element xmi:type="uml:Package" href="types_mysql.uml#_qs7GAKOSEeepy5KvuNIFEQ"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_5woVwaOSEeepy5KvuNIFEQ" type="Package_PackagedElementCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_KtbOEKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_KtbOEqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_VcIikKOKEee9pMeeZc-vsg"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_KtbOE6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_VcIikKOKEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_KtbOFKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_Ktb1IKOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_Ktb1IaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_Ktb1IqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_Ktb1I6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_VcIikKOKEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Ktb1JKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_Ktb1JaOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_Ktb1JqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_Ktb1J6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_Ktb1KKOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_VcIikKOKEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Ktb1KaOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_VcIikKOKEee9pMeeZc-vsg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KtbOEaOTEeepy5KvuNIFEQ" x="394" y="832"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_KwZpkKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_KwZpkqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_WLKLwKOKEee9pMeeZc-vsg"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_KwaQoKOTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_WLKLwKOKEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_KwaQoaOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_KwaQoqOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_KwaQo6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_KwaQpKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_KwaQpaOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_WLKLwKOKEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KwaQpqOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_KwaQp6OTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN" collapsed="true">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_KwaQqKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_KwaQqaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_KwaQqqOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_WLKLwKOKEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KwaQq6OTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_WLKLwKOKEee9pMeeZc-vsg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KwZpkaOTEeepy5KvuNIFEQ" x="394" y="1188"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_KzcWgKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_KzcWgqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#__rvGcKOLEee9pMeeZc-vsg"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_KzcWg6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#__rvGcKOLEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_KzcWhKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_KzcWhaOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_KzcWhqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_KzcWh6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_KzcWiKOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#__rvGcKOLEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KzcWiaOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_KzcWiqOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_KzcWi6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_KzcWjKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_KzcWjaOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#__rvGcKOLEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KzcWjqOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#__rvGcKOLEee9pMeeZc-vsg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_KzcWgaOTEeepy5KvuNIFEQ" x="394" y="652"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_K2ayAKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_K2ayAqOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_Ei0xMKOMEee9pMeeZc-vsg"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_K2ayA6OTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_Ei0xMKOMEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_K2ayBKOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_K2ayBaOTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_K2ayBqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_K2ayB6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_K2ayCKOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_Ei0xMKOMEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_K2ayCaOTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_K2ayCqOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_K2ayC6OTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_K2ayDKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_K2ayDaOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_Ei0xMKOMEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_K2ayDqOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_Ei0xMKOMEee9pMeeZc-vsg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_K2ayAaOTEeepy5KvuNIFEQ" x="394" y="116"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_K07kQKOTEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_K08LUKOTEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_ClvZcKOMEee9pMeeZc-vsg"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_K08LUaOTEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_ClvZcKOMEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_K08LUqOTEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_K08LU6OTEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_K08LVKOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_K08LVaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_K08LVqOTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_ClvZcKOMEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_K08LV6OTEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_K08LWKOTEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_K08LWaOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_K08LWqOTEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_K08LW6OTEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_ClvZcKOMEee9pMeeZc-vsg"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_K08LXKOTEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_ClvZcKOMEee9pMeeZc-vsg"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_K07kQaOTEeepy5KvuNIFEQ" x="374" y="472"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_uLLXwKOhEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_uLLXwqOhEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_uKI18KOhEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_uLLXw6OhEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_uKI18KOhEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_uLLXxKOhEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_uLL-0KOhEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_uLL-0aOhEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_uLL-0qOhEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_uLL-06OhEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_uKI18KOhEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uLL-1KOhEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_uLL-1aOhEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_uLL-1qOhEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_uLL-16OhEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_uLL-2KOhEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_uKI18KOhEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uLL-2aOhEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_uKI18KOhEeepy5KvuNIFEQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_uLLXwaOhEeepy5KvuNIFEQ" x="394" y="1012"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_6o3ngKOhEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_6o3ngqOhEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_6nsi0KOhEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_6o4OkKOhEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_6nsi0KOhEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_6o4OkaOhEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_6o4OkqOhEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_6o4Ok6OhEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_6o4OlKOhEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_6o4OlaOhEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_6nsi0KOhEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6o4OlqOhEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_6o4Ol6OhEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_6o4OmKOhEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_6o4OmaOhEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_6o4OmqOhEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_6nsi0KOhEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6o4Om6OhEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_6nsi0KOhEeepy5KvuNIFEQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_6o3ngaOhEeepy5KvuNIFEQ" x="394" y="1368"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_-ItygKOhEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_-ItygqOhEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_-Hit0KOhEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_-Ityg6OhEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_-Hit0KOhEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_-ItyhKOhEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_-ItyhaOhEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_-ItyhqOhEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_-Ityh6OhEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_-ItyiKOhEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_-Hit0KOhEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-ItyiaOhEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_-IuZkKOhEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_-IuZkaOhEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_-IuZkqOhEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_-IuZk6OhEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_-Hit0KOhEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-IuZlKOhEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_-Hit0KOhEeepy5KvuNIFEQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_-ItygaOhEeepy5KvuNIFEQ" x="394" y="1548"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_9ikGkKOjEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_9iktoKOjEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_9hXzwKOjEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_9iktoaOjEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_9hXzwKOjEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_9iktoqOjEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_9ikto6OjEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_9iktpKOjEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_9iktpaOjEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_9iktpqOjEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_9hXzwKOjEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9iktp6OjEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_9iktqKOjEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_9iktqaOjEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_9iktqqOjEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_9iktq6OjEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_9hXzwKOjEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9iktrKOjEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_9hXzwKOjEeepy5KvuNIFEQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_9ikGkaOjEeepy5KvuNIFEQ" x="394" y="292"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_FERkgKOkEeepy5KvuNIFEQ" type="PrimitiveType_Shape_CN">
+        <children xmi:type="notation:DecorationNode" xmi:id="_FESLkKOkEeepy5KvuNIFEQ" type="PrimitiveType_NameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_FDfhYKOkEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:DecorationNode" xmi:id="_FESLkaOkEeepy5KvuNIFEQ" type="PrimitiveType_FloatingNameLabel_CN">
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_FDfhYKOkEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Location" xmi:id="_FESLkqOkEeepy5KvuNIFEQ" y="15"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_FESLk6OkEeepy5KvuNIFEQ" type="PrimitiveType_AttributeCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_FESLlKOkEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_FESLlaOkEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_FESLlqOkEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_FDfhYKOkEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FESLl6OkEeepy5KvuNIFEQ"/>
+        </children>
+        <children xmi:type="notation:BasicCompartment" xmi:id="_FESLmKOkEeepy5KvuNIFEQ" type="PrimitiveType_OperationCompartment_CN">
+          <styles xmi:type="notation:TitleStyle" xmi:id="_FESLmaOkEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:SortingStyle" xmi:id="_FESLmqOkEeepy5KvuNIFEQ"/>
+          <styles xmi:type="notation:FilteringStyle" xmi:id="_FESLm6OkEeepy5KvuNIFEQ"/>
+          <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_FDfhYKOkEeepy5KvuNIFEQ"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FESLnKOkEeepy5KvuNIFEQ"/>
+        </children>
+        <element xmi:type="uml:PrimitiveType" href="types_mysql.uml#_FDfhYKOkEeepy5KvuNIFEQ"/>
+        <layoutConstraint xmi:type="notation:Bounds" xmi:id="_FERkgaOkEeepy5KvuNIFEQ" x="394" y="1728"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_5woVwqOSEeepy5KvuNIFEQ"/>
+      <element xmi:type="uml:Package" href="types_mysql.uml#_qs7GAKOSEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5woVw6OSEeepy5KvuNIFEQ"/>
+    </children>
+    <element xmi:type="uml:Package" href="types_mysql.uml#_qs7GAKOSEeepy5KvuNIFEQ"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5wl5gaOSEeepy5KvuNIFEQ" x="1220" y="120" width="788" height="1960"/>
+  </children>
+  <styles xmi:type="notation:StringValueStyle" xmi:id="_JjUW4X9VEeaVP9RPox9M_A" name="diagram_compatibility_version" stringValue="1.3.0"/>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_JjUW4n9VEeaVP9RPox9M_A"/>
+  <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="_uUhN4KOJEee9pMeeZc-vsg" diagramKindId="org.eclipse.papyrus.uml.diagram.class">
+    <owner xmi:type="uml:Model" href="types_mysql.uml#_Ji7VUH9VEeaVP9RPox9M_A"/>
+  </styles>
+  <element xmi:type="uml:Model" href="types_mysql.uml#_Ji7VUH9VEeaVP9RPox9M_A"/>
+  <edges xmi:type="notation:Connector" xmi:id="_Qs8ggKOTEeepy5KvuNIFEQ" type="Association_Edge" source="_DR20YKOTEeepy5KvuNIFEQ" target="_KtbOEKOTEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qs9uoKOTEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g5PI8KOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_jZAGEKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qs9uoaOTEeepy5KvuNIFEQ" x="1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qs9uoqOTEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g6BMEKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_jZAGEKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qs9uo6OTEeepy5KvuNIFEQ" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qs9upKOTEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g64HsKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_jZAGEKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qs-VsKOTEeepy5KvuNIFEQ" x="398" y="-17"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qs-VsaOTEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g7wRcKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_jZAGEKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qs-VsqOTEeepy5KvuNIFEQ" x="-398" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qs-Vs6OTEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g82doKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_jZAGEKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qs-VtKOTEeepy5KvuNIFEQ" x="398" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qs-VtaOTEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g9rkEKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_jZAGEKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qs-8wKOTEeepy5KvuNIFEQ" x="-398" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_Qs8ggaOTEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_jZAGEKOKEee9pMeeZc-vsg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Qs8ggqOTEeepy5KvuNIFEQ" points="[410, 400, -643984, -643984]$[1730, 468, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hIj-YKOTEeepy5KvuNIFEQ" id="(1.0,0.7407407407407407)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hIj-YaOTEeepy5KvuNIFEQ" id="(0.0,0.5925925925925926)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_QuR9QKOTEeepy5KvuNIFEQ" type="Association_Edge" source="_DTWCIKOTEeepy5KvuNIFEQ" target="_KtbOEKOTEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_QuSkUKOTEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g-hRkKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_j8emkKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QuSkUaOTEeepy5KvuNIFEQ" x="1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QuSkUqOTEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g_WYAKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_j8emkKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QuSkU6OTEeepy5KvuNIFEQ" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QuSkVKOTEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_hAGl8KOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_j8emkKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QuSkVaOTEeepy5KvuNIFEQ" x="398" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QuSkVqOTEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_hA_WwKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_j8emkKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QuSkV6OTEeepy5KvuNIFEQ" x="-398" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QuSkWKOTEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_hB58wKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_j8emkKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QuSkWaOTEeepy5KvuNIFEQ" x="398" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QuSkWqOTEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_hCt1EKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_j8emkKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QuSkW6OTEeepy5KvuNIFEQ" x="-398" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_QuR9QaOTEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_j8emkKOKEee9pMeeZc-vsg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_QuR9QqOTEeepy5KvuNIFEQ" points="[410, 616, -643984, -643984]$[1730, 476, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hIj-YqOTEeepy5KvuNIFEQ" id="(1.0,0.5925925925925926)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hIj-Y6OTEeepy5KvuNIFEQ" id="(0.0,0.5925925925925926)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_QvkWsKOTEeepy5KvuNIFEQ" type="Association_Edge" source="_DdQMEKOTEeepy5KvuNIFEQ" target="_KtbOEKOTEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_QvkWs6OTEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_hDf4MKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_kerUsKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qvk9wKOTEeepy5KvuNIFEQ" x="1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qvk9waOTEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_hETJcKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_kerUsKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qvk9wqOTEeepy5KvuNIFEQ" x="-1" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qvk9w6OTEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_hFI28KOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_kerUsKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qvk9xKOTEeepy5KvuNIFEQ" x="492" y="-17"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qvk9xaOTEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_hF-kcKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_kerUsKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qvk9xqOTEeepy5KvuNIFEQ" x="-492" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qvk9x6OTEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_hGwAgKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_kerUsKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qvk9yKOTEeepy5KvuNIFEQ" x="491" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qvk9yaOTEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_hHtp0KOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_kerUsKOKEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qvk9yqOTEeepy5KvuNIFEQ" x="-491" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_QvkWsaOTEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_kerUsKOKEee9pMeeZc-vsg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_QvkWsqOTEeepy5KvuNIFEQ" points="[410, 1484, -643984, -643984]$[1730, 512, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hIjXUKOTEeepy5KvuNIFEQ" id="(1.0,0.19753086419753085)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_hIjXUaOTEeepy5KvuNIFEQ" id="(0.0,0.5925925925925926)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_Qw068KOTEeepy5KvuNIFEQ" type="Association_Edge" source="_DYQXUKOTEeepy5KvuNIFEQ" target="_KtbOEKOTEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qw0686OTEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_gvA18KOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_NANpsKOLEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qw069KOTEeepy5KvuNIFEQ" x="-1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qw069aOTEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_gv3xkKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_NANpsKOLEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qw069qOTEeepy5KvuNIFEQ" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qw0696OTEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_gwomkKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_NANpsKOLEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qw06-KOTEeepy5KvuNIFEQ" x="460" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qw06-aOTEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_gxdtAKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_NANpsKOLEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qw1iAKOTEeepy5KvuNIFEQ" x="-460" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qw1iAaOTEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_gyOiAKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_NANpsKOLEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qw1iAqOTEeepy5KvuNIFEQ" x="460" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Qw1iA6OTEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_gy_XAKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_NANpsKOLEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Qw1iBKOTEeepy5KvuNIFEQ" x="-461" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_Qw068aOTEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_NANpsKOLEee9pMeeZc-vsg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Qw068qOTEeepy5KvuNIFEQ" points="[410, 1044, -643984, -643984]$[1730, 256, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_g4YNUqOTEeepy5KvuNIFEQ" id="(1.0,0.14814814814814814)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_g4YNU6OTEeepy5KvuNIFEQ" id="(0.0,0.345679012345679)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_QyMM4KOTEeepy5KvuNIFEQ" type="Association_Edge" source="_DhyGwKOTEeepy5KvuNIFEQ" target="_KtbOEKOTEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_QyMM46OTEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_gzwMAKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_SJ_m8KOLEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QyMM5KOTEeepy5KvuNIFEQ" x="-2" y="-17"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QyMz8KOTEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g0hoEKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_SJ_m8KOLEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QyMz8aOTEeepy5KvuNIFEQ" x="1" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QyMz8qOTEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g1R2AKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_SJ_m8KOLEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QyMz86OTEeepy5KvuNIFEQ" x="618" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QyMz9KOTEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g2CD8KOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_SJ_m8KOLEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QyMz9aOTEeepy5KvuNIFEQ" x="-618" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QyMz9qOTEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g2zgAKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_SJ_m8KOLEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QyMz96OTEeepy5KvuNIFEQ" x="618" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_QyMz-KOTEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g3jt8KOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_SJ_m8KOLEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_QyMz-aOTEeepy5KvuNIFEQ" x="-617" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_QyMM4aOTEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_SJ_m8KOLEee9pMeeZc-vsg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_QyMM4qOTEeepy5KvuNIFEQ" points="[394, 1820, -643984, -643984]$[1750, 264, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_g4YNUKOTEeepy5KvuNIFEQ" id="(1.0,0.24691358024691357)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_g4YNUaOTEeepy5KvuNIFEQ" id="(0.0,0.345679012345679)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_Q1vQIKOTEeepy5KvuNIFEQ" type="Association_Edge" source="_DQneQKOTEeepy5KvuNIFEQ" target="_9ikGkKOjEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q1v3MKOTEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Z2YKMKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_ILZaYKOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q1v3MaOTEeepy5KvuNIFEQ" x="1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q1v3MqOTEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Z3in0KOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_ILZaYKOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q1v3M6OTEeepy5KvuNIFEQ" x="1" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q1v3NKOTEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Z5ZpAKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_ILZaYKOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q1v3NaOTEeepy5KvuNIFEQ" x="490" y="-17"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q1v3NqOTEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Z6vs0KOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_ILZaYKOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q1v3N6OTEeepy5KvuNIFEQ" x="-491" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q1v3OKOTEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Z8xtIKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_ILZaYKOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q1v3OaOTEeepy5KvuNIFEQ" x="492" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q1v3OqOTEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Z-OeoKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_ILZaYKOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q1weQKOTEeepy5KvuNIFEQ" x="-492" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_Q1vQIaOTEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_ILZaYKOMEee9pMeeZc-vsg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Q1vQIqOTEeepy5KvuNIFEQ" points="[440, 328, -643984, -643984]$[1760, 1300, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Z_zzAKOTEeepy5KvuNIFEQ" id="(1.0,0.691358024691358)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Z_0aEKOTEeepy5KvuNIFEQ" id="(0.0,0.2962962962962963)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_Q3BCgKOTEeepy5KvuNIFEQ" type="Association_Edge" source="_Db5hMKOTEeepy5KvuNIFEQ" target="_K07kQKOTEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q3BCg6OTEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aA5_MKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Jeey4KOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q3BChKOTEeepy5KvuNIFEQ" x="-1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q3BChaOTEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aCRRIKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Jeey4KOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q3BChqOTEeepy5KvuNIFEQ" x="1" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q3BCh6OTEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aDZSgKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Jeey4KOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q3BpkKOTEeepy5KvuNIFEQ" x="393" y="-19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q3BpkaOTEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aEYJ8KOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Jeey4KOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q3BpkqOTEeepy5KvuNIFEQ" x="-395" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q3Bpk6OTEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aFXocKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Jeey4KOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q3BplKOTEeepy5KvuNIFEQ" x="395" y="18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q3BplaOTEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aGmXgKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Jeey4KOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q3BplqOTEeepy5KvuNIFEQ" x="-397" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_Q3BCgaOTEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_Jeey4KOMEee9pMeeZc-vsg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Q3BCgqOTEeepy5KvuNIFEQ" points="[444, 1532, -643984, -643984]$[1760, 1580, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aRCF4KOTEeepy5KvuNIFEQ" id="(1.0,0.2962962962962963)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aRCF4aOTEeepy5KvuNIFEQ" id="(0.0,0.49382716049382713)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_Q4cl4KOTEeepy5KvuNIFEQ" type="Association_Edge" source="_DgP1sKOTEeepy5KvuNIFEQ" target="_K07kQKOTEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q4cl46OTEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aIIBgKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_J9550KOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q4cl5KOTEeepy5KvuNIFEQ" x="1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q4cl5aOTEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aJqSkKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_J9550KOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q4cl5qOTEeepy5KvuNIFEQ" x="-1" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q4cl56OTEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aLI5QKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_J9550KOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q4cl6KOTEeepy5KvuNIFEQ" x="398" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q4cl6aOTEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aMeWAKOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_J9550KOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q4cl6qOTEeepy5KvuNIFEQ" x="-398" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q4cl66OTEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aN0Z0KOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_J9550KOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q4cl7KOTEeepy5KvuNIFEQ" x="396" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Q4cl7aOTEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aPWq4KOTEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_J9550KOMEee9pMeeZc-vsg"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Q4dM8KOTEeepy5KvuNIFEQ" x="-396" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_Q4cl4aOTEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_J9550KOMEee9pMeeZc-vsg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Q4cl4qOTEeepy5KvuNIFEQ" points="[460, 1852, -643984, -643984]$[1760, 1596, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aRCF4qOTEeepy5KvuNIFEQ" id="(1.0,0.19753086419753085)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_aRCs8KOTEeepy5KvuNIFEQ" id="(0.0,0.49382716049382713)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_-I65wKOUEeepy5KvuNIFEQ" type="Association_Edge" source="_DW5FYKOTEeepy5KvuNIFEQ" target="_K2ayAKOTEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_-I7g0KOUEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_-VuMYKOkEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_-HqVgKOUEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_-I7g0aOUEeepy5KvuNIFEQ" x="-1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_-I7g0qOUEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_-Wm9MKOkEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_-HqVgKOUEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_-I7g06OUEeepy5KvuNIFEQ" x="1" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_-I7g1KOUEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_-XZnYKOkEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_-HqVgKOUEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_-I7g1aOUEeepy5KvuNIFEQ" x="161" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_-I8H4KOUEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_-YMRkKOkEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_-HqVgKOUEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_-I8H4aOUEeepy5KvuNIFEQ" x="-161" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_-I8H4qOUEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_-ZAJ4KOkEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_-HqVgKOUEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_-I8H46OUEeepy5KvuNIFEQ" x="163" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_-I8H5KOUEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_-ZzbIKOkEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_-HqVgKOUEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_-I8H5aOUEeepy5KvuNIFEQ" x="-163" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_-I65waOUEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_-HqVgKOUEeepy5KvuNIFEQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_-I65wqOUEeepy5KvuNIFEQ" points="[544, 220, -643984, -643984]$[1620, 360, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-LKVcKOUEeepy5KvuNIFEQ" id="(1.0,0.5925925925925926)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_-LKVcaOUEeepy5KvuNIFEQ" id="(0.0,0.7407407407407407)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_R3nmEKOiEeepy5KvuNIFEQ" type="Association_Edge" source="_DQMAcKOTEeepy5KvuNIFEQ" target="_KtbOEKOTEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_R3oNIKOiEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_62poAKOlEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_R25NUKOiEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_R3oNIaOiEeepy5KvuNIFEQ" x="1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_R3oNIqOiEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_63i_4KOlEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_R25NUKOiEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_R3oNI6OiEeepy5KvuNIFEQ" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_R3oNJKOiEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_64Ub8KOlEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_R25NUKOiEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_R3oNJaOiEeepy5KvuNIFEQ" x="164" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_R3oNJqOiEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_65FQ8KOlEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_R25NUKOiEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_R3oNJ6OiEeepy5KvuNIFEQ" x="-165" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_R3oNKKOiEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_652F8KOlEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_R25NUKOiEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_R3oNKaOiEeepy5KvuNIFEQ" x="164" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_R3oNKqOiEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_66mT4KOlEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_R25NUKOiEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_R3oNK6OiEeepy5KvuNIFEQ" x="-165" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_R3nmEaOiEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_R25NUKOiEeepy5KvuNIFEQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_R3nmEqOiEeepy5KvuNIFEQ" points="[480, 840, -643984, -643984]$[1620, 1120, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_R4_fEKOiEeepy5KvuNIFEQ" id="(1.0,0.49382716049382713)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_R4_fEaOiEeepy5KvuNIFEQ" id="(0.0,0.345679012345679)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_DbHDwKOjEeepy5KvuNIFEQ" type="Association_Edge" source="_DZhioKOTEeepy5KvuNIFEQ" target="_6o3ngKOhEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_DbHq0KOjEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_KvTqIKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_DaYrAKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_DbHq0aOjEeepy5KvuNIFEQ" x="1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_DbHq0qOjEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_KwWL8KOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_DaYrAKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_DbHq06OjEeepy5KvuNIFEQ" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_DbHq1KOjEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_KxCIcKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_DaYrAKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_DbHq1aOjEeepy5KvuNIFEQ" x="125" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_DbHq1qOjEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Kxv6IKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_DaYrAKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_DbIR4KOjEeepy5KvuNIFEQ" x="-126" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_DbIR4aOjEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_KybPkKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_DaYrAKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_DbIR4qOjEeepy5KvuNIFEQ" x="125" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_DbIR46OjEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_KzTZUKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_DaYrAKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_DbIR5KOjEeepy5KvuNIFEQ" x="-126" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_DbHDwaOjEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_DaYrAKOjEeepy5KvuNIFEQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_DbHDwqOjEeepy5KvuNIFEQ" points="[760, 1700, -643984, -643984]$[1620, 1720, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Dc2JIKOjEeepy5KvuNIFEQ" id="(1.0,0.49382716049382713)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Dc2JIaOjEeepy5KvuNIFEQ" id="(0.0,0.5432098765432098)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_ItduMKOjEeepy5KvuNIFEQ" type="Association_Edge" source="_DSnCUKOTEeepy5KvuNIFEQ" target="_6o3ngKOhEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_ItduM6OjEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_TbqWQKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Isp14KOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_ItduNKOjEeepy5KvuNIFEQ" x="-1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_ItduNaOjEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_TcsRAKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Isp14KOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_ItduNqOjEeepy5KvuNIFEQ" x="1" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_ItduN6OjEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_TdY0kKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Isp14KOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_ItduOKOjEeepy5KvuNIFEQ" x="126" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_IteVQKOjEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_TeExEKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Isp14KOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_IteVQaOjEeepy5KvuNIFEQ" x="-125" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_IteVQqOjEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Te2NIKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Isp14KOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_IteVQ6OjEeepy5KvuNIFEQ" x="128" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_IteVRKOjEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_Tfl0AKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Isp14KOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_IteVRaOjEeepy5KvuNIFEQ" x="-127" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_ItduMaOjEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_Isp14KOjEeepy5KvuNIFEQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_ItduMqOjEeepy5KvuNIFEQ" points="[740, 1641, -643984, -643984]$[1620, 1720, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_IvXysKOjEeepy5KvuNIFEQ" id="(1.0,0.49382716049382713)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_IvXysaOjEeepy5KvuNIFEQ" id="(0.0,0.5432098765432098)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_VnvMQKOjEeepy5KvuNIFEQ" type="Association_Edge" source="_Dewn8KOTEeepy5KvuNIFEQ" target="_6o3ngKOhEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_VnvzUKOjEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_XDBegKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_VmufoKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_VnvzUaOjEeepy5KvuNIFEQ" x="-1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_VnvzUqOjEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_XDupIKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_VmufoKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_VnvzU6OjEeepy5KvuNIFEQ" x="1" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_VnvzVKOjEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_XEbzwKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_VmufoKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_VnvzVaOjEeepy5KvuNIFEQ" x="104" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_VnvzVqOjEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_XFI-YKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_VmufoKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_VnvzV6OjEeepy5KvuNIFEQ" x="-103" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_VnvzWKOjEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_XF2JAKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_VmufoKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_VnvzWaOjEeepy5KvuNIFEQ" x="106" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_VnvzWqOjEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_XGlI0KOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_VmufoKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_VnvzW6OjEeepy5KvuNIFEQ" x="-105" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_VnvMQaOjEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_VmufoKOjEeepy5KvuNIFEQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_VnvMQqOjEeepy5KvuNIFEQ" points="[880, 1640, -643984, -643984]$[1620, 1740, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VpcccKOjEeepy5KvuNIFEQ" id="(1.0,0.49382716049382713)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_VpcccaOjEeepy5KvuNIFEQ" id="(0.0,0.5432098765432098)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_Y-YX8KOjEeepy5KvuNIFEQ" type="Association_Edge" source="_DV3KoKOTEeepy5KvuNIFEQ" target="_-ItygKOhEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_Y-YX86OjEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aNGN0KOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Y9pYIKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Y-YX9KOjEeepy5KvuNIFEQ" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Y-Y_AKOjEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aN0mkKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Y9pYIKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Y-Y_AaOjEeepy5KvuNIFEQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Y-Y_AqOjEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aOjmYKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Y9pYIKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Y-Y_A6OjEeepy5KvuNIFEQ" x="126" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Y-Y_BKOjEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aPRYEKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Y9pYIKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Y-Y_BaOjEeepy5KvuNIFEQ" x="-126" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Y-Y_BqOjEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aP_w0KOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Y9pYIKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Y-Y_B6OjEeepy5KvuNIFEQ" x="126" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_Y-Y_CKOjEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_aQtigKOjEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_Y9pYIKOjEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_Y-Y_CaOjEeepy5KvuNIFEQ" x="-126" y="-20"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_Y-YX8aOjEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_Y9pYIKOjEeepy5KvuNIFEQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_Y-YX8qOjEeepy5KvuNIFEQ" points="[780, 1940, -643984, -643984]$[1620, 1920, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Y_9sUKOjEeepy5KvuNIFEQ" id="(1.0,0.49382716049382713)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_Y_9sUaOjEeepy5KvuNIFEQ" id="(0.0,0.49382716049382713)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_NrVg8KOkEeepy5KvuNIFEQ" type="Association_Edge" source="_DawRsKOTEeepy5KvuNIFEQ" target="_-ItygKOhEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_NrVg86OkEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g4NJAKOlEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_NqhooKOkEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_NrWIAKOkEeepy5KvuNIFEQ" x="1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_NrWIAaOkEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g49-AKOlEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_NqhooKOkEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_NrWIAqOkEeepy5KvuNIFEQ" x="-1" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_NrWIA6OkEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g5uzAKOlEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_NqhooKOkEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_NrWIBKOkEeepy5KvuNIFEQ" x="163" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_NrWIBaOkEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g6fA8KOlEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_NqhooKOkEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_NrWIBqOkEeepy5KvuNIFEQ" x="-163" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_NrWIB6OkEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g7P18KOlEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_NqhooKOkEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_NrWICKOkEeepy5KvuNIFEQ" x="161" y="19"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_NrWICaOkEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_g8AD4KOlEeepy5KvuNIFEQ" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <element xmi:type="uml:Association" href="types_mysql.uml#_NqhooKOkEeepy5KvuNIFEQ"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_NrWICqOkEeepy5KvuNIFEQ" x="-161" y="-18"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_NrVg8aOkEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_NqhooKOkEeepy5KvuNIFEQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_NrVg8qOkEeepy5KvuNIFEQ" points="[500, 2061, -643984, -643984]$[1620, 1920, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_NtAU4KOkEeepy5KvuNIFEQ" id="(1.0,0.49382716049382713)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_NtAU4aOkEeepy5KvuNIFEQ" id="(0.0,0.49382716049382713)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_qYKxcKOnEeepy5KvuNIFEQ" type="Association_Edge" source="_DRMGAKOTEeepy5KvuNIFEQ" target="_-ItygKOhEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_qYKxc6OnEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qYKxdKOnEeepy5KvuNIFEQ" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_qYLYgKOnEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qYLYgaOnEeepy5KvuNIFEQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_qYLYgqOnEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qYLYg6OnEeepy5KvuNIFEQ" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_qYLYhKOnEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qYLYhaOnEeepy5KvuNIFEQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_qYLYhqOnEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qYLYh6OnEeepy5KvuNIFEQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_qYLYiKOnEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_qYLYiaOnEeepy5KvuNIFEQ" y="-20"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_qYKxcaOnEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_qXSAoKOnEeepy5KvuNIFEQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_qYKxcqOnEeepy5KvuNIFEQ" points="[500, 1841, -643984, -643984]$[1620, 1740, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qZ86IKOnEeepy5KvuNIFEQ" id="(1.0,0.49382716049382713)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_qZ86IaOnEeepy5KvuNIFEQ" id="(0.0,0.5432098765432098)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_rvPSEKOnEeepy5KvuNIFEQ" type="Association_Edge" source="_DULIkKOTEeepy5KvuNIFEQ" target="_6o3ngKOhEeepy5KvuNIFEQ">
+    <children xmi:type="notation:DecorationNode" xmi:id="_rvP5IKOnEeepy5KvuNIFEQ" type="Association_StereotypeLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_rvP5IaOnEeepy5KvuNIFEQ" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_rvP5IqOnEeepy5KvuNIFEQ" type="Association_NameLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_rvP5I6OnEeepy5KvuNIFEQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_rvP5JKOnEeepy5KvuNIFEQ" type="Association_TargetRoleLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_rvP5JaOnEeepy5KvuNIFEQ" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_rvP5JqOnEeepy5KvuNIFEQ" type="Association_SourceRoleLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_rvP5J6OnEeepy5KvuNIFEQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_rvP5KKOnEeepy5KvuNIFEQ" type="Association_SourceMultiplicityLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_rvP5KaOnEeepy5KvuNIFEQ" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_rvP5KqOnEeepy5KvuNIFEQ" type="Association_TargetMultiplicityLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_rvP5K6OnEeepy5KvuNIFEQ" y="-20"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_rvPSEaOnEeepy5KvuNIFEQ"/>
+    <element xmi:type="uml:Association" href="types_mysql.uml#_rubZwKOnEeepy5KvuNIFEQ"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_rvPSEqOnEeepy5KvuNIFEQ" points="[540, 1700, -643984, -643984]$[1620, 1560, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_rw7UIKOnEeepy5KvuNIFEQ" id="(1.0,0.49382716049382713)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_rw7UIaOnEeepy5KvuNIFEQ" id="(0.0,0.5432098765432098)"/>
+  </edges>
+</notation:Diagram>

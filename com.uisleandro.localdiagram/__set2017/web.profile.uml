@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="__bSJ4Jb5EeeUDPcc3wuSpg" name="web" URI="http://www.uisleandro.com/web" metaclassReference="_uD2ukJb6EeeUDPcc3wuSpg _lLtIwJtFEeeBsuemOaAMCQ _ObUrwJtGEeeBsuemOaAMCQ">
+  <eAnnotations xmi:id="_JjzSAJb6EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_mgGTYJtGEeeBsuemOaAMCQ" name="web" nsURI="http://www.uisleandro.com/web" nsPrefix="web">
+      <eAnnotations xmi:id="_mgIIkptGEeeBsuemOaAMCQ" source="PapyrusVersion">
+        <details xmi:id="_mgIIk5tGEeeBsuemOaAMCQ" key="Version" value="0.0.7"/>
+        <details xmi:id="_mgIIlJtGEeeBsuemOaAMCQ" key="Comment" value=""/>
+        <details xmi:id="_mgIIlZtGEeeBsuemOaAMCQ" key="Copyright" value=""/>
+        <details xmi:id="_mgIIlptGEeeBsuemOaAMCQ" key="Date" value="2017-09-16"/>
+        <details xmi:id="_mgIIl5tGEeeBsuemOaAMCQ" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_mgGTYZtGEeeBsuemOaAMCQ" name="Redirect">
+        <eAnnotations xmi:id="_mgGTYptGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_O9VigJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_mgGTY5tGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_mgGTZZtGEeeBsuemOaAMCQ" name="WService" eSuperTypes="_mgGTaptGEeeBsuemOaAMCQ">
+        <eAnnotations xmi:id="_mgGTZptGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_QjUo4Jb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_mgGTZ5tGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_mgGTaptGEeeBsuemOaAMCQ" name="HasBehavior">
+        <eAnnotations xmi:id="_mgGTa5tGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_J8YbQJtGEeeBsuemOaAMCQ"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_mgGTbJtGEeeBsuemOaAMCQ" name="behavior" ordered="false">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_mgGTbptGEeeBsuemOaAMCQ" name="PrintingService" eSuperTypes="_mgGTc5tGEeeBsuemOaAMCQ">
+        <eAnnotations xmi:id="_mgGTb5tGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_XflQYJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_mgGTcJtGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_mgGTc5tGEeeBsuemOaAMCQ" name="HasArguments">
+        <eAnnotations xmi:id="_mgGTdJtGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_m9TpQJtFEeeBsuemOaAMCQ"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_mgGTdZtGEeeBsuemOaAMCQ" name="View" ordered="false">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Type"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_mgGTd5tGEeeBsuemOaAMCQ" name="MailService" eSuperTypes="_mgGTc5tGEeeBsuemOaAMCQ">
+        <eAnnotations xmi:id="_mgGTeJtGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_l4oZkJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_mgGTeZtGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_mgGTfJtGEeeBsuemOaAMCQ" name="TokenService">
+        <eAnnotations xmi:id="_mgGTfZtGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_1SCzkJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_mgGTfptGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_koYj0JtGEeeBsuemOaAMCQ" name="web" nsURI="http://www.uisleandro.com/web" nsPrefix="web">
+      <eAnnotations xmi:id="_koZx9ptGEeeBsuemOaAMCQ" source="PapyrusVersion">
+        <details xmi:id="_koZx95tGEeeBsuemOaAMCQ" key="Version" value="0.0.6"/>
+        <details xmi:id="_koZx-JtGEeeBsuemOaAMCQ" key="Comment" value=""/>
+        <details xmi:id="_koZx-ZtGEeeBsuemOaAMCQ" key="Copyright" value=""/>
+        <details xmi:id="_koZx-ptGEeeBsuemOaAMCQ" key="Date" value="2017-09-16"/>
+        <details xmi:id="_koZx-5tGEeeBsuemOaAMCQ" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_koYj0ZtGEeeBsuemOaAMCQ" name="Redirect">
+        <eAnnotations xmi:id="_koYj0ptGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_O9VigJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_koYj05tGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_koYj1ZtGEeeBsuemOaAMCQ" name="WService" eSuperTypes="_koYj2ptGEeeBsuemOaAMCQ">
+        <eAnnotations xmi:id="_koYj1ptGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_QjUo4Jb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_koYj15tGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_koYj2ptGEeeBsuemOaAMCQ" name="HasBehavior">
+        <eAnnotations xmi:id="_koYj25tGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_J8YbQJtGEeeBsuemOaAMCQ"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_koYj3JtGEeeBsuemOaAMCQ" name="behavior" ordered="false">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_koYj3ptGEeeBsuemOaAMCQ" name="PrintingService" eSuperTypes="_koYj45tGEeeBsuemOaAMCQ">
+        <eAnnotations xmi:id="_koYj35tGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_XflQYJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_koYj4JtGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_koYj45tGEeeBsuemOaAMCQ" name="HasArgument">
+        <eAnnotations xmi:id="_koYj5JtGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_m9TpQJtFEeeBsuemOaAMCQ"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_koYj5ZtGEeeBsuemOaAMCQ" name="View" ordered="false">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Type"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_koYj55tGEeeBsuemOaAMCQ" name="MailService" eSuperTypes="_koYj45tGEeeBsuemOaAMCQ">
+        <eAnnotations xmi:id="_koYj6JtGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_l4oZkJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_koYj6ZtGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_koYj7JtGEeeBsuemOaAMCQ" name="TokenService">
+        <eAnnotations xmi:id="_koYj7ZtGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_1SCzkJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_koYj7ptGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_YhY80JtGEeeBsuemOaAMCQ" name="web" nsURI="http://www.uisleandro.com/web" nsPrefix="web">
+      <eAnnotations xmi:id="_YhbZEptGEeeBsuemOaAMCQ" source="PapyrusVersion">
+        <details xmi:id="_YhbZE5tGEeeBsuemOaAMCQ" key="Version" value="0.0.5"/>
+        <details xmi:id="_YhbZFJtGEeeBsuemOaAMCQ" key="Comment" value=""/>
+        <details xmi:id="_YhbZFZtGEeeBsuemOaAMCQ" key="Copyright" value=""/>
+        <details xmi:id="_YhbZFptGEeeBsuemOaAMCQ" key="Date" value="2017-09-16"/>
+        <details xmi:id="_YhbZF5tGEeeBsuemOaAMCQ" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_YhY80ZtGEeeBsuemOaAMCQ" name="Redirect">
+        <eAnnotations xmi:id="_YhY80ptGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_O9VigJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_YhY805tGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_YhY81ZtGEeeBsuemOaAMCQ" name="WService" eSuperTypes="_YhY82ptGEeeBsuemOaAMCQ">
+        <eAnnotations xmi:id="_YhY81ptGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_QjUo4Jb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_YhY815tGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_YhY82ptGEeeBsuemOaAMCQ" name="HasBehavior">
+        <eAnnotations xmi:id="_YhY825tGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_J8YbQJtGEeeBsuemOaAMCQ"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_YhY83JtGEeeBsuemOaAMCQ" name="behavior" ordered="false">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Behavior"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_YhY83ptGEeeBsuemOaAMCQ" name="PrintingService" eSuperTypes="_YhY845tGEeeBsuemOaAMCQ">
+        <eAnnotations xmi:id="_YhY835tGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_XflQYJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_YhY84JtGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_YhY845tGEeeBsuemOaAMCQ" name="HasView">
+        <eAnnotations xmi:id="_YhY85JtGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_m9TpQJtFEeeBsuemOaAMCQ"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_YhY85ZtGEeeBsuemOaAMCQ" name="View" ordered="false">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//Type"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_YhY855tGEeeBsuemOaAMCQ" name="MailService" eSuperTypes="_YhY845tGEeeBsuemOaAMCQ">
+        <eAnnotations xmi:id="_YhY86JtGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_l4oZkJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_YhY86ZtGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_YhY87JtGEeeBsuemOaAMCQ" name="TokenService">
+        <eAnnotations xmi:id="_YhY87ZtGEeeBsuemOaAMCQ" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_1SCzkJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_YhY87ptGEeeBsuemOaAMCQ" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_BSUukJb7EeeUDPcc3wuSpg" name="web" nsURI="http://www.uisleandro.com/web" nsPrefix="web">
+      <eAnnotations xmi:id="_BSV8sZb7EeeUDPcc3wuSpg" source="PapyrusVersion">
+        <details xmi:id="_BSV8spb7EeeUDPcc3wuSpg" key="Version" value="0.0.4"/>
+        <details xmi:id="_BSV8s5b7EeeUDPcc3wuSpg" key="Comment" value=""/>
+        <details xmi:id="_BSV8tJb7EeeUDPcc3wuSpg" key="Copyright" value=""/>
+        <details xmi:id="_BSV8tZb7EeeUDPcc3wuSpg" key="Date" value="2017-09-11"/>
+        <details xmi:id="_BSV8tpb7EeeUDPcc3wuSpg" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_BSUukZb7EeeUDPcc3wuSpg" name="Redirect">
+        <eAnnotations xmi:id="_BSUukpb7EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_O9VigJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_BSUuk5b7EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_BSUulZb7EeeUDPcc3wuSpg" name="WService">
+        <eAnnotations xmi:id="_BSUulpb7EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_QjUo4Jb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_BSUul5b7EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_BSUumZb7EeeUDPcc3wuSpg" name="PrintingService">
+        <eAnnotations xmi:id="_BSUumpb7EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_XflQYJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_BSUum5b7EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_BSUunZb7EeeUDPcc3wuSpg" name="MailService">
+        <eAnnotations xmi:id="_BSUunpb7EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_l4oZkJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_BSUun5b7EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_BSUuoZb7EeeUDPcc3wuSpg" name="TokenService">
+        <eAnnotations xmi:id="_BSUuopb7EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_1SCzkJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_BSUuo5b7EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_8T_MUJb6EeeUDPcc3wuSpg" name="web" nsURI="http://www.uisleandro.com/web" nsPrefix="web">
+      <eAnnotations xmi:id="_8UBokJb6EeeUDPcc3wuSpg" source="PapyrusVersion">
+        <details xmi:id="_8UBokZb6EeeUDPcc3wuSpg" key="Version" value="0.0.3"/>
+        <details xmi:id="_8UBokpb6EeeUDPcc3wuSpg" key="Comment" value=""/>
+        <details xmi:id="_8UBok5b6EeeUDPcc3wuSpg" key="Copyright" value=""/>
+        <details xmi:id="_8UBolJb6EeeUDPcc3wuSpg" key="Date" value="2017-09-11"/>
+        <details xmi:id="_8UBolZb6EeeUDPcc3wuSpg" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_8T_MUZb6EeeUDPcc3wuSpg" name="Redirect">
+        <eAnnotations xmi:id="_8T_MUpb6EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_O9VigJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_8T_MU5b6EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_8T_MVZb6EeeUDPcc3wuSpg" name="WService">
+        <eAnnotations xmi:id="_8T_MVpb6EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_QjUo4Jb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_8T_MV5b6EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_8T_zYJb6EeeUDPcc3wuSpg" name="PrintingService">
+        <eAnnotations xmi:id="_8T_zYZb6EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_XflQYJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_8T_zYpb6EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_8T_zZJb6EeeUDPcc3wuSpg" name="MailService">
+        <eAnnotations xmi:id="_8T_zZZb6EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_l4oZkJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_8T_zZpb6EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_8T_zaJb6EeeUDPcc3wuSpg" name="TokenService">
+        <eAnnotations xmi:id="_8T_zaZb6EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_1SCzkJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_8T_zapb6EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_w0GooJb6EeeUDPcc3wuSpg" name="web" nsURI="http://www.uisleandro.com/web" nsPrefix="web">
+      <eAnnotations xmi:id="_w0H2wpb6EeeUDPcc3wuSpg" source="PapyrusVersion">
+        <details xmi:id="_w0H2w5b6EeeUDPcc3wuSpg" key="Version" value="0.0.2"/>
+        <details xmi:id="_w0H2xJb6EeeUDPcc3wuSpg" key="Comment" value=""/>
+        <details xmi:id="_w0H2xZb6EeeUDPcc3wuSpg" key="Copyright" value=""/>
+        <details xmi:id="_w0H2xpb6EeeUDPcc3wuSpg" key="Date" value="2017-09-11"/>
+        <details xmi:id="_w0H2x5b6EeeUDPcc3wuSpg" key="Author" value=""/>
+      </eAnnotations>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_w0GooZb6EeeUDPcc3wuSpg" name="Redirect">
+        <eAnnotations xmi:id="_w0Goopb6EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_O9VigJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_w0Goo5b6EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_w0GopZb6EeeUDPcc3wuSpg" name="WService">
+        <eAnnotations xmi:id="_w0Goppb6EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_QjUo4Jb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_w0Gop5b6EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_w0GoqZb6EeeUDPcc3wuSpg" name="PrintingService">
+        <eAnnotations xmi:id="_w0Goqpb6EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_XflQYJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_w0Goq5b6EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_w0GorZb6EeeUDPcc3wuSpg" name="MailService">
+        <eAnnotations xmi:id="_w0Gorpb6EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_l4oZkJb6EeeUDPcc3wuSpg"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_w0Gor5b6EeeUDPcc3wuSpg" name="base_State" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/5.0.0/UML#//State"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+    <contents xmi:type="ecore:EPackage" xmi:id="_Jjz5EJb6EeeUDPcc3wuSpg" name="web" nsURI="http://www.uisleandro.com/web" nsPrefix="web">
+      <eAnnotations xmi:id="_Jjz5EZb6EeeUDPcc3wuSpg" source="PapyrusVersion">
+        <details xmi:id="_Jjz5Epb6EeeUDPcc3wuSpg" key="Version" value="0.0.1"/>
+        <details xmi:id="_Jjz5E5b6EeeUDPcc3wuSpg" key="Comment" value=""/>
+        <details xmi:id="_Jjz5FJb6EeeUDPcc3wuSpg" key="Copyright" value=""/>
+        <details xmi:id="_Jjz5FZb6EeeUDPcc3wuSpg" key="Date" value="2017-09-11"/>
+        <details xmi:id="_Jjz5Fpb6EeeUDPcc3wuSpg" key="Author" value=""/>
+      </eAnnotations>
+    </contents>
+  </eAnnotations>
+  <ownedComment xmi:id="_3pGKgJb6EeeUDPcc3wuSpg" annotatedElement="_1SCzkJb6EeeUDPcc3wuSpg">
+    <body>What to do whith it?</body>
+  </ownedComment>
+  <elementImport xmi:id="_uD2ukJb6EeeUDPcc3wuSpg" alias="State">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#State"/>
+  </elementImport>
+  <elementImport xmi:id="_lLtIwJtFEeeBsuemOaAMCQ" alias="Type">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Type"/>
+  </elementImport>
+  <elementImport xmi:id="_ObUrwJtGEeeBsuemOaAMCQ" alias="Behavior">
+    <importedElement xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Behavior"/>
+  </elementImport>
+  <packageImport xmi:id="__lqN4Jb5EeeUDPcc3wuSpg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="__lq08Jb5EeeUDPcc3wuSpg">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_O9VigJb6EeeUDPcc3wuSpg" name="Redirect">
+    <ownedAttribute xmi:id="_vyjsEJb6EeeUDPcc3wuSpg" name="base_State" association="_vyid8Jb6EeeUDPcc3wuSpg">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#State"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_QjUo4Jb6EeeUDPcc3wuSpg" name="WService">
+    <generalization xmi:id="_NB1wUJtGEeeBsuemOaAMCQ" general="_J8YbQJtGEeeBsuemOaAMCQ"/>
+    <ownedAttribute xmi:id="_vRYRopb6EeeUDPcc3wuSpg" name="base_State" association="_vRYRoJb6EeeUDPcc3wuSpg">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#State"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_XflQYJb6EeeUDPcc3wuSpg" name="PrintingService">
+    <generalization xmi:id="_y8yTAJtFEeeBsuemOaAMCQ" general="_m9TpQJtFEeeBsuemOaAMCQ"/>
+    <ownedAttribute xmi:id="_u5wb0Zb6EeeUDPcc3wuSpg" name="base_State" association="_u5v0wJb6EeeUDPcc3wuSpg">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#State"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_l4oZkJb6EeeUDPcc3wuSpg" name="MailService">
+    <generalization xmi:id="_yX-VwJtFEeeBsuemOaAMCQ" general="_m9TpQJtFEeeBsuemOaAMCQ"/>
+    <ownedAttribute xmi:id="_uijcwJb6EeeUDPcc3wuSpg" name="base_State" association="_uiiOoJb6EeeUDPcc3wuSpg">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#State"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_uiiOoJb6EeeUDPcc3wuSpg" name="E_MailService_State1" memberEnd="_uii1sJb6EeeUDPcc3wuSpg _uijcwJb6EeeUDPcc3wuSpg">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_uii1sJb6EeeUDPcc3wuSpg" name="extension_MailService" type="_l4oZkJb6EeeUDPcc3wuSpg" aggregation="composite" association="_uiiOoJb6EeeUDPcc3wuSpg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_u5v0wJb6EeeUDPcc3wuSpg" name="E_PrintingService_State1" memberEnd="_u5wb0Jb6EeeUDPcc3wuSpg _u5wb0Zb6EeeUDPcc3wuSpg">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_u5wb0Jb6EeeUDPcc3wuSpg" name="extension_PrintingService" type="_XflQYJb6EeeUDPcc3wuSpg" aggregation="composite" association="_u5v0wJb6EeeUDPcc3wuSpg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_vRYRoJb6EeeUDPcc3wuSpg" name="E_WService_State1" memberEnd="_vRYRoZb6EeeUDPcc3wuSpg _vRYRopb6EeeUDPcc3wuSpg">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_vRYRoZb6EeeUDPcc3wuSpg" name="extension_WService" type="_QjUo4Jb6EeeUDPcc3wuSpg" aggregation="composite" association="_vRYRoJb6EeeUDPcc3wuSpg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_vyid8Jb6EeeUDPcc3wuSpg" name="E_Redirect_State1" memberEnd="_vyjFAJb6EeeUDPcc3wuSpg _vyjsEJb6EeeUDPcc3wuSpg">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_vyjFAJb6EeeUDPcc3wuSpg" name="extension_Redirect" type="_O9VigJb6EeeUDPcc3wuSpg" aggregation="composite" association="_vyid8Jb6EeeUDPcc3wuSpg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_1SCzkJb6EeeUDPcc3wuSpg" name="TokenService">
+    <ownedAttribute xmi:id="_2vLf8Zb6EeeUDPcc3wuSpg" name="base_State" association="_2vK44Jb6EeeUDPcc3wuSpg">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#State"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_2vK44Jb6EeeUDPcc3wuSpg" name="E_TokenService_State1" memberEnd="_2vLf8Jb6EeeUDPcc3wuSpg _2vLf8Zb6EeeUDPcc3wuSpg">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_2vLf8Jb6EeeUDPcc3wuSpg" name="extension_TokenService" type="_1SCzkJb6EeeUDPcc3wuSpg" aggregation="composite" association="_2vK44Jb6EeeUDPcc3wuSpg"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_m9TpQJtFEeeBsuemOaAMCQ" name="HasArguments">
+    <ownedAttribute xmi:id="_oPb_gJtFEeeBsuemOaAMCQ" name="View" visibility="public">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Type"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_sEe-cJtFEeeBsuemOaAMCQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_sElsIJtFEeeBsuemOaAMCQ" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_J8YbQJtGEeeBsuemOaAMCQ" name="HasBehavior">
+    <ownedAttribute xmi:id="_PwsjQJtGEeeBsuemOaAMCQ" name="behavior">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Behavior"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_SjA54JtGEeeBsuemOaAMCQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_SjL5AJtGEeeBsuemOaAMCQ" value="1"/>
+    </ownedAttribute>
+  </packagedElement>
+</uml:Profile>

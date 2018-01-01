@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dbfun="dbfun.uisleandro" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="dbfun.uisleandro ../psm/dbfun.profile.uml#_bh6fgDsHEeetWL2XyXmGWA">
+  <uml:Model xmi:id="_6_LcoESUEeeWJZJZpqo_rw" name="RootElement">
+    <packagedElement xmi:type="uml:Package" xmi:id="_8l_pcESUEeeWJZJZpqo_rw" name="android">
+      <packagedElement xmi:type="uml:Package" xmi:id="_Q8Gm8ESVEeeWJZJZpqo_rw" name="error">
+        <packagedElement xmi:type="uml:Package" xmi:id="_aRfpAESVEeeWJZJZpqo_rw" name="model">
+          <packagedElement xmi:type="uml:Class" xmi:id="_ZUR-kESwEeeVGPkRx0qVsA" name="third">
+            <ownedAttribute xmi:id="_awjIQESwEeeVGPkRx0qVsA" name="string01" type="_lWKmoESxEeeDbpH-0g83ew"/>
+            <ownedAttribute xmi:id="_7MiewEU6EeexWq9DGyEwug" name="xxx"/>
+          </packagedElement>
+          <packagedElement xmi:type="uml:DataType" xmi:id="_lWKmoESxEeeDbpH-0g83ew" name="String"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_oTGtIESWEeeWJZJZpqo_rw" name="app_namespace"/>
+    <packagedElement xmi:type="uml:Class" xmi:id="_ttxmEESWEeeWJZJZpqo_rw" name="custom_config">
+      <ownedAttribute xmi:id="_vbE1YESWEeeWJZJZpqo_rw" name="com.uisleandro.error" type="_oTGtIESWEeeWJZJZpqo_rw"/>
+      <ownedAttribute xmi:id="_ymT48ESvEeeVGPkRx0qVsA" name="xapp" type="_wGwGQESvEeeVGPkRx0qVsA"/>
+      <ownedAttribute xmi:id="_z4UTYESvEeeVGPkRx0qVsA" name="https://10.42.0.1/" type="_o0tcAESvEeeVGPkRx0qVsA"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_o0tcAESvEeeVGPkRx0qVsA" name="website_url"/>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_pU-3gESvEeeVGPkRx0qVsA" name="app_namespace"/>
+    <packagedElement xmi:type="uml:DataType" xmi:id="_wGwGQESvEeeVGPkRx0qVsA" name="db_schema_name"/>
+    <profileApplication xmi:id="_HPCwIESzEeeDbpH-0g83ew">
+      <eAnnotations xmi:id="_HPYHUESzEeeDbpH-0g83ew" source="PapyrusVersion">
+        <details xmi:id="_HPYHUUSzEeeDbpH-0g83ew" key="Version" value="0.0.143"/>
+        <details xmi:id="_HPYuYESzEeeDbpH-0g83ew" key="Comment" value=""/>
+        <details xmi:id="_HPYuYUSzEeeDbpH-0g83ew" key="Copyright" value=""/>
+        <details xmi:id="_HPYuYkSzEeeDbpH-0g83ew" key="Date" value="2017-05-17"/>
+        <details xmi:id="_HPYuY0SzEeeDbpH-0g83ew" key="Author" value=""/>
+      </eAnnotations>
+      <eAnnotations xmi:id="_HPKr8ESzEeeDbpH-0g83ew" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../psm/dbfun.profile.uml#_bh6fgDsHEeetWL2XyXmGWA"/>
+      </eAnnotations>
+      <appliedProfile href="../psm/dbfun.profile.uml#_TXJNAJIPEeaLjYFUq2z3yw"/>
+    </profileApplication>
+  </uml:Model>
+  <dbfun:table xmi:id="_JySI8ESzEeeDbpH-0g83ew" base_Class="_ZUR-kESwEeeVGPkRx0qVsA"/>
+</xmi:XMI>

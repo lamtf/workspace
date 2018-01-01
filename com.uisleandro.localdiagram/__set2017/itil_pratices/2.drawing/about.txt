@@ -1,0 +1,15 @@
+1. Structural Model
+
+2. Behavior Model
+
+3. Model to Model Transformation
+
+	3.1 For applying stereotypes and model refining
+	
+4. Model to Text Transformation
+
+	4.1. Using Acceleo
+	
+	4.2. Using Javascript
+	
+		4.2.1 Acceleo is not suitable for everything

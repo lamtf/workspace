@@ -1,0 +1,141 @@
+## all functions should be local and remote at the same time ##
+
+## initial steps ##
+
+webservice + select:  <<< remote only
+	login
+
+select:
+	is_cashregister_open_today  < defined?  // << stereotypes::applied
+
+	check_history [not-defined-yet] // << stereotypes::applied
+
+insert:
+	open_cash_register  // << stereotypes::applied
+
+## money_used ##
+
+insert:
+	eventual_money_usage < defined?  // << stereotypes::applied
+
+
+// 6 cash operations: check after
+	cash_register.is_open_today
+	cash_register.open_cash_register
+	cash_register.sum
+	cash_register.eventual_cash_usage
+	cash_register.close_cash_register
+	cash_register.check_history
+
+
+
+//TODO: I need queries to check the review the cash-register by store
+//TODO: there's no state machine for discounts
+
+
+## stock review not defined yet ## (its important)
+
+
+
+## sale ##
+
+select:
+	get_product_by_qrcode << need specification // << stereotypes::applied
+	list_products_by_repeated_product_code << need specification // << stereotypes::applied
+  get_product_by_id << need specification // << stereotypes::applied
+
+insert:
+	create_chart(user_id)  (or create sale): { sale_id }  << need specification  // << stereotypes::applied
+	add_to_chart(product_id)   (or add product to the sale) << need specification // << stereotypes::applied
+	
+	TODO>> i should have a state(flag) to confirm the sale
+	>> i bet it will be difficult :'D 
+	>> because i already have creating a lot of things..
+	>> handling it manually seems 'attractive' 
+
+delete:
+	cancel_sale << need specification  // << stereotypes::applied
+
+## installment sale ##
+
+select: 
+	find_client_by_id: { client_id } << need specification // << stereotypes::applied
+	find_client_by_cpf  // << need specification // << stereotypes::applied
+	find_clients_by_name // << need specification // << stereotypes::applied
+
+insert:
+	add_client << ::CRUD::
+
+update:
+	manually_allow_client(manager_id)  /// maybe it should have a signature (think about it after)
+
+insert:
+	insert_installment << need specification
+
+
+## logout procedures (automatically) ##
+
+select:
+	sum = sum_cash_value(cash_id) << need specification
+
+update:
+	close_cash_register(sum, now()) << need specification
+
+
+
+TODO:
+	"discount" is not specified
+	"eventual_payment" and "expected_payment" are not specified
+
+
+
+field review
+	cliente:  (TODO: quando nao houver nenhuma propriedade, usar id)
+	
+	cash/model: aplicados alguns esteriotipos
+		defaultUserId: fornecer o id do usuario atual
+		defaultSystemId: fornecer o id do sistema atual
+		
+		isToday (comparar a data truncada, sem o tempo) 
+
+BASE:
+	TODO: preciso colocar uma nota em positivo-negativo
+	ou entao trocar o nome para "negativo" somente
+	
+	
+	
+resumo das funcoes personalizadas:
+
+basic_client.find_by_id
+basic_client.find_by_name
+
+brazilian.find_by_cpf
+
+cash_register.is_open_today
+cash_register.open_cash_register
+cash_register.eventual_cash_usage
+cash_register.close_cash_usage
+cash_register.check_history
+
+product.get_by_id
+product.get_by_code
+product.get_by_repeated_product_code
+
+systems.auth.login
+systems.auth.canAccess
+
+receivement.invoice.insert_installment
+receivement.invoice.insert_installment_sicoob
+
+sales.sale.create_chart
+sales.sale.add_product
+sales.sale.cancel
+
+
+
+
+
+
+
+
+

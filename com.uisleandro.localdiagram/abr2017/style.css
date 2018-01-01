@@ -1,0 +1,9 @@
+
+
+
+State[appliedStereotypes~="button"]{
+	fillColor: blue;
+	transpacency: 0;
+	displayTags: false;
+	/* displayStereotypes: false;  */
+}

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_E1KxwNEPEeaB34b2dKnBIg" name="RootElement">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_syjOcNqfEeadfLYWVttIvw" annotatedElement="_by6dgNqfEeadfLYWVttIvw">
+    <body>The combination with name and id is unique</body>
+  </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_7Rl1cNqgEeadfLYWVttIvw" annotatedElement="_by6dgNqfEeadfLYWVttIvw">
+    <body>The tables i know im going to updte</body>
+  </ownedComment>
+  <ownedComment xmi:type="uml:Comment" xmi:id="_HvupwNqkEeadfLYWVttIvw" annotatedElement="_3YwbUNqjEeadfLYWVttIvw">
+    <body>Now i can get the update time for each table and compare it with the device update time
+</body>
+  </ownedComment>
+  <packagedElement xmi:type="uml:StateMachine" xmi:id="_Nv4qANEPEeaB34b2dKnBIg" name="StateMachine1">
+    <region xmi:type="uml:Region" xmi:id="_Od3KUNEPEeaB34b2dKnBIg" name="Region1">
+      <ownedComment xmi:type="uml:Comment" xmi:id="_Z9-5ANqbEeadfLYWVttIvw">
+        <body>i can just select what i want to update anyway</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_iTjc0NqbEeadfLYWVttIvw">
+        <body>from what i have i can select the older update time, when there is not server_id?? or when its not updated on server</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_bxt1kNqdEeadfLYWVttIvw" annotatedElement="_W54UYNEPEeaB34b2dKnBIg">
+        <body>so always get the last update time for each table, (it is not enought because i have various clients updating at different times)
+</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_4xh-YNqeEeadfLYWVttIvw" annotatedElement="_W54UYNEPEeaB34b2dKnBIg _BS-3gNqeEeadfLYWVttIvw">
+        <body>for each table</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_mY1zANqiEeadfLYWVttIvw">
+        <body>I always can get the last updage time from the local dababase and ask if exists any update newer or older???</body>
+      </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_-OTC4Nq7EeadfLYWVttIvw">
+        <body>vide ~/sync_database</body>
+      </ownedComment>
+      <transition xmi:type="uml:Transition" xmi:id="_piXScNEPEeaB34b2dKnBIg" source="_QxcWgNEPEeaB34b2dKnBIg" target="_BS-3gNqeEeadfLYWVttIvw"/>
+      <transition xmi:type="uml:Transition" xmi:id="_FsEXoNqeEeadfLYWVttIvw" source="_BS-3gNqeEeadfLYWVttIvw" target="_lpSvINEPEeaB34b2dKnBIg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_bzSGYNqeEeadfLYWVttIvw" source="_lpSvINEPEeaB34b2dKnBIg" target="_V9TxgNqeEeadfLYWVttIvw"/>
+      <transition xmi:type="uml:Transition" xmi:id="_ngIIANqeEeadfLYWVttIvw" source="_BS-3gNqeEeadfLYWVttIvw" target="_W54UYNEPEeaB34b2dKnBIg"/>
+      <transition xmi:type="uml:Transition" xmi:id="_9K2gUNqkEeadfLYWVttIvw" source="_W54UYNEPEeaB34b2dKnBIg" target="_qAHJwNqkEeadfLYWVttIvw"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_QxcWgNEPEeaB34b2dKnBIg" name="Initial1"/>
+      <subvertex xmi:type="uml:State" xmi:id="_W54UYNEPEeaB34b2dKnBIg" name="get_last_uptime_for_each_table"/>
+      <subvertex xmi:type="uml:State" xmi:id="_lpSvINEPEeaB34b2dKnBIg" name="online_insert"/>
+      <subvertex xmi:type="uml:Pseudostate" xmi:id="_BS-3gNqeEeadfLYWVttIvw" name="server_id == 0" kind="choice"/>
+      <subvertex xmi:type="uml:State" xmi:id="_V9TxgNqeEeadfLYWVttIvw" name="local_update"/>
+      <subvertex xmi:type="uml:State" xmi:id="_qAHJwNqkEeadfLYWVttIvw" name="on the device">
+        <region xmi:type="uml:Region" xmi:id="_vLmXMNqkEeadfLYWVttIvw" name="Region1">
+          <transition xmi:type="uml:Transition" xmi:id="_N55QgNqlEeadfLYWVttIvw" source="_4Cp3cNqkEeadfLYWVttIvw" target="_LWGeENqlEeadfLYWVttIvw"/>
+          <transition xmi:type="uml:Transition" xmi:id="_iXNCMNqlEeadfLYWVttIvw" source="_LWGeENqlEeadfLYWVttIvw" target="_ducuYNqlEeadfLYWVttIvw"/>
+          <transition xmi:type="uml:Transition" xmi:id="_vjHC0NqlEeadfLYWVttIvw" source="_ducuYNqlEeadfLYWVttIvw" target="_jiXNwNqlEeadfLYWVttIvw"/>
+          <subvertex xmi:type="uml:State" xmi:id="_4Cp3cNqkEeadfLYWVttIvw" name="select update_time &lt; servers"/>
+          <subvertex xmi:type="uml:State" xmi:id="_LWGeENqlEeadfLYWVttIvw" name="Update locally"/>
+          <subvertex xmi:type="uml:State" xmi:id="_ducuYNqlEeadfLYWVttIvw" name="select each update_time > servers"/>
+          <subvertex xmi:type="uml:State" xmi:id="_jiXNwNqlEeadfLYWVttIvw" name="Update remote"/>
+        </region>
+      </subvertex>
+    </region>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_ahza8NqfEeadfLYWVttIvw" name="update_token"/>
+  <packagedElement xmi:type="uml:Class" xmi:id="_by6dgNqfEeadfLYWVttIvw" name="tabela">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_l2mI8NqfEeadfLYWVttIvw" name="name"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_ogcgENqfEeadfLYWVttIvw" name="id"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="__gMZUNqfEeadfLYWVttIvw" name="update_token" type="_ahza8NqfEeadfLYWVttIvw" association="__f-W4NqfEeadfLYWVttIvw"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_0dM14NqzEeadfLYWVttIvw" name="insert_token" type="_vDK2INqzEeadfLYWVttIvw" association="_0dLnwNqzEeadfLYWVttIvw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="__f-W4NqfEeadfLYWVttIvw" memberEnd="__gMZUNqfEeadfLYWVttIvw __gNAYNqfEeadfLYWVttIvw">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="__gKkINqfEeadfLYWVttIvw" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="__gKkIdqfEeadfLYWVttIvw" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="__gNAYNqfEeadfLYWVttIvw" name="tabela" type="_by6dgNqfEeadfLYWVttIvw" association="__f-W4NqfEeadfLYWVttIvw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_3YwbUNqjEeadfLYWVttIvw" name="table_update_time">
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_-wfd4NqjEeadfLYWVttIvw" name="Table_name"/>
+    <ownedAttribute xmi:type="uml:Property" xmi:id="_BXswsNqkEeadfLYWVttIvw" name="last_update_time"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_vDK2INqzEeadfLYWVttIvw" name="insert_token"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_0dLnwNqzEeadfLYWVttIvw" memberEnd="_0dM14NqzEeadfLYWVttIvw _0dM14dqzEeadfLYWVttIvw">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_0dMO0NqzEeadfLYWVttIvw" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_0dMO0dqzEeadfLYWVttIvw" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_0dM14dqzEeadfLYWVttIvw" name="tabela" type="_by6dgNqfEeadfLYWVttIvw" association="_0dLnwNqzEeadfLYWVttIvw"/>
+  </packagedElement>
+  <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_VehwsNEPEeaB34b2dKnBIg">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Vek0ANEPEeaB34b2dKnBIg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+      <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+    </eAnnotations>
+    <appliedProfile xmi:type="uml:Profile" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+  </profileApplication>
+</uml:Model>

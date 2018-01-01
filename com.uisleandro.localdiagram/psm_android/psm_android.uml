@@ -1,0 +1,644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:relations="com.uisleandro" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xsi:schemaLocation="com.uisleandro ../pim/relations.profile.uml#_sTnJIH2sEeadmqRkk0UdPw">
+  <uml:Package xmi:id="_qRWMIIHuEeahSKuyVpGSEw" name="RootElement">
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRWzMIHuEeahSKuyVpGSEw" name="system">
+      <ownedAttribute xmi:id="_qRWzMYHuEeahSKuyVpGSEw" name="name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzMoHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzM4HuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzNIHuEeahSKuyVpGSEw" name="enabled">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVah39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzNYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzNoHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRWzN4HuEeahSKuyVpGSEw" name="user">
+      <ownedAttribute xmi:id="_qRWzOIHuEeahSKuyVpGSEw" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzOYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzOoHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzO4HuEeahSKuyVpGSEw" name="role">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_uqnsgH2bEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzPIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzPYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzPoHuEeahSKuyVpGSEw" name="username">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzP4HuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzQIHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzQYHuEeahSKuyVpGSEw" name="password">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzQoHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzQ4HuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzRIHuEeahSKuyVpGSEw" name="name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzRYHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzRoHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzR4HuEeahSKuyVpGSEw" name="email">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzSIHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzSYHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzSoHuEeahSKuyVpGSEw" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzS4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzTIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzTYHuEeahSKuyVpGSEw" name="last_use_time">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzToHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzT4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzUIHuEeahSKuyVpGSEw" name="last_error_time">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzUYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzUoHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzU4HuEeahSKuyVpGSEw" name="error_count">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzVIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzVYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzVoHuEeahSKuyVpGSEw" name="active">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVah39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzV4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzWIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRWzWYHuEeahSKuyVpGSEw" name="sale">
+      <ownedAttribute xmi:id="_qRWzWoHuEeahSKuyVpGSEw" name="sale_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_oUglYH2jEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzW4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzXIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzXYHuEeahSKuyVpGSEw" name="interest_rate_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_prCTcH2jEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzXoHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzX4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzYIHuEeahSKuyVpGSEw" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzYYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzYoHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzY4HuEeahSKuyVpGSEw" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzZIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzZYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzZoHuEeahSKuyVpGSEw" name="total_value">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzZ4HuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzaIHuEeahSKuyVpGSEw" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzaYHuEeahSKuyVpGSEw" name="user">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_fpudAH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzaoHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWza4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzbIHuEeahSKuyVpGSEw" name="client_from_system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_Bri0MH2mEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzbYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzboHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRWzb4HuEeahSKuyVpGSEw" name="br_basic_client">
+      <ownedAttribute xmi:id="_qRWzcIHuEeahSKuyVpGSEw" name="cpf">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzcYHuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzcoHuEeahSKuyVpGSEw" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzc4HuEeahSKuyVpGSEw" name="name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzdIHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzdYHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzdoHuEeahSKuyVpGSEw" name="rg">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzd4HuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzeIHuEeahSKuyVpGSEw" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzeYHuEeahSKuyVpGSEw" name="birth_date">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzeoHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWze4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzfIHuEeahSKuyVpGSEw" name="birth_city">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzfYHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzfoHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzf4HuEeahSKuyVpGSEw" name="birth_state">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzgIHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzgYHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzgoHuEeahSKuyVpGSEw" name="nationality">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzg4HuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzhIHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzhYHuEeahSKuyVpGSEw" name="mothers_name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzhoHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzh4HuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWziIHuEeahSKuyVpGSEw" name="fathers_name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWziYHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzioHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzi4HuEeahSKuyVpGSEw" name="profession">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzjIHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzjYHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzjoHuEeahSKuyVpGSEw" name="cep">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzj4HuEeahSKuyVpGSEw" value="9"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzkIHuEeahSKuyVpGSEw" value="9"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzkYHuEeahSKuyVpGSEw" name="address">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzkoHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzk4HuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzlIHuEeahSKuyVpGSEw" name="neighborhood">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzlYHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzloHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzl4HuEeahSKuyVpGSEw" name="city">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzmIHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzmYHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzmoHuEeahSKuyVpGSEw" name="state">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzm4HuEeahSKuyVpGSEw" value="2"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWznIHuEeahSKuyVpGSEw" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWznYHuEeahSKuyVpGSEw" name="complement">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWznoHuEeahSKuyVpGSEw" value="90"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzn4HuEeahSKuyVpGSEw" value="90"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRWzoIHuEeahSKuyVpGSEw" name="updating_date">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRWzoYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRWzooHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRWzo4HuEeahSKuyVpGSEw" name="br_duplicata">
+      <ownedAttribute xmi:id="_qRWzpIHuEeahSKuyVpGSEw" name="sale">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_2JAtgH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaQIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaQYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaQoHuEeahSKuyVpGSEw" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaQ4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaRIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaRYHuEeahSKuyVpGSEw" name="invoice_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_sumY0H2oEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaRoHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaR4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaSIHuEeahSKuyVpGSEw" name="cpf">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaSYHuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaSoHuEeahSKuyVpGSEw" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaS4HuEeahSKuyVpGSEw" name="numero">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaTIHuEeahSKuyVpGSEw" value="10"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaTYHuEeahSKuyVpGSEw" value="10"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaToHuEeahSKuyVpGSEw" name="data">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaT4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaUIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaUYHuEeahSKuyVpGSEw" name="vencimento">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaUoHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaU4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaVIHuEeahSKuyVpGSEw" name="valor">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaVYHuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaVoHuEeahSKuyVpGSEw" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaV4HuEeahSKuyVpGSEw" name="nosso_numero">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaWIHuEeahSKuyVpGSEw" value="10"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaWYHuEeahSKuyVpGSEw" value="10"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaWoHuEeahSKuyVpGSEw" name="quantidade">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaW4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaXIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaXYHuEeahSKuyVpGSEw" name="parcela">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaXoHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaX4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaYIHuEeahSKuyVpGSEw" name="foi_pago">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVah39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaYYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaYoHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaY4HuEeahSKuyVpGSEw" name="client_from_system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_Bri0MH2mEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaZIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaZYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaZoHuEeahSKuyVpGSEw" name="data_de_pagamento">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaZ4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaaIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaaYHuEeahSKuyVpGSEw" name="valor_recebido">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaaoHuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaa4HuEeahSKuyVpGSEw" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXabIHuEeahSKuyVpGSEw" name="banco">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_IOwxUH3tEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXabYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaboHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRXab4HuEeahSKuyVpGSEw" name="role">
+      <ownedAttribute xmi:id="_qRXacIHuEeahSKuyVpGSEw" name="name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXacYHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXacoHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRXac4HuEeahSKuyVpGSEw" name="token">
+      <ownedAttribute xmi:id="_qRXadIHuEeahSKuyVpGSEw" name="user">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_fpudAH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXadYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXadoHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXad4HuEeahSKuyVpGSEw" name="token_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_FnHA8H2dEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaeIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaeYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXaeoHuEeahSKuyVpGSEw" name="guid">
+        <type xmi:type="uml:PrimitiveType" href="../pim/types.uml#_4UmrZX9YEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXae4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXafIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXafYHuEeahSKuyVpGSEw" name="creation_time">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXafoHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaf4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXagIHuEeahSKuyVpGSEw" name="last_use_time">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXagYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXagoHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXag4HuEeahSKuyVpGSEw" name="expiration_time">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXahIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXahYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRXahoHuEeahSKuyVpGSEw" name="token_type">
+      <ownedAttribute xmi:id="_qRXah4HuEeahSKuyVpGSEw" name="name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaiIHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaiYHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRXaioHuEeahSKuyVpGSEw" name="stock">
+      <ownedAttribute xmi:id="_qRXai4HuEeahSKuyVpGSEw" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXajIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXajYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXajoHuEeahSKuyVpGSEw" name="picture">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_XfdMcH2mEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXaj4HuEeahSKuyVpGSEw" value="2"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXakIHuEeahSKuyVpGSEw" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXakYHuEeahSKuyVpGSEw" name="supplier">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_55j-QH2oEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXakoHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXak4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXalIHuEeahSKuyVpGSEw" name="code1">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXalYHuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXaloHuEeahSKuyVpGSEw" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXal4HuEeahSKuyVpGSEw" name="code2">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXamIHuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXamYHuEeahSKuyVpGSEw" value="15"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRXamoHuEeahSKuyVpGSEw" name="description">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRXam4HuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRXanIHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBUIHuEeahSKuyVpGSEw" name="amount">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBUYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBUoHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBU4HuEeahSKuyVpGSEw" name="size">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_qPp2EH3oEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBVIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBVYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBVoHuEeahSKuyVpGSEw" name="gender">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_wYsQ4H3oEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBV4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBWIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBWYHuEeahSKuyVpGSEw" name="purchase_price">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBWoHuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBW4HuEeahSKuyVpGSEw" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBXIHuEeahSKuyVpGSEw" name="sale_price">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBXYHuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBXoHuEeahSKuyVpGSEw" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBX4HuEeahSKuyVpGSEw" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBYIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBYYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYBYoHuEeahSKuyVpGSEw" name="sale_stock">
+      <ownedAttribute xmi:id="_qRYBY4HuEeahSKuyVpGSEw" name="sale">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_2JAtgH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBZIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBZYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBZoHuEeahSKuyVpGSEw" name="stock">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_Slh30H2gEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBZ4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBaIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYBaYHuEeahSKuyVpGSEw" name="sale_type">
+      <ownedAttribute xmi:id="_qRYBaoHuEeahSKuyVpGSEw" name="name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBa4HuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBbIHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYBbYHuEeahSKuyVpGSEw" name="interest_rate_type">
+      <ownedAttribute xmi:id="_qRYBboHuEeahSKuyVpGSEw" name="name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBb4HuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBcIHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYBcYHuEeahSKuyVpGSEw" name="client_from_system">
+      <ownedAttribute xmi:id="_qRYBcoHuEeahSKuyVpGSEw" name="my_br_basic_client">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_wj7dQH34EeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBc4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBdIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBdYHuEeahSKuyVpGSEw" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBdoHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBd4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBeIHuEeahSKuyVpGSEw" name="br_basic_client">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_BsIycH2YEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBeYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBeoHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYBe4HuEeahSKuyVpGSEw" name="client_annotation">
+      <ownedAttribute xmi:id="_qRYBfIHuEeahSKuyVpGSEw" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBfYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBfoHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBf4HuEeahSKuyVpGSEw" name="client_annotation_type">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_6yWvMH3vEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBgIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBgYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBgoHuEeahSKuyVpGSEw" name="message">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBg4HuEeahSKuyVpGSEw" value="90"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBhIHuEeahSKuyVpGSEw" value="90"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBhYHuEeahSKuyVpGSEw" name="br_basic_client">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_BsIycH2YEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBhoHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBh4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYBiIHuEeahSKuyVpGSEw" name="picture">
+      <ownedAttribute xmi:id="_qRYBiYHuEeahSKuyVpGSEw" name="system">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_eyHfkH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBioHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBi4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBjIHuEeahSKuyVpGSEw" name="description">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBjYHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBjoHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYBj4HuEeahSKuyVpGSEw" name="invoice_type">
+      <ownedAttribute xmi:id="_qRYBkIHuEeahSKuyVpGSEw" name="name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBkYHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBkoHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYBk4HuEeahSKuyVpGSEw" name="supplier">
+      <ownedAttribute xmi:id="_qRYBlIHuEeahSKuyVpGSEw" name="company_name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBlYHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBloHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBl4HuEeahSKuyVpGSEw" name="fantasy_name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBmIHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBmYHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYBmoHuEeahSKuyVpGSEw" name="cash_register">
+      <ownedAttribute xmi:id="_qRYBm4HuEeahSKuyVpGSEw" name="user">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_fpudAH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYBnIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYBnYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYBnoHuEeahSKuyVpGSEw" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYoYIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYoYYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYoYoHuEeahSKuyVpGSEw" name="opening_value">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYoY4HuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYoZIHuEeahSKuyVpGSEw" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYoZYHuEeahSKuyVpGSEw" name="received_value">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYoZoHuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYoZ4HuEeahSKuyVpGSEw" value="2"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYoaIHuEeahSKuyVpGSEw" name="closing_value">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYoaYHuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYoaoHuEeahSKuyVpGSEw" value="2"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYoa4HuEeahSKuyVpGSEw" name="cash_launch">
+      <ownedAttribute xmi:id="_qRYobIHuEeahSKuyVpGSEw" name="cash_register">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_6eODIH2rEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYobYHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYoboHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYob4HuEeahSKuyVpGSEw" name="registration_date">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYocIHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYocYHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYocoHuEeahSKuyVpGSEw" name="justification">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYoc4HuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYodIHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYodYHuEeahSKuyVpGSEw" name="amount_spent">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYodoHuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYod4HuEeahSKuyVpGSEw" value="2"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYoeIHuEeahSKuyVpGSEw" name="log">
+      <ownedAttribute xmi:id="_qRYoeYHuEeahSKuyVpGSEw" name="when">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYoeoHuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYoe4HuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYofIHuEeahSKuyVpGSEw" name="what">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYofYHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYofoHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYof4HuEeahSKuyVpGSEw" name="param">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYogIHuEeahSKuyVpGSEw" value="90"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYogYHuEeahSKuyVpGSEw" value="90"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYogoHuEeahSKuyVpGSEw" name="user">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_fpudAH2XEeadmqRkk0UdPw"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYog4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYohIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYohYHuEeahSKuyVpGSEw" name="size">
+      <ownedAttribute xmi:id="_qRYohoHuEeahSKuyVpGSEw" name="unit">
+        <type xmi:type="uml:Class" href="../pim/pim_v2_class_model.uml#_s1WF8H3oEeaTh9hdCfhtsA"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYoh4HuEeahSKuyVpGSEw" value="1"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYoiIHuEeahSKuyVpGSEw" value="1"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYoiYHuEeahSKuyVpGSEw" name="value">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYoioHuEeahSKuyVpGSEw" value="15"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYoi4HuEeahSKuyVpGSEw" value="2"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYojIHuEeahSKuyVpGSEw" name="unit">
+      <ownedAttribute xmi:id="_qRYojYHuEeahSKuyVpGSEw" name="name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYojoHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYoj4HuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYokIHuEeahSKuyVpGSEw" name="gender">
+      <ownedAttribute xmi:id="_qRYokYHuEeahSKuyVpGSEw" name="name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYokoHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYok4HuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYolIHuEeahSKuyVpGSEw" name="banco">
+      <ownedAttribute xmi:id="_qRYolYHuEeahSKuyVpGSEw" name="codigo">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYoloHuEeahSKuyVpGSEw" value="5"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYol4HuEeahSKuyVpGSEw" value="5"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:id="_qRYomIHuEeahSKuyVpGSEw" name="nome">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYomYHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYomoHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYom4HuEeahSKuyVpGSEw" name="client_annotation_type">
+      <ownedAttribute xmi:id="_qRYonIHuEeahSKuyVpGSEw" name="name">
+        <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_qRYonYHuEeahSKuyVpGSEw" value="45"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_qRYonoHuEeahSKuyVpGSEw" value="45"/>
+      </ownedAttribute>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_qRYon4HuEeahSKuyVpGSEw" name="my_br_basic_client"/>
+    <profileApplication xmi:id="_qRYooIHuEeahSKuyVpGSEw">
+      <eAnnotations xmi:id="_qRYooYHuEeahSKuyVpGSEw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="../pim/relations.profile.uml#_sTnJIH2sEeadmqRkk0UdPw"/>
+      </eAnnotations>
+      <appliedProfile href="../pim/relations.profile.uml#_UIKB0H2YEeadmqRkk0UdPw"/>
+    </profileApplication>
+    <profileApplication xmi:id="_qRYoooHuEeahSKuyVpGSEw">
+      <eAnnotations xmi:id="_qRYoo4HuEeahSKuyVpGSEw" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#_Kv8EIKFXEeS_KNX0nfvIVQ"/>
+      </eAnnotations>
+      <appliedProfile href="pathmap://PAPYRUS_ACTIONLANGUAGE_PROFILE/ActionLanguage-Profile.profile.uml#ActionLanguage"/>
+    </profileApplication>
+  </uml:Package>
+  <relations:system_module xmi:id="_qRYopIHuEeahSKuyVpGSEw" base_Class="_qRWzMIHuEeahSKuyVpGSEw"/>
+  <relations:dependency xmi:id="_qRYopYHuEeahSKuyVpGSEw" base_Class="_qRWzMIHuEeahSKuyVpGSEw"/>
+  <relations:system_module xmi:id="_qRYopoHuEeahSKuyVpGSEw" base_Class="_qRWzN4HuEeahSKuyVpGSEw"/>
+  <relations:dependency xmi:id="_qRYop4HuEeahSKuyVpGSEw" base_Class="_qRWzN4HuEeahSKuyVpGSEw"/>
+  <relations:sales_module xmi:id="_qRYoqIHuEeahSKuyVpGSEw" base_Class="_qRWzWYHuEeahSKuyVpGSEw"/>
+  <relations:optional xmi:id="_qRYoqYHuEeahSKuyVpGSEw" base_Class="_qRWzWYHuEeahSKuyVpGSEw"/>
+  <relations:invoice_dependency xmi:id="_qRYoqoHuEeahSKuyVpGSEw" base_Class="_qRWzWYHuEeahSKuyVpGSEw"/>
+  <relations:sales_dependency xmi:id="_qRYoq4HuEeahSKuyVpGSEw" base_Class="_qRWzb4HuEeahSKuyVpGSEw"/>
+  <relations:optional xmi:id="_qRYorIHuEeahSKuyVpGSEw" base_Class="_qRWzb4HuEeahSKuyVpGSEw"/>
+  <relations:client_module xmi:id="_qRYorYHuEeahSKuyVpGSEw" base_Class="_qRWzb4HuEeahSKuyVpGSEw"/>
+  <relations:invoice_module xmi:id="_qRYoroHuEeahSKuyVpGSEw" base_Class="_qRWzo4HuEeahSKuyVpGSEw"/>
+  <relations:system_module xmi:id="_qRYor4HuEeahSKuyVpGSEw" base_Class="_qRXab4HuEeahSKuyVpGSEw"/>
+  <relations:system_module xmi:id="_qRYosIHuEeahSKuyVpGSEw" base_Class="_qRXac4HuEeahSKuyVpGSEw"/>
+  <relations:system_module xmi:id="_qRYosYHuEeahSKuyVpGSEw" base_Class="_qRXahoHuEeahSKuyVpGSEw"/>
+  <relations:sales_dependency xmi:id="_qRYosoHuEeahSKuyVpGSEw" base_Class="_qRXaioHuEeahSKuyVpGSEw"/>
+  <relations:supply_module xmi:id="_qRYos4HuEeahSKuyVpGSEw" base_Class="_qRXaioHuEeahSKuyVpGSEw"/>
+  <relations:sales_module xmi:id="_qRYotIHuEeahSKuyVpGSEw" base_Class="_qRYBYoHuEeahSKuyVpGSEw"/>
+  <relations:sales_module xmi:id="_qRYotYHuEeahSKuyVpGSEw" base_Class="_qRYBaYHuEeahSKuyVpGSEw"/>
+  <relations:sales_module xmi:id="_qRYotoHuEeahSKuyVpGSEw" base_Class="_qRYBbYHuEeahSKuyVpGSEw"/>
+  <relations:invoice_dependency xmi:id="_qRYot4HuEeahSKuyVpGSEw" base_Class="_qRYBcYHuEeahSKuyVpGSEw"/>
+  <relations:client_module xmi:id="_qRYouIHuEeahSKuyVpGSEw" base_Class="_qRYBcYHuEeahSKuyVpGSEw"/>
+  <relations:system_module xmi:id="_qRYouYHuEeahSKuyVpGSEw" base_Class="_qRYBiIHuEeahSKuyVpGSEw"/>
+  <relations:supply_dependency xmi:id="_qRYouoHuEeahSKuyVpGSEw" base_Class="_qRYBiIHuEeahSKuyVpGSEw"/>
+  <relations:invoice_module xmi:id="_qRYou4HuEeahSKuyVpGSEw" base_Class="_qRYBj4HuEeahSKuyVpGSEw"/>
+  <relations:supply_module xmi:id="_qRYovIHuEeahSKuyVpGSEw" base_Class="_qRYBk4HuEeahSKuyVpGSEw"/>
+  <relations:cash_register_module xmi:id="_qRYovYHuEeahSKuyVpGSEw" base_Class="_qRYBmoHuEeahSKuyVpGSEw"/>
+  <relations:cash_register_module xmi:id="_qRYovoHuEeahSKuyVpGSEw" base_Class="_qRYoa4HuEeahSKuyVpGSEw"/>
+  <relations:supply_module xmi:id="_qRYov4HuEeahSKuyVpGSEw" base_Class="_qRYohYHuEeahSKuyVpGSEw"/>
+  <relations:supply_module xmi:id="_qRYowIHuEeahSKuyVpGSEw" base_Class="_qRYojIHuEeahSKuyVpGSEw"/>
+  <relations:supply_module xmi:id="_qRYowYHuEeahSKuyVpGSEw" base_Class="_qRYokIHuEeahSKuyVpGSEw"/>
+  <relations:client_module xmi:id="_qRYowoHuEeahSKuyVpGSEw" base_Class="_qRYon4HuEeahSKuyVpGSEw"/>
+</xmi:XMI>

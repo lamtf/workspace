@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_rQNa8J0zEeayUKP_3xoJtg" name="RootElement">
+  <packagedElement xmi:type="uml:Activity" xmi:id="_rQrVAJ0zEeayUKP_3xoJtg" name="Activity1" node="_xOv18J0zEeayUKP_3xoJtg _0IbY0J0zEeayUKP_3xoJtg">
+    <edge xmi:type="uml:ControlFlow" xmi:id="_1fi8wJ0zEeayUKP_3xoJtg" target="_xOv18J0zEeayUKP_3xoJtg" source="_0IbY0J0zEeayUKP_3xoJtg"/>
+    <node xmi:type="uml:OpaqueAction" xmi:id="_xOv18J0zEeayUKP_3xoJtg" name="form1" incoming="_1fi8wJ0zEeayUKP_3xoJtg"/>
+    <node xmi:type="uml:InitialNode" xmi:id="_0IbY0J0zEeayUKP_3xoJtg" name="init" outgoing="_1fi8wJ0zEeayUKP_3xoJtg"/>
+  </packagedElement>
+</uml:Model>

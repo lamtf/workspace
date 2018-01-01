@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/viewpoints/policy/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_trCjIHeDEee7gvKmgz2tNQ" type="PapyrusUMLProfileDiagram" name="Profile Diagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_BkNtAHeEEee7gvKmgz2tNQ" type="Comment_Shape">
+    <children xmi:type="notation:DecorationNode" xmi:id="_BkQJQHeEEee7gvKmgz2tNQ" type="Comment_BodyLabel"/>
+    <element xmi:type="uml:Comment" href="tuning_machine.profile.uml#_BjTHAHeEEee7gvKmgz2tNQ"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_BkNtAXeEEee7gvKmgz2tNQ" x="21" y="15"/>
+  </children>
+  <styles xmi:type="notation:StringValueStyle" xmi:id="_trCjIXeDEee7gvKmgz2tNQ" name="diagram_compatibility_version" stringValue="1.2.0"/>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_trCjIneDEee7gvKmgz2tNQ"/>
+  <styles xmi:type="style:PapyrusViewStyle" xmi:id="_trCjI3eDEee7gvKmgz2tNQ">
+    <owner xmi:type="uml:Profile" href="tuning_machine.profile.uml#_tpfrAHeDEee7gvKmgz2tNQ"/>
+  </styles>
+  <element xmi:type="uml:Profile" href="tuning_machine.profile.uml#_tpfrAHeDEee7gvKmgz2tNQ"/>
+</notation:Diagram>

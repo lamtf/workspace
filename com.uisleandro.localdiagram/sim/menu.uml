@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="__P6BoIaMEea095bidxyXew" name="RootElement">
+  <packagedElement xmi:type="uml:Package" xmi:id="_8X1EcIaQEea095bidxyXew" name="menu">
+    <ownedComment xmi:type="uml:Comment" xmi:id="_8uT8sIaOEea095bidxyXew" annotatedElement="_PHxcwIaOEea095bidxyXew _K6v4IIaNEea095bidxyXew">
+      <body>what todo with
+payable accounts?
+</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_fw1EQIaPEea095bidxyXew" annotatedElement="_lvVU8IaNEea095bidxyXew">
+      <body>one kind of client per country
+</body>
+    </ownedComment>
+    <ownedComment xmi:type="uml:Comment" xmi:id="_7fk74IaSEea095bidxyXew" annotatedElement="_EsQgIIaOEea095bidxyXew">
+      <body>&quot;installment credit&quot; = &quot;crediario&quot; ~~ invoices</body>
+    </ownedComment>
+    <packagedElement xmi:type="uml:Class" xmi:id="_K6v4IIaNEea095bidxyXew" name="cash_register">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_O_wlsIaNEea095bidxyXew" name="opening"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_X3LSUIaNEea095bidxyXew" name="cash_flow"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Zqnl4IaNEea095bidxyXew" name="register_expenses"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_bOWpgIaNEea095bidxyXew" name="closing"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_lvVU8IaNEea095bidxyXew" name="customer">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_nh_lYIaNEea095bidxyXew" name="register_new_customer"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_p1lYoIaNEea095bidxyXew" name="list_customers"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_srywwIaNEea095bidxyXew" name="change_customer"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_NMQOcIaSEea095bidxyXew" name="block_customer"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_vGVgkIaNEea095bidxyXew" name="supply">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_wZyFcIaNEea095bidxyXew" name="register_new_product"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_ym42MIaNEea095bidxyXew" name="list_products"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_0HiwoIaNEea095bidxyXew" name="alter_products"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_93iEAIaNEea095bidxyXew" name="sales">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_-spuIIaNEea095bidxyXew" name="sales_point"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_BJjOYIaOEea095bidxyXew" name="sales_recipt"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_CuJ0sIaOEea095bidxyXew" name="devolutions"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_EsQgIIaOEea095bidxyXew" name="receivable_accounts">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_JtLcUIaOEea095bidxyXew" name="receiving"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_LgU08IaOEea095bidxyXew" name="list_invoices"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_M7TlMIaOEea095bidxyXew" name="overdue_invoices"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_PHxcwIaOEea095bidxyXew" name="payable_accounts">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_QZeVMIaOEea095bidxyXew" name="constant_expenses"/>
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_Rr5mYIaOEea095bidxyXew" name="variable_expenses"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Class" xmi:id="_UtpgIIaOEea095bidxyXew" name="help">
+      <ownedOperation xmi:type="uml:Operation" xmi:id="_VhnTsIaOEea095bidxyXew" name="introduction"/>
+    </packagedElement>
+  </packagedElement>
+</uml:Model>

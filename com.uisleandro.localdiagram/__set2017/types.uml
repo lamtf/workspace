@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_Ji7VUH9VEeaVP9RPox9M_A" name="pim" URI="com.uisleandro.pim" viewpoint="">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_xzElYJ4YEeeiLrrsPoncUw">
+    <body>v0.0.3</body>
+  </ownedComment>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrUX9YEeaVP9RPox9M_A" name="Identifier"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrU39YEeaVP9RPox9M_A" name="Money"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrVX9YEeaVP9RPox9M_A" name="MediumText"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrV39YEeaVP9RPox9M_A" name="Date"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrWX9YEeaVP9RPox9M_A" name="Abbreviature"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrW39YEeaVP9RPox9M_A" name="DateTime"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrXX9YEeaVP9RPox9M_A" name="SmallText"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrX39YEeaVP9RPox9M_A" name="BigText"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrYX9YEeaVP9RPox9M_A" name="YesNoQuestion"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrY39YEeaVP9RPox9M_A" name="Number"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrZX9YEeaVP9RPox9M_A" name="GuidType"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmrZ39YEeaVP9RPox9M_A" name="File"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_4UmraX9YEeaVP9RPox9M_A" name="PreciseNumber"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_rhcrcH9kEeaVP9RPox9M_A" name="Time"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_uEjN8KDFEee7v6g5sI4lGQ" name="Barcode"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_upixYKDFEee7v6g5sI4lGQ" name="VeryPreciseNumber2"/>
+  <packagedElement xmi:type="uml:PrimitiveType" xmi:id="_7n3pAKDFEee7v6g5sI4lGQ" name="Picture"/>
+</uml:Model>
