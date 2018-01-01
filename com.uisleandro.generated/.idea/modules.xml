@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/com.uisleandro.Store.Cash/com.uisleandro.Store.Cash.iml" filepath="$PROJECT_DIR$/com.uisleandro.Store.Cash/com.uisleandro.Store.Cash.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.uisleandro.Store.Client/com.uisleandro.Store.Client.iml" filepath="$PROJECT_DIR$/com.uisleandro.Store.Client/com.uisleandro.Store.Client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.uisleandro.Store.Core/com.uisleandro.Store.Core.iml" filepath="$PROJECT_DIR$/com.uisleandro.Store.Core/com.uisleandro.Store.Core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.uisleandro.Store.CreditProtection/com.uisleandro.Store.CreditProtection.iml" filepath="$PROJECT_DIR$/com.uisleandro.Store.CreditProtection/com.uisleandro.Store.CreditProtection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.uisleandro.Store.Discount/com.uisleandro.Store.Discount.iml" filepath="$PROJECT_DIR$/com.uisleandro.Store.Discount/com.uisleandro.Store.Discount.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.uisleandro.Store.Receivement/com.uisleandro.Store.Receivement.iml" filepath="$PROJECT_DIR$/com.uisleandro.Store.Receivement/com.uisleandro.Store.Receivement.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.uisleandro.Store.Sales/com.uisleandro.Store.Sales.iml" filepath="$PROJECT_DIR$/com.uisleandro.Store.Sales/com.uisleandro.Store.Sales.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.uisleandro.Store.Supply/com.uisleandro.Store.Supply.iml" filepath="$PROJECT_DIR$/com.uisleandro.Store.Supply/com.uisleandro.Store.Supply.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/com.uisleandro.generated.iml" filepath="$PROJECT_DIR$/.idea/com.uisleandro.generated.iml" />
+    </modules>
+  </component>
+</project>

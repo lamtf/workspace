@@ -1,0 +1,13 @@
+Eu preciso criar mais uma Transformacao para mudar o tipo de todos os campos 
+"Barcode", etc
+
+
+criar um elemento trash
+	-> mandar os elementos deletados para trash
+	-> deletar os elementos indesejaveis
+	
+cash_register nao vai ter moeda
+(deve ter alguma funcao para remover)
+
+
+carh_launch tambem nao tem

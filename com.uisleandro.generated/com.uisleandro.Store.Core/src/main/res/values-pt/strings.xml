@@ -1,0 +1,33 @@
+<resources>
+<!-- 
+Start of user code reserved for the programmer
+-->
+	<string name="name">Name</string>
+	<string name="last_update">last_update</string>
+	<string name="last_use_time">last_use_time</string>
+<!--
+End of user code
+-->
+	<string name="app_name">Store</string>
+	<string name="db_log">Db Log</string>
+	<string name="action_name">Action Name</string>	
+	<string name="parameter">Parameter</string>	
+	<string name="currency">Currency</string>
+	<string name="abbreviature">Abbreviature</string>	
+	<string name="description">Description</string>	
+	<string name="token_type">Token Type</string>
+	<string name="user">User</string>
+	<string name="username">Username</string>	
+	<string name="password">Password</string>	
+	<string name="email">Email</string>	
+	<string name="last_error_time">Last Error Time</string>	
+	<string name="error_count">Error Count</string>	
+	<string name="active">Active</string>	
+	<string name="token">Token</string>
+	<string name="guid">Guid</string>	
+	<string name="expiration_time">Expiration Time</string>	
+	<string name="system">System</string>
+	<string name="enabled">Enabled</string>	
+	<string name="role">Role</string>
+
+</resources>

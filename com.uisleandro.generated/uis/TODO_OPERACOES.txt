@@ -1,0 +1,45 @@
+----> parece que sim: rever
+basic_client
+  find_by_id(in,out): brazilian
+  find_by_name(in,out): brazilian
+  find_by_cpf(in,out): brazilian
+
+cash_register
+  is_open_today(in,out)
+  open_cash_register(in)
+  sum_cash_launches(in,out)
+  eventual_cash_usage(in)
+  close_cash_register(in)
+  check_history(in,out)
+
+TODO:
+	credit_protection::issue
+->
+	register_issue
+	check_client
+
+--->quase
+product
+  get_by_id(in,out)
+  get_by_qrcode(in,out)
+  get_by_repeated_product_code(in,out)
+	product_recounting(in)
+	missing_products_relatory(in,out)
+	start_product_recounting(in)
+
+auth
+  user_do_login(in,out)
+  user_can_access(in)
+
+invoice
+  insert_installment(in)
+  insert_installment_sicoob(in)
+
+sales_chart
+  create_sales_chart(in)  --> fazendo.. descendo..
+  add_product_to_sales_chart(in) --> fazendo..
+  cancel_sales_chart(in,before) --> ja parece
+  list_products_on_sales_chart(in,out).. > ja parece
+  remove_product_from_sales_chart(in) .. ja parece
+  remove_all_products_sales_chart(in) --> ja parece
+

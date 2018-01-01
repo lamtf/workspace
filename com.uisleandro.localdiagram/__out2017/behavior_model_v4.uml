@@ -768,6 +768,12 @@ como vou pegar o resultado desta activity?</body>
               <ownedAttribute xmi:id="_yYPJoe2FEeek3faVaWm3jQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_vO74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_ve74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_rqnm8aoIEeeSt_cFmj0r8A" name="cash_launch_vw">
@@ -946,6 +952,12 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:id="_yYPJo-2FEeek3faVaWm3jQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_vu74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_v-74EeeNWe_rLew7EQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -1511,6 +1523,12 @@ como vou pegar o resultado desta activity?</body>
               <ownedAttribute xmi:id="_yYOime2FEeek3faVaWm3jQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_uO74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_ue74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_rqoN_KoIEeeSt_cFmj0r8A" name="unit_vw">
@@ -1733,6 +1751,12 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:id="_yYOim-2FEeek3faVaWm3jQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_uu74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_u-74EeeNWe_rLew7EQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -2450,6 +2474,7 @@ como vou pegar o resultado desta activity?</body>
             <generalization xmi:id="_g4gX8OwHEeekx7c4y07KuA" general="_rqqDF6oIEeeSt_cFmj0r8A"/>
             <generalization xmi:id="_Nl3b0OzGEeecrJ5nJ-nmkA" general="_rqqDF6oIEeeSt_cFmj0r8A"/>
             <generalization xmi:id="_yYAgIO2FEeek3faVaWm3jQ" general="_rqqDF6oIEeeSt_cFmj0r8A"/>
+            <generalization xmi:id="_Dk_ycO74EeeNWe_rLew7EQ" general="_rqqDF6oIEeeSt_cFmj0r8A"/>
             <ownedAttribute xmi:id="_rqoOZ6oIEeeSt_cFmj0r8A" name="last_update">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
             </ownedAttribute>
@@ -2523,6 +2548,12 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:Class" href="basic_structure.uml#_nckRcNH9Eeao-7rxcgX3fg"/>
               </ownedAttribute>
               <ownedAttribute xmi:id="_yYOile2FEeek3faVaWm3jQ" name="issue">
+                <type xmi:type="uml:Class" href="basic_structure.uml#_nckRcNH9Eeao-7rxcgX3fg"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_tO74EeeNWe_rLew7EQ" name="issue">
+                <type xmi:type="uml:Class" href="basic_structure.uml#_nckRcNH9Eeao-7rxcgX3fg"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_te74EeeNWe_rLew7EQ" name="issue">
                 <type xmi:type="uml:Class" href="basic_structure.uml#_nckRcNH9Eeao-7rxcgX3fg"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -2691,6 +2722,12 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:id="_yYOil-2FEeek3faVaWm3jQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_tu74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_t-74EeeNWe_rLew7EQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -3187,6 +3224,12 @@ como vou pegar o resultado desta activity?</body>
               <ownedAttribute xmi:id="_yYPJtu2FEeek3faVaWm3jQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_0e74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_0u74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_rqo1XaoIEeeSt_cFmj0r8A" name="sale_type_vw">
@@ -3474,6 +3517,12 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:id="_yYPJtO2FEeek3faVaWm3jQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_z-74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_0O74EeeNWe_rLew7EQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -3931,6 +3980,12 @@ como vou pegar o resultado desta activity?</body>
               <ownedAttribute xmi:id="_yYPJrO2FEeek3faVaWm3jQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_x-74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_yO74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_rqpcEaoIEeeSt_cFmj0r8A" name="currency_vw">
@@ -4103,6 +4158,12 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:id="_yYPJru2FEeek3faVaWm3jQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_ye74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_yu74EeeNWe_rLew7EQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -4281,6 +4342,12 @@ como vou pegar o resultado desta activity?</body>
               <ownedAttribute xmi:id="_yYPJsO2FEeek3faVaWm3jQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_y-74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_zO74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_rqpcV6oIEeeSt_cFmj0r8A" name="system_vw">
@@ -4391,6 +4458,12 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:id="_yYPJqu2FEeek3faVaWm3jQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_xe74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_xu74EeeNWe_rLew7EQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -5070,6 +5143,12 @@ como vou pegar o resultado desta activity?</body>
               <ownedAttribute xmi:id="_yYOik-2FEeek3faVaWm3jQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_su74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_s-74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
         </packagedElement>
@@ -5497,6 +5576,12 @@ como vou pegar o resultado desta activity?</body>
               <ownedAttribute xmi:id="_yYPJsu2FEeek3faVaWm3jQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_ze74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_zu74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_rqqDh6oIEeeSt_cFmj0r8A" name="basic_client_vw">
@@ -5816,6 +5901,9 @@ como vou pegar o resultado desta activity?</body>
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
             </ownedAttribute>
             <ownedAttribute xmi:id="_yYPJpO2FEeek3faVaWm3jQ" name="name">
+              <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:id="_DlL_wO74EeeNWe_rLew7EQ" name="name">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
             </ownedAttribute>
           </packagedElement>
@@ -6217,6 +6305,12 @@ como vou pegar o resultado desta activity?</body>
               <ownedAttribute xmi:id="_yYPJqO2FEeek3faVaWm3jQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_w-74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_xO74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_rqqqPqoIEeeSt_cFmj0r8A" name="installment_type_vw">
@@ -6582,6 +6676,12 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:id="_yYPJpu2FEeek3faVaWm3jQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_we74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_wu74EeeNWe_rLew7EQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -7100,6 +7200,7 @@ como vou pegar o resultado desta activity?</body>
           <packagedElement xmi:type="uml:Class" xmi:id="_NOdBYOzGEeecrJ5nJ-nmkA" name="refarral">
             <generalization xmi:id="_Nl_XoOzGEeecrJ5nJ-nmkA" general="_rqo1yKoIEeeSt_cFmj0r8A"/>
             <generalization xmi:id="_yYNUcO2FEeek3faVaWm3jQ" general="_rqo1yKoIEeeSt_cFmj0r8A"/>
+            <generalization xmi:id="_DlKxkO74EeeNWe_rLew7EQ" general="_rqo1yKoIEeeSt_cFmj0r8A"/>
             <ownedAttribute xmi:id="_NOdBYezGEeecrJ5nJ-nmkA" name="last_update">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
             </ownedAttribute>
@@ -7182,6 +7283,12 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:id="_yYOike2FEeek3faVaWm3jQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_sO74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:id="_DlL_se74EeeNWe_rLew7EQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>

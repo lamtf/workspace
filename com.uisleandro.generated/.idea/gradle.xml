@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/com.uisleandro.Store.Cash" />
+            <option value="$PROJECT_DIR$/com.uisleandro.Store.Client" />
+            <option value="$PROJECT_DIR$/com.uisleandro.Store.Core" />
+            <option value="$PROJECT_DIR$/com.uisleandro.Store.CreditProtection" />
+            <option value="$PROJECT_DIR$/com.uisleandro.Store.Discount" />
+            <option value="$PROJECT_DIR$/com.uisleandro.Store.Receivement" />
+            <option value="$PROJECT_DIR$/com.uisleandro.Store.Sales" />
+            <option value="$PROJECT_DIR$/com.uisleandro.Store.Supply" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

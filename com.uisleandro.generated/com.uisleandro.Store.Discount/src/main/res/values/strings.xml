@@ -1,0 +1,16 @@
+<resources>
+<!-- 
+Start of user code reserved for the programmer
+-->
+	<string name="name">Name</string>
+	<string name="last_update">last_update</string>
+	<string name="last_use_time">last_use_time</string>
+<!--
+End of user code
+-->
+	<string name="app_name">Discount</string>
+	<string name="discount">Discount</string>
+	<string name="value">Value</string>	
+	<string name="percentage">Percentage</string>	
+
+</resources>

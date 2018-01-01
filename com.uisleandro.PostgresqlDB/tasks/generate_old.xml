@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project default="generate_old" name="com.uisleandro.PostgresqlDB">
-    <property name="ECLIPSE_HOME" value="../../../eclipse2017/modeling-oxigen"/>
-    <property name="ECLIPSE_WORKSPACE" value="../.."/>
+    <property name="ECLIPSE_HOME" value="../../../../eclipse2017/modeling-oxigen"/>
+    <property name="ECLIPSE_WORKSPACE" value="../../../../ws-rcp-oxygen"/>
 
     <!-- The classpath with only the dependencies used by the project -->
     <path id="com.uisleandro.PostgresqlDB.libraryclasspath">

@@ -1,0 +1,30 @@
+<resources>
+<!-- 
+Start of user code reserved for the programmer
+-->
+	<string name="name">Name</string>
+	<string name="last_update">last_update</string>
+	<string name="last_use_time">last_use_time</string>
+<!--
+End of user code
+-->
+	<string name="app_name">Receivement</string>
+	<string name="bank">Bank</string>
+	<string name="code">Code</string>	
+	<string name="invoice">Invoice</string>
+	<string name="installment_type">Installment Type</string>
+	<string name="boleto_sicoob">Boleto Sicoob</string>
+	<string name="cpf">Cpf</string>	
+	<string name="numero">Numero</string>	
+	<string name="data">Data</string>	
+	<string name="vencimento">Vencimento</string>	
+	<string name="valor">Valor</string>	
+	<string name="nosso_numero">Nosso Numero</string>	
+	<string name="quantidade">Quantidade</string>	
+	<string name="parcela">Parcela</string>	
+	<string name="foi_pago">Foi Pago</string>	
+	<string name="data_de_pagamento">Data De Pagamento</string>	
+	<string name="valor_recebido">Valor Recebido</string>	
+	<string name="interest_rate_type">Interest Rate Type</string>
+
+</resources>

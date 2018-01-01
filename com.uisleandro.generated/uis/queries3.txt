@@ -1,0 +1,2721 @@
+class CheckHistoryOut{
+
+	private Long cash_register_last_update;
+	
+	public Long getCashRegisterLastUpdate(){
+		return cash_register_last_update;
+	}
+	
+	public void setCashRegisterLastUpdate(Long cash_register_last_update){
+		this.cash_register_last_update = cash_register_last_update;
+	}
+
+	private Float cash_register_opening_value;
+	
+	public Float getCashRegisterOpeningValue(){
+		return cash_register_opening_value;
+	}
+	
+	public void setCashRegisterOpeningValue(Float cash_register_opening_value){
+		this.cash_register_opening_value = cash_register_opening_value;
+	}
+
+	private Float cash_register_received_value;
+	
+	public Float getCashRegisterReceivedValue(){
+		return cash_register_received_value;
+	}
+	
+	public void setCashRegisterReceivedValue(Float cash_register_received_value){
+		this.cash_register_received_value = cash_register_received_value;
+	}
+
+	private Float cash_register_closing_value;
+	
+	public Float getCashRegisterClosingValue(){
+		return cash_register_closing_value;
+	}
+	
+	public void setCashRegisterClosingValue(Float cash_register_closing_value){
+		this.cash_register_closing_value = cash_register_closing_value;
+	}
+
+	private Long currency_last_update;
+	
+	public Long getCurrencyLastUpdate(){
+		return currency_last_update;
+	}
+	
+	public void setCurrencyLastUpdate(Long currency_last_update){
+		this.currency_last_update = currency_last_update;
+	}
+
+	private String currency_abbreviature;
+	
+	public String getCurrencyAbbreviature(){
+		return currency_abbreviature;
+	}
+	
+	public void setCurrencyAbbreviature(String currency_abbreviature){
+		this.currency_abbreviature = currency_abbreviature;
+	}
+
+	private String currency_description;
+	
+	public String getCurrencyDescription(){
+		return currency_description;
+	}
+	
+	public void setCurrencyDescription(String currency_description){
+		this.currency_description = currency_description;
+	}
+
+	private Long user_last_update;
+	
+	public Long getUserLastUpdate(){
+		return user_last_update;
+	}
+	
+	public void setUserLastUpdate(Long user_last_update){
+		this.user_last_update = user_last_update;
+	}
+
+	private String user_username;
+	
+	public String getUserUsername(){
+		return user_username;
+	}
+	
+	public void setUserUsername(String user_username){
+		this.user_username = user_username;
+	}
+
+	private String user_password;
+	
+	public String getUserPassword(){
+		return user_password;
+	}
+	
+	public void setUserPassword(String user_password){
+		this.user_password = user_password;
+	}
+
+	private String user_name;
+	
+	public String getUserName(){
+		return user_name;
+	}
+	
+	public void setUserName(String user_name){
+		this.user_name = user_name;
+	}
+
+	private String user_email;
+	
+	public String getUserEmail(){
+		return user_email;
+	}
+	
+	public void setUserEmail(String user_email){
+		this.user_email = user_email;
+	}
+
+	private Long user_last_use_time;
+	
+	public Long getUserLastUseTime(){
+		return user_last_use_time;
+	}
+	
+	public void setUserLastUseTime(Long user_last_use_time){
+		this.user_last_use_time = user_last_use_time;
+	}
+
+	private Long user_last_error_time;
+	
+	public Long getUserLastErrorTime(){
+		return user_last_error_time;
+	}
+	
+	public void setUserLastErrorTime(Long user_last_error_time){
+		this.user_last_error_time = user_last_error_time;
+	}
+
+	private Integer user_error_count;
+	
+	public Integer getUserErrorCount(){
+		return user_error_count;
+	}
+	
+	public void setUserErrorCount(Integer user_error_count){
+		this.user_error_count = user_error_count;
+	}
+
+	private Boolean user_active;
+	
+	public Boolean getUserActive(){
+		return user_active;
+	}
+	
+	public void setUserActive(Boolean user_active){
+		this.user_active = user_active;
+	}
+
+	private Long role_last_update;
+	
+	public Long getRoleLastUpdate(){
+		return role_last_update;
+	}
+	
+	public void setRoleLastUpdate(Long role_last_update){
+		this.role_last_update = role_last_update;
+	}
+
+	private String role_name;
+	
+	public String getRoleName(){
+		return role_name;
+	}
+	
+	public void setRoleName(String role_name){
+		this.role_name = role_name;
+	}
+
+	private Long system_last_update;
+	
+	public Long getSystemLastUpdate(){
+		return system_last_update;
+	}
+	
+	public void setSystemLastUpdate(Long system_last_update){
+		this.system_last_update = system_last_update;
+	}
+
+	private String system_name;
+	
+	public String getSystemName(){
+		return system_name;
+	}
+	
+	public void setSystemName(String system_name){
+		this.system_name = system_name;
+	}
+
+	private Boolean system_enabled;
+	
+	public Boolean getSystemEnabled(){
+		return system_enabled;
+	}
+	
+	public void setSystemEnabled(Boolean system_enabled){
+		this.system_enabled = system_enabled;
+	}
+
+	private Long currency_last_update;
+	
+	public Long getCurrencyLastUpdate(){
+		return currency_last_update;
+	}
+	
+	public void setCurrencyLastUpdate(Long currency_last_update){
+		this.currency_last_update = currency_last_update;
+	}
+
+	private String currency_abbreviature;
+	
+	public String getCurrencyAbbreviature(){
+		return currency_abbreviature;
+	}
+	
+	public void setCurrencyAbbreviature(String currency_abbreviature){
+		this.currency_abbreviature = currency_abbreviature;
+	}
+
+	private String currency_description;
+	
+	public String getCurrencyDescription(){
+		return currency_description;
+	}
+	
+	public void setCurrencyDescription(String currency_description){
+		this.currency_description = currency_description;
+	}
+
+}
+
+
+package com.uisleandro.cash.model;
+
+class CashRegister{
+	//existsWhere
+	public boolean is_open_today(){
+	
+		String query = "SELECT exists(*) FROM cash_register WHERE cash_register.last_update = ? AND cash_register.user = ? AND cash_register.opening_value > ? AND cash_register.closing_value = ?;";
+		Cursor cursor = database.rawQuery(query, new String[]{ com.uisleandro.util.config.getTodayString(), com.uisleandro.util.config.getUserIdString(), "0", "0" });
+	
+		boolean that = false;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = (cursor.getInt(0) > 0);
+		}
+	
+		return that;
+	
+	}
+	//insert
+	public int open_cash_register(Long user){
+	
+		String query = "INSERT INTO cash_register(last_update,user,opening_value,received_value,closing_value) VALUES (?,?,?,?,?);";
+		Cursor cursor = database.rawQuery(query, new String[]{ com.uisleandro.util.config.getRightNowString(), String.ValueOf(user), "0", "0", "0" });
+	
+		int that = 0;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursor.getInt(0);
+		}
+	
+		return that;
+	
+	}
+	//selectValueWhere
+	public Float sum_cash_launches(Long fk_cash_register){
+		String query = "SELECT cash_launch.amount_spent FROM cash_launch WHERE cash_launch.fk_cash_register = ?;";
+		Cursor cursor = database.rawQuery(query, new String[]{ String.ValueOf(fk_cash_register) });
+	
+		Float that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursor.getFloat(amount_spent);
+		}
+	
+		return that;
+	
+	}
+	//insert
+	public int eventual_cash_usage(Long fk_cash_register, String justification, Float amount_spent){
+	
+		String query = "INSERT INTO cash_launch(last_update,fk_cash_register,justification,amount_spent) VALUES (?,?,?,?);";
+		Cursor cursor = database.rawQuery(query, new String[]{ com.uisleandro.util.config.getRightNowString(), String.ValueOf(fk_cash_register), justification, String.ValueOf(amount_spent) });
+	
+		int that = 0;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursor.getInt(0);
+		}
+	
+		return that;
+	
+	}
+	//selectListWhere
+	public List<CheckHistoryOut> check_history(){
+	
+		String query = "SELECT cash_register.last_update,cash_register.opening_value,cash_register.received_value,cash_register.closing_value,currency.last_update,currency.abbreviature,currency.description,user.last_update,user.username,user.password,user.name,user.email,user.last_use_time,user.last_error_time,user.error_count,user.active,role.last_update,role.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM cash_register INNER JOIN user ON cash_register.fk_user = user.id INNER JOIN currency ON cash_register.fk_currency = currency.id INNER JOIN system ON user.fk_system = system.id INNER JOIN role ON user.fk_role = role.id INNER JOIN currency ON system.fk_currency = currency.id WHERE cash_register.last_update = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ com.uisleandro.util.config.getTodayString() });
+	
+		List<CheckHistoryOut> those = null;
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			those.add( cursorToCheckHistoryOut(cursor) );
+			cursor.moveToNext();
+		}
+	
+		return those;
+	
+	}
+}
+
+
+class GetByIdOut{
+
+	private Long product_last_update;
+	
+	public Long getProductLastUpdate(){
+		return product_last_update;
+	}
+	
+	public void setProductLastUpdate(Long product_last_update){
+		this.product_last_update = product_last_update;
+	}
+
+	private String product_barcode;
+	
+	public String getProductBarcode(){
+		return product_barcode;
+	}
+	
+	public void setProductBarcode(String product_barcode){
+		this.product_barcode = product_barcode;
+	}
+
+	private String product_description;
+	
+	public String getProductDescription(){
+		return product_description;
+	}
+	
+	public void setProductDescription(String product_description){
+		this.product_description = product_description;
+	}
+
+	private Integer product_amount;
+	
+	public Integer getProductAmount(){
+		return product_amount;
+	}
+	
+	public void setProductAmount(Integer product_amount){
+		this.product_amount = product_amount;
+	}
+
+	private Float product_purchase_price;
+	
+	public Float getProductPurchasePrice(){
+		return product_purchase_price;
+	}
+	
+	public void setProductPurchasePrice(Float product_purchase_price){
+		this.product_purchase_price = product_purchase_price;
+	}
+
+	private Float product_sale_price;
+	
+	public Float getProductSalePrice(){
+		return product_sale_price;
+	}
+	
+	public void setProductSalePrice(Float product_sale_price){
+		this.product_sale_price = product_sale_price;
+	}
+
+	private String product_size;
+	
+	public String getProductSize(){
+		return product_size;
+	}
+	
+	public void setProductSize(String product_size){
+		this.product_size = product_size;
+	}
+
+	private Long product_expiration_date;
+	
+	public Long getProductExpirationDate(){
+		return product_expiration_date;
+	}
+	
+	public void setProductExpirationDate(Long product_expiration_date){
+		this.product_expiration_date = product_expiration_date;
+	}
+
+	private Long brand_last_update;
+	
+	public Long getBrandLastUpdate(){
+		return brand_last_update;
+	}
+	
+	public void setBrandLastUpdate(Long brand_last_update){
+		this.brand_last_update = brand_last_update;
+	}
+
+	private String brand_company_name;
+	
+	public String getBrandCompanyName(){
+		return brand_company_name;
+	}
+	
+	public void setBrandCompanyName(String brand_company_name){
+		this.brand_company_name = brand_company_name;
+	}
+
+	private String brand_fantasy_name;
+	
+	public String getBrandFantasyName(){
+		return brand_fantasy_name;
+	}
+	
+	public void setBrandFantasyName(String brand_fantasy_name){
+		this.brand_fantasy_name = brand_fantasy_name;
+	}
+
+	private Long unit_last_update;
+	
+	public Long getUnitLastUpdate(){
+		return unit_last_update;
+	}
+	
+	public void setUnitLastUpdate(Long unit_last_update){
+		this.unit_last_update = unit_last_update;
+	}
+
+	private String unit_name;
+	
+	public String getUnitName(){
+		return unit_name;
+	}
+	
+	public void setUnitName(String unit_name){
+		this.unit_name = unit_name;
+	}
+
+	private Long category_last_update;
+	
+	public Long getCategoryLastUpdate(){
+		return category_last_update;
+	}
+	
+	public void setCategoryLastUpdate(Long category_last_update){
+		this.category_last_update = category_last_update;
+	}
+
+	private String category_name;
+	
+	public String getCategoryName(){
+		return category_name;
+	}
+	
+	public void setCategoryName(String category_name){
+		this.category_name = category_name;
+	}
+
+	private Long gender_last_update;
+	
+	public Long getGenderLastUpdate(){
+		return gender_last_update;
+	}
+	
+	public void setGenderLastUpdate(Long gender_last_update){
+		this.gender_last_update = gender_last_update;
+	}
+
+	private String gender_name;
+	
+	public String getGenderName(){
+		return gender_name;
+	}
+	
+	public void setGenderName(String gender_name){
+		this.gender_name = gender_name;
+	}
+
+	private Long system_last_update;
+	
+	public Long getSystemLastUpdate(){
+		return system_last_update;
+	}
+	
+	public void setSystemLastUpdate(Long system_last_update){
+		this.system_last_update = system_last_update;
+	}
+
+	private String system_name;
+	
+	public String getSystemName(){
+		return system_name;
+	}
+	
+	public void setSystemName(String system_name){
+		this.system_name = system_name;
+	}
+
+	private Boolean system_enabled;
+	
+	public Boolean getSystemEnabled(){
+		return system_enabled;
+	}
+	
+	public void setSystemEnabled(Boolean system_enabled){
+		this.system_enabled = system_enabled;
+	}
+
+	private Long currency_last_update;
+	
+	public Long getCurrencyLastUpdate(){
+		return currency_last_update;
+	}
+	
+	public void setCurrencyLastUpdate(Long currency_last_update){
+		this.currency_last_update = currency_last_update;
+	}
+
+	private String currency_abbreviature;
+	
+	public String getCurrencyAbbreviature(){
+		return currency_abbreviature;
+	}
+	
+	public void setCurrencyAbbreviature(String currency_abbreviature){
+		this.currency_abbreviature = currency_abbreviature;
+	}
+
+	private String currency_description;
+	
+	public String getCurrencyDescription(){
+		return currency_description;
+	}
+	
+	public void setCurrencyDescription(String currency_description){
+		this.currency_description = currency_description;
+	}
+
+}
+class GetByQrcodeOut{
+
+	private Long product_last_update;
+	
+	public Long getProductLastUpdate(){
+		return product_last_update;
+	}
+	
+	public void setProductLastUpdate(Long product_last_update){
+		this.product_last_update = product_last_update;
+	}
+
+	private String product_barcode;
+	
+	public String getProductBarcode(){
+		return product_barcode;
+	}
+	
+	public void setProductBarcode(String product_barcode){
+		this.product_barcode = product_barcode;
+	}
+
+	private String product_description;
+	
+	public String getProductDescription(){
+		return product_description;
+	}
+	
+	public void setProductDescription(String product_description){
+		this.product_description = product_description;
+	}
+
+	private Integer product_amount;
+	
+	public Integer getProductAmount(){
+		return product_amount;
+	}
+	
+	public void setProductAmount(Integer product_amount){
+		this.product_amount = product_amount;
+	}
+
+	private Float product_purchase_price;
+	
+	public Float getProductPurchasePrice(){
+		return product_purchase_price;
+	}
+	
+	public void setProductPurchasePrice(Float product_purchase_price){
+		this.product_purchase_price = product_purchase_price;
+	}
+
+	private Float product_sale_price;
+	
+	public Float getProductSalePrice(){
+		return product_sale_price;
+	}
+	
+	public void setProductSalePrice(Float product_sale_price){
+		this.product_sale_price = product_sale_price;
+	}
+
+	private String product_size;
+	
+	public String getProductSize(){
+		return product_size;
+	}
+	
+	public void setProductSize(String product_size){
+		this.product_size = product_size;
+	}
+
+	private Long product_expiration_date;
+	
+	public Long getProductExpirationDate(){
+		return product_expiration_date;
+	}
+	
+	public void setProductExpirationDate(Long product_expiration_date){
+		this.product_expiration_date = product_expiration_date;
+	}
+
+	private Long brand_last_update;
+	
+	public Long getBrandLastUpdate(){
+		return brand_last_update;
+	}
+	
+	public void setBrandLastUpdate(Long brand_last_update){
+		this.brand_last_update = brand_last_update;
+	}
+
+	private String brand_company_name;
+	
+	public String getBrandCompanyName(){
+		return brand_company_name;
+	}
+	
+	public void setBrandCompanyName(String brand_company_name){
+		this.brand_company_name = brand_company_name;
+	}
+
+	private String brand_fantasy_name;
+	
+	public String getBrandFantasyName(){
+		return brand_fantasy_name;
+	}
+	
+	public void setBrandFantasyName(String brand_fantasy_name){
+		this.brand_fantasy_name = brand_fantasy_name;
+	}
+
+	private Long unit_last_update;
+	
+	public Long getUnitLastUpdate(){
+		return unit_last_update;
+	}
+	
+	public void setUnitLastUpdate(Long unit_last_update){
+		this.unit_last_update = unit_last_update;
+	}
+
+	private String unit_name;
+	
+	public String getUnitName(){
+		return unit_name;
+	}
+	
+	public void setUnitName(String unit_name){
+		this.unit_name = unit_name;
+	}
+
+	private Long category_last_update;
+	
+	public Long getCategoryLastUpdate(){
+		return category_last_update;
+	}
+	
+	public void setCategoryLastUpdate(Long category_last_update){
+		this.category_last_update = category_last_update;
+	}
+
+	private String category_name;
+	
+	public String getCategoryName(){
+		return category_name;
+	}
+	
+	public void setCategoryName(String category_name){
+		this.category_name = category_name;
+	}
+
+	private Long gender_last_update;
+	
+	public Long getGenderLastUpdate(){
+		return gender_last_update;
+	}
+	
+	public void setGenderLastUpdate(Long gender_last_update){
+		this.gender_last_update = gender_last_update;
+	}
+
+	private String gender_name;
+	
+	public String getGenderName(){
+		return gender_name;
+	}
+	
+	public void setGenderName(String gender_name){
+		this.gender_name = gender_name;
+	}
+
+	private Long system_last_update;
+	
+	public Long getSystemLastUpdate(){
+		return system_last_update;
+	}
+	
+	public void setSystemLastUpdate(Long system_last_update){
+		this.system_last_update = system_last_update;
+	}
+
+	private String system_name;
+	
+	public String getSystemName(){
+		return system_name;
+	}
+	
+	public void setSystemName(String system_name){
+		this.system_name = system_name;
+	}
+
+	private Boolean system_enabled;
+	
+	public Boolean getSystemEnabled(){
+		return system_enabled;
+	}
+	
+	public void setSystemEnabled(Boolean system_enabled){
+		this.system_enabled = system_enabled;
+	}
+
+	private Long currency_last_update;
+	
+	public Long getCurrencyLastUpdate(){
+		return currency_last_update;
+	}
+	
+	public void setCurrencyLastUpdate(Long currency_last_update){
+		this.currency_last_update = currency_last_update;
+	}
+
+	private String currency_abbreviature;
+	
+	public String getCurrencyAbbreviature(){
+		return currency_abbreviature;
+	}
+	
+	public void setCurrencyAbbreviature(String currency_abbreviature){
+		this.currency_abbreviature = currency_abbreviature;
+	}
+
+	private String currency_description;
+	
+	public String getCurrencyDescription(){
+		return currency_description;
+	}
+	
+	public void setCurrencyDescription(String currency_description){
+		this.currency_description = currency_description;
+	}
+
+}
+class GetByRepeatedProductCodeOut{
+
+	private Long product_last_update;
+	
+	public Long getProductLastUpdate(){
+		return product_last_update;
+	}
+	
+	public void setProductLastUpdate(Long product_last_update){
+		this.product_last_update = product_last_update;
+	}
+
+	private String product_barcode;
+	
+	public String getProductBarcode(){
+		return product_barcode;
+	}
+	
+	public void setProductBarcode(String product_barcode){
+		this.product_barcode = product_barcode;
+	}
+
+	private String product_description;
+	
+	public String getProductDescription(){
+		return product_description;
+	}
+	
+	public void setProductDescription(String product_description){
+		this.product_description = product_description;
+	}
+
+	private Integer product_amount;
+	
+	public Integer getProductAmount(){
+		return product_amount;
+	}
+	
+	public void setProductAmount(Integer product_amount){
+		this.product_amount = product_amount;
+	}
+
+	private Float product_purchase_price;
+	
+	public Float getProductPurchasePrice(){
+		return product_purchase_price;
+	}
+	
+	public void setProductPurchasePrice(Float product_purchase_price){
+		this.product_purchase_price = product_purchase_price;
+	}
+
+	private Float product_sale_price;
+	
+	public Float getProductSalePrice(){
+		return product_sale_price;
+	}
+	
+	public void setProductSalePrice(Float product_sale_price){
+		this.product_sale_price = product_sale_price;
+	}
+
+	private String product_size;
+	
+	public String getProductSize(){
+		return product_size;
+	}
+	
+	public void setProductSize(String product_size){
+		this.product_size = product_size;
+	}
+
+	private Long product_expiration_date;
+	
+	public Long getProductExpirationDate(){
+		return product_expiration_date;
+	}
+	
+	public void setProductExpirationDate(Long product_expiration_date){
+		this.product_expiration_date = product_expiration_date;
+	}
+
+	private Long brand_last_update;
+	
+	public Long getBrandLastUpdate(){
+		return brand_last_update;
+	}
+	
+	public void setBrandLastUpdate(Long brand_last_update){
+		this.brand_last_update = brand_last_update;
+	}
+
+	private String brand_company_name;
+	
+	public String getBrandCompanyName(){
+		return brand_company_name;
+	}
+	
+	public void setBrandCompanyName(String brand_company_name){
+		this.brand_company_name = brand_company_name;
+	}
+
+	private String brand_fantasy_name;
+	
+	public String getBrandFantasyName(){
+		return brand_fantasy_name;
+	}
+	
+	public void setBrandFantasyName(String brand_fantasy_name){
+		this.brand_fantasy_name = brand_fantasy_name;
+	}
+
+	private Long unit_last_update;
+	
+	public Long getUnitLastUpdate(){
+		return unit_last_update;
+	}
+	
+	public void setUnitLastUpdate(Long unit_last_update){
+		this.unit_last_update = unit_last_update;
+	}
+
+	private String unit_name;
+	
+	public String getUnitName(){
+		return unit_name;
+	}
+	
+	public void setUnitName(String unit_name){
+		this.unit_name = unit_name;
+	}
+
+	private Long category_last_update;
+	
+	public Long getCategoryLastUpdate(){
+		return category_last_update;
+	}
+	
+	public void setCategoryLastUpdate(Long category_last_update){
+		this.category_last_update = category_last_update;
+	}
+
+	private String category_name;
+	
+	public String getCategoryName(){
+		return category_name;
+	}
+	
+	public void setCategoryName(String category_name){
+		this.category_name = category_name;
+	}
+
+	private Long gender_last_update;
+	
+	public Long getGenderLastUpdate(){
+		return gender_last_update;
+	}
+	
+	public void setGenderLastUpdate(Long gender_last_update){
+		this.gender_last_update = gender_last_update;
+	}
+
+	private String gender_name;
+	
+	public String getGenderName(){
+		return gender_name;
+	}
+	
+	public void setGenderName(String gender_name){
+		this.gender_name = gender_name;
+	}
+
+	private Long system_last_update;
+	
+	public Long getSystemLastUpdate(){
+		return system_last_update;
+	}
+	
+	public void setSystemLastUpdate(Long system_last_update){
+		this.system_last_update = system_last_update;
+	}
+
+	private String system_name;
+	
+	public String getSystemName(){
+		return system_name;
+	}
+	
+	public void setSystemName(String system_name){
+		this.system_name = system_name;
+	}
+
+	private Boolean system_enabled;
+	
+	public Boolean getSystemEnabled(){
+		return system_enabled;
+	}
+	
+	public void setSystemEnabled(Boolean system_enabled){
+		this.system_enabled = system_enabled;
+	}
+
+	private Long currency_last_update;
+	
+	public Long getCurrencyLastUpdate(){
+		return currency_last_update;
+	}
+	
+	public void setCurrencyLastUpdate(Long currency_last_update){
+		this.currency_last_update = currency_last_update;
+	}
+
+	private String currency_abbreviature;
+	
+	public String getCurrencyAbbreviature(){
+		return currency_abbreviature;
+	}
+	
+	public void setCurrencyAbbreviature(String currency_abbreviature){
+		this.currency_abbreviature = currency_abbreviature;
+	}
+
+	private String currency_description;
+	
+	public String getCurrencyDescription(){
+		return currency_description;
+	}
+	
+	public void setCurrencyDescription(String currency_description){
+		this.currency_description = currency_description;
+	}
+
+}
+class MissingProductsRelatoryOut{
+
+	private Long stock_review_last_update;
+	
+	public Long getStockReviewLastUpdate(){
+		return stock_review_last_update;
+	}
+	
+	public void setStockReviewLastUpdate(Long stock_review_last_update){
+		this.stock_review_last_update = stock_review_last_update;
+	}
+
+	private Integer stock_review_actual_amount;
+	
+	public Integer getStockReviewActualAmount(){
+		return stock_review_actual_amount;
+	}
+	
+	public void setStockReviewActualAmount(Integer stock_review_actual_amount){
+		this.stock_review_actual_amount = stock_review_actual_amount;
+	}
+
+	private Integer stock_review_sold_items;
+	
+	public Integer getStockReviewSoldItems(){
+		return stock_review_sold_items;
+	}
+	
+	public void setStockReviewSoldItems(Integer stock_review_sold_items){
+		this.stock_review_sold_items = stock_review_sold_items;
+	}
+
+	private Integer stock_review_previous_amount;
+	
+	public Integer getStockReviewPreviousAmount(){
+		return stock_review_previous_amount;
+	}
+	
+	public void setStockReviewPreviousAmount(Integer stock_review_previous_amount){
+		this.stock_review_previous_amount = stock_review_previous_amount;
+	}
+
+	private Integer stock_review_missing_amount;
+	
+	public Integer getStockReviewMissingAmount(){
+		return stock_review_missing_amount;
+	}
+	
+	public void setStockReviewMissingAmount(Integer stock_review_missing_amount){
+		this.stock_review_missing_amount = stock_review_missing_amount;
+	}
+
+	private Long product_last_update;
+	
+	public Long getProductLastUpdate(){
+		return product_last_update;
+	}
+	
+	public void setProductLastUpdate(Long product_last_update){
+		this.product_last_update = product_last_update;
+	}
+
+	private String product_barcode;
+	
+	public String getProductBarcode(){
+		return product_barcode;
+	}
+	
+	public void setProductBarcode(String product_barcode){
+		this.product_barcode = product_barcode;
+	}
+
+	private String product_description;
+	
+	public String getProductDescription(){
+		return product_description;
+	}
+	
+	public void setProductDescription(String product_description){
+		this.product_description = product_description;
+	}
+
+	private Integer product_amount;
+	
+	public Integer getProductAmount(){
+		return product_amount;
+	}
+	
+	public void setProductAmount(Integer product_amount){
+		this.product_amount = product_amount;
+	}
+
+	private Float product_purchase_price;
+	
+	public Float getProductPurchasePrice(){
+		return product_purchase_price;
+	}
+	
+	public void setProductPurchasePrice(Float product_purchase_price){
+		this.product_purchase_price = product_purchase_price;
+	}
+
+	private Float product_sale_price;
+	
+	public Float getProductSalePrice(){
+		return product_sale_price;
+	}
+	
+	public void setProductSalePrice(Float product_sale_price){
+		this.product_sale_price = product_sale_price;
+	}
+
+	private String product_size;
+	
+	public String getProductSize(){
+		return product_size;
+	}
+	
+	public void setProductSize(String product_size){
+		this.product_size = product_size;
+	}
+
+	private Long product_expiration_date;
+	
+	public Long getProductExpirationDate(){
+		return product_expiration_date;
+	}
+	
+	public void setProductExpirationDate(Long product_expiration_date){
+		this.product_expiration_date = product_expiration_date;
+	}
+
+	private Long brand_last_update;
+	
+	public Long getBrandLastUpdate(){
+		return brand_last_update;
+	}
+	
+	public void setBrandLastUpdate(Long brand_last_update){
+		this.brand_last_update = brand_last_update;
+	}
+
+	private String brand_company_name;
+	
+	public String getBrandCompanyName(){
+		return brand_company_name;
+	}
+	
+	public void setBrandCompanyName(String brand_company_name){
+		this.brand_company_name = brand_company_name;
+	}
+
+	private String brand_fantasy_name;
+	
+	public String getBrandFantasyName(){
+		return brand_fantasy_name;
+	}
+	
+	public void setBrandFantasyName(String brand_fantasy_name){
+		this.brand_fantasy_name = brand_fantasy_name;
+	}
+
+	private Long unit_last_update;
+	
+	public Long getUnitLastUpdate(){
+		return unit_last_update;
+	}
+	
+	public void setUnitLastUpdate(Long unit_last_update){
+		this.unit_last_update = unit_last_update;
+	}
+
+	private String unit_name;
+	
+	public String getUnitName(){
+		return unit_name;
+	}
+	
+	public void setUnitName(String unit_name){
+		this.unit_name = unit_name;
+	}
+
+	private Long category_last_update;
+	
+	public Long getCategoryLastUpdate(){
+		return category_last_update;
+	}
+	
+	public void setCategoryLastUpdate(Long category_last_update){
+		this.category_last_update = category_last_update;
+	}
+
+	private String category_name;
+	
+	public String getCategoryName(){
+		return category_name;
+	}
+	
+	public void setCategoryName(String category_name){
+		this.category_name = category_name;
+	}
+
+	private Long gender_last_update;
+	
+	public Long getGenderLastUpdate(){
+		return gender_last_update;
+	}
+	
+	public void setGenderLastUpdate(Long gender_last_update){
+		this.gender_last_update = gender_last_update;
+	}
+
+	private String gender_name;
+	
+	public String getGenderName(){
+		return gender_name;
+	}
+	
+	public void setGenderName(String gender_name){
+		this.gender_name = gender_name;
+	}
+
+	private Long system_last_update;
+	
+	public Long getSystemLastUpdate(){
+		return system_last_update;
+	}
+	
+	public void setSystemLastUpdate(Long system_last_update){
+		this.system_last_update = system_last_update;
+	}
+
+	private String system_name;
+	
+	public String getSystemName(){
+		return system_name;
+	}
+	
+	public void setSystemName(String system_name){
+		this.system_name = system_name;
+	}
+
+	private Boolean system_enabled;
+	
+	public Boolean getSystemEnabled(){
+		return system_enabled;
+	}
+	
+	public void setSystemEnabled(Boolean system_enabled){
+		this.system_enabled = system_enabled;
+	}
+
+	private Long currency_last_update;
+	
+	public Long getCurrencyLastUpdate(){
+		return currency_last_update;
+	}
+	
+	public void setCurrencyLastUpdate(Long currency_last_update){
+		this.currency_last_update = currency_last_update;
+	}
+
+	private String currency_abbreviature;
+	
+	public String getCurrencyAbbreviature(){
+		return currency_abbreviature;
+	}
+	
+	public void setCurrencyAbbreviature(String currency_abbreviature){
+		this.currency_abbreviature = currency_abbreviature;
+	}
+
+	private String currency_description;
+	
+	public String getCurrencyDescription(){
+		return currency_description;
+	}
+	
+	public void setCurrencyDescription(String currency_description){
+		this.currency_description = currency_description;
+	}
+
+}
+
+
+package com.uisleandro.supply.model;
+
+class Product{
+	//selectOneWhere 
+	public GetByIdOut get_by_id(Long id){
+	
+		String query = "SELECT product.last_update,product.barcode,product.description,product.amount,product.purchase_price,product.sale_price,product.size,product.expiration_date,brand.last_update,brand.company_name,brand.fantasy_name,unit.last_update,unit.name,category.last_update,category.name,gender.last_update,gender.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM product INNER JOIN system ON product.fk_system = system.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN brand ON product.fk_brand = brand.id INNER JOIN currency ON system.fk_currency = currency.id WHERE product.id = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ String.ValueOf(id) });
+	
+		GetByIdOut that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursorToGetByIdOut(cursor);
+		}
+	
+	
+		return that;
+	}
+	//selectOneWhere 
+	public GetByQrcodeOut get_by_qrcode(String barcode){
+	
+		String query = "SELECT product.last_update,product.barcode,product.description,product.amount,product.purchase_price,product.sale_price,product.size,product.expiration_date,brand.last_update,brand.company_name,brand.fantasy_name,unit.last_update,unit.name,category.last_update,category.name,gender.last_update,gender.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM product INNER JOIN system ON product.fk_system = system.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN brand ON product.fk_brand = brand.id INNER JOIN currency ON system.fk_currency = currency.id WHERE product.barcode = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{  });
+	
+		GetByQrcodeOut that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursorToGetByQrcodeOut(cursor);
+		}
+	
+	
+		return that;
+	}
+	//selectListWhere
+	public List<GetByRepeatedProductCodeOut> get_by_repeated_product_code(Long fk_systen, String barcode){
+	
+		String query = "SELECT product.last_update,product.barcode,product.description,product.amount,product.purchase_price,product.sale_price,product.size,product.expiration_date,brand.last_update,brand.company_name,brand.fantasy_name,unit.last_update,unit.name,category.last_update,category.name,gender.last_update,gender.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM product INNER JOIN system ON product.fk_system = system.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN brand ON product.fk_brand = brand.id INNER JOIN currency ON system.fk_currency = currency.id WHERE product.fk_systen = ? AND product.barcode = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ String.ValueOf(fk_systen), barcode });
+	
+		List<GetByRepeatedProductCodeOut> those = null;
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			those.add( cursorToGetByRepeatedProductCodeOut(cursor) );
+			cursor.moveToNext();
+		}
+	
+		return those;
+	
+	}
+	//updateWhere
+	public int product_recounting(Long fk_product){
+	
+		String query = "UPDATE stock_review SET (stock_review.actual_amount = ?,stock_review.sold_items = ?,stock_review.previous_amount = ?,stock_review.missing_amount = ?,stock_review.barcode = ?) WHERE stock_review.last_update = ?,stock_review.fk_product = ?,stock_review.actual_amount = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ com.uisleandro.util.config.getRightNowString(), String.ValueOf(fk_product), "actual_amount + 1" });
+	
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			result = cursor.getInt(0);
+		}
+	
+		return result;
+	}
+	//selectListWhere
+	public List<MissingProductsRelatoryOut> missing_products_relatory(){
+	
+		String query = "SELECT stock_review.last_update,stock_review.actual_amount,stock_review.sold_items,stock_review.previous_amount,stock_review.missing_amount,product.last_update,product.barcode,product.description,product.amount,product.purchase_price,product.sale_price,product.size,product.expiration_date,brand.last_update,brand.company_name,brand.fantasy_name,unit.last_update,unit.name,category.last_update,category.name,gender.last_update,gender.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM stock_review INNER JOIN product ON stock_review.fk_product = product.id INNER JOIN system ON product.fk_system = system.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN brand ON product.fk_brand = brand.id INNER JOIN currency ON system.fk_currency = currency.id WHERE stock_review.last_update = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ com.uisleandro.util.config.getTodayString() });
+	
+		List<MissingProductsRelatoryOut> those = null;
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			those.add( cursorToMissingProductsRelatoryOut(cursor) );
+			cursor.moveToNext();
+		}
+	
+		return those;
+	
+	}
+}
+
+
+
+
+package com.uisleandro.credit_protection.model;
+
+class Issue{
+	//insert
+	public int register_issue(Long fk_shared_client, String description){
+	
+		String query = "INSERT INTO Issue(last_update,fk_shared_client,description,active,isAnswer) VALUES (?,?,?,?,?);";
+		Cursor cursor = database.rawQuery(query, new String[]{ com.uisleandro.util.config.getRightNowString(), String.ValueOf(fk_shared_client), description, "0", "0" });
+	
+		int that = 0;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursor.getInt(0);
+		}
+	
+		return that;
+	
+	}
+	//existsWhere
+	public boolean check_client(Long fk_shared_client){
+	
+		String query = "SELECT exists(*) FROM Issue WHERE Issue.fk_shared_client = ? AND Issue.active = ? AND (Issue.fk_issue is null or Issue.fk_issue = '');";
+		Cursor cursor = database.rawQuery(query, new String[]{ String.ValueOf(fk_shared_client), "1" });
+	
+		boolean that = false;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = (cursor.getInt(0) > 0);
+		}
+	
+		return that;
+	
+	}
+}
+
+
+class ListProductsOnSalesChartOut{
+
+	private Long product_on_sale_last_update;
+	
+	public Long getProductOnSaleLastUpdate(){
+		return product_on_sale_last_update;
+	}
+	
+	public void setProductOnSaleLastUpdate(Long product_on_sale_last_update){
+		this.product_on_sale_last_update = product_on_sale_last_update;
+	}
+
+	private String product_barcode;
+	
+	public String getProductBarcode(){
+		return product_barcode;
+	}
+	
+	public void setProductBarcode(String product_barcode){
+		this.product_barcode = product_barcode;
+	}
+
+	private String product_description;
+	
+	public String getProductDescription(){
+		return product_description;
+	}
+	
+	public void setProductDescription(String product_description){
+		this.product_description = product_description;
+	}
+
+	private Float product_sale_price;
+	
+	public Float getProductSalePrice(){
+		return product_sale_price;
+	}
+	
+	public void setProductSalePrice(Float product_sale_price){
+		this.product_sale_price = product_sale_price;
+	}
+
+	private String product_size;
+	
+	public String getProductSize(){
+		return product_size;
+	}
+	
+	public void setProductSize(String product_size){
+		this.product_size = product_size;
+	}
+
+	private Long product_expiration_date;
+	
+	public Long getProductExpirationDate(){
+		return product_expiration_date;
+	}
+	
+	public void setProductExpirationDate(Long product_expiration_date){
+		this.product_expiration_date = product_expiration_date;
+	}
+
+	private String brand_fantasy_name;
+	
+	public String getBrandFantasyName(){
+		return brand_fantasy_name;
+	}
+	
+	public void setBrandFantasyName(String brand_fantasy_name){
+		this.brand_fantasy_name = brand_fantasy_name;
+	}
+
+	private String currency_abbreviature;
+	
+	public String getCurrencyAbbreviature(){
+		return currency_abbreviature;
+	}
+	
+	public void setCurrencyAbbreviature(String currency_abbreviature){
+		this.currency_abbreviature = currency_abbreviature;
+	}
+
+	private String unit_name;
+	
+	public String getUnitName(){
+		return unit_name;
+	}
+	
+	public void setUnitName(String unit_name){
+		this.unit_name = unit_name;
+	}
+
+	private String category_name;
+	
+	public String getCategoryName(){
+		return category_name;
+	}
+	
+	public void setCategoryName(String category_name){
+		this.category_name = category_name;
+	}
+
+	private String gender_name;
+	
+	public String getGenderName(){
+		return gender_name;
+	}
+	
+	public void setGenderName(String gender_name){
+		this.gender_name = gender_name;
+	}
+
+}
+
+
+package com.uisleandro.sales.model;
+
+class SalesChart{
+	//insert
+	public int create_sales_chart(){
+	
+		String query = "INSERT INTO sale(last_update,fk_sale_type,total_value,fk_system,fk_user,fk_client_from_system) VALUES (?,NULL,?,?,?,NULL);";
+		Cursor cursor = database.rawQuery(query, new String[]{ com.uisleandro.util.config.getRightNowString(), "0", com.uisleandro.util.config.getSystemIdString(), com.uisleandro.util.config.getUserIdString() });
+	
+		int that = 0;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursor.getInt(0);
+		}
+	
+		return that;
+	
+	}
+	//insert
+	public int add_product_to_sales_chart(Long fk_sale, Long fk_product){
+	
+		String query = "INSERT INTO product_on_sale(last_update,fk_sale,fk_product) VALUES (?,?,?);";
+		Cursor cursor = database.rawQuery(query, new String[]{ com.uisleandro.util.config.getRightNowString(), String.ValueOf(fk_sale), String.ValueOf(fk_product) });
+	
+		int that = 0;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursor.getInt(0);
+		}
+	
+		return that;
+	
+	}
+	//deleteWhere
+	public int cancel_sales_chart(Long id){
+	
+		int result = 0;
+	
+		String query = "DELETE FROM sale WHERE sale.id = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ String.ValueOf(id) });
+	
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			result = cursor.getInt(0);
+		}
+	
+		return result;
+	
+	}
+	//selectListWhere
+	public List<ListProductsOnSalesChartOut> list_products_on_sales_chart(Long fk_sale){
+	
+		String query = "SELECT product_on_sale.last_update,product.barcode,product.description,product.sale_price,product.size,product.expiration_date,brand.fantasy_name,currency.abbreviature,unit.name,category.name,gender.name FROM product_on_sale INNER JOIN product ON product_on_sale.fk_product = product.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN currency ON product.fk_currency = currency.id INNER JOIN brand ON product.fk_brand = brand.id WHERE product_on_sale.fk_sale = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ String.ValueOf(fk_sale) });
+	
+		List<ListProductsOnSalesChartOut> those = null;
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			those.add( cursorToListProductsOnSalesChartOut(cursor) );
+			cursor.moveToNext();
+		}
+	
+		return those;
+	
+	}
+	//deleteWhere
+	public int remove_product_from_sales_chart(Long fk_sale, Long fk_product){
+	
+		int result = 0;
+	
+		String query = "DELETE FROM product_on_sale WHERE product_on_sale.fk_sale = ?,product_on_sale.fk_product = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ String.ValueOf(fk_sale), String.ValueOf(fk_product) });
+	
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			result = cursor.getInt(0);
+		}
+	
+		return result;
+	
+	}
+	//deleteWhere
+	public int remove_all_products_from_sales_chart(Long fk_sale){
+	
+		int result = 0;
+	
+		String query = "DELETE FROM product_on_sale WHERE product_on_sale.fk_sale = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ String.ValueOf(fk_sale) });
+	
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			result = cursor.getInt(0);
+		}
+	
+		return result;
+	
+	}
+}
+
+
+class LoginOut{
+
+	private Long user_last_update;
+	
+	public Long getUserLastUpdate(){
+		return user_last_update;
+	}
+	
+	public void setUserLastUpdate(Long user_last_update){
+		this.user_last_update = user_last_update;
+	}
+
+	private String user_username;
+	
+	public String getUserUsername(){
+		return user_username;
+	}
+	
+	public void setUserUsername(String user_username){
+		this.user_username = user_username;
+	}
+
+	private String user_password;
+	
+	public String getUserPassword(){
+		return user_password;
+	}
+	
+	public void setUserPassword(String user_password){
+		this.user_password = user_password;
+	}
+
+	private String user_name;
+	
+	public String getUserName(){
+		return user_name;
+	}
+	
+	public void setUserName(String user_name){
+		this.user_name = user_name;
+	}
+
+	private String user_email;
+	
+	public String getUserEmail(){
+		return user_email;
+	}
+	
+	public void setUserEmail(String user_email){
+		this.user_email = user_email;
+	}
+
+	private Long user_last_use_time;
+	
+	public Long getUserLastUseTime(){
+		return user_last_use_time;
+	}
+	
+	public void setUserLastUseTime(Long user_last_use_time){
+		this.user_last_use_time = user_last_use_time;
+	}
+
+	private Long user_last_error_time;
+	
+	public Long getUserLastErrorTime(){
+		return user_last_error_time;
+	}
+	
+	public void setUserLastErrorTime(Long user_last_error_time){
+		this.user_last_error_time = user_last_error_time;
+	}
+
+	private Integer user_error_count;
+	
+	public Integer getUserErrorCount(){
+		return user_error_count;
+	}
+	
+	public void setUserErrorCount(Integer user_error_count){
+		this.user_error_count = user_error_count;
+	}
+
+	private Boolean user_active;
+	
+	public Boolean getUserActive(){
+		return user_active;
+	}
+	
+	public void setUserActive(Boolean user_active){
+		this.user_active = user_active;
+	}
+
+	private Long role_last_update;
+	
+	public Long getRoleLastUpdate(){
+		return role_last_update;
+	}
+	
+	public void setRoleLastUpdate(Long role_last_update){
+		this.role_last_update = role_last_update;
+	}
+
+	private String role_name;
+	
+	public String getRoleName(){
+		return role_name;
+	}
+	
+	public void setRoleName(String role_name){
+		this.role_name = role_name;
+	}
+
+	private Long system_last_update;
+	
+	public Long getSystemLastUpdate(){
+		return system_last_update;
+	}
+	
+	public void setSystemLastUpdate(Long system_last_update){
+		this.system_last_update = system_last_update;
+	}
+
+	private String system_name;
+	
+	public String getSystemName(){
+		return system_name;
+	}
+	
+	public void setSystemName(String system_name){
+		this.system_name = system_name;
+	}
+
+	private Boolean system_enabled;
+	
+	public Boolean getSystemEnabled(){
+		return system_enabled;
+	}
+	
+	public void setSystemEnabled(Boolean system_enabled){
+		this.system_enabled = system_enabled;
+	}
+
+	private Long currency_last_update;
+	
+	public Long getCurrencyLastUpdate(){
+		return currency_last_update;
+	}
+	
+	public void setCurrencyLastUpdate(Long currency_last_update){
+		this.currency_last_update = currency_last_update;
+	}
+
+	private String currency_abbreviature;
+	
+	public String getCurrencyAbbreviature(){
+		return currency_abbreviature;
+	}
+	
+	public void setCurrencyAbbreviature(String currency_abbreviature){
+		this.currency_abbreviature = currency_abbreviature;
+	}
+
+	private String currency_description;
+	
+	public String getCurrencyDescription(){
+		return currency_description;
+	}
+	
+	public void setCurrencyDescription(String currency_description){
+		this.currency_description = currency_description;
+	}
+
+}
+class CanAccessOut{
+
+	private Long user_last_update;
+	
+	public Long getUserLastUpdate(){
+		return user_last_update;
+	}
+	
+	public void setUserLastUpdate(Long user_last_update){
+		this.user_last_update = user_last_update;
+	}
+
+	private String user_username;
+	
+	public String getUserUsername(){
+		return user_username;
+	}
+	
+	public void setUserUsername(String user_username){
+		this.user_username = user_username;
+	}
+
+	private String user_password;
+	
+	public String getUserPassword(){
+		return user_password;
+	}
+	
+	public void setUserPassword(String user_password){
+		this.user_password = user_password;
+	}
+
+	private String user_name;
+	
+	public String getUserName(){
+		return user_name;
+	}
+	
+	public void setUserName(String user_name){
+		this.user_name = user_name;
+	}
+
+	private String user_email;
+	
+	public String getUserEmail(){
+		return user_email;
+	}
+	
+	public void setUserEmail(String user_email){
+		this.user_email = user_email;
+	}
+
+	private Long user_last_use_time;
+	
+	public Long getUserLastUseTime(){
+		return user_last_use_time;
+	}
+	
+	public void setUserLastUseTime(Long user_last_use_time){
+		this.user_last_use_time = user_last_use_time;
+	}
+
+	private Long user_last_error_time;
+	
+	public Long getUserLastErrorTime(){
+		return user_last_error_time;
+	}
+	
+	public void setUserLastErrorTime(Long user_last_error_time){
+		this.user_last_error_time = user_last_error_time;
+	}
+
+	private Integer user_error_count;
+	
+	public Integer getUserErrorCount(){
+		return user_error_count;
+	}
+	
+	public void setUserErrorCount(Integer user_error_count){
+		this.user_error_count = user_error_count;
+	}
+
+	private Boolean user_active;
+	
+	public Boolean getUserActive(){
+		return user_active;
+	}
+	
+	public void setUserActive(Boolean user_active){
+		this.user_active = user_active;
+	}
+
+	private Long role_last_update;
+	
+	public Long getRoleLastUpdate(){
+		return role_last_update;
+	}
+	
+	public void setRoleLastUpdate(Long role_last_update){
+		this.role_last_update = role_last_update;
+	}
+
+	private String role_name;
+	
+	public String getRoleName(){
+		return role_name;
+	}
+	
+	public void setRoleName(String role_name){
+		this.role_name = role_name;
+	}
+
+	private Long system_last_update;
+	
+	public Long getSystemLastUpdate(){
+		return system_last_update;
+	}
+	
+	public void setSystemLastUpdate(Long system_last_update){
+		this.system_last_update = system_last_update;
+	}
+
+	private String system_name;
+	
+	public String getSystemName(){
+		return system_name;
+	}
+	
+	public void setSystemName(String system_name){
+		this.system_name = system_name;
+	}
+
+	private Boolean system_enabled;
+	
+	public Boolean getSystemEnabled(){
+		return system_enabled;
+	}
+	
+	public void setSystemEnabled(Boolean system_enabled){
+		this.system_enabled = system_enabled;
+	}
+
+	private Long currency_last_update;
+	
+	public Long getCurrencyLastUpdate(){
+		return currency_last_update;
+	}
+	
+	public void setCurrencyLastUpdate(Long currency_last_update){
+		this.currency_last_update = currency_last_update;
+	}
+
+	private String currency_abbreviature;
+	
+	public String getCurrencyAbbreviature(){
+		return currency_abbreviature;
+	}
+	
+	public void setCurrencyAbbreviature(String currency_abbreviature){
+		this.currency_abbreviature = currency_abbreviature;
+	}
+
+	private String currency_description;
+	
+	public String getCurrencyDescription(){
+		return currency_description;
+	}
+	
+	public void setCurrencyDescription(String currency_description){
+		this.currency_description = currency_description;
+	}
+
+}
+
+
+package com.uisleandro.systems.model;
+
+class Auth{
+	//selectOneWhere 
+	public LoginOut login(Long last_update, String username, String password, String name, String email, Long last_use_time, Long last_error_time, Integer error_count, Boolean active, Long last_update, String name, Boolean enabled, Long last_update, String name, Long last_update, String abbreviature, String description){
+	
+		String query = "SELECT user.last_update,user.username,user.password,user.name,user.email,user.last_use_time,user.last_error_time,user.error_count,user.active,role.last_update,role.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM user INNER JOIN system ON user.fk_system = system.id INNER JOIN role ON user.fk_role = role.id INNER JOIN currency ON system.fk_currency = currency.id WHERE user.last_update = ? AND user.fk_system = ? AND user.fk_role = ? AND user.username = ? AND user.password = ? AND user.name = ? AND user.email = ? AND user.last_use_time = ? AND user.last_error_time = ? AND user.error_count = ? AND user.active = ? AND system.last_update = ? AND system.name = ? AND system.enabled = ? AND system.fk_currency = ? AND role.last_update = ? AND role.name = ? AND currency.last_update = ? AND currency.abbreviature = ? AND currency.description = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ String.ValueOf(last_update), String.ValueOf(system), String.ValueOf(role), username, password, name, email, String.ValueOf(last_use_time), String.ValueOf(last_error_time), String.ValueOf(error_count), String.ValueOf(active), String.ValueOf(last_update), name, String.ValueOf(enabled), String.ValueOf(currency), String.ValueOf(last_update), name, String.ValueOf(last_update), abbreviature, description });
+	
+		LoginOut that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursorToLoginOut(cursor);
+		}
+	
+	
+		return that;
+	}
+	//selectOneWhere 
+	public CanAccessOut user_can_access(Long last_update, String username, String password, String name, String email, Long last_use_time, Long last_error_time, Integer error_count, Boolean active, Long last_update, String name, Boolean enabled, Long last_update, String name, Long last_update, String abbreviature, String description){
+	
+		String query = "SELECT user.last_update,user.username,user.password,user.name,user.email,user.last_use_time,user.last_error_time,user.error_count,user.active,role.last_update,role.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM user INNER JOIN system ON user.fk_system = system.id INNER JOIN role ON user.fk_role = role.id INNER JOIN currency ON system.fk_currency = currency.id WHERE user.last_update = ? AND user.fk_system = ? AND user.fk_role = ? AND user.username = ? AND user.password = ? AND user.name = ? AND user.email = ? AND user.last_use_time = ? AND user.last_error_time = ? AND user.error_count = ? AND user.active = ? AND system.last_update = ? AND system.name = ? AND system.enabled = ? AND system.fk_currency = ? AND role.last_update = ? AND role.name = ? AND currency.last_update = ? AND currency.abbreviature = ? AND currency.description = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ String.ValueOf(last_update), String.ValueOf(system), String.ValueOf(role), username, password, name, email, String.ValueOf(last_use_time), String.ValueOf(last_error_time), String.ValueOf(error_count), String.ValueOf(active), String.ValueOf(last_update), name, String.ValueOf(enabled), String.ValueOf(currency), String.ValueOf(last_update), name, String.ValueOf(last_update), abbreviature, description });
+	
+		CanAccessOut that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursorToCanAccessOut(cursor);
+		}
+	
+	
+		return that;
+	}
+}
+
+
+
+
+package com.uisleandro.discount.model;
+
+class Discount{
+}
+
+
+class FindByCpfOut{
+
+	private Long brazilian_last_update;
+	
+	public Long getBrazilianLastUpdate(){
+		return brazilian_last_update;
+	}
+	
+	public void setBrazilianLastUpdate(Long brazilian_last_update){
+		this.brazilian_last_update = brazilian_last_update;
+	}
+
+	private String brazilian_cpf;
+	
+	public String getBrazilianCpf(){
+		return brazilian_cpf;
+	}
+	
+	public void setBrazilianCpf(String brazilian_cpf){
+		this.brazilian_cpf = brazilian_cpf;
+	}
+
+	private String brazilian_rg;
+	
+	public String getBrazilianRg(){
+		return brazilian_rg;
+	}
+	
+	public void setBrazilianRg(String brazilian_rg){
+		this.brazilian_rg = brazilian_rg;
+	}
+
+	private Long basic_client_last_update;
+	
+	public Long getBasicClientLastUpdate(){
+		return basic_client_last_update;
+	}
+	
+	public void setBasicClientLastUpdate(Long basic_client_last_update){
+		this.basic_client_last_update = basic_client_last_update;
+	}
+
+	private String basic_client_name;
+	
+	public String getBasicClientName(){
+		return basic_client_name;
+	}
+	
+	public void setBasicClientName(String basic_client_name){
+		this.basic_client_name = basic_client_name;
+	}
+
+	private Long basic_client_birth_date;
+	
+	public Long getBasicClientBirthDate(){
+		return basic_client_birth_date;
+	}
+	
+	public void setBasicClientBirthDate(Long basic_client_birth_date){
+		this.basic_client_birth_date = basic_client_birth_date;
+	}
+
+	private String basic_client_birth_city;
+	
+	public String getBasicClientBirthCity(){
+		return basic_client_birth_city;
+	}
+	
+	public void setBasicClientBirthCity(String basic_client_birth_city){
+		this.basic_client_birth_city = basic_client_birth_city;
+	}
+
+	private String basic_client_birth_state;
+	
+	public String getBasicClientBirthState(){
+		return basic_client_birth_state;
+	}
+	
+	public void setBasicClientBirthState(String basic_client_birth_state){
+		this.basic_client_birth_state = basic_client_birth_state;
+	}
+
+	private String basic_client_mothers_name;
+	
+	public String getBasicClientMothersName(){
+		return basic_client_mothers_name;
+	}
+	
+	public void setBasicClientMothersName(String basic_client_mothers_name){
+		this.basic_client_mothers_name = basic_client_mothers_name;
+	}
+
+	private String basic_client_fathers_name;
+	
+	public String getBasicClientFathersName(){
+		return basic_client_fathers_name;
+	}
+	
+	public void setBasicClientFathersName(String basic_client_fathers_name){
+		this.basic_client_fathers_name = basic_client_fathers_name;
+	}
+
+	private String basic_client_profession;
+	
+	public String getBasicClientProfession(){
+		return basic_client_profession;
+	}
+	
+	public void setBasicClientProfession(String basic_client_profession){
+		this.basic_client_profession = basic_client_profession;
+	}
+
+	private String basic_client_zip_code;
+	
+	public String getBasicClientZipCode(){
+		return basic_client_zip_code;
+	}
+	
+	public void setBasicClientZipCode(String basic_client_zip_code){
+		this.basic_client_zip_code = basic_client_zip_code;
+	}
+
+	private String basic_client_address;
+	
+	public String getBasicClientAddress(){
+		return basic_client_address;
+	}
+	
+	public void setBasicClientAddress(String basic_client_address){
+		this.basic_client_address = basic_client_address;
+	}
+
+	private String basic_client_neighborhood;
+	
+	public String getBasicClientNeighborhood(){
+		return basic_client_neighborhood;
+	}
+	
+	public void setBasicClientNeighborhood(String basic_client_neighborhood){
+		this.basic_client_neighborhood = basic_client_neighborhood;
+	}
+
+	private String basic_client_city;
+	
+	public String getBasicClientCity(){
+		return basic_client_city;
+	}
+	
+	public void setBasicClientCity(String basic_client_city){
+		this.basic_client_city = basic_client_city;
+	}
+
+	private String basic_client_state;
+	
+	public String getBasicClientState(){
+		return basic_client_state;
+	}
+	
+	public void setBasicClientState(String basic_client_state){
+		this.basic_client_state = basic_client_state;
+	}
+
+	private String basic_client_complement;
+	
+	public String getBasicClientComplement(){
+		return basic_client_complement;
+	}
+	
+	public void setBasicClientComplement(String basic_client_complement){
+		this.basic_client_complement = basic_client_complement;
+	}
+
+	private Long country_last_update;
+	
+	public Long getCountryLastUpdate(){
+		return country_last_update;
+	}
+	
+	public void setCountryLastUpdate(Long country_last_update){
+		this.country_last_update = country_last_update;
+	}
+
+	private String country_name;
+	
+	public String getCountryName(){
+		return country_name;
+	}
+	
+	public void setCountryName(String country_name){
+		this.country_name = country_name;
+	}
+
+}
+class FindByCpfOut{
+
+	private Long brazilian_last_update;
+	
+	public Long getBrazilianLastUpdate(){
+		return brazilian_last_update;
+	}
+	
+	public void setBrazilianLastUpdate(Long brazilian_last_update){
+		this.brazilian_last_update = brazilian_last_update;
+	}
+
+	private String brazilian_cpf;
+	
+	public String getBrazilianCpf(){
+		return brazilian_cpf;
+	}
+	
+	public void setBrazilianCpf(String brazilian_cpf){
+		this.brazilian_cpf = brazilian_cpf;
+	}
+
+	private String brazilian_rg;
+	
+	public String getBrazilianRg(){
+		return brazilian_rg;
+	}
+	
+	public void setBrazilianRg(String brazilian_rg){
+		this.brazilian_rg = brazilian_rg;
+	}
+
+	private Long basic_client_last_update;
+	
+	public Long getBasicClientLastUpdate(){
+		return basic_client_last_update;
+	}
+	
+	public void setBasicClientLastUpdate(Long basic_client_last_update){
+		this.basic_client_last_update = basic_client_last_update;
+	}
+
+	private String basic_client_name;
+	
+	public String getBasicClientName(){
+		return basic_client_name;
+	}
+	
+	public void setBasicClientName(String basic_client_name){
+		this.basic_client_name = basic_client_name;
+	}
+
+	private Long basic_client_birth_date;
+	
+	public Long getBasicClientBirthDate(){
+		return basic_client_birth_date;
+	}
+	
+	public void setBasicClientBirthDate(Long basic_client_birth_date){
+		this.basic_client_birth_date = basic_client_birth_date;
+	}
+
+	private String basic_client_birth_city;
+	
+	public String getBasicClientBirthCity(){
+		return basic_client_birth_city;
+	}
+	
+	public void setBasicClientBirthCity(String basic_client_birth_city){
+		this.basic_client_birth_city = basic_client_birth_city;
+	}
+
+	private String basic_client_birth_state;
+	
+	public String getBasicClientBirthState(){
+		return basic_client_birth_state;
+	}
+	
+	public void setBasicClientBirthState(String basic_client_birth_state){
+		this.basic_client_birth_state = basic_client_birth_state;
+	}
+
+	private String basic_client_mothers_name;
+	
+	public String getBasicClientMothersName(){
+		return basic_client_mothers_name;
+	}
+	
+	public void setBasicClientMothersName(String basic_client_mothers_name){
+		this.basic_client_mothers_name = basic_client_mothers_name;
+	}
+
+	private String basic_client_fathers_name;
+	
+	public String getBasicClientFathersName(){
+		return basic_client_fathers_name;
+	}
+	
+	public void setBasicClientFathersName(String basic_client_fathers_name){
+		this.basic_client_fathers_name = basic_client_fathers_name;
+	}
+
+	private String basic_client_profession;
+	
+	public String getBasicClientProfession(){
+		return basic_client_profession;
+	}
+	
+	public void setBasicClientProfession(String basic_client_profession){
+		this.basic_client_profession = basic_client_profession;
+	}
+
+	private String basic_client_zip_code;
+	
+	public String getBasicClientZipCode(){
+		return basic_client_zip_code;
+	}
+	
+	public void setBasicClientZipCode(String basic_client_zip_code){
+		this.basic_client_zip_code = basic_client_zip_code;
+	}
+
+	private String basic_client_address;
+	
+	public String getBasicClientAddress(){
+		return basic_client_address;
+	}
+	
+	public void setBasicClientAddress(String basic_client_address){
+		this.basic_client_address = basic_client_address;
+	}
+
+	private String basic_client_neighborhood;
+	
+	public String getBasicClientNeighborhood(){
+		return basic_client_neighborhood;
+	}
+	
+	public void setBasicClientNeighborhood(String basic_client_neighborhood){
+		this.basic_client_neighborhood = basic_client_neighborhood;
+	}
+
+	private String basic_client_city;
+	
+	public String getBasicClientCity(){
+		return basic_client_city;
+	}
+	
+	public void setBasicClientCity(String basic_client_city){
+		this.basic_client_city = basic_client_city;
+	}
+
+	private String basic_client_state;
+	
+	public String getBasicClientState(){
+		return basic_client_state;
+	}
+	
+	public void setBasicClientState(String basic_client_state){
+		this.basic_client_state = basic_client_state;
+	}
+
+	private String basic_client_complement;
+	
+	public String getBasicClientComplement(){
+		return basic_client_complement;
+	}
+	
+	public void setBasicClientComplement(String basic_client_complement){
+		this.basic_client_complement = basic_client_complement;
+	}
+
+	private Long country_last_update;
+	
+	public Long getCountryLastUpdate(){
+		return country_last_update;
+	}
+	
+	public void setCountryLastUpdate(Long country_last_update){
+		this.country_last_update = country_last_update;
+	}
+
+	private String country_name;
+	
+	public String getCountryName(){
+		return country_name;
+	}
+	
+	public void setCountryName(String country_name){
+		this.country_name = country_name;
+	}
+
+}
+class FindByCpfOut{
+
+	private Long brazilian_last_update;
+	
+	public Long getBrazilianLastUpdate(){
+		return brazilian_last_update;
+	}
+	
+	public void setBrazilianLastUpdate(Long brazilian_last_update){
+		this.brazilian_last_update = brazilian_last_update;
+	}
+
+	private String brazilian_cpf;
+	
+	public String getBrazilianCpf(){
+		return brazilian_cpf;
+	}
+	
+	public void setBrazilianCpf(String brazilian_cpf){
+		this.brazilian_cpf = brazilian_cpf;
+	}
+
+	private String brazilian_rg;
+	
+	public String getBrazilianRg(){
+		return brazilian_rg;
+	}
+	
+	public void setBrazilianRg(String brazilian_rg){
+		this.brazilian_rg = brazilian_rg;
+	}
+
+	private Long basic_client_last_update;
+	
+	public Long getBasicClientLastUpdate(){
+		return basic_client_last_update;
+	}
+	
+	public void setBasicClientLastUpdate(Long basic_client_last_update){
+		this.basic_client_last_update = basic_client_last_update;
+	}
+
+	private String basic_client_name;
+	
+	public String getBasicClientName(){
+		return basic_client_name;
+	}
+	
+	public void setBasicClientName(String basic_client_name){
+		this.basic_client_name = basic_client_name;
+	}
+
+	private Long basic_client_birth_date;
+	
+	public Long getBasicClientBirthDate(){
+		return basic_client_birth_date;
+	}
+	
+	public void setBasicClientBirthDate(Long basic_client_birth_date){
+		this.basic_client_birth_date = basic_client_birth_date;
+	}
+
+	private String basic_client_birth_city;
+	
+	public String getBasicClientBirthCity(){
+		return basic_client_birth_city;
+	}
+	
+	public void setBasicClientBirthCity(String basic_client_birth_city){
+		this.basic_client_birth_city = basic_client_birth_city;
+	}
+
+	private String basic_client_birth_state;
+	
+	public String getBasicClientBirthState(){
+		return basic_client_birth_state;
+	}
+	
+	public void setBasicClientBirthState(String basic_client_birth_state){
+		this.basic_client_birth_state = basic_client_birth_state;
+	}
+
+	private String basic_client_mothers_name;
+	
+	public String getBasicClientMothersName(){
+		return basic_client_mothers_name;
+	}
+	
+	public void setBasicClientMothersName(String basic_client_mothers_name){
+		this.basic_client_mothers_name = basic_client_mothers_name;
+	}
+
+	private String basic_client_fathers_name;
+	
+	public String getBasicClientFathersName(){
+		return basic_client_fathers_name;
+	}
+	
+	public void setBasicClientFathersName(String basic_client_fathers_name){
+		this.basic_client_fathers_name = basic_client_fathers_name;
+	}
+
+	private String basic_client_profession;
+	
+	public String getBasicClientProfession(){
+		return basic_client_profession;
+	}
+	
+	public void setBasicClientProfession(String basic_client_profession){
+		this.basic_client_profession = basic_client_profession;
+	}
+
+	private String basic_client_zip_code;
+	
+	public String getBasicClientZipCode(){
+		return basic_client_zip_code;
+	}
+	
+	public void setBasicClientZipCode(String basic_client_zip_code){
+		this.basic_client_zip_code = basic_client_zip_code;
+	}
+
+	private String basic_client_address;
+	
+	public String getBasicClientAddress(){
+		return basic_client_address;
+	}
+	
+	public void setBasicClientAddress(String basic_client_address){
+		this.basic_client_address = basic_client_address;
+	}
+
+	private String basic_client_neighborhood;
+	
+	public String getBasicClientNeighborhood(){
+		return basic_client_neighborhood;
+	}
+	
+	public void setBasicClientNeighborhood(String basic_client_neighborhood){
+		this.basic_client_neighborhood = basic_client_neighborhood;
+	}
+
+	private String basic_client_city;
+	
+	public String getBasicClientCity(){
+		return basic_client_city;
+	}
+	
+	public void setBasicClientCity(String basic_client_city){
+		this.basic_client_city = basic_client_city;
+	}
+
+	private String basic_client_state;
+	
+	public String getBasicClientState(){
+		return basic_client_state;
+	}
+	
+	public void setBasicClientState(String basic_client_state){
+		this.basic_client_state = basic_client_state;
+	}
+
+	private String basic_client_complement;
+	
+	public String getBasicClientComplement(){
+		return basic_client_complement;
+	}
+	
+	public void setBasicClientComplement(String basic_client_complement){
+		this.basic_client_complement = basic_client_complement;
+	}
+
+	private Long country_last_update;
+	
+	public Long getCountryLastUpdate(){
+		return country_last_update;
+	}
+	
+	public void setCountryLastUpdate(Long country_last_update){
+		this.country_last_update = country_last_update;
+	}
+
+	private String country_name;
+	
+	public String getCountryName(){
+		return country_name;
+	}
+	
+	public void setCountryName(String country_name){
+		this.country_name = country_name;
+	}
+
+}
+
+
+package com.uisleandro.client.model;
+
+class BasicClient{
+	//selectOneWhere 
+	public FindByCpfOut find_by_id(long id){
+	
+		String query = "SELECT brazilian.last_update,brazilian.cpf,brazilian.rg,basic_client.last_update,basic_client.name,basic_client.birth_date,basic_client.birth_city,basic_client.birth_state,basic_client.mothers_name,basic_client.fathers_name,basic_client.profession,basic_client.zip_code,basic_client.address,basic_client.neighborhood,basic_client.city,basic_client.state,basic_client.complement,country.last_update,country.name FROM brazilian INNER JOIN basic_client ON brazilian.fk_basic_client = basic_client.id INNER JOIN country ON basic_client.fk_country = country.id WHERE id = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ id });
+	
+		FindByCpfOut that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursorToFindByCpfOut(cursor);
+		}
+	
+	
+		return that;
+	}
+	//selectOneWhere 
+	public FindByCpfOut find_by_name(String name){
+	
+		String query = "SELECT brazilian.last_update,brazilian.cpf,brazilian.rg,basic_client.last_update,basic_client.name,basic_client.birth_date,basic_client.birth_city,basic_client.birth_state,basic_client.mothers_name,basic_client.fathers_name,basic_client.profession,basic_client.zip_code,basic_client.address,basic_client.neighborhood,basic_client.city,basic_client.state,basic_client.complement,country.last_update,country.name FROM brazilian INNER JOIN basic_client ON brazilian.fk_basic_client = basic_client.id INNER JOIN country ON basic_client.fk_country = country.id WHERE basic_client.name = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ name });
+	
+		FindByCpfOut that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursorToFindByCpfOut(cursor);
+		}
+	
+	
+		return that;
+	}
+	//selectOneWhere 
+	public FindByCpfOut find_by_cpf(String cpf){
+	
+		String query = "SELECT brazilian.last_update,brazilian.cpf,brazilian.rg,basic_client.last_update,basic_client.name,basic_client.birth_date,basic_client.birth_city,basic_client.birth_state,basic_client.mothers_name,basic_client.fathers_name,basic_client.profession,basic_client.zip_code,basic_client.address,basic_client.neighborhood,basic_client.city,basic_client.state,basic_client.complement,country.last_update,country.name FROM brazilian INNER JOIN basic_client ON brazilian.fk_basic_client = basic_client.id INNER JOIN country ON basic_client.fk_country = country.id WHERE brazilian.cpf = ?;";
+	
+		Cursor cursor = database.rawQuery(query, new String[]{ cpf });
+	
+		FindByCpfOut that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursorToFindByCpfOut(cursor);
+		}
+	
+	
+		return that;
+	}
+}
+
+
+
+
+package com.uisleandro.receivement.model;
+
+class Invoice{
+	//insert
+	public int insert_installment(Long last_update, Long last_update, String name, Boolean enabled, Long last_update, Float total_value, Long last_update, Long last_update, String name, Long last_update, String name, Long last_update, String code, String name, Long last_update, String abbreviature, String description, Long last_update, String name, Long last_update, String username, String password, String name, String email, Long last_use_time, Long last_error_time, Integer error_count, Boolean active, Long last_update, String name, Long birth_date, String birth_city, String birth_state, String mothers_name, String fathers_name, String profession, String zip_code, String address, String neighborhood, String city, String state, String complement, Long last_update, String name, Long birth_date, String birth_city, String birth_state, String mothers_name, String fathers_name, String profession, String zip_code, String address, String neighborhood, String city, String state, String complement, Long last_update, String name, Long last_update, String name){
+	
+		String query = "INSERT INTO invoice(last_update,system,sale,client_from_system,installment_type,interest_rate_type,bank,currency,last_update,name,enabled,currency,last_update,sale_type,system,total_value,user,client_from_system,currency,last_update,system,basic_client,shared_client,user,last_update,name,last_update,name,last_update,code,name,last_update,abbreviature,description,last_update,name,last_update,system,role,username,password,name,email,last_use_time,last_error_time,error_count,active,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,last_update,name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		Cursor cursor = database.rawQuery(query, new String[]{ String.ValueOf(last_update), String.ValueOf(system), String.ValueOf(sale), String.ValueOf(client_from_system), String.ValueOf(installment_type), String.ValueOf(interest_rate_type), String.ValueOf(bank), String.ValueOf(currency), String.ValueOf(last_update), name, String.ValueOf(enabled), String.ValueOf(currency), String.ValueOf(last_update), String.ValueOf(sale_type), String.ValueOf(system), String.ValueOf(total_value), String.ValueOf(user), String.ValueOf(client_from_system), String.ValueOf(currency), String.ValueOf(last_update), String.ValueOf(system), String.ValueOf(basic_client), String.ValueOf(shared_client), String.ValueOf(user), String.ValueOf(last_update), name, String.ValueOf(last_update), name, String.ValueOf(last_update), code, name, String.ValueOf(last_update), abbreviature, description, String.ValueOf(last_update), name, String.ValueOf(last_update), String.ValueOf(system), String.ValueOf(role), username, password, name, email, String.ValueOf(last_use_time), String.ValueOf(last_error_time), String.ValueOf(error_count), String.ValueOf(active), String.ValueOf(last_update), name, String.ValueOf(birth_date), birth_city, birth_state, mothers_name, fathers_name, profession, zip_code, address, neighborhood, city, state, complement, String.ValueOf(country), String.ValueOf(last_update), name, String.ValueOf(birth_date), birth_city, birth_state, mothers_name, fathers_name, profession, zip_code, address, neighborhood, city, state, complement, String.ValueOf(country), String.ValueOf(last_update), name, String.ValueOf(last_update), name });
+	
+		int that = 0;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursor.getInt(0);
+		}
+	
+		return that;
+	
+	}
+	//insert
+	public int insert_installment_sicoob(Long last_update, Long last_update, String name, Boolean enabled, Long last_update, Float total_value, Long last_update, Long last_update, String name, Long last_update, String name, Long last_update, String code, String name, Long last_update, String abbreviature, String description, Long last_update, String name, Long last_update, String username, String password, String name, String email, Long last_use_time, Long last_error_time, Integer error_count, Boolean active, Long last_update, String name, Long birth_date, String birth_city, String birth_state, String mothers_name, String fathers_name, String profession, String zip_code, String address, String neighborhood, String city, String state, String complement, Long last_update, String name, Long birth_date, String birth_city, String birth_state, String mothers_name, String fathers_name, String profession, String zip_code, String address, String neighborhood, String city, String state, String complement, Long last_update, String name, Long last_update, String name){
+	
+		String query = "INSERT INTO invoice(last_update,system,sale,client_from_system,installment_type,interest_rate_type,bank,currency,last_update,name,enabled,currency,last_update,sale_type,system,total_value,user,client_from_system,currency,last_update,system,basic_client,shared_client,user,last_update,name,last_update,name,last_update,code,name,last_update,abbreviature,description,last_update,name,last_update,system,role,username,password,name,email,last_use_time,last_error_time,error_count,active,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,last_update,name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		Cursor cursor = database.rawQuery(query, new String[]{ String.ValueOf(last_update), String.ValueOf(system), String.ValueOf(sale), String.ValueOf(client_from_system), String.ValueOf(installment_type), String.ValueOf(interest_rate_type), String.ValueOf(bank), String.ValueOf(currency), String.ValueOf(last_update), name, String.ValueOf(enabled), String.ValueOf(currency), String.ValueOf(last_update), String.ValueOf(sale_type), String.ValueOf(system), String.ValueOf(total_value), String.ValueOf(user), String.ValueOf(client_from_system), String.ValueOf(currency), String.ValueOf(last_update), String.ValueOf(system), String.ValueOf(basic_client), String.ValueOf(shared_client), String.ValueOf(user), String.ValueOf(last_update), name, String.ValueOf(last_update), name, String.ValueOf(last_update), code, name, String.ValueOf(last_update), abbreviature, description, String.ValueOf(last_update), name, String.ValueOf(last_update), String.ValueOf(system), String.ValueOf(role), username, password, name, email, String.ValueOf(last_use_time), String.ValueOf(last_error_time), String.ValueOf(error_count), String.ValueOf(active), String.ValueOf(last_update), name, String.ValueOf(birth_date), birth_city, birth_state, mothers_name, fathers_name, profession, zip_code, address, neighborhood, city, state, complement, String.ValueOf(country), String.ValueOf(last_update), name, String.ValueOf(birth_date), birth_city, birth_state, mothers_name, fathers_name, profession, zip_code, address, neighborhood, city, state, complement, String.ValueOf(country), String.ValueOf(last_update), name, String.ValueOf(last_update), name });
+	
+		int that = 0;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursor.getInt(0);
+		}
+	
+		return that;
+	
+	}
+}
+
+

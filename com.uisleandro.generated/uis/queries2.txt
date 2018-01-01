@@ -1,0 +1,92 @@
+
+// module = client
+
+
+package com.uisleandro.client;
+
+class BasicClient{
+
+
+
+
+}
+package com.uisleandro.client;
+
+class Brazilian{
+
+
+
+}
+// module = credit_protection
+
+
+// module = cash
+
+
+package com.uisleandro.cash;
+
+class CashRegister{
+
+
+
+
+
+
+
+
+}
+// module = supply
+
+
+package com.uisleandro.supply;
+
+class Product{
+
+
+
+
+
+}
+// module = payment
+
+
+// module = discount
+
+
+// module = systems
+
+
+package com.uisleandro.systems;
+
+class Auth{
+
+
+
+
+}
+// module = receivement
+
+
+package com.uisleandro.receivement;
+
+class Invoice{
+
+
+
+
+}
+// module = sales
+
+
+package com.uisleandro.sales;
+
+class Sale{
+
+
+
+
+
+
+
+
+}

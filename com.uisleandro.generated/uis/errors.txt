@@ -1,0 +1,23 @@
+
+
+
+
+
+class pointing to itself:
+RootModel::mvc::supply::queryViews::stock_review_vw::category.category
+RootModel::mvc::supply::queryViews::category_vw::category.category
+RootModel::mvc::supply::queryViews::product_vw::category.category
+RootModel::mvc::supply::queryViews::get_by_id_out::category.category
+RootModel::mvc::supply::queryViews::get_by_qrcode_out::category.category
+RootModel::mvc::supply::queryViews::get_by_repeated_product_code_out::category.category
+RootModel::mvc::supply::queryViews::missing_products_relatory_out::category.category
+RootModel::mvc::credit_protection::queryViews::Issue_vw::Issue.issue
+RootModel::mvc::sales::queryViews::product_on_sale_vw::category.category
+RootModel::mvc::discount::queryViews::discount_vw::category.category
+
+
+null types:
+
+EU PRECISO REPETIR AS DEPENDENCIAS
+
+

@@ -1,0 +1,80 @@
+
+// module = cash
+
+cash_register
+  is_open_today(is_open_today_in)
+  open_cash_register(open_cash_register_in)
+  sum_cash_launches(sum_cash_launches_in,sum_cash_launches_out)
+  eventual_cash_usage(eventual_cash_usage_in)
+  close_cash_register(close_cash_register_in)
+  check_history(check_history_in,check_history_out)
+
+
+
+// module = supply
+
+product
+  get_by_id(get_by_id_in,get_by_id_out)
+  get_by_qrcode(get_by_qrcode_in,get_by_qrcode_out)
+  get_by_repeated_product_code(get_by_repeated_product_code_in,get_by_repeated_product_code_out)
+  product_recounting(product_recounting_in)
+  missing_products_relatory(missing_products_relatory_in,missing_products_relatory_out)
+  start_product_recounting(start_product_recounting_in)
+
+
+
+// module = credit_protection
+
+Issue
+  register_issue(register_issue_in)
+  check_client(check_client_in)
+
+
+
+// module = sales
+
+sales_chart
+  create_sales_chart(create_sales_chart_in)
+  add_product_to_sales_chart(add_product_to_sales_chart_in)
+  cancel_sales_chart(cancel_sales_chart_in)
+  list_products_on_sales_chart(list_products_on_sales_chart_in,list_products_on_sales_chart_out)
+  remove_product_from_sales_chart(remove_product_from_sales_chart_in)
+  remove_all_products_from_sales_chart(remove_all_products_from_chart_in)
+
+
+
+// module = systems
+
+auth
+  login(login_in,login_out)
+  user_can_access(can_access_in,can_access_out)
+
+
+
+// module = discount
+
+discount
+  new_eventual_discount()
+  new_gender_promotion()
+  new_category_promotion()
+  new_product_promotion()
+  new_brand_based_promotion()
+
+
+
+// module = client
+
+basic_client
+  find_by_id(find_by_id_in,find_by_id_out)
+  find_by_name(find_by_name_in,find_by_name_out)
+  find_by_cpf(find_by_cpf_in,find_by_cpf_out)
+
+
+
+// module = receivement
+
+invoice
+  insert_installment(insert_installment_in)
+  insert_installment_sicoob(insert_installment_sicoob_in)
+
+

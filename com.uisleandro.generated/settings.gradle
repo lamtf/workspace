@@ -1,0 +1,8 @@
+include ':com.uisleandro.Store.Cash'
+include ':com.uisleandro.Store.Supply'
+include ':com.uisleandro.Store.CreditProtection'
+include ':com.uisleandro.Store.Sales'
+include ':com.uisleandro.Store.Core'
+include ':com.uisleandro.Store.Discount'
+include ':com.uisleandro.Store.Client'
+include ':com.uisleandro.Store.Receivement'

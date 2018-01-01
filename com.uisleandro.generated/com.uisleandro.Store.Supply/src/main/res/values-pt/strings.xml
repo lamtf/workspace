@@ -1,0 +1,39 @@
+<resources>
+<!-- 
+Start of user code reserved for the programmer
+-->
+	<string name="name">Name</string>
+	<string name="last_update">last_update</string>
+	<string name="last_use_time">last_use_time</string>
+<!--
+End of user code
+-->
+	<string name="app_name">Supply</string>
+	<string name="stock_review">Stock Review</string>
+	<string name="actual_amount">Actual Amount</string>	
+	<string name="sold_items">Sold Items</string>	
+	<string name="previous_amount">Previous Amount</string>	
+	<string name="missing_amount">Missing Amount</string>	
+	<string name="unit">Unit</string>
+	<string name="category">Category</string>
+	<string name="brand">Brand</string>
+	<string name="company_name">Company Name</string>	
+	<string name="fantasy_name">Fantasy Name</string>	
+	<string name="gender">Gender</string>
+	<string name="product">Product</string>
+	<string name="barcode">Barcode</string>	
+	<string name="description">Description</string>	
+	<string name="amount">Amount</string>	
+	<string name="purchase_price">Purchase Price</string>	
+	<string name="sale_price">Sale Price</string>	
+	<string name="size">Size</string>	
+	<string name="expiration_date">Expiration Date</string>	
+	<string name="distributor_contact">Distributor Contact</string>
+	<string name="email1">Email1</string>	
+	<string name="email2">Email2</string>	
+	<string name="phone_number1">Phone Number1</string>	
+	<string name="phone_number2">Phone Number2</string>	
+	<string name="phone_number3">Phone Number3</string>	
+	<string name="phone_number4">Phone Number4</string>	
+
+</resources>

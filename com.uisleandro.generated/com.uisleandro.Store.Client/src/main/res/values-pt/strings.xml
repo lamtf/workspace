@@ -1,0 +1,31 @@
+<resources>
+<!-- 
+Start of user code reserved for the programmer
+-->
+	<string name="name">Name</string>
+	<string name="last_update">last_update</string>
+	<string name="last_use_time">last_use_time</string>
+<!--
+End of user code
+-->
+	<string name="app_name">Client</string>
+	<string name="country">Country</string>
+	<string name="brazilian">Brazilian</string>
+	<string name="cpf">Cpf</string>	
+	<string name="rg">Rg</string>	
+	<string name="client_from_system">Client From System</string>
+	<string name="basic_client">Basic Client</string>
+	<string name="birth_date">Birth Date</string>	
+	<string name="birth_city">Birth City</string>	
+	<string name="birth_state">Birth State</string>	
+	<string name="mothers_name">Mothers Name</string>	
+	<string name="fathers_name">Fathers Name</string>	
+	<string name="profession">Profession</string>	
+	<string name="zip_code">Zip Code</string>	
+	<string name="address">Address</string>	
+	<string name="neighborhood">Neighborhood</string>	
+	<string name="city">City</string>	
+	<string name="state">State</string>	
+	<string name="complement">Complement</string>	
+
+</resources>
