@@ -1,0 +1,353 @@
+[comment encoding = UTF-8 /]
+[module generate_old('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[query public get_config_db_schema_name(arg : Model) : String = 
+self.eContents(Class)->select(x|x.name='custom_config')->first().eContents(Property)
+->select(x|x.type.name.toString().equalsIgnoreCase('db_schema_name'))->first().name
+ /]
+
+[query public getModulesFrom(arg : Model, pname : String) : Sequence(Package) = 
+   self.eContents(Package)
+   ->select(x | x.name = pname)->first()
+   .eContents(Package)
+/]
+
+[query public getName(arg : Property) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())) then
+'fk_'+self.name
+else 
+self.name
+endif
+/]
+
+[comment timestamp changed to bigint /]
+[query public getType(arg : Property) : String = 
+if(self.type.name.toString().equalsIgnoreCase('timestamp')) then
+	'bigint NOT NULL'
+else
+
+	if(self.isSelfFK()) then
+		'bigint not NULL'
+	else
+		if(self.type.name.toString().equalsIgnoreCase(self.name.toString())) then
+			'bigint NULL'
+		else
+		if(self.type.name.toString().equalsIgnoreCase('money')) then
+			'money NOT NULL'
+		else 
+			if(self.lower > 1) then
+				if(self.lower = self.upper) then
+					self.type.name.toString() + '('+
+					self.lower.toString() + ') NOT NULL'
+				else
+					self.type.name.toString()+ '('+ 
+					self.lower.toString() +','+
+					self.upper.toString()+') NOT NULL'
+				endif
+				else
+					self.type.name.toString() + ' NOT NULL'
+				endif
+			endif 
+		endif
+	endif
+endif
+/]
+
+[query public getForeignKeys(arg : Class) : Sequence(Property) = 
+self.eContents(Property)->select(x: Property | x.type.name.toString().equalsIgnoreCase(x.name))/]
+
+[comment] 
+[query public nullable(arg : Property) : String = 
+if(self.name.equalsIgnoreCase('last_update_time')) then
+' NULL'
+else
+if(self.owner.oclAsType(Class).name.equalsIgnoreCase(self.name)) then
+' NULL'
+else
+' NOT NULL'
+endif
+endif
+ /]
+[/comment]
+
+[query public isSelfFK(arg : Property) : Boolean =
+if(self.owner.oclAsType(Class).name.equalsIgnoreCase(self.name)) then
+true
+else
+false
+endif
+ /]
+
+[template public generate_table(cls : Class, schema_name : String)]
+[comment unique key is not automatically assigned /]
+	CREATE TABLE "[schema_name /]"."[cls.name /]"(
+		"id" bigserial PRIMARY KEY,
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+		"[prop.getName() /]" [prop.getType() /][/for]
+
+	);
+
+
+[/template]
+
+[template public drop_table(cls : Class, schema_name : String)]
+	DROP TABLE IF EXISTS "[schema_name /]"."[cls.name /]" CASCADE;
+
+[/template]
+
+[template public create_indexes(cls : Class, schema_name : String)]
+[for (prop : Property | cls.eContents(Property))][if(prop.gotStereotype('apply_index'))]
+	CREATE INDEX "[cls.name/]_[prop.name/]_idx" ON "[schema_name /]"."[cls.name /]" ("[prop.name /]");
+[else][if(prop.name.equalsIgnoreCase(prop.type.name.toString()) )]
+	CREATE INDEX "[cls.name/]_[prop.name/]_idx" ON "[schema_name /]"."[cls.name /]" ("fk_[prop.name /]");
+[/if][/if][/for]
+[/template]
+
+[template public create_foreign_keys(cls : Class, schema_name : String)]
+[for (prop : Property | cls.eContents(Property))]
+[if(prop.name.equalsIgnoreCase(prop.type.name.toString()))]
+[if(not prop.isSelfFK())]
+	ALTER TABLE "[schema_name /]"."[cls.name /]" 
+	ADD CONSTRAINT "fk_[schema_name /]_[cls.name /]_[prop.name /]"
+	FOREIGN KEY ("fk_[prop.name /]") 
+	REFERENCES "[schema_name /]"."[prop.name /]"("id") 
+	ON DELETE CASCADE;
+[/if][/if][/for]
+[/template]
+
+
+[query public getTypeSP(arg : Property) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())) then
+'bigint'
+else
+if(self.type.name.toString().equalsIgnoreCase('money')) then
+'money'
+else 
+if(self.lower > 1) then
+if(self.lower = self.upper) then
+	self.type.name.toString() + '('+ self.lower.toString() + ')'
+else
+	self.type.name.toString()+ '('+ self.lower.toString() +','+self.upper.toString()+')'
+endif
+else
+	self.type.name.toString()
+endif
+endif 
+endif
+/]
+
+[comment begin  /]
+
+[query public countForeignKeys(arg : Class) : Integer =
+self.eContents(Property)
+->select(x: Property| x.type.name.equalsIgnoreCase(x.name))
+->size()
+/]
+
+[query public has_a_class_with_n_fks(arg : Package, count : Integer) : Boolean =
+self.eContents(Class)->exists(x:Class| x.countForeignKeys() = count)
+ /]
+
+[query public have_a_package_with_n_fks(arg : Model, pname : String, count : Integer) : Boolean =
+self.eContents(Package)
+   ->select(x | x.name = pname)->first()
+   .eContents(Package)->exists(x: Package | x.has_a_class_with_n_fks(count))
+/]
+
+[template public default_value(arg : Property)][if (self.name.equalsIgnoreCase('last_update_time'))]
+now()::timestamp[else]?[self.name /][/if][/template]
+
+[template public printTables(root : Model, count : Integer, schemaname: String, openscape : String, closescape : String)]
+[if (root.have_a_package_with_n_fks(root, 'sqlite', count))]
+[for (modul : Package | getModulesFrom(root, 'sqlite')
+   ->select(x: Package | x.has_a_class_with_n_fks(count)))]
+[for (tbl : Class | modul.eContents(Class)
+->select(x: Class| x.countForeignKeys() = count) )]
+[comment]
+SELECT [for (prop : Property | tbl.eContents(Property)) separator (',')]
+[openscape /][prop.getName() /][closescape /][/for] FROM [openscape /][tbl.name /][closescape /];
+
+UPDATE [openscape /][tbl.name /][closescape /] SET [for (prop : Property | tbl.eContents(Property)) separator (',')]
+[openscape /][prop.getName() /][closescape /] = ? [/for] WHERE id = ?;
+
+DELETE FROM [openscape /][tbl.name /][closescape /] WHERE id = ?;
+
+INSERT INTO [openscape /][tbl.name /][closescape /] ([for (prop : Property | tbl.eContents(Property)) separator (',')]
+[openscape /][prop.getName() /][closescape /][/for]) VALUES ([for (prop : Property | tbl.eContents(Property)) separator (',')]?[/for]);s
+[/comment]
+SELECT "[schemaname /]"."[tbl.name /]_insert"([for (prop : Property | tbl.eContents(Property)) separator (',')]
+[prop.default_value() /][/for]);
+[/for][/for]
+[/if]
+[if (count <= 6)][printTables(root, count+1, schemaname, openscape, closescape) /][/if]
+[/template]
+
+
+[template public raw_insert(root : Model, count : Integer, schemaname: String, openscape : String, closescape : String)]
+[if (root.have_a_package_with_n_fks(root, 'sqlite', count))]
+[for (modul : Package | getModulesFrom(root, 'sqlite')
+   ->select(x: Package | x.has_a_class_with_n_fks(count)))]
+[for (tbl : Class | modul.eContents(Class)
+->select(x: Class| x.countForeignKeys() = count) )]
+INSERT INTO "[schemaname /]"."[tbl.name /]"([for (prop : Property | tbl.eContents(Property)) separator (',')]
+[prop.getName() /][/for]) VALUES ([for (prop : Property | tbl.eContents(Property)) separator (',')]
+'?[prop.getName() /]'[/for]);
+[/for][/for]
+[/if]
+[if (count <= 6)][raw_insert(root, count+1, schemaname, openscape, closescape) /][/if]
+[/template]
+
+[comment end /]
+
+[comment
+please add the update time inside of the function..
+maybe i need to return this update time.. 
+then i can update the local database on android
+ /]
+[template public create_insert_procedures(cls : Class, schema_name : String)]
+CREATE OR REPLACE FUNCTION "[schema_name /]"."[cls.name /]_insert"(
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+		"x[prop.getName() /]" [prop.getTypeSP() /][/for]
+) RETURNS void AS $$
+BEGIN
+	INSERT INTO [schema_name /].[cls.name /] (
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+	"[prop.getName() /]"[/for]) VALUES (
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+	"x[prop.getName() /]"[/for]);
+END;
+$$ LANGUAGE plpgsql;
+
+[/template]
+
+[template public drop_insert_procedures(cls : Class, schema_name : String)]
+DROP FUNCTION "[schema_name /]"."[cls.name /]_insert"(
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+		"x[prop.getName() /]" [prop.getTypeSP() /][/for]
+);
+
+[/template]
+
+
+[template public create_update_procedures(cls : Class, schema_name : String)]
+CREATE OR REPLACE FUNCTION "[schema_name /]"."[cls.name /]_update"(
+	xid bigint,
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+		x[prop.getName() /] [prop.getTypeSP() /][/for]
+) RETURNS void AS $$
+BEGIN
+	UPDATE [schema_name /].[cls.name /] SET [for (prop : Property | cls.eContents(Property)) separator (', \n')]
+	"[prop.getName() /]" = x[prop.getName() /][/for]
+	WHERE id = xid;
+END;
+$$ LANGUAGE plpgsql;
+
+[/template]
+
+[template public drop_update_procedures(cls : Class, schema_name : String)]
+DROP FUNCTION "[schema_name /]"."[cls.name /]_update"(
+	xid bigint,
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+		x[prop.getName() /] [prop.getTypeSP() /][/for]
+);
+
+[/template]
+
+
+[comment] usage:
+BEGIN;
+SELECT "xapp"."system_select"('system_cur');
+FETCH ALL IN "system_cur";
+COMMIT;
+[/comment]
+[template public create_select_procedures(cls : Class, schema_name : String)]
+CREATE OR REPLACE FUNCTION "[schema_name /]"."[cls.name /]_select"(ref refcursor, pagesize integer, pagecount integer) RETURNS refcursor AS $$
+BEGIN
+  OPEN ref FOR SELECT 
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+	"[prop.getName() /]"[/for]
+
+	FROM [schema_name /].[cls.name /] LIMIT pagesize OFFSET pagesize * pagecount;
+	RETURN ref;
+END;
+$$ LANGUAGE plpgsql;
+
+[/template]
+
+[template public drop_select_procedures(cls : Class, schema_name : String)]
+DROP "[schema_name /]"."[cls.name /]_select"(ref refcursor, pagesize integer, pagecount integer);
+
+[/template]
+
+[query public gotStereotype(arg : NamedElement, sname : String) : Boolean = 
+self.getAppliedStereotypes()->exists(s : Stereotype | s.name = sname) /]
+
+[template public generateElement(root : Model)]
+[comment @main/]
+[let schemaname : String = self.get_config_db_schema_name()]
+[file ('postgres_createdb.sh', false, 'UTF-8')]
+cp ~/Downloads/eclipse/ws/phpv3_gen/src/postgres_createdb.sql /uis
+cp ~/Downloads/eclipse/ws/phpv3_gen/src/postgres_database.sql /uis
+cd /uis
+sudo su - postgres
+rmdir /uis/postgres/xapp_ts
+mkdir /uis/postgres/xapp_ts
+
+psql -d postgres -a -f /uis/postgres_createdb.sql
+psql -d xapp -a -f /uis/postgres_database.sql
+[/file]
+[file ('postgres_createdb.sql', false, 'UTF-8')]
+	CREATE TABLESPACE "[schemaname /]_ts"
+	OWNER "postgres"
+	LOCATION E'/uis/postgres/[schemaname /]_ts/';
+
+	CREATE DATABASE "[schemaname /]"
+	WITH OWNER = "postgres"
+	ENCODING = 'UTF8'
+	TABLESPACE "[schemaname /]_ts"
+	LC_COLLATE = 'pt_BR.UTF-8'
+	LC_CTYPE = 'pt_BR.UTF-8'
+	TEMPLATE template0
+	CONNECTION LIMIT -1;
+[/file]
+[file ('postgres_database.sql', false, 'UTF-8')]
+
+	DROP SCHEMA IF EXISTS "[schemaname /]" CASCADE;
+	CREATE SCHEMA "[schemaname /]";
+
+[comment]
+[for (pkg : Package | root.getModulesFrom('postgres'))][for (cls : Class |
+pkg.eContents(Class))][drop_table(cls, schema_name)/][/for][/for]
+[/comment]
+
+[for (pkg : Package | root.getModulesFrom('postgres'))][for (cls : Class |
+pkg.eContents(Class))][generate_table(cls, schemaname) /][/for][/for]
+
+[for (pkg : Package | root.getModulesFrom('postgres'))][for (cls : Class |
+pkg.eContents(Class))][create_indexes(cls, schemaname)/][/for][/for]
+
+[for (pkg : Package | root.getModulesFrom('postgres'))][for (cls : Class |
+pkg.eContents(Class))][create_foreign_keys(cls, schemaname)/][/for][/for]
+[/file]
+[file ('postgresql_function.sql', false, 'UTF-8')]
+[for (pkg : Package | root.getModulesFrom('postgres'))][for (cls : Class |
+pkg.eContents(Class))]
+[create_insert_procedures(cls, schemaname) /]
+[create_update_procedures(cls, schemaname) /]
+[create_select_procedures(cls, schemaname) /]
+[/for][/for]
+[/file]
+[file ('postgresql_drop_function.sql', false, 'UTF-8')]
+[for (pkg : Package | root.getModulesFrom('postgres'))][for (cls : Class |
+pkg.eContents(Class))]
+[drop_insert_procedures(cls, schemaname) /]
+[drop_update_procedures(cls, schemaname) /]
+[drop_select_procedures(cls, schemaname) /]
+[/for][/for]
+[/file]
+[file ('postgres_fill.sql', false, 'UTF-8')]
+[raw_insert(root, 0, schemaname, '"', '"')/]
+[/file]
+[/let]
+[/template]
+

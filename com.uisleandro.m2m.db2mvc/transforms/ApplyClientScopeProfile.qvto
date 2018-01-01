@@ -1,0 +1,145 @@
+//library ApplyClientScopeProfile;
+
+//version 0.2
+//i need to know how to set attributes
+
+modeltype uml "strict" uses uml('http://www.eclipse.org/uml2/5.0.0/UML');
+
+transformation ApplyClientScopeProf(inout StructuralModel : uml, in Stereo : uml);
+
+
+main() {
+
+log('begin..');
+
+var root : Model = StructuralModel.rootObjects()![Model];
+
+root.applyProfile(Profile.allInstances()![name = 'ClientScope']);
+
+applyAll(root);
+
+log('ending...');
+
+}
+
+
+helper applyAll(inout rootPackage : NamedElement){
+
+	if (rootPackage.ownedElement[Class]->notEmpty()) then
+		clases_apply_stereotypes(rootPackage.ownedElement[Class]->asSequence())
+	endif;
+
+	if ((not rootPackage.oclIsTypeOf(Class)) and rootPackage.ownedElement[Package]->notEmpty()) then
+		packages_apply_stereotypes(rootPackage.ownedElement[Package]->asSequence())
+	endif;
+
+	//foreach child class or package, which can have classes inside
+	rootPackage.ownedElement[Class|Package]->forEach(el){
+		applyAll(el)
+	}
+
+}
+
+helper clases_apply_stereotypes(seq : Sequence(Class)){
+
+/*
+	log(seq->at(1).owner.oclAsType(NamedElement).name);
+	seq->forEach(cl){
+		log('\t'+cl.name);
+	};
+	*/
+	
+	var NotForClientSequence := object Sequence(String){};
+	var ClientConstSequence := object Sequence(String){};
+	var ClientSingleDataSequence := object Sequence(String){};
+	var ClientDataArraySequence := object Sequence(String){};
+	var ClientCantChangeSequence := object Sequence(String){};
+
+
+
+	//you can update the client but not the server
+
+	ClientDataArraySequence+='bank';
+	ClientDataArraySequence+='interest_rate_type';
+	ClientDataArraySequence+='gender';
+	ClientDataArraySequence+='currency';
+	ClientDataArraySequence+='brazilian';
+	ClientDataArraySequence+='installment_type';
+	ClientDataArraySequence+='category';
+	ClientDataArraySequence+='unit';
+	ClientDataArraySequence+='country';
+
+	
+
+	//use for foreign keys
+	ClientConstSequence+='system';
+
+	
+
+	//client_of_system or basic_client will not be implemted
+	NotForClientSequence+='client_of_system'; //??
+	NotForClientSequence+='db_log';
+	NotForClientSequence+='token_type';
+	NotForClientSequence+='token';
+	NotForClientSequence+='role';
+	NotForClientSequence+='user';
+	
+	//these ones will never appear on the client side
+	NotForClientSequence+='shared_client';
+	NotForClientSequence+='Issue'; //o filtro vai ser diferente
+	NotForClientSequence+='positive_negative';
+
+	
+	seq->select(x:Class | NotForClientSequence->exists(s: String | s.equalsIgnoreCase(x.name)))
+	->forEach(cl){
+		cl.applyStereotype(Stereotype.allInstances()![name='NotForClient']);
+	};
+	
+	seq->select(x:Class | ClientConstSequence->exists(s: String | s.equalsIgnoreCase(x.name)))
+	->forEach(cl){
+		cl.applyStereotype(Stereotype.allInstances()![name='ClientConst']);
+	};
+	
+	seq->select(x:Class | ClientSingleDataSequence->exists(s: String | s.equalsIgnoreCase(x.name)))
+	->forEach(cl){
+		cl.applyStereotype(Stereotype.allInstances()![name='ClientSingleData']);
+	};
+	
+	seq->select(x:Class | ClientDataArraySequence->exists(s: String | s.equalsIgnoreCase(x.name)))
+	->forEach(cl){
+		cl.applyStereotype(Stereotype.allInstances()![name='ClientDataArray']);
+	};
+	
+	seq->select(x:Class | ClientCantChangeSequence->exists(s: String | s.equalsIgnoreCase(x.name)))
+	->forEach(cl){
+		cl.applyStereotype(Stereotype.allInstances()![name='ClientCantChange']);
+	};
+
+}
+
+helper properties_apply_stereotypes(seq: Sequence(Property)){
+	log('not used: properties_apply_stereotypes()');
+}
+
+helper packages_apply_stereotypes(seq: Sequence(Package)){
+
+	var NotForClientSequence := object Sequence(String){};
+	/*
+	var ClientConstSequence := object Sequence(String){};
+	var ClientSingleDataSequence := object Sequence(String){};
+	var ClientDataArraySequence := object Sequence(String){};
+	var ClientCantChangeSequence := object Sequence(String){};
+	*/
+	
+	/*
+	
+	NotForClientSequence+='credit_protection';
+	
+	seq->select(x:Package | NotForClientSequence->exists(s: String | s.equalsIgnoreCase(x.name)))
+	->forEach(prop){
+		prop.applyStereotype(Stereotype.allInstances()![name='NotForClient']);
+	};
+	
+	*/
+}
+

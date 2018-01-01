@@ -1,0 +1,559 @@
+[comment encoding = UTF-8 /]
+[module SyncAndroidPhp('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+
+[template public ToCamelCase(arg : String)]
+[for (it : String | arg.tokenize('_'))][it.toUpperFirst()/][/for]
+[/template]
+
+[query public gotStereotype(arg : NamedElement, sname : String) : Boolean = 
+self.getAppliedStereotypes()->exists(s : Stereotype | s.name = sname) /]
+
+[query public filter(arg : Sequence(Class)) : 
+Sequence(Class) = self->select(x: Class |
+not x.gotStereotype('server_only') and
+not x.gotStereotype('client_const'))
+/]
+
+[query public filter(arg : Sequence(Package)) : 
+Sequence(Package) = self->select(x: Package |
+not x.gotStereotype('server_only') and
+not x.gotStereotype('client_const'))
+/]
+
+[comment
+	I'll need a list of tables with its foreign keys on android side
+ /]
+
+[query public have_a_package_with_n_fks(arg : Model, pname : String, count : Integer) : Boolean =
+self.eContents(Package)
+   ->select(x | x.name = pname)->first()
+   .eContents(Package)->exists(x: Package | x.has_a_class_with_n_fks(count))
+/]
+
+[query public has_a_class_with_n_fks(arg : Package, count : Integer) : Boolean =
+self.eContents(Class)->exists(x:Class| x.countForeignKeys() = count)
+ /]
+
+[query public getModulesFrom(arg : Model, pname : String) : Sequence(Package) = 
+   self.eContents(Package)
+   ->select(x | x.name = pname)->first()
+   .eContents(Package)
+/]
+
+[query public countForeignKeys(arg : Class) : Integer =
+self.eContents(Property)
+->select(x: Property| x.type.name.equalsIgnoreCase(x.name))
+->size()
+/]
+
+[query public IndexOf(col : Sequence(Property), item : NamedElement, index : Integer) : Integer =
+if(index <= col->size()) then
+	if(col->at(index) = item) then
+		index
+	else
+		IndexOf(col, item , index+1)
+	endif
+else
+	-1
+endif
+/]
+
+[query public LastIndex(col : Sequence(NamedElement), index : Integer) : Integer =
+col->size() + index
+/]
+
+
+[template public tables_with_fk_ordered(root : Model, count : Integer)]
+[if (root.have_a_package_with_n_fks(root, 'sqlite', count))]
+
+[comment
+	i got a problem with this first for..,
+	i need to count the amound of classes which have n fks
+	then alter the starting index for the next step
+/]
+[for (modul : Package | getModulesFrom(root, 'sqlite')->select(x: Package | x.has_a_class_with_n_fks(count)))]
+[let classes : Sequence(Class) = modul.eContents(Class)->select(x: Class| x.countForeignKeys() = count)]
+[for (tbl : Class | classes )]
+syncList.add(new [tbl.name.ToCamelCase()/]Updater());
+[for (fk : Property | tbl.eContents(Property)->select(x: Property | x.name.equalsIgnoreCase(x.type.name)))]
+	//fk_[fk.name /];
+[/for]
+
+[/for]
+[/let]
+[/for]
+[/if]
+[if (count <= 6)][tables_with_fk_ordered(root, count+1) /][/if]
+[/template]
+
+[comment >> BEGIN INSERT AND UPDATE ON CLIENT /]
+[template public android_insert_on_client(tbl: Class)]
+public void insert_on_client(){
+[comment
+	from the maximum id on client to upper, solved
+/]
+
+	long the_last_server_id_on_client = [tbl.name.ToCamelCase().toLowerFirst()/]DataSource.getLastServerId(); //step 1,1
+
+	//paginator.setPageSize(100);
+	paginator.setPageNumber(0);
+	paginator.setFinished(false);
+	paginator.setError(false);
+
+
+	Log.v("rest-api", "atempt to insert on the client .. ");
+
+	//i think now im repeating the process
+	while (false == paginator.isFinished()) {
+
+		String json = "{ \"server_id\": " + String.valueOf(the_last_server_id_on_client) + "," +
+					" \"page_number\" : " + String.valueOf(paginator.getPageNumber()) + "," +
+					" \"page_size\": " + String.valueOf(paginator.getPageSize()) + " }"; 
+		paginator.nextPage();
+
+		Log.v("rest-api", "get_for_client_insert :\n" + json);
+
+		//step 1,2
+		client.run(
+			"https://192.168.0.250/naiara/sync/[tbl.name/]/get_for_client_insert", json,
+			new TlsCallback() {
+
+				@Override
+				public void CallBack(String result) {
+
+
+
+					Log.v("rest-api", "get_for_client_insert :\n" + result);
+
+					try {
+
+						JSONArray array = new JSONArray(result);
+
+						if (0 == array.length()) {
+
+							paginator.setFinished(true);
+
+						}
+
+						for (int i = 0; i < array.length(); i++) {
+
+							//Log.v("rest-api", array.getJSONObject(i).toString());
+
+							[tbl.name.ToCamelCase()/] [tbl.name/] = [tbl.name.ToCamelCase()/].FromJsonObj(array.getJSONObject(i));
+
+							[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.insert([tbl.name/]); //step 1,3
+
+						}
+
+					} catch (JSONException ex) {
+
+						paginator.setFinished(true);
+
+						ex.printStackTrace();
+
+					}
+
+				}
+			}
+		);
+	}
+
+}
+[/template]
+
+[template public android_update_on_client(tbl: Class)]
+//todo error se eu quero usar assim eu tenho que ter esta informação, no cliente, por tabela
+public void update_on_client(){
+[comment 
+	fine updating.. difficult and expensive..
+	1. from the client to the server send a comparing list with
+	id and last_update_time
+	2. for each item on the list, select if the client
+	last_update_time is greather
+	3. update on client
+/]
+	//not exactly yet implemented
+	//todo test..
+
+	//paginator.setPageSize(100);
+	paginator.setPageNumber(0);
+	paginator.setFinished(false);
+	paginator.setError(false);
+
+		Log.v("rest-api", "atempt to update on client .. ");
+
+		[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.before_client_updating();
+
+		while (false == paginator.isFinished()) {
+
+			long lastUpdateTime = [tbl.name.ToCamelCase().toLowerFirst()/]DataSource.getLastUpdateTime();
+
+			String json = "{ " +
+			"\"last_update_time\" : " + String.valueOf(lastUpdateTime) +
+			", \"page_number\" : " + paginator.getPageNumber() +
+			", \"page_size\" : " + paginator.getPageSize() +
+			" }";
+			paginator.nextPage();
+
+			Log.v("rest-api", "get_for_client_update :\n" + json);
+
+			client.run("https://192.168.0.250/naiara/sync/[tbl.name/]/get_for_client_update", json, new TlsCallback() {
+					@Override
+					public void CallBack(String result) {
+
+					Log.v("rest-api", "get_for_client_update :\n" + result);
+
+						try {
+							JSONArray array = new JSONArray(result);
+
+							//i can't finish it if this don't have any value
+							if(0 < array.length()){
+
+								for (int i = 0; i < array.length(); i++) {
+
+									[tbl.name.ToCamelCase()/] obj = [tbl.name.ToCamelCase()/].FromJsonObj(
+											array.getJSONObject(i)
+									);
+
+									[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.update(obj);
+
+								}
+
+							} else {
+
+								paginator.setFinished(true);
+
+							}
+
+						} catch (JSONException e) {
+
+							e.printStackTrace();
+
+							paginator.setFinished(true);
+							paginator.setError(true);
+
+						}
+					}
+				}
+			);
+		}
+
+		if(!paginator.isError()) {
+			[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.after_client_updating();
+		}
+
+}
+[/template]
+
+[comment
+	Select from client; 
+	Update on client;
+/]
+[template public android_fix_foreign_keys_on_client(tbl: Class)]
+public void fix_foreign_keys_on_client(){
+[if (tbl.eContents(Property)->exists(x | x.type.name.toString().equalsIgnoreCase('invalid'))) ]
+/*
+	ACCELEO ERROR ON PROPERTY DEFINITION:
+[for (it : Property | tbl.eContents(Property))]
+	[it.type.name.toString() /]  [it.name.toString() /] [it.toString() /]
+[/for]
+*/
+[else]
+[if (tbl.eContents(Property)->exists(x: Property| x.type.name.equalsIgnoreCase(x.name)))]
+[if (0 < tbl.eContents(Property)->select(x: Property| x.type.name.equalsIgnoreCase(x.name) 
+and
+	not(
+		x.type.oclAsType(Class).gotStereotype('server_only') or 
+		x.type.oclAsType(Class).gotStereotype('client_const')
+	)
+)->size())
+ ]
+[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.fixClientForeignKeys();
+[/if]
+[/if]
+[/if]
+}
+[/template]
+[comment << END INSERT AND UPDATE ON CLIENT /]
+
+
+[comment >> BEGIN INSERT AND UPDATE ON SERVER /]
+[template public android_insert_on_server(tbl: Class)]
+public void insert_on_server(){
+[comment
+	all registers with no server_id, solved
+/]
+
+	//paginator.setPageSize(100);
+	paginator.setPageNumber(0);
+	paginator.setFinished(false);
+	paginator.setError(false);
+
+	Log.v("rest-api", "atempt to insert on the server .. ");
+
+	while (false == paginator.isFinished()) {
+
+		List<[tbl.name.ToCamelCase()/]> [tbl.name/]_for_insertion_on_server =
+				[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.listForInsertOnServer(
+						paginator.getPageNumber(),
+						paginator.getPageSize()); //step 2,1
+		paginator.nextPage();
+
+		Iterator<[tbl.name.ToCamelCase()/]> it = [tbl.name/]_for_insertion_on_server.iterator();
+
+		String json = "['['/]";
+
+		if(it.hasNext()){
+
+			Log.v("rest-api", "building the message .. ");
+
+			json += it.next().toJsonString();
+
+			while(it.hasNext()){
+
+				json += ", " + it.next().toJsonString();
+
+			}
+
+		}else{
+
+			paginator.setFinished(true);
+
+			Log.v("rest-api", "abort insertions..");
+
+			continue;
+
+		}
+
+		json += "[']'/]";
+
+		Log.v("rest-api", "bash_insert:\n"+ json);
+
+		//step 2,2
+		client.run(
+			"https://192.168.0.250/naiara/sync/[tbl.name/]/bash_insert",
+			json,
+			new TlsCallback() {
+
+				@Override
+				public void CallBack(String result) {
+
+				Log.v("rest-api", "bash_insert :\n" + result);
+
+				try {
+					JSONArray array = new JSONArray(result);
+[comment] This code is also not likelly to run
+					/*
+					if (0 == array.length()) {
+						paginator.setFinished(true);
+					}*/
+[/comment]
+
+					for (int i = 0; i < array.length(); i++) {
+
+						JSONObject row = array.getJSONObject(i);
+
+						//step 2,3
+						[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.fixAfterServerInsertAndUpdate(
+								row.getLong("client_id"),
+								row.getLong("server_id"),
+								row.getLong("last_update_time")
+						);
+
+						Log.v("rest-api", "updating the client");
+
+					}
+
+				} catch (JSONException e) {
+
+					e.printStackTrace();
+
+					paginator.setFinished(true);
+
+				}
+			}
+		});
+	}
+
+}
+[/template]
+
+[template public android_update_on_server(tbl: Class)]
+public void update_on_server(){
+[comment
+	take all the dirty registers on client side, solved
+/]
+	Log.v("rest-api", "attempt to update on the server .. ");
+
+	//paginator.setPageSize(100);
+	paginator.setPageNumber(0);
+	paginator.setFinished(false);
+	paginator.setError(false);
+
+	while (false == paginator.isFinished()) {
+
+		//4,2
+		List<[tbl.name.ToCamelCase() /]> update_remote = [tbl.name.ToCamelCase().toLowerFirst()/]DataSource.listForUpdateOnServer(paginator.getPageNumber(), paginator.getPageSize());
+		paginator.nextPage();
+
+		Iterator<[tbl.name.ToCamelCase() /]> it = update_remote.iterator();
+
+		String json = "['['/]";
+
+		if (it.hasNext()) {
+			Log.v("rest-api", "updating the server..\n");
+			json += it.next().toJsonString();
+
+			while (it.hasNext()) {
+				json += "," + it.next().toJsonString();
+			}
+
+		}else{
+
+			paginator.setFinished(true);
+
+			Log.v("rest-api", "abort server updates..");
+
+			continue;
+
+		}
+
+		json += "[']'/]";
+
+
+		Log.v("rest-api", "bash_update :\n" + json);
+
+		//todo the date is not correct
+		//4,3
+		client.run(
+			"https://192.168.0.250/naiara/sync/[tbl.name/]/bash_update", json, new TlsCallback() {
+			@Override
+			public void CallBack(String result) {
+
+				Log.v("rest-api", "bash_update :\n" + result);
+
+				try {
+					JSONArray array = new JSONArray(result);
+
+[comment] This code will never run
+					/*
+					if(0 == array.length()){
+						paginator.setFinished(true);
+					}*/
+[/ comment]
+					for (int i = 0; i < array.length(); i++) {
+
+						JSONObject row = array.getJSONObject(i);
+
+						//step 4,4
+						[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.fixAfterServerInsertAndUpdate(
+								row.getLong("client_id"),
+								row.getLong("server_id"),
+								row.getLong("last_update_time")
+						);
+					}
+
+				} catch (JSONException e) {
+
+					e.printStackTrace();
+					paginator.setFinished(true);
+
+				}
+
+			}
+		});
+	}
+
+}
+[/template]
+
+
+[comment
+	Select from client;
+	Do the foreign key translation;
+	Send to server;
+	//unmark on the client side
+/]
+[template public android_fix_foreign_keys_on_server(tbl: Class)]
+// dont need anymore
+// public void fix_foreign_keys_on_server(){}
+[/template]
+
+
+[comment << END INSERT AND UPDATE ON SERVER /]
+
+
+[template public updater_class(tbl : Class, mname : String, pname : String)]
+package [pname /];
+
+import android.content.Context;
+import android.util.Log;
+
+import com.uisleandro.util.DBPaginator;
+import [pname.replaceAll('.web.sync', '.data.sqlite') /].[mname/].[tbl.name.ToCamelCase() /]DataSource;
+import [pname.replaceAll('.web.sync', '.data.view') /].[mname/].[tbl.name.ToCamelCase() /];
+import com.uisleandro.util.web.TLSWebClient2;
+import com.uisleandro.util.web.TlsCallback;
+import com.uisleandro.util.web.sync.SyncUpdater;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
+import java.util.List;
+
+public class [tbl.name.ToCamelCase() /]Sync implements SyncUpdater {
+
+	final DBPaginator paginator;
+	TLSWebClient2 client;
+	[tbl.name.ToCamelCase() /]DataSource [tbl.name.ToCamelCase().toLowerFirst() /]DataSource;
+
+	public [tbl.name.ToCamelCase() /]Sync(TLSWebClient2 client, Context context){
+		this.client = client;
+		paginator = new DBPaginator();
+		[tbl.name.ToCamelCase().toLowerFirst() /]DataSource = new [tbl.name.ToCamelCase()/]DataSource(context);
+	}
+
+	[android_insert_on_client(tbl)/]
+
+	[android_update_on_client(tbl)/]
+
+	[android_fix_foreign_keys_on_client(tbl)/]
+
+	[android_insert_on_server(tbl)/]
+
+	[android_update_on_server(tbl)/]
+
+	[comment android_fix_foreign_keys_on_server(tbl)/]
+}
+[/template]
+
+[template public ToFolder(pname : String)][for (it : String |
+pname.tokenize('.')) separator ('/')][it /][/for][/template]
+
+[template public generate_files(root: Model, pname: String)]
+[for (modul : Package | getModulesFrom(root, 'sqlite')->filter())]
+[for (tbl : Class| modul.eContents(Class)->filter())]
+[file ('main/java/'+pname.ToFolder()+'/'+tbl.name.ToCamelCase()+'Sync.java', false, 'UTF-8')]
+[updater_class(tbl, modul.name, pname)/]
+[/file]
+[/for]
+[/for]
+[/template]
+
+[query public get_configuration_namespace(arg : Model) : String = 
+self.eContents(Class)->select(x|x.name='custom_config')->first().eContents(Property)
+->select(x|x.type.name.toString().equalsIgnoreCase('app_namespace'))->first().name
+ /]
+
+[comment
+/SalesTestApp/app/src/main/java/com/uisleandro/web/sync/
+/]
+[template public generateElement(root: Model)]
+[comment @main/]
+[let pname : String = root.get_configuration_namespace()]
+[generate_files(root,pname+'.web.sync')/]
+[/let]
+[/template]

@@ -1,0 +1,671 @@
+[comment encoding = UTF-8 /]
+[module query2_cpy('http://www.eclipse.org/uml2/5.0.0/UML')]
+[import com::uisleandro::nativ3::query2::common::util /]
+
+[comment
+ 
+	Version: 0.2
+/]
+
+
+
+[comment]
+ some queries are tooComplex, but i Stil can create part of it
+[it.name /][compare(it) /]?
+[/comment]
+
+[comment query public compare(arg : Property) : String = 
+if gotStereotype(self, 'lessThan') then
+' < '
+else 
+if gotStereotype(self, 'greatherThan') then
+' > '
+else 
+' = '
+endif
+endif
+/]
+
+[comment 
+
+in the future: create a move-and-transform query
+
+/]
+
+[comment to utils, new verison /]
+[query public defaultEmpty(arg: String, f: String): String =
+if (null = arg or '' = arg) then
+f
+else
+arg
+endif
+/]
+
+[comment i cant make now + 24 hours /]
+[query public setDBValue(arg: String, alt: String) : String =
+if arg.equalsIgnoreCase('now') then
+'com.uisleandro.util.LongDateFormatter.nowToSeconds()'
+else
+	if '' = arg then
+alt
+	else
+'"'+arg+'"'
+	endif
+endif
+/]
+
+[comment
+
+criar um stereotipo unico value
+ainda preciso substituir a interrogação
+pelo nome da variavel ou pelo valor padrão
+
+ /]
+[template public dbValue(arg : Property)
+][if arg.getAppliedStereotypes()->isEmpty()
+][arg.name /][else][if gotStereotype(arg,'equalsTo')
+][setDBValue(getStereotypeValue(arg,'equalsTo','hint'),arg.name)/][/if][if gotStereotype(arg,'lessThan')
+][setDBValue(getStereotypeValue(arg,'lessThan','hint'),arg.name)/][/if][if gotStereotype(arg,'greatherThan')
+][setDBValue(getStereotypeValue(arg,'greatherThan','hint'),arg.name)/][/if][if gotStereotype(arg,'andLessThan')
+],[setDBValue(getStereotypeValue(arg,'andLessThan','hint'),arg.name)/][/if][if gotStereotype(arg,'orLessThan')
+],[setDBValue(getStereotypeValue(arg,'orLessThan','hint'),arg.name)/][/if][if gotStereotype(arg,'andGreatherThan')
+],[setDBValue(getStereotypeValue(arg,'andGreaterThan','hint'),arg.name)/][/if][if gotStereotype(arg,'orGreatherThan')
+],[setDBValue(getStereotypeValue(arg,'orGreatherThan','hint'),arg.name)/][/if][/if][/template]
+
+[query public fieldName(arg : Property, p : Boolean) : String = 
+if p then
+arg.owner.oclAsType(NamedElement).name+'.'+arg.name
+else
+arg.name
+endif
+ /]
+
+[comment cant cover everything /]
+[template public getQName(arg : Property, b: Boolean)
+][if (isfk(arg))][arg.owner.oclAsType(NamedElement).name
+/].fk_[arg.name /] = [arg.name
+/].id[else][if arg.getAppliedStereotypes()->isEmpty() or gotStereotype(arg,'equalsTo')
+][fieldName(arg,b)/] = ?[else][if gotStereotype(arg,'lessThan')
+][fieldName(arg,b)/] < ?[/if][if gotStereotype(arg,'greatherThan')
+][fieldName(arg,b)/] > ?[/if][if gotStereotype(arg,'andLessThan')
+] AND [fieldName(arg,b)/] < ?[/if][if gotStereotype(arg,'orLessThan')
+] OR [fieldName(arg,b)/] < ?[/if][if gotStereotype(arg,'andGreatherThan')
+] AND [fieldName(arg,b)/] > ?[/if][if gotStereotype(arg,'orGreatherThan')
+] OR [fieldName(arg,b)/] > ?[/if][/if][/if][/template]
+
+[comment
+
+	TODO: include in the util package, new vesion
+
+/]
+[query public findControllerCLS(p: Package, moduleName: String, className: String) : NamedElement = 
+	p.eContents(Package)
+		->select(x|x.name = moduleName)
+		->first().eContents(Package)
+		->select(x|x.name = 'controller')
+		->first().eContents(Class)
+		->select(x|x.name = className)
+		->first()
+/]
+
+[comment
+
+	TODO: include in the util package, new vesion 
+
+/]
+[query public findControllerCLS(p: Package, hint: String) : NamedElement = 
+if hint.indexOf('::') > 0 then
+findControllerCLS(p, hint.tokenize('::')->at(1), hint.tokenize('::')->at(2))
+else
+findControllerCLS(p, hint.tokenize('.')->at(1), hint.tokenize('.')->at(2))
+endif
+ /]
+
+
+
+
+[template public generateElement(root : Model)]
+[comment @main/]
+
+[file ('queries2.txt', false, 'UTF-8')]
+
+/*
+
+stereotypes:
+
+1. existsWhere
+
+2. deleteWhere
+
+3. updateWhere
+
+4. selectOneWhere
+
+5. selectValueWhere
+
+6. selectListWhere
+
+7. insert
+
+8. tooComplexQuery
+
+*/
+
+
+[let pack : Package = 
+	root
+		.eContents(Package)
+		->select(x|x.name = 'android_queries_new')
+		->first()
+]
+
+[pack.name /]
+
+[let controller : NamedElement = 
+	findControllerCLS(
+		pack,
+		'client::basic_client')]
+
+[comment 
+acredito que agora eu esteja pronto para
+	gerar as queries para a classe atual
+/]
+
+class: [controller.name /]
+
+
+	[comment these have at least the entrance parameter /]
+	[for (op : Operation | controller.eContents(Operation))]
+	[let inView : Class = op.ownedParameter
+		->select(x| 
+		x.direction = ParameterDirectionKind::_in or
+		x.direction = ParameterDirectionKind::inout or
+		x.name = 'in')
+		->first().type]
+
+	[if (op.gotStereotype('existsWhere'))]
+
+	[else][if (op.gotStereotype('insert'))]
+
+	[else][if (op.gotStereotype('updateWhere'))]
+
+	[else][if (op.gotStereotype('deleteWhere'))]
+
+	[else][let outView : Class = op.ownedParameter
+		->select(x|
+		x.direction = ParameterDirectionKind::out or
+		x.direction = ParameterDirectionKind::inout or
+		x.direction = ParameterDirectionKind::return or
+		x.name = 'out')
+		->first().type][let outProps: Sequence(Property) = 
+		recursiveFlatProperties(
+		outView
+		,1)->reverse()][if (op.gotStereotype('selectValueWhere'))]
+
+	[else][if (op.gotStereotype('selectOneWhere'))][comment has example /]
+[let inProps : Sequence(Property) =
+	nonrecFlatProperties(inView,1,1)
+	->reverse()][comment
+
+		Parametro nao precisa de recursao
+		The parameter list dont need recursion
+
+/][selectOneWhere(
+	outView.name,
+	op.name,
+	inProps,
+	outProps
+) /][/let]
+	[else][if (op.gotStereotype('selectListWhere'))][comment has example /]
+[let inProps : Sequence(Property) =
+	nonrecFlatProperties(inView,1,1)
+	->reverse()][comment
+
+		Parametro nao precisa de recursao
+		The parameter list dont need recursion
+
+/][selectListWhere(
+	outView.name,
+	op.name,
+	inProps,
+	outProps
+) /][/let]
+	[else][if (op.gotStereotype('tooComplexQuery'))]
+
+	[/if][/if][/if][/if][/let][comment << outProps /][/let][comment << outView /][/if][/if][/if][/if][/let][comment inView /]
+
+
+[comment]
+	operation: [op.name /]
+[for (par : Parameter | op.ownedParameter)]
+	[if (
+	par.direction = ParameterDirectionKind::_in or 
+	par.direction = ParameterDirectionKind::inout or 
+	'in' = par.name)]
+		where par: [par.name /] [par.type.name /]
+	[else]
+		get par: [par.name /] [par.type.name /]
+	[/if]
+[/for]
+[/comment]
+
+
+[comment]
+	[for (par : Parameter | op.eContainer(Parameter))]
+	[if (
+	par.direction = ParameterDirectionKind::_in or 
+	par.direction = ParameterDirectionKind::inout)]
+		where par: [par.name /]
+	[else]
+		get par: [par.name /]
+	[/if]
+	[/for]
+[/comment]
+
+	[/for]
+
+
+[/let]
+[/let]
+
+[/file]
+[/template]
+
+
+[template public generateElement2(root : Model)]
+[file ('queries.txt', false, 'UTF-8')]
+
+[let pack : Package = root
+		.eContents(Package)
+		->select(x|x.name = 'queries')
+		->first()
+][comment 
+
+Make sure that this association has a name
+Make sure that this association has the given stereotype
+
+/][for (assoc : Association | 
+	pack.eContents(Association)
+	->select(x| 
+		gotStereotype(x,'selectOneWhere') or
+		gotStereotype(x,'selectListWhere') or
+		gotStereotype(x,'selectValueWhere') or
+		gotStereotype(x,'existsWhere')
+	)
+)][let queryOuts : Class = assoc.memberEnd->at(2).type.oclAsType(Class)
+][let queryIns : Class = assoc.memberEnd->at(1).type.oclAsType(Class)
+][let that : Class = 
+queryOuts
+	.eContents(Class)
+	->select(x| gotStereotype(x, 'itself'))
+	->first()
+][let outProps: Sequence(Property) = 
+recursiveFlatProperties(
+	that
+	,1)->reverse()][comment 
+Gerar classes de retrno somente em alguns casos
+/][if (
+gotStereotype(assoc,'selectOneWhere') or
+gotStereotype(assoc,'selectListWhere')
+)]
+[return_class(queryOuts.name, outProps)/]
+
+[cursor_to_classname(queryOuts.name, outProps)/]
+
+[/if][if (gotStereotype(assoc,'selectOneWhere'))
+][let inProps : Sequence(Property) =
+	nonrecFlatProperties(queryIns,1,1)
+	->reverse()][selectOneWhere(
+	queryOuts.name,
+	assoc.name,
+	inProps,
+	outProps
+) /][/let][/if][if (gotStereotype(assoc,'selectListWhere'))
+][let inProps : Sequence(Property) =
+	nonrecFlatProperties(queryIns,1,1)
+	->reverse()][selectListWhere(
+	queryOuts.name,
+	assoc.name,
+	inProps,
+	outProps
+) /][/let][/if][if (gotStereotype(assoc,'selectValueWhere'))
+][let inProps : Sequence(Property) =
+	nonrecFlatProperties(queryIns,1,1)
+	->reverse()][selectValueWhere(
+	queryOuts.name,
+	assoc.name,
+	inProps,
+	outProps
+) /][/let][/if][if (gotStereotype(assoc,'existsWhere'))
+][let inProps : Sequence(Property) =
+	nonrecFlatProperties(queryIns,1,1)
+	->reverse()][existsWhere(
+	assoc.name,
+	inProps
+) /][/let][/if]
+[/let][/let][/let][/let]
+
+[/for][/let][/file][/template]
+
+[comment 
+
+I will make a lot of selections
+I will make a lot of insertions
+I will make some updatings
+I will probably not make deletions
+
+ /]
+[template public insert(
+functionName : String,
+queryIns: Sequence(Property)
+)]
+public int [functionName 
+/]([query_parameters_definition(queryIns) /]){
+
+	String query = "[insert_query(queryIns)/]";
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [query_parameters_usage(queryIns) /] });
+
+	int that = 0;
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		that = cursor.getInt(0);
+	}
+
+	return that;
+
+}
+[/template]
+
+[comment TODO /]
+[template public update(
+	functionName : String,
+	queryIns: Sequence(Property),
+	queryOuts: Sequence(Property))]
+public int [functionName 
+/]([query_parameters_definition(queryIns) /]){
+
+	String query = "[update_query(queryIns,queryOuts)/]";
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [query_parameters_usage(queryIns) /] });
+
+	int that = 0;
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		that = cursor.getInt(0);
+	}
+
+	return that;
+
+}
+[/template]
+
+[comment CHECKED /]
+[template public existsWhere(
+functionName : String,
+queryIns: Sequence(Property)
+)]
+public boolean [functionName 
+/]([query_parameters_definition(queryIns) /]){
+
+	String query = "[exists_query(queryIns)/]";
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [query_parameters_usage(queryIns) /] });
+
+	boolean that = false;
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		that = (cursor.getInt(0) > 0);
+	}
+
+	return that;
+
+}
+[/template]
+
+[comment CHECKED /]
+[template public selectOneWhere(
+	returnName : String,
+	functionName : String,
+	queryIns: Sequence(Property),
+	queryOuts: Sequence(Property))]
+public List<[returnName.ToCamelCase() /]> [functionName 
+/]([query_parameters_definition(queryIns) /]){
+
+	String query = "[select_query(queryIns,queryOuts)/]";
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [query_parameters_usage(queryIns) /] });
+
+	[returnName.ToCamelCase() /] that = null;
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		that = cursorTo[returnName.ToCamelCase() /](cursor);
+	}
+
+	return that;
+
+}
+[/template]
+
+[comment CHECKED /]
+[template public selectListWhere(
+	returnName : String,
+	functionName : String,
+	queryIns: Sequence(Property),
+	queryOuts: Sequence(Property))]
+public List<[returnName.ToCamelCase() /]> [functionName 
+/]([query_parameters_definition(queryIns) /]){
+
+	[comment vou precisar fazer os joins /]
+	String query = "[select_query(queryIns,queryOuts)/]";
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [query_parameters_usage(queryIns) /] });
+
+	List<[returnName.ToCamelCase() /]> those = null;
+	cursor.moveToFirst();
+	while(!cursor.isAfterLast()){
+		those.add( cursorTo[returnName.ToCamelCase() /](cursor) );
+		cursor.moveToNext();
+	}
+
+	return those;
+
+}
+[/template]
+
+[comment CHECKED /]
+[template public selectValueWhere(
+	returnName : String,
+	functionName : String,
+	queryIns: Sequence(Property),
+	queryOuts: Sequence(Property))]
+public [androidType(queryOuts->at(1)) /] [functionName 
+/]([query_parameters_definition(queryIns) /]){
+
+	[comment vou precisar fazer os joins /]
+	String query = "[select_query(queryIns,queryOuts)/]";
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [query_parameters_usage(queryIns) /] });
+
+	[androidType(queryOuts->at(1)) /] that = null;
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		that = cursor.[cursorGetterName(queryOuts->at(1), 0)/];
+	}
+
+	return that;
+
+}
+[/template]
+
+[comment 
+
+Generate the parameters for this class
+
+/]
+[template public query_parameters_definition(props: Sequence(Property))
+][for (prop : Property | props
+->select(x| 
+	not x.type.name.equalsIgnoreCase(x.name)
+	and not gotStereotype(x, 'value')
+	and not gotStereotype(x, 'now')
+	and not gotStereotype(x, 'today')
+))
+separator(', ')
+][androidType(prop) /] [prop.name 
+/][/for][/template]
+
+[template public query_parameters_usage(props: Sequence(Property))]
+[for (prop : Property | props
+->select(x| 
+	not x.type.name.equalsIgnoreCase(x.name)
+))
+separator(', ')][dbValue(prop)/][/for][/template]
+
+[comment 
+
+Propriedades recursivas: cuidado com loop infinito
+
+/]
+[template public recursive_field_list(table : Class)
+][for (column : Property | table
+.eContents(Property)
+	->select(x| not x.type.name
+		.equalsIgnoreCase(x.name))) separator (',')]
+[table.name /].[column.name /][comment 
+/][/for][if (table.eContents(Property)
+	->exists(x| x.type.name
+		.equalsIgnoreCase(x.name)))][comment 
+/][for (foreign : Property | table
+.eContents(Property)
+	->select(x| x.type.name
+		.equalsIgnoreCase(x.name)))],[comment 
+/][recursive_field_list(foreign.type
+		.oclAsType(Class)) /][/for]
+[/if][/template]
+
+[template public recursive_join(table : Class)
+][for (foreign : Property | table
+.eContents(Property)
+->select(x| x.type.name.equalsIgnoreCase(x.name))
+)] INNER JOIN [foreign.name /] ON [table.name /].[comment 
+/]fk_[foreign.name /] = [foreign.name /].id[/for][comment 
+/][for (foreign : Property | table
+.eContents(Property)
+->select(x| x.type.name.equalsIgnoreCase(x.name))
+)][recursive_join(foreign.type.oclAsType(Class))/][/for][/template]
+
+[comment new /]
+[template public recursive_where_fk_and(table : Class)
+][for (foreign : Property | table
+.eContents(Property)
+->select(x| x.type.name.equalsIgnoreCase(x.name))
+) separator (' AND ')] [table.name /].[comment 
+/]fk_[foreign.name /] = [foreign.name /].id[/for][comment 
+/][for (foreign : Property | table
+.eContents(Property)
+->select(x| x.type.name.equalsIgnoreCase(x.name))
+)][recursive_where_fk_and(foreign.type.oclAsType(Class))/][/for][/template]
+
+[comment]
+
+[/comment]
+[template public select_query(
+queryIns : Sequence(Property),
+queryOuts : Sequence(Property)
+)]SELECT [for (it : Property | queryOuts) separator(',')
+][it.owner.oclAsType(NamedElement).name /].[it.name 
+/][/for] FROM [let itself : Class = queryOuts->select(x| gotStereotype(x.owner, 'itself'))->first().owner
+][itself.name /][recursive_join(itself)
+/][/let] WHERE [for (it : Property | queryIns) separator(' AND ')][getQName(it, true) /][/for];[/template]
+
+[comment]
+
+[/comment]
+[template public exists_query(
+queryIns : Sequence(Property))]SELECT exists(*) FROM [let itself : Class = queryIns->select(x| gotStereotype(x.owner, 'itself'))->first().owner
+][itself.name /][recursive_join(itself)
+/][/let] WHERE [for (it : Property | queryIns) separator(' AND ')][getQName(it, true) /][/for];[/template]
+
+
+[template public insert_query(
+queryIns : Sequence(Property))]INSERT INTO [queryIns->first().owner.oclAsType(NamedElement).name 
+/]([for (it : Property | queryIns) separator (',')][it.name /][/for]) VALUES ([for (it : Property | queryIns) separator (',')]?[/for]);[/template]
+
+
+[comment TODO /]
+[template public update_query(
+queryIns : Sequence(Property),
+queryOuts : Sequence(Property)
+)]UPDATE [queryOuts.owner.oclAsType(NamedElement).name 
+/] SET ([for (it : Property | queryOuts) separator(',')
+][it.name/] = ?[/for]) WHERE [for (it : Property | queryIns) separator(' AND ')
+][getQName(it, true) /][/for];[/template]
+
+[comment
+	Seria bom fazer um insert com selection com where
+
+	"all this" where "all that" insertOn "those"
+
+
+t1         t2
+a -------> b
+b -------> c
+c -------> d
+
+
+posso marcar uma propriedade com estereotipos.. 
+com o nome da tabela::coluna que eu quero inserir
+
+
+/]
+
+
+
+[comment]
+
+Em alguns casos as fks vao retornar um nome.
+Em outros apenas o ID é o suficiente.
+
+Eu poderia:
+	citar o tipo como Inteiro e acrescentar um prefixo.. 
+	estaria representada a chave estrangeira
+
+[/comment]
+[template public return_class(className : String, props: Sequence(Property))]
+class [className.ToCamelCase() /]{
+
+[for (column : Property | props)]
+	private [androidType(column) 
+	/] [column.owner.oclAsType(NamedElement).name /]_[column.name /];
+	
+	public [androidType(column) /][comment android type 
+	/] get[column.owner.oclAsType(NamedElement).name.ToCamelCase() 
+			/][column.name.ToCamelCase() /](){
+		return [column.owner.oclAsType(NamedElement).name /]_[column.name /];
+	}
+	
+	public void set[column.owner.oclAsType(NamedElement).name.ToCamelCase() 
+			/][column.name.ToCamelCase() /]([androidType(column) 
+		/] [column.owner.oclAsType(NamedElement).name /]_[column.name /]){
+		this.[column.owner.oclAsType(NamedElement).name /]_[column.name 
+		/] = [column.owner.oclAsType(NamedElement).name /]_[column.name /];
+	}
+
+[/for]
+}[/template]
+
+[comment CHECKED /]
+[template public cursor_to_classname(className : String, props: Sequence(Property))]
+public [className.ToCamelCase()
+/] cursorTo[className.ToCamelCase() /](Cursor cursor){
+
+	[className.ToCamelCase() /] [className 
+/] = new [className.ToCamelCase()/]();
+
+[for (p :Property | props)]
+	[className/].set[p.owner
+	.oclAsType(NamedElement).name
+	.ToCamelCase()/][p.name
+	.ToCamelCase()
+/](cursor.[p.cursorGetterName(i-1)/]);[comment from 'what the heck' comes this i variable :D /]
+[/for]
+
+	return [className /];
+
+}
+[/template]

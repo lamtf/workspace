@@ -1,0 +1,178 @@
+[comment encoding = UTF-8 /]
+[module generate_strings('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[import com::uisleandro::AndroidStrings::common::util /]
+
+[comment 
+
+Generates the strings.xml file
+
+/]
+
+[template public generateElement(root : Model)]
+[comment @main/]
+[let pname : String = get_configuration_namespace(root)]
+
+[file ('main/res/strings.xml', false, 'UTF-8')]
+[generate_strings_xml(root) /]
+[/file]
+
+[file ('main/AndroidManifest.xml', false, 'UTF-8')]
+[register_activities_on_manifest(root, pname) /]
+[/file]
+
+[/let]
+[/template]
+
+[comment 
+	Register the activities on the 
+/]
+[template public register_activities_on_manifest(root : Model, pname : String)]
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	package="[pname /]">
+
+<!-- 
+[protected ('manual configuration')]
+-->
+
+	<uses-permission android:name="android.permission.CAMERA"/>
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	<uses-permission android:name="android.permission.SEND_SMS"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
+
+	<application
+		android:allowBackup="true"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:supportsRtl="true"
+		android:theme="@style/AppTheme">
+		<activity android:name=".MainActivity">
+
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER"/>
+				<action android:name="android.intent.action.SEARCH"/>
+			</intent-filter>
+			<meta-data
+				android:name="android.app.searchable"
+				android:resource="@xml/searchable"/>
+			<!---->
+		</activity>
+		<activity
+			android:name="com.uisleandro.util.ZZClientActivity"
+			android:label="@string/title_activity_zzclient"
+			android:theme="@style/AppTheme">
+			<!--
+						<intent-filter>
+							<action android:name="android.intent.action.MAIN"/>
+							<category android:name="android.intent.category.LAUNCHER"/>
+							<action android:name="android.intent.action.SEARCH"/>
+						</intent-filter>
+						<meta-data
+							android:name="android.app.searchable"
+							android:resource="@xml/searchable"/>
+			-->
+		</activity>
+		<activity android:name="com.uisleandro.util.ScalingScannerActivity"/>
+		<activity android:name="com.uisleandro.util.UpdateActivity"/>
+		<activity android:name="com.uisleandro.util.QrcodeActivity"/>
+
+<!--
+[/protected]
+-->
+
+<!-- begin generated activities -->
+
+[comment TODO: add new activities here /]
+
+
+<!-- end generated activities -->
+	</application>
+</manifest>
+[/template]
+
+
+[template public generate_strings_xml(root : Model)]
+<resources>
+<!-- 
+[protected ('reserved for the programmer')]
+-->
+	<string name="app_name">Store</string>
+
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
+
+	<string name="action_settings">Settings</string>
+	<string name="ok">Ok</string>
+<!--
+[/protected]
+-->
+
+[comment]
+	Generate the strings for the Main Menu
+[/comment]
+[for (menuItem : Vertex |
+	root.eContents(Package)
+	->select(x|x.name = 'android_behavior')
+	->first().eContents(StateMachine)
+	->select(x|gotStereotype(x,'menu'))
+	->first().eContents(Region)
+	->first().eContents(State)
+)]
+	<string name="[menuItem.name /]">[menuItem.name /]</string>
+	[for (menuSubItem : Vertex | menuItem.eContents(Region)->first().eContents(State))]
+	<string name="[menuSubItem.name /]">[menuSubItem.name /]</string>
+	[/for]
+[/for]
+
+
+[comment]
+	Generate strings for the button-names
+[/comment]
+<!-- begin button names -->
+[for ( sm : StateMachine |
+	root.eContents(Package)
+	->select(x|x.name = 'android_behavior')
+	->first().eContents(StateMachine)
+	->select(x| not gotStereotype(x,'menu'))
+)][let reg : Region = sm.eContents(Region)->first()
+][for (st : State | reg.eContents(State))
+][if st.eContents(Region)->notEmpty()
+][for(button: State |
+	st.eContents(Region)
+		->first().eContents(State)
+		->select(x|gotStereotype(x, 'button') and x.name <> 'ok')
+)]
+	<string name="[button.name /]">[button.name /]</string>
+[/for][/if][/for][/let][/for]
+<!-- end button names -->
+
+[comment]
+	Generate strings for field names on form views
+[/comment]
+<!-- begin field names -->
+[for (scrModule : Package |
+	root.eContents(Package)
+	->select(x|x.name = 'android_screens')
+	->first().eContents(Package)
+)][comment 
+The name of the following package is 'view', but its the only one 
+/][let vwp: Package = scrModule.eContents(Package)->first()][comment 
+The name of the following class is ignored
+/][for (vwcls : Class | vwp.eContents(Class))
+][comment 
+In this version of the code i have only one class with this stereotype
+/][for (subject : Class | vwcls.eContents(Class)->select(x| gotStereotype(x, 'itself')))
+][for (textBox: Property | subject.eContents(Property))]
+	<string name="[textBox.name /]">[textBox.name /]</string>
+[/for][/for][/for][/let][/for]
+<!-- end field names --> 
+
+
+</resources>
+[/template]
+
+
+

@@ -1,0 +1,40 @@
+[comment encoding = UTF-8 /]
+[module generated_sqlite_translator('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[comment PLEASE SET THE MIN AND THE MAX VALUES, WHEN APPLIABLE/]
+[query public sqliteTypeName(arg: Property): String =
+if arg.type.name.equalsIgnoreCase('Date') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('DateTime') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Time') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Number') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Money') then
+	'REAL'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') then
+	'DOUBLE PRECISION'
+else if arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then
+	'DOUBLE PRECISION'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then
+	'BOOLEAN'
+else if arg.type.name.equalsIgnoreCase('Identifier') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('GuidType') then
+	'CHAR'
+else if arg.type.name.equalsIgnoreCase('Abbreviature') then
+	'CHAR'
+else if arg.type.name.equalsIgnoreCase('BigText') then
+	'VARCHAR'
+else if arg.type.name.equalsIgnoreCase('File') then
+	'VARCHAR'
+else if arg.type.name.equalsIgnoreCase('SmallText') then
+	'CHAR'
+else if arg.type.name.equalsIgnoreCase('MediumText') then
+	'VARCHAR'
+else if arg.type.name.equalsIgnoreCase('BarcodeType') then
+	'CHAR'
+else if arg.type.name.equalsIgnoreCase('PictureType') then
+	'INTEGER'
+endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif/]

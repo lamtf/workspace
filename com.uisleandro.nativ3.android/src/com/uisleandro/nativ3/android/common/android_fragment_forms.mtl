@@ -1,0 +1,1236 @@
+[comment encoding = UTF-8 /]
+[module android_fragment_forms('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[**
+ * Creates fragments for insert/update 
+ * Creates xml layouts (with awesome_fab)
+ * 
+ * Where on my model im going to find the resources????
+ * Won't be good to parametize it? so i can load from 
+ * "different locations"
+ * 
+ * TODO: not inserting into many classes yet
+ * 
+ * WHAT IS NEW:
+ * 	now it is receiving a flat set of properties (i guess it would run faster)
+ * 
+ * LIMITATIONS:
+ * 	"has_picture" is not for each class
+ */]
+
+
+[query public filter(arg : Sequence(Class)) : 
+Sequence(Class) = self->select(x: Class |
+not x.gotStereotype('server_only') and
+not x.gotStereotype('client_hidden') and
+not x.gotStereotype('client_const'))
+/]
+
+[query public filter(arg : Sequence(Package)) : 
+Sequence(Package) = self->select(x: Package |
+not x.gotStereotype('server_only') and
+not x.gotStereotype('client_hidden') and
+not x.gotStereotype('client_const'))
+/]
+
+[query public filter(arg : Sequence(Property)) : 
+Sequence(Property) = self->select(x: Property |
+not x.gotStereotype('server_only') and
+not x.gotStereotype('client_hidden') and
+not x.gotStereotype('client_const'))
+/]
+
+[template public FolderName(arg : String)]
+[for (st : String | self.tokenize('.')) separator ('/')][st/][/for]
+[/template]
+
+[query public getModulesFrom(arg : Model, package_name : String) : Sequence(Package) = 
+   self.eContents(Package)
+   ->select(x | x.name = package_name)->first()
+   .eContents(Package)
+/]
+
+[query public getControllerClasses(arg : Package) : Sequence(Class) = 
+if(self.eContents(Package)->exists(x: Package | x.name = 'controller')) then
+	self.eContents(Package)->select(x: Package | x.name = 'controller').eContents(Class)
+else
+	null
+endif
+/]
+
+[query public gotStereotype(arg : NamedElement, sname : String) : Boolean = 
+self.getAppliedStereotypes()->exists(s : Stereotype | s.name = sname) /]
+
+[template public ToCamelCase(arg : String)]
+[for (it : String | arg.tokenize('_'))][it.toUpperFirst()/][/for]
+[/template]
+
+[template public ToCamelCaseSpaced(arg : String)]
+[for (it : String | arg.tokenize('_')) separator (' ')][it.toUpperFirst()/][/for]
+[/template]
+
+[query public getType(arg : Property) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())) then
+'long'
+else 
+self.type.name.toString()
+endif
+/]
+
+[query public getName(arg : Property) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())) then
+'fk_'+self.name
+else 
+self.name
+endif
+/]
+
+[query public isForeignKey(arg : Property) : Boolean = 
+self.type.name.toString().equalsIgnoreCase(self.name) /]
+
+[query public isBoolean(arg : Property) : Boolean = 
+self.type.name.toString().equalsIgnoreCase('boolean') /]
+
+[query public isDate(arg : Property) : Boolean = 
+self.type.name.toString().equalsIgnoreCase('date') /]
+
+[query public isString(arg : Property) : Boolean = 
+self.type.name.toString().equalsIgnoreCase('string') /]
+
+[query public custom_filter(arg: Sequence(Property)): Sequence(Property) =
+arg->select(x : Property | not (
+x.name.equalsIgnoreCase('system') or
+x.name.equalsIgnoreCase('user') or
+x.name.equalsIgnoreCase('last_update_time')
+))/]
+
+
+[query public getForeignKeys(arg : Class) : Sequence(Property) = 
+self.eContents(Property)->select(x: Property | 
+x.type.name.toString().equalsIgnoreCase(x.name) and
+not (
+x.name.equalsIgnoreCase('system') or
+x.name.equalsIgnoreCase('user')
+)
+)/]
+
+
+[query public isDateTime(arg : Property) : Boolean = self.type.name.toString().equalsIgnoreCase('datetime') /]
+
+[query public getNonForeignKeys(arg : Class) : Sequence(Property) = 
+self.eContents(Property)->select(x: Property| not x.type.name.toString().equalsIgnoreCase(x.name)) /]
+
+[query public getAModelByName(arg : String) : Class = 
+Package.allInstances()
+->select(x : Package | x.name = 'model' and x.eContents(Class)
+	->exists(x| x.gotStereotype('table') and x.name = arg
+  ))
+->asSequence()->first().eContents(Class)->select(x|x.name = arg)->first()
+ /]
+
+[query public getmodule_name(arg : String) : String = 
+Package.allInstances()
+->select(x : Package | x.name = 'model' and x.eContents(Class)
+	->exists(x| x.gotStereotype('table') and x.name = arg
+  ))
+->asSequence()->first().owner.oclAsType(Package).name
+ /]
+
+
+
+[query public getPreviousInnerProperty(arg : Class, prop : Property, cl : Integer, pr : Integer) : Property = 
+if(self.eContents(Class)->at(cl).eContents(Property)->at(pr) = prop) then
+/* previous */
+if(pr > 1) then
+self.eContents(Class)->at(cl).eContents(Property)->at(pr-1)
+else
+if(cl > 1) then
+self.eContents(Class)->at(cl-1).eContents(Property)->last()
+else
+/* impossible not found */
+null
+endif
+endif
+else
+if(pr < self.eContents(Class)->at(cl).eContents(Property)->size()) then
+/* go forward on property */
+getPreviousInnerProperty(self, prop, cl, pr+1)
+else
+/* go forward on class */
+if(cl < self.eContents(Class)->size()) then
+getPreviousInnerProperty(self, prop, cl+1, 1)
+else
+/* impossible not found */
+null
+endif
+endif
+endif
+ /]
+
+[query public getUpdateOperations(arg : Class) : Sequence(Operation) = 
+self.eContents(Operation)->select(x: Operation | x.gotStereotype('fn_update')) /]
+
+[query public getFirstParameterClass(arg : Operation) : Class = 
+self.eContents(Parameter)->first().type.oclAsType(Class) /]
+
+[query public ConvertFromStringFunction(arg : Property) : String =
+if( self.type.name.toString().equalsIgnoreCase('date') ) then 'LongDateFormatter.ParseDate'
+else
+if( self.type.name.toString().equalsIgnoreCase('float') ) then 'Float.parseFloat'
+else
+if( self.type.name.toString().equalsIgnoreCase('double') ) then 'Double.valueOf'
+else
+if( self.type.name.toString().equalsIgnoreCase('long') or 
+self.type.name.toString().equalsIgnoreCase(self.name)) then 'Long.parseLong'
+else
+if( self.type.name.toString().equalsIgnoreCase('int') or 
+self.type.name.toString().equalsIgnoreCase('integer')) then 'Integer.parseInt'
+else
+if( self.type.name.toString().equalsIgnoreCase('boolean')) then 'Boolean.parseBoolean'
+else
+''
+endif
+endif
+endif
+endif
+endif
+endif
+ /]
+
+[comment] 
+[query public getNonHiddenProperties(arg : Class) : Sequence(Property) = 
+self.eContents(Property)->select(x: Property | not x.gotStereotype('client_hidden')) /]
+[/comment]
+
+[comment END COMMON FUNCTIONS /]
+[query public getPropertyIndex(arg : Sequence(Property), p : Property, i : Integer) : Integer = 
+if (i > arg->size()) then 0 
+else if (self->at(i) = p) then i
+else getPropertyIndex(arg, p, i+1)
+endif
+endif
+ /]
+
+[template public insert_fragment_class(
+	package_name : String,
+	module_name : String,
+	class_name : String,
+	dataclass_name : String,
+	fields : Sequence(Property)
+)]
+[let has_picture : Boolean = fields->exists(x| gotStereotype(x.owner.oclAsType(NamedElement), 'has_picture'))]
+
+package [package_name /].crud.[module_name /];
+
+import android.os.Bundle;
+import com.uisleandro.util.ObjectStateHolder;
+[if ( fields->exists(x: Property | x.gotStereotype('barcode')) )]
+import android.app.Activity;
+import android.content.Intent;
+import com.uisleandro.util.ScalingScannerActivity;
+[/if]
+[if (fields->exists(x: Property | 
+x.gotStereotype('date') or
+x.gotStereotype('time') or
+x.gotStereotype('datetime') or
+x.gotStereotype('barcode') or
+has_picture
+)
+)]
+import android.support.design.widget.FloatingActionButton;
+[/if]
+
+[if (fields->exists(x: Property | x.gotStereotype('barcode')))]
+import android.support.v4.content.ContextCompat;
+import android.support.v4.app.ActivityCompat;
+import android.Manifest;
+import android.content.pm.PackageManager;
+[/if]
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+//import android.widget.Button;
+[if (fields->exists(x: Property | x.isBoolean()))]
+import android.widget.CheckBox;
+[/if]
+[if (fields->exists(x: Property | x.isForeignKey()))]
+import android.widget.Spinner;
+[/if]
+
+import android.widget.Toast;
+import android.support.design.widget.TextInputLayout;
+
+import [package_name /].R;
+
+import [package_name /].data.sqlite.DBHelper;
+
+[comment TODO rever /]
+import [package_name /].data.sqlite.[module_name /].[dataclass_name.ToCamelCase()/]DataSource; 
+[for (prop : Property | fields->select(x|x.name.toString().indexOf('fk_') > 0))
+][let fk_module_name : String = getmodule_name(prop.name)]
+import [package_name /].data.sqlite.[fk_module_name /].[prop.name.ToCamelCase() /]DataSource;
+[/let][/for]
+import [package_name /].data.view.[module_name /].[dataclass_name.ToCamelCase()/];
+[for (prop : Property | fields->select(x| x.name.toString().indexOf('fk_') > 0))
+][let fk_module_name : String = getmodule_name(prop.name)]
+import [package_name /].data.view.[fk_module_name /].[prop.name.ToCamelCase() /];
+[/let][/for]
+
+import java.util.List;
+
+[if (
+fields->exists(x: Property | 
+	x.type.name.toString().equalsIgnoreCase('date') or
+	x.type.name.toString().equalsIgnoreCase('datetime')
+)
+)]
+import java.util.Calendar;
+import android.app.DatePickerDialog;
+import android.widget.DatePicker;
+import com.uisleandro.util.LongDateFormatter;
+import java.text.ParseException;
+[/if]
+
+[if (has_picture)]
+import android.widget.ImageView;
+import android.os.Environment;
+import android.provider.MediaStore;
+import java.io.File;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import com.uisleandro.util.ImageStateHolder;
+[/if]
+
+import com.uisleandro.util.FragmentChanger;
+
+import android.util.Log;
+
+
+public class [class_name.ToCamelCase()/]UpdateFragment extends Fragment implements View.OnClickListener, ObjectStateHolder[if(has_picture)], ImageStateHolder[/if] {
+
+
+[if (
+fields->exists(x: Property | 
+	x.gotStereotype('barcode')
+)
+)]
+	private static final int ZXING_CAMERA_PERMISSION = 1;
+	private static final int INTENT_IMAGE_CAPTURE = 1;
+[let barcodes : Sequence(Property) = fields->select(x: Property | x.gotStereotype('barcode'))]
+[for (prop : Property | barcodes)]
+	private static final int INTENT_[barcodes.owner.oclAsType(NamedElement).name.toUpperCase() /]_[prop.name.toUpperCase() /] = [getPropertyIndex(barcodes, prop, 1) + 1 /];
+[/for][/let]
+[/if]
+
+[if (has_picture)]
+	private ImageView imv_picture_[dataclass_name.toLowerCase()/];
+	private FloatingActionButton fab_change_picture_[dataclass_name.toLowerCase() /];
+	private long image_id;
+[/if]
+
+
+	//TODO: i need to get the id from somewhere or else i wont be able to update
+	[dataclass_name.ToCamelCase()/] [dataclass_name /];
+
+	private FloatingActionButton ok_button;
+	private FloatingActionButton cancel_button;
+[for (prop : Property | fields->custom_filter())]
+[if (prop.isBoolean())]
+	private CheckBox chb_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /];
+[else][if (prop.isForeignKey())]
+	//private long [prop.getName() /];
+	private Spinner spi_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /];
+[else]
+	private TextInputLayout til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /];
+[if (
+	prop.gotStereotype('date') or
+	prop.gotStereotype('time') or 
+	prop.gotStereotype('datetime') or
+	prop.gotStereotype('barcode')
+)]
+	private FloatingActionButton fab_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /];
+[/if][/if][/if]
+[/for][comment << custom filter /]
+
+[if (
+fields->exists(x: Property | 
+x.gotStereotype('date') or
+x.gotStereotype('time') or
+x.gotStereotype('datetime')
+)
+)]
+	Calendar calendar = Calendar.getInstance();
+
+[for (prop : Property | fields->select(x: Property | x.gotStereotype('date')))]
+	DatePickerDialog.OnDateSetListener dpl_[prop.name /] = new  DatePickerDialog.OnDateSetListener(){
+			@Override
+			public void onDateSet(DatePicker view, int year, int month, int day) {
+				calendar.set(Calendar.DAY_OF_MONTH, day);
+				calendar.set(Calendar.MONTH, month);
+				calendar.set(Calendar.YEAR, year);
+	
+				til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].getEditText().setText(
+						LongDateFormatter.ConvertToString(calendar.getTimeInMillis(), 0)
+				);
+	
+			}
+	};
+
+[/for][comment << date /]
+[/if]
+
+	public [dataclass_name.ToCamelCase()/]UpdateFragment() {
+		// Required empty public constructor
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+							 Bundle savedInstanceState) {
+
+		// Inflate the layout for this fragment
+		View view = inflater.inflate(R.layout.fragment_[module_name/]_[dataclass_name/]_update, container, false);
+
+		// Connecting visual components
+[for (prop : Property | fields->custom_filter())]
+[if (prop.isBoolean())]
+		chb_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /] = (CheckBox)view.findViewById(R.id.chb_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]);
+[else][if (prop.isForeignKey())]
+		spi_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /] = (Spinner)view.findViewById(R.id.spi_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]);
+[else]
+		til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /] = (TextInputLayout)view.findViewById(R.id.til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]);
+		[if (prop.gotStereotype('date') or 
+			 prop.gotStereotype('time') or
+			 prop.gotStereotype('datetime') or
+			 prop.gotStereotype('barcode')
+)]
+		fab_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /] = (FloatingActionButton)view.findViewById(R.id.fab_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]);
+		fab_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].setOnClickListener(this);
+		[/if]
+[/if][/if]
+[/for][comment << custom filter /]
+
+[if (has_picture)]
+		imv_picture_[dataclass_name.toLowerCase()/] = (ImageView)view.findViewById(R.id.imv_picture_[dataclass_name.toLowerCase()/]);
+		fab_change_picture_[dataclass_name.toLowerCase() /]  = (FloatingActionButton)view.findViewById(R.id.fab_change_picture_[dataclass_name.toLowerCase() /]);
+		fab_change_picture_[dataclass_name.toLowerCase() /].setOnClickListener(this);
+[/if]
+
+		if(null == [dataclass_name /]){
+
+			long id = getActivity().getIntent().getLongExtra("id", 0);
+			if(id > 0){
+
+				[dataclass_name.ToCamelCase()/]DataSource ds = new [dataclass_name.ToCamelCase()/]DataSource(getActivity());
+				[dataclass_name /] = ds.getById(id);
+
+			}
+			else {
+				[dataclass_name /] = new [dataclass_name.ToCamelCase()/]();
+			}
+
+		}
+		else{
+			Log.v("uis99",[dataclass_name /].toJsonString());
+		}
+
+		if(null != [dataclass_name /]){
+
+[for (prop : Property | fields->select(x: Property | 
+not (
+x.isForeignKey() or 
+x.name.toString().equalsIgnoreCase('last_update_time'))
+))]
+[if (prop.isBoolean())]
+			chb_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].setChecked([dataclass_name /].get[prop.getName().ToCamelCase() /]());
+[else]
+[if (prop.isString())]
+			til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].getEditText().setText(
+				[dataclass_name /].get[prop.getName().ToCamelCase() /]()
+			);
+[else]
+[if (prop.isDate())]
+			if( LongDateFormatter.TestInterval([dataclass_name /].get[prop.getName().ToCamelCase() /](), 10, 120) ) {
+				til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].getEditText().setText(
+					LongDateFormatter.ConvertToString(
+						[dataclass_name /].get[prop.getName().ToCamelCase() /](),
+						LongDateFormatter.MEDIUM_DATE
+					)
+				);
+			}
+[else]
+			til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].getEditText().setText(
+				String.valueOf(
+					[dataclass_name /].get[prop.getName().ToCamelCase() /]()
+				)
+			);
+		
+[/if][/if][/if]
+[/for]
+
+		}
+
+[if (has_picture)]
+		load_picture_[dataclass_name.toLowerCase()/]();
+[/if]
+
+		ok_button = (FloatingActionButton)view.findViewById(R.id.ok_button);
+		cancel_button = (FloatingActionButton)view.findViewById(R.id.cancel_button);
+
+		// Setting onClick listeners
+		ok_button.setOnClickListener(this);
+		cancel_button.setOnClickListener(this);
+
+		//TODO: create another list adapter for this portion of code...
+[for (prop : Property | fields->select(x|x.name.toString().indexOf('fk_') > 0))]
+		[prop.name.ToCamelCase() /]DataSource [prop.name/]_ds = new [prop.name.ToCamelCase() /]DataSource(getActivity());
+		List<[prop.name.ToCamelCase()/]> [prop.name/]_list = [prop.name/]_ds.listAll();
+		ArrayAdapter [prop.name/]_adp = new ArrayAdapter(
+				getActivity(),
+				R.layout.support_simple_spinner_dropdown_item,
+				[prop.name/]_list);
+
+		spi_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].setAdapter([prop.name/]_adp);
+
+		if(null != [dataclass_name /]){
+			for(int i = 0; i < [prop.name/]_adp.getCount(); i++){
+				if((([prop.name.ToCamelCase() /])[prop.name/]_adp.getItem(i)).getId() == [dataclass_name /].get[prop.getName().ToCamelCase() /]()){
+					spi_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].setSelection(i);
+					break;
+				}
+			}
+		}
+
+		spi_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].setOnItemSelectedListener(
+		new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+				[dataclass_name /].set[prop.getName().ToCamelCase() /](
+					(([prop.name.ToCamelCase() /]) adapterView.getItemAtPosition(i)).getId()
+				);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> adapterView) {
+
+			}
+		});
+
+[/for]
+
+		return view;
+
+	}
+
+
+	private void fill_state(){
+[comment here it takes all hidden and non hidden properties /]
+
+			// It does not provide last_update_time, 
+			// instead it will turn it dirty (setting it to zero)
+
+[for (prop : Property | fields)]
+[comment]
+[if(prop.gotStereotype('client_hidden'))][if(prop.gotStereotype('datetime'))]
+		[dataclass_name /].set[prop.getName().ToCamelCase() /](LongDateFormatter.CurrentDateMills());
+[/if][else]
+[/comment][if (prop.isBoolean())]
+		[dataclass_name /].set[prop.getName().ToCamelCase() /](
+			chb_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].isChecked()
+		);
+[else][if (prop.isString())]
+		[dataclass_name /].set[prop.getName().ToCamelCase() /](til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].getEditText().getText().toString());
+[else]
+[if (prop.isDate())]
+[if (prop.gotStereotype('client_hidden'))]
+		[dataclass_name /].set[prop.getName().ToCamelCase() /](LongDateFormatter.nowToSeconds());
+[else]
+		try {
+			[dataclass_name /].set[prop.getName().ToCamelCase() /](
+				[prop.ConvertFromStringFunction()/](til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].getEditText().getText().toString())
+			);
+		}
+		catch (ParseException ex){
+			ex.printStackTrace();
+		}
+[/if]
+[else]
+		[dataclass_name /].set[prop.getName().ToCamelCase() /](
+			[prop.ConvertFromStringFunction()/](til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].getEditText().getText().toString())
+		);
+[/if][comment if date /]
+[/if][comment if string /]
+[/if][comment if boolean /]
+[comment][/if][/comment]
+[/for]
+
+	}
+
+	@Override
+	public void onClick(View view) {
+
+		switch (view.getId()){
+
+[if (has_picture)]
+				case R.id.fab_change_picture_[dataclass_name.toLowerCase() /]:
+
+				Intent image_intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				if (image_intent.resolveActivity(getActivity().getPackageManager()) != null) {
+
+					File pictures_dir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+					File [dataclass_name.toLowerCase() /]_dir = new File(pictures_dir, "/product");
+					if(![dataclass_name.toLowerCase() /]_dir.exists()){
+						[dataclass_name.toLowerCase() /]_dir.mkdirs();
+					}
+
+					[dataclass_name.ToCamelCase()/]DataSource [dataclass_name.toLowerCase()/]_ds = new [dataclass_name.ToCamelCase()/]DataSource(getActivity());
+
+					if([dataclass_name.toLowerCase()/].getId() < 1) {
+						image_id = [dataclass_name.toLowerCase()/]_ds.getLastId() + 1;
+					}else{
+						image_id = [dataclass_name.toLowerCase()/].getId();
+					}
+
+					File image = new File([dataclass_name.toLowerCase() /]_dir, String.valueOf(image_id)+".jpg");
+					Uri photoURI = Uri.fromFile(image);
+
+					image_intent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+					image_intent.putExtra("android.intent.extra.USE_BACK_CAMERA",true);
+
+					startActivityForResult(image_intent, INTENT_IMAGE_CAPTURE);
+				}
+
+			break;
+
+[/if]
+
+			case R.id.ok_button:
+
+				// Getting the text values
+
+				try {
+
+					[dataclass_name.ToCamelCase()/]DataSource [dataclass_name /]_ds = new [dataclass_name.ToCamelCase()/]DataSource(getContext());
+
+					fill_state();
+
+					if([dataclass_name /].getId() > 0){
+						[dataclass_name /].setDirty(true);
+						[dataclass_name /]_ds.update([dataclass_name /]);
+					}
+					else{
+						[dataclass_name /].setDirty(false);
+						[dataclass_name /]_ds.insert([dataclass_name /]);
+					}
+
+					Toast.makeText(getActivity(), "SUCCESS!!", Toast.LENGTH_SHORT).show(); 
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					Toast.makeText(getActivity(), "ERROR!!", Toast.LENGTH_SHORT).show();
+				}
+
+				
+
+			break;
+
+			case R.id.cancel_button:
+[comment] removed
+				// Cleaning the text values
+[for (tbl : Class | viewClass.eContents(Class)->select(x:Class| x.gotStereotype('itself')))]
+[for (prop : Property | fields->select(x|x.name.toString().indexOf('fk_') > 0))]
+				//spi_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /];
+[/for][/for]
+[for (tbl : Class | viewClass.eContents(Class)->select(x:Class| x.gotStereotype('itself')))]
+[for (prop : Property | tbl.getNonForeignKeys())][if (prop.isBoolean())]
+				chb_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].setChecked(false);
+[else]
+				til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].getEditText().setText("");
+[/if][/for][/for]
+[/comment]
+
+			((FragmentChanger)getActivity()).changeFragment(R.id.nav_[class_name /]_index, null);
+
+			break;
+
+[for (prop : Property | fields->select(x: Property |x.gotStereotype('date')))]
+			case R.id.fab_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]:
+
+				(new DatePickerDialog(getActivity(), dpl_[prop.name /],
+					calendar.get(Calendar.YEAR),
+					calendar.get(Calendar.MONTH),
+					calendar.get(Calendar.DAY_OF_MONTH))).show();
+
+			break;
+[/for]
+[for (prop : Property | fields->select(x: Property |x.gotStereotype('barcode')))]
+			case R.id.fab_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]:
+
+			if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA)
+				!= PackageManager.PERMISSION_GRANTED) {
+			ActivityCompat.requestPermissions(getActivity(),
+					new String['['/][']'/]{Manifest.permission.CAMERA}, ZXING_CAMERA_PERMISSION);
+			} else {
+
+				Intent barcode_intent = new Intent(getContext(), ScalingScannerActivity.class);
+				startActivityForResult(barcode_intent, INTENT_[prop.owner.oclAsType(NamedElement).name.toUpperCase() /]_[prop.name.toUpperCase() /]);
+
+			}
+
+			break;
+[/for]
+		}
+	}
+
+[if (has_picture)]
+	void load_picture_[dataclass_name.toLowerCase()/](){
+			File image = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+					"product/"+String.valueOf(image_id)+".jpg");
+
+			if(null != image){
+				Bitmap bmp = BitmapFactory.decodeFile(image.getAbsolutePath());
+				imv_picture_[dataclass_name.toLowerCase()/].setImageBitmap(bmp);
+			}
+	}
+[/if]
+
+
+[if (
+(fields->exists(x: Property |
+	x.gotStereotype('barcode')
+)) or ( has_picture )
+)]
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+[if (has_picture)]
+		if (INTENT_IMAGE_CAPTURE == requestCode && Activity.RESULT_OK == resultCode) {
+			load_picture_[dataclass_name.toLowerCase()/]();
+		}
+[/if]
+
+[for (prop : Property | fields->select(x: Property | x.gotStereotype('barcode')))]
+		if (INTENT_[prop.owner.oclAsType(NamedElement).name.toUpperCase() /]_[prop.name.toUpperCase() /] == requestCode && Activity.RESULT_OK == resultCode) {
+			til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].getEditText().setText(
+				data.getExtras().getString("SCAN_RESULT")
+			);
+		}
+[/for]
+
+	}
+[/if]
+
+
+	@Override
+	public Object getState() {
+		fill_state();
+		return [dataclass_name/];
+	}
+
+	@Override
+	public void setState(Object o) {
+		 [dataclass_name /] = ([dataclass_name.ToCamelCase()/]) o;
+	}
+
+[if (has_picture)]
+	@Override
+	public long getImageId() {
+		return image_id;
+	}
+
+	@Override
+	public void setImageId(long id) {
+		image_id = id;
+	}
+[/if]
+
+}
+[/let]
+[/template]
+
+[template public awesome_fab(id : String, icon : String)]
+<!-- begin awesomefab -->
+		<FrameLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom|right"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true">
+
+			<android.support.design.widget.FloatingActionButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/fab_margin"
+				android:src="@android:color/transparent"
+				android:id="@+id/[id/]"
+				/>
+
+			<com.uisleandro.util.AwesomeTextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:elevation="16dp"
+				android:text="\u[icon /]"
+				android:textSize="35dp"
+				android:textColor="#ff9ac2"
+				android:textAppearance="?android:attr/textAppearanceMedium" />
+		</FrameLayout>
+<!-- end awesomefab -->
+[/template]
+
+[template public update_xml_layout(
+package_name : String,
+module_name : String,
+class_name : String,
+fields: Sequence(Property)
+)]
+[let has_picture : Boolean = fields->exists(x| gotStereotype(x.owner.oclAsType(NamedElement), 'has_picture'))]
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="fill_parent"
+	android:layout_below="@+id/toolbar"
+	tools:context="[package_name /].app.[module_name/].[class_name.ToCamelCase()/]UpdateFragment">
+
+<ScrollView
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+
+<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical" >
+
+[if(has_picture)]
+<RelativeLayout
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+<ImageView
+	android:layout_width="@dimen/image_view_width"
+	android:layout_height="@dimen/image_view_height"
+	android:id="@+id/imv_picture_[class_name.toLowerCase() /]"
+	android:layout_gravity="center_horizontal"
+	android:background="@drawable/imageborder"
+	android:layout_alignParentTop="true"
+	android:layout_centerHorizontal="true"
+	android:layout_marginTop="20dp" />
+
+	<FrameLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom|right"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true">
+
+		<android.support.design.widget.FloatingActionButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/fab_margin"
+			android:src="@android:color/transparent"
+			android:id="@+id/fab_change_picture_[class_name.toLowerCase() /]"
+			/>
+
+		<com.uisleandro.util.AwesomeTextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:elevation="16dp"
+			android:text="\uf03e"
+			android:textSize="35dp"
+			android:textColor="#ff9ac2"
+			android:textAppearance="?android:attr/textAppearanceMedium" />
+	</FrameLayout>
+
+[comment]
+<android.support.design.widget.FloatingActionButton
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:src="@drawable/xic_add_a_photo"
+	android:layout_gravity="right"
+	android:id="@+id/fab_change_picture_[dataclass_name.toLowerCase() /]"
+	android:layout_alignParentBottom="true"
+	android:layout_alignRight="@+id/imv_picture_[dataclass_name.toLowerCase() /]"
+	android:layout_alignEnd="@+id/imv_picture_[dataclass_name.toLowerCase() /]" />
+[/comment]
+
+
+</RelativeLayout>
+
+[/if]
+[for (prop : Property | fields)]
+[if (prop.isForeignKey())]
+<!-- TODO Change the color -->
+<RelativeLayout
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+<TextView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="@string/[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+	android:layout_alignParentLeft="true"
+	android:layout_marginLeft="@dimen/spinner_label_left"
+	android:textColor="@color/material_grey_600"
+	android:textSize="@dimen/spinner_label_size" />
+<Spinner
+		android:id="@+id/spi_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="20dp"
+		android:layout_marginTop="20dp"
+		android:layout_gravity="center_horizontal"
+ />
+</RelativeLayout>
+[else][if (prop.isBoolean())]
+<CheckBox
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+		android:id="@+id/chb_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+		android:layout_gravity="center_horizontal" />
+[else]
+[if (prop.gotStereotype('date'))]
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+		android:layout_marginBottom="20dp"
+		android:layout_marginTop="20dp"
+		android:layout_gravity="center_horizontal"
+		>
+		<android.support.design.widget.TextInputEditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+			android:inputType="textNoSuggestions" />
+		</android.support.design.widget.TextInputLayout>
+
+[awesome_fab('fab_'+prop.owner.oclAsType(NamedElement).name+'_'+prop.getName(), 'f073') /]
+
+[comment] 
+		<android.support.design.widget.FloatingActionButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/fab_margin"
+			android:src="@drawable/ic_calendar1"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:id="@+id/fab_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+			/>
+[/comment]
+
+	</RelativeLayout>
+
+[else]
+[if (prop.gotStereotype('barcode'))]
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+		android:layout_marginBottom="20dp"
+		android:layout_marginTop="20dp"
+		android:layout_gravity="center_horizontal"
+		>
+		<android.support.design.widget.TextInputEditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+			android:inputType="textNoSuggestions" />
+		</android.support.design.widget.TextInputLayout>
+
+[awesome_fab('fab_'+prop.owner.oclAsType(NamedElement).name+'_'+prop.getName(), 'f029') /]
+
+[comment] 
+		<android.support.design.widget.FloatingActionButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/fab_margin"
+			android:src="@android:drawable/ic_dialog_dialer"
+			android:layout_alignParentRight="true"
+			android:layout_centerVertical="true"
+			android:id="@+id/fab_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+		/> 
+[/comment]
+
+	</RelativeLayout>
+
+[else]
+<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/til_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+		android:layout_marginBottom="20dp"
+		android:layout_marginTop="20dp"
+		android:layout_gravity="center_horizontal"
+		>
+[comment]
+[let prev_prop : Property = getPreviousInnerProperty(viewClass, prop, 1, 1) ]
+[if (prev_prop <> null)]
+		android:layout_below="@+id/til_[prop.owner.oclAsType(NamedElement).name/]_[prev_prop.getName() /]"
+[/if]
+[/let]
+[/comment]
+		<android.support.design.widget.TextInputEditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+			android:inputType="textNoSuggestions" />
+</android.support.design.widget.TextInputLayout>
+[/if]
+[/if]
+[/if]
+[/if]
+[/for]
+
+[comment] 
+
+[if (viewClass.eContents(Class)->notEmpty())]
+[let lastClass : Class = viewClass.eContents(Class)
+->select(x:Class| x.gotStereotype('itself'))
+->last()]
+[if (lastClass.eContents(Property)->notEmpty())]
+
+	<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+[comment]
+		android:layout_below="@+id/tiet_[lastClass.name.toString()/]_[lastClass.eContents(Property)->last().name /]"
+[/comment]
+		android:layout_below="@+id/til_[lastClass.name.toString()/]_[lastClass.eContents(Property)->last().name /]"
+		android:layout_centerHorizontal="true"
+		android:layout_marginTop="10dp"
+		>
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/send"
+			android:id="@+id/ok_button"
+			android:layout_alignParentLeft="true"
+			android:layout_alignParentStart="true"
+			/>
+
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="@string/cancel"
+			android:id="@+id/cancel_button"
+			android:layout_toRightOf="@+id/ok_button"
+			android:layout_marginLeft="20dp"
+			/>
+
+	</LinearLayout>
+[/if]
+[/let]
+[/if]
+
+[/comment]
+
+[comment]
+<!-- removed -->
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center"
+		android:text="@string/end_of_formulary"
+		android:id="@+id/textView2"
+		android:paddingBottom="@dimen/scrollview_after_space"/>
+
+[/comment]
+
+<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true">
+
+[comment]
+
+	<android.support.design.widget.FloatingActionButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/fab_margin"
+		android:src="@drawable/ic_clear_24dp"
+		android:layout_alignParentRight="true"
+		android:layout_centerVertical="true"
+		android:id="@+id/cancel_button"
+
+		/>
+
+	<android.support.design.widget.FloatingActionButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/fab_margin"
+		android:src="@drawable/ic_send_24dp1"
+		android:layout_alignParentRight="true"
+		android:layout_centerVertical="true"
+		android:id="@+id/ok_button"
+		android:layout_toRightOf="@+id/cancel_button"
+		android:layout_marginLeft="20dp"
+		/>
+
+[/comment]
+	<FrameLayout
+		android:id="@+id/cancel_button_frame"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom|right"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true">
+
+		<android.support.design.widget.FloatingActionButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/fab_margin"
+			android:src="@android:color/transparent"
+			android:id="@+id/cancel_button"
+			/>
+
+		<com.uisleandro.util.AwesomeTextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:elevation="16dp"
+			android:text="\uf00b"
+			android:textSize="35dp"
+			android:textColor="#ff9ac2"
+			android:textAppearance="?android:attr/textAppearanceMedium" />
+	</FrameLayout>
+
+	<FrameLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom|right"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:layout_toRightOf="@+id/cancel_button_frame"
+		>
+
+		<android.support.design.widget.FloatingActionButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/fab_margin"
+			android:src="@android:color/transparent"
+			android:id="@+id/ok_button"
+			/>
+
+		<com.uisleandro.util.AwesomeTextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:elevation="16dp"
+			android:text="\uf1d8"
+			android:textSize="35dp"
+			android:textColor="#ff9ac2"
+			android:textAppearance="?android:attr/textAppearanceMedium" />
+	</FrameLayout>
+
+</LinearLayout>
+
+</LinearLayout>
+
+</ScrollView>
+
+[comment] floating button
+
+<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true">
+
+	<android.support.design.widget.FloatingActionButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/fab_margin"
+		android:src="@drawable/ic_clear_24dp"
+		android:layout_alignParentRight="true"
+		android:layout_centerVertical="true"
+		android:id="@+id/cancel_button"
+
+		/>
+
+	<android.support.design.widget.FloatingActionButton
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_margin="@dimen/fab_margin"
+		android:src="@drawable/ic_send_24dp1"
+		android:layout_alignParentRight="true"
+		android:layout_centerVertical="true"
+		android:id="@+id/ok_button"
+		android:layout_toRightOf="@+id/cancel_button"
+		android:layout_marginLeft="20dp"
+		/>
+
+</LinearLayout>
+
+[/comment]
+
+</RelativeLayout>
+[/let]
+[/template]
+
+[comment 
+	I gues this is somehow the main
+/]
+[template public generate_update_fragment_classes(
+	package_name : String,
+	module_name : String,
+	class_name: String,
+	dataclass_name: String,
+	fields : Sequence(Property)
+)]
+
+[file ('generated.txt', true, 'UTF-8')]
+
+1. ['main/java/'+FolderName(package_name)+'/crud/'+module_name+'/'+ class_name.ToCamelCase() + 'UpdateFragment.java'/]
+2. ['main/res/layout/fragment_'+module_name+'_'+class_name+'_update.xml'/]
+
+[/file]
+
+[file ('main/java/'+FolderName(package_name)+'/crud/'+module_name+'/'+ class_name.ToCamelCase() + 'UpdateFragment.java', false, 'UTF-8')]
+[insert_fragment_class(
+		package_name,
+		module_name,
+		class_name,
+		dataclass_name,
+		fields)/]
+[/file]
+[file ('main/res/layout/fragment_'+module_name+'_'+class_name+'_update.xml', false, 'UTF-8')]
+[update_xml_layout(
+		package_name,
+		module_name,
+		class_name,
+		fields)/]
+[/file]
+[/template]
+

@@ -1,0 +1,95 @@
+[comment encoding = UTF-8 /]
+[module generated_java_translator('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[query public javaTypeName(arg: Property): String =
+if arg.type.name.equalsIgnoreCase('Date') then
+	'Long'
+else if arg.type.name.equalsIgnoreCase('DateTime') then
+	'Long'
+else if arg.type.name.equalsIgnoreCase('Time') then
+	'Long'
+else if arg.type.name.equalsIgnoreCase('Number') then
+	'Integer'
+else if arg.type.name.equalsIgnoreCase('Picture') then
+	'Integer'
+else if arg.type.name.equalsIgnoreCase('Money') then
+	'Float'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') then
+	'Double'
+else if arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then
+	'Double'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then
+	'Boolean'
+else if arg.type.name.equalsIgnoreCase('Barcode') then
+	'String'
+else if arg.type.name.equalsIgnoreCase('File') then
+	'String'
+else if arg.type.name.equalsIgnoreCase('GuidType') then
+	'String'
+else if arg.type.name.equalsIgnoreCase('BigText') then
+	'String'
+else if arg.type.name.equalsIgnoreCase('SmallText') then
+	'String'
+else if arg.type.name.equalsIgnoreCase('Abbreviature') then
+	'String'
+else if arg.type.name.equalsIgnoreCase('MediumText') then
+	'String'
+else if arg.type.name.equalsIgnoreCase('Identifier') then
+	'Long' else
+''
+endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif/]
+
+[query public javaFromDbTypeName(arg: Property): String =
+if arg.type.name.equalsIgnoreCase('Date') then 
+	'Long.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('DateTime') then 
+	'Long.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('Time') then 
+	'Long.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('Number') then 
+	'Integer.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('Picture') then 
+	'Integer.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('Money') then 
+	'Float.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') then 
+	'Double.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then 
+	'Double.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then 
+	'Boolean.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('Barcode') then 
+	'String.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('File') then 
+	'String.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('GuidType') then 
+	'String.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('BigText') then 
+	'String.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('SmallText') then 
+	'String.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('Abbreviature') then 
+	'String.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('MediumText') then 
+	'String.ValueOf('+arg.name+')'
+else if arg.type.name.equalsIgnoreCase('Identifier') then 
+	'Long.ValueOf('+arg.name+')' else
+''
+endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif/]
+
+
+[query public toJavaString(arg: Property): String =
+if arg.type.name.equalsIgnoreCase('Barcode')
+or arg.type.name.equalsIgnoreCase('File')
+or arg.type.name.equalsIgnoreCase('GuidType')
+or arg.type.name.equalsIgnoreCase('BigText')
+or arg.type.name.equalsIgnoreCase('SmallText')
+or arg.type.name.equalsIgnoreCase('Abbreviature')
+or arg.type.name.equalsIgnoreCase('MediumText')
+arg.name
+else
+'String.ValueOf('+arg.name+')'
+endif/]
+
+
+

@@ -1,0 +1,758 @@
+[comment encoding = UTF-8 /]
+[module util('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[comment
+version 1.6
+23/06/2017, 29/06/2017
+
+functions have been added at the end
+
+ /]
+
+[comment]
+#############################  BEGIN NEVER USED FUNCTIONS #############################
+
+[query public YYYMMDD() : String = 
+invoke('com.uisleandro.nativ3.android.DateTest', 'YYYMMDD()', Sequence{})
+/]
+
+
+[query public setSValue(arg : NamedElement, sname : String, pname : String, value : String) : String = 
+if arg.getAppliedStereotypes()->exists(x|x.name=sname) then
+	setValue(
+	self.getAppliedStereotypes()->select(x|x.name=sname)
+	->asSequence()->first().oclAsType(Stereotype),
+	pname,
+	value)
+else
+''
+endif
+/]
+ 
+[query public outs(arg : Vertex) : Sequence(Transition) = 
+self.owner.eContents(Transition)
+->select(x : Transition | x.source = self)
+/]
+
+[query public ins(arg : Vertex) : Sequence(Transition) = 
+self.owner.eContents(Transition)
+->select(x : Transition |x.target = self)
+/]
+
+#############################  END NEVER USED FUNCTIONS #############################
+[/comment]
+
+
+[comment]
+#############################  BEGIN NODE FUNCTIONS #############################
+[/comment]
+
+[query public gotStereotype(arg : Element, name : String) : Boolean = 
+self.getAppliedStereotypes()->exists(s| s.name = name)
+/]
+
+[query public getStereotypeValue(arg: Element, st: String, pr: String) : String = 
+if gotStereotype(arg, st) then
+	arg.getValue(
+		arg.getAppliedStereotypes()
+		->select(x|x.name = st)
+		->asSequence()
+		->first(),
+		pr).toString()
+else
+null
+endif
+/]
+
+[comment
+	not defined in another models yet
+	TODO: confused
+/]
+[query public getStereotypeProperty(
+	arg : NamedElement,
+	sname : String,
+	pname : String) : String = 
+if arg.getAppliedStereotypes()->exists(x|x.name=sname) then
+	self.getValue(
+		self.getAppliedStereotypes()
+		->select(x|x.name=sname)
+		->asSequence()
+		->first(),
+		pname)
+	.toString()
+else
+''
+endif
+ /]
+
+[comment 
+get outgoing transitions
+ /]
+[query public outs(arg : Vertex) : Sequence(Transition) = 
+self.getOutgoings()->asSequence()
+/]
+
+[query public out_t(arg : Vertex) : Transition = 
+if self.getOutgoings()->asSequence()->isEmpty() then
+null
+else
+self.getOutgoings()->asSequence()->first()
+endif
+/]
+
+[comment 
+get incomming transitions
+ /]
+[query public ins(arg : Vertex) : Sequence(Transition) = 
+self.getIncomings()->asSequence()
+/]
+
+[comment]
+######################### BEGIN SOME SPECIFIC FUNCTIONS #########################
+[/comment]
+
+[comment
+ 
+Use it for menu proposes only
+
+/]
+[query public LeafNodes(arg : Vertex) : Sequence(Vertex) = 
+if arg.eContents(Region)->notEmpty() then
+if arg.eContents(Region).eContents(State)->notEmpty() then
+arg.eContents(Region).eContents(State)
+else
+Sequence(Vertex){ arg }
+endif
+else
+Sequence(Vertex){ arg }
+endif
+ /]
+
+[comment USED /]
+[query public recursiveFlatStates(arg: NamedElement, i : Integer) : Sequence(State) =
+if i <= arg
+		.eContents(Region)->first()
+		.eContents(State)->size() then
+	if arg
+			.eContents(Region)->first()
+			.eContents(State)->at(i)
+			.eContents(Region)->notEmpty()
+	/* has region */
+	and
+		 arg
+			.eContents(Region)->first()
+			.eContents(State)->at(i)
+			.eContents(Region)->first()
+			.eContents(State)->notEmpty()
+	/* has sub-states */
+	then
+		recursiveFlatStates(
+			arg
+				.eContents(Region)->first()
+				.eContents(State)->at(i), 1)
+		->addAll(
+				recursiveFlatStates(arg, i+1)
+			)
+		->append(
+			arg
+				.eContents(Region)->first()
+				.eContents(State)->at(i)
+		)
+	else
+		recursiveFlatStates(arg, i+1)
+		->append(
+			arg
+				.eContents(Region)->first()
+				.eContents(State)->at(i)
+		)
+	endif
+else
+	Sequence(State){}
+endif
+/]
+
+[comment
+
+
+if i <= vert.eContents(Property)->size() then
+	if isfk(cls.eContents(Property)->at(i)) then
+		recursiveFlatProperties(
+			cls.eContents(Property)
+			->at(i).type.oclAsType(Class), 1)
+		->addAll(recursiveFlatLeafNodes(cls, i+1))
+	else
+		recursiveFlatProperties(cls, i+1)
+			->append(cls.eContents(Property)->at(i))
+	endif
+else
+Sequence(Property){}
+endif
+/]
+
+
+[query public getButtonChildren(arg : Vertex) : Sequence(Vertex) = 
+if self.eContents(Region)->notEmpty() then
+	self.eContents(Region)->first().eContents(State)->select(x|gotStereotype(x, 'button'))
+else
+	Sequence(Vertex){}
+endif
+ /]
+
+[query public getFormChildren(arg : StateMachine) : Sequence(Vertex) = 
+if self.eContents(Region)->notEmpty() then
+	self.eContents(Region)->first().eContents(State)->select(x|gotStereotype(x, 'form_region'))
+else
+	Sequence(Vertex){}
+endif
+ /]
+
+[query public getListChildren(arg : StateMachine) : Sequence(Vertex) = 
+if self.eContents(Region)->notEmpty() then
+	self.eContents(Region)->first().eContents(State)->select(x|gotStereotype(x, 'list_region'))
+else
+	Sequence(Vertex){}
+endif
+ /]
+
+[query public getIncludeChildren(arg : StateMachine) : Sequence(Vertex) = 
+if self.eContents(Region)->notEmpty() then
+	self.eContents(Region)->first().eContents(State)->select(x|gotStereotype(x, 'include'))
+else
+	Sequence(Vertex){}
+endif
+ /]
+
+[comment new query /]
+[query public grandchildren(arg : StateMachine, stereo: String) : Sequence(Vertex) = 
+if self.eContents(Region)->notEmpty() then
+	self.eContents(Region)->first().eContents(State)->select(x|gotStereotype(x, stereo))
+else
+	Sequence(Vertex){}
+endif
+ /]
+
+[query public grandchildrenWithExitPoint(arg : StateMachine) : Sequence(Vertex) = 
+if self.eContents(Region)->notEmpty() then
+	self.eContents(Region)->first().eContents(State)
+	->select(
+		x : State | x.eContents(Pseudostate)->exists(
+			y : Pseudostate | y.oclAsType(Pseudostate).kind = PseudostateKind::exitPoint
+		)
+	)
+else
+	Sequence(Vertex){}
+endif
+ /]
+
+
+[comment new query /]
+[query public getIndex(arg : Vertex, args : Sequence(Vertex), index : Integer) : Integer =
+if(args->at(index) = arg) then
+	index
+else
+	getIndex(arg, args , index+1)
+endif
+/]
+
+[comment used in another transformations /]
+[query public get_configuration_namespace(arg : Model) : String = 
+self.eContents(Class)->select(x|x.name='custom_config')->first().eContents(Property)
+->select(x|x.type.name.toString().equalsIgnoreCase('app_namespace'))->first().name
+ /]
+
+
+[comment]
+######################### END SOME SPECIFIC FUNCTIONS #########################
+[/comment]
+
+[query public is_function_call(arg : Vertex) : Boolean = 
+self.oclIsKindOf(Pseudostate) and
+self.oclAsType(Pseudostate).kind = PseudostateKind::entryPoint /]
+
+[comment is it confuse? /]
+[query public owner_is_page(arg : Vertex) : Boolean = 
+self.owner.oclIsKindOf(State) and
+gotStereotype(self.owner, 'page')
+/]
+
+[query public owner_is_list_region(arg : Vertex) : Boolean = 
+self.owner.oclIsKindOf(State) and
+gotStereotype(self.owner, 'list_region')
+/]
+
+
+[query public get_function_return(arg : Vertex) : Pseudostate = 
+self.eContents(Pseudostate)->select(
+	x|x.kind = PseudostateKind::exitPoint
+)->first()
+ /]
+
+
+[query public is_a_choice_vertex(arg : Vertex) : Boolean = 
+self.oclIsKindOf(Pseudostate) and
+self.oclAsType(Pseudostate).kind = PseudostateKind::choice/]
+
+[query public is_a_junction_vertex(arg : Vertex) : Boolean = 
+self.oclIsTypeOf(Pseudostate) and
+self.oclAsType(Pseudostate).kind = PseudostateKind::junction /]
+
+[query public is_if(arg : Vertex) : Boolean = 
+is_a_choice_vertex(self) and
+1 = ins(self)->size() and
+(
+	1 = outs(self)->size() or
+	2 = outs(self)->size() and
+		outs(self)->exists(x| x.gotStereotype('true')) and
+		outs(self)->exists(x| not(x.gotStereotype('true')) and
+			x.target.oclIsTypeOf(Pseudostate) and
+			x.target.oclAsType(Pseudostate).kind = PseudostateKind::junction
+	)
+)
+/]
+
+[comment]
+	Check if the current vertex is a if(){}else{}
+[/comment]
+[query public is_ifelse(arg : Vertex) : Boolean = 
+is_a_choice_vertex(self) and
+1 = arg.ins()->size() and
+2 = arg.outs()->size() and
+self.outs()->exists(x|
+	x.gotStereotype('true') or
+	x.gotStereotype('false')
+)
+/]
+
+[comment]
+	Check if the current vertex is a switch(){}
+[/comment]
+[query public is_switch(arg : Vertex) : Boolean = 
+is_a_choice_vertex(self) and
+1 = self.ins()->size() and
+1 < self.outs()->size() and
+not(
+	self.outs()->exists(x| null = x.name) or
+	self.outs()->exists(x| null <> x.name and x.name.matches('[^0-9]+.*') or
+		x.gotStereotype('true') or
+		x.gotStereotype('false')
+	)
+)
+ /]
+
+[comment]
+	Check if the current vertex is if(){.. }else if(){ ...}
+[/comment]
+[query public is_ifelif(arg : Vertex) : Boolean = 
+is_a_choice_vertex(self) and
+1 = self.ins()->size() and
+1 < self.outs()->size() and
+	self.outs()->exists(x| null <> x.name and x.name.matches('[^0-9]+.*')) and
+not (
+	self.outs()->exists(x|
+		x.gotStereotype('true') or
+		x.gotStereotype('false')
+	)
+)
+ /]
+
+[comment]
+	Check if the current vertex is while(){ ... }
+[/comment]
+[query public is_while(arg : Vertex): Boolean = 
+is_a_choice_vertex(self) and
+2 = self.ins()->size() and
+2 = self.outs()->size() and
+self.ins()->exists( x | x.gotStereotype('repeating') )
+/]
+
+
+[comment]
+	Check if the current vertex is do{ ... }while()
+[/comment]
+[query public is_dowhile(arg : Vertex): Boolean = 
+self.oclIsTypeOf(State) and
+2 = self.ins()->size() and
+1 = self.outs()->size() and
+self.ins()->exists( x | x.gotStereotype('repeating') ) and
+is_a_choice_vertex(
+	self.ins()->select(x |
+	x.gotStereotype('repeating')
+	)->first().source
+)
+/]
+
+[comment]
+	Navigate to the first child transition (inside the loop)
+[/comment]
+[query public child_transition1(arg: Vertex): Transition =
+child_transition2(
+	arg,
+	arg.outs()->select(x | x.gotStereotype('repeating'))->first()
+)
+/]
+
+[comment]
+	Navigate to the first child transition, helper function
+[/comment]
+[query public child_transition2(arg: Vertex, tr: Transition): Transition = 
+if(arg = tr.source) then 
+	tr
+else
+	child_transition2(
+		arg,
+		tr.owner.eContents(Transition)->select(x|
+				x.target = tr.source and (not(
+				x.getAppliedStereotypes()->exists(y|y.name = 'repeating')
+				))
+		)->first()
+	)
+endif
+/]
+
+[comment]
+	Entry points ...
+[/comment]
+
+[query public getEntryPoints(arg : Vertex) : Sequence(Pseudostate) = 
+self.eContents(Pseudostate)->select(x: Pseudostate |
+x.kind.toString().toLower() = 'entrypoint') /]
+
+[comment]
+	From ifs to junctions i want to get the actual junction for a given if
+	I need to add 1 each time i find an if and decrease 1 each time i find a junction
+[/comment]
+[query public next_junction(arg : Vertex, level: Integer, helper : Transition) : Vertex =
+if
+	not (arg.outs()->isEmpty())
+then
+	if
+		null <> helper
+	then
+		if helper.source <> arg
+		then
+			/* This will iterate until it finds an outgoing transition of the vertex, to be excluded */
+			next_junction(
+			arg,
+			level, 
+			helper.owner.eContents(Transition)
+			->select(
+				x : Transition |
+				x.target = helper.source
+				and not( x.getAppliedStereotypes()->exists(y| y.name = 'repeating') )
+			)->first())
+		else
+			/* I think its solved */
+			next_junction(
+				arg.owner.eContents(Transition)
+					->select(
+						x : Transition |
+						x.source = arg and
+						x <> helper
+					)->first().target,
+				level,
+				null)
+		endif
+	else /* Helper is null */
+		if
+			arg.oclIsTypeOf(Pseudostate) and
+			arg.oclAsType(Pseudostate).kind = PseudostateKind::choice
+		then
+			if
+				/* the actual node is a while node */
+				arg.owner.eContents(Transition)
+					->exists(
+						x : Transition |
+						x.target = arg
+						and x.getAppliedStereotypes()->exists(y| y.name = 'repeating')
+					)
+			then
+				next_junction(arg, level, arg.owner.eContents(Transition)
+					->select(
+						x : Transition |
+						x.target = arg
+						and x.getAppliedStereotypes()->exists(y| y.name = 'repeating')
+					)->first()
+					)
+			else
+				/* test for dowhile code */
+				if
+					arg.owner.eContents(Transition)
+						->exists(
+							x : Transition |
+							x.source = arg
+							and x.getAppliedStereotypes()->exists(y| y.name = 'repeating')
+						)
+				then
+					/* I think it has been tested */
+					next_junction(arg.owner.eContents(Transition)
+						->select(
+							x : Transition |
+							x.source = arg
+							and not x.getAppliedStereotypes()->exists(y| y.name = 'repeating')
+						)->first().target,
+							level,
+							null)
+				else
+					/* it isnt dowhile its an ifnode */
+						if(arg.outs()->size() = 1 and arg.ins()->size() = 1 and level = 1) then
+							null
+						else
+							next_junction(arg.owner.eContents(Transition)
+							->select(
+								x : Transition |
+								x.source = arg
+							)->first().target,
+								level,
+								null)
+						endif
+
+				endif /* end dowhile_node */
+			endif /* end while_node*/
+		else
+			/* its another kind of node */
+
+
+			if
+				arg.oclIsTypeOf(Pseudostate) and
+				arg.oclAsType(Pseudostate).kind = PseudostateKind::junction
+			then
+				if
+					1 < level
+				then
+					next_junction(arg.owner.eContents(Transition)
+				->select(
+					x : Transition |
+					x.source = arg
+				)->first().target,
+					level-1,
+					null)
+				else
+					/* I think this is the expected result */
+					arg
+				endif
+			else
+				next_junction(arg.owner.eContents(Transition)
+				->select(
+					x : Transition |
+					x.source = arg
+				)->first().target,
+					level,
+					null)
+			endif
+
+		endif
+	endif
+	else
+		arg
+endif
+/]
+
+[comment I guess it will be used a lot /]
+[query public getNamed(
+root : NamedElement,
+path : String
+): NamedElement = 
+if null = path then
+	null
+else
+	getNamed2(
+		root,
+		path.tokenize('::'),
+		1
+	)
+endif
+/]
+
+[comment se algum nome for diferente, esta funcao retorna um erro /]
+[query private getNamed2(
+root : NamedElement,
+path : Sequence(String),
+i : Integer): NamedElement =
+if( i <= path->size() ) then
+	if root.eContents(NamedElement)
+		->exists(x|
+				x.name.toString().equalsIgnoreCase(
+					path->at(i)
+				)
+			)
+	then
+	getNamed2(
+		root.eContents(NamedElement)
+		->select(x|
+				x.name.toString().equalsIgnoreCase(
+					path->at(i)
+				)
+		)
+		->first(),
+	path,
+	i+1)
+	else
+		null
+	endif
+else
+	root
+endif
+/]
+
+[query public isViewClass(arg: NamedElement): Boolean =
+arg.oclIsTypeOf(Class) and
+arg.eContents(Class)->notEmpty()
+/]
+
+
+
+[comment]
+#############################  END NODE FUNCTIONS #############################
+[/comment]
+
+[comment]
+############################# BEGIN STRING FUNCTIONS #############################
+[/comment]
+
+[template public ToCamelCase(name: String)][for (it : String | name.tokenize('_'))
+][it.toUpperFirst()/][/for][/template]
+
+[template public ToWordsCamelCase(name: String)][for (it : String | name.tokenize('_')) separator (' ')
+][it.toUpperFirst()/][/for][/template]
+
+[template public toFolderName(arg : String)][for (it : String | arg.tokenize('.'))separator ('/')][it/][/for][/template]
+
+[template public cut_first(arg: String, sep : String)][let words : Sequence(String) = arg.tokenize(sep)][for (it : String | 
+words->select(x| not x.equalsIgnoreCase(words->first())) )][it /][/for][/let][/template]
+
+[template public cut_last(arg: String, sep : String)][let words : Sequence(String) = arg.tokenize(sep)][for (it : String | 
+words->select(x| not x.equalsIgnoreCase(words->last())) )][it /][/for][/let][/template]
+
+[query public get_first(arg : String, sep : String) : String = arg.tokenize(sep)->first() /]
+
+[query public get_last(arg : String, sep : String) : String = arg.tokenize(sep)->last() /]
+
+[query public get_dots(arg: String) : String = arg.replace('::', '.') /]
+
+[query public no_space(arg : String) : String = arg.replace(' ', '') /]
+
+[comment]
+############################# END STRING FUNCTIONS #############################
+[/comment]
+
+[comment]
+############################# BEGIN ANOTHER FUNCTIONS #############################
+[/comment]
+
+[comment REMOVED 
+
+query public getActionChildren(arg : StateMachine) : Sequence(State) = 
+if
+	arg.eContents(Region)->notEmpty() then
+	arg.eContents(Region)
+		->first().eContents(State)
+		->select(x| x.gotStereotype('action') )
+else
+	Sequence(Vertex){}
+endif
+ /]
+
+[query public getHint(arg : Vertex) : String = 
+if null = arg then
+	''
+else if self.gotStereotype('todo') then
+	self.getValue(self.getAppliedStereotype('dbfun::todo'), 'hint').toString()
+else if self.gotStereotype('dialog') then
+	self.getValue(self.getAppliedStereotype('dbfun::dialog'), 'hint').toString()
+else if self.gotStereotype('doing') then
+	self.getValue(self.getAppliedStereotype('dbfun::doing'), 'hint').toString()
+else if self.gotStereotype('page') then
+	self.getValue(self.getAppliedStereotype('dbfun::page'), 'hint').toString()
+else if self.gotStereotype('dialog') then
+	self.getValue(self.getAppliedStereotype('dbfun::page'), 'hint').toString()
+else if self.gotStereotype('custom_page') then
+	self.getValue(self.getAppliedStereotype('dbfun::custom_page'), 'hint').toString()
+else if self.gotStereotype('crud_page') then
+	self.getValue(self.getAppliedStereotype('dbfun::crud_page'), 'hint').toString()
+else if self.gotStereotype('insert_region') then
+	self.getValue(self.getAppliedStereotype('dbfun::insert_region'), 'hint').toString()
+else if self.gotStereotype('list_region') then
+	self.getValue(self.getAppliedStereotype('dbfun::list_region'), 'hint').toString()
+else
+	''
+endif endif endif endif endif endif endif endif
+endif endif
+/]
+
+[comment]
+############################# END ANOTHER FUNCTIONS #############################
+[/comment]
+
+
+
+[comment]
+                          BEGIN DATA BASE SPECIFIC 
+[/comment]
+
+
+[query public cursorGetterName(arg : Property, index : Integer) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())
+or self.type.name.toString().equalsIgnoreCase('date')) then
+	'getLong('+index+')'
+else
+	if(self.type.name.toString().equalsIgnoreCase('boolean')) then
+		'getInt('+index+')'
+	else
+		'get'+self.type.name.toString().toUpperFirst()+'('+index+')'
+	endif
+endif
+/]
+
+[query public androidType(arg : Property) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())
+or self.type.name.toString().equalsIgnoreCase('date')) then
+	'long'
+else
+	self.type.name.toString()
+endif
+/]
+
+
+[comment CHECKED /]
+[query public recursiveFlatProperties(cls: Class, i : Integer) : Sequence(Property) =
+if i <= cls.eContents(Property)->size() then
+	if isfk(cls.eContents(Property)->at(i)) then
+		recursiveFlatProperties(
+			cls.eContents(Property)
+			->at(i).type.oclAsType(Class), 1)
+		->addAll(recursiveFlatProperties(cls, i+1))
+	else
+		recursiveFlatProperties(cls, i+1)
+			->append(cls.eContents(Property)->at(i))
+	endif
+else
+Sequence(Property){}
+endif
+/]
+
+[comment CHECKED /]
+[query public nonrecFlatProperties(viewClass: Class, i : Integer, j : Integer) : Sequence(Property) =
+if j <= viewClass.eContents(Class)->size() then
+	if i <= viewClass.eContents(Class)->at(j).eContents(Property)->size() then
+			nonrecFlatProperties(viewClass, i+1, j)
+				->append(viewClass.eContents(Class)->at(j).eContents(Property)->at(i))
+	else
+		nonrecFlatProperties(viewClass, 1, j+1)
+	endif
+else
+	Sequence(Property){}
+endif
+/]
+
+[comment CHECKED /]
+[query public isfk(x: Property) : Boolean = 
+x.type.name.equalsIgnoreCase(x.name)
+/]
+
+
+[comment]
+                          END DATA BASE SPECIFIC 
+[/comment]
+
+
+

@@ -1,0 +1,286 @@
+modeltype uml "strict" uses uml('http://www.eclipse.org/uml2/5.0.0/UML');
+
+transformation add_actions_qvto(inout mvc_carry : uml, in query_stereo: uml);
+
+main() {
+
+var root : Model := mvc_carry.rootObjects()![Model];
+
+log('starting..');
+
+
+root.allSubobjectsOfKind(Package)
+->select(x|x.name = 'raw_mvc')
+->asSequence()->first()
+.allSubobjectsOfKind(Package)
+->asSequence()->forEach(mod){
+
+	mod.allSubobjectsOfKind(Package)
+	->select(x|x.name = 'controller')
+	->asSequence()->first()
+	.allSubobjectsOfKind(Class)->forEach(cls){
+		//so for each controller i want to add the actual operations
+		
+		if cls.name.equalsIgnoreCase('basic_client') then{
+			
+			log('client based');
+			
+						
+			var example_op: Operation := cls.ownedOperation->select(x|x.name = 'example_op')->asSequence()->first();
+			var example_vw: Class := example_op.ownedParameter->asSequence()->first().type.oclAsType(Class);
+			var vwPack : Package := example_vw.owner.oclAsType(Package);	
+			
+			/*
+			var onewhere := object Sequence(Stereotype){};
+			onewhere+= 
+			*/
+			var op : Operation;
+			
+			op := example_op.map op2query('find_by_id', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'SelectOneWhere']);
+			
+			
+			
+			op := example_op.map op2query('find_by_name', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'SelectOneWhere']);
+			
+			log('brazilian based');	
+			example_op := cls.neighbor('brazilian').ownedOperation->select(x|x.name = 'example_op')->asSequence()->first();
+			example_vw := example_op.ownedParameter->asSequence()->first().type.oclAsType(Class);
+			vwPack := example_vw.owner.oclAsType(Package);
+			
+			op := example_op.map op2query('find_by_cpf', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'SelectOneWhere']);
+						
+		}
+		else{ if cls.name.equalsIgnoreCase('cash_register') then{
+		
+			var example_op: Operation := cls.ownedOperation->select(x|x.name = 'example_op')->asSequence()->first();
+			var example_vw: Class := example_op.ownedParameter->asSequence()->first().type.oclAsType(Class);
+			var vwPack : Package := example_vw.owner.oclAsType(Package);
+			var op : Operation;
+						
+			op := example_op.map op2query('is_open_today', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'SelectValueWhere']);
+			
+			op := example_op.map op2query('open_cash_register', true, false, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'Insert']);
+			
+			op := example_op.map op2query('sum', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'SelectValueWhere']);
+			
+			op := example_op.map op2query('eventual_cash_usage', true, false, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'Insert']);
+			
+			op := example_op.map op2query('close_cash_register', true, false, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'UpdateWhere']);
+			
+			op := example_op.map op2query('check_history', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'SelectListWhere']);
+		
+		}
+		else{ if cls.name.equalsIgnoreCase('product') then{
+		
+			var example_op: Operation := cls.ownedOperation->select(x|x.name = 'example_op')->asSequence()->first();
+			var example_vw: Class := example_op.ownedParameter->asSequence()->first().type.oclAsType(Class);
+			var vwPack : Package := example_vw.owner.oclAsType(Package);
+			var op : Operation;
+						
+			op := example_op.map op2query('get_by_id', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'SelectOneWhere']);
+			
+			op := example_op.map op2query('get_by_qrcode', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'SelectOneWhere']);
+			
+			op := example_op.map op2query('get_by_repeated_product_code', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'SelectListWhere']);
+			
+		}
+		else{ if cls.name.equalsIgnoreCase('user') then{
+		
+			var example_op: Operation := cls.ownedOperation->select(x|x.name = 'example_op')->asSequence()->first();
+			var example_vw: Class := example_op.ownedParameter->asSequence()->first().type.oclAsType(Class);
+			var vwPack : Package := example_vw.owner.oclAsType(Package);
+			var op : Operation;
+						
+			op := example_op.map op2query('login', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'SelectValueWhere']);
+			
+			op := example_op.map op2query('canAccess', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'SelectValueWhere']);
+			
+		}
+		else{ if cls.name.equalsIgnoreCase('invoice') then{
+		
+			var example_op: Operation := cls.ownedOperation->select(x|x.name = 'example_op')->asSequence()->first();
+			var example_vw: Class := example_op.ownedParameter->asSequence()->first().type.oclAsType(Class);
+			var vwPack : Package := example_vw.owner.oclAsType(Package);
+			var op : Operation;
+						
+			op := example_op.map op2query('insert_installment', true, false, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'Insert']);
+			
+			op := example_op.map op2query('insert_installment_sicoob', true, false, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'Insert']);
+			
+		}
+		else{ if cls.name.equalsIgnoreCase('sale') then{
+		
+			var example_op: Operation := cls.ownedOperation->select(x|x.name = 'example_op')->asSequence()->first();
+			var example_vw: Class := example_op.ownedParameter->asSequence()->first().type.oclAsType(Class);
+			var vwPack : Package := example_vw.owner.oclAsType(Package);
+			var op : Operation;
+						
+			op := example_op.map op2query('create_chart', true, false, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'Insert']);
+			
+			op := example_op.map op2query('add_product_to_chart', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'Insert']);
+			
+			op := example_op.map op2query('cancel', true, false, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'DeleteWhere']);
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'RunBefore']);
+			
+			op := example_op.map op2query('list_products_on_chart', true, true, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'SelectListWhere']);
+			
+			op := example_op.map op2query('remove_product_from_chart', true, false, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'DeleteWhere']);
+			
+			op := example_op.map op2query('remove_all_products_from_chart', true, false, example_vw, vwPack);
+			cls.ownedOperation += op;
+			op.applyStereotype(query_stereo.objectsOfType(Stereotype)![name = 'DeleteWhere']);
+			
+		} /*end*/
+		endif; } endif; } endif; } endif; } endif; } endif;
+	};
+};
+
+
+log('ending..');
+
+}
+
+//converts an operation to an (more specific query)
+//TODO: stereotypes
+mapping Operation::op2query(
+in opname: String, in inp : Boolean, in outp: Boolean,
+in vw : Class,
+inout vwp : Package
+) : Operation {
+
+population{
+	result.name := opname;
+	
+	if(inp)then{
+		result.ownedParameter += object Parameter{
+			name := opname+'_in';
+			type := vw.map view2view(opname+'_in', vwp);
+		}
+	}endif; 
+	
+	if(outp)then{
+		result.ownedParameter += object Parameter{
+			name := opname+'_out';
+			type := vw.map view2view(opname+'_out', vwp);
+		}
+	}endif;
+}
+	
+}
+
+mapping Class::view2view(in vwName: String, inout parent: Package) : Class {
+
+population{
+	result.name := vwName;
+}
+end{
+	parent.packagedElement += result;
+
+	log('define childnodes for ' + result.name);
+
+	self.nestedClassifier->forEach(cls){
+	
+		var ori : Class := cls.oclAsType(Class);
+		var cl : Class := ori.cl2cl();
+		
+		log('nestedClassifer=' + cl.name);
+		
+		result.nestedClassifier += cl;
+		
+		//apply the stereotypes
+		ori.getAppliedStereotypes()->forEach(st){
+			cl.applyStereotype(st);
+		};
+		
+	};
+	
+	log('fix foreign keys on ' + result.name);
+		
+	result.nestedClassifier->forEach(cls){
+		log('nestedClassifer=' + cls.oclAsType(Class).name);
+		if(cls.oclIsTypeOf(Class)) then{
+			fixTypes(cls.oclAsType(Class));
+		}
+		endif;
+	}
+}
+	
+}
+
+
+//it cant be a mapping
+helper Class::cl2cl() : Class {
+	
+	var res : Class := object Class{
+		name := self.name;
+	}; 
+	
+	self.ownedAttribute->forEach(att){
+			res.ownedAttribute += object Property{
+				name := att.name;
+				if(not att.name.equalsIgnoreCase(att.type.name)) then{
+					type := att.type;
+				} endif;
+			}
+		};
+	
+	return res;
+}
+
+//find an uncle
+helper fixTypes(inout cls : Class){
+	cls.ownedAttribute->forEach(par){
+		if(null = par.type)then{
+			par.type := cls.neighbor(par.name);		
+		} endif;
+	}
+}
+
+query Class::neighbor(bname: String) : Class {
+	return self.owner.subobjectsOfKind(Class)
+	->select(x|x.name = bname)->asSequence()->first();
+}
+
+

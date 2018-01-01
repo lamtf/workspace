@@ -1,0 +1,563 @@
+library mvclib;
+
+modeltype uml "strict" uses uml('http://www.eclipse.org/uml2/5.0.0/UML');
+
+mapping Model::model_to_mvc_model(
+	inout root : Model,
+	in mname : String
+	):Package
+{
+	init{
+	
+	}
+	population{
+		result.name := mname;
+	}
+	end{
+		
+		root.packagedElement += result;
+	
+		self.getAppliedProfiles()->forEach(p){
+			root.applyProfile(p);
+		};
+		
+		root.applyProfile(Profile.allInstances()![name = 'query']);
+		
+		log('begin generating the mvc packages');
+		self.packagedElement[Package]->map package_to_mvc_module(self, result);
+		log('end generating the mvc packages');
+		
+		log('begin fix foreign keys on model');
+		fixModels(result);
+		log('end fix foreign keys on model');
+		
+	}
+}
+
+mapping Package::package_to_mvc_module(
+	in refm: Model,
+	inout parentModel: Package
+	):Package
+{
+	init{
+
+		var childModel : Package := object Package{
+			name := "dataModels";
+		};
+		
+		var childView : Package := object Package{
+				name := "queryViews";
+		};
+		
+		var childController: Package := object Package{
+				name := "controller";
+		}
+		
+	}
+
+	population{
+		result.name := self.name;
+		result.packagedElement += childModel;
+		result.packagedElement += childView;
+		result.packagedElement += childController;
+
+	}
+	end{
+
+		result.packagedElement += self.packagedElement[Dependency]->map dependency_to_dependency();
+		parentModel.packagedElement += result;
+
+		//apply
+		self.getAppliedStereotypes()->forEach(s){
+			result.applyStereotype(s);
+		};
+
+		self.ownedElement[Class]->map class_to_mvc_model_class(childModel);
+				
+		//at the creation of the controller
+		//the view is also created
+		self.ownedElement[Class]->map class_to_mvc_controller_class(refm, childView, childController);
+
+	}
+}
+
+mapping Dependency::dependency_to_dependency():Dependency{
+
+	population{
+			 result.client := self.client.resolveoneIn(Package::package_to_mvc_module);
+			 result.supplier := self.supplier.late resolveoneIn(Package::package_to_mvc_module);
+	}
+	
+}
+
+mapping Class::class_to_mvc_model_class(inout parentPackage: Package): Class {
+
+	init{
+			
+	}
+	population{
+		result.name := self.name;
+		result.general += self.general.late resolveoneIn (Class::class_to_mvc_model_class, Class);
+		
+		result.ownedAttribute += object Property{
+			name := 'last_update';
+			type := getDataType('DateTime');
+		};
+		
+		self.general[Class]->forEach(c){
+				c.ownedAttribute[Property]->forEach(a){
+					result.ownedAttribute += new_mvc_property(a);
+				};
+		};
+		
+		self.ownedAttribute->forEach(a){
+			 result.ownedAttribute += new_mvc_property(a);
+		};
+		
+	}
+	end{
+		parentPackage.packagedElement += result;
+		
+		//apply all the stereotypes from the original class
+		self.getAppliedStereotypes()->forEach(s){
+			result.applyStereotype(s);
+		};
+		
+	}
+
+}
+
+mapping Class::class_to_mvc_view(in types: Model, inout parentPackage: Package, prefix : String):Class{
+
+	init{
+		var childClass : Class = object Class{
+				 name := self.name;
+		};
+	}
+	population{
+	
+		result.name := 'vw_'+ self.name + prefix;
+		result.general += self.general.late resolveone(Class);
+		
+		self.general[Class]->forEach(c){
+			c.ownedAttribute[Property]->forEach(a){
+				childClass.ownedAttribute += new_mvc_property(a);
+			};
+		};
+		
+		self.ownedAttribute->forEach(a){
+			childClass.ownedAttribute += new_mvc_property(a);
+		};
+		
+		result.nestedClassifier += childClass;
+		
+	}
+	end{
+		
+		parentPackage.packagedElement += result;
+		
+	}
+
+}
+
+
+mapping Class::class_to_mvc_controller_class(
+	in refm: Model,
+	inout views: Package,
+	inout controllers : Package): Class {
+	
+	init{
+
+	var example_vw : Class := self.map class_to_db_view(
+		refm,
+		views,
+		'_vw'
+	);
+
+/*	
+
+	var list_vw : Class := self.map class_to_db_view(
+		refm,
+		views,
+		'_vw'
+	);
+	
+	
+	var update_vw : Class := self.map class_to_db_view(
+		refm,
+		views,
+		'_update'
+	);
+		
+	//delete:: better having no views i wonder..
+	var delete_vw : Class := self.map class_to_db_view(
+		refm, 
+		views,
+		'_delete'
+	);
+*/
+	
+	var example_op : Operation := object Operation{
+		name := 'example_op';
+		ownedParameter += object Parameter{
+			name := 'view';
+			type := example_vw;
+		};
+	};
+
+/*
+
+	var list_op : Operation := object Operation{
+		name := 'list';
+		ownedParameter += object Parameter{
+			name := 'view';
+			type := list_vw;
+		};
+	};
+		
+	var insert_op : Operation := object Operation{
+		name := 'insert';
+		ownedParameter += object Parameter{
+			name := 'view';
+			type := update_vw;
+		};
+	};
+		
+	var update_op : Operation := object Operation{
+		name := 'update';
+		ownedParameter += object Parameter{
+			name := 'view';
+			type := update_vw;
+		};
+	};
+
+	var delete_op : Operation := object Operation{
+		name := 'delete';
+		ownedParameter += object Parameter{
+			name := 'view';
+			type := delete_vw;
+		};
+	};
+*/
+
+
+	}
+	population{
+		result.name := self.name;
+		result.ownedOperation += example_op;
+/*
+		result.ownedOperation += insert_op;
+		result.ownedOperation += update_op;
+		result.ownedOperation += delete_op;
+*/
+	}
+	end{
+		controllers.packagedElement += result;
+		
+		//apply
+		self.getAppliedStereotypes()->forEach(s){
+			result.applyStereotype(s);
+		};
+
+
+		example_vw.nestedClassifier->first()
+		.oclAsType(Class)
+		.applyStereotype(Stereotype.allInstances()![name='Subject']);
+
+/*
+		//apply stereotypes to the first child of each view
+		list_vw.nestedClassifier->first()
+		.oclAsType(Class)
+		.applyStereotype(Stereotype.allInstances()![name='Subject']);
+		
+		//apply stereotypes to the first child of each view
+		update_vw.nestedClassifier->first()
+		.oclAsType(Class)
+		.applyStereotype(Stereotype.allInstances()![name='Subject']);
+		
+		delete_vw.nestedClassifier->first()
+		.oclAsType(Class)
+		.applyStereotype(Stereotype.allInstances()![name='Subject']);
+*/
+		
+	}
+	
+}
+
+
+query find_lang_type(in types: Model, in name: String) : Type {
+
+	return types.packagedElement[Association]
+		->select(x | x.ownedEnd->at(1).name = name)
+		->asList()->first().memberEnd->at(1).type;
+}
+
+
+/* after you may fix the properties */
+helper new_mvc_property(a: Property):Property{
+
+var p : Property = object Property{
+
+	name := a.name;
+
+	if(a.name = a.type.name) then
+		type := null
+	else
+		type := a.type
+	endif;
+
+};
+
+return p;
+
+}
+
+/* from mvclib */
+mapping Class::class_to_db_view(
+	in refm: Model,
+	inout parentModel: Package,
+	in sufix : String):Class
+when{
+		//self.ownedAttribute->exists(x|x.type.name.toString().equalsIgnoreCase(x.name))
+}
+{
+	init{
+		//log('class_to_db_view');
+	}
+
+	population{
+		result.name := self.name + sufix;
+
+		var s : Sequence(Class) := object Sequence(Class){};
+
+		var cl : Class := object Class{
+				name := self.name;
+		}; 
+
+		//extra information: last_update
+		cl.ownedAttribute += object Property{
+			name := 'last_update';
+			type := getDataType('DateTime');
+		};
+
+		//adds the actual class..
+		self.ownedAttribute->forEach(p){
+			cl.ownedAttribute += object Property{
+				name := p.name;
+				if(cl.name = p.name) then{
+					type := cl;
+				}else{
+					if(p.type.name.toString().equalsIgnoreCase(p.name))then{
+						//type := p.type.late resolveoneIn(Class::class_to_class, Class);
+					}else{
+						// log(p.name.indexOf('barcode') > 0);
+						type := getDataType(p.type.name.toString());
+					}endif;
+				}endif;
+			};
+		};
+
+			//inheritance..
+		self.general->forEach(ans){
+			if(ans.oclIsTypeOf(Class)) then {
+			ans.oclAsType(Class).ownedAttribute->forEach(p){
+				cl.ownedAttribute += object Property{
+					name := p.name;
+					if(cl.name = p.name) then{
+						type := cl;
+					}else{
+						if(p.type.name.toString().equalsIgnoreCase(p.name))then{
+							//type := p.type.late resolveoneIn(Class::class_to_class, Class);
+						}else{
+							// log(p.name.indexOf('barcode') > 0);
+							type := getDataType(p.type.name.toString());
+						}endif;
+					}endif;
+				}
+			}} endif
+		};
+
+		//add to the set of classes..
+		s += cl;
+		s := ClsExpand(refm, s, 1);
+		s := FixTheForeignKeys(s,1);
+		
+		s->forEach(cla){
+			result.nestedClassifier += cla;
+		}
+	}
+
+	end{
+		parentModel.packagedElement += result;
+		
+		//apply
+		self.getAppliedStereotypes()->forEach(t){
+			result.applyStereotype(t);
+		};
+		
+	}
+
+}
+
+//It gets the foreign keys, never forget it..
+query ClsExpand(in refm: Model, inout s : Sequence(Class), in i: Integer) : Sequence(Class) {
+
+	//log("iteration.." + i.toString());
+	
+	//after adding the actual class
+	
+	//refModel.(Class)
+	
+	if(refm.allSubobjectsOfKind(Class)->exists(x|x.name = s->at(i).name)){
+
+	//begin inheritance
+	refm.allSubobjectsOfKind(Class)![name = s->at(i).name].general->forEach(g){
+		if(g.oclIsTypeOf(Class)){
+			g.oclAsType(Class).ownedAttribute->forEach(a){
+				if(a.type.name.toString().equalsIgnoreCase(a.name)) then{
+					if(not s->exists(x: Class| x.name = a.name)) then{
+						//add anothe class and it's properties
+						var cl : Class := object Class{
+							name := a.name;
+					};
+
+					//extra information: last_update
+					cl.ownedAttribute += object Property{
+						name := 'last_update';
+						type := getDataType('DateTime');
+					};
+
+					//find a class with the same name
+					var ref : Class := refm.allSubobjectsOfKind(Class)![name = a.name];
+						//adds the actual class..
+						ref.ownedAttribute->forEach(p){
+							cl.ownedAttribute += object Property{
+								name := p.name;
+								if(cl.name = p.name)then{
+									type := cl
+								}else{
+									if(p.type.name.toString().equalsIgnoreCase(p.name))then{
+											//type := p.type.late resolveoneIn(Class::class_to_class, Class);
+									}else{
+											type := getDataType(p.type.name.toString());
+									}endif;
+								}endif;
+							};
+						};
+
+						//inheritance..
+						ref.general->forEach(ans){
+							if(ans.oclIsTypeOf(Class)) then {
+							ans.oclAsType(Class).ownedAttribute->forEach(p){
+								cl.ownedAttribute += object Property{
+									name := p.name;
+									if(cl.name = p.name) then{
+											type := cl;
+									}else{
+										if(p.type.name.toString().equalsIgnoreCase(p.name))then{
+											//type := p.type.late resolveoneIn(Class::class_to_class, Class);
+										}else{
+											type := getDataType(p.type.name.toString());
+										}endif;
+									}endif;
+								}
+							}} endif
+						};
+
+						//add to the set of classes..
+						s += cl;
+						}endif;
+					}endif;
+				};
+			}endif; //if class
+	};
+		//end inheritance
+
+
+		//begin class
+		refm.allSubobjectsOfKind(Class)![name = s->at(i).name].ownedAttribute->forEach(a){
+			if(a.type.name.toString().equalsIgnoreCase(a.name)) then{
+				if(not s->exists(x: Class| x.name = a.name)) then{
+					//add anothe class and it's properties
+					var cl : Class := object Class{
+							name := a.name;
+					};
+
+					//extra information: last_update
+					cl.ownedAttribute += object Property{
+						name := 'last_update';
+						type := getDataType('DateTime')
+					};
+
+					//find a class with the same name
+					var ref : Class := refm.allSubobjectsOfKind(Class)![name = a.name];
+
+					//adds the actual class..
+					ref.ownedAttribute->forEach(p){
+						cl.ownedAttribute += object Property{
+							name := p.name;
+							if(p.type.name.toString().equalsIgnoreCase(p.name))then{
+								//type := p.type.late resolveoneIn(Class::class_to_class, Class);
+							}else{
+								type := getDataType(p.type.name.toString());
+							}endif;
+						};
+					};
+					
+					//inheritance..
+					ref.general->forEach(ans){
+						if(ans.oclIsTypeOf(Class)) then {
+							ans.oclAsType(Class).ownedAttribute->forEach(p){
+								cl.ownedAttribute += object Property{
+									name := p.name;
+									if(p.type.name.toString().equalsIgnoreCase(p.name))then{
+										//type := p.type.late resolveoneIn(Class::class_to_class, Class);
+									}else{
+										type := getDataType(p.type.name.toString());
+									}endif
+								}
+							}} endif
+						};
+
+						//add to the set of classes..
+						s += cl;
+
+						}endif;
+				}endif;
+		};
+		//end class
+		
+	}endif;
+
+	if(i < s->size()){
+		s := ClsExpand(refm, s, i+1);
+	}endif;
+
+	return s;
+}
+
+query FixTheForeignKeys(inout s : Sequence(Class), inout i: Integer) : Sequence(Class) {
+
+	while(i < s->size()){
+		s->at(i).ownedAttribute->forEach(p){
+			if(p.type = null)then{
+				p.type := s![name = p.name];
+			}endif;
+		};
+		i := i+1;
+	};
+
+	return s;
+}
+
+query getDataType(pname : String) : Type{
+	return Package.allInstances()![name = 'pim']
+	.packagedElement![name = pname].oclAsType(Type);
+}
+
+helper fixModels(inout arg : Package)  {
+	log('fix missing foreign keys');
+	FixTheForeignKeys(arg.allSubobjectsOfType(Class)->select(x|x.owner.oclAsType(NamedElement).name = 'dataModels')->asSequence(),1);
+	//log('size = '+arg.allSubobjectsOfType(Class)->asSequence()->size().toString());
+	
+}

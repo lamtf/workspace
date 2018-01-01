@@ -1,0 +1,2200 @@
+[comment encoding = UTF-8 /]
+[module nativ3_android('http://www.eclipse.org/uml2/5.0.0/UML')]
+[import com::uisleandro::nativ3::android::common::util /]
+[import com::uisleandro::nativ3::android::common::android_fragment_forms /]
+[import com::uisleandro::nativ3::android::common::android_fragment_lists /]
+[import com::uisleandro::nativ3::android::common::android_resources_strings /]
+
+[comment 
+
+	TODO: para que a compliação nao gere erros eu preciso
+	corrigindo erros na linha 1690
+
+	
+
+	TODO: eu tenho dois um projeto nomeado como 'store'
+
+	TODO: I can do today, create a query which is exact the same list of created files
+	TODO: generate a code with no errors  (possibly with no business logic??)
+
+	SE EU VOLTAR A SALVADOR EU TENHO QUE PUBLICAR ESTE CODIGO
+	POR SEGURANÇA
+
+	NOW I NEED TO TAKE CARE OF THE CRUD PAGES. I THINK I CAN TEST IT
+
+	ISSUE 1: the package name is 'android', and it is not to be this way
+
+	WORTH: now i'm going to make the lists and insert regions.. 29/06/2017
+	TODO: checar erros de compilacao???? (quando)
+
+	TODO: check the pages and regions and then
+		if page
+			import all the list_regions and insert_region classes
+			make a custom change a main fragment according
+		if crud_page
+			iport the crud regions..
+
+Characteristics:
+	This code have a place where it's been declared some vars;
+	The name of the Class is the same of the StateMachine;
+	
+	Some funcitions are being generated:
+		1. The menu itens which are marked as onClick (button) to generate functions
+			These funcitons should be specified into another state machine
+		2. The menu itens do generate activities (through state machines) and then
+			The representation of each state machine is external
+	
+	Another transformation generate the custom queries for the database
+		* I should know all the queries which i can use
+	Another transformation generate the database
+	Another transformation generte the sinchronization code
+	
+	Product characteristics:
+		It dont have yet
+			PDF generation
+			Desktop spedific code
+	
+/]
+
+[comment]
+	Proximas alteracoes:
+		00 adiconar os recursos
+		adicionar os itens de menu que são conhecidos como crud
+			(forms + lists) -->nao foi feito ainda<--
+		adicionar os itens de menu que são conhecidos como listas somente
+		adicionar os itens de menu que são conhecidos como forms somente
+		adicionar os subitens que significam inserção
+
+	Checar se eu posso chamar funções a partir dos metodos criados
+	Porque os metodos possuem argumentos eles podem ser convertidos em metodos mesmo
+	
+[/comment]
+
+[comment]
+
+	movi: a geracao dos templates para dentro de main, selecionando pelo tipo, quando tipo = 1
+
+	em uma chamada recursiva, main é o ultimo a ser gerado então..
+
+[/comment]
+
+[comment]
+
+	todo: para cada activity que tiver retorno.
+	tratar como "on_result?"
+
+	The actions are initiated through
+
+		Button clicks
+		Intent  (initiating)
+		Activity results  (restarting)
+
+	Missing:
+
+		Add the activities to AndroidManifest.xml
+		The component states (textboxes, selected_values) should be saved
+		TouchEvent (not yet)
+
+		I need to fix the importings (to add the name of the packages)
+		I need to add and fix the util package
+		I need to use modal dialogs some how.. for searching products
+
+		I need to add strings to Strings.xml (for each menu item) [solved]
+
+	Not necessary things:
+
+		Maybe I can make an invenctory and Generate the  Utils package (in the future)
+		Maybe I can generate Icons (in the future)
+		
+	Ways to start running some code?
+		OnActivityResult(...)
+		OnCreateView(...) -> something like this
+		Bundle()
+
+[/comment]
+
+
+[comment]
+	################################## BEGIN ANOTHER RANDOM CODE ###################################
+[/comment]
+
+
+[comment its wrong. first find if it has a type /]
+[template public android_new(arg: Vertex, end: Vertex, root: Model)
+][arg.name /] = new [ ToCamelCase(arg.name) /]();
+[let next_t : Transition = out_t(arg)][if (null <> next_t)][handle_transition(next_t, end, root) /][/if][/let][/template]
+
+[template public android_call(arg: Vertex, end: Vertex, root: Model)
+][let hint: String = getStereotypeValue(arg, 'fncall', 'hint')
+][if (null <> hint)
+][let words : Sequence(String) = hint.tokenize('::')][comment
+
+It is still wrong :) because it's not an instance of anything
+
+This code is horrible hahaha
+
+TODO: create a variable from the return type.. its a little bit complicated but needed
+
+/][get_configuration_namespace(root)/].data.sqlite[if (words->size() > 2)
+].[words->at(2)/].[words->at(4)/][else].[words->at(1)/].[words->at(2)/][/if][/let][/if][/let][comment 
+/].[get_dots(get_first(arg.name, ' '))
+/]([ cut_first(arg.name, ' ') /]);
+[let next_t : Transition = out_t(arg)][if (null <> next_t)][handle_transition(next_t, end, root) /][/if][/let][/template]
+
+[template public android_set(arg: Vertex, end: Vertex, root: Model)
+][let first : String = arg.name.tokenize('=')->first().replace('::','.')][let last: String = arg.name.tokenize('=')->last()
+][cut_last(first,'.') /].set[ ToCamelCase(get_last(first,'.')).trim() /]([last.trim()/]);
+[/let][/let][let next_t : Transition = out_t(arg)][if (null <> next_t)][handle_transition(next_t, end, root) /][/if][/let][/template]
+
+[template public android_todo(arg: Vertex, end: Vertex, root: Model)
+]//[protected (getHint(arg))]
+/* [arg.name /] */
+//[/protected][let next_t : Transition = out_t(arg)]
+
+[if (null <> next_t)][handle_transition(next_t, end, root) /][/if][/let][/template]
+
+[template public android_doing(arg: Vertex, end: Vertex, root: Model)
+]//[protected (getHint(arg))]
+[arg.name /]
+//[/protected][let next_t : Transition = out_t(arg)]
+
+[if (null <> next_t)][handle_transition(next_t, end, root) /][/if][/let][/template]
+
+
+[template public android_call_fragment(arg: Vertex, end: Vertex, root: Model)]
+_changeFragment(new [arg.name.ToCamelCase() /]Fragment());
+[let next_t : Transition = out_t(arg)][if (null <> next_t
+)][handle_transition(next_t, end, root) /][/if][/let][/template]
+
+[template public android_wservice(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_comment(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_include_state(arg: Vertex, end: Vertex, root: Model)]
+F
+[/template]
+
+[template public android_frm_choice(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_and(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_if_else(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_session(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_redirect(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_form(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_button(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_db_select(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_db_insert(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_db_update(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_db_delete(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_increment(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[template public android_set_value(arg: Vertex, end: Vertex, root: Model)]
+
+[/template]
+
+[comment]
+	################################## END ANOTHER RANDOM CODE #####################################
+[/comment]
+
+[comment]
+	################################## BEGIN REGION IDENTIFYING MODEL ELEMENTS #####################
+[/comment]
+
+[template public handle_transition(arg : Transition, end: Vertex, root: Model)][if(null <> arg and end <> arg.target)
+][handle_decision_vertex(arg.target, end, root)/][/if][/template]
+
+[comment]
+The checking functions work as expected, they have been tested
+[/comment]
+[template public handle_decision_vertex(arg : Vertex, end: Vertex, root: Model)]
+[if(arg.oclIsTypeOf(FinalState))][comment final-state /][elseif 
+ (arg.oclIsTypeOf(Pseudostate) and
+ arg.oclAsType(Pseudostate).kind = PseudostateKind::terminate)
+ ]//TODO: TERMINATE AT THIS POINT IS NOT DEFINED[handle_transition(
+ out_t(arg), end, root)/][elseif 
+ (arg.oclIsTypeOf(Pseudostate) and
+ arg.oclAsType(Pseudostate).kind = PseudostateKind::junction)
+ ][handle_transition(out_t(arg), end, root)/][comment this is new /][elseif
+ (is_function_call(arg))][if (owner_is_page(arg))]
+{{ PAGE FUNCTION CALL }}
+[else][if (owner_is_list_region(arg))]
+{{ LIST REGION CALL }}
+[/if][/if][elseif
+ (is_if(arg))][handle_if(arg, end, root)/][elseif
+ (is_ifelse(arg))][handle_ifelse(arg, end, root)/][elseif
+ (is_ifelif(arg))][handle_ifelif(arg, end, root)/][elseif
+ (is_switch(arg))][handle_switch(arg, end, root)/][elseif
+ (is_while(arg))][handle_while(arg, end, root)/][elseif
+ (is_dowhile(arg))][handle_dowhile(arg, end, root)/][elseif
+ (arg.oclIsTypeOf(Pseudostate) and
+ arg.oclAsType(Pseudostate).kind = PseudostateKind::fork)][handle_thread(
+ arg, end, root)/][comment android thread /][elseif
+ (arg.oclIsTypeOf(State))][handle_state2(arg, end, root)
+ /][else] /* error-generating: template not defined for ( [arg.name/] ) */[/if]
+[/template]
+
+[comment]
+
+[template public handle_state(arg : Vertex, end: Vertex, root: Model)]
+[if
+ (arg.gotStereotype('initialize'))][android_new(arg, end, root) /][elseif
+ (arg.gotStereotype('wservice'))][android_comment(arg, end, root)/][elseif
+ (arg.gotStereotype('comment'))][android_comment(arg, end, root)/][elseif
+ (arg.gotStereotype('include'))][android_include_state(arg, end, root)/][elseif
+ (arg.gotStereotype('alternatives'))][android_frm_choice(arg, end, root)/][elseif
+ (arg.gotStereotype('and'))][android_and(arg, end, root) /][elseif
+ (arg.gotStereotype('check'))][android_if_else(arg, end, root) /][elseif
+ (arg.gotStereotype('session'))][android_session(arg, end, root)/][elseif
+ (arg.gotStereotype('redirect'))][android_redirect(arg, end, root)/][elseif
+ (arg.gotStereotype('button'))][android_button(arg, end, root) /][elseif
+ (arg.gotStereotype('form'))][android_form(arg, end, root) /][elseif
+ (arg.gotStereotype('db_select'))][android_db_select(arg, end, root) /][elseif
+ (arg.gotStereotype('db_insert'))][android_db_insert(arg, end, root) /][elseif
+ (arg.gotStereotype('db_update'))][android_db_update(arg, end, root) /][elseif
+ (arg.gotStereotype('db_delete'))][android_db_delete(arg, end, root) /][elseif
+ (arg.gotStereotype('increment'))][android_increment(arg, end, root) /][elseif
+ (arg.gotStereotype('set'))][android_set_value(arg, end, root) /][else][android_comment(arg, end, root) /][/if]
+[/template]
+
+[/comment]
+
+[comment]
+	################################## END REGION IDENTIFYING MODEL ELEMENTS #######################
+[/comment]
+
+
+[comment]
+	################################## BEGIN SPECIFIC IMPLEMENTATIONS FOR LOOPS AND DECISION POINTS 
+  ################################## AND VAR DECLARATIONS ##################################
+[/comment]
+
+[comment] removed
+	Declarar uma variavel, a partir de uma propriedade
+
+[template public declare_variable(prop: Property)]
+[prop.type.name.toString() /] [prop.name.ToCamelCase() /];
+[/template]
+[/comment]
+
+[comment] removed
+	Declarar todas as variaveis de um determinado contexto
+
+[template public declare_context(cls : Class)]
+[for (prop : Property | cls.eContents(Property))
+separator ('\n')][declare_variable(prop)/][/for]
+[/template]
+[/comment]
+
+
+[template public handle_if(arg: Vertex, end: Vertex, root: Model)]
+[if (null = next_junction(arg,1, null))]
+if([decision_name(arg.name)/]){
+	[handle_transition(outs(arg)->first(),null,root)/]
+}
+[else][let end_if:  Vertex = next_junction(arg,1, null)]
+if([decision_name(arg.name)/]){
+	[let tr : Transition = outs(arg)->select(x|x.gotStereotype('true'))
+	->first()][handle_transition(tr,end_if,root)/][/let]
+}
+[if ( end_if <> null and end_if.outs()->notEmpty() )]
+[handle_transition(
+	end_if.outs()->first(),
+	end,
+	root)/]
+[/if]
+[/let][/if]
+[/template]
+
+[template public handle_ifelse(arg: Vertex, end: Vertex, root: Model)]
+[let end_if:  Vertex = next_junction(arg,1, null)]
+if([decision_name(arg.name)/]){
+[let tr : Transition = outs(arg)->select(x|x.gotStereotype('true'))->first()]
+	[handle_transition(tr,end_if,root)/][/let]
+
+}
+else{
+[let tr : Transition = outs(arg)->select(x| not(x.gotStereotype('true')))->first()]
+	[handle_transition(tr,end_if,root)/][/let]
+
+}
+
+[if (not end_if.outs()->isEmpty())]
+[handle_transition(
+	end_if.outs()->first(),
+	end,
+	root)/]
+[/if]
+[/let]
+[/template]
+
+
+[comment its for each transition, so... /]
+[template public handle_ifelif(arg: Vertex, end: Vertex, root: Model)]
+[let end_if:  Vertex = next_junction(arg,1, null)]
+[for (it : Transition | outs(arg))
+separator('else ')]if([instance_name(arg.name)/] == [instance_name(it.name)/]){
+	[handle_transition(it, end_if, root)/]
+}
+[/for]
+
+[if (not end_if.outs()->isEmpty())]
+[handle_transition(
+	end_if.outs()->first(),
+	end,
+	root)/]
+[/if]
+[/let]
+[/template]
+
+[template public handle_switch(arg: Vertex, end: Vertex, root: Model)]
+[let end_if:  Vertex = next_junction(arg,1, null)]
+switch([instance_name(arg.name)/]){
+[for (it : Transition | outs(arg))]
+	case [it.name /]:
+		[handle_transition(it, end, root)/]
+	break;
+[/for]
+}
+
+[if (not end_if.outs()->isEmpty())]
+[handle_transition(
+	end_if.outs()->first(),
+	end,
+	root)/]
+[/if]
+[/let]
+[/template]
+
+[comment]
+	Here i need to use the correct outgoing transition
+	TODO: I THINK THE END IS THE NODE ATTACHED TO THE REPEATING TRANSITION
+[/comment]
+[template public handle_while(arg: Vertex, end: Vertex, root: Model)]
+[let rep_t : Transition = arg.ins()->select(x : Transition |x.gotStereotype('repeating'))->first()]
+[let child_t : Transition = child_transition2(arg, rep_t)]
+while([instance_name(rep_t.target.name)/]){
+	[handle_transition(child_t,arg,root)/]
+}
+[if( not(arg.outs()->select(x|x <> child_t and x.target <> end)->isEmpty()) )]
+[let out_t : Transition = arg.outs()->select(x|x <> child_t and x.target <> end)->first()]
+[handle_transition(out_t,end,root)/][/let][/if][/let][/let]
+[/template]
+
+[template public handle_dialog(arg: Vertex, end: Vertex, root: Model)]
+[let cName : String = arg.name.ToCamelCase().toLowerFirst()]
+AlertDialog.Builder [cName /]Builder = new AlertDialog.Builder(this);
+View [cName /]View = getLayoutInflater().inflate(R.layout.dialog_[arg.name /], null);
+[comment]
+
+	Here i should have a view class.
+	maybe with a package hint.
+
+	final EditText et_email = (EditText) mdv.findViewById(R.id.et_email);
+	final EditText et_password = (EditText) mdv.findViewById(R.id.et_password);
+	Button btn_login = (Button) mdv.findViewById(R.id.btn_login);
+
+[/comment]
+
+[cName /]Builder.setView([cName /]View);
+final AlertDialog [cName /]Dialog = [cName /]Builder.create();
+
+[comment all the buttons here /]
+[for (it : Vertex | getButtonChildren(arg))]
+Button btn_[it.name /] = (Button) [cName /]View.findViewById(R.id.btn_[it.name /]);
+btn_[it.name /].setOnClickListener(new View.OnClickListener() {
+	@Override
+	public void onClick(View view) {
+		[if (it.outs()->notEmpty())][handle_transition(it.out_t(), end, root)/][/if]
+		[cName /]Dialog.dismiss();
+	}
+});
+[/for]
+[cName /]Dialog.show();
+
+[/let][/template]
+
+
+[template public handle_state2(arg : Vertex, end: Vertex, root: Model)]
+[if (gotStereotype(arg,'form_region'))][android_call_fragment(arg, end, root)/][elseif
+(gotStereotype(arg,'include'))][handle_inclusion(arg, end, root)/][elseif
+(gotStereotype(arg,'dialog'))][handle_dialog(arg, end, root)/][elseif
+(gotStereotype(arg,'initialize'))][android_new(arg, end, root) /][elseif
+(gotStereotype(arg,'fncall'))][android_call(arg, end, root) /][elseif
+(gotStereotype(arg,'set'))][android_set(arg, end, root) /][elseif
+(gotStereotype(arg,'todo'))][android_todo(arg, end, root) /][elseif
+(gotStereotype(arg,'doing'))][android_doing(arg, end, root) /][else][
+handle_comment(arg, end, root)/][/if][/template]
+
+[template public handle_comment(arg : Vertex, end: Vertex, root: Model)]
+/* [arg.name /] */
+[let next_t : Transition = out_t(arg)][if (null <> next_t)][handle_transition(next_t, end, root) /][/if][/let][/template]
+
+[template public handle_inclusion(arg : Vertex, end: Vertex, root: Model)]/* inclusion: [arg.name /]*/
+[android_state_machine(root, arg.name)
+/][let next_t : Transition = arg.out_t()][if (null <> next_t)][handle_transition(next_t, end, root) /][/if][/let][/template]
+
+[comment]
+Para testar ainda
+[/comment]
+[query public next_join(arg : Vertex, level : Integer, helper : Transition) : Vertex =
+if
+	null <> helper
+then
+	if
+		arg = helper.source
+	then
+			next_join(
+				arg.owner.eContents(Transition)->select(
+					x: Transition |
+					x.source = arg and
+					x <> helper
+				)->first().target,
+				level,
+				null
+			)
+	else
+		next_join(
+			arg,
+			level,
+			/* ANY NON REPEATING TRANSITION */
+			helper.target.owner.eContents(Transition)->select(
+				x : Transition|
+				x.target = helper.source and 
+				not (x.getAppliedStereotypes()->exists(y|y.name = 'repeating')))
+				->first()
+		)
+	endif
+else
+	if
+		arg.oclIsTypeOf(Pseudostate) and
+		arg.oclAsType(Pseudostate).kind = PseudostateKind::choice
+	then
+		if
+			/* WHILE */
+			arg.owner.eContents(Transition)->exists(
+				x: Transition |
+				x.target = arg
+				and x.getAppliedStereotypes()->exists(y|y.name = 'repeating')
+			)
+		then
+			next_join(
+				arg,
+				level,
+				arg.owner.eContents(Transition)->select(
+					x: Transition |
+					x.target = arg
+					and x.getAppliedStereotypes()->exists(y|y.name = 'repeating')
+				)->first()
+			)
+		else
+			/* DO-WHILE AND IF */
+			next_join(
+					arg.owner.eContents(Transition)->select(
+						x: Transition |
+						x.source = arg
+						and not (x.getAppliedStereotypes()->exists(y|y.name = 'repeating'))
+					)->first().target,
+					level,
+					null
+				)
+		endif
+	else
+		if
+			arg.oclIsTypeOf(Pseudostate) and
+			arg.oclAsType(Pseudostate).kind = PseudostateKind::fork
+		then
+			next_join(
+				arg.owner.eContents(Transition)->select(x: Transition | x.source = arg)->first().target,
+				level + 1,
+				null
+			)
+		else
+			if
+				arg.oclIsTypeOf(Pseudostate) and
+				arg.oclAsType(Pseudostate).kind = PseudostateKind::join
+			then
+				if
+					1 < level
+				then
+					next_join(
+						arg.owner.eContents(Transition)->select(x: Transition | x.source = arg)->first().target,
+						level - 1,
+						null
+					)
+				else
+					arg
+				endif
+			else
+				/* THE DEFAULT OUTGOING IS ANYONE WHICH IS NOT REPEATING */
+				next_join(
+						arg.owner.eContents(Transition)->select(
+							x: Transition |
+							x.source = arg
+							and not (x.getAppliedStereotypes()->exists(y|y.name = 'repeating'))
+						)->first().target,
+						level,
+						null
+					)
+			endif
+		endif
+	endif
+endif
+ /]
+
+[comment]
+	Each transition will become a thread
+	TODO: split all classes, its the right thing to do now
+[/comment]
+[template public define_thread(arg : Vertex, end: Vertex, root: Model)]
+[let end_thread : Vertex = next_join(arg.outs()->first().target, 1, null)]
+[for (tr : Transition | arg.outs() )]
+private class [arg.name/]Task extends AsyncTask<Object, Object, Object>
+{
+
+	Context context;
+	public [arg.name/]Task(Context context) {
+		this.context = context;
+	}
+	
+	@Override
+	protected void onPreExecute() {
+	
+	}
+	
+	@Override
+	protected Object doInBackground(Object... objects) {
+		[handle_decision_vertex(tr.target, end_thread, root)/]
+	}
+	
+	@Override
+	protected void onProgressUpdate(Object... values) {
+		
+	}
+	
+	@Override
+	protected void onPostExecute(Object o) {
+		
+	}
+}
+[/for][/let]
+[/template]
+
+[template public declare_threads(arg : Vertex, end: Vertex, root: Model)]
+[if
+		arg.oclIsTypeOf(Pseudostate) and
+		arg.oclAsType(Pseudostate).kind = PseudostateKind::fork][define_thread(arg, end, root)/][/if][if
+arg.outs()->exists(x : Transition | not(x.gotStereotype('repeating'))) ][for (tr : Transition | 
+arg.outs()->select(x : Transition | not(x.gotStereotype('repeating'))))
+][declare_threads(tr.target, end, root) /][/for][/if][/template]
+
+[template public handle_thread(arg : Vertex, end: Vertex, root: Model)]
+[let end_thread : Vertex = next_join(arg.outs()->first().target, 1, null)]
+[for (tr : Transition | arg.outs() )]
+(new [arg.name/]Task(context)).execute();
+[/for][/let]
+[/template]
+
+[comment]
+	TODO:
+	This one also implies in to check the stereotypes
+	which are maybe applied to the initial state
+	TODO:
+	but i need to identify the final element first..
+[/comment]
+[template public handle_dowhile(arg: Vertex, end: Vertex, root: Model)]
+[let rep_t : Transition = arg.ins()->select(x : Transition |x.gotStereotype('repeating'))->first()]
+[let child_t : Transition = child_transition2(arg, rep_t)]
+do{
+		[handle_state2(arg, rep_t.source, root)/]
+}
+while([instance_name(rep_t.source.name)/]);
+[let out_t : Transition = rep_t.source.outs()->select(x|x <> rep_t)->first()]
+[handle_transition(out_t,end,root)/][/let][/let][/let]
+[/template]
+
+[comment]
+	################################## END SPECIFIC IMPLEMENTATIONS FOR LOOPS AND DECISION POINTS 
+  ################################## AND VAR DECLARATIONS ##################################
+[/comment]
+
+[comment]
+	################################## BEGIN SCREEN IMPLEMENTATIONS #############################
+[/comment]
+
+[comment]
+	################################## END SCREEN IMPLEMENTATIONS ###############################
+[/comment]
+
+[comment]
+	################################## ENTRY POINTS #############################################
+[/comment]
+
+
+[comment 
+Pode retornar uma sequencia vazia 
+/]
+[query public select_screen(root : Model, moduleName: String, className: String) : Sequence(Class) =
+if
+root
+.eContents(Package)->select(x|x.name = 'android_screens')->first()
+.eContents(Package)->exists(x|x.name = moduleName)
+then
+root.eContents(Package)->select(x|x.name = 'android_screens')->first()
+.eContents(Package)->select(x|x.name = moduleName)->first()
+.eContents(Package)->select(x|x.name = 'view')->first()
+.eContents(Class)->select(x|x.name = className)->asSequence()
+else
+	Sequence(Class){}
+endif
+/]
+
+[query public exists_statemachine(root : Model, name: String) : Boolean =
+root
+.eContents(Package)->select(x|x.name = 'android_behavior')->first()
+.eContents(StateMachine)->exists(x|x.name = name)
+/]
+
+[query public get_statemachine(root : Model, name: String) : StateMachine =
+root
+.eContents(Package)->select(x|x.name = 'android_behavior')->first()
+.eContents(StateMachine)->select(x|x.name = name)->first()
+/]
+
+[query public get_statemachine_entry_point(root : Model, name: String) : Vertex =
+root
+.eContents(Package)->select(x|x.name = 'android_behavior')->first()
+.eContents(StateMachine)->select(x|x.name = name)->first()
+.eContents(Region)->first()
+.eContents(Pseudostate)->select(x|x.kind.toString().equalsIgnoreCase('initial'))->first()
+/]
+
+[query public exists_statemachine_entry_point(root : Model, name: String) : Boolean =
+root
+.eContents(Package)->select(x|x.name = 'android_behavior')->first()
+.eContents(StateMachine)->select(x|x.name = name)->first()
+.eContents(Region)->first()
+.eContents(Pseudostate)->exists(x|x.kind.toString().equalsIgnoreCase('initial'))
+/]
+
+[query public get_a_statemachine_Vertex_4test(root : Model, name: String, elname : String) : Vertex =
+root
+.eContents(Package)->select(x|x.name = 'android_behavior')->first()
+.eContents(StateMachine)->select(x|x.name = name)->first()
+.eContents(Region)->first()
+.eContents(Vertex)->select(x|x.name = elname)->first()
+/]
+
+
+[comment] 
+[query public get_statemachine_context_class(root : Model, name: String) : Class =
+root
+.eContents(Package)->select(x|x.name = 'android_behavior')->first()
+.eContents(Package)->select(x|x.name = 'vars')->first()
+.eContents(Class)->select(x|x.name = name)->first()
+/]
+
+[query public exists_statemachine_context_class(root : Model, name: String) : Boolean =
+root
+.eContents(Package)->select(x|x.name = 'android_behavior')->first()
+.eContents(Package)->select(x|x.name = 'vars')->first()
+.eContents(Class)->exists(x|x.name = name)
+/]
+[/comment]
+
+[template public android_state_machine(root : Model, name : String)]
+[comment] removed
+[if
+exists_statemachine_context_class(root, name)][let cls : Class = 
+get_statemachine_context_class(root, name)][declare_context(cls)/]
+
+[/let]
+[/if]
+[/comment][if exists_statemachine_entry_point(root, name)
+][let vet : Vertex = get_statemachine_entry_point(root, name)][if 
+outs(vet)->isEmpty()]
+//{{error-generating: no transitions([vet.name /])}}
+[else]
+[let tr1 : Transition = outs(vet)->first()]
+[declare_threads(vet, null, root)/][handle_transition(tr1,null,root)/]
+[/let][/if][/let][/if]
+[/template]
+
+[comment]
+TODO: Im getting an error undefined argument, it seems i need to use some variable, not a function call to set my arguments
+[/comment]
+
+[comment]
+Fazer o tratamento dos sinais > e < ou = incluindo <= e >= em, ifs
+Fazer o tratamento de :: em nomes de variaveis
+[/comment]
+[query public test_decision_type(arg : String) : Integer = 
+if 1 < arg.index('<=') then
+1
+else
+	if 1 < arg.index('>=') then
+	2
+	else
+		if 1 < arg.index('<') then
+		3
+		else
+			if 1 < arg.index('>') then
+			4
+			else
+				if 1 < arg.index('==') then
+				5
+				else
+					if 1 < arg.index('=') then
+					6
+					else
+					0
+					endif
+				endif
+			endif
+		endif
+	endif
+endif
+ /]
+
+[template public instance_name(arg : String)][arg.replace('::', '.').trim()/][/template]
+
+[template public decision_name(arg : String)][if 1 = test_decision_type(arg)
+][let names : Sequence(String) = arg.tokenize('<=')][instance_name(names->at(1))/] <= [instance_name(names->at(2))
+/][/let][elseif 2 = test_decision_type(arg)][let names : Sequence(String) = arg.tokenize('>=')
+][instance_name(names->at(1))/] >= [instance_name(names->at(2))/][/let][elseif 3 = test_decision_type(arg)
+][let names : Sequence(String) = arg.tokenize('<')][instance_name(names->at(1))/] < [instance_name(names->at(2))
+/][/let][elseif 4 = test_decision_type(arg)][let names : Sequence(String) = arg.tokenize('>')
+][instance_name(names->at(1))/] > [instance_name(names->at(2))/][/let][elseif 5 = test_decision_type(arg)
+][let names : Sequence(String) = arg.tokenize('==')][instance_name(names->at(1))/] == [instance_name(names->at(2))
+/][/let][elseif 6 = test_decision_type(arg)][let names : Sequence(String) = arg.tokenize('=')
+][instance_name(names->at(1))/] == [instance_name(names->at(2))/][/let][else][instance_name(arg)/][/if][/template]
+
+[comment ########################## PART 02 ANDROID MENU ############################### /]
+
+[query public find_state_machine(root : Model, sname: String) : Sequence(StateMachine) = 
+self.eContents(Package)
+->select(x|x.name = 'android_behavior')
+->first().eContents(StateMachine)
+->select(x: StateMachine | x.name = sname)
+/]
+
+[query public find_menu_state_machine(arg : Model) : StateMachine = 
+self.eContents(Package)
+->select(x|x.name = 'android_behavior')
+->first().eContents(StateMachine)
+->select(x: StateMachine | x.gotStereotype('menu'))->first()
+/]
+
+[query public find_main_state_machines(arg : Model) : Sequence(StateMachine) = 
+self.eContents(Package)
+->select(x|x.name = 'android_behavior')
+->first().eContents(StateMachine)
+->select(x: StateMachine | x.gotStereotype('main'))
+/]
+
+[comment query public is_menu(arg : StateMachine) : Boolean = self.gotStereotype('menu') /]
+
+[query public find_initial_point(arg : StateMachine) : NamedElement = 
+self.eContents(Region)->first().eContents(Pseudostate)->select(x|x.kind = PseudostateKind::initial)->first() /]
+
+[comment begin menu.xml /]
+
+[template public generate_menu_super_item(arg : Vertex)]
+[if (arg.eContents(Region)->notEmpty())]
+<group android:checkableBehavior="single" android:title="@string/[name/]" >
+[for (it : State | arg.eContents(Region)->first().eContents(State))]
+	[generate_menu_sub_item(it)/]
+[/for]
+</group>
+[else]
+[generate_menu_sub_item(arg)/]
+[/if]
+[for (it : Transition | arg.getOutgoings())
+][generate_menu_super_item(it.target)/][/for][/template]
+
+[template public generate_menu_sub_item(arg : Vertex)]
+<item
+	android:id="@+id/[name/]"
+	android:icon="@drawable/ic_menu_send"
+	android:title="@string/[name/]" />
+[/template]
+
+[comment end menu.xml /]
+[comment begin strings.xml /]
+
+[comment] 
+
+[template public generate_string_menu_super_item(arg : Vertex)]
+<string name="[name/]">[name.ToWordsCamelCase() /]</string>
+[if (arg.eContents(Region)->notEmpty())
+][for (it : State | arg.eContents(Region)->first().eContents(State))]
+	[generate_string_menu_sub_item(it)/]
+[/for][/if]
+
+[for (it : Transition | arg.getOutgoings())
+][generate_string_menu_super_item(it.target)/][/for][/template]
+
+[template public generate_string_menu_sub_item(arg : Vertex)
+]<string name="[name/]">[name.ToWordsCamelCase() /]</string>[/template]
+
+[/comment]
+
+[comment end strings.xml /]
+
+[template public generate_menu_item(arg : Vertex)][if (eContents(State)->isEmpty())
+][generate_menu_sub_item()/][else][generate_menu_super_item()/][/if][for (tr : Transition | 
+arg.owner.eContents(Transition)->select(x|x.source = arg))][generate_menu_item(tr.target)/][/for]
+[/template]
+
+[comment] removed 
+[template public declare_imports_DEPRECATED(arg : StateMachine, pname : String)]
+[for (it : State | arg.eContents(Region)->first().eContents(State)->select(x|x.gotStereotype('page')))]
+import [pname/].[let mname : String = getModuleName(getHint(it))
+][if ('' <> mname)][mname /].[/if][/let][it.name.ToCamelCase()/]Activity;
+[/for]
+[/template]
+[/comment]
+
+[comment] removed 
+[template public declare_imports(arg : StateMachine, pname : String)]
+[for (it : State | arg.eContents(Region)->first().eContents(State))]
+[if (it.gotStereotype('page'))]
+import [pname/].[let mname : String = getModuleName(getHint(it))
+][if ('' <> mname)][mname /].[/if][/let][it.name.ToCamelCase()/]Activity;
+[else]
+[for (leaf : Vertex | LeafNodes(it)->select(x|x.gotStereotype('custom_page')))]
+import [pname/].[let mname : String = getModuleName(getHint(leaf))
+][if ('' <> mname)][mname /].[/if][/let][leaf.name.ToCamelCase()/]Activity;
+[/for][/if][/for][/template]
+[/comment]
+
+
+[comment
+new concept 
+/]
+[comment] removed
+[template public declare_region_calls(arg : StateMachine)]
+[for (it : State | arg.eContents(Region)->first().eContents(State)->select(x|x.getAppliedStereotypes()->isEmpty()))]
+[for (leaf : Vertex | LeafNodes(it)->select(x| not(x.gotStereotype('custom_page'))) )]
+case R.id.[leaf.name/]:
+	[leaf.name/]_clicked();
+break;
+[/for][/for]
+[/template]
+[/comment]
+
+
+[comment] 
+[template public declare_regions(arg : StateMachine)]
+[for (it : State | arg.eContents(Region)->first().eContents(State)->select(x|x.getAppliedStereotypes()->isEmpty()))]
+[for (leaf : Vertex | LeafNodes(it)->select(x| not(x.gotStereotype('custom_page'))) )]
+void do_[leaf.name/](){
+	transforming-error: contents missing
+}
+[/for]
+[/for]
+[/template]
+[/comment]
+
+[comment] removed
+[template public page_call(pageId: String, activityName: String)]
+case R.id.[pageId/]:
+	nextScreenIntent = new Intent(getApplicationContext(), [activityName/]Activity.class);
+	//the name "id" is new
+	nextScreenIntent.putExtra("id", R.id.[pageId/]);
+	startActivity(nextScreenIntent);
+break;
+[/template]
+[/comment]
+
+[comment] removed
+[template public declare_page_calls(arg : StateMachine)]
+[for (it : State | arg.eContents(Region)->first().eContents(State))]
+[if (it.gotStereotype('page'))]
+[for (leaf : Vertex | LeafNodes(it))]
+[page_call(leaf.name, it.name.ToCamelCase())/]
+[/for]
+[else]
+[for (leaf : Vertex | LeafNodes(it)->select(x|x.gotStereotype('custom_page')))]
+[page_call(leaf.name, leaf.name.ToCamelCase())/]
+[/for]
+[/if]
+[/for]
+[/template]
+[/comment]
+
+[comment 
+	the call to another screens should
+	define the screen separately
+	then define the call, likewise the thread call
+	so they are 2 different transformations
+
+	TODO: make it different where it is a form or a list_region or an inserting_region
+
+
+	TODO: Ive already started making fragments for lists
+	but i dont have all the files which i need
+
+/]
+[template public android_fragment(
+	root: Model,
+	parent: StateMachine,
+	that: Vertex,
+	folder_name: String,
+	classname: String
+)]
+[comment I will need some list fragments, maybe one, maybe more than one /]
+[file ('main/java/'+folder_name+'/'+ ToCamelCase(classname)+'Fragment.java', false, 'UTF-8')]
+
+package [folder_name.replaceAll('/','.') /];
+
+import android.support.v4.app.Fragment;
+import android.view.View;
+
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
+import android.os.Bundle;
+
+import android.widget.Button;
+
+import com.uisleandro.util.ObjectStateHolder;
+
+public class [ToCamelCase(classname)/]Fragment extends Fragment implements View.OnClickListener, ObjectStateHolder {
+
+	//declare the variables, butons, etc
+	[for (it : Vertex | getButtonChildren(that))]
+	Button btn_[it.name /] = null;
+	[/for]
+
+	public [ToCamelCase(classname)/]Fragment(){
+		
+	}
+
+	//this is the way to communicate with the root activity
+	public void setState(Object state){
+
+	}
+
+	public Object getState(){
+
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+	Bundle savedInstanceState) {
+
+		View view = inflater.inflate(R.layout.fragment_[classname/], container, false);
+
+		//instantiate the variables..
+[for (it : Vertex | getButtonChildren(that))]
+		btn_[it.name /] = (Button) view.findViewById(R.id.btn_[it.name /]);
+[/for]
+
+		//set the click event for each button
+
+		return view;
+
+	}
+
+	@Override
+	public void onClick(View view) {
+
+		switch(view.getId()){
+
+[for (it : Vertex | getButtonChildren(that))]
+		case R.id.btn_[it.name /]:
+			btn_[it.name /]_clicked();
+		break
+
+[/for]
+		}
+
+	}
+
+	//declare the extra functions, to hold clicks
+	//once change fragments, change it on the owner activity..
+	[for (it : Vertex | getButtonChildren(that))]
+	private void btn_[it.name /]_clicked(){
+[comment]
+		//here you implement the state machine,
+		//but take care: you need to change the state on the activity
+		//once you find another fragment(screen);
+[/comment]
+		[for (tr : Transition | outs(it))]
+			[handle_transition(tr, null, root) /]
+		[/for]
+
+	}
+
+	[/for]
+
+}
+[/file]
+[/template]
+
+
+[template public create_all_fragment_regions(root: Model, that: StateMachine, folder_name: String)]
+
+[for (child : Vertex | getFormChildren(that))]
+[android_fragment(root,that,child,folder_name,child.name)/]
+[/for]
+
+[for (child : Vertex | getListChildren(that))]
+[android_fragment(root,that,child,folder_name,child.name)/]
+[/for]
+
+[for (it : Vertex | getIncludeChildren(that))]
+[if (exists_statemachine(root, it.name))]
+[create_all_fragment_regions(root, get_statemachine(root, it.name), folder_name)/]
+[/if]
+[/for]
+
+[/template]
+
+[template private crud_fragment(
+	root: Model,
+	item: State,
+	pname: String,
+	stName: String,
+	list: Boolean,
+	form: Boolean
+)]
+[file ('error2.txt', true, 'UTF-8')]
+[item.name /]
+stereos: 
+[for (it : Stereotype | item.getAppliedStereotypes())]
+	[it.name /]
+[/for]
+hint = [getStereotypeProperty(item, stName, 'hint') /]
+cls = [getNamed(root, getStereotypeProperty(item, stName, 'hint')) /]
+[/file]
+
+[comment TODO: nao parece correto, pois eu deveria pegar o ultimo nome da classe /]
+[let cls : Class = getNamed(root, getStereotypeProperty(item, stName, 'hint'))]
+[if (null <> cls)]
+[let module_name : String =
+	if
+		cls.owner.oclAsType(NamedElement).name.equalsIgnoreCase('model') or
+		cls.owner.oclAsType(NamedElement).name.equalsIgnoreCase('view') or
+		cls.owner.oclAsType(NamedElement).name.equalsIgnoreCase('controller')
+	then
+		cls.owner.oclAsType(NamedElement).owner.oclAsType(NamedElement).name
+	else
+		cls.owner.oclAsType(NamedElement).name
+	endif
+][comment
+
+	In this version of the code im using 
+	android::client::model::basic_client
+
+	Now I have one more checking but im
+	spending more time to test it
+
+ /]
+[let fields : Sequence(Property) = 
+	if isViewClass(cls) then
+		nonrecFlatProperties(cls,1,1)
+	else 
+		cls.eContents(Property)
+	endif
+]
+[comment error: it has never been executed /]
+
+[comment 
+	If it is a simple crud page
+	The fields are the same as the table field set?
+/]
+[if (list)]
+[generate_list_fragment_classes(
+	pname,
+	module_name,
+	item.name,
+	cls.name,
+	fields)
+/]
+[/if]
+
+[comment 
+	TODO: 
+		make a special code to update many classes
+		if the current class is a view class
+/]
+[if (form)]
+[generate_update_fragment_classes(
+	pname,
+	module_name,
+	item.name,
+	cls.name,
+	fields
+)/]
+[/if]
+
+[/let][comment fields /]
+[/let][comment module_name /]
+[else]
+[file ('error.txt', true, 'UTF-8')]
+	error: hint not found: ([item.name /])->hint = [getStereotypeProperty(item, 'crud_page', 'hint') /]
+[/file]
+[/if][comment if null <> cls /]
+[/let][comment cls /]
+[/template]
+
+[comment candidate to util /]
+[query public prefixNotNull(pref : String, arg: String) : String =
+if null = arg or arg = '' then
+arg
+else
+pref+arg
+endif
+/]
+
+[comment]
+ANOTHER ACTIVITY
+[/comment]
+[template public generate_activity(
+	root: Model,
+	main_menu : StateMachine,
+	current_item: Vertex,
+	pname : String,
+	activity_name: String,
+	kind : Integer
+)]
+
+[let mainStates : Sequence(State) =
+	if(1 = kind) then
+		recursiveFlatStates(main_menu, 1) else
+		Sequence(State){} endif][comment
+
+	Recursively generate all the pages (first)
+	page = means no state machine representing all the itens
+	custom_page = means that nothing will be represented
+	crud_page = insert,update and list predefined wellknown functions
+/]
+[if (1 = kind)]
+
+[comment SEEMS TO WORK FINE /]
+[generateStringsXml(root, mainStates) /]
+
+[comment now i need to take care of the crud pages /]
+[for (item : State | mainStates)]
+[if(
+		gotStereotype(item, 'page') or
+		gotStereotype(item, 'crud_page') or
+		gotStereotype(item, 'custom_page')
+)][generate_activity(
+	root,
+	main_menu,
+	item,
+	pname, 
+	item.name,
+	item_kind(item))/]
+[/if][if(gotStereotype(item, 'crud_page'))]
+
+[crud_fragment(root, item, pname, 'crud_page', true, true) /]
+ 
+[/if][if(
+		gotStereotype(item, 'list_region')
+)]
+[comment
+	Here i should create the menu_list code: a fragment and the resources
+
+	COMMENT: MAYBE IT WILL BE TURN TO FLAT, I WANT TO INSERT/UPDATE BRAZILIANS
+	generate_list_fragment_classes(packageName : String, moduleName : String, viewClass : Class)
+
+ /]
+[crud_fragment(root, item, pname, 'list_region', true, false) /]
+
+[/if]
+[if(
+		gotStereotype(item, 'insert_region')
+)]
+[comment
+	Here i should create the menu_updating code
+
+	COMMENT: MAYBE IT WILL BE TURN TO FLAT, I WANT TO INSERT BRAZILIANS
+	generate_update_fragment_classes(packageName : String, moduleName : String, viewClass : Class)
+ /]
+[crud_fragment(root, item, pname,'insert_region', false, true) /]
+
+[/if]
+[/for][comment item : state /]
+[/if][comment 1 = kind /]
+
+
+[comment
+	I guess here i can generate the codes
+	Just in case my code is about a crud page
+ /]
+[if (3 = kind)][comment CRUD PAGE /]
+[/if][comment 3 = kind /]
+
+
+[comment
+	inside of the mainPage i should generate
+	the code for the custom actions properly
+/]
+
+[comment
+
+current_item is null on main_activity, so its not being generated
+
+/]
+
+[comment 
+	I guess i need to find the statemachine
+	corresponding to this menu_item, anyway
+	on that state machine, then i can generate, for each form,
+	the corresponding fragments
+ /]
+[comment]
+[for (it : Vertex | getFormChildren(main_menu))]
+	block_expression
+[/for]
+[/comment]
+[comment 4 = customPage /]
+[if (4 = kind and find_state_machine(root, activity_name)->notEmpty())
+][let that : StateMachine = find_state_machine(root, activity_name)->first()
+][let location : String = getHint(current_item)
+][let folder_name : String  = toFolderName(pname) + '/controller/' + getModuleName(location)
+]
+[create_all_fragment_regions(root, that, folder_name)/]
+[/let][/let][/let][/if]
+
+[let location : String = getHint(current_item)]
+
+
+[comment 
+	change the folder if this is a page or crud_page
+	elsewhere it will be a controller
+/]
+[let fname : String  = 
+if
+	2 = kind or 3 = kind
+then
+	toFolderName(pname) + '/crud/' + getModuleName(location) + '/' +
+activity_name.ToCamelCase()
+else
+	toFolderName(pname) + '/controller/' + getModuleName(location) + '/' +
+activity_name.ToCamelCase()
+endif
+]
+
+[comment 1 = menu /][if (1 = kind)]
+
+[comment change it after.. /]
+[file ('main/res/menu/activity_'+activity_name+'_drawer.xml', false, 'UTF-8')]
+[generate_menu_xml(main_menu, pname)/]
+[/file]
+
+[comment]
+
+			generate strings xml
+TODO: please review and remove it if needed
+UIS: please review and remove it if needed
+BECAUSE: I NEED TO GENERATE STRINGS FOR MANY DIFFERENT THINGS
+
+[file ('main/res/values/strings.xml', false, 'UTF-8')]
+[generate_strings_xml(main_menu, pname)/]
+[/file]
+[/comment]
+
+[/if]
+
+[comment]
+sales_point:custom_page
+what should i do if a state is a "page"
+what should i do if a page is an "action"
+[android_state_machine(root,'test1')/]
+[/comment]
+
+[file ('main/java/'+fname+'Activity.java', false, 'UTF-8')]
+package [fname.replace('//','/').replace('/'+activity_name.ToCamelCase(), '').replaceAll('/', '.')/];
+
+//kind = [item_kind(kind) /]
+//location = [location /]
+[if (4 = kind and find_state_machine(root, activity_name)->isEmpty())][comment 4  = custom_page /]
+//state machine not found :(
+[else][if (3 = kind)][comment crud_page /]
+//crud page, need to look for a class
+[else][if (2 = kind)][comment page? does it make sense? /]
+//just look for the containment pages
+[else][if (1 = kind)][comment main_page /]
+//main page
+[else]
+//unknown page type
+[/if][/if][/if][/if]
+
+[if (2 = kind)][comment
+Here i should import the contents of this state
+/]
+[for (it : State | 
+	current_item
+	.eContents(State)
+	->select(x|
+		gotStereotype(x,'list_region')
+	)
+)][let hint : Sequence(String) = getStereotypeProperty(it, 'list_region', 'hint').toString().tokenize('::')]
+[if (hint->exists(x|
+	x.equalsIgnoreCase('model') or
+	x.equalsIgnoreCase('view') or
+	x.equalsIgnoreCase('controller'))
+)]
+import [pname /].crud.[hint->at(2) /].[ToCamelCase(hint->at(4))/]ListFragment;
+[else]
+import [pname /].crud.[hint->at(1) /].[ToCamelCase(hint->at(2))/]ListFragment;
+[/if][/let][/for]
+[for (it : State | 
+	current_item
+	.eContents(State)
+	->select(x|
+		gotStereotype(x,'insert_region')
+	)
+)][let hint : Sequence(String) = getStereotypeProperty(it, 'list_region', 'hint').toString().tokenize('::')]
+[if (hint->exists(x|
+	x.equalsIgnoreCase('model') or
+	x.equalsIgnoreCase('view') or
+	x.equalsIgnoreCase('controller'))
+)]
+import [pname /].crud.[hint->at(2) /].[ToCamelCase(hint->at(4))/]UpdateFragment;
+[else]
+import [pname /].crud.[hint->at(1) /].[ToCamelCase(hint->at(2))/]UpdateFragment;
+[/if][/let][/for]
+[for (it : State | 
+	current_item
+	.eContents(State)
+	->select(x|
+		gotStereotype(x,'crud_page')
+	)
+)]
+[let hint : Sequence(String) = getStereotypeProperty(it, 'list_region', 'hint').toString().tokenize('::')]
+[if (hint->exists(x|
+	x.equalsIgnoreCase('model') or
+	x.equalsIgnoreCase('view') or
+	x.equalsIgnoreCase('controller'))
+)]
+import [pname /].crud.[hint->at(2) /].[ToCamelCase(current_item.name)/]Activity;
+[else]
+import [pname /].crud.[hint->at(1) /].[ToCamelCase(current_item.name)/]Activity;
+[/if][/let][/for]
+
+[/if][comment 2 = kind /]
+
+
+import android.app.SearchManager;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+
+import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.Button;
+import [pname /].R;
+
+// Pacote encontrado:
+[if (4 = kind and find_state_machine(root, activity_name)->notEmpty())]
+[let var_def : Class = root.eContents(Package)
+	->select(p : Package| p.name = 'android_behavior')->first()
+	.eContents(Class)
+		->select(c : Class |c.name = activity_name+'_vars')->first()
+][for (var : Property | var_def.eContents(Property))]
+import [pname /].data.sqlite.[var.type.oclAsType(Class).owner.oclAsType(Element).owner.oclAsType(NamedElement).name /].[var.type.name.ToCamelCase() /]DataSource;
+import [pname /].data.view.[var.type.oclAsType(Class).owner.oclAsType(Element).owner.oclAsType(NamedElement).name /].[var.type.name.ToCamelCase() /];
+[/for][/let][/if]
+
+//[protected ('user custom code 8')]
+/* estudando DW
+O objetivo dos casos de negocios é estimar os beneficios de negocios que
+serão entregues com o DW. Se o DW não possui um caso de negocios claro. 
+então o negocio tende a sofrer problemas de credibilidade.
+Entretanto em DW nós precisamos entender o Caso de Negocios para Investimento.
+*/
+/*
+import android.support.v7.app.AlertDialog;
+import android.view.View;
+import android.widget.Button;
+*/
+//[/protected]
+
+import [pname/].IndexFragment;
+
+[comment imports for the main activity /]
+[if (1 = kind)][for (it : State | mainStates)
+][if (gotStereotype(it, 'custom_page'))]import [pname /].controller[prefixNotNull('.',
+getModuleName(getStereotypeProperty(it,'custom_page','hint')))/].[ToCamelCase(it.name)/]Activity; //custom
+[else][if (gotStereotype(it, 'page'))]import [pname /].crud[prefixNotNull('.',
+	getModuleName(getStereotypeProperty(it,'page','hint'))) /].[ToCamelCase(it.name)/]Activity; //page
+[else][if (gotStereotype(it, 'crud_page'))]import [pname /].crud[prefixNotNull('.',
+	getModuleName(getStereotypeProperty(it,'crud_page','hint'))) /].[ToCamelCase(it.name)/]Activity; //crud
+[/if][/if][/if][/for][/if][comment 1 = kind /]
+
+import com.uisleandro.util.QrcodeActivity;
+import com.uisleandro.util.UpdateActivity;
+
+//import android.support.design.widget.Snackbar;
+
+public class [activity_name.ToCamelCase()/]Activity extends AppCompatActivity
+		implements NavigationView.OnNavigationItemSelectedListener {
+
+	NavigationView navigationView = null;
+	Toolbar toolbar = null;
+
+[comment]
+###########################################################################################################################
+			Declare all the variables over here if this state machine has variables associated to it
+			The persistence is already created. I should assume that. 
+###########################################################################################################################
+[/comment]
+
+	[comment TODO: this way i cant find the actual package of this view class, which is bad
+		keep in mind that the view is generated on a crud transformation
+	/]
+
+	//DataBaseViews
+	[if (4 = kind and find_state_machine(root, activity_name)->notEmpty())
+	][let var_def : Class = root.eContents(Package)
+		->select(p : Package| p.name = 'android_behavior')->first()
+		.eContents(Class)
+			->select(c : Class |c.name = activity_name+'_vars')->first()
+	][for (var : Property | var_def.eContents(Property))]
+		[var.type.name.ToCamelCase() /] [var.name /] = null;
+	[/for][/let][/if]
+
+	//[protected ('user custom code 1')]
+	//[/protected]
+
+	//get the activity results
+[if (4 = kind and find_state_machine(root, activity_name)->notEmpty())]
+[let that : StateMachine = find_state_machine(root, activity_name)->first()]
+
+[let gchild : Sequence(Vertex) = grandchildrenWithExitPoint(that)]
+
+[for (it : Vertex | gchild)][let ret : Vertex = it.eContents(Pseudostate)->select(x: Pseudostate| x.kind = PseudostateKind::exitPoint)->first()]
+	private static final int [ret.name.toUpperCase() /] = [ getIndex(it, gchild, 1) /];
+[/let][/for]
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+[for (it : Vertex | gchild)][let ret : Vertex = it.eContents(Pseudostate)->select(x: Pseudostate| x.kind = PseudostateKind::exitPoint)->first()]
+
+		if ([ret.name.toUpperCase() /] == requestCode && android.app.Activity.RESULT_OK == resultCode) {
+			String [ret.name /] = data.getStringExtra("[ret.name /]");
+			[ret.out_t().target.name/]([ret.name /]);
+		}
+
+[/let][/for]
+[/let]
+		//[protected ('20170428 add extra code here')]
+		//[/protected]
+
+	}
+[/let]
+[/if]
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		Intent intent = getIntent();
+	//[protected ('user custom code 2')]
+
+		/**/
+		if(Intent.ACTION_SEARCH.equals(intent.getAction())){
+			String query = intent.getStringExtra(SearchManager.QUERY);
+			do_my_search(query);
+		}
+		/**/
+
+		setContentView(R.layout.activity_main);
+
+		_changeFragment(new IndexFragment());
+
+		toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+				this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+		drawer.addDrawerListener(toggle);
+		toggle.syncState();
+
+		navigationView = (NavigationView) findViewById(R.id.nav_view);
+		navigationView.setNavigationItemSelectedListener(this);
+
+		//this is how to inflate it
+		navigationView.getMenu().clear();
+		navigationView.inflateMenu(R.menu.activity_main_drawer);
+
+		//[/protected]
+		[comment here some the default action for this activity /]
+
+	[if (4 = kind and exists_statemachine(root, activity_name)
+	)][handle_transition(
+			outs(get_statemachine_entry_point(root, activity_name))->first(),
+			null,
+			root)
+	/][/if]
+	}
+
+
+	//[protected ('user custom code 7')]
+
+	private void do_my_search(String query) {
+
+	}
+
+	//[/protected]
+
+	@Override
+	public void onBackPressed() {
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		if (drawer.isDrawerOpen(GravityCompat.START)) {
+			drawer.closeDrawer(GravityCompat.START);
+		} else {
+			super.onBackPressed();
+		}
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int id = item.getItemId();
+		Intent intent;
+
+		switch (id){
+
+	//[protected ('user custom code 6')]
+
+			/**/
+			case R.id.action_search:
+				onSearchRequested();
+				return true;
+			/**/
+			case R.id.action_settings:
+
+				intent = new Intent(getApplicationContext(), UpdateActivity.class);
+				startActivity(intent);
+				return true;
+
+			case R.id.view_qrcode:
+
+				intent = new Intent(getApplicationContext(), QrcodeActivity.class);
+				startActivity(intent);
+				return true;
+
+	//[/protected]
+
+		}
+
+		return false;
+	}
+
+	private void _changeFragment(Fragment fragment){
+		FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+		fragmentTransaction.replace(R.id.fragment_container, fragment);
+		fragmentTransaction.commit();
+	}
+
+	@SuppressWarnings("StatementWithEmptyBody")
+	@Override
+	public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+		// Handle navigation view item clicks here.
+		int id = item.getItemId();
+
+		Intent nextScreenIntent;
+		switch(id){
+			[if (1 = kind)]
+[comment] removed
+			[declare_region_calls(main_menu)/]
+			[declare_page_calls(main_menu)/]
+[/comment]
+
+[for (it : State | mainStates)]
+[if (gotStereotype(it, 'button') and it.owner.owner.getAppliedStereotypes()->isEmpty())]
+			case R.id.[it.name/]:
+				[it.name/]_clicked();
+			break;
+[/if][if (
+	gotStereotype(it, 'crud_page') 
+)]
+		case R.id.[it.name/]:
+			//crud_page
+			nextScreenIntent = new Intent(getApplicationContext(), [ToCamelCase(it.name)/]Activity.class);
+			startActivity(nextScreenIntent);
+		break;
+[/if][if (
+	gotStereotype(it, 'custom_page')
+)]
+		case R.id.[it.name/]:
+			nextScreenIntent = new Intent(getApplicationContext(), [ToCamelCase(it.name)/]Activity.class);
+			startActivity(nextScreenIntent);
+		break;
+[/if][if (
+	gotStereotype(it, 'insert_region') or
+	gotStereotype(it, 'list_region') 
+)]
+		case R.id.[it.name/]:
+			//insert_or_list_region
+			nextScreenIntent = new Intent(getApplicationContext(), [it.owner.owner.oclAsType(NamedElement).name.ToCamelCase()/]Activity.class);
+			nextScreenIntent.putExtra("id", R.id.[it.name/]);
+			startActivity(nextScreenIntent);
+		break;
+[/if][/for]
+
+			//[protected ('user custom code 5')]
+			//[/protected]
+		}
+			[/if]
+
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+		drawer.closeDrawer(GravityCompat.START);
+		return true;
+	}
+
+[comment
+	It wont generate from the menu, 
+	but from a main state machine
+/]
+	[if (1 = kind)][let region : Region = 
+	find_state_machine(root, 'default_behavior')
+	.eContents(Region)
+	->first()][for (it : State | region.eContents(State)
+		->select(x| gotStereotype(x, 'button')))]
+	void [it.name /]_clicked(){
+		[handle_transition(it.out_t(), null, root) /]
+	}
+	[/for][/let][/if]
+
+	[if (4 = kind and find_state_machine(root, activity_name)->notEmpty())]
+	[let that : StateMachine = find_state_machine(root, activity_name)->first()]
+	[for (it : Vertex | grandchildren(that, 'function'))]
+	void [it.name/](Object arg){
+		[handle_transition(it.out_t(), null, root) /]
+	}
+	[/for][/let][/if]
+
+
+	//[protected ('user custom code 4')]
+	//[/protected]
+
+
+}
+
+[/file]
+
+[/let]
+[/let][/let]
+[/template]
+
+[template public generate_menu_xml(arg : StateMachine, pname : String)]
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+[let entry : Pseudostate = find_initial_point()
+][for (it : Transition | entry.getOutgoings())
+]
+	[generate_menu_super_item(it.target)/]
+[/for][/let]
+</menu>
+[/template]
+
+[comment]
+	removed
+[template public generate_strings_xml(arg : StateMachine, pname : String)]
+<resources>
+<!-- 
+[protected ('protected Area GENERAL')]
+-->
+
+	<string name="app_name">BehaviorSales</string>
+
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
+
+	<string name="action_settings">Settings</string>
+
+<!-- 
+[/protected]
+-->
+
+<!-- 
+[protected ('protected Area Menu.Xml')]
+-->
+
+[let entry : Pseudostate = find_initial_point()
+][for (it : Transition | entry.getOutgoings())]
+	[generate_string_menu_super_item(it.target)/]
+[/for][/let]
+
+<!-- 
+[/protected]
+-->
+
+</resources>
+[/template]
+[/comment]
+
+
+
+[comment]
+[for (leaf : Vertex | LeafNodes(it))]
+:[leaf.name/]
+[/for]{[it.name/]}
+[/comment]
+[query public item_kind(arg : Vertex) : Integer = 
+if arg.gotStereotype('page') then
+2
+else
+if arg.gotStereotype('crud_page') then
+3
+else
+if arg.gotStereotype('custom_page') then
+4
+else
+5
+endif
+endif
+endif
+/]
+
+[query public item_kind(arg : Integer) : String =
+if 1 = arg then
+'main'
+else
+if 2 = arg then
+'page'
+else
+if 3 = arg then
+'crud_page'
+else
+if 4 = arg then
+'custom_page'
+else
+'unknown_page'
+endif
+endif
+endif
+endif
+/]
+
+
+
+[template public awesome_fab(id : String, icon : String)]
+<!-- begin awesomefab -->
+		<FrameLayout
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="bottom|right"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"
+			android:layout_alignParentEnd="true">
+
+			<android.support.design.widget.FloatingActionButton
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_margin="@dimen/fab_margin"
+				android:src="@android:color/transparent"
+				android:id="@+id/[id/]"
+				/>
+
+			<com.uisleandro.util.AwesomeTextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_gravity="center"
+				android:elevation="16dp"
+				android:text="\u[icon /]"
+				android:textSize="35dp"
+				android:textColor="#ff9ac2"
+				android:textAppearance="?android:attr/textAppearanceMedium" />
+		</FrameLayout>
+<!-- end awesomefab -->
+[/template]
+
+[comment 
+
+note that i can use private instead
+
+todo: remove from her ????
+
+ /]
+[template public make_update_resource(viewClass: Class, pname : String, moduleName: String, className: String)]
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="fill_parent"
+	android:layout_below="@+id/toolbar">
+
+<ScrollView
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+
+<LinearLayout
+			android:layout_width="fill_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical" >
+
+[if(viewClass.gotStereotype('has_picture'))]
+<RelativeLayout
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+
+<ImageView
+	android:layout_width="@dimen/image_view_width"
+	android:layout_height="@dimen/image_view_height"
+	android:id="@+id/imv_picture_[className.toLowerCase() /]"
+	android:layout_gravity="center_horizontal"
+	android:background="@drawable/imageborder"
+	android:layout_alignParentTop="true"
+	android:layout_centerHorizontal="true"
+	android:layout_marginTop="20dp" />
+
+	<FrameLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom|right"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true">
+
+		<android.support.design.widget.FloatingActionButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/fab_margin"
+			android:src="@android:color/transparent"
+			android:id="@+id/fab_change_picture_[className.toLowerCase() /]"
+			/>
+
+		<com.uisleandro.util.AwesomeTextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:elevation="16dp"
+			android:text="\uf03e"
+			android:textSize="35dp"
+			android:textColor="#ff9ac2"
+			android:textAppearance="?android:attr/textAppearanceMedium" />
+	</FrameLayout>
+
+
+</RelativeLayout>
+
+[/if]
+[for (tbl : Class | viewClass.eContents(Class)->select(x:Class| x.gotStereotype('itself')))]
+[for (prop : Property | tbl.eContents(Property)->custom_filter())]
+[if (prop.isForeignKey())]
+<!-- TODO Change the color -->
+<RelativeLayout
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content">
+<TextView
+	android:layout_width="wrap_content"
+	android:layout_height="wrap_content"
+	android:text="@string/[tbl.name/]_[prop.getName() /]"
+	android:layout_alignParentLeft="true"
+	android:layout_marginLeft="@dimen/spinner_label_left"
+	android:textColor="@color/material_grey_600"
+	android:textSize="@dimen/spinner_label_size" />
+<Spinner
+		android:id="@+id/spi_[tbl.name/]_[prop.getName() /]"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginBottom="20dp"
+		android:layout_marginTop="20dp"
+		android:layout_gravity="center_horizontal"
+ />
+</RelativeLayout>
+[else][if (prop.isBoolean())]
+<CheckBox
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/[tbl.name/]_[prop.getName() /]"
+		android:id="@+id/chb_[tbl.name/]_[prop.getName() /]"
+		android:layout_gravity="center_horizontal" />
+[else]
+[if (prop.gotStereotype('date'))]
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/til_[tbl.name/]_[prop.getName() /]"
+		android:layout_marginBottom="20dp"
+		android:layout_marginTop="20dp"
+		android:layout_gravity="center_horizontal"
+		>
+		<android.support.design.widget.TextInputEditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/[tbl.name/]_[prop.getName() /]"
+			android:inputType="textNoSuggestions" />
+		</android.support.design.widget.TextInputLayout>
+
+[awesome_fab('fab_'+tbl.name+'_'+prop.getName(), 'f073') /]
+
+
+	</RelativeLayout>
+
+[else]
+[if (prop.gotStereotype('barcode'))]
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/til_[tbl.name/]_[prop.getName() /]"
+		android:layout_marginBottom="20dp"
+		android:layout_marginTop="20dp"
+		android:layout_gravity="center_horizontal"
+		>
+		<android.support.design.widget.TextInputEditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/[tbl.name/]_[prop.getName() /]"
+			android:inputType="textNoSuggestions" />
+		</android.support.design.widget.TextInputLayout>
+
+[awesome_fab('fab_'+tbl.name+'_'+prop.getName(), 'f029') /]
+
+	</RelativeLayout>
+
+[else]
+<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/til_[tbl.name/]_[prop.getName() /]"
+		android:layout_marginBottom="20dp"
+		android:layout_marginTop="20dp"
+		android:layout_gravity="center_horizontal"
+		>
+
+		<android.support.design.widget.TextInputEditText
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:hint="@string/[tbl.name/]_[prop.getName() /]"
+			android:inputType="textNoSuggestions" />
+</android.support.design.widget.TextInputLayout>
+[/if]
+[/if]
+[/if]
+[/if]
+[/for]
+[/for]
+
+<LinearLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true">
+
+	<FrameLayout
+		android:id="@+id/cancel_button_frame"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom|right"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true">
+
+		<android.support.design.widget.FloatingActionButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/fab_margin"
+			android:src="@android:color/transparent"
+			android:id="@+id/cancel_button"
+			/>
+
+		<com.uisleandro.util.AwesomeTextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:elevation="16dp"
+			android:text="\uf00b"
+			android:textSize="35dp"
+			android:textColor="#ff9ac2"
+			android:textAppearance="?android:attr/textAppearanceMedium" />
+	</FrameLayout>
+
+	<FrameLayout
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="bottom|right"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_alignParentEnd="true"
+		android:layout_toRightOf="@+id/cancel_button_frame"
+		>
+
+		<android.support.design.widget.FloatingActionButton
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="@dimen/fab_margin"
+			android:src="@android:color/transparent"
+			android:id="@+id/ok_button"
+			/>
+
+		<com.uisleandro.util.AwesomeTextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center"
+			android:elevation="16dp"
+			android:text="\uf1d8"
+			android:textSize="35dp"
+			android:textColor="#ff9ac2"
+			android:textAppearance="?android:attr/textAppearanceMedium" />
+	</FrameLayout>
+
+</LinearLayout>
+
+</LinearLayout>
+
+</ScrollView>
+
+</RelativeLayout>
+[/template]
+
+[template public add_resources_update(
+root: Model,
+sm : StateMachine,
+pname : String
+)]
+[for (it : State | sm.eContents(Region)->first().eContents(State)->select(x | x.gotStereotype('dialog')))]
+[if (null <> it.getHint() and it.getHint() <> '')]
+[let hint : String = it.getHint()]
+[let moduleName : String = hint.tokenize('::')->first()]
+[let className : String = hint.tokenize('::')->last()]
+[file ('main/res/layout/dialog_'+it.name+'.xml', false, 'UTF-8')]
+<!-- [moduleName /].[className/] -->
+[for (viewClass : Class | select_screen(root, moduleName, it.name))]
+[make_update_resource(viewClass,pname,moduleName,className)/]
+[/for]
+[/file]
+[/let][/let][/let][/if]
+[/for]
+[/template]
+
+[comment]
+	################################## BEGIN STRING FUNCTIONS #######################
+[/comment]
+
+[query public getModuleName(arg : String) : String = 
+if null = arg then
+	''
+else
+	if arg.tokenize('::')->isEmpty() then
+		''
+	else
+		if arg.indexOf('model') > 0 or arg.indexOf('view') > 0 or arg.indexOf('controller') > 0 then
+			arg.toString().tokenize('::')->at(2)
+		else
+			arg.tokenize('::')->first()
+		endif
+	endif
+endif
+ /]
+
+[query public toClassName(arg : String) : String = 
+if null = arg then
+	''
+else
+	if arg.tokenize('::')->isEmpty() then
+		''
+	else
+		arg.tokenize('::')->last()
+	endif
+endif
+ /]
+
+[comment]
+	################################## END STRING FUNCTIONS #######################
+[/comment]
+
+[template public generate_main(root : Model)]
+[let pname : String = get_configuration_namespace(root)]
+
+[comment] 
+Generate the dialogs for all the state machines
+TODO: in another iteration i should generate the strings for it also.
+I mean generate for the whole project
+
+IDK but maybe the eContents from a Sequence is the eContents of each element
+[/comment]
+
+[for (sm : StateMachine |
+root
+	.eContents(Package)
+		->select(x|x.name ='android_behavior')
+			->first()
+				.eContents(StateMachine))][comment
+
+	Use this to make the updating resources.xml (screens)
+	WHY DO I HAVE THIS THINGS OVER HERE
+
+/][add_resources_update(root, sm, pname) /][/for]
+
+
+[let menu_state_machine : StateMachine = find_menu_state_machine(root)]
+	[generate_activity(root, menu_state_machine, null, pname, 'main', 1)/]
+[/let]
+
+[/let]
+[/template]
+

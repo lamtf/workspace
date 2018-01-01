@@ -1,0 +1,395 @@
+library mvclibv2;
+
+/*
+errors:
+it can include the model, view or controller packages
+but its failing to add example_op and view
+*/
+
+modeltype uml "strict" uses uml('http://www.eclipse.org/uml2/5.0.0/UML');
+
+helper Model::create_package_if_not_exists (inout root: Model, in package_name: String) {
+	var myresult : Package := null;
+
+	if (root.packagedElement[Package]->exists(p | p.name = package_name)) then {
+		myresult := root.packagedElement[Package]->select(x|x.name = package_name)->asSequence()->first();
+	} else {
+		myresult := object Package{
+			name := package_name;
+		};
+		root.packagedElement += myresult;
+	} endif;
+	
+	if (not myresult.getAppliedProfiles()->exists(x|x.name = 'query')) then {
+		myresult.applyProfile(Profile.allInstances()->select(x|x.name = 'query')->asSequence()->first());
+	} endif;
+	
+	self.getAppliedProfiles()->forEach(p) {
+		if (not myresult.getAppliedProfiles()->exists(x|x = p)) {
+			myresult.applyProfile(p);
+		} endif;
+	};
+	
+	log('generating the mvc modules');
+	self.packagedElement[Package]->forEach(pack){
+		pack.create_mvc_module_if_not_exists(myresult, self);
+	};
+	
+	log('fixing the dependencies in all modules');
+	self.allSubobjectsOfType(Dependency)->forEach(dep){
+		dep.copy_dependency_if_not_exists(myresult.packagedElement[Package]->asSequence());
+	};
+	
+	var generatedModels : Sequence(Class) := myresult.allSubobjectsOfType(Class)->select(x|x.owner.oclIsTypeOf(Package) and x.owner.oclAsType(NamedElement).name = 'dataModels')->asSequence();
+	
+	log('fixing the foreign keys in all models');
+	fix_the_foreign_keys(generatedModels);
+	
+	log('fixing the inheritances in all models');
+	self.allSubobjectsOfType(Class)->forEach(cls){
+		cls.fix_the_inheritance(generatedModels);
+	};
+	
+/* its not working
+	log('fixing the example operations');
+	var example_ops : Sequence(Operation) := myresult.allSubobjectsOfType(Operation)->select(x|x.name = 'example_op')->asSequence();
+	fix_example_ops(example_ops);
+*/
+	
+	log('end executing');
+	
+}
+
+helper Package::create_mvc_module_if_not_exists (inout parent: Package, in raw_database_model: Model) {
+	var myresult : Package := null;
+	var dataModels : Package := null;
+	var queryViews : Package := null;		
+	var controller: Package := null;
+	
+	if (parent.packagedElement[Package]->exists(p | p.name = self.name)) then {
+		myresult := parent.packagedElement[Package]->select(x|x.name = self.name)->asSequence()->first();
+	} else {
+		myresult := object Package{
+			name := self.name;
+		};
+		parent.packagedElement += myresult;
+	} endif;
+	
+	if (myresult.packagedElement[Package]->exists(p | p.name = 'dataModels')) then {
+		dataModels := myresult.packagedElement[Package]![name = 'dataModels'];
+	} else {
+		dataModels := object Package {
+			name := 'dataModels'
+		};
+		myresult.packagedElement += dataModels;		
+	} endif;
+	
+	if (myresult.packagedElement[Package]->exists(p | p.name = 'queryViews')) then {
+		queryViews := myresult.packagedElement[Package]![name = 'queryViews'];
+	} else {
+		queryViews := object Package{
+			name := 'queryViews'
+		};
+		myresult.packagedElement += queryViews;
+	} endif;
+	
+	if (myresult.packagedElement[Package]->exists(p | p.name = 'controller')) then {
+		controller := myresult.packagedElement[Package]![name = 'controller'];
+	} else {
+		controller := object Package{
+			name := 'controller'
+		};
+		myresult.packagedElement += controller;
+	} endif;
+	
+	self.packagedElement[Class]->forEach(cls){
+		cls.create_model_class_if_not_exists(dataModels);
+	};
+	
+	self.packagedElement[Class]->forEach(cls){
+		cls.create_controller_if_not_exists(controller, queryViews, raw_database_model);
+	};
+		
+}
+
+helper Class::create_model_class_if_not_exists (inout parent: Package) {
+	var myresult : Class := null;
+	
+	if (parent.packagedElement->exists(x|x.name = self.name)) then {
+		myresult := parent.packagedElement[Class]->select(x|x.name = self.name)->asSequence()->first();
+	} else {	
+		myresult := object Class {
+		    name := self.name
+		};
+		myresult.ownedAttribute += object Property {
+			name := 'last_update';
+			type := getDataType('DateTime');
+		};
+		parent.packagedElement += myresult;
+	}endif;
+	
+	copy_attributes_if_not_exists(self, myresult);
+	copy_stereotypes_if_not_exists(self, myresult);
+	
+}
+
+helper Class::create_controller_if_not_exists (inout parent: Package, inout viewsPackage: Package, in raw_database_model: Model) {
+	var myresult: Class := null;
+	var example_op: Operation := null;
+	var example_vw: Class := null;
+	
+	if (parent.packagedElement->exists(x | x.name = self.name)) then {
+		log('found controller '+self.name);
+		myresult := parent.packagedElement[Class]->select(x|x.name = self.name)->asSequence()->first();
+	} else {
+		log('creating controller '+self.name);
+		myresult := object Class{
+			name := self.name;
+		};
+		parent.packagedElement += myresult;
+	} endif;
+	
+	log(viewsPackage.name);
+		
+	//NOTE: The foreign keys are already set
+	example_vw := self.create_db_view_if_not_exists_and_return(viewsPackage, '_vw', raw_database_model);
+	
+	if (myresult.ownedOperation->exists(x|x.oclAsType(NamedElement).name = 'example_op')) then {
+		log('found operation example_op');
+		example_op := myresult.ownedOperation->select(x|x.oclAsType(NamedElement).name = 'example_op')->asSequence()->first();
+	} else {
+		log('creating operation example_op');
+		example_op := object Operation{
+			name := 'example_op';
+			ownedParameter += object Parameter{
+				name := 'view';
+				type := example_vw;
+			};
+		};
+		myresult.ownedOperation += example_op;		
+	} endif;
+	
+}
+
+helper Class::create_db_view_if_not_exists_and_return (inout parent: Package, in sufix: String, in raw_database_model: Model): Class {
+	var result_name : String := self.name + sufix;
+	var myresult : Class := null;
+	var itself : Class := null;
+	
+	if (parent.packagedElement[Class]->exists(x|x.name = result_name)) then {
+		log('found view'+ result_name);
+		myresult := parent.packagedElement[Class]->select(x|x.name = result_name)->asSequence()->first();
+	} else {
+		log('creating view '+result_name);
+		myresult := object Class{
+			name := result_name;
+		};
+		parent.packagedElement += myresult;
+	} endif;
+	
+	
+	if (myresult.nestedClassifier[Class]->exists(x|x.name = self.name)) then {
+		itself := myresult.nestedClassifier[Class]->select(x|x.name = self.name)->asSequence()->first();
+	} else {
+		itself := object Class{
+			name := self.name;
+		};
+		myresult.nestedClassifier += itself;
+		itself.applyStereotype(Stereotype.allInstances()![name='Subject']);
+	} endif;
+	
+	copy_attributes_if_not_exists(self, itself);
+	
+	//TODO: I need to set the case where the attribute points to self 
+	copy_superclass_attributes_if_not_exists(self, itself);
+	
+	var s : Sequence(Class) := object Sequence(Class){};
+	
+	//TODO: add all nestedClasifers to S, then expand it
+	myresult.nestedClassifier[Class]->forEach(cls){
+		s += cls;
+	};
+	
+	//TODO: i want to add only what is not there
+	s := expand_view_class(raw_database_model, s, 1);
+	
+	s := fix_the_foreign_keys(s);
+			
+	s->forEach(cla){
+		myresult.nestedClassifier += cla;
+	};
+	
+	return myresult; 
+}
+
+//It gets the foreign keys, never forget it..
+//TODO: Im still updating it
+helper expand_view_class(in raw_database_model: Model, inout s : Sequence(Class), in i: Integer): Sequence(Class) {
+	var myresult : Class := s->at(i);
+	
+	if (raw_database_model.allSubobjectsOfKind(Class)->exists(x|x.name = myresult.name)) {
+		var raw_class : Class := raw_database_model.allSubobjectsOfKind(Class)![name = myresult.name];
+
+		copy_attributes_if_not_exists(raw_class, myresult);
+		copy_superclass_attributes_if_not_exists(raw_class, myresult);
+		
+		// Adds the last_update attribute, to each one of the classes
+		if(not myresult.ownedAttribute[Property]->exists(x|x.name = 'last_update')) then{
+			myresult.ownedAttribute += object Property{
+				name := 'last_update';
+				type := getDataType('DateTime');
+			};		
+		} endif;
+		
+		// Foreach foreign key add to the sequence 's' if its not there
+		raw_class.getForeignKeys()->forEach(fk){
+			var fk_class : Class := null;
+			var ref_class: Class := fk.type.oclAsType(Class);
+			
+			if(s->exists(x|x.name = fk.name)) then {
+				fk_class := s![name=fk.name];
+			} else {
+				fk_class := object Class{
+					name := fk.name;
+				};
+				//ADDS TO 'S'
+				s += fk_class;				
+			} endif;
+			
+			copy_attributes_if_not_exists(ref_class, fk_class);
+			copy_superclass_attributes_if_not_exists(ref_class, fk_class);
+			
+			//ADDS THE FOREIGN KEY
+			/* IM NOT ADDING BECAUSE IM FIXING AFTER
+			if(not myresult.ownedAttribute[Class]->exists(x|x.name = fk.name)) then {
+				myresult.ownedAttribute+= object Property{
+					name := fk.name;
+					type := fk_class;
+				};
+			} endif;
+			*/
+			
+		};
+		
+	} endif;
+
+	if(i < s->size()){
+		s := expand_view_class(raw_database_model, s, i+1);
+	}endif;
+
+	return s;
+}
+
+helper fix_the_foreign_keys(inout s : Sequence(Class)): Sequence(Class) {
+	var i : Integer := 1;
+	while(i < s->size()){
+		s->at(i).ownedAttribute->forEach(p){
+			if (p.type = null) then {
+				p.type := s![name = p.name];
+			} endif;
+		};
+		i := i+1;
+	};
+	
+	return s;
+}
+
+/*
+helper fix_example_ops(inout ops: Sequence(Operation)) {
+	ops->forEach(op){
+		op.ownedParameter->forOne(par){
+			if(par.type = null){
+				par.type := op.owner.owner.owner.oclAsType(Package).packagedElement[Package][name='queryViews'].
+				packagedElement[Class]![name = op.owner.oclAsType(NamedElement).name];
+			}
+		}
+	}
+}
+*/
+
+helper Class::fix_the_inheritance(inout s : Sequence(Class)) {
+	if(s->exists(x|x.name = self.name)) then {
+		var cls : Class := s->select(x|x.name = self.name)->asSequence()->first(); 
+		self.general->forEach(g){
+			var gname : String := g.oclAsType(NamedElement).name;
+			if (s->exists(x|x.name = gname)) then {
+				cls.general += s![name = gname];
+			} endif;
+		};	
+	} endif;
+}
+
+//TODO: fix the property type, if its a foreign key
+//TODO: some properties point to the owner-class (its a desirable feature)
+helper create_property (a: Property): Property {
+	return object Property{
+		name := a.name;
+		if(a.name = a.type.name) then
+			type := null
+		else
+			type := a.type
+		endif;
+	};
+}
+
+helper copy_superclass_attributes_if_not_exists(in raw_class: Class, inout itself: Class) {
+	raw_class.general->forEach(ans){
+		if(ans.oclIsTypeOf(Class)) then {
+			ans.oclAsType(Class).ownedAttribute->forEach(a){
+				if( itself.ownedAttribute[Property]->exists(x|x.name = a.name) ) then {
+			    	var prop : Property := itself.ownedAttribute[Property]->select(x|x.name = a.name)->asSequence()->first();
+			    	if(a.type.name <> prop.type.name){
+			    		itself.ownedAttribute += create_property(a); //TODO: I'll need to fix the foreign keys afterwards
+			    	}
+			    } else {
+					itself.ownedAttribute += create_property(a); //TODO: I'll need to fix the foreign keys afterwards
+			    } endif;
+			}
+		} endif;
+	};
+}
+
+helper copy_stereotypes_if_not_exists(in raw_class: Class, inout itself: Class) {
+	raw_class.getAppliedStereotypes()->forEach(s){
+		if( not itself.getAppliedStereotypes()->exists(t: Stereotype| t.name = s.name) ) then{
+			itself.applyStereotype(s);
+		}endif;
+	};
+}
+
+helper copy_attributes_if_not_exists(in raw_class: Class, inout itself: Class) {
+	raw_class.oclAsType(Class).ownedAttribute->forEach(a){
+		if( itself.ownedAttribute[Property]->exists(x|x.name = a.name) ) then {
+			var prop : Property := itself.ownedAttribute[Property]->select(x|x.name = a.name)->asSequence()->first();
+			if(a.type.name <> prop.type.name){
+				itself.ownedAttribute += create_property(a); //TODO: I'll need to fix the foreign keys afterwards
+	    	}
+	    } else {
+			itself.ownedAttribute += create_property(a); //TODO: I'll need to fix the foreign keys afterwards
+		} endif;
+	};
+}
+
+helper Dependency::copy_dependency_if_not_exists(inout pack : Sequence(Package)){
+	var cli : Package := pack![name = self.client->asSequence()->at(1).oclAsType(NamedElement).name];
+	var sup : Package := pack![name = self.supplier->asSequence()->at(1).oclAsType(NamedElement).name];
+	
+	var depname := cli.name+'_depends_on_'+sup.name;
+	
+	if(not(cli.allSubobjects()[Dependency]->exists(x|x.name = depname))){
+		cli.packagedElement += object Dependency {
+			name := depname;
+			client := cli;
+			supplier := sup;
+		};
+	}
+}
+
+query Class::getForeignKeys(): Sequence(Property) {
+	return self.ownedAttribute[Property]->select(x|x.type.name = x.name)->asSequence();
+}
+
+query getDataType(pname : String) : Type{
+	return Package.allInstances()![name = 'types']
+	.packagedElement![name = pname].oclAsType(Type);
+}

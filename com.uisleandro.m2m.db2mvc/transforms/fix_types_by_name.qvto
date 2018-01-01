@@ -1,0 +1,12 @@
+modeltype uml "strict" uses uml('http://www.eclipse.org/uml2/5.0.0/UML');
+
+transformation fix_types_by_name(inout root : uml, in types_model : uml);
+
+main() {
+
+root.objectsOfType(Property)->forEach(prop){
+if(prop.name.equalsIgnoreCase('barcode')) then{
+	prop.type := types_model.objectsOfKind(Type)![name = 'Barcode'];
+}endif; };
+
+}

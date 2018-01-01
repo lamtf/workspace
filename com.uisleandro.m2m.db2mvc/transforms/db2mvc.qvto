@@ -1,0 +1,21 @@
+import mvclibv2;
+
+modeltype uml "strict" uses uml('http://www.eclipse.org/uml2/5.0.0/UML');
+
+transformation db2mvc(in structure_model: uml, in types: uml, in query_profile: uml, inout behavior_model: uml);
+
+main() {
+
+	var behavior : Model := behavior_model.rootObjects()![Model];
+	//var types: Model := types.rootObjects()![Model];
+	
+	log('begin mapping');
+	//structure_model.rootObjects()![Model].map model_to_mvc_model(behavior, 'raw_mvc');
+	structure_model.rootObjects()![Model].create_package_if_not_exists(behavior, 'mvc');
+	
+	log('end mapping');
+}
+
+/*
+TODO: Types are defined by their sizes, so if you know the size of something you know a Data-Type
+*/

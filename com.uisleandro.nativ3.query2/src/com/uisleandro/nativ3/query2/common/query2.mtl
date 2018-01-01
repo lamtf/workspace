@@ -1,0 +1,811 @@
+[comment encoding = UTF-8 /]
+[module query2('http://www.eclipse.org/uml2/5.0.0/UML')]
+[import com::uisleandro::nativ3::query2::common::util /]
+
+[comment
+ 
+	Version: 0.3
+
+	TODO: define which funcitons call before and after each { insert, delete }
+
+	example:
+	when inserting a brazilian, also insert an user
+	when deleting a brazilian, also delete an user
+
+	when deleting a sale also delete all related products on that sale (a product-on-sale depends on a sale)
+
+/]
+
+
+
+[comment]
+ some queries are tooComplex, but i Stil can create part of it
+[it.name /][compare(it) /]?
+[/comment]
+
+[comment query public compare(arg : Property) : String = 
+if gotStereotype(self, 'lessThan') then
+' < '
+else 
+if gotStereotype(self, 'greatherThan') then
+' > '
+else 
+' = '
+endif
+endif
+/]
+
+[comment 
+
+in the future: create a move-and-transform query
+
+/]
+
+[comment to utils, new verison /]
+[query public defaultEmpty(arg: String, f: String): String =
+if (null = arg or '' = arg) then
+f
+else
+arg
+endif
+/]
+
+[comment i cant make now + 24 hours /]
+[query public setDBValue(arg: String, alt: String) : String =
+if arg.equalsIgnoreCase('now') then
+'com.uisleandro.util.config.now()'
+else
+	if '' = arg then
+alt
+	else
+'"'+arg+'"'
+	endif
+endif
+/]
+
+
+
+
+
+[query public getComparisons(arg : Property) : Set(Stereotype) = 
+self.getAppliedStereotypes()->select(s|
+s.name = 'equalsTo' or
+s.name = 'lessThan' or
+s.name = 'andLessThan' or
+s.name = 'orLessThan' or
+s.name = 'greatherThan' or
+s.name = 'andGreatherThan' or
+s.name = 'orGreatherThan'
+) /]
+
+[template public asJavaString(arg : Property)
+][if (not arg.type.name.equalsIgnoreCase('string'))][comment 
+/]String.ValueOf([arg.name /])[else][arg.name /][/if][/template]
+
+[comment
+
+criar um stereotipo unico value
+ainda preciso substituir a interrogação
+pelo nome da variavel ou pelo valor padrão
+ /]
+[template public dbValue(arg : Property)
+][if arg.getAppliedStereotypes()->isEmpty()][asJavaString(arg)/][else][if getComparisons()->notEmpty()][comment 
+/][for (it : Stereotype | getComparisons()) separator(',')][comment 
+/][if gotStereotype(arg, 'defaultSystemId')]com.uisleandro.util.config.getSystemId()[comment 
+/][else][if gotStereotype(arg, 'defaultUserId')]com.uisleandro.util.config.getUserId()[else][comment 
+/][if gotStereotype(arg, 'isToday')]com.uisleandro.util.config.getToday()[else][comment
+/][if gotStereotype(arg, 'isRightNow')]com.uisleandro.util.config.getRightNow()[else][comment 
+/][if not (isNullOrEmpty(arg.getValue(it, 'hint').toString())) ]"[arg.getValue(it, 'hint').toString() /]"[else][comment 
+/][asJavaString(arg)/][/if][/if][/if][/if][/if][/for][else][comment 
+/][if gotStereotype(arg, 'defaultSystemId')]com.uisleandro.util.config.getSystemId()[comment 
+/][else][if gotStereotype(arg, 'defaultUserId')]com.uisleandro.util.config.getUserId()[else][comment 
+/][if gotStereotype(arg, 'isToday')]com.uisleandro.util.config.getToday()[else][comment
+/][if gotStereotype(arg, 'isRightNow')]com.uisleandro.util.config.getRightNow()[/if][/if][/if][/if][/if][/if][/template]
+
+
+
+[comment]
+[template public dbValue(arg : Property)
+][if arg.getAppliedStereotypes()->isEmpty()][arg.name /][else][if gotStereotype(arg,'equalsTo')
+][setDBValue(getStereotypeValue(arg,'equalsTo','hint'),arg.name)/][else][if gotStereotype(arg,'lessThan')
+][setDBValue(getStereotypeValue(arg,'lessThan','hint'),arg.name)/][else][if gotStereotype(arg,'greatherThan')
+][setDBValue(getStereotypeValue(arg,'greatherThan','hint'),arg.name)/][else][if gotStereotype(arg,'andLessThan')
+],[setDBValue(getStereotypeValue(arg,'andLessThan','hint'),arg.name)/][else][if gotStereotype(arg,'orLessThan')
+],[setDBValue(getStereotypeValue(arg,'orLessThan','hint'),arg.name)/][else][if gotStereotype(arg,'andGreatherThan')
+],[setDBValue(getStereotypeValue(arg,'andGreaterThan','hint'),arg.name)/][else][if gotStereotype(arg,'orGreatherThan')
+],[setDBValue(getStereotypeValue(arg,'orGreatherThan','hint'),arg.name)/][else][if
+arg.gotStereotype('defaultSystemId')]com.uisleandro.util.config.getSystemId()[else][if 
+arg.gotStereotype('defaultUserId')]com.uisleandro.util.config.getUserId()[else][if 
+arg.gotStereotype('isToday')]com.uisleandro.util.config.getToday()[else][if 
+arg.gotStereotype('isRightNow')]com.uisleandro.util.config.getRightNow()[else][arg.name /][/if][/if][/if][/if][/if][/if][/if][/if][/if][/if][/if][/if][/template]
+[/comment]
+
+
+
+[query public fieldName(arg : Property, p : Boolean) : String =
+if arg.isfk() then
+if p then
+arg.owner.oclAsType(NamedElement).name+'.fk_'+arg.name
+else
+'fk_'+arg.name
+endif
+else
+if p then
+arg.owner.oclAsType(NamedElement).name+'.'+arg.name
+else
+arg.name
+endif
+endif 
+ /]
+
+[comment cant cover everything 
+
+preciso diferenciar se estou fazendo update ou select
+/]
+[template public getWhereQ(arg : Property, b: Boolean)
+][if arg.gotStereotype('isntEmpty')](not [fieldName(arg,b)/] is null or not [fieldName(arg,b)
+/] = '')[else][if arg.gotStereotype('isEmpty')]([fieldName(arg,b)/] is null or [fieldName(arg,b)
+/] = '')[else][if
+ gotStereotype(arg, 'like') or
+ gotStereotype(arg, 'greatherThan') or
+ gotStereotype(arg, 'andGreatherThan') or
+ gotStereotype(arg, 'orGreatherThan') or
+ gotStereotype(arg, 'lessThan') or
+ gotStereotype(arg, 'andLessThan') or
+ gotStereotype(arg, 'orLessThan')
+][if gotStereotype(arg,'like')][fieldName(arg,b)/] like ?[/if][if
+gotStereotype(arg,'greatherThan')][fieldName(arg,b)/] > ?[/if][if
+gotStereotype(arg,'andGreatherThan')] AND [fieldName(arg,b)/] > ?[/if][if 
+gotStereotype(arg,'orGreatherThan')] OR [fieldName(arg,b)/] > ?[/if][if
+gotStereotype(arg,'lessThan')][fieldName(arg,b)/] < ?[/if][if 
+gotStereotype(arg,'andLessThan')] AND [fieldName(arg,b)/] < ?[/if][if 
+gotStereotype(arg,'orLessThan')] OR [fieldName(arg,b)/] < ?[/if][else][fieldName(arg,b)/] = ?[/if][/if][/if][/template]
+
+[comment
+
+	TODO: include in the util package, new vesion
+
+/]
+[query public findControllerCLS(p: Package, moduleName: String, className: String) : NamedElement = 
+	p.eContents(Package)
+		->select(x|x.name = moduleName)
+		->first().eContents(Package)
+		->select(x|x.name = 'controller')
+		->first().eContents(Class)
+		->select(x|x.name = className)
+		->first()
+/]
+
+[comment
+
+	TODO: include in the util package, new vesion 
+
+/]
+[query public findControllerCLS(p: Package, hint: String) : NamedElement = 
+if hint.indexOf('::') > 0 then
+findControllerCLS(p, hint.tokenize('::')->at(1), hint.tokenize('::')->at(2))
+else
+findControllerCLS(p, hint.tokenize('.')->at(1), hint.tokenize('.')->at(2))
+endif
+ /]
+
+[comment 
+
+uisleandro: this is the main function
+
+/]
+[template public createBehaviorModelClass(controller : Class)]
+package com.uisleandro.[controller.owner.owner.oclAsType(NamedElement).name /];
+
+class [controller.name.ToCamelCase() /]{
+
+[for (op : Operation | controller.eContents(Operation))
+ ][let inView : Class = op.ownedParameter
+		->select(x| 
+		x.direction = ParameterDirectionKind::_in or
+		x.direction = ParameterDirectionKind::inout or
+		x.name = 'in')
+		->first().type][let inProps : Sequence(Property) =
+	nonrecFlatProperties(inView,1,1)
+	->reverse()][comment se este valor for nulo, eu quero buscar o ID, somente 
+
+/][if (op.gotStereotype('existsWhere'))]
+	[existsWhere(op.name, inProps) /]
+	[else][if (op.gotStereotype('insert'))]
+	[insert(op.name, inProps) /]
+	[else][if (op.gotStereotype('deleteWhere'))]
+	[deleteWhere(op.name, inProps) /]
+	[else][let outView : Class = if op.outGoingParameters()->isEmpty() then
+null else op.outGoingParameters()->first().type endif
+][comment << outView /][let outProps: Sequence(Property) = 
+if null = outView then Sequence(Property){}
+else recursiveFlatProperties(getItself(outView),1)->reverse() endif][comment 
+<< outProps /][if (op.gotStereotype('updateWhere'))]
+[comment 
+Takes 2 arguments but check for nulls
+The output is going to be the inserting value
+and the input is the where clausure 
+/]
+	[updateWhere(op.name,inProps,outProps) /]
+[else][if (op.gotStereotype('selectValueWhere'))]
+	[selectValueWhere(op.name,inProps,outProps) /]
+[else][if (op.gotStereotype('selectOneWhere'))][comment
+
+		Parametro nao precisa de recursao
+		The parameter list dont need recursion
+
+/]	[selectOneWhere(outView.name,
+op.name,inProps,outProps) /][else][if (op.gotStereotype('selectListWhere'))][comment
+
+		Parametro nao precisa de recursao
+		The parameter list dont need recursion
+
+/]	[selectListWhere(
+	outView.name,
+	op.name,
+	inProps,
+	outProps
+) /][else][if (op.gotStereotype('tooComplexQuery'))
+]public void [op.name.ToCamelCase()/](){
+//[protected ('complex-operation = '+op.name)]
+
+//[/protected]
+}[/if][/if][/if][/if][/if][/let][comment  << outProps 
+/][/let][comment << outView 
+/][/if][/if][/if][/let][comment inProps 
+/][/let][comment inView /]
+
+[/for]
+
+}
+[/template]
+
+
+[template public generateElement(root : Model)]
+[comment @main/]
+[file ('queries2.txt', false, 'UTF-8')][let pack : Package = 
+	root
+		.eContents(Package)
+		->select(x|x.name = 'android_queries_new')
+		->first()
+][for (pa : Package | pack.eContents(Package))
+][for (controller : Class | pa.eContents(Package)
+->select(p|p.name = 'controller')
+->first()
+.eContents(Class)
+)]
+[createBehaviorModelClass(controller) /]
+[/for][/for][/let][/file][/template]
+
+[comment]
+[template public generateElement2(root : Model)]
+[file ('queries.txt', false, 'UTF-8')]
+
+[let pack : Package = root
+		.eContents(Package)
+		->select(x|x.name = 'queries')
+		->first()
+][for (assoc : Association | 
+	pack.eContents(Association)
+	->select(x| 
+		gotStereotype(x,'selectOneWhere') or
+		gotStereotype(x,'selectListWhere') or
+		gotStereotype(x,'selectValueWhere') or
+		gotStereotype(x,'existsWhere')
+	)
+)][let queryOuts : Class = assoc.memberEnd->at(2).type.oclAsType(Class)
+][let queryIns : Class = assoc.memberEnd->at(1).type.oclAsType(Class)
+][let that : Class = 
+queryOuts
+	.eContents(Class)
+	->select(x| gotStereotype(x, 'itself'))
+	->first()
+][let outProps: Sequence(Property) = 
+recursiveFlatProperties(
+	that
+	,1)->reverse()][if (
+gotStereotype(assoc,'selectOneWhere') or
+gotStereotype(assoc,'selectListWhere')
+)]
+[return_class(queryOuts.name, outProps)/]
+
+[cursor_to_classname(queryOuts.name, outProps)/]
+
+[/if][if (gotStereotype(assoc,'selectOneWhere'))
+][let inProps : Sequence(Property) =
+	nonrecFlatProperties(queryIns,1,1)
+	->reverse()][selectOneWhere(
+	queryOuts.name,
+	assoc.name,
+	inProps,
+	outProps
+) /][/let][/if][if (gotStereotype(assoc,'selectListWhere'))
+][let inProps : Sequence(Property) =
+	nonrecFlatProperties(queryIns,1,1)
+	->reverse()][selectListWhere(
+	queryOuts.name,
+	assoc.name,
+	inProps,
+	outProps
+) /][/let][/if][if (gotStereotype(assoc,'selectValueWhere'))
+][let inProps : Sequence(Property) =
+	nonrecFlatProperties(queryIns,1,1)
+	->reverse()][selectValueWhere(
+	assoc.name,
+	inProps,
+	outProps
+) /][/let][/if][if (gotStereotype(assoc,'existsWhere'))
+][let inProps : Sequence(Property) =
+	nonrecFlatProperties(queryIns,1,1)
+	->reverse()][existsWhere(
+	assoc.name,
+	inProps
+) /][/let][/if]
+[/let][/let][/let][/let]
+
+[/for][/let][/file][/template][/comment]
+
+[comment 
+
+I will make a lot of selections
+I will make a lot of insertions
+I will make some updatings
+I will probably not make deletions
+
+ /]
+[template public insert(
+functionName : String,
+queryIns: Sequence(Property)
+)]
+//insert
+public int [functionName 
+/]([query_parameters_definition(queryIns) /]){
+
+	String query = "[insert_query(queryIns)/]";
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [query_parameters_usage(queryIns) /] });
+
+	int that = 0;
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		that = cursor.getInt(0);
+	}
+
+	return that;
+
+}
+[/template]
+
+[template public existsWhere(
+functionName : String,
+queryIns: Sequence(Property)
+)]
+//existsWhere
+public boolean [functionName 
+/]([if (queryIns->notEmpty())][query_parameters_definition(queryIns) /][else]long id[/if]){
+
+	String query = "[exists_query(queryIns)/]";
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]id[/if] });
+
+	boolean that = false;
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		that = (cursor.getInt(0) > 0);
+	}
+
+	return that;
+
+}
+[/template]
+
+[template public selectOneWhere(
+	returnName : String,
+	functionName : String,
+	queryIns: Sequence(Property),
+	queryOuts: Sequence(Property))]
+//selectOneWhere
+public [returnName.ToCamelCase() /] [functionName 
+/]([if (queryIns->notEmpty())][query_parameters_definition(queryIns) /][else]long id[/if]){
+
+	String query = "[select_query(queryIns,queryOuts)/]";
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]id[/if] });
+
+	[returnName.ToCamelCase() /] that = null;
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		that = cursorTo[returnName.ToCamelCase() /](cursor);
+	}
+
+	return that;
+
+}
+[/template]
+
+[template public selectListWhere(
+	returnName : String,
+	functionName : String,
+	queryIns: Sequence(Property),
+	queryOuts: Sequence(Property))]
+//selectListWhere
+public List<[returnName.ToCamelCase() /]> [functionName 
+/]([if (queryIns->notEmpty())][query_parameters_definition(queryIns) /][else]long id[/if]){
+
+	String query = "[select_query(queryIns,queryOuts)/]";
+
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]id[/if] });
+
+	List<[returnName.ToCamelCase() /]> those = null;
+	cursor.moveToFirst();
+	while(!cursor.isAfterLast()){
+		those.add( cursorTo[returnName.ToCamelCase() /](cursor) );
+		cursor.moveToNext();
+	}
+
+	return those;
+
+}
+[/template]
+
+[template public selectValueWhere(
+	functionName : String,
+	queryIns: Sequence(Property),
+	queryOuts: Sequence(Property))]
+//selectValueWhere
+public [(if queryOuts->notEmpty()
+then androidType(queryOuts->at(1)) else 'long' endif) /] [functionName 
+/]([if (queryIns->notEmpty())][query_parameters_definition(queryIns) /][else]long id[/if]){
+	[comment vou precisar fazer os joins /]
+	String query = "[select_query(queryIns,queryOuts)/]";
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [ (if queryIns->notEmpty() then query_parameters_usage(queryIns) else 'id' endif) /] });
+
+	[(if queryOuts->notEmpty()
+then androidType(queryOuts->at(1)) else 'long' endif) /] that = [(if queryOuts->notEmpty()
+then 'null' else '0' endif) /];
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		that = cursor.[ (if queryOuts->notEmpty() then cursorGetterName(queryOuts->at(1), 0) else 'getLong(0)' endif) /];
+	}
+
+	return that;
+
+}
+[/template]
+
+
+[comment]
+ContentValues values = new ContentValues();
+
+		if(that.getServerId() > 0){
+			values.put(DBHelper.CASH_LAUNCH_SERVER_ID, that.getServerId());
+		}
+
+		values.put(DBHelper.CASH_LAUNCH_DIRTY, that.isDirty());
+		values.put(DBHelper.CASH_LAUNCH_LAST_UPDATE_TIME, that.getLastUpdateTime());
+		if(that.getFkCashRegister() > 0){
+			values.put(DBHelper.CASH_LAUNCH_FK_CASH_REGISTER, that.getFkCashRegister());
+		}
+		values.put(DBHelper.CASH_LAUNCH_JUSTIFICATION, that.getJustification());
+		values.put(DBHelper.CASH_LAUNCH_AMOUNT_SPENT, that.getAmountSpent());
+		if(that.getFkCurrency() > 0){
+			values.put(DBHelper.CASH_LAUNCH_FK_CURRENCY, that.getFkCurrency());
+		}
+		int rows_affected = database.update(DBHelper.TABLE_CASH_LAUNCH, values, DBHelper.CASH_LAUNCH_ID + " = " + String.valueOf(that.getId()), null);
+		return rows_affected;
+[/comment]
+[template public updateWhere(
+	functionName : String,
+	queryIns: Sequence(Property),
+	queryOuts: Sequence(Property))]
+//updateWhere
+public int [functionName 
+/]([if (queryIns->notEmpty())][query_parameters_definition(queryIns) /][else]long id[/if]){
+
+	String query = "[update_query(queryIns,queryOuts)/]";
+
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]id[/if] });
+
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		result = cursor.getInt(0);
+	}
+
+	return result;
+}
+[/template]
+
+[comment]
+database.delete(DBHelper.TABLE_CASH_LAUNCH, DBHelper.CASH_LAUNCH_ID + " = " + String.valueOf(that.getId()), null);
+[/comment]
+[template public deleteWhere(
+	functionName : String,
+	queryIns: Sequence(Property))]
+//deleteWhere
+public int [functionName /]([if (queryIns->notEmpty())][query_parameters_definition(queryIns) /][else]long id[/if]){
+
+	int result = 0;
+
+	String query = "[delete_query(queryIns)/]";
+
+	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]id[/if] });
+
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		result = cursor.getInt(0);
+	}
+
+	return result;
+
+}
+[/template]
+
+
+[comment 
+
+Generate the parameters for this class
+
+	and not gotStereotype(x, 'value')
+	and not gotStereotype(x, 'now')
+	and not gotStereotype(x, 'today')
+
+
+and x.getAppliedStereotypes()->isEmpty()
+
+'having' or << nao usar having
+
+
+x.name = 'like' or
+x.name = 'equalsTo' or
+x.name = 'greatherThan' or
+x.name = 'andGreatherThan' or
+x.name = 'orGreatherThan' or
+x.name = 'lessThan' or
+x.name = 'andLessThan' or
+x.name = 'orLessThan'
+
+"apply_count"
+"apply_sum"
+"apply_avg"
+
+"notInDatabase"
+
+"defaultSystemId"
+"defaultUserId"
+"isToday"
+"isRightNow"
+
+"isEmpty"
+"category"
+/]
+
+[query public gotDefaultQueryValue(arg : Element) : Boolean = 
+getAppliedStereotypes()
+->select(x | 
+x.name = 'defaultSystemId' or
+x.name = 'defaultUserId' or
+x.name = 'isToday' or
+x.name = 'isRightNow' or
+x.name = 'isEmpty')->notEmpty() /]
+
+[query public getComparisonSet(arg : Element) : Set(Stereotype) = 
+getAppliedStereotypes()
+->select(x | 
+x.name = 'like' or
+x.name = 'equalsTo' or
+x.name = 'greatherThan' or
+x.name = 'andGreatherThan' or
+x.name = 'orGreatherThan' or
+x.name = 'lessThan' or
+x.name = 'andLessThan' or
+x.name = 'orLessThan') /]
+
+[query public gotNoQueryHint(arg : Element) : 
+Boolean = 
+if getAppliedStereotypes()->isEmpty() then true
+else if gotDefaultQueryValue() then false 
+else if getComparisonSet()->isEmpty() then true
+else if not isNullOrEmpty( getValue(getComparisonSet()->asSequence()->first(), 'hint').toString() ) then false
+else true
+endif endif endif endif /]
+
+[query public propertiesWithNoHint(arg : Sequence(Property)) : Sequence(Property) = 
+self->select(x|
+not x.type.name.equalsIgnoreCase(x.name)
+and gotNoQueryHint(x)
+) /]
+
+[template public query_parameters_definition(props: Sequence(Property))
+][for (prop : Property | propertiesWithNoHint(props))
+separator(', ')
+][androidType(prop) /] [prop.name 
+/][/for][/template]
+
+[comment I cant remove the fk's
+
+I cant use isEmpty in all cases
+
+
+ /]
+[template public query_parameters_usage(props: Sequence(Property))]
+[for (prop : Property | props->select(
+x | not gotStereotype(x, 'isEmpty') and not gotStereotype(x, 'isntEmpty')
+)) separator(', ')][dbValue(prop)/][/for][/template]
+
+[comment 
+
+Propriedades recursivas: cuidado com loop infinito
+
+/]
+[template public recursive_field_list(table : Class)
+][for (column : Property | table
+.eContents(Property)
+	->select(x| not x.type.name
+		.equalsIgnoreCase(x.name))) separator (',')]
+[table.name /].[column.name /][comment 
+/][/for][if (table.eContents(Property)
+	->exists(x| x.type.name
+		.equalsIgnoreCase(x.name)))][comment 
+/][for (foreign : Property | table
+.eContents(Property)
+	->select(x| x.type.name
+		.equalsIgnoreCase(x.name)))],[comment 
+/][recursive_field_list(foreign.type
+		.oclAsType(Class)) /][/for]
+[/if][/template]
+
+[template public recursive_join(table : Class)
+][for (foreign : Property | table
+.eContents(Property)
+->select(x| x.type.name.equalsIgnoreCase(x.name))
+)] INNER JOIN [foreign.name /] ON [table.name /].[comment 
+/]fk_[foreign.name /] = [foreign.name /].id[/for][comment 
+/][for (foreign : Property | table
+.eContents(Property)
+->select(x| x.type.name.equalsIgnoreCase(x.name))
+)][recursive_join(foreign.type.oclAsType(Class))/][/for][/template]
+
+[comment new /]
+[template public recursive_where_fk_and(table : Class)
+][for (foreign : Property | table
+.eContents(Property)
+->select(x| x.type.name.equalsIgnoreCase(x.name))
+) separator (' AND ')] [table.name /].[comment 
+/]fk_[foreign.name /] = [foreign.name /].id[/for][comment 
+/][for (foreign : Property | table
+.eContents(Property)
+->select(x| x.type.name.equalsIgnoreCase(x.name))
+)][recursive_where_fk_and(foreign.type.oclAsType(Class))/][/for][/template]
+
+[comment]
+TODO: please create select By ID,
+which receives the table name and a list of
+properties 
+[/comment]
+[template public select_query(
+queryIns : Sequence(Property),
+queryOuts : Sequence(Property)
+)]SELECT [if (queryOuts->notEmpty())
+] [for (it : Property | queryOuts) separator(',')
+][if gotStereotype(it, 'apply_count')
+] count ([/if][if gotStereotype(it, 'apply_avg')
+] avg ([/if][if gotStereotype(it, 'apply_sum')
+] sum ([/if][it.owner.oclAsType(NamedElement).name /].[it.name 
+/][if gotStereotype(it, 'apply_avg') or gotStereotype(it, 'apply_count') or gotStereotype(it, 'apply_sum') 
+])[/if][/for] FROM [let itself : Class = queryOuts
+->select(x| gotStereotype(x.owner, 'itself'))->first().owner
+][itself.name /][recursive_join(itself)
+/][/let][else]{{
+
+error-generating: queryOuts is empty somehow
+ 
+}}[/if] WHERE [if (queryIns->notEmpty())][for (it : Property | queryIns) 
+separator(' AND ')][getWhereQ(it, true) /][/for][else]id = ?[/if];[/template]
+
+
+[comment para testar /]
+[template public update_query(
+queryIns : Sequence(Property),
+queryOuts : Sequence(Property)
+)][if (queryOuts->notEmpty())][if (queryIns
+->notEmpty())]UPDATE [let itself : Class = queryIns
+->select(x| gotStereotype(x.owner, 'itself'))
+->first().owner][itself.name /] SET ([for (it : Property | queryOuts) separator(',')
+] [itself.name /].[it.name /] = ?[/for])WHERE [if (itself.eContents(Property)
+->exists(x| x.type.name.equalsIgnoreCase(x.name)) )]
+[recursive_where_fk_and(itself) /] AND [/if][for (it : Property | queryIns) separator(',')
+] [itself.name /].[it.name /] = ?[/for][/let][comment
+<< itself /][/if][/if];[/template]
+
+[template public delete_query(
+queryIns : Sequence(Property)
+)][if (queryIns
+->notEmpty())]DELETE FROM [let itself : Class = queryIns
+->select(x| gotStereotype(x.owner, 'itself'))
+->first().owner][itself.name /] WHERE [if (itself.eContents(Property)
+->exists(x| x.type.name.equalsIgnoreCase(x.name)) )]
+[recursive_where_fk_and(itself) /] AND [/if][for (it : Property | queryIns) separator(',')
+] [itself.name /].[it.name /] = ?[/for][/let][comment
+<< itself /][/if];[/template]
+
+[template public exists_query(
+queryIns : Sequence(Property))]SELECT exists(*) FROM [let itself : Class = queryIns->select(x| gotStereotype(x.owner, 'itself'))->first().owner
+][itself.name /][recursive_join(itself)
+/][/let] WHERE [for (it : Property | queryIns) separator(' AND ')][getWhereQ(it, true) /][/for];[/template]
+
+
+[template public insert_query(
+queryIns : Sequence(Property))]INSERT INTO [queryIns->first().owner.oclAsType(NamedElement).name 
+/]([for (it : Property | queryIns) separator (',')][it.name /][/for]) VALUES ([for (it : Property | queryIns)
+separator (',')][if (gotStereotype(it, 'isEmpty'))]NULL[else]?[/if][/for]);[/template]
+
+[comment
+	Seria bom fazer um insert com selection com where
+
+	"all this" where "all that" insertOn "those"
+
+
+t1         t2
+a -------> b
+b -------> c
+c -------> d
+
+
+posso marcar uma propriedade com estereotipos.. 
+com o nome da tabela::coluna que eu quero inserir
+
+
+/]
+
+
+
+[comment]
+
+Em alguns casos as fks vao retornar um nome.
+Em outros apenas o ID é o suficiente.
+
+Eu poderia:
+	citar o tipo como Inteiro e acrescentar um prefixo.. 
+	estaria representada a chave estrangeira
+
+[/comment]
+[template public return_class(className : String, props: Sequence(Property))]
+class [className.ToCamelCase() /]{
+
+[for (column : Property | props)]
+	private [androidType(column) 
+	/] [column.owner.oclAsType(NamedElement).name /]_[column.name /];
+	
+	public [androidType(column) /][comment android type 
+	/] get[column.owner.oclAsType(NamedElement).name.ToCamelCase() 
+			/][column.name.ToCamelCase() /](){
+		return [column.owner.oclAsType(NamedElement).name /]_[column.name /];
+	}
+	
+	public void set[column.owner.oclAsType(NamedElement).name.ToCamelCase() 
+			/][column.name.ToCamelCase() /]([androidType(column) 
+		/] [column.owner.oclAsType(NamedElement).name /]_[column.name /]){
+		this.[column.owner.oclAsType(NamedElement).name /]_[column.name 
+		/] = [column.owner.oclAsType(NamedElement).name /]_[column.name /];
+	}
+
+[/for]
+}[/template]
+
+[comment CHECKED /]
+[template public cursor_to_classname(className : String, props: Sequence(Property))]
+public [className.ToCamelCase()
+/] cursorTo[className.ToCamelCase() /](Cursor cursor){
+
+	[className.ToCamelCase() /] [className 
+/] = new [className.ToCamelCase()/]();
+
+[for (p :Property | props)]
+	[className/].set[p.owner
+	.oclAsType(NamedElement).name
+	.ToCamelCase()/][p.name
+	.ToCamelCase()
+/](cursor.[p.cursorGetterName(i-1)/]);[comment from 'what the heck' comes this i variable :D /]
+[/for]
+
+	return [className /];
+
+}
+[/template]

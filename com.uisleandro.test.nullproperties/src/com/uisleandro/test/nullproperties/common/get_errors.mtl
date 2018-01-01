@@ -1,0 +1,216 @@
+[comment encoding = UTF-8 /]
+[module get_errors('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[query public all_properies(arg : NamedElement) : Sequence(Property) = 
+self.allOwnedElements()->select(x|x.oclIsTypeOf(Property))->asSequence() /]
+
+
+
+[query public views_with_no_self(arg : Type) : OclAny = self /]
+
+[query public all_modules(arg : Model) : Sequence(Package) = 
+eContents(Package)->select(x|'mvc' = x.name)
+->asSequence()->first().eContents(Package)
+/]
+
+[query public all_views(arg : Package) : Sequence(Class) = 
+eContents(Package)->select(x|'queryViews' = x.name)
+->asSequence()->first().eContents(Class)
+/]
+
+
+[query public all_controllers(arg : Package) : Sequence(Class) = 
+eContents(Package)->select(x|'controller' = x.name)
+->asSequence()->first().eContents(Class)
+/]
+
+
+[query public got_stereotype(arg : NamedElement, name: String) : Boolean = 
+self.getAppliedStereotypes()->exists(x|name = x.name)
+ /]
+
+
+[query public got_no_subject(arg : Class) : Boolean = 
+not self.eContents(Class)->exists(x|got_stereotype(x,'Subject'))
+ /]
+
+[query public out_parameter_definition(arg : Operation) : Class = 
+if ownedParameter
+		->select(x| 
+		x.direction = ParameterDirectionKind::out or
+		x.direction = ParameterDirectionKind::inout or
+		x.name.indexOf('_out') > 0)->notEmpty() then
+ownedParameter
+		->select(x| 
+		x.direction = ParameterDirectionKind::out or
+		x.direction = ParameterDirectionKind::inout or
+		x.name.indexOf('_out') > 0)->first().type.oclAsType(Class)
+else
+	null
+endif
+/]
+
+[query public selfFk(selfFk : Property) : Boolean = 
+type <> null and type.name.equalsIgnoreCase(self.owner.oclAsType(NamedElement).name)
+ /]
+
+[query public isfk(arg: Property) : Boolean = 
+type.name.equalsIgnoreCase(name) and not selfFk(arg)
+/]
+
+
+
+[query public recursiveFlatProperties(cls: Class, i : Integer) : Sequence(Property) =
+if i <= cls.eContents(Property)->size() then
+	if selfFk(cls.eContents(Property)->at(i)) then
+		recursiveFlatProperties(cls, i+1)
+	else
+		if isfk(cls.eContents(Property)->at(i)) then
+			recursiveFlatProperties(
+				cls.eContents(Property)
+				->at(i).type.oclAsType(Class), 1)
+			->addAll(recursiveFlatProperties(cls, i+1))
+		else
+			recursiveFlatProperties(cls, i+1)
+				->append(cls.eContents(Property)->at(i))
+		endif
+	endif
+else
+	Sequence(Property){}
+endif
+/]
+
+
+[query public find_self_fks(arg : NamedElement) : Sequence(Property) = 
+eContents(Property)->select(x|x.name = name)
+/]
+
+
+
+[template public fks(arg : Class)]
+nivel 0 [getQualifiedName() /]
+[for (it : Property | eContents(Property))]
+[if (isfk(it))]
+> fk_[it.name /]
+[let nivel1 : Class = it.type.oclAsType(Class)]
+nivel 1 [it.owner.oclAsType(NamedElement).getQualifiedName() /]	
+[for (it : Property | nivel1.eContents(Property))]
+[if (isfk(it))]
+>> fk_[it.name /]
+[let nivel2 : Class = it.type.oclAsType(Class)]
+nivel 2 [nivel2.getQualifiedName() /]
+[/let]
+[/if]
+[/for]
+
+
+[/let]
+[/if]
+[/for]
+[/template]
+
+
+
+[query public getSubject(view : Class) : Class =
+if 1 < self.eContents(Class)->size() then
+	view.eContents(Class)
+		->select(x| got_stereotype(x, 'Subject'))->first() 
+else
+	view.eContents(Class)->first()
+endif
+ /]
+
+
+[template public generateElement(root : Model)]
+[comment @main /]
+[file ('errors.txt', false, 'UTF-8')]
+
+[comment]
+//properties with no type
+[for (it : Property | all_properies()->select(x|null = x.type))]
+>>  [it.getQualifiedName() /]
+[/for]
+[/comment]
+
+[comment]
+[for (modul3 : Package | all_modules())]
+[for (vi3w : Class | all_views()->select(x|got_no_subject(x)))]
+[vi3w.getQualifiedName() /]
+[/for]
+[/for]
+[/comment]
+
+[comment
+got_stereotype(x, 'UpdateWhere')
+or got_stereotype(x, 'SelectValueWhere')
+or got_stereotype(x, 'SelectOneWhere')
+or got_stereotype(x, 'SelectListWhere')
+
+ /]
+
+[comment
+
+get_by_id
+	get_by_id_out
+get_by_qrcode
+	get_by_qrcode_out (possuia 2 fks para currency)
+
+erros em select_one 
+       e select_list rever
+
+/]
+
+class pointing to itself:
+[for (modul3 : Package | all_modules())
+][for (view : Class | all_views())
+][for (cls : Class | eContents(Class))
+][for (prop : Property | eContents(Property))
+][if (selfFk(prop))]
+[prop.owner.oclAsType(Class).getQualifiedName() /].[prop.name /]
+[/if][/for][/for][/for][/for]
+empty?
+
+null types:
+[for (modul3 : Package | all_modules())
+][for (view : Class | all_views())
+][for (cls : Class | eContents(Class))
+][for (prop : Property | eContents(Property))
+][if (null = prop.type)]
+[prop.owner.oclAsType(Class).getQualifiedName() /].[prop.name /]
+[/if][/for][/for][/for][/for]
+empty?
+
+[comment]
+[for (modul3 : Package | all_modules())
+][for (controller : Class | all_controllers())
+][for (op : Operation | eContents(Operation)
+->select(x : Operation |
+	got_stereotype(x, 'SelectOneWhere')
+	)
+)][if ('get_by_id' = op.name)]
+[name /]
+[let par : Class = out_parameter_definition()]
+[par.name /]
+[let sub : Class = getSubject(par)]
+[for (it : Property | recursiveFlatProperties(sub, 1)->reverse() )]
+	[it.getQualifiedName() /]
+[/for]
+[/let]
+[/comment]
+
+[comment] 
+[for (it : Property | par.all_properies())]
+[if isfk(it)]
+>>>>>>>>>>>>[it.owner.oclAsType(NamedElement).name/]_[it.name /]
+[/if]
+[/for]
+[/comment]
+
+[comment] 
+[/let][/if]
+
+[/for][/for][/for]
+[/comment]
+
+[/file]
+[/template]

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- Place this file in the target project and call it with "External Tools > Run As > Ant Build" -->
+<!-- You have to change the MODEL and the TARGET values -->
+
+<project basedir="." default="typemappingSample" name="com.uisleandro.m2t.TypeMappingSample">
+	<import file="../../com.uisleandro.m2t.TypeMapping/tasks/typemapping.xml"/>
+
+    <!-- Change the values of MODEL and TARGET to point to your model and output folder -->
+	<property name="MODEL" value="${basedir}/model/file.xmi"/>
+	<property name="TARGET" value="${basedir}/src-gen"/>
+
+	<target name="typemappingSample" description="Generate files in 'TARGET'">
+		<antcall target="typemapping" >
+			<param name="model" value="${MODEL}"/>
+			<param name="target" value="${TARGET}"/>
+		</antcall>
+	</target>
+</project>

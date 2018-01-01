@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="generate_old" name="com.uisleandro.PostgresqlDB">
+    <property name="ECLIPSE_HOME" value="../../../eclipse2017/modeling-oxigen"/>
+    <property name="ECLIPSE_WORKSPACE" value="../.."/>
+
+    <!-- The classpath with only the dependencies used by the project -->
+    <path id="com.uisleandro.PostgresqlDB.libraryclasspath">
+        <pathelement location="${ECLIPSE_WORKSPACE}/com.uisleandro.PostgresqlDB/bin"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.runtime_3.13.0.v20170207-1030.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/javax.inject_1.0.0.v20091030.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.osgi_3.12.0.v20170512-1932.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.osgi.compatibility.state_1.1.0.v20170516-1513.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.common_3.9.0.v20170207-1454.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.jobs_3.9.0.v20170322-0013.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.registry_3.7.0.v20170222-1344.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.preferences_3.7.0.v20170126-2132.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.core.contenttype_3.6.0.v20170207-1037.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.equinox.app_1.3.400.v20150715-1528.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.uml2.uml_5.3.0.v20170605-1616.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.ecore_2.13.0.v20170609-0707.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.common_2.13.0.v20170609-0707.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.ecore.xmi_2.13.0.v20170609-0707.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.uml2.common_2.1.0.v20170605-1616.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.uml2.types_2.0.0.v20170605-1616.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.mapping.ecore2xml_2.9.0.v20170609-0928.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ocl_3.6.200.v20170522-1736.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/lpg.runtime.java_2.0.17.v201004271640.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ocl.common_1.4.200.v20160613-1518.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.ocl.ecore_3.6.200.v20170522-1736.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.acceleo.common_3.7.1.201705121344.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.acceleo.model_3.7.1.201705121344.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.acceleo.profiler_3.7.1.201705121344.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.acceleo.engine_3.7.1.201705121344.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.codegen.ecore_2.13.0.v20170609-0928.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/org.eclipse.emf.codegen_2.12.0.v20170609-0928.jar"/>
+        <pathelement location="${ECLIPSE_HOME}/plugins/com.google.guava_21.0.0.v20170206-1425.jar"/>
+    </path>
+
+    <path id="com.uisleandro.PostgresqlDB.classpath">
+        <path refid="com.uisleandro.PostgresqlDB.libraryclasspath"/>
+    </path>
+
+    <!-- The classpath with only the jars available in the plugin folder of Eclipse -->
+    <path id="com.uisleandro.PostgresqlDB.libraryclasspath.alljars">
+        <pathelement location="../com.uisleandro.PostgresqlDB/bin"/>
+        <fileset dir="${ECLIPSE_HOME}/plugins/" includes="*.jar"/>
+    </path>
+
+    <path id="com.uisleandro.PostgresqlDB.classpath.alljars">
+        <path refid="com.uisleandro.PostgresqlDB.libraryclasspath.alljars"/>
+    </path>
+
+    <!-- The default task with the jars used by this project -->
+    <target name="generate_old">
+        <java classname="com.uisleandro.PostgresqlDB.common.Generate_old" classpathref="com.uisleandro.PostgresqlDB.classpath">
+            <arg value="${model}"/>
+            <arg value="${target}"/>
+        </java>
+    </target>
+
+    <!--
+        In case of problem you can also try with all the jar available in your Eclipse
+        Keep in mind that having two versions of the same jar can create problems
+    -->
+    <target name="generate_old.alljars">
+        <java classname="com.uisleandro.PostgresqlDB.common.Generate_old" classpathref="com.uisleandro.PostgresqlDB.classpath">
+            <arg value="${model}"/>
+            <arg value="${target}"/>
+        </java>
+    </target>
+</project>

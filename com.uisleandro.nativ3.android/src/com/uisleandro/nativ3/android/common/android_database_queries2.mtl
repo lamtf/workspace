@@ -1,0 +1,11 @@
+[comment encoding = UTF-8 /]
+[module android_database_queries2('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[**
+ * Generate Some Queries
+ * It won't be here but on the database generating code
+ * 
+*/]
+[template public generate_database_queries(root: Model)]
+
+[/template]

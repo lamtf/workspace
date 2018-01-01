@@ -1,0 +1,297 @@
+[comment encoding = UTF-8 /]
+[module generate_postgres('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[template public begin_reserve(name : String)]
+//Start of user code [name /]
+[/template]
+
+[template public end_reserve(name : String)]
+// [name /]
+//End of user code
+[/template]
+
+[query public gotStereotype(arg : NamedElement, sname : String) : Boolean = 
+self.getAppliedStereotypes()->exists(s : Stereotype | s.name = sname) /]
+
+[query public selfFk(selfFk : Property) : Boolean = 
+type.name.equalsIgnoreCase(owner.oclAsType(NamedElement).name)
+ /]
+
+[comment se eu usar "=" ele nao ignora o caso /]
+[query public isfk(arg: Property) : Boolean = 
+type.name.equalsIgnoreCase(name)
+/]
+
+[query public get_db_name(arg: Property): String =
+if isfk() then
+'fk_'+name
+else
+name
+endif
+/]
+
+[query public is_index_enabled(arg : Property) : Boolean = 
+if name.indexOf('cpf') > 0 then
+true
+else
+false
+endif
+/]
+
+[query public get_postgres_type(arg: Property): String =
+if arg.type.name.equalsIgnoreCase('Date') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('DateTime') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Time') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Number') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Money') then
+	'DECIMAL(10,2)'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') then
+	'DOUBLE'
+else if arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then
+	'DOUBLE PRECISION'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then
+	'BOOLEAN'
+else 
+	if arg.type.name.equalsIgnoreCase('Identifier') 
+	or isfk() then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('GuidType') then
+	'CHAR(36)'
+else if arg.type.name.equalsIgnoreCase('Abbreviature') then
+	if arg.name.indexOf('uf') > 0
+	or arg.name.indexOf('state') > 0
+ 	then
+		'CHAR(2)'
+	else
+		'CHAR(8)'
+	endif
+else if arg.type.name.equalsIgnoreCase('BigText') then
+	'VARCHAR(256)'
+else if arg.type.name.equalsIgnoreCase('File') then
+	'VARCHAR(128)'
+else if arg.type.name.equalsIgnoreCase('SmallText') then
+	if arg.name.indexOf('zip') > 0
+	or arg.name.indexOf('cep') > 0
+ 	then
+		'CHAR(15)'
+	else
+		'CHAR(30)'
+	endif
+else if arg.type.name.equalsIgnoreCase('MediumText') then
+	'VARCHAR(64)'
+else if arg.type.name.equalsIgnoreCase('PictureType') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('BarcodeType') then
+	'CHAR'
+else
+	'VARCHAR(45)'
+endif endif endif endif endif endif endif endif 
+endif endif endif endif endif endif endif endif endif /]
+
+
+[query public get_isnull_str(arg: Property) : String = 
+'NOT NULL' 
+/]
+
+[comment TODO: add filters here if needed /]
+[query public get_modules(root : Model) : Sequence(Package) = 
+eContents(Package)
+	->select(x|x.name = 'mvc')
+	->first() 
+	.eContents(Package)
+/]
+
+[comment TODO: add filters here if needed /]
+[query public get_tables(modul : Package) : Sequence(Class) =  
+eContents(Package)
+	->select(x|x.name = 'dataModels')
+	->first() 
+	.eContents(Class)
+/]
+
+[query public get_fields(tbl : Class) : Sequence(Property) = 
+eContents(Property)
+/]
+
+[query public get_no_fks(tbl : Class) : Sequence(Property) = 
+eContents(Property)->select(x| not(isfk(x)))
+/]
+
+[query public get_fks(tbl : Class) : Sequence(Property) = 
+eContents(Property)->select(x| isfk(x) and not selfFk(x))
+/]
+
+[template public generate_table(cls : Class, schema_name : String)]
+[comment unique key is not automatically assigned /]
+	CREATE TABLE "[schema_name /]"."[cls.name /]"(
+		"id" bigserial PRIMARY KEY,
+[for (prop : Property | cls.eContents(Property)) separator (',\n')]
+		"[get_db_name()/]" [get_postgres_type()/] [get_isnull_str()/][/for]
+
+	);
+
+[/template]
+
+[template public drop_table(cls : Class, schema_name : String)]
+	DROP TABLE IF EXISTS "[schema_name /]"."[cls.name /]" CASCADE;
+
+[/template]
+
+[template public create_indexes(cls : Class, schema_name : String)]
+[for (prop : Property | get_fields())
+][if(is_index_enabled())]
+	CREATE INDEX "[cls.name/]_[prop.name/]_idx" ON "[schema_name /]"."[cls.name /]" ("[prop.name /]");
+[else][if(prop.name.equalsIgnoreCase(prop.type.name.toString()) )]
+	CREATE INDEX "[cls.name/]_[prop.name/]_idx" ON "[schema_name /]"."[cls.name /]" ("fk_[prop.name /]");
+[/if][/if][/for]
+[/template]
+
+[template public create_foreign_keys(cls : Class, schema_name : String)]
+[for (prop : Property | get_fks())]
+	ALTER TABLE "[schema_name /]"."[cls.name /]" 
+	ADD CONSTRAINT "fk_[schema_name /]_[cls.name /]_[prop.name /]"
+	FOREIGN KEY ("fk_[prop.name /]") 
+	REFERENCES "[schema_name /]"."[prop.name /]"("id") 
+	ON DELETE CASCADE;
+[/for]
+[/template]
+
+[template public create_insert_procedures(cls : Class, schema_name : String)]
+CREATE OR REPLACE FUNCTION "[schema_name /]"."[cls.name /]_insert"(
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+		"x[get_db_name() /]" [get_postgres_type() /][/for]
+) RETURNS void AS $$
+BEGIN
+	INSERT INTO [schema_name /].[cls.name /] (
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+	"[get_db_name() /]"[/for]) VALUES (
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+	"x[get_db_name() /]"[/for]);
+END;
+$$ LANGUAGE plpgsql;
+
+[/template]
+
+[template public drop_insert_procedures(cls : Class, schema_name : String)]
+DROP FUNCTION "[schema_name /]"."[cls.name /]_insert"(
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+		"x[get_db_name() /]" [get_postgres_type() /][/for]
+);
+
+[/template]
+
+[template public create_update_procedures(cls : Class, schema_name : String)]
+CREATE OR REPLACE FUNCTION "[schema_name /]"."[cls.name /]_update"(
+	xid bigint,
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+		x[get_db_name() /] [get_postgres_type() /][/for]
+) RETURNS void AS $$
+BEGIN
+	UPDATE [schema_name /].[cls.name /] SET [for (prop : Property | cls.eContents(Property)) separator (', \n')]
+	"[get_db_name() /]" = x[get_postgres_type() /][/for]
+	WHERE id = xid;
+END;
+$$ LANGUAGE plpgsql;
+
+[/template]
+
+[template public drop_update_procedures(cls : Class, schema_name : String)]
+DROP FUNCTION "[schema_name /]"."[cls.name /]_update"(
+	xid bigint,
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+		x[get_db_name() /] [get_postgres_type() /][/for]
+);
+
+[/template]
+
+[template public create_select_procedures(cls : Class, schema_name : String)]
+CREATE OR REPLACE FUNCTION "[schema_name /]"."[cls.name /]_select"(ref refcursor, pagesize integer, pagecount integer) RETURNS refcursor AS $$
+BEGIN
+  OPEN ref FOR SELECT 
+[for (prop : Property | cls.eContents(Property)) separator (', \n')]
+	"[get_db_name() /]"[/for]
+
+	FROM [schema_name /].[cls.name /] LIMIT pagesize OFFSET pagesize * pagecount;
+	RETURN ref;
+END;
+$$ LANGUAGE plpgsql;
+
+[/template]
+
+[template public drop_select_procedures(cls : Class, schema_name : String)]
+DROP "[schema_name /]"."[cls.name /]_select"(ref refcursor, pagesize integer, pagecount integer);
+
+[/template]
+
+[template public generateElement(root: Model)]
+[comment @main /]
+
+[let schemaname : String = 'salesv001']
+
+[file ('psql/postgres_createdb.sh', false, 'UTF-8')]
+sudo su - postgres
+rmdir /uis/postgres/lojav002_ts/
+mkdir /uis/postgres/lojav002_ts/
+
+psql -d postgres -a -f /uis/postgres_createdb.sql
+psql -d xapp -a -f /uis/postgres_database.sql
+[/file]
+[file ('psql/postgres_createdb.sql', false, 'UTF-8')]
+	CREATE TABLESPACE "[schemaname /]_ts"
+	OWNER "postgres"
+	LOCATION E'/uis/postgres/[schemaname /]_ts/';
+
+	CREATE DATABASE "[schemaname /]"
+	WITH OWNER = "postgres"
+	ENCODING = 'UTF8'
+	TABLESPACE "[schemaname /]_ts"
+	LC_COLLATE = 'pt_BR.UTF-8'
+	LC_CTYPE = 'pt_BR.UTF-8'
+	TEMPLATE template0
+	CONNECTION LIMIT -1;
+[/file]
+
+[file ('psql/postgres_database.sql', false, 'UTF-8')]
+	DROP SCHEMA IF EXISTS "[schemaname /]" CASCADE;
+	CREATE SCHEMA "[schemaname /]";
+[for (modul : Package | get_modules())
+][for (cls : Class | get_tables())]
+[generate_table(cls, schemaname) /]
+[/for][/for]
+
+[for (modul : Package | get_modules())
+][for (cls : Class | get_tables())]
+[create_indexes(cls, schemaname) /]
+[/for][/for]
+
+[for (modul : Package | get_modules())
+][for (cls : Class | get_tables())]
+[create_foreign_keys(cls, schemaname) /]
+[/for][/for]
+
+[/file]
+
+[file ('psql/postgresql_function.sql', false, 'UTF-8')]
+[for (pkg : Package | get_modules())]
+[for (cls : Class | get_tables()) ]
+[create_insert_procedures(cls, schemaname) /]
+[create_update_procedures(cls, schemaname) /]
+[create_select_procedures(cls, schemaname) /]
+[/for][/for]
+[/file]
+
+[file ('psql/postgresql_drop_function.sql', false, 'UTF-8')]
+[for (pkg : Package | get_modules())]
+[for (cls : Class | get_tables()) ]
+[drop_insert_procedures(cls, schemaname) /]
+[drop_update_procedures(cls, schemaname) /]
+[drop_select_procedures(cls, schemaname) /]
+[/for][/for]
+[/file]
+
+[/let]
+[/template]

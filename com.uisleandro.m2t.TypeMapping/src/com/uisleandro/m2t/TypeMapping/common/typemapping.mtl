@@ -1,0 +1,80 @@
+[comment encoding = UTF-8 /]
+[module typemapping('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[template public generateElement(root : Model)]
+[comment @main /]
+[if (root.eContents(Package)->exists(x|x.name = 'java'))]
+[file ('generated_java_translator.mtl', false, 'UTF-8')]
+['['/]comment encoding = UTF-8 /[']'/]
+['['/]module generated_java_translator('http://www.eclipse.org/uml2/5.0.0/UML')[']'/]
+
+[java_type_translator(root) /]
+[/file]
+[else][if (root.eContents(Package)->exists(x|x.name = 'sqlite'))]
+[file ('generated_sqlite_translator.mtl', false, 'UTF-8')]
+['['/]comment encoding = UTF-8 /[']'/]
+['['/]module generated_sqlite_translator('http://www.eclipse.org/uml2/5.0.0/UML')[']'/]
+
+[type_translator(root,'sqlite') /]
+[/file]
+
+[else][if (root.eContents(Package)->exists(x|x.name = 'postgres'))]
+[file ('generated_postgres_translator.mtl', false, 'UTF-8')]
+['['/]comment encoding = UTF-8 /[']'/]
+['['/]module generated_postgres_translator('http://www.eclipse.org/uml2/5.0.0/UML')[']'/]
+
+[type_translator(root,'postgres') /]
+[/file]
+[else][if (root.eContents(Package)->exists(x|x.name = 'mysql'))]
+[file ('generated_mysql_translator.mtl', false, 'UTF-8')]
+['['/]comment encoding = UTF-8 /[']'/]
+['['/]module generated_mysql_translator('http://www.eclipse.org/uml2/5.0.0/UML')[']'/]
+
+[type_translator(root,'mysql') /]
+[/file]
+[/if][/if][/if][/if]
+
+[/template]
+
+[template public java_type_translator(root : Model)]
+['['/]query public getJavaType(arg: Property): String =
+[for (it : Association | root.eContents(Association)) 
+separator ('else ')]if arg.type.name.equalsIgnoreCase('[it.memberEnd->at(2).oclAsType(Property).type.name /]') then
+	'[it.memberEnd->at(1).oclAsType(Property).type.name /]'
+[/for]
+[for (it : Association | root.eContents(Association)) separator (' ')]endif[/for]/[']'/]
+
+['['/]query public getJavaValueOf(arg: Property): String =
+[for (it : Association | root.eContents(Association)) 
+separator ('else ')]if arg.type.name.equalsIgnoreCase('[it.memberEnd->at(2).oclAsType(Property).type.name /]') then 
+	'[it.memberEnd->at(1).oclAsType(Property).type.name /].ValueOf('+arg.name+')'
+[/for]
+[for (it : Association | root.eContents(Association)) separator (' ')]endif[/for]/[']'/]
+
+
+['['/]query public toJavaString(arg: Property): String =
+if [for (it : Association | root.eContents(Association)->select(x| x.memberEnd->at(1).oclAsType(Property).type.name.equalsIgnoreCase('string'))) 
+separator ('or ')]arg.type.name.equalsIgnoreCase('[it.memberEnd->at(2).oclAsType(Property).type.name /]')
+[/for] then
+arg.name
+else
+'String.ValueOf('+arg.name+')'
+endif/[']'/]
+
+
+
+[/template]
+
+[template public type_translator(root : Model, fn : String)]
+['['/]comment PLEASE SET THE MIN AND THE MAX VALUES, WHEN APPLIABLE/[']'/]
+['['/]query public [fn/]TypeName(arg: Property): String =
+[for (it : Association | root.eContents(Association)) 
+separator ('else ')]if arg.type.name.equalsIgnoreCase('[it.memberEnd->at(2).oclAsType(Property).type.name /]') then
+	'[it.memberEnd->at(1).oclAsType(Property).type.name /]'
+[/for]
+[for (it : Association | root.eContents(Association)) separator (' ')]endif[/for]/[']'/]
+[/template]
+
+
+
+

@@ -1,0 +1,63 @@
+[comment encoding = UTF-8 /]
+[module android_resources_strings('http://www.eclipse.org/uml2/5.0.0/UML')]
+[import com::uisleandro::nativ3::android::common::util /]
+
+[**
+ * Generate Strings for menu itens
+ * Generate Strings for each model class
+ * Receives a flatted sequence of properties (never repeated)
+*/]
+
+[comment the properties comes from:
+	1. menu itens
+	2. menu sub_itens
+	3. tables
+/]
+[template public generateStringsXml(
+root: Package,
+menuItems: Sequence(State))]
+[file ('main/res/values/strings.xml', false, 'UTF-8')]
+<resources>
+<!-- 
+[protected ('Protected Area GENERAL')]
+-->
+
+	<string name="app_name">Sales Force</string>
+
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
+
+	<string name="action_settings">Settings</string>
+
+<!-- 
+[/protected]
+-->
+
+<!-- 
+[protected ('Protected Area for TABLES')]
+-->
+[for (pack : Package | root.eContents(Package)
+	->select(x|x.name = 'sqlite')
+	->first().eContents(Package)
+)][for (cls : Class | pack.eContents(Class))]
+[for (prop : Property | cls.eContents(Property))]
+	<string name="[cls.name /]_[if(prop.isfk())]fk_[/if][prop.name
+	/]">[cls.name /] [name.ToWordsCamelCase() /]</string>
+[/for][/for][/for]
+<!-- 
+[/protected]
+-->
+
+<!-- 
+[protected ('Protected Area for MENU ITEMS')]
+-->
+[for (it : State | menuItems)]
+	<string name="[name/]">[name.ToWordsCamelCase() /]</string>
+[/for]
+<!-- 
+[/protected]
+-->
+
+</resources>
+[/file]
+[/template]

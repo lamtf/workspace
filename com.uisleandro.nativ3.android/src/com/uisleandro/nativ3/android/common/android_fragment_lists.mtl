@@ -1,0 +1,412 @@
+[comment encoding = UTF-8 /]
+[module android_fragment_lists('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[**
+ * The documentation of the module android_list_ListFragment.
+ * I need to get a view from somewhere and treat it here
+ * 
+ * Where on my model im going to find the resources????
+ * Won't be good to parametize it? so i can load from 
+ * "different locations"
+ * 
+ * TODO: not inserting into many classes yet
+ * 
+ */]
+
+[query public filter(arg : Sequence(Class)) : 
+Sequence(Class) = self->select(x: Class |
+not x.gotStereotype('server_only') and
+not x.gotStereotype('client_hidden') and
+not x.gotStereotype('client_const'))
+/]
+
+[query public filter(arg : Sequence(Package)) : 
+Sequence(Package) = self->select(x: Package |
+not x.gotStereotype('server_only') and
+not x.gotStereotype('client_hidden') and
+not x.gotStereotype('client_const'))
+/]
+
+[query public filter(arg : Sequence(Property)) : 
+Sequence(Property) = self->select(x: Property |
+not x.gotStereotype('server_only') and
+not x.gotStereotype('client_hidden') and
+not x.gotStereotype('client_const'))
+/]
+
+[comment BEGIN COMMON FUNCTIONS /]
+
+[template public FolderName(arg : String)]
+[for (st : String | self.tokenize('.')) separator ('/')][st/][/for]
+[/template]
+
+
+[query public getModulesFrom(arg : Model, packageName : String) : Sequence(Package) = 
+	self.eContents(Package)
+	->select(x | x.name = packageName)->first()
+	.eContents(Package)
+/]
+
+[query public getControllerClasses(arg : Package) : Sequence(Class) = 
+if(self.eContents(Package)->exists(x: Package | x.name = 'controller')) then
+	self.eContents(Package)->select(x: Package | x.name = 'controller').eContents(Class)
+else
+	null
+endif
+/]
+
+[query public gotStereotype(arg : NamedElement, sname : String) : Boolean = 
+self.getAppliedStereotypes()->exists(s : Stereotype | s.name = sname) /]
+
+[template public ToCamelCase(arg : String)]
+[for (it : String | arg.tokenize('_'))][it.toUpperFirst()/][/for]
+[/template]
+
+[template public ToCamelCaseSpaced(arg : String)]
+[for (it : String | arg.tokenize('_')) separator (' ')][it.toUpperFirst()/][/for]
+[/template]
+
+[query public getType(arg : Property) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())) then
+'long'
+else 
+self.type.name.toString()
+endif
+/]
+
+[query public getName(arg : Property) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())) then
+'fk_'+self.name
+else 
+self.name
+endif
+/]
+
+[query public getSelectOperations(arg : Class) : Sequence(Operation) = 
+self.eContents(Operation)->select(x: Operation | x.gotStereotype('fn_select')) /]
+
+[query public getFirstParameterClass(arg : Operation) : Class = 
+self.eContents(Parameter)->first().type.oclAsType(Class) /]
+
+[comment END COMMON FUNCTIONS /]
+
+[template public list_item_xml( fields: Sequence(Property) )]
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:paddingLeft="10dp"
+	android:paddingRight="10dp"
+	android:paddingTop="5dp"
+	android:paddingBottom="5dp"
+	>
+
+	[for (prop : Property | fields
+	->select(x| x.name = 'name')->filter())]
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/tv_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+		android:text="@string/[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+		android:textSize="20dp"
+		android:textColor="#00a7f5"
+		/>
+
+	[/for]
+	[for (prop : Property | fields
+	->select(x| x.name <> 'name')->filter())]
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:id="@+id/tv_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+		android:text="@string/[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /]"
+		android:textSize="18dp"
+		android:textColor="#000000"
+		/>
+
+	[/for]
+
+</LinearLayout>
+[/template]
+
+[template public list_adapter_class(
+	packageName : String,
+	moduleName : String,
+	class_name: String,
+	dataclass_name: String,
+	fields: Sequence(Property))]
+package [packageName /].crud.[moduleName /];
+
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import java.util.List;
+import [packageName /].R;
+
+import [packageName /].data.view.[moduleName /].[dataclass_name.ToCamelCase()/];
+
+class [class_name.ToCamelCase()/]ListAdapter extends BaseAdapter {
+
+	[comment novo .. /]
+	public class [class_name.ToCamelCase()/]ViewHolder{
+		long id;
+	[for (prop : Property | fields->filter())]
+		TextView tv_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName()/];
+	[/for]
+	}
+
+	private Context mContext;
+	private List<[dataclass_name.ToCamelCase()/]> m[dataclass_name.ToCamelCase()/]List;
+
+	public [class_name.ToCamelCase()/]ListAdapter(Context mContext, List<[dataclass_name.ToCamelCase()/]> m[dataclass_name.ToCamelCase()/]List) {
+		this.mContext = mContext;
+		this.m[dataclass_name.ToCamelCase()/]List = m[dataclass_name.ToCamelCase()/]List;
+	}
+
+	@Override
+	public int getCount() {
+		return m[dataclass_name.ToCamelCase()/]List.size();
+	}
+
+	@Override
+	public Object getItem(int i) {
+		return m[dataclass_name.ToCamelCase()/]List.get(i);
+	}
+
+	@Override
+	public long getItemId(int i) {
+		return m[dataclass_name.ToCamelCase()/]List.get(i).getId();
+	}
+
+	@Override
+	public View getView(int i, View view, ViewGroup viewGroup) {
+
+		[class_name.ToCamelCase()/]ViewHolder viewholder;
+		if(view == null){
+			view = View.inflate(mContext, R.layout.fragment_[moduleName/]_[class_name/]_item, null);
+			viewholder = new [class_name.ToCamelCase()/]ViewHolder();
+			//getting the views
+	[for (prop : Property | fields->filter())]
+			viewholder.tv_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName()/] = (TextView)view.findViewById(R.id.tv_[prop.owner.oclAsType(NamedElement).name /]_[prop.getName()/]);
+	[/for]
+			view.setTag(viewholder);
+		}else{
+			viewholder = ([class_name.ToCamelCase()/]ViewHolder)view.getTag();
+		}
+
+		if(m[dataclass_name.ToCamelCase()/]List.get(i) != null){
+			// Setting values2
+			viewholder.id = m[dataclass_name.ToCamelCase()/]List.get(i).getId();
+	[for (prop : Property | fields->filter())]
+		[if (prop.getType() <> 'string')]
+			viewholder.tv_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].setText(String.valueOf(m[dataclass_name.ToCamelCase()/]List.get(i).get[prop.getName().ToCamelCase() /]()));
+		[else]
+			viewholder.tv_[prop.owner.oclAsType(NamedElement).name/]_[prop.getName() /].setText(m[dataclass_name.ToCamelCase()/]List.get(i).get[prop.getName().ToCamelCase() /]());
+		[/if]
+	[/for]
+		}
+
+		return view;
+
+	}
+}
+[/template]
+
+[template public list_fragment_class(
+	packageName : String,
+	moduleName : String,
+	class_name: String,
+	dataclass_name: String
+)]
+package [packageName /].crud.[moduleName /];
+
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.support.v7.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import [packageName /].R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import [packageName /].data.view.[moduleName /].[dataclass_name.ToCamelCase()/];
+import [packageName /].data.sqlite.[moduleName /].[dataclass_name.ToCamelCase()/]DataSource;
+import [packageName /].data.sqlite.DBHelper;
+
+import com.uisleandro.util.ListFragmentChanger;
+
+//[packageName /]
+
+public class [class_name.ToCamelCase()/]ListFragment extends ListFragment implements AdapterView.OnItemClickListener {
+
+	private ListView lv_[moduleName/]_[class_name/];
+	private [class_name.ToCamelCase()/]ListAdapter m[class_name.ToCamelCase()/]ListAdapter;
+	private List<[dataclass_name.ToCamelCase()/]> m[dataclass_name.ToCamelCase()/]List;
+
+	public [dataclass_name.ToCamelCase()/]ListFragment() {
+		// Required empty public constructor
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		// Inflate the layout for this ListFragment
+		View v = inflater.inflate(R.layout.fragment_[moduleName/]_[class_name/]_list, container, false);
+
+		lv_[moduleName/]_[class_name/] = (ListView) v.findViewById(R.id.lv_[moduleName/]_[class_name/]);
+		
+		[dataclass_name.ToCamelCase()/]DataSource ds = new [dataclass_name.ToCamelCase()/]DataSource(getContext());
+		m[dataclass_name.ToCamelCase()/]List = ds.listAll();
+
+[comment populate /]
+		//m[dataclass_name.ToCamelCase()/]List.add(new [dataclass_name.ToCamelCase()/]View(...));
+[comment populate /]
+
+		m[class_name.ToCamelCase()/]ListAdapter = new [class_name.ToCamelCase()/]ListAdapter(getContext(), m[dataclass_name.ToCamelCase()/]List);
+		lv_[moduleName/]_[class_name/].setAdapter(m[class_name.ToCamelCase()/]ListAdapter);
+		lv_[moduleName/]_[class_name/].setOnItemClickListener(this);
+
+		return v;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+		final long item_id = (([class_name.ToCamelCase()/]ListAdapter.[class_name.ToCamelCase()/]ViewHolder)view.getTag()).id;
+
+		AlertDialog.Builder adb = new AlertDialog.Builder(getActivity());
+		//adb.setView(alertDialogView);
+		adb.setTitle(R.string.what_you_like_to_do);
+		adb.setIcon(android.R.drawable.ic_dialog_alert);
+
+		adb.setPositiveButton(R.string.exclude, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+
+				((ListFragmentChanger)getActivity()).changeListFragment(R.id.nav_[class_name /]_index, null);
+
+				[dataclass_name.ToCamelCase() /]DataSource m[dataclass_name.ToCamelCase() /]DataSource = new [dataclass_name.ToCamelCase() /]DataSource(getActivity());
+				m[dataclass_name.ToCamelCase() /]DataSource.deleteById(item_id);
+				Toast.makeText(getContext(), "Item Deleted Only On this Device", Toast.LENGTH_LONG).show();
+
+			}
+		});
+
+		adb.setNegativeButton(R.string.edit, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+
+			((ListFragmentChanger)getActivity()).changeListFragment(R.id.nav_[class_name /]_insert, item_id);
+/*
+				Intent intent = new Intent(getActivity(), [dataclass_name.ToCamelCase() /]Activity.class);
+				intent.putExtra("id", itemId);
+				startActivity(intent);
+*/
+
+			}
+		});
+
+		adb.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialogInterface, int i) {
+				
+			}
+		});
+
+		adb.show();
+
+	}
+}
+[/template]
+
+[template public list_fragment_xml(
+	packageName : String,
+	moduleName : String,
+	class_name: String,
+	fields: Sequence(Property))]
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="[packageName /].app.[moduleName/].[class_name.ToCamelCase()/]ListFragment"
+
+	android:background="#d1d1d1"
+	>
+
+	<android.support.v7.widget.ListViewCompat
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:id="@+id/lv_[moduleName/]_[class_name/]"
+		android:layout_marginTop="10dp"
+		android:layout_marginLeft="10dp"
+		android:layout_marginRight="10dp"
+		android:layout_marginBottom="10dp"
+		android:divider="#d1d1d1"
+		>
+	</android.support.v7.widget.ListViewCompat>
+
+</FrameLayout>
+[/template]
+
+[template public generate_list_fragment_classes(
+	packageName : String,
+	moduleName : String,
+	class_name : String,
+	dataclass_name: String,
+	fields : Sequence(Property))]
+
+[file ('generated.txt', true, 'UTF-8')]
+
+1. ['main/res/layout/fragment_'+moduleName+'_'+class_name+'_item.xml'/]
+2. ['main/java/'+FolderName(packageName)+'/crud/'+moduleName+'/'+class_name.ToCamelCase()+'ListAdapter.java'/]
+3. ['main/java/'+FolderName(packageName)+'/crud/'+moduleName+'/'+class_name.ToCamelCase()+'ListFragment.java'/]
+4. ['main/res/layout/fragment_'+moduleName+'_'+class_name+'_list.xml' /]
+
+[/file]
+
+[file ('main/res/layout/fragment_'+moduleName+'_'+class_name+'_item.xml', false, 'UTF-8')]
+[list_item_xml(fields)/]
+[/file]
+
+[file ('main/java/'+FolderName(packageName)+'/crud/'+moduleName+'/'+class_name.ToCamelCase()+'ListAdapter.java', false, 'UTF-8')]
+[list_adapter_class(
+		packageName,
+		moduleName,
+		class_name,
+		dataclass_name,
+		fields)/]
+[/file]
+
+[file ('main/java/'+FolderName(packageName)+'/crud/'+moduleName+'/'+class_name.ToCamelCase()+'ListFragment.java', false, 'UTF-8')]
+[list_fragment_class(
+		packageName,
+		moduleName,
+		class_name,
+		dataclass_name)/]
+[/file]
+
+[file ('main/res/layout/fragment_'+moduleName+'_'+class_name+'_list.xml', false, 'UTF-8')]
+[list_fragment_xml(
+		packageName,
+		moduleName,
+		class_name,
+		fields)/]
+[/file]
+
+[comment 
+it was not to be here
+generateStringsXml(root, fields)/]
+
+[/template]

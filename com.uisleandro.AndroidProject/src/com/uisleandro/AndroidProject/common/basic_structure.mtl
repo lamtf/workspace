@@ -1,0 +1,461 @@
+[comment encoding = UTF-8 /]
+[module basic_structure('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[comment
+
+NEXT
+	generate strings xml
+
+/]
+
+[query public isFk(prop : Property) : Boolean = 
+if null = self.type
+or self.type.name.toString().equalsIgnoreCase(self.name) then
+true else false endif /]
+
+[comment TODO: add filters here if needed /]
+[query public get_modules(root : Model) : Sequence(Package) = 
+eContents(Package)
+	->select(x|x.name = 'mvc')
+	->first() 
+	.eContents(Package)
+/]
+
+[comment TODO: add filters here if needed /]
+[query public get_tables(modul : Package) : Sequence(Class) =  
+eContents(Package)
+	->select(x|x.name = 'dataModels')
+	->first() 
+	.eContents(Class)
+/]
+
+[query public get_no_fks(tbl : Class) : Sequence(Property) = 
+eContents(Property)->select(x| not(isFk(x)))
+/]
+
+[query public get_configuration_namespace(arg : Model) : String = 
+self.eContents(Class)->select(x|x.name='custom_config')->first().eContents(Property)
+->select(x|x.type.name.toString().equalsIgnoreCase('app_namespace'))->first().name
+ /]
+
+
+[template public FolderName(name : String)]
+[for (st : String | self.tokenize('.')) separator ('/') after ('/')][st/][/for]
+[/template]
+
+
+[query public gotStereotype(arg : NamedElement, sname : String) : Boolean = 
+self.getAppliedStereotypes()->exists(s : Stereotype | s.name = sname) /]
+
+[template public ToCamelCase(name : String)]
+[for (it : String | name.tokenize('_'))][it.toUpperFirst()/][/for]
+[/template]
+
+[template public ToCamelCaseSpaced(name : String)]
+[for (it : String | name.tokenize('_')) separator (' ')][it.toUpperFirst()/][/for]
+[/template]
+
+
+[template public Camel2(arg : String)
+][for (name : String | tokenize('.')) separator ('.')
+][name /][/for][/template]
+
+
+[template public make_build_gradle(arg: Package)]
+apply plugin: 'com.android.application'
+
+android {
+	compileSdkVersion 26
+	defaultConfig {
+		applicationId "com.spaceforsales.loginapp"
+		minSdkVersion 14
+		targetSdkVersion 26
+		versionCode 1
+		versionName "1.0"
+		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+
+		vectorDrawables.useSupportLibrary = true
+	}
+	buildTypes {
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+
+}
+
+dependencies {
+	implementation fileTree(dir: 'libs', include: ['['/]'*.jar'[']'/])
+	implementation 'com.android.support:appcompat-v7:26.1.0'
+	implementation 'com.android.support:design:26.1.0'
+	implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+	implementation 'com.android.support:support-v4:26.1.0'
+	implementation 'com.android.support:support-vector-drawable:26.1.0'
+	testImplementation 'junit:junit:4.12'
+	androidTestImplementation 'com.android.support.test:runner:1.0.1'
+	androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+[if (name = 'supply' or name = 'sales')]
+	compile 'me.dm7.barcodescanner:zxing:1.9.8'
+[/if]
+	
+}
+[/template]
+
+[template public root_build_gradle(arg : OclAny)]
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.0'
+        
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+[/template]
+
+
+[comment 
+
+eu preciso gerar este arquivo para todos os subprojetos que eu possuo
+
+/]
+[template public build_android_core_manifest(modul : Package, pname : String)]
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="com.uisleandro.store"
+>
+
+	<!-- Start of user code protected -->
+
+	<uses-permission android:name="android.permission.CAMERA"/>
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	<uses-permission android:name="android.permission.SEND_SMS"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.INTERNET"/>
+
+	<application
+		android:allowBackup="true"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:supportsRtl="true"
+		android:theme="@style/AppTheme">
+	</application>
+
+</manifest>
+[/template]
+
+
+[template public build_android_manifest(modul : Package, pname : String)]
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+package="[pname/]"
+>
+
+[if ('supply' = name or 'sales' = name)]
+	<uses-permission android:name="android.permission.CAMERA"/>
+[/if]
+[if ('core' = name)]
+	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+	<uses-permission android:name="android.permission.SEND_SMS"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+[/if]
+	<uses-permission android:name="android.permission.INTERNET"/>
+
+	<!--
+		I need to solve ic_launcher, app_name and @style/AppTheme
+		Maybe with bash it's better
+	-->
+
+	<application
+		android:allowBackup="true"
+		android:icon="@mipmap/ic_launcher"
+		android:label="@string/app_name"
+		android:supportsRtl="true"
+		android:theme="@style/AppTheme">
+
+		<!-- Auto Generated -->
+		<activity android:name=".MainActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+		</activity>
+
+	</application>
+
+</manifest>
+[/template]
+
+[query public no_repeat(arg : Sequence(Property)) : Sequence(Property) = 
+self->select(x| 'name' <> x.name and 'last_update' <> x.name and 'last_use_time' <> x.name) /]
+
+
+[template public generate_strings_xml(modul: Package)]
+<resources>
+<!-- 
+[protected ('reserved for the programmer')]
+-->
+	<string name="name">Name</string>
+	<string name="last_update">last_update</string>
+	<string name="last_use_time">last_use_time</string>
+<!--
+[/protected]
+-->
+	<string name="app_name">[if ('core'=name)]Store[else][ToCamelCaseSpaced(name)/][/if]</string>
+[for (cls : Class | get_tables())]
+	<string name="[name /]">[ ToCamelCaseSpaced(name) /]</string>
+[for (field : Property | no_repeat(get_no_fks()))]
+	<string name="[name /]">[ToCamelCaseSpaced(name) /]</string>	
+[/for]
+[/for]
+
+</resources>
+[/template]
+
+[template public generate_strings_xml0(arg : OclAny)]
+<resources>
+<!-- 
+[protected ('reserved for the programmer')]
+-->
+	<string name="app_name">Store</string>
+
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+	<string name="navigation_drawer_close">Close navigation drawer</string>
+
+	<string name="action_settings">Settings</string>
+	<string name="ok">Ok</string>
+<!--
+[/protected]
+-->
+</resources>
+[/template]
+
+[template public empty_layout(pname : String)]
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	tools:context="[pname /].MainActivity">
+
+</android.support.constraint.ConstraintLayout>
+[/template]
+
+
+[template public empty_main_activity(pname : String)]
+package [pname /];
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+	}
+
+}
+[/template]
+
+[comment 
+create the basic project structure
+/]
+[template public generateElement(root : Model)]
+[comment @main/]
+
+[let pname : String = root.get_configuration_namespace()]
+[let vendor : String = 'uisleandro']
+[let appName : String = 'Store']
+[let cName : String = 'com.'+vendor+'.'+appName]
+
+[file ('build.gradle', false, 'UTF-8')]
+[root_build_gradle() /]
+[/file]
+
+[file (cName+'.Core/src/main/assets/apks/README.txt', false, 'UTF-8')]
+== Insert the loaded apks here
+[/file]
+
+
+[comment 
+I should maybe to add the same class to another projects as well
+/]
+[file (cName+'.Core/src/main/java/'+FolderName(pname)+'/util/config.java', false, 'UTF-8')]
+
+package com.uisleandro.util;
+
+/*
+com.uisleandro.util.config.now()
+
+com.uisleandro.util.config.getSystemIdString() 
+com.uisleandro.util.config.getUserIdString() 
+com.uisleandro.util.config.getTodayString()
+com.uisleandro.util.config.getRightNowString()
+*/
+
+public class config{
+
+public String getSystemIdString(){
+	return "1";
+}
+ 
+public String getUserIdString(){
+	return "1";
+}
+ 
+public String getTodayString(){
+	return "TODAY()";
+}
+
+public String getRightNowString(){
+	return "NOW()";
+}
+
+}
+
+
+[/file]
+
+[file ('settings.gradle', false, 'UTF-8')]
+[for (it : Package | get_modules(root))]
+include ':[cName /].[ ToCamelCase(name) /]'
+[/for]
+[/file]
+
+[file ('local.properties', false, 'UTF-8')]
+# Project-wide Gradle settings.
+
+# IDE (e.g. Android Studio) users:
+# Gradle settings configured through the IDE *will override*
+# any settings specified in this file.
+
+# For more details on how to configure your build environment visit
+# http://www.gradle.org/docs/current/userguide/build_environment.html
+
+# Specifies the JVM arguments used for the daemon process.
+# The setting is particularly useful for tweaking memory settings.
+# Default value: -Xmx10248m -XX:MaxPermSize=256m
+# org.gradle.jvmargs=-Xmx2048m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8
+
+# When configured, Gradle will run in incubating parallel mode.
+# This option should only be used with decoupled projects. More details, visit
+# http://www.gradle.org/docs/current/userguide/multi_project_builds.html#sec:decoupled_projects
+# org.gradle.parallel=trueuis@up:~/git/android-dex/Resource1$ cat local.properties 
+## This file is automatically generated by Android Studio.
+# Do not modify this file -- YOUR CHANGES WILL BE ERASED!
+#
+# This file must *NOT* be checked into Version Control Systems,
+# as it contains information specific to your local configuration.
+#
+# Location of the SDK. This is only used by Gradle.
+# For customization when using a Version Control System, please read the
+# header note.
+#Wed Oct 18 11:46:30 BRT 2017
+ndk.dir=/home/uis/android/android-sdk-linux/ndk-bundle
+sdk.dir=/home/uis/android/android-sdk-linux
+[/file]
+
+[for (modul : Package | get_modules(root))
+][let fName : String = cName+'.'+ToCamelCase(modul.name)]
+
+[file (fName + '/src/main/AndroidManifest.xml', false, 'UTF-8')]
+[build_android_manifest(modul, pname) /]
+[/file]
+
+[file (fName+'/src/main/libs/README.txt', false, 'UTF-8')]
+== Insert the pre-compiled libraries here
+[/file]
+
+[file (fName+'/src/main/jni/README.txt', false, 'UTF-8')]
+== JNI C/C++ files
+[/file]
+
+[file (fName+'/src/main/test/README.txt', false, 'UTF-8')]
+== Insert the unit tests here
+[/file]
+
+[file (fName+'/src/main/androidTest/README.txt', false, 'UTF-8')]
+== Insert the androidTests here
+[/file]
+
+[file (fName+'/src/main/res/values/strings.xml', false, 'UTF-8')]
+[generate_strings_xml()/]
+[/file]
+
+[file (fName+'/src/main/res/values-pt/strings.xml', false, 'UTF-8')]
+[generate_strings_xml()/]
+[/file]
+
+[file (fName+'/build.gradle', false, 'UTF-8')]
+[make_build_gradle() /]
+[/file]
+
+[file (fName+'/src/main/java/'+FolderName(pname)+'MainActivity.java', false, 'UTF-8')]
+[empty_main_activity(pname) /]
+[/file]
+
+[file (fName+'/src/main/res/layout/activity_main.xml', false, 'UTF-8')]
+[empty_layout(pname) /]
+[/file]
+
+
+[/let][/for]
+
+
+[file ('cpy.sh', false, 'UTF-8')]
+SRC=/home/uis/AndroidStudioProjects/SalesTestApp/app
+TAR=/home/uis/ws-rcp-oxygen/com.uisleandro.generated
+
+echo "please put all the drawables on it's category folders. with a suitable name";
+
+[for (modul : Package | get_modules(root))
+][let fName : String = cName+'.'+ToCamelCase(modul.name)]
+
+echo "step [i/]"
+
+cp -R ${SRC}/src/main/res/values/colors.xml ${TAR}/[fName /]/src/main/res/values/colors.xml
+cp -R ${SRC}/src/main/res/values/dimens.xml ${TAR}/[fName /]/src/main/res/values/dimens.xml
+cp -R ${SRC}/src/main/res/values/drawables.xml ${TAR}/[fName /]/src/main/res/values/drawables.xml
+cp -R ${SRC}/src/main/res/values/styles.xml ${TAR}/[fName /]/src/main/res/values/styles.xml
+
+cp -R ${SRC}/src/main/res/drawable ${TAR}/[fName /]/src/main/res/drawable
+cp -R ${SRC}/src/main/res/mipmap-mdpi ${TAR}/[fName /]/src/main/res/mipmap-mdpi
+cp -R ${SRC}/src/main/res/mipmap-hdpi ${TAR}/[fName /]/src/main/res/mipmap-hdpi
+cp -R ${SRC}/src/main/res/mipmap-xhdpi ${TAR}/[fName /]/src/main/res/mipmap-xhdpi
+cp -R ${SRC}/src/main/res/mipmap-xxxhdpi ${TAR}/[fName /]/src/main/res/mipmap-xxxhdpi
+
+[/let][/for]
+
+[/file]
+
+[/let]
+[/let]
+[/let]
+[/let]
+[/template]
+
+

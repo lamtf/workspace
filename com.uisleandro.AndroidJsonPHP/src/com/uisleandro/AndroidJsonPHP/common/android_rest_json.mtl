@@ -1,0 +1,435 @@
+[comment encoding = UTF-8 /]
+[**
+ * The documentation of the module android_rest_json.
+ */]
+[module android_rest_json('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+
+[template public begin_reserve(name : String)]
+//Start of user code [name /]
+[/template]
+
+[template public end_reserve(name : String)]
+// [name /]
+//End of user code
+[/template]
+
+[query public get_configuration_namespace(arg : Model) : String = 
+self.eContents(Class)->select(x|x.name='custom_config')->first().eContents(Property)
+->select(x|x.type.name.toString().equalsIgnoreCase('app_namespace'))->first().name
+ /]
+
+[comment TODO: add filters here if needed /]
+[query public get_modules(root : Model) : Sequence(Package) = 
+eContents(Package)
+	->select(x|x.name = 'mvc')
+	->first() 
+	.eContents(Package)
+/]
+
+[comment TODO: add filters here if needed /]
+[query public get_tables(modul : Package) : Sequence(Class) =  
+eContents(Package)
+	->select(x|x.name = 'dataModels')
+	->first() 
+	.eContents(Class)
+/]
+
+[template public ToCamelCase(arg : String)]
+[for (it : String | arg.tokenize('_'))][it.toUpperFirst()/][/for]
+[/template]
+
+
+[template public updater_class(tbl : Class, pname : String)]
+package [pname/];
+
+import android.content.Context;
+import android.util.Log;
+
+import com.uisleandro.external.DBPaginator;
+import com.uisleandro.salestestapp.data.sqlite.systems.RoleDataSource;
+import com.uisleandro.salestestapp.data.view.systems.Role;
+import com.uisleandro.web.TLSUtils;
+import com.uisleandro.web.TLSWebClient2;
+import com.uisleandro.web.TlsCallback;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+
+public class [tbl.name.ToCamelCase()/]Updater {
+
+	Context context;
+
+	private final TLSWebClient2 client;
+
+	public [tbl.name.ToCamelCase()/]Updater(TLSUtils utils) {
+		this.context = utils.getContext();
+		this.client = new TLSWebClient2(utils); //TODO: im gonna have to remove it from here in order to restart the client
+	}
+
+	public void Sync() {
+	
+		final [tbl.name.ToCamelCase()/]DataSource [tbl.name.ToCamelCase().toLowerFirst()/]DataSource = new [tbl.name.ToCamelCase()/]DataSource(context);
+	
+		final DBPaginator paginator = new DBPaginator();
+	
+		//the max server id which i have
+		long the_last_server_id_on_client = [tbl.name.ToCamelCase().toLowerFirst()/]DataSource.getLastServerId(); //step 1,1
+	
+		//now i want to get some from the server
+		final Map<Integer, Boolean> step = new HashMap<Integer,Boolean>();
+		step.put(0,false); //insert on client
+		step.put(1,false); //insert on server
+		step.put(2,false); //update on client
+		step.put(3,false); //update on server
+	
+		[comment]
+		/*
+		//todo comparar os tempos, depois
+		//todo im not doing nothing with this funciton
+		client.run("https://192.168.0.250/naiara/sync/time",
+				"{ \"client_time\": " + LongDateFormatter.CurrentDateMills() + " }",
+				new TlsCallback() {
+					@Override
+					public void CallBack(String result) {
+						Log.wtf("rest-api", result);
+					}
+				}
+		);
+		//todo seria bom se houvesse uma forma de mensurar o erro da medida do tempo
+		//todo mas me aterei a adicionar um erro "qualquer" de +-N segundos
+		if(true) { return; }
+		*/
+		[/comment]
+	
+		//paginator.setPageSize(100);
+		paginator.setPageNumber(0);
+		Log.v("rest-api", "atempt to insert on the client .. ");
+		//i think now im repeating the process
+		while (false == step.get(0)) {
+			//step 1,2
+			client.run(
+				"https://192.168.0.250/naiara/sync/[tbl.name.toLowerCase()/]/get_id_newer_than",
+				"{ \"server_id\": " + String.valueOf(the_last_server_id_on_client) + "," + // todo << change it to server_id because the meaning is wrong
+						" \"page_number\" : " + String.valueOf(paginator.getPageNumber()) + "," +
+						" \"page_size\": " + String.valueOf(paginator.getPageSize()) + " }",
+				new TlsCallback() {
+					@Override
+					public void CallBack(String result) {
+						Log.wtf("rest-api", "step:0\nresut :\n" + result);
+	
+						try {
+							JSONArray array = new JSONArray(result);
+	
+							if (0 == array.length()) {
+								step.put(0,true);
+							}
+	
+							for (int i = 0; i < array.length(); i++) {
+	
+								//Log.v("rest-api", array.getJSONObject(i).toString());
+	
+								[tbl.name.ToCamelCase()/] [tbl.name.ToCamelCase().toLowerFirst()/] = [tbl.name.ToCamelCase()/].FromJsonObj(array.getJSONObject(i));
+								[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.insert([tbl.name.ToCamelCase().toLowerFirst()/]); //step 1,3
+							}
+						} catch (JSONException ex) {
+							step.put(0,true);
+							ex.printStackTrace();
+						}
+					}
+				}
+			);
+			paginator.nextPage();
+		}
+	
+	
+		//TODO: os updates não estao funcionando
+		//todo vindo do servidor: tem que ser de acordo com o server_id
+		//paginator.setPageSize(100);
+		paginator.setPageNumber(0);
+		Log.v("rest-api", "atempt to insert on the server .. ");
+		while (false == step.get(1)) {
+	
+			List<[tbl.name.ToCamelCase()/]> [tbl.name.ToCamelCase().toLowerFirst()/]s_for_insertion_on_server =
+					[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.listSomeWithNoServerId(
+							paginator.getPageNumber(),
+							paginator.getPageSize()); //step 2,1
+	
+			paginator.nextPage();
+	
+			Iterator<[tbl.name.ToCamelCase()/]> it = [tbl.name.ToCamelCase().toLowerFirst()/]s_for_insertion_on_server.iterator();
+	
+			String insert_rows = "['['/] ";
+	
+			if(it.hasNext()){
+	
+				Log.v("rest-api", "building the message .. ");
+	
+				insert_rows += it.next().toJsonString();
+				while(it.hasNext()){
+					insert_rows += ", " + it.next().toJsonString();
+				}
+			}else{
+				step.put(1,true);
+				Log.v("rest-api", "abort insertions..");
+				continue;
+			}
+	
+			insert_rows += " [']'/]";
+	
+			Log.v("rest-api", "inserting rows:\n"+ insert_rows);
+	
+			//step 2,2
+			client.run(
+				"https://192.168.0.250/naiara/sync/[tbl.name.toLowerCase()/]/bash_insert",
+				insert_rows,
+				new TlsCallback() {
+					@Override
+					public void CallBack(String result) {
+						//after inserting get all the ids and set on the client
+						//['['/]{"server_id":25,"last_update_time":1485298834848,"client_id":7}[']'/]
+							Log.wtf("rest-api", "step:1\nresut :\n" + result);
+	
+							try {
+								JSONArray array = new JSONArray(result);
+	
+								if (0 == array.length()) {
+									step.put(1,true);
+								}
+	
+								for (int i = 0; i < array.length(); i++) {
+	
+									JSONObject row = array.getJSONObject(i);
+	
+									//step 2,3
+									[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.updateServerID(
+											row.getLong("client_id"),
+											row.getLong("server_id"),
+											row.getLong("last_update_time")
+									);
+	
+									Log.v("rest-api", "updating the client");
+								}
+	
+							} catch (JSONException e) {
+								e.printStackTrace();
+								step.put(1,true);
+							}
+						}
+				});
+			}
+	
+	//3,1 && 4,1
+			client.run(
+				"https://192.168.0.250/naiara/sync/[tbl.name.toLowerCase()/]/get_last_update_time", null, new TlsCallback() {
+				@Override
+				public void CallBack(String result) {
+	
+				[comment]
+				//the actual step is unused
+	
+				// maybe i shoud know which last_update_time
+				// is older or at least know booth
+				// but there is a problem in to update it
+	
+				/*
+				 * server->last_update_time()
+				 * 
+				 * client: select all which is > last_update_time
+				 * update the server
+				 * 
+				 * client: update all which is < last_update_time
+				 * update the client
+				 * 
+				 * */
+				[/comment]
+	
+				try {
+					JSONObject jobj = new JSONObject(result);
+					//{"last_update_time":1485298834849}
+					long last_update_time = jobj.getLong("last_update_time");
+	
+					//todo i will need a select for each line, unfortunatelly,
+					//todo and then check every single line for updating
+	
+	
+					//o unico jeito é criar "manualmente" lista do que pode ser atualizado no servidor
+	
+					//todo tradução de ids
+					//após todas as inserções: para cada "server_id" achar o "id", e colocar a "fk" correta, se não o banco fica errado.
+	
+					//o correto talvez fosse trazer do banco toda a informação relacionada com um item, se este tiver chaves estrangeiras
+					//e fazer a inserção caso não fosse encontrado tal item.
+	
+	
+					// TODO: testar as queries
+					Log.v("rest-api", "attempt to update on the server .. ");
+					//paginator.setPageSize(100);
+					paginator.setPageNumber(0);
+					while (false == step.get(2)) {
+	
+						//4,2
+						List<[tbl.name.ToCamelCase()/]> update_remote = [tbl.name.ToCamelCase().toLowerFirst()/]DataSource.listSomeDirty(paginator.getPageNumber(), paginator.getPageSize());
+						paginator.nextPage();
+	
+						Iterator<[tbl.name.ToCamelCase()/]> it = update_remote.iterator();
+	
+						String upd = "['['/]";
+	
+						if (it.hasNext()) {
+							Log.v("rest-api", "updating the server..");
+							upd += it.next().toJsonString();
+	
+							while (it.hasNext()) {
+								upd += "," + it.next().toJsonString();
+							}
+	
+						}else{
+							step.put(2,true);
+							Log.v("rest-api", "abort server updates..");
+							continue;
+						}
+	
+						upd += "[']'/]";
+	
+							//todo the date is not correct
+							//4,3
+							client.run(
+								"https://192.168.0.250/naiara/sync/[tbl.name.toLowerCase()/]/bash_update", upd, new TlsCallback() {
+								@Override
+								public void CallBack(String result) {
+	
+									Log.wtf("rest-api", "step:2\nresut :\n" + result);
+									try {
+										JSONArray array = new JSONArray(result);
+	
+										if(0 == array.length()){
+											step.put(2,true);
+										}
+	
+										for (int i = 0; i < array.length(); i++) {
+	
+											JSONObject row = array.getJSONObject(i);
+	
+											//step 4,4
+											[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.updateServerID(
+													row.getLong("client_id"),
+													row.getLong("server_id"),
+													row.getLong("last_update_time")
+											);
+										}
+	
+									} catch (JSONException e) {
+										e.printStackTrace();
+										step.put(2,true);
+									}
+	
+								}
+							});
+						}
+	
+						//only if this table has foreigin keys i should update it
+	[comment]
+	/* TODO: unused, pease replace it
+						Log.v("rest-api", "attempt to update on the client.. ");
+						//todo falta
+						//paginator.setPageSize(100);
+						paginator.setPageNumber(0);
+						while (false == step.get(3)) {
+							//3,2
+							List<[tbl.name.ToCamelCase()/]> update_local = [tbl.name.ToCamelCase().toLowerFirst()/]DataSource.listSomeOlderThan(last_update_time, paginator.getPageNumber(), paginator.getPageSize());
+							paginator.nextPage();
+							//update local. how??? i should get the ids only
+							String ids = "[";
+	
+							Iterator<[tbl.name.ToCamelCase()/]> it = update_local.iterator();
+	
+							if(it.hasNext()) {
+								Log.v("rest-api", "updating the client..");
+								ids += it.next().getServerId();
+								while (it.hasNext()) {
+									ids += "," + it.next().getServerId();
+								}
+							}else{
+								step.put(3,true);
+								Log.v("rest-api", "abort client updates..");
+								continue;
+							}
+	
+							ids += "]";
+	
+							//3,3
+							client.run(
+									"https://192.168.0.250/naiara/sync/[tbl.name.toLowerCase()/]/get_these", ids, new TlsCallback() {
+										@Override
+										public void CallBack(String result) {
+	
+											Log.wtf("rest-api", "step:3\nresut :\n" + result);
+											try {
+												JSONArray array = new JSONArray(result);
+	
+												if(0 == array.length()){
+													step.put(3,true);
+												}
+	
+												//3,4
+												for (int i = 0; i < array.length(); i++){
+													[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.update([tbl.name.ToCamelCase()/].FromJsonObj(array.getJSONObject(i)));
+												}
+	
+											} catch (JSONException e) {
+												e.printStackTrace();
+												step.put(3,true);
+											}
+	
+										}
+									});
+						}
+	*/
+	[/comment]
+	
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	
+	} // função sync
+
+}
+[/template]
+
+[template public FolderName(arg : String)]
+[for (st : String | self.tokenize('.')) separator ('/') after ('/')][st/][/for]
+[/template]
+
+[comment
+
+o que eu tenho que fazer?
+para cada pacote
+gerar todas as classes
+
+/]
+[template public generateElement(root : Model)]
+[comment @main/]
+[let pname : String = root.get_configuration_namespace()
+][let vendor : String = 'uisleandro'
+][let appName : String = 'Store'
+][let cName : String = 'com.'+vendor+'.'+appName]
+
+[for (modul : Package | get_modules())][for (tbl : Class | get_tables())]
+
+[file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/sync/'+tbl.name.ToCamelCase()+'Updater.java', false, 'UTF-8')]
+[updater_class(tbl, modul.name) /]
+[/file]
+
+[/for][/for]
+
+[/let][/let][/let][/let][/template]

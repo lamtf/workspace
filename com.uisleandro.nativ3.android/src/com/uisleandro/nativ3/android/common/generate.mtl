@@ -1,0 +1,47 @@
+[comment encoding = UTF-8 /]
+[module generate('http://www.eclipse.org/uml2/5.0.0/UML')]
+[import com::uisleandro::nativ3::android::common::nativ3_android /]
+
+
+[template public generateElement(root : Model)]
+[comment @main/]
+
+[generate_main(root)/]
+
+[comment] 
+[file ('test.txt', false, 'UTF-8')]
+
+{{test1}}
+
+[android_state_machine(root,'test1')/]
+
+{{test2}}
+
+[android_state_machine(root,'test2')/]
+
+{{test3}}
+
+[android_state_machine(root,'test3')/]
+
+{{test4}}
+
+[android_state_machine(root,'test4')/]
+
+{{test5}}
+
+[android_state_machine(root,'test5')/]
+
+{{test6}}
+
+[android_state_machine(root,'test6')/]
+
+{{test7}}
+[android_state_machine(root,'test7')/]
+
+{{test8}}
+[android_state_machine(root,'test8')/]
+
+[/file]
+[/comment]
+
+[/template]

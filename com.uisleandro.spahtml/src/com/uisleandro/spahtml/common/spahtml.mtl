@@ -1,0 +1,141 @@
+[comment encoding = UTF-8 /]
+[module spahtml('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[query public isFk(prop : Property) : Boolean = 
+if null = self.type
+or self.type.name.toString().equalsIgnoreCase(self.name) then
+true else false endif /]
+
+[comment TODO: add filters here if needed /]
+[query public get_modules(root : Model) : Sequence(Package) = 
+eContents(Package)
+	->select(x|x.name = 'mvc')
+	->first() 
+	.eContents(Package)
+/]
+
+[comment TODO: add filters here if needed /]
+[query public get_tables(modul : Package) : Sequence(Class) =  
+eContents(Package)
+	->select(x|x.name = 'dataModels')
+	->first() 
+	.eContents(Class)
+/]
+
+
+[query public get_fields(tbl : Class) : Sequence(Property) = 
+eContents(Property)
+/]
+
+[query public get_no_fks(tbl : Class) : Sequence(Property) = 
+eContents(Property)->select(x| not(isFk(x)))
+/]
+
+[query public get_configuration_namespace(arg : Model) : String = 
+self.eContents(Class)->select(x|x.name='custom_config')->first().eContents(Property)
+->select(x|x.type.name.toString().equalsIgnoreCase('app_namespace'))->first().name
+ /]
+
+[query public gotStereotype(arg : NamedElement, sname : String) : Boolean = 
+self.getAppliedStereotypes()->exists(s : Stereotype | s.name = sname) /]
+
+
+[query public get_size(arg: Property): String =
+if arg.type.name.equalsIgnoreCase('GuidType') then
+	'36'
+else if arg.type.name.equalsIgnoreCase('Abbreviature') then
+	if arg.name.indexOf('uf') > 0
+	or arg.name.indexOf('state') > 0
+ 	then
+	'2'
+	else
+	'8'
+	endif
+else if arg.type.name.equalsIgnoreCase('BigText') then
+	'256'
+else if arg.type.name.equalsIgnoreCase('File') then
+	'-1'
+else if arg.type.name.equalsIgnoreCase('SmallText') then
+	if arg.name.indexOf('zip') > 0
+	or arg.name.indexOf('cep') > 0
+ 	then
+	'15'
+	else
+	'30'
+	endif
+else if arg.type.name.equalsIgnoreCase('MediumText') then
+	'45'
+else if arg.type.name.equalsIgnoreCase('BarcodeType') then
+	'64'
+else if arg.type.name.equalsIgnoreCase('PictureType') then
+	'45'
+else
+	'-1'
+endif endif endif endif endif endif endif endif   
+/]
+
+
+[comment 
+the big crud
+
+comment: gerar tudo separado e usar grep para juntar as coisas
+
+quais aspectos atender?
+crud, 
+
+/]
+[template public generateElement(root :Model)]
+[comment @main /]
+
+
+[/template]
+
+
+[comment i want to insert brazilian with client, if the client is brazilian /]
+[query public entrance_props(arg : Property) : Boolean =
+isFk() and
+self.owner.oclAsType(NamedElement).name = 'brazilian' and 
+self.type.name.indexOf('basic_client') > 0 
+/]
+
+
+[template public html_form(tbl : Class)]
+
+<form name="[name /]" id="[name /]">
+
+[for (it : Property | get_fields())]
+<div class="tcel">
+<label for="[name /]">[name.toUpperFirst() /]:</label><br />
+<div class="input-group">
+  <span	class="input-group-addon"><i
+  class="fa fa-asterisk fa-fw"></i></span>
+[if(not isFk())]
+<input
+	class="required form-control" type="text" id="[name /]" name="[name /]"
+	placeholder="[name.toUpperFirst() /]" aria-describedby="basic-addon1" max-size="[get_size()/]" />
+[else]
+[if (entrance_props())]
+<div id="if-[name /]">
+[html_form(type.oclAsType(Class)) /]
+</div>
+[else]
+<select id="[name/]" name="[name/]">
+	<option value="1" class="meaning">Pick one</option>
+</select>
+[/if][/if]
+</div>
+</div>
+[/for]
+
+</form>
+[/template]
+
+
+[comment 
+
+e a definicao do json???
+
+/]
+[template public html_list(tbl : Class)]
+<div id="[name /]_table"></div>
+[/template]
