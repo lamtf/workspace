@@ -12,21 +12,21 @@ com.uisleandro.util.config.getRightNowString()
 
 public class config{
 
-	public String getSystemIdString(){
-		return "1";
-	}
+public String getSystemIdString(){
+	return "1";
+}
+ 
+public String getUserIdString(){
+	return "1";
+}
+ 
+public String getTodayString(){
+	return "TODAY()";
+}
 
-	public String getUserIdString(){
-		return "1";
-	}
-
-	public String getTodayString(){
-		return "TODAY()";
-	}
-
-	public String getRightNowString(){
-		return "NOW()";
-	}
+public String getRightNowString(){
+	return "NOW()";
+}
 
 }
 

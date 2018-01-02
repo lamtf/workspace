@@ -28,6 +28,15 @@ End of user code
 	<string name="expiration_time">Expiration Time</string>	
 	<string name="system">System</string>
 	<string name="enabled">Enabled</string>	
+	<string name="fantasy_name">Fantasy Name</string>	
+	<string name="stores_address">Stores Address</string>	
+	<string name="srores_address_number">Srores Address Number</string>	
+	<string name="stores_city">Stores City</string>	
+	<string name="stores_neighborhood">Stores Neighborhood</string>	
+	<string name="stores_zip_code">Stores Zip Code</string>	
+	<string name="stores_state">Stores State</string>	
+	<string name="stores_email">Stores Email</string>	
+	<string name="stores_phonenumber">Stores Phonenumber</string>	
 	<string name="role">Role</string>
 
 </resources>
