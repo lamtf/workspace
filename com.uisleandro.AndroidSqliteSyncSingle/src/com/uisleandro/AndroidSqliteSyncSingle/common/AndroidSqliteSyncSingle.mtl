@@ -1,0 +1,569 @@
+[comment encoding = UTF-8 /]
+[module AndroidSqliteSync('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[comment CPF is a unique key, please fix it on all databases /]
+
+
+[template public begin_reserve(name : String)]
+//Start of user code [name /]
+[/template]
+
+[template public end_reserve(name : String)]
+// [name /]
+//End of user code
+[/template]
+
+[comment TODO: add filters here if needed /]
+[query public get_modules(root : Model) : Sequence(Package) = 
+eContents(Package)
+	->select(x|x.name = 'mvc')
+	->first() 
+	.eContents(Package)
+/]
+
+[comment TODO: add filters here if needed /]
+[query public get_tables(modul : Package) : Sequence(Class) =  
+eContents(Package)
+	->select(x|x.name = 'dataModels')
+	->first() 
+	.eContents(Class)
+/]
+
+[comment TODO: add filters here if needed /]
+[query public get_fields(tbl : Class) : Sequence(Property) = 
+eContents(Property)
+/]
+
+[query public get_no_fks(tbl : Class) : Sequence(Property) = 
+eContents(Property)->select(x| not(isFk(x)))
+/]
+
+[query public get_fks(tbl : Class) : Sequence(Property) = 
+eContents(Property)->select(x| isFk(x))
+/]
+
+
+[comment TODO: add filters here if needed /]
+[query public the_client_cant_change(arg : Property) : Boolean = false /]
+
+
+[query public is_string(arg : Property) : Boolean = 
+if null = arg.type or 
+arg.type.name.equalsIgnoreCase('Date') or 
+arg.type.name.equalsIgnoreCase('DateTime') or 
+arg.type.name.equalsIgnoreCase('Time') or 
+arg.type.name.equalsIgnoreCase('Identifier') or 
+arg.type.name.equalsIgnoreCase('Number') or
+arg.type.name.equalsIgnoreCase('PictureType') or
+arg.type.name.equalsIgnoreCase('Money') or
+arg.type.name.equalsIgnoreCase('PreciseNumber') or 
+arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') or
+arg.type.name.equalsIgnoreCase('YesNoQuestion') or
+isFk() then
+false
+else
+true
+endif
+ /]
+
+[query public default_zero(arg : Property) : String =
+if null = arg.type 
+or arg.type.name.equalsIgnoreCase('Date') 
+or arg.type.name.equalsIgnoreCase('DateTime') 
+or arg.type.name.equalsIgnoreCase('Time') 
+or arg.type.name.equalsIgnoreCase('Identifier') 
+or arg.type.name.equalsIgnoreCase(arg.name)
+then
+'0L'
+else if arg.type.name.equalsIgnoreCase('Number') 
+or arg.type.name.equalsIgnoreCase('PictureType') then 
+'0'
+else if arg.type.name.equalsIgnoreCase('Money') then 
+'0F'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') 
+or arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then 
+'0L'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then 
+'false'
+else
+'""'
+endif endif endif endif endif
+ /]
+
+[query public get_configuration_namespace(arg : Model) : String = 
+self.eContents(Class)->select(x|x.name='custom_config')->first().eContents(Property)
+->select(x|x.type.name.toString().equalsIgnoreCase('app_namespace'))->first().name
+ /]
+
+[query public get_java_type(arg: Property): String =
+if null = arg.type 
+or arg.type.name.equalsIgnoreCase('Date') 
+or arg.type.name.equalsIgnoreCase('DateTime') 
+or arg.type.name.equalsIgnoreCase('Time') 
+or arg.type.name.equalsIgnoreCase('Identifier') 
+or arg.type.name.equalsIgnoreCase(arg.name)
+then
+'long'
+else if arg.type.name.equalsIgnoreCase('Number') 
+or arg.type.name.equalsIgnoreCase('PictureType') then 
+'int'
+else if arg.type.name.equalsIgnoreCase('Money') then 
+'float'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') 
+or arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then 
+'double'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then 
+'boolean'
+else
+'String'
+endif endif endif endif endif
+/]
+
+[query public getter_indexed(arg: Property, cname : String, i: Integer): String =
+if null = arg.type
+or arg.type.name.equalsIgnoreCase(arg.name)
+or arg.type.name.equalsIgnoreCase('Date') 
+or arg.type.name.equalsIgnoreCase('DateTime') 
+or arg.type.name.equalsIgnoreCase('Time') 
+or arg.type.name.equalsIgnoreCase('Identifier')
+then 
+cname + '.getLong('+i+')'
+else if arg.type.name.equalsIgnoreCase('Number') 
+or arg.type.name.equalsIgnoreCase('PictureType') then 
+cname + '.getInt('+i+')'
+else if arg.type.name.equalsIgnoreCase('Money') then 
+cname + '.getFloat('+i+')'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') 
+or arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then 
+cname + '.getFloat('+i+')'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then 
+'('+cname + '.getInt('+i+') > 0)'
+else
+cname + '.getString('+i+')'
+endif endif endif endif endif
+/]
+
+
+[query public getter_named(arg: Property, cname : String): String =
+if null = arg.type
+or arg.type.name.equalsIgnoreCase(arg.name)
+or arg.type.name.equalsIgnoreCase('Date') 
+or arg.type.name.equalsIgnoreCase('DateTime') 
+or arg.type.name.equalsIgnoreCase('Time') 
+or arg.type.name.equalsIgnoreCase('Identifier')
+then 
+cname + '.getLong("'+arg.getName()+'")'
+else if arg.type.name.equalsIgnoreCase('Number') 
+or arg.type.name.equalsIgnoreCase('PictureType') then 
+cname + '.getInt("'+arg.getName()+'")'
+else if arg.type.name.equalsIgnoreCase('Money') then 
+'Float.valueOf('+cname+'.getString("'+arg.getName()+'"))'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') 
+or arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then 
+cname + '.getFloat("'+arg.getName()+'")'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then 
+cname + '.getInt("'+arg.getName()+'") > 0'
+else
+cname + '.getString("'+arg.getName()+'")'
+endif endif endif endif endif
+/]
+
+
+[comment first android type mapping /]
+[query public get_sqlite_type(arg: Property): String =
+if null = arg.type then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase(arg.name) then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Date') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('DateTime') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Time') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Number') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Money') then
+	'REAL(10,2)'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') then
+	'DOUBLE'
+else if arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then
+	'DOUBLE PRECISION'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then
+	'BOOLEAN'
+else if arg.type.name.equalsIgnoreCase('Identifier') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('GuidType') then
+	'CHAR(36)'
+else if arg.type.name.equalsIgnoreCase('Abbreviature') then
+	if arg.name.indexOf('uf') > 0
+	or arg.name.indexOf('state') > 0
+ 	then
+		'CHAR(2)'
+	else
+		'CHAR(8)'
+	endif
+else if arg.type.name.equalsIgnoreCase('BigText') then
+	'VARCHAR(256)'
+else if arg.type.name.equalsIgnoreCase('File') then
+	'VARCHAR(128)'
+else if arg.type.name.equalsIgnoreCase('SmallText') then
+	if arg.name.indexOf('zip') > 0
+	or arg.name.indexOf('cep') > 0
+ 	then
+		'CHAR(15)'
+	else
+		'CHAR(30)'
+	endif
+else if arg.type.name.equalsIgnoreCase('MediumText') then
+	'VARCHAR(45)'
+else if arg.type.name.equalsIgnoreCase('BarcodeType') then
+	'CHAR(64)'
+else if arg.type.name.equalsIgnoreCase('PictureType') then
+	'INTEGER'
+else 
+	'VARCHAR(45)'
+endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif/]
+
+
+[template public FolderName(arg : String)]
+[for (st : String | self.tokenize('.')) separator ('/') after ('/')][st/][/for]
+[/template]
+
+
+[query public isBoolean(arg : Property) : Boolean = 
+if(self.type.name.toString().equalsIgnoreCase('boolean')) then true else false endif /]
+
+
+[query public isFk(prop : Property) : Boolean = 
+if null = self.type
+or self.type.name.toString().equalsIgnoreCase(self.name) then
+true else false endif /]
+
+[query public getName(arg : Property) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())) then
+'fk_'+self.name
+else 
+self.name
+endif
+/]
+
+[query public getNameRef(arg : Property, tname : String) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())) then
+'DbHelper.'+tname.toUpperCase()+'_FK_'+self.name.toUpperCase()
+else 
+'DbHelper.'+tname.toUpperCase()+'_'+self.name.toUpperCase()
+endif
+/]
+
+[query public gotStereotype(arg : NamedElement, sname : String) : Boolean = 
+self.getAppliedStereotypes()->exists(s : Stereotype | s.name = sname) /]
+
+[template public ToCamelCase(arg : String)]
+[for (it : String | arg.tokenize('_'))][it.toUpperFirst()/][/for]
+[/template]
+
+[template public ToCamelCaseSpaced(arg : String)]
+[for (it : String | arg.tokenize('_')) separator (' ')][it.toUpperFirst()/][/for]
+[/template]
+
+
+[query public getModelClasses(arg : Package) : Sequence(Class) = 
+self.eContents(Package)->select( x | x.name ='model')->first().eContents(Class)
+ /]
+
+[comment i dont have a ds for each view but for each tbl /]
+[comment so the fix will be on the inserting views 
+TODO: aplicar um esteriotipo na classe identidade
+/]
+[query public getViewClasses(arg : Package) : Sequence(Class) = 
+self.eContents(Package)->select( x | x.name ='view')->first().eContents(Class)
+ /]
+
+[query public nullable(arg : Property) : String = 
+if(self.name.indexOf('update') > 0) then
+'NULL'
+else
+if(self.owner.oclAsType(Class).name.equalsIgnoreCase(self.name)) then
+'NULL'
+else
+if(self.type.name.toString().equalsIgnoreCase(self.name)) then
+'NULL'
+else
+'NOT NULL'
+endif
+endif
+endif
+ /]
+
+[query public isSelfFK(arg : Property) : Boolean =
+if(self.owner.oclAsType(Class).name.equalsIgnoreCase(self.name)) then
+	true
+else
+	false
+endif
+ /]
+
+[query public getForeignKeys(arg : Class) : Sequence(Property) = 
+self.eContents(Property)->select(x: Property | x.name = x.type.name)->asSequence() /]
+
+[comment substituir depois .. /]
+[query public find_modul_name(arg : Package, name: String) : String =
+self.eContents(Package)->select(x : Package |
+x.eContents(Class)->exists(c : Class | c.name = name)
+)->first().name
+ /]
+
+
+
+[query public isDate(arg : Property) : Boolean = 
+self.type.name.toString().equalsIgnoreCase('date') /]
+
+[template public PackName(arg : NamedElement)]
+[if ( oclIsTypeOf(Property) )
+][if( oclAsType(Property).isFk() )
+][ToCamelCase(oclAsType(Property).type.oclAsType(Class).
+owner.owner.oclAsType(NamedElement).name)
+/][else][ToCamelCase(owner.
+owner.owner.oclAsType(NamedElement).name)
+/][/if][else][ToCamelCase(owner.owner.oclAsType(NamedElement).name)
+/][/if][/template]
+
+
+[template public android_create_tbl_datasource_class(pname: String, modul: Package, tbl: Class)]
+//[protected ('reserved-for:android-sqlite-db.imports')]
+//reserved-for:android-sqlite-db.imports
+//[/protected]
+
+[begin_reserve('reserved-for:android-sqlite-sync.imports') /]
+[end_reserve('reserved-for:android-sqlite-sync.imports') /]
+
+//[protected ('reserved-for:query3.imports')]
+// reserved-for:query3.imports
+//[/protected]
+
+//[protected ('reserved-for:android-sqlite-db.functions')]
+//reserved-for:android-sqlite-db.functions
+[/protected]
+
+[begin_reserve('reserved-for:android-sqlite-sync.functions') /]
+/* DESCOMENTAR QUANDO RESOLVER O PROBLEMA
+	[comment RENAMED /]
+	//list for insert on server
+	//translates the foreign keys
+	public List<[tbl.name.ToCamelCase() /]View> listForInsertOnServer(long page_count, long page_size){
+
+		String query = "[let fks : Sequence(Property) = 
+tbl.eContents(Property)
+->select(x: Property | isFk(x)) 
+]
+SELECT t0.id, t0.server_id, t0.dirty, "+
+[for (prop : Property | get_fields(tbl))
+ separator (', " +\n') after ('" +\n')]		"[if( isFk(prop)
+)][if(the_client_cant_change(prop))]t0.fk_[prop.name /][else]t[i/].server_id as fk_[prop.name/][/if][else]t0.[prop.name /][/if][/for]
+		" FROM "+DbHelper.TABLE_[tbl.name.toUpperCase() /]+" t0"[if (0 < fks->size())] +[else];[/if]
+[for (prop : Property | fks) separator ('" +\n') after ('";')
+]		" INNER JOIN "+DbHelper.TABLE_[prop.name.toUpperCase() /]+" t[i/] ON t0.fk_[prop.name /] = t[i/].id[/for]
+[/let]
+
+		query += " WHERE t0.server_id IS NULL";
+
+		if(page_size > 0){
+			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
+		}
+
+		query += ";";
+
+		Log.wtf("rest-api", query);
+
+		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
+		Cursor cursor = database.rawQuery(query, null);
+
+		return cursorToListOf[tbl.name.ToCamelCase() /]View(cursor);
+	}
+
+	//list for update on server
+	//translates the foreign keys
+	public List<[tbl.name.ToCamelCase() /]View> listForUpdateOnServer(long page_count, long page_size){
+
+		//Log.wtf("rest-api", "listSomeDirty");
+		[comment // Estou com um erro pois nao gero as tabelas que nao fazem parte deste modulo /]
+		// Estou com um erro pois nao gero as tabelas que nao fazem parte deste modulo
+
+		String query = "[let fks : Sequence(Property) = get_fks(tbl)]
+SELECT t0.id, t0.server_id, t0.dirty, "+
+[for (prop : Property | get_no_fks(tbl))
+ separator (', " +\n') after ('" +\n')]		"[if(prop.name.equalsIgnoreCase(prop.type.name)
+)][if(the_client_cant_change(prop))]t0.fk_[prop.name /][else]t[i/].server_id as fk_[prop.name/][/if][else]t0.[prop.name /][/if][/for]
+		" FROM "+DbHelper.TABLE_[tbl.name.toUpperCase() /]+" t0"[if (0 < fks->size())] +[else];[/if]
+[for (prop : Property | fks) separator ('" +\n') after ('";')
+]		" INNER JOIN "+DbHelper.TABLE_[prop.name.toUpperCase() /]+" t[i/] ON t0.fk_[prop.name /] = t[i/].id[/for]
+[/let]
+
+		query += " WHERE t0." + DbHelper.[tbl.name.toUpperCase() /]_DIRTY + " = 1";
+
+		if(page_size > 0) {
+			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
+		}
+
+		query += ";";
+
+		//Log.wtf("rest-api", query);
+
+		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
+		Cursor cursor = database.rawQuery(query, null);
+
+		return cursorToListOf[tbl.name.ToCamelCase() /]View(cursor);
+	}
+
+	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
+		ContentValues values = new ContentValues();
+
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_SERVER_ID, remote_id);
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_DIRTY, 0);
+
+		[comment im sorry i know this column /]
+
+		int rows_affected = database.update(
+			DbHelper.TABLE_[tbl.name.toUpperCase() /],
+			values,
+			DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + String.valueOf(local_id),
+		null);
+		return rows_affected;
+	}
+
+	// given the last id i have on client i can
+	// on the client side
+	public long getLastServerId(){
+
+		long result = 0;
+
+
+		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_[tbl.name.toUpperCase() /] +";";
+		Cursor cursor = database.rawQuery(query, null);
+
+		return cursorToLong(cursor);
+	}
+
+	//the idea is that i don't want to iterate over all the data,
+	//bringing all the data to the server is expensive, even if the return value is null sometimes
+	//just bring from the server what is newer than my newer data, for updating
+	//the implementation is also easier :D
+	public long getLastUpdateTime(){
+
+		long result = 0;
+[comment]String query = "SELECT MAX(last_update_time) FROM " + DbHelper.TABLE_[tbl.name.toUpperCase() /] +";";[/comment]
+		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_[tbl.name.toUpperCase() /]+"';";
+		Cursor cursor = database.rawQuery(query, null);
+
+		return cursorToLong(cursor);
+
+	} 
+
+	//get the last_update_time, from this table, if if null
+	public void before_client_updating(){
+
+		String query = "UPDATE " + DbHelper.TABLE_UPDATE_HISTORY + " SET last_update_time = ( SELECT MAX(last_update_time) FROM " +
+			DbHelper.TABLE_[tbl.name.toUpperCase() /] + " ) WHERE table_name = '" + DbHelper.TABLE_[tbl.name.toUpperCase() /] + "' AND last_update_time IS NULL;";
+		database.rawQuery(query, null);
+
+	}
+
+	//set the last_update_time, from this table, to null
+	public void after_client_updating(){
+
+		String query = "UPDATE " + DbHelper.TABLE_UPDATE_HISTORY + " SET last_update_time = NULL WHERE table_name = '" + DbHelper.TABLE_[tbl.name.toUpperCase() /] + "';";
+		database.rawQuery(query, null);
+
+	}
+
+
+	//after i will update then client
+[if (get_fks(tbl)->notEmpty())
+][let fks : Sequence(Property) = get_fks(tbl)]
+	//and after updating the client i need to fix the foreign keys
+	public int fixClientForeignKeys(){
+
+		String query = "UPDATE " + DbHelper.TABLE_[tbl.name.toUpperCase() /] + " SET "+
+[for (prop : Property | fks) separator (', " +\n') after (';";')]
+		"fk_[prop.name /] = ( SELECT id FROM " + DbHelper.TABLE_[prop.name.toUpperCase() /] + " WHERE " + DbHelper.TABLE_[prop.name.toUpperCase() /] + ".server_id = " + DbHelper.TABLE_[tbl.name.toUpperCase() /] + ".fk_[prop.name /] )[/for]
+
+
+		int result = 0;
+		Cursor cursor = database.rawQuery(query, null);
+
+		return cursorToInteger(cursor);
+	}
+
+
+[/let][else]
+	// this class doesn't need to fix client foreign keys
+[/if]
+
+	[comment
+	vou precisar fazer modificações aqui para usar a flag dirty,
+	para que eu possa atualizar o servidor enviando menos dados.. /]
+
+	[comment 
+	ainda não sei como atualizar o cliente de forma eficiente 
+	pois não posso usar uma flag dirty no servidor como no cliente..
+	não quero usar todos os dados, acho que fiz alguma alteracao no php /]
+
+DESCOMENTAR QUANDO RESOLVER O PROBLEMA */
+
+[end_reserve('reserved-for:android-sqlite-sync.functions') /]
+
+//[protected ('reserved-for:query3.functions')]
+//reserved-for:query3.functions
+//[/protected]
+
+}
+[/template]
+
+
+[template public Camel2(arg : String)
+][for (name : String | tokenize('.')) separator ('.')
+][name /][/for][/template]
+
+[template public generateElement(root : Model)]
+[comment @main/]
+
+[let pname : String = root.get_configuration_namespace()]
+[let vendor : String = 'uisleandro']
+[let appName : String = 'Store']
+[let cName : String = 'com.'+vendor+'.'+appName]
+
+[comment
+
+I think its better to have
+one for each module
+
+ /]
+[comment] 
+[file ('main/java/'+FolderName(pname)+'sqlite/DbHelper.java', false, 'UTF-8')]
+[android_create_dbhelper(root, pname) /]
+[/file]
+[/comment]
+
+
+[for (modul : Package | get_modules(root))]
+
+
+[for (tbl : Class | get_tables(modul))]
+
+[file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'DataSource.java', false, 'UTF-8')]
+[android_create_tbl_datasource_class(pname, modul, tbl)/]
+[/file]
+
+[/for]
+
+[/for]
+
+[/let]
+[/let]
+[/let]
+[/let]
+[/template]
+
+
