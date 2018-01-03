@@ -318,7 +318,7 @@ public class [tbl.name.ToCamelCase()/]Updater {
 	
 											JSONObject row = array.getJSONObject(i);
 	
-											//step 4,4
+											// step 4,4
 											[tbl.name.ToCamelCase().toLowerFirst()/]DataSource.updateServerID(
 													row.getLong("client_id"),
 													row.getLong("server_id"),

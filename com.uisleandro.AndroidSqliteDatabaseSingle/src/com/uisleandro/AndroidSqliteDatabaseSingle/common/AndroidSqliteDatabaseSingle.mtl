@@ -1,0 +1,1351 @@
+[comment encoding = UTF-8 /]
+[module AndroidSqliteDatabaseSingle('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[comment CPF is a unique key, please fix it on all databases /]
+
+
+[template public begin_reserve(name : String)]
+//Start of user code [name /]
+[/template]
+
+[template public end_reserve(name : String)]
+// [name /]
+//End of user code
+[/template]
+
+[comment TODO: add filters here if needed /]
+[query public get_modules(root : Model) : Sequence(Package) = 
+eContents(Package)
+	->select(x|x.name = 'mvc')
+	->first() 
+	.eContents(Package)
+/]
+
+[comment TODO: add filters here if needed /]
+[query public get_tables(modul : Package) : Sequence(Class) =  
+eContents(Package)
+	->select(x|x.name = 'dataModels')
+	->first() 
+	.eContents(Class)
+/]
+
+[comment TODO: add filters here if needed /]
+[query public get_fields(tbl : Class) : Sequence(Property) = 
+eContents(Property)
+/]
+
+[query public get_no_fks(tbl : Class) : Sequence(Property) = 
+eContents(Property)->select(x| not(isFk(x)))
+/]
+
+[query public get_fks(tbl : Class) : Sequence(Property) = 
+eContents(Property)->select(x| isFk(x))
+/]
+
+
+[comment TODO: add filters here if needed /]
+[query public the_client_cant_change(arg : Property) : Boolean = false /]
+
+
+[query public is_string(arg : Property) : Boolean = 
+if null = arg.type or 
+arg.type.name.equalsIgnoreCase('Date') or 
+arg.type.name.equalsIgnoreCase('DateTime') or 
+arg.type.name.equalsIgnoreCase('Time') or 
+arg.type.name.equalsIgnoreCase('Identifier') or 
+arg.type.name.equalsIgnoreCase('Number') or
+arg.type.name.equalsIgnoreCase('PictureType') or
+arg.type.name.equalsIgnoreCase('Money') or
+arg.type.name.equalsIgnoreCase('PreciseNumber') or 
+arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') or
+arg.type.name.equalsIgnoreCase('YesNoQuestion') or
+isFk() then
+false
+else
+true
+endif
+ /]
+
+[query public default_zero(arg : Property) : String =
+if null = arg.type 
+or arg.type.name.equalsIgnoreCase('Date') 
+or arg.type.name.equalsIgnoreCase('DateTime') 
+or arg.type.name.equalsIgnoreCase('Time') 
+or arg.type.name.equalsIgnoreCase('Identifier') 
+or arg.type.name.equalsIgnoreCase(arg.name)
+then
+'0L'
+else if arg.type.name.equalsIgnoreCase('Number') 
+or arg.type.name.equalsIgnoreCase('PictureType') then 
+'0'
+else if arg.type.name.equalsIgnoreCase('Money') then 
+'0F'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') 
+or arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then 
+'0L'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then 
+'false'
+else
+'""'
+endif endif endif endif endif
+ /]
+
+[query public get_configuration_namespace(arg : Model) : String = 
+self.eContents(Class)->select(x|x.name='custom_config')->first().eContents(Property)
+->select(x|x.type.name.toString().equalsIgnoreCase('app_namespace'))->first().name
+ /]
+
+[query public get_java_type(arg: Property): String =
+if null = arg.type 
+or arg.type.name.equalsIgnoreCase('Date') 
+or arg.type.name.equalsIgnoreCase('DateTime') 
+or arg.type.name.equalsIgnoreCase('Time') 
+or arg.type.name.equalsIgnoreCase('Identifier') 
+or arg.type.name.equalsIgnoreCase(arg.name)
+then
+'long'
+else if arg.type.name.equalsIgnoreCase('Number') 
+or arg.type.name.equalsIgnoreCase('PictureType') then 
+'int'
+else if arg.type.name.equalsIgnoreCase('Money') then 
+'float'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') 
+or arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then 
+'double'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then 
+'boolean'
+else
+'String'
+endif endif endif endif endif
+/]
+
+[query public getter_indexed(arg: Property, cname : String, i: Integer): String =
+if null = arg.type
+or arg.type.name.equalsIgnoreCase(arg.name)
+or arg.type.name.equalsIgnoreCase('Date') 
+or arg.type.name.equalsIgnoreCase('DateTime') 
+or arg.type.name.equalsIgnoreCase('Time') 
+or arg.type.name.equalsIgnoreCase('Identifier')
+then 
+cname + '.getLong('+i+')'
+else if arg.type.name.equalsIgnoreCase('Number') 
+or arg.type.name.equalsIgnoreCase('PictureType') then 
+cname + '.getInt('+i+')'
+else if arg.type.name.equalsIgnoreCase('Money') then 
+cname + '.getFloat('+i+')'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') 
+or arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then 
+cname + '.getFloat('+i+')'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then 
+'('+cname + '.getInt('+i+') > 0)'
+else
+cname + '.getString('+i+')'
+endif endif endif endif endif
+/]
+
+
+[query public getter_named(arg: Property, cname : String): String =
+if null = arg.type
+or arg.type.name.equalsIgnoreCase(arg.name)
+or arg.type.name.equalsIgnoreCase('Date') 
+or arg.type.name.equalsIgnoreCase('DateTime') 
+or arg.type.name.equalsIgnoreCase('Time') 
+or arg.type.name.equalsIgnoreCase('Identifier')
+then 
+cname + '.getLong("'+arg.getName()+'")'
+else if arg.type.name.equalsIgnoreCase('Number') 
+or arg.type.name.equalsIgnoreCase('PictureType') then 
+cname + '.getInt("'+arg.getName()+'")'
+else if arg.type.name.equalsIgnoreCase('Money') then 
+'Float.valueOf('+cname+'.getString("'+arg.getName()+'"))'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') 
+or arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then 
+cname + '.getFloat("'+arg.getName()+'")'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then 
+cname + '.getInt("'+arg.getName()+'") > 0'
+else
+cname + '.getString("'+arg.getName()+'")'
+endif endif endif endif endif
+/]
+
+
+[comment first android type mapping /]
+[query public get_sqlite_type(arg: Property): String =
+if null = arg.type then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase(arg.name) then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Date') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('DateTime') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Time') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Number') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('Money') then
+	'REAL(10,2)'
+else if arg.type.name.equalsIgnoreCase('PreciseNumber') then
+	'DOUBLE'
+else if arg.type.name.equalsIgnoreCase('VeryPreciseNumber2') then
+	'DOUBLE PRECISION'
+else if arg.type.name.equalsIgnoreCase('YesNoQuestion') then
+	'BOOLEAN'
+else if arg.type.name.equalsIgnoreCase('Identifier') then
+	'INTEGER'
+else if arg.type.name.equalsIgnoreCase('GuidType') then
+	'CHAR(36)'
+else if arg.type.name.equalsIgnoreCase('Abbreviature') then
+	if arg.name.indexOf('uf') > 0
+	or arg.name.indexOf('state') > 0
+ 	then
+		'CHAR(2)'
+	else
+		'CHAR(8)'
+	endif
+else if arg.type.name.equalsIgnoreCase('BigText') then
+	'VARCHAR(256)'
+else if arg.type.name.equalsIgnoreCase('File') then
+	'VARCHAR(128)'
+else if arg.type.name.equalsIgnoreCase('SmallText') then
+	if arg.name.indexOf('zip') > 0
+	or arg.name.indexOf('cep') > 0
+ 	then
+		'CHAR(15)'
+	else
+		'CHAR(30)'
+	endif
+else if arg.type.name.equalsIgnoreCase('MediumText') then
+	'VARCHAR(45)'
+else if arg.type.name.equalsIgnoreCase('BarcodeType') then
+	'CHAR(64)'
+else if arg.type.name.equalsIgnoreCase('PictureType') then
+	'INTEGER'
+else 
+	'VARCHAR(45)'
+endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif endif/]
+
+
+[template public FolderName(arg : String)]
+[for (st : String | self.tokenize('.')) separator ('/') after ('/')][st/][/for]
+[/template]
+
+
+[query public isBoolean(arg : Property) : Boolean = 
+if(self.type.name.toString().equalsIgnoreCase('boolean')) then true else false endif /]
+
+
+[query public isFk(prop : Property) : Boolean = 
+if null = self.type
+or self.type.name.toString().equalsIgnoreCase(self.name) then
+true else false endif /]
+
+[query public getName(arg : Property) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())) then
+'fk_'+self.name
+else 
+self.name
+endif
+/]
+
+[query public getNameRef(arg : Property, tname : String) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())) then
+'DbHelper.'+tname.toUpperCase()+'_FK_'+self.name.toUpperCase()
+else 
+'DbHelper.'+tname.toUpperCase()+'_'+self.name.toUpperCase()
+endif
+/]
+
+[query public gotStereotype(arg : NamedElement, sname : String) : Boolean = 
+self.getAppliedStereotypes()->exists(s : Stereotype | s.name = sname) /]
+
+[template public ToCamelCase(arg : String)]
+[for (it : String | arg.tokenize('_'))][it.toUpperFirst()/][/for]
+[/template]
+
+[template public ToCamelCaseSpaced(arg : String)]
+[for (it : String | arg.tokenize('_')) separator (' ')][it.toUpperFirst()/][/for]
+[/template]
+
+
+[query public getModelClasses(arg : Package) : Sequence(Class) = 
+self.eContents(Package)->select( x | x.name ='model')->first().eContents(Class)
+ /]
+
+[comment i dont have a ds for each view but for each tbl /]
+[comment so the fix will be on the inserting views 
+TODO: aplicar um esteriotipo na classe identidade
+/]
+[query public getViewClasses(arg : Package) : Sequence(Class) = 
+self.eContents(Package)->select( x | x.name ='view')->first().eContents(Class)
+ /]
+
+[query public nullable(arg : Property) : String = 
+if(self.name.indexOf('update') > 0) then
+'NULL'
+else
+if(self.owner.oclAsType(Class).name.equalsIgnoreCase(self.name)) then
+'NULL'
+else
+if(self.type.name.toString().equalsIgnoreCase(self.name)) then
+'NULL'
+else
+'NOT NULL'
+endif
+endif
+endif
+ /]
+
+[query public isSelfFK(arg : Property) : Boolean =
+if(self.owner.oclAsType(Class).name.equalsIgnoreCase(self.name)) then
+	true
+else
+	false
+endif
+ /]
+
+[query public getForeignKeys(arg : Class) : Sequence(Property) = 
+self.eContents(Property)->select(x: Property | x.name = x.type.name)->asSequence() /]
+
+[comment substituir depois .. /]
+[query public find_modul_name(arg : Package, name: String) : String =
+self.eContents(Package)->select(x : Package |
+x.eContents(Class)->exists(c : Class | c.name = name)
+)->first().name
+ /]
+
+
+[comment
+ 
+Verificar se modul_tabela vai dar algum problema
+
+TODO: VOU REMOVER, NAO POSSO TER MODULOS DEPENDENDO DE OUTRO MODULO PARA COMPILAR
+
+/]
+[template public database_creator(modul: Package, pname : String)]
+package [pname /].[name /];
+
+import android.database.sqlite.SQLiteDatabase;
+[comment] import android.database.sqlite.SQLiteOpenHelper; [/comment]
+
+public class [ToCamelCase(modul.name) /]Design {
+
+
+	public static int VERSION = 1;
+
+[for (tbl : Class | get_tables())]
+	public static final String TABLE_[tbl.name.toUpperCase()/] = "[modul.name/]_[tbl.name/]";
+	public static final String [tbl.name.toUpperCase() /]_ID = "id";
+	public static final String [tbl.name.toUpperCase() /]_SERVER_ID = "server_id";
+	public static final String [tbl.name.toUpperCase() /]_DIRTY = "dirty";
+[for (prop : Property | get_fields(tbl) )]
+	public static final String [tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /] = "[prop.getName() /]";
+[/for]
+
+	private static final String CREATE_TABLE_[tbl.name.toUpperCase() /] = "CREATE TABLE " + 
+	TABLE_[tbl.name.toUpperCase() /] + " ("+ 
+	[tbl.name.toUpperCase() /]_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+	[tbl.name.toUpperCase() /]_SERVER_ID + " INTEGER NULL, " +
+	[tbl.name.toUpperCase() /]_DIRTY + " BOOLEAN NOT NULL, " +
+[for (prop : Property | get_fields(tbl) )
+separator (', " + \n') after (' " + \n')]
+	[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /] + " [get_sqlite_type(prop) /] [prop.nullable()/][/for]
+	");";
+
+	private static final String CREATE_INDEX_[tbl.name.toUpperCase() /]_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_[tbl.name.toUpperCase() /] + "_serverid_idx" +
+	" ON " + TABLE_[tbl.name.toUpperCase() /] + " ("+ [tbl.name.toUpperCase() /]_SERVER_ID +")"; 
+
+[if (tbl.eContents(Property)->exists(p: Property | p.name.equalsIgnoreCase('cpf') ))]
+	private static final String CREATE_INDEX_[tbl.name.toUpperCase() /]_CPF = "CREATE UNIQUE INDEX " + TABLE_[tbl.name.toUpperCase()/] + "_cpf_idx" +
+	" ON " + TABLE_[tbl.name.toUpperCase() /] + " ("+ [tbl.name.toUpperCase() /]_CPF +")";
+[/if]
+[/for]
+
+	public void create(SQLiteDatabase db) {
+
+[for (tbl : Class | get_tables(modul) )]
+		db.execSQL(CREATE_TABLE_[tbl.name.toUpperCase() /]);
+		db.execSQL(CREATE_INDEX_[tbl.name.toUpperCase() /]_SERVER_ID);
+[if (tbl.eContents(Property)->exists(p: Property | p.name.equalsIgnoreCase('cpf') ))]
+		db.execSQL(CREATE_INDEX_[tbl.name.toUpperCase() /]_CPF);
+[/if]
+[/for]
+
+	}
+
+	//fill with the default data if possible
+	public void fill(SQLiteDatabase db) {
+
+	}
+
+	public void drop(SQLiteDatabase db){
+[for (tbl : Class | get_tables(modul) )]
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_[tbl.name.toUpperCase() /]);
+[/for]
+	}
+
+
+} 
+
+[/template]
+
+[template public main_db_helper(root : Model, pname : String)]
+
+package [pname /].core;
+
+import android.content.ContentValues;
+import android.content.Context;
+//import android.database.DatabaseErrorHandler;
+import android.database.sqlite.SQLiteDatabase;
+//import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class DbHelper extends SQLiteOpenHelper {
+
+	private static DbHelper db_instance = null;
+	private Context context;
+
+	private static final String DATABASE_NAME = "store.db";
+	private static final int DATABASE_VERSION = 1;
+
+
+
+	public static final String TABLE_UPDATE_HISTORY = "update_history";
+	public static final String UPDATE_HISTORY_TABLE_VERSION = "table_version";
+	public static final String UPDATE_HISTORY_TABLE_NAME = "table_name";
+	public static final String UPDATE_HISTORY_LAST_UPDATE_TIME = "last_update_time";
+
+	public static final String CREATE_TABLE_UPDATE_HISTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_UPDATE_HISTORY + " (" +
+			UPDATE_HISTORY_TABLE_VERSION + " INTEGER  NULL, " +
+			UPDATE_HISTORY_TABLE_NAME + " CHAR(30) NOT NULL, "+
+			UPDATE_HISTORY_LAST_UPDATE_TIME + " INTEGER  NULL " +
+			" );";
+
+	private static final String CREATE_INDEX_UPDATE_HISTORY_TNAME = "CREATE UNIQUE INDEX " + TABLE_UPDATE_HISTORY + "_serverid_idx" +
+			" ON " + TABLE_UPDATE_HISTORY + " ("+ UPDATE_HISTORY_TABLE_NAME +");";
+
+//web package
+
+
+	public static final String TABLE_COOKIE = "cookie";
+	public static final String COOKIE_ID = "id";
+	public static final String COOKIE_BASE_DOMAIN ="baseDomain";
+	public static final String COOKIE_NAME = "name";
+	public static final String COOKIE_VALUE ="value";
+	public static final String COOKIE_HOST ="host";
+	public static final String COOKIE_PATH = "path";
+	public static final String COOKIE_EXPIRY = "expiry";
+	public static final String COOKIE_CREATION_TIME = "creationTime";
+	public static final String COOKIE_IS_SECURE = "isSecure";
+	public static final String COOKIE_LAST_ACESSED = "lastAcessed";
+	public static final String COOKIE_IS_HTTP_ONLY = "isHttpOnly"; 
+
+	private static final String CREATE_TABLE_COOKIE = "CREATE TABLE IF NOT EXISTS "+TABLE_COOKIE+" ("+
+		COOKIE_ID + " INTEGER PRIMARY KEY ASC AUTOINCREMENT,"+
+		COOKIE_BASE_DOMAIN + " TEXT,"+
+		COOKIE_NAME + " TEXT,"+
+		COOKIE_VALUE + " TEXT,"+
+		COOKIE_HOST + " TEXT,"+
+		COOKIE_PATH + " TEXT,"+
+		COOKIE_EXPIRY + " INTEGER,"+
+		COOKIE_CREATION_TIME + " INTEGER,"+
+		COOKIE_IS_SECURE + " BOOLEAN,"+
+		COOKIE_LAST_ACESSED + " INTEGER,"+
+		COOKIE_IS_HTTP_ONLY +" BOOLEAN" +
+	");";
+
+
+	private DbHelper(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
+	}
+
+	public static DbHelper getInstance(Context ctx) {
+		if (db_instance == null) {
+			db_instance = new DbHelper(ctx.getApplicationContext());
+		}
+		return db_instance;
+	}
+
+	void fill(SQLiteDatabase db){
+[for (modul : Package | get_modules(root))]
+		[name.ToCamelCase() /]Design.fill(db);
+[/for]
+	}
+
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+
+		db.execSQL(CREATE_TABLE_COOKIE);
+		db.execSQL(CREATE_TABLE_UPDATE_HISTORY);
+		db.execSQL(CREATE_INDEX_UPDATE_HISTORY_TNAME);
+
+[for (modul : Package | get_modules(root))]
+		[name.ToCamelCase() /]Design.create(db);
+[/for]
+
+		fill(db);
+
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		//db.execSQL("PRAGMA foreign_keys = OFF;");
+
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_COOKIE);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY_TNAME);
+
+[for (modul : Package | get_modules(root) )]
+[for (tbl : Class | get_tables(modul) )]
+		db.execSQL("DROP TABLE IF EXISTS " + [ToCamelCase(modul.name) /]Design.TABLE_[tbl.name.toUpperCase() /]);
+[/for]
+[/for]
+
+		//db.execSQL("PRAGMA foreign_keys = ON;");
+		onCreate(db);
+	}
+
+
+}
+
+[/template]
+
+
+
+[template public android_create_dbhelper(root : Model, pname: String)]
+package [pname /].sqlite;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/*
+
+if i have got a remote_id,
+	use the remote_id
+else
+	use the local_id
+
+i can maybe keep translation tables
+
+if i got the id on the translation table
+it means that my local data is updated
+
+if i dont have the id on the translation table
+sent id to the server
+
+so i can keep the internal relations
+without dealing with external relations
+
+the server should create the relations.. 1 by 1
+but not necessarially keep the relations, which are not
+necessary for the server 
+
+1. don't keep local data (system.. etc)
+2. keep a local data only for situations with no internet (adding clients..)
+3. keep local data
+
+
+1. don't send data
+2. send when the data comes to a given number of rows
+
+TODO: on the server, translate from user_id to system_id
+or translate from token_id to system_id
+
+*/
+
+
+/*
+	Better one for each module??
+*/
+public class DbHelper extends SQLiteOpenHelper {
+
+	private static DbHelper db_instance = null;
+	private Context context;
+
+	private static final String DATABASE_NAME = "store.db";
+	private static final int DATABASE_VERSION = 1;
+
+//[protected ('cookies')]
+
+	public static final String TABLE_UPDATE_HISTORY = "update_history";
+	public static final String UPDATE_HISTORY_TABLE_NAME = "table_name";
+		public static final String UPDATE_HISTORY_LAST_UPDATE_TIME = "last_update_time";
+
+	public static final String CREATE_TABLE_UPDATE_HISTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_UPDATE_HISTORY + " (" +
+			UPDATE_HISTORY_TABLE_NAME + " CHAR(30) NOT NULL, "+
+			UPDATE_HISTORY_LAST_UPDATE_TIME + " INTEGER  NULL " +
+			" );";
+
+	private static final String CREATE_INDEX_UPDATE_HISTORY_TNAME = "CREATE UNIQUE INDEX " + TABLE_UPDATE_HISTORY + "_serverid_idx" +
+			" ON " + TABLE_UPDATE_HISTORY + " ("+ UPDATE_HISTORY_TABLE_NAME +");";
+
+
+	public static final String TABLE_COOKIE = "cookie";
+	public static final String COOKIE_ID = "id";
+	public static final String COOKIE_BASE_DOMAIN ="baseDomain";
+	public static final String COOKIE_NAME = "name";
+	public static final String COOKIE_VALUE ="value";
+	public static final String COOKIE_HOST ="host";
+	public static final String COOKIE_PATH = "path";
+	public static final String COOKIE_EXPIRY = "expiry";
+	public static final String COOKIE_CREATION_TIME = "creationTime";
+	public static final String COOKIE_IS_SECURE = "isSecure";
+	public static final String COOKIE_LAST_ACESSED = "lastAcessed";
+	public static final String COOKIE_IS_HTTP_ONLY = "isHttpOnly"; 
+
+	private static final String CREATE_TABLE_COOKIE = "CREATE TABLE IF NOT EXISTS "+TABLE_COOKIE+" ("+
+		COOKIE_ID + " INTEGER PRIMARY KEY ASC AUTOINCREMENT,"+
+		COOKIE_BASE_DOMAIN + " TEXT,"+
+		COOKIE_NAME + " TEXT,"+
+		COOKIE_VALUE + " TEXT,"+
+		COOKIE_HOST + " TEXT,"+
+		COOKIE_PATH + " TEXT,"+
+		COOKIE_EXPIRY + " INTEGER,"+
+		COOKIE_CREATION_TIME + " INTEGER,"+
+		COOKIE_IS_SECURE + " BOOLEAN,"+
+		COOKIE_LAST_ACESSED + " INTEGER,"+
+		COOKIE_IS_HTTP_ONLY +" BOOLEAN" +
+	");";
+//[/protected]
+
+
+//TODO: controlar a versao do modulo
+
+
+[for (modul : Package | get_modules(root))]
+// [modul.name /]
+[for (tbl : Class | get_tables())]
+
+	public static final String TABLE_[tbl.name.toUpperCase()/] = "[modul.name/]_[tbl.name/]";
+	public static final String [tbl.name.toUpperCase() /]_ID = "id";
+	public static final String [tbl.name.toUpperCase() /]_SERVER_ID = "server_id";
+	public static final String [tbl.name.toUpperCase() /]_DIRTY = "dirty";
+[for (prop : Property | get_fields(tbl) )]
+	public static final String [tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /] = "[prop.getName() /]";
+[/for]
+
+	private static final String CREATE_TABLE_[tbl.name.toUpperCase() /] = "CREATE TABLE " + 
+	TABLE_[tbl.name.toUpperCase() /] + " ("+ 
+	[tbl.name.toUpperCase() /]_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+	[tbl.name.toUpperCase() /]_SERVER_ID + " INTEGER NULL, " +
+	[tbl.name.toUpperCase() /]_DIRTY + " BOOLEAN NOT NULL, " +
+[for (prop : Property | get_fields(tbl) )
+separator (', " + \n') after (' " + \n')]
+	[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /] + " [get_sqlite_type(prop) /] [prop.nullable()/][/for]
+	");";
+
+	private static final String CREATE_INDEX_[tbl.name.toUpperCase() /]_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_[tbl.name.toUpperCase() /] + "_serverid_idx" +
+	" ON " + TABLE_[tbl.name.toUpperCase() /] + " ("+ [tbl.name.toUpperCase() /]_SERVER_ID +")"; 
+
+[if (tbl.eContents(Property)->exists(p: Property | p.name.equalsIgnoreCase('cpf') ))]
+	private static final String CREATE_INDEX_[tbl.name.toUpperCase() /]_CPF = "CREATE UNIQUE INDEX " + TABLE_[tbl.name.toUpperCase()/] + "_cpf_idx" +
+	" ON " + TABLE_[tbl.name.toUpperCase() /] + " ("+ [tbl.name.toUpperCase() /]_CPF +")";
+[/if]
+[/for]
+[/for]
+
+[comment end table definition /]
+[comment]
+[protected ('fill_database') /]
+[/comment]
+	private void fill(SQLiteDatabase db){
+
+[for (modul : Package | get_modules(root))]
+// [modul.name /]
+	[for (tbl : Class |  get_tables(modul))]
+		db.rawQuery("INSERT INTO update_history (table_name) VALUES ('[tbl.name /]')", null);
+	[/for]
+[/for]
+
+[comment]
+/*
+		SQLiteStatement stmt = db.compileStatement("INSERT INTO X(A,B,C) VALUES(?,?,?)");
+		stmt.bindDouble(0,123.4);
+		stmt.bindNull(1);
+		stmt.bindString(2,"asdfa");
+		stmt.bindLong(3,1234);
+		stmt.bindBlob(4,new byte['['/][']'/]{});
+		stmt.execute();
+*/
+	//the raw filling code are on they respective datasource classes ..
+[/comment]
+	}
+[comment]
+[protected /]
+[/comment] 
+
+	private DbHelper(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
+	}
+
+	public static DbHelper getInstance(Context ctx) {
+		if (db_instance == null) {
+			db_instance = new DbHelper(ctx.getApplicationContext());
+		}
+		return db_instance;
+	}
+
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+
+//[protected ('user specification for onCreate')]
+		db.execSQL(CREATE_TABLE_COOKIE);
+		db.execSQL(CREATE_TABLE_UPDATE_HISTORY);
+		db.execSQL(CREATE_INDEX_UPDATE_HISTORY_TNAME);
+//[/protected]
+
+[for (modul : Package | get_modules(root) )]
+// [modul.name /]
+[for (tbl : Class | get_tables(modul) )]
+		db.execSQL(CREATE_TABLE_[tbl.name.toUpperCase() /]);
+		db.execSQL(CREATE_INDEX_[tbl.name.toUpperCase() /]_SERVER_ID);
+[if (tbl.eContents(Property)->exists(p: Property | p.name.equalsIgnoreCase('cpf') ))]
+		db.execSQL(CREATE_INDEX_[tbl.name.toUpperCase() /]_CPF);
+[/if]
+[/for]
+[/for]
+
+		fill(db);
+	}
+
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		//db.execSQL("PRAGMA foreign_keys = OFF;");
+
+[for (modul : Package | get_modules(root) )]
+// [modul.name /]
+[for (tbl : Class | get_tables(modul) )]
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_[tbl.name.toUpperCase() /]);
+[/for]
+[/for]
+
+		//db.execSQL("PRAGMA foreign_keys = ON;");
+		onCreate(db);
+	}
+
+}
+[/template]
+
+[template public an_independency_db_helper(modul: Package, pname : String)]
+package [pname /].[name /].model;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+public class DbHelper extends SQLiteOpenHelper {
+
+	private static DbHelper db_instance = null;
+	private Context context;
+
+
+	private DbHelper(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
+	}
+
+	public static DbHelper getInstance(Context ctx) {
+		if (db_instance == null) {
+			db_instance = new DbHelper(ctx.getApplicationContext());
+		}
+		return db_instance;
+	}
+
+
+	private static final String DATABASE_NAME = "[name /].db";
+	private static final int DATABASE_VERSION = 1;
+
+[for (tbl : Class | get_tables())]
+	public static final String TABLE_[tbl.name.toUpperCase()/] = "[modul.name/]_[tbl.name/]";
+	public static final String [tbl.name.toUpperCase() /]_ID = "id";
+	public static final String [tbl.name.toUpperCase() /]_SERVER_ID = "server_id";
+	public static final String [tbl.name.toUpperCase() /]_DIRTY = "dirty";
+[for (prop : Property | get_fields(tbl) )]
+	public static final String [tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /] = "[prop.getName() /]";
+[/for]
+
+	private static final String CREATE_TABLE_[tbl.name.toUpperCase() /] = "CREATE TABLE " + 
+	TABLE_[tbl.name.toUpperCase() /] + " ("+ 
+	[tbl.name.toUpperCase() /]_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+	[tbl.name.toUpperCase() /]_SERVER_ID + " INTEGER NULL, " +
+	[tbl.name.toUpperCase() /]_DIRTY + " BOOLEAN NOT NULL, " +
+[for (prop : Property | get_fields(tbl) )
+separator (', " + \n') after (' " + \n')]
+	[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /] + " [get_sqlite_type(prop) /] [prop.nullable()/][/for]
+	");";
+
+	private static final String CREATE_INDEX_[tbl.name.toUpperCase() /]_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_[tbl.name.toUpperCase() /] + "_serverid_idx" +
+	" ON " + TABLE_[tbl.name.toUpperCase() /] + " ("+ [tbl.name.toUpperCase() /]_SERVER_ID +")"; 
+
+[if (tbl.eContents(Property)->exists(p: Property | p.name.equalsIgnoreCase('cpf') ))]
+	private static final String CREATE_INDEX_[tbl.name.toUpperCase() /]_CPF = "CREATE UNIQUE INDEX " + TABLE_[tbl.name.toUpperCase()/] + "_cpf_idx" +
+	" ON " + TABLE_[tbl.name.toUpperCase() /] + " ("+ [tbl.name.toUpperCase() /]_CPF +")";
+[/if]
+[/for]
+
+	@Override
+	public void onCreate(SQLiteDatabase db) {
+
+[for (tbl : Class | get_tables(modul) )]
+		db.execSQL(CREATE_TABLE_[tbl.name.toUpperCase() /]);
+		db.execSQL(CREATE_INDEX_[tbl.name.toUpperCase() /]_SERVER_ID);
+[if (tbl.eContents(Property)->exists(p: Property | p.name.equalsIgnoreCase('cpf') ))]
+		db.execSQL(CREATE_INDEX_[tbl.name.toUpperCase() /]_CPF);
+[/if]
+[/for]
+
+	}
+
+	//fill with the default data if possible
+	public void fill(SQLiteDatabase db) {
+
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		//db.execSQL("PRAGMA foreign_keys = OFF;");
+
+[for (tbl : Class | get_tables(modul) )]
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_[tbl.name.toUpperCase() /]);
+[/for]
+
+		//db.execSQL("PRAGMA foreign_keys = ON;");
+		onCreate(db);
+	}
+
+
+
+
+} 
+
+[/template]
+
+[template public a_public_dn_helper(arg : Type)]
+//gerar um banco de dados unico para todo o projeto: ou verificar o sync
+
+
+[/template]
+
+
+[query public isDate(arg : Property) : Boolean = 
+self.type.name.toString().equalsIgnoreCase('date') /]
+
+[template public android_create_tblviewclass(pname: String, modul: Package, tbl: Class)]
+
+package [pname /].[modul.name /].view; [comment Core is modul.name /]
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class [tbl.name.ToCamelCase() /]View{
+
+	private long id;
+	private long server_id;
+	private boolean dirty;
+[for (prop : Property | get_fields(tbl) )]
+	private [get_java_type(prop) /] [prop.getName() /];
+[/for]
+
+	public [tbl.name.ToCamelCase()/]View(){
+		this.id = 0L;
+		this.server_id = 0L;
+		this.dirty = false;
+[for (prop : Property | get_fields(tbl))
+]		this.[getName() /] = [default_zero() /];
+[/for]
+
+	}
+
+	public long getId(){
+		return id;
+	}
+
+	public void setId(long id){
+		this.id = id;
+	}
+
+	public long getServerId(){
+		return server_id;
+	}
+
+	public void setServerId(long server_id){
+		this.server_id = server_id;
+	}
+
+	public boolean isDirty(){
+		return dirty;
+	}
+
+	public void setDirty(boolean dirty){
+		this.dirty = dirty;
+	}
+
+	[for (prop : Property | get_fields(tbl))]
+	public [get_java_type(prop)/] get[prop.getName().ToCamelCase()/](){
+		return [prop.getName() /];
+	}
+
+	public void set[prop.getName().ToCamelCase()/]([get_java_type(prop)/] [prop.getName()/]){
+		this.[prop.getName()/] = [prop.getName()/];
+	}
+
+	[/for]
+
+	public String toJsonString(){
+
+		String that = "{" +
+			"\"client_id\":\"" + this.id + "\"," +
+			"\"server_id\":\"" + this.server_id + "\"," +
+[for (prop : Property | get_fields(tbl)
+) separator ('+ "\\"," + \n') after ('+ "\\"" + \n')][if (the_client_cant_change(prop))]
+		"\"[prop.getName() /]\": " + DbHelper.CONST_FK_[prop.name.toUpperCase() /]
+[else]
+			"\"[prop.getName() /]\":\"" + this.[prop.getName() /][/if][/for]
+		"}";
+
+		return that;
+
+	}
+
+	public String toString(){
+
+[if (tbl.eContents(Property)->exists(x: Property |
+	x.name.toString().indexOf('name') > 0 or
+	x.name.toString().indexOf('nome') > 0))
+]
+		return this.[tbl.eContents(Property)->select(x: Property |
+	x.name.toString().indexOf('name') > 0 or
+	x.name.toString().indexOf('nome') > 0)->first().name /];
+[else][if (tbl.eContents(Property)
+->exists(x: Property | is_string(x)) )]
+		return this.[tbl.eContents(Property)->select(x: Property | is_string(x) )->first().name /];
+[else]
+		return "[tbl.name.ToCamelCase() /]View";
+[/if][/if]
+
+	}
+
+	public static [tbl.name.ToCamelCase() /]View FromJson(String json){
+
+		if(json != null) {
+		try {
+
+		JSONObject obj = new JSONObject(json);
+				[tbl.name.ToCamelCase() /]View result = new [tbl.name.ToCamelCase() /]View();
+
+				if(obj.has("client_id") && !obj.isNull("client_id")){
+					result.setId(obj.getLong("client_id"));
+				}
+				if(obj.has("server_id") && !obj.isNull("server_id")){
+					result.setServerId(obj.getLong("server_id"));
+				}
+[for (prop : Property | get_fields(tbl))]
+[if (prop.isFk())]
+				if(obj.has("server_id") && !obj.isNull("[prop.getName() /]")){
+					result.set[prop.getName().ToCamelCase()/]([getter_named(prop, 'obj') /]);
+				}
+[else]
+[if (prop.type.name.toString().equalsIgnoreCase('float'))]
+				result.set[prop.getName().ToCamelCase()/](
+					Float.valueOf(obj.getString("[prop.getName() /]"))
+				);
+[else]
+				result.set[prop.getName().ToCamelCase()/]([getter_named(prop, 'obj') /]);
+[/if]
+[/if]
+[/for]
+
+				return result;
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return null;
+
+	}
+
+
+	public static [tbl.name.ToCamelCase() /]View FromJsonObj(JSONObject obj){
+
+		if(null != obj) {
+			try {
+				[tbl.name.ToCamelCase() /]View result = new [tbl.name.ToCamelCase() /]View();
+
+				if(obj.has("client_id") && !obj.isNull("client_id")){
+					result.setId(obj.getLong("client_id"));
+				}
+				if(obj.has("server_id") && !obj.isNull("server_id")){
+					result.setServerId(obj.getLong("server_id"));
+				}
+[for (prop : Property | get_fields(tbl))]
+[if (prop.isFk())]
+				if(obj.has("[prop.getName() /]") && !obj.isNull("[prop.getName() /]")){
+					result.set[prop.getName().ToCamelCase()/]([getter_named(prop, 'obj') /]);
+				}
+[else]
+				result.set[prop.getName().ToCamelCase()/]([getter_named(prop, 'obj') /]);
+[/if]
+[/for]
+
+				return result;
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return null;
+
+	}
+
+
+}
+[/template]
+
+
+[template public PackName(arg : NamedElement)]
+[if ( oclIsTypeOf(Property) )
+][if( oclAsType(Property).isFk() )
+][ToCamelCase(oclAsType(Property).type.oclAsType(Class).
+owner.owner.oclAsType(NamedElement).name)
+/][else][ToCamelCase(owner.
+owner.owner.oclAsType(NamedElement).name)
+/][/if][else][ToCamelCase(owner.owner.oclAsType(NamedElement).name)
+/][/if][/template]
+
+
+[template public android_create_tbl_datasource_class(pname: String, modul: Package, tbl: Class)]
+[if (tbl.eContents(Property)->exists(x | null = x.type)) ]
+/*
+ON [tbl.getQualifiedName() /]
+	ERROR ON PROPERTY DEFINITION:
+[for (it : Property | tbl.eContents(Property)->select(x | null = x.type))]
+	THE TYPE OF "[it.name.toString() /]" IS SET TO NULL
+[/for]
+*/
+[else]
+[begin_reserve('reserved-for:android-sqlite-db.imports') /]
+package [pname /].Core.model;  [comment Core is modul.name/]
+
+import java.util.ArrayList;
+import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+//old
+//import com.uisleandro.util.LongDateFormatter;
+//import [pname /].model.DbHelper;
+//import [pname /].[modul.name /].model.[tbl.name.ToCamelCase() /]DbHelper;
+import [pname /].[modul.name /].model.DbHelper;
+import [pname /].[modul.name /].view.[tbl.name.ToCamelCase() /]View;
+[end_reserve('reserved-for:android-sqlite-db.imports') /]
+
+//[protected ('reserved-for:android-sqlite-sync.imports')]
+//reserved-for:android-sqlite-sync.imports
+//[/protected]
+
+//[protected ('reserved-for:query3.imports')]
+// reserved-for:query3.imports
+//[/protected]
+
+[begin_reserve('reserved-for:android-sqlite-db.functions') /]
+public class [tbl.name.ToCamelCase() /]DataSource {
+
+	private SQLiteDatabase database;
+	private DbHelper db_helper;
+	private static final String[ '[' /][ ']' /] selectableColumns = new String[ '[' /][ ']' /]{ 
+		DbHelper.[tbl.name.toUpperCase() /]_ID,
+		DbHelper.[tbl.name.toUpperCase() /]_SERVER_ID,
+		DbHelper.[tbl.name.toUpperCase() /]_DIRTY,
+[for (prop : Property | get_fields(tbl))
+separator (', \n')]
+		DbHelper.[tbl.name.toUpperCase() 
+/]_[prop.getName().toUpperCase() /][/for]
+
+	};
+
+	public [tbl.name.ToCamelCase() /]DataSource(Context context){
+		db_helper = DbHelper.getInstance(context);
+		try{
+			database = db_helper.getWritableDatabase();
+		}catch(SQLException e){
+			Log.wtf("[tbl.name.ToCamelCase() /]DataSource", "Exception: "+Log.getStackTraceString(e));
+		}
+	}
+
+	public void open() throws SQLException{
+		database = db_helper.getWritableDatabase();
+	}
+
+	public void close(){
+		db_helper.close();
+	}
+
+	public [tbl.name.ToCamelCase() /]View cursorTo[tbl.name.ToCamelCase() /]View(Cursor cursor){
+
+	 	[tbl.name.ToCamelCase() /]View that = new [tbl.name.ToCamelCase() /]View();
+		that.setId(cursor.getLong(0));
+		that.setServerId(cursor.getLong(1));
+		that.setDirty(cursor.getInt(2) > 0);
+[for (prop : Property | get_fields(tbl))]
+		that.set[prop.getName().ToCamelCase() /]([getter_indexed(prop,'cursor', i-1) /]);
+[/for]
+		return that;
+
+	}
+
+	//vai ser o desacoplamento do cursor
+	public List<[tbl.name.ToCamelCase() /]View> cursorToListOf[tbl.name.ToCamelCase() /]View(Cursor cursor){
+
+		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList();
+
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			[tbl.name.ToCamelCase() /]View that = cursorTo[tbl.name.ToCamelCase() /]View(cursor);
+			those.add(that);
+			cursor.moveToNext();
+		}
+		cursor.close();
+		return those;
+	
+	}
+
+	//desacoplamento
+	public long cursorToLong(Cursor cursor){
+		long result = 0L;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			result = cursor.getLong(0);
+		}
+
+		return result;
+	}
+
+	//desacoplamento
+	public int cursorToInteger(Cursor cursor){
+		int result = 0;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			result = cursor.getInt(0);
+		}
+
+		return result;
+	}
+
+
+	public long insert([tbl.name.ToCamelCase() /]View that){
+		ContentValues values = new ContentValues();
+		//should not set the server id
+
+		if(that.getServerId() > 0){
+			values.put(DbHelper.[tbl.name.toUpperCase() /]_SERVER_ID, that.getServerId());
+		}
+
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_DIRTY, that.isDirty());
+[comment 
+
+Algumas chaves estrangeiras estao em outros pacotes, precisam ser fixadas.
+I mean i must get it from another place 
+
+/]
+[for (prop : Property | get_fields(tbl) )
+][if (prop.isFk())]
+		if(that.get[prop.getName().ToCamelCase() /]() > 0){
+			values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], that.get[prop.getName().ToCamelCase() /]());
+		}
+[else]
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], that.get[prop.getName().ToCamelCase() /]());
+[/if][/for]
+		long last_id = database.insert(DbHelper.TABLE_[tbl.name.toUpperCase() /], null, values);
+		return last_id;
+	}
+
+	public int update([tbl.name.ToCamelCase() /]View that){
+		ContentValues values = new ContentValues();
+
+		if(that.getServerId() > 0){
+			values.put(DbHelper.[tbl.name.toUpperCase() /]_SERVER_ID, that.getServerId());
+		}
+
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_DIRTY, that.isDirty());
+
+[comment UIS: PAREI AQUI REVENDO.. /]
+[for (prop : Property | get_fields(tbl) )]
+[if (prop.isFk())]
+		if(that.get[prop.getName().ToCamelCase() /]() > 0){
+			values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], that.get[prop.getName().ToCamelCase() /]());
+		}
+[else][if (prop.gotStereotype('DefaultSystemId'))]
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], com.uisleandro.util.config.getSystemIdString());
+[else][if (prop.gotStereotype('DefaultUserId'))]
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], com.uisleandro.util.config.getUserIdString());
+[else][if (prop.gotStereotype('isToday'))]
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], com.uisleandro.util.config.getTodayString());
+[else][if(prop.gotStereotype('isRightNow'))]
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], com.uisleandro.util.config.getRightNowString());
+[else]
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], that.get[prop.getName().ToCamelCase() /]());
+[/if][/if][/if][/if][/if]
+[/for]
+
+		int rows_affected = database.update(DbHelper.TABLE_[tbl.name.toUpperCase() /], values, DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + String.valueOf(that.getId()), null);
+		return rows_affected;
+	}
+
+	public void delete([tbl.name.ToCamelCase() /]View that){
+		database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + String.valueOf(that.getId()), null);
+	}
+
+	public void deleteById(long id){
+		database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + String.valueOf(id), null);
+	}
+
+	[comment RENAMED /]
+	public List<[tbl.name.ToCamelCase() /]View> listAll(){
+
+		Cursor cursor = database.query(DbHelper.TABLE_[tbl.name.toUpperCase()/],
+			selectableColumns,null,null, null, null, null);
+
+		return cursorToListOf[tbl.name.ToCamelCase() /]View(cursor);
+	}
+
+	public [tbl.name.ToCamelCase() /]View getById(long id){
+
+		Cursor cursor = database.query(DbHelper.TABLE_[tbl.name.toUpperCase() /],
+			selectableColumns,
+			DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + id,
+			null, null, null, null);
+
+		cursor.moveToFirst();
+		[tbl.name.ToCamelCase() /]View that = cursorTo[tbl.name.ToCamelCase() /]View(cursor);
+		cursor.close();
+		return that;
+	}
+
+	[comment renamed /]
+	public List<[tbl.name.ToCamelCase() /]View> listSome(long page_count, long page_size){
+
+		String query = "SELECT id, server_id, dirty, " +
+[for (prop : Property | get_fields(tbl) ) separator (', " +\n') after ('" +\n')]			"[prop.getName()/][/for]			" FROM " + DbHelper.TABLE_[tbl.name.toUpperCase() /];
+
+		if(page_size > 0){
+			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
+		}
+
+		query += ";";
+
+		Cursor cursor = database.rawQuery(query, null);
+
+		return cursorToListOf[tbl.name.ToCamelCase() /]View(cursor);
+	}
+
+	public long getLastId(){
+
+		long result = 0;
+
+		String query = "SELECT MAX(id) FROM " + DbHelper.TABLE_[tbl.name.toUpperCase() /] +";";
+		Cursor cursor = database.rawQuery(query, null);
+		
+		return cursorToLong(cursor);
+	}
+
+[end_reserve('reserved-for:android-sqlite-db.functions') /]
+
+//[protected ('reserved-for:android-sqlite-sync.functions')]
+//reserved-for:android-sqlite-sync.functions
+//[/protected]
+
+//[protected ('reserved-for:query3.functions')]
+//reserved-for:query3.functions
+//[/protected]
+
+}
+[/if]
+[/template]
+
+
+[comment 
+
+	EU preciso mudar de paradigma
+
+ /]
+[template public Camel2(arg : String)
+][for (name : String | tokenize('.')) separator ('.')
+][name /][/for][/template]
+
+[template public generateElement(root : Model)]
+[comment @main/]
+
+[let pname : String = root.get_configuration_namespace()]
+[let vendor : String = 'uisleandro']
+[let appName : String = 'Store']
+[let cName : String = 'com.'+vendor+'.'+appName]
+
+[comment]
+	FROM THIS VERSION OF THE CODE
+	I JUST BRING BACK THIS CODE, WHICH MEANS THAT
+	ALL THE TABLES WILL BE GENERATED IN A SINGLE PLACE DUE TO THE DIFFICULTY OF
+	UPDATING THE DATABASE ON A MODULAR APPLICATION 
+[/comment]
+[file (cName+'.Core/src/main/java/'+FolderName(pname)+'/DbHelper.java', false, 'UTF-8')]
+[android_create_dbhelper(root, pname) /]
+[/file]
+
+[comment]
+	THE DEFAULT VIEWS AND DATASOURCES
+	FROM THE DATASOURCES I NEED TO CREATE THE CONTENT PROVIDERS, DON'T FORGET 
+
+	IN THIS VERSION OF THE CODE EVERYTHING IS PLACED
+	IN THE CORE PACKAGE,
+	THIS WILL MAKE POSSIBLE TO UPDATE THE DATABASE FOR NOW
+
+[/comment]
+[for (modul : Package | get_modules(root))]
+[for (tbl : Class | get_tables(modul))]
+
+[comment]
+	MAYBE IM GONNA CREATE EACH VIEW ON ITS RESPECTIVE PACKAGE
+[/comment]
+[file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/view/'+tbl.name.ToCamelCase()+'View.java', false, 'UTF-8')]
+[android_create_tblviewclass(pname, modul, tbl) /]
+[/file]
+
+[file (cName+'.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'DataSource.java', false, 'UTF-8')]
+[android_create_tbl_datasource_class(pname, modul, tbl)/]
+[/file]
+
+[/for]
+[/for]
+
+[/let]
+[/let]
+[/let]
+[/let]
+[/template]
+
+
