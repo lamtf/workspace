@@ -1056,6 +1056,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 //old
 //import com.uisleandro.util.LongDateFormatter;
@@ -1080,7 +1083,7 @@ import [pname /].[modul.name /].view.[tbl.name.ToCamelCase() /]View;
 //[/protected]
 
 [begin_reserve('reserved-for:android-sqlite-db.functions') /]
-public class [tbl.name.ToCamelCase() /]DataSource {
+public class [tbl.name.ToCamelCase() /]DataSource extends ContentProvider {
 
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
@@ -1162,73 +1165,32 @@ separator (', \n')]
 		return result;
 	}
 
-
+	[comment] 
 	public long insert([tbl.name.ToCamelCase() /]View that){
-		ContentValues values = new ContentValues();
-		//should not set the server id
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.[tbl.name.toUpperCase() /]_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.[tbl.name.toUpperCase() /]_DIRTY, that.isDirty());
-
-[comment 
-
-Algumas chaves estrangeiras estao em outros pacotes, precisam ser fixadas.
-I mean i must get it from another place 
-
-/]
-[for (prop : Property | get_fields(tbl) )
-][if (prop.isFk())]
-		if(that.get[prop.getName().ToCamelCase() /]() > 0){
-			values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], that.get[prop.getName().ToCamelCase() /]());
-		}
-[else]
-		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], that.get[prop.getName().ToCamelCase() /]());
-[/if][/for]
+	[/comment]
+	@Nullable
+	@Override
+	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
 		long last_id = database.insert(DbHelper.TABLE_[tbl.name.toUpperCase() /], null, values);
 		return last_id;
 	}
 
+[comment]
 	public int update([tbl.name.ToCamelCase() /]View that){
-		ContentValues values = new ContentValues();
+[/comment]
+	@Override
+	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
 
-		if(that.getServerId() > 0){
-			values.put(DbHelper.[tbl.name.toUpperCase() /]_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.[tbl.name.toUpperCase() /]_DIRTY, that.isDirty());
-
-[comment UIS: PAREI AQUI REVENDO.. /]
-[for (prop : Property | get_fields(tbl) )]
-[if (prop.isFk())]
-		if(that.get[prop.getName().ToCamelCase() /]() > 0){
-			values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], that.get[prop.getName().ToCamelCase() /]());
-		}
-[else][if (prop.gotStereotype('DefaultSystemId'))]
-		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], com.uisleandro.util.config.getSystemIdString());
-[else][if (prop.gotStereotype('DefaultUserId'))]
-		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], com.uisleandro.util.config.getUserIdString());
-[else][if (prop.gotStereotype('isToday'))]
-		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], com.uisleandro.util.config.getTodayString());
-[else][if(prop.gotStereotype('isRightNow'))]
-		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], com.uisleandro.util.config.getRightNowString());
-[else]
-		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], that.get[prop.getName().ToCamelCase() /]());
-[/if][/if][/if][/if][/if]
-[/for]
-
-		int rows_affected = database.update(DbHelper.TABLE_[tbl.name.toUpperCase() /], values, DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + String.valueOf(that.getId()), null);
+		int rows_affected = database.update(DbHelper.TABLE_[tbl.name.toUpperCase() /], values, DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + values.getAsString("id"), null);
 		return rows_affected;
 	}
 
+[comment] 
 	public long delete([tbl.name.ToCamelCase() /]View that){
-		return database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + String.valueOf(that.getId()), null);
-	}
-
-	public long deleteById(long id){
-		return database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + String.valueOf(id), null);
+[/comment]
+	@Override
+	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
+		return database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + values.getAsString("id"), null);
 	}
 
 	[comment RENAMED /]
@@ -1285,6 +1247,33 @@ I mean i must get it from another place
 		return cursorToLong(cursor);
 	}
 
+
+
+//BEGIN THINGS FOR CONTENT PROVIDER
+
+	@Override
+	public boolean onCreate() {
+		return false;
+	}
+
+
+	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
+	@Nullable
+	@Override
+	public Cursor query(@NonNull Uri uri, @Nullable String[ '[' /][ ']' /] projection, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs, @Nullable String sortOrder) {
+		return listAll();
+	}
+
+	@Nullable
+	@Override
+	public String getType(@NonNull Uri uri) {
+		return null;
+	}
+
+
+//END THINGS FOR CONTENT PROVIDER
+
+
 [end_reserve('reserved-for:android-sqlite-db.functions') /]
 
 //[protected ('reserved-for:android-sqlite-sync.functions')]
@@ -1296,6 +1285,10 @@ I mean i must get it from another place
 //[/protected]
 
 }
+
+
+
+
 [/if]
 [/template]
 

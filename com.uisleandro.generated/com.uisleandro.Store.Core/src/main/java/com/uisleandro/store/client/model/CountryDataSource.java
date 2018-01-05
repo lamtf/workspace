@@ -8,6 +8,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Log;
 //old
 //import com.uisleandro.util.LongDateFormatter;
@@ -30,7 +33,7 @@ import com.uisleandro.store.DbHelper;
 //End of user code
 
 //Start of user code reserved-for:android-sqlite-db.functions
-public class CountryDataSource {
+public class CountryDataSource extends ContentProvider {
 
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
@@ -162,6 +165,47 @@ public class CountryDataSource {
 		return cursorToLong(cursor);
 	}
 
+
+
+//BEGIN THINGS FOR CONTENT PROVIDER
+
+	@Override
+	public boolean onCreate() {
+		return false;
+	}
+
+	@Nullable
+	@Override
+	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+		return null;
+	}
+
+	@Nullable
+	@Override
+	public String getType(@NonNull Uri uri) {
+		return null;
+	}
+
+	@Nullable
+	@Override
+	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+		return null;
+	}
+
+	@Override
+	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+		return 0;
+	}
+
+	@Override
+	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+		return 0;
+	}
+
+
+//END THINGS FOR CONTENT PROVIDER
+
+
 // reserved-for:android-sqlite-db.functions
 //End of user code
 
@@ -174,4 +218,8 @@ public class CountryDataSource {
 //End of user code
 
 }
+
+
+
+
 
