@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.core.model.TokenDbHelper;
-import com.uisleandro.store.core.model.DbHelper;
-import com.uisleandro.store.core.view.TokenView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -61,58 +64,23 @@ public class TokenDataSource {
 		db_helper.close();
 	}
 
-	public TokenView cursorToTokenView(Cursor cursor){
-
-	 	TokenView that = new TokenView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setFkUser(cursor.getLong(1));
-		that.setFkSystem(cursor.getLong(2));
-		that.setFkTokenType(cursor.getLong(3));
-		that.setGuid(cursor.getString(4));
-		that.setLastUseTime(cursor.getLong(5));
-		that.setExpirationTime(cursor.getLong(6));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<TokenView> cursorToListOfTokenView(Cursor cursor){
-
-		List<TokenView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			TokenView that = cursorToTokenView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -126,6 +94,7 @@ public class TokenDataSource {
 		}
 
 		values.put(DbHelper.TOKEN_DIRTY, that.isDirty());
+
 		values.put(DbHelper.TOKEN_LAST_UPDATE, that.getLastUpdate());
 		if(that.getFkUser() > 0){
 			values.put(DbHelper.TOKEN_FK_USER, that.getFkUser());
@@ -170,36 +139,32 @@ public class TokenDataSource {
 		return rows_affected;
 	}
 
-	public void delete(TokenView that){
-		database.delete(DbHelper.TABLE_TOKEN, DbHelper.TOKEN_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(TokenView that){
+		return database.delete(DbHelper.TABLE_TOKEN, DbHelper.TOKEN_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_TOKEN, DbHelper.TOKEN_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_TOKEN, DbHelper.TOKEN_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<TokenView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_TOKEN,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfTokenView(cursor);
+		return cursor;
 	}
 
-	public TokenView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_TOKEN,
 			selectableColumns,
 			DbHelper.TOKEN_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		TokenView that = cursorToTokenView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<TokenView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
@@ -210,16 +175,13 @@ public class TokenDataSource {
 			"last_use_time, " +
 			"expiration_time" +
 			" FROM " + DbHelper.TABLE_TOKEN;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfTokenView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){

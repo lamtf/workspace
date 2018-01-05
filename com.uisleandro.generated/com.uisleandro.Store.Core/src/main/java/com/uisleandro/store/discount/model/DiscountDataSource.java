@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.discount.model.DiscountDbHelper;
-import com.uisleandro.store.discount.model.DbHelper;
-import com.uisleandro.store.discount.view.DiscountView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -62,59 +65,23 @@ public class DiscountDataSource {
 		db_helper.close();
 	}
 
-	public DiscountView cursorToDiscountView(Cursor cursor){
-
-	 	DiscountView that = new DiscountView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setValue(cursor.getFloat(1));
-		that.setPercentage(cursor.getFloat(2));
-		that.setFkProduct(cursor.getLong(3));
-		that.setFkCategory(cursor.getLong(4));
-		that.setFkBrand(cursor.getLong(5));
-		that.setFkClientFromSystem(cursor.getLong(6));
-		that.setFkGender(cursor.getLong(7));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<DiscountView> cursorToListOfDiscountView(Cursor cursor){
-
-		List<DiscountView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			DiscountView that = cursorToDiscountView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -128,6 +95,7 @@ public class DiscountDataSource {
 		}
 
 		values.put(DbHelper.DISCOUNT_DIRTY, that.isDirty());
+
 		values.put(DbHelper.DISCOUNT_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.DISCOUNT_VALUE, that.getValue());
 		values.put(DbHelper.DISCOUNT_PERCENTAGE, that.getPercentage());
@@ -182,36 +150,32 @@ public class DiscountDataSource {
 		return rows_affected;
 	}
 
-	public void delete(DiscountView that){
-		database.delete(DbHelper.TABLE_DISCOUNT, DbHelper.DISCOUNT_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(DiscountView that){
+		return database.delete(DbHelper.TABLE_DISCOUNT, DbHelper.DISCOUNT_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_DISCOUNT, DbHelper.DISCOUNT_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_DISCOUNT, DbHelper.DISCOUNT_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<DiscountView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_DISCOUNT,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfDiscountView(cursor);
+		return cursor;
 	}
 
-	public DiscountView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_DISCOUNT,
 			selectableColumns,
 			DbHelper.DISCOUNT_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		DiscountView that = cursorToDiscountView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<DiscountView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
@@ -223,16 +187,13 @@ public class DiscountDataSource {
 			"fk_client_from_system, " +
 			"fk_gender" +
 			" FROM " + DbHelper.TABLE_DISCOUNT;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfDiscountView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){

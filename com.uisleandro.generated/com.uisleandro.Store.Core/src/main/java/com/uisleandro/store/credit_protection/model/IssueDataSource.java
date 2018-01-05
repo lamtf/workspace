@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.credit_protection.model.IssueDbHelper;
-import com.uisleandro.store.credit_protection.model.DbHelper;
-import com.uisleandro.store.credit_protection.view.IssueView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -61,58 +64,23 @@ public class IssueDataSource {
 		db_helper.close();
 	}
 
-	public IssueView cursorToIssueView(Cursor cursor){
-
-	 	IssueView that = new IssueView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setFkSharedClient(cursor.getLong(1));
-		that.setFkSystem(cursor.getLong(2));
-		that.setDescription(cursor.getString(3));
-		that.setActive((cursor.getInt(4) > 0));
-		that.setIsAnswer((cursor.getInt(5) > 0));
-		that.setFkIssue(cursor.getLong(6));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<IssueView> cursorToListOfIssueView(Cursor cursor){
-
-		List<IssueView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			IssueView that = cursorToIssueView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -126,6 +94,7 @@ public class IssueDataSource {
 		}
 
 		values.put(DbHelper.ISSUE_DIRTY, that.isDirty());
+
 		values.put(DbHelper.ISSUE_LAST_UPDATE, that.getLastUpdate());
 		if(that.getFkSharedClient() > 0){
 			values.put(DbHelper.ISSUE_FK_SHARED_CLIENT, that.getFkSharedClient());
@@ -170,36 +139,32 @@ public class IssueDataSource {
 		return rows_affected;
 	}
 
-	public void delete(IssueView that){
-		database.delete(DbHelper.TABLE_ISSUE, DbHelper.ISSUE_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(IssueView that){
+		return database.delete(DbHelper.TABLE_ISSUE, DbHelper.ISSUE_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_ISSUE, DbHelper.ISSUE_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_ISSUE, DbHelper.ISSUE_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<IssueView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_ISSUE,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfIssueView(cursor);
+		return cursor;
 	}
 
-	public IssueView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_ISSUE,
 			selectableColumns,
 			DbHelper.ISSUE_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		IssueView that = cursorToIssueView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<IssueView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
@@ -210,16 +175,13 @@ public class IssueDataSource {
 			"isAnswer, " +
 			"fk_issue" +
 			" FROM " + DbHelper.TABLE_ISSUE;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfIssueView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){

@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.sales.model.ProductOnSaleDbHelper;
-import com.uisleandro.store.sales.model.DbHelper;
-import com.uisleandro.store.sales.view.ProductOnSaleView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -57,54 +60,23 @@ public class ProductOnSaleDataSource {
 		db_helper.close();
 	}
 
-	public ProductOnSaleView cursorToProductOnSaleView(Cursor cursor){
-
-	 	ProductOnSaleView that = new ProductOnSaleView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setFkSale(cursor.getLong(1));
-		that.setFkProduct(cursor.getLong(2));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<ProductOnSaleView> cursorToListOfProductOnSaleView(Cursor cursor){
-
-		List<ProductOnSaleView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			ProductOnSaleView that = cursorToProductOnSaleView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -118,6 +90,7 @@ public class ProductOnSaleDataSource {
 		}
 
 		values.put(DbHelper.PRODUCT_ON_SALE_DIRTY, that.isDirty());
+
 		values.put(DbHelper.PRODUCT_ON_SALE_LAST_UPDATE, that.getLastUpdate());
 		if(that.getFkSale() > 0){
 			values.put(DbHelper.PRODUCT_ON_SALE_FK_SALE, that.getFkSale());
@@ -150,52 +123,45 @@ public class ProductOnSaleDataSource {
 		return rows_affected;
 	}
 
-	public void delete(ProductOnSaleView that){
-		database.delete(DbHelper.TABLE_PRODUCT_ON_SALE, DbHelper.PRODUCT_ON_SALE_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(ProductOnSaleView that){
+		return database.delete(DbHelper.TABLE_PRODUCT_ON_SALE, DbHelper.PRODUCT_ON_SALE_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_PRODUCT_ON_SALE, DbHelper.PRODUCT_ON_SALE_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_PRODUCT_ON_SALE, DbHelper.PRODUCT_ON_SALE_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<ProductOnSaleView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_PRODUCT_ON_SALE,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfProductOnSaleView(cursor);
+		return cursor;
 	}
 
-	public ProductOnSaleView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_PRODUCT_ON_SALE,
 			selectableColumns,
 			DbHelper.PRODUCT_ON_SALE_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		ProductOnSaleView that = cursorToProductOnSaleView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<ProductOnSaleView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
 			"fk_sale, " +
 			"fk_product" +
 			" FROM " + DbHelper.TABLE_PRODUCT_ON_SALE;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfProductOnSaleView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){

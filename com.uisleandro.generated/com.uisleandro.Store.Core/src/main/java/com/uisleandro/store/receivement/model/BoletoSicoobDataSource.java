@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.receivement.model.BoletoSicoobDbHelper;
-import com.uisleandro.store.receivement.model.DbHelper;
-import com.uisleandro.store.receivement.view.BoletoSicoobView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -67,64 +70,23 @@ public class BoletoSicoobDataSource {
 		db_helper.close();
 	}
 
-	public BoletoSicoobView cursorToBoletoSicoobView(Cursor cursor){
-
-	 	BoletoSicoobView that = new BoletoSicoobView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setCpf(cursor.getString(1));
-		that.setNumero(cursor.getString(2));
-		that.setData(cursor.getLong(3));
-		that.setVencimento(cursor.getLong(4));
-		that.setValor(cursor.getFloat(5));
-		that.setNossoNumero(cursor.getString(6));
-		that.setQuantidade(cursor.getInt(7));
-		that.setParcela(cursor.getInt(8));
-		that.setFoiPago((cursor.getInt(9) > 0));
-		that.setDataDePagamento(cursor.getLong(10));
-		that.setValorRecebido(cursor.getFloat(11));
-		that.setFkInvoice(cursor.getLong(12));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<BoletoSicoobView> cursorToListOfBoletoSicoobView(Cursor cursor){
-
-		List<BoletoSicoobView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			BoletoSicoobView that = cursorToBoletoSicoobView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -138,6 +100,7 @@ public class BoletoSicoobDataSource {
 		}
 
 		values.put(DbHelper.BOLETO_SICOOB_DIRTY, that.isDirty());
+
 		values.put(DbHelper.BOLETO_SICOOB_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.BOLETO_SICOOB_CPF, that.getCpf());
 		values.put(DbHelper.BOLETO_SICOOB_NUMERO, that.getNumero());
@@ -186,36 +149,32 @@ public class BoletoSicoobDataSource {
 		return rows_affected;
 	}
 
-	public void delete(BoletoSicoobView that){
-		database.delete(DbHelper.TABLE_BOLETO_SICOOB, DbHelper.BOLETO_SICOOB_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(BoletoSicoobView that){
+		return database.delete(DbHelper.TABLE_BOLETO_SICOOB, DbHelper.BOLETO_SICOOB_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_BOLETO_SICOOB, DbHelper.BOLETO_SICOOB_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_BOLETO_SICOOB, DbHelper.BOLETO_SICOOB_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<BoletoSicoobView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_BOLETO_SICOOB,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfBoletoSicoobView(cursor);
+		return cursor;
 	}
 
-	public BoletoSicoobView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_BOLETO_SICOOB,
 			selectableColumns,
 			DbHelper.BOLETO_SICOOB_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		BoletoSicoobView that = cursorToBoletoSicoobView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<BoletoSicoobView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
@@ -232,16 +191,13 @@ public class BoletoSicoobDataSource {
 			"valor_recebido, " +
 			"fk_invoice" +
 			" FROM " + DbHelper.TABLE_BOLETO_SICOOB;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfBoletoSicoobView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){

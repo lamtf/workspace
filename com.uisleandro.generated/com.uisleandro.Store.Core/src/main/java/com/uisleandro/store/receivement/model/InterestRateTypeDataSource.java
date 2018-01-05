@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.receivement.model.InterestRateTypeDbHelper;
-import com.uisleandro.store.receivement.model.DbHelper;
-import com.uisleandro.store.receivement.view.InterestRateTypeView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -56,53 +59,23 @@ public class InterestRateTypeDataSource {
 		db_helper.close();
 	}
 
-	public InterestRateTypeView cursorToInterestRateTypeView(Cursor cursor){
-
-	 	InterestRateTypeView that = new InterestRateTypeView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setName(cursor.getString(1));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<InterestRateTypeView> cursorToListOfInterestRateTypeView(Cursor cursor){
-
-		List<InterestRateTypeView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			InterestRateTypeView that = cursorToInterestRateTypeView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -116,6 +89,7 @@ public class InterestRateTypeDataSource {
 		}
 
 		values.put(DbHelper.INTEREST_RATE_TYPE_DIRTY, that.isDirty());
+
 		values.put(DbHelper.INTEREST_RATE_TYPE_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.INTEREST_RATE_TYPE_NAME, that.getName());
 		long last_id = database.insert(DbHelper.TABLE_INTEREST_RATE_TYPE, null, values);
@@ -138,51 +112,44 @@ public class InterestRateTypeDataSource {
 		return rows_affected;
 	}
 
-	public void delete(InterestRateTypeView that){
-		database.delete(DbHelper.TABLE_INTEREST_RATE_TYPE, DbHelper.INTEREST_RATE_TYPE_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(InterestRateTypeView that){
+		return database.delete(DbHelper.TABLE_INTEREST_RATE_TYPE, DbHelper.INTEREST_RATE_TYPE_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_INTEREST_RATE_TYPE, DbHelper.INTEREST_RATE_TYPE_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_INTEREST_RATE_TYPE, DbHelper.INTEREST_RATE_TYPE_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<InterestRateTypeView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_INTEREST_RATE_TYPE,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfInterestRateTypeView(cursor);
+		return cursor;
 	}
 
-	public InterestRateTypeView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_INTEREST_RATE_TYPE,
 			selectableColumns,
 			DbHelper.INTEREST_RATE_TYPE_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		InterestRateTypeView that = cursorToInterestRateTypeView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<InterestRateTypeView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
 			"name" +
 			" FROM " + DbHelper.TABLE_INTEREST_RATE_TYPE;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfInterestRateTypeView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){

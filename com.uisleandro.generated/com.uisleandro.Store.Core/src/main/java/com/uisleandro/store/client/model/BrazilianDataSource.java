@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.client.model.BrazilianDbHelper;
-import com.uisleandro.store.client.model.DbHelper;
-import com.uisleandro.store.client.view.BrazilianView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -58,55 +61,23 @@ public class BrazilianDataSource {
 		db_helper.close();
 	}
 
-	public BrazilianView cursorToBrazilianView(Cursor cursor){
-
-	 	BrazilianView that = new BrazilianView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setCpf(cursor.getString(1));
-		that.setRg(cursor.getString(2));
-		that.setFkBasicClient(cursor.getLong(3));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<BrazilianView> cursorToListOfBrazilianView(Cursor cursor){
-
-		List<BrazilianView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			BrazilianView that = cursorToBrazilianView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -120,6 +91,7 @@ public class BrazilianDataSource {
 		}
 
 		values.put(DbHelper.BRAZILIAN_DIRTY, that.isDirty());
+
 		values.put(DbHelper.BRAZILIAN_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.BRAZILIAN_CPF, that.getCpf());
 		values.put(DbHelper.BRAZILIAN_RG, that.getRg());
@@ -150,36 +122,32 @@ public class BrazilianDataSource {
 		return rows_affected;
 	}
 
-	public void delete(BrazilianView that){
-		database.delete(DbHelper.TABLE_BRAZILIAN, DbHelper.BRAZILIAN_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(BrazilianView that){
+		return database.delete(DbHelper.TABLE_BRAZILIAN, DbHelper.BRAZILIAN_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_BRAZILIAN, DbHelper.BRAZILIAN_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_BRAZILIAN, DbHelper.BRAZILIAN_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<BrazilianView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_BRAZILIAN,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfBrazilianView(cursor);
+		return cursor;
 	}
 
-	public BrazilianView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_BRAZILIAN,
 			selectableColumns,
 			DbHelper.BRAZILIAN_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		BrazilianView that = cursorToBrazilianView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<BrazilianView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
@@ -187,16 +155,13 @@ public class BrazilianDataSource {
 			"rg, " +
 			"fk_basic_client" +
 			" FROM " + DbHelper.TABLE_BRAZILIAN;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfBrazilianView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){

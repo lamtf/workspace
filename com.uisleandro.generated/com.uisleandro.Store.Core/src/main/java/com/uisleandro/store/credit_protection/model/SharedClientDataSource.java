@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.credit_protection.model.SharedClientDbHelper;
-import com.uisleandro.store.credit_protection.model.DbHelper;
-import com.uisleandro.store.credit_protection.view.SharedClientView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -69,66 +72,23 @@ public class SharedClientDataSource {
 		db_helper.close();
 	}
 
-	public SharedClientView cursorToSharedClientView(Cursor cursor){
-
-	 	SharedClientView that = new SharedClientView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setName(cursor.getString(1));
-		that.setBirthDate(cursor.getLong(2));
-		that.setBirthCity(cursor.getString(3));
-		that.setBirthState(cursor.getString(4));
-		that.setMothersName(cursor.getString(5));
-		that.setFathersName(cursor.getString(6));
-		that.setProfession(cursor.getString(7));
-		that.setZipCode(cursor.getString(8));
-		that.setAddress(cursor.getString(9));
-		that.setNeighborhood(cursor.getString(10));
-		that.setCity(cursor.getString(11));
-		that.setState(cursor.getString(12));
-		that.setComplement(cursor.getString(13));
-		that.setFkCountry(cursor.getLong(14));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<SharedClientView> cursorToListOfSharedClientView(Cursor cursor){
-
-		List<SharedClientView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			SharedClientView that = cursorToSharedClientView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -142,6 +102,7 @@ public class SharedClientDataSource {
 		}
 
 		values.put(DbHelper.SHARED_CLIENT_DIRTY, that.isDirty());
+
 		values.put(DbHelper.SHARED_CLIENT_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.SHARED_CLIENT_NAME, that.getName());
 		values.put(DbHelper.SHARED_CLIENT_BIRTH_DATE, that.getBirthDate());
@@ -194,36 +155,32 @@ public class SharedClientDataSource {
 		return rows_affected;
 	}
 
-	public void delete(SharedClientView that){
-		database.delete(DbHelper.TABLE_SHARED_CLIENT, DbHelper.SHARED_CLIENT_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(SharedClientView that){
+		return database.delete(DbHelper.TABLE_SHARED_CLIENT, DbHelper.SHARED_CLIENT_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_SHARED_CLIENT, DbHelper.SHARED_CLIENT_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_SHARED_CLIENT, DbHelper.SHARED_CLIENT_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<SharedClientView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_SHARED_CLIENT,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfSharedClientView(cursor);
+		return cursor;
 	}
 
-	public SharedClientView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_SHARED_CLIENT,
 			selectableColumns,
 			DbHelper.SHARED_CLIENT_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		SharedClientView that = cursorToSharedClientView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<SharedClientView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
@@ -242,16 +199,13 @@ public class SharedClientDataSource {
 			"complement, " +
 			"fk_country" +
 			" FROM " + DbHelper.TABLE_SHARED_CLIENT;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfSharedClientView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){

@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.supply.model.ProductDbHelper;
-import com.uisleandro.store.supply.model.DbHelper;
-import com.uisleandro.store.supply.view.ProductView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -68,65 +71,23 @@ public class ProductDataSource {
 		db_helper.close();
 	}
 
-	public ProductView cursorToProductView(Cursor cursor){
-
-	 	ProductView that = new ProductView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setFkSystem(cursor.getLong(1));
-		that.setBarcode(cursor.getString(2));
-		that.setDescription(cursor.getString(3));
-		that.setAmount(cursor.getInt(4));
-		that.setFkGender(cursor.getLong(5));
-		that.setPurchasePrice(cursor.getFloat(6));
-		that.setSalePrice(cursor.getFloat(7));
-		that.setFkCategory(cursor.getLong(8));
-		that.setSize(cursor.getString(9));
-		that.setFkUnit(cursor.getLong(10));
-		that.setFkCurrency(cursor.getLong(11));
-		that.setExpirationDate(cursor.getLong(12));
-		that.setFkBrand(cursor.getLong(13));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<ProductView> cursorToListOfProductView(Cursor cursor){
-
-		List<ProductView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			ProductView that = cursorToProductView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -140,6 +101,7 @@ public class ProductDataSource {
 		}
 
 		values.put(DbHelper.PRODUCT_DIRTY, that.isDirty());
+
 		values.put(DbHelper.PRODUCT_LAST_UPDATE, that.getLastUpdate());
 		if(that.getFkSystem() > 0){
 			values.put(DbHelper.PRODUCT_FK_SYSTEM, that.getFkSystem());
@@ -210,36 +172,32 @@ public class ProductDataSource {
 		return rows_affected;
 	}
 
-	public void delete(ProductView that){
-		database.delete(DbHelper.TABLE_PRODUCT, DbHelper.PRODUCT_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(ProductView that){
+		return database.delete(DbHelper.TABLE_PRODUCT, DbHelper.PRODUCT_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_PRODUCT, DbHelper.PRODUCT_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_PRODUCT, DbHelper.PRODUCT_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<ProductView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_PRODUCT,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfProductView(cursor);
+		return cursor;
 	}
 
-	public ProductView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_PRODUCT,
 			selectableColumns,
 			DbHelper.PRODUCT_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		ProductView that = cursorToProductView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<ProductView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
@@ -257,16 +215,13 @@ public class ProductDataSource {
 			"expiration_date, " +
 			"fk_brand" +
 			" FROM " + DbHelper.TABLE_PRODUCT;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfProductView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){

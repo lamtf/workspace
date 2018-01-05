@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.supply.model.DistributorContactDbHelper;
-import com.uisleandro.store.supply.model.DbHelper;
-import com.uisleandro.store.supply.view.DistributorContactView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -63,60 +66,23 @@ public class DistributorContactDataSource {
 		db_helper.close();
 	}
 
-	public DistributorContactView cursorToDistributorContactView(Cursor cursor){
-
-	 	DistributorContactView that = new DistributorContactView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setName(cursor.getString(1));
-		that.setEmail1(cursor.getString(2));
-		that.setEmail2(cursor.getString(3));
-		that.setPhoneNumber1(cursor.getString(4));
-		that.setPhoneNumber2(cursor.getString(5));
-		that.setPhoneNumber3(cursor.getString(6));
-		that.setPhoneNumber4(cursor.getString(7));
-		that.setFkBrand(cursor.getLong(8));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<DistributorContactView> cursorToListOfDistributorContactView(Cursor cursor){
-
-		List<DistributorContactView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			DistributorContactView that = cursorToDistributorContactView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -130,6 +96,7 @@ public class DistributorContactDataSource {
 		}
 
 		values.put(DbHelper.DISTRIBUTOR_CONTACT_DIRTY, that.isDirty());
+
 		values.put(DbHelper.DISTRIBUTOR_CONTACT_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.DISTRIBUTOR_CONTACT_NAME, that.getName());
 		values.put(DbHelper.DISTRIBUTOR_CONTACT_EMAIL1, that.getEmail1());
@@ -170,36 +137,32 @@ public class DistributorContactDataSource {
 		return rows_affected;
 	}
 
-	public void delete(DistributorContactView that){
-		database.delete(DbHelper.TABLE_DISTRIBUTOR_CONTACT, DbHelper.DISTRIBUTOR_CONTACT_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(DistributorContactView that){
+		return database.delete(DbHelper.TABLE_DISTRIBUTOR_CONTACT, DbHelper.DISTRIBUTOR_CONTACT_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_DISTRIBUTOR_CONTACT, DbHelper.DISTRIBUTOR_CONTACT_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_DISTRIBUTOR_CONTACT, DbHelper.DISTRIBUTOR_CONTACT_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<DistributorContactView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_DISTRIBUTOR_CONTACT,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfDistributorContactView(cursor);
+		return cursor;
 	}
 
-	public DistributorContactView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_DISTRIBUTOR_CONTACT,
 			selectableColumns,
 			DbHelper.DISTRIBUTOR_CONTACT_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		DistributorContactView that = cursorToDistributorContactView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<DistributorContactView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
@@ -212,16 +175,13 @@ public class DistributorContactDataSource {
 			"phone_number4, " +
 			"fk_brand" +
 			" FROM " + DbHelper.TABLE_DISTRIBUTOR_CONTACT;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfDistributorContactView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){

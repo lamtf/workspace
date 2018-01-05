@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.core.model.UserDbHelper;
-import com.uisleandro.store.core.model.DbHelper;
-import com.uisleandro.store.core.view.UserView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -65,62 +68,23 @@ public class UserDataSource {
 		db_helper.close();
 	}
 
-	public UserView cursorToUserView(Cursor cursor){
-
-	 	UserView that = new UserView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setFkSystem(cursor.getLong(1));
-		that.setFkRole(cursor.getLong(2));
-		that.setUsername(cursor.getString(3));
-		that.setPassword(cursor.getString(4));
-		that.setName(cursor.getString(5));
-		that.setEmail(cursor.getString(6));
-		that.setLastUseTime(cursor.getLong(7));
-		that.setLastErrorTime(cursor.getLong(8));
-		that.setErrorCount(cursor.getInt(9));
-		that.setActive((cursor.getInt(10) > 0));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<UserView> cursorToListOfUserView(Cursor cursor){
-
-		List<UserView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			UserView that = cursorToUserView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -134,6 +98,7 @@ public class UserDataSource {
 		}
 
 		values.put(DbHelper.USER_DIRTY, that.isDirty());
+
 		values.put(DbHelper.USER_LAST_UPDATE, that.getLastUpdate());
 		if(that.getFkSystem() > 0){
 			values.put(DbHelper.USER_FK_SYSTEM, that.getFkSystem());
@@ -182,36 +147,32 @@ public class UserDataSource {
 		return rows_affected;
 	}
 
-	public void delete(UserView that){
-		database.delete(DbHelper.TABLE_USER, DbHelper.USER_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(UserView that){
+		return database.delete(DbHelper.TABLE_USER, DbHelper.USER_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_USER, DbHelper.USER_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_USER, DbHelper.USER_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<UserView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_USER,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfUserView(cursor);
+		return cursor;
 	}
 
-	public UserView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_USER,
 			selectableColumns,
 			DbHelper.USER_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		UserView that = cursorToUserView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<UserView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
@@ -226,16 +187,13 @@ public class UserDataSource {
 			"error_count, " +
 			"active" +
 			" FROM " + DbHelper.TABLE_USER;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfUserView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){

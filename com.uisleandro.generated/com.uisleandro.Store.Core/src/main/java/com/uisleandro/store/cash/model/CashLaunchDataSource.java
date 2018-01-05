@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.cash.model.CashLaunchDbHelper;
-import com.uisleandro.store.cash.model.DbHelper;
-import com.uisleandro.store.cash.view.CashLaunchView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -59,56 +62,23 @@ public class CashLaunchDataSource {
 		db_helper.close();
 	}
 
-	public CashLaunchView cursorToCashLaunchView(Cursor cursor){
-
-	 	CashLaunchView that = new CashLaunchView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setFkCashRegister(cursor.getLong(1));
-		that.setJustification(cursor.getString(2));
-		that.setAmountSpent(cursor.getFloat(3));
-		that.setFkCurrency(cursor.getLong(4));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<CashLaunchView> cursorToListOfCashLaunchView(Cursor cursor){
-
-		List<CashLaunchView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			CashLaunchView that = cursorToCashLaunchView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -122,6 +92,7 @@ public class CashLaunchDataSource {
 		}
 
 		values.put(DbHelper.CASH_LAUNCH_DIRTY, that.isDirty());
+
 		values.put(DbHelper.CASH_LAUNCH_LAST_UPDATE, that.getLastUpdate());
 		if(that.getFkCashRegister() > 0){
 			values.put(DbHelper.CASH_LAUNCH_FK_CASH_REGISTER, that.getFkCashRegister());
@@ -158,36 +129,32 @@ public class CashLaunchDataSource {
 		return rows_affected;
 	}
 
-	public void delete(CashLaunchView that){
-		database.delete(DbHelper.TABLE_CASH_LAUNCH, DbHelper.CASH_LAUNCH_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(CashLaunchView that){
+		return database.delete(DbHelper.TABLE_CASH_LAUNCH, DbHelper.CASH_LAUNCH_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_CASH_LAUNCH, DbHelper.CASH_LAUNCH_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_CASH_LAUNCH, DbHelper.CASH_LAUNCH_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<CashLaunchView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_CASH_LAUNCH,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfCashLaunchView(cursor);
+		return cursor;
 	}
 
-	public CashLaunchView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_CASH_LAUNCH,
 			selectableColumns,
 			DbHelper.CASH_LAUNCH_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		CashLaunchView that = cursorToCashLaunchView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<CashLaunchView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
@@ -196,16 +163,13 @@ public class CashLaunchDataSource {
 			"amount_spent, " +
 			"fk_currency" +
 			" FROM " + DbHelper.TABLE_CASH_LAUNCH;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfCashLaunchView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){

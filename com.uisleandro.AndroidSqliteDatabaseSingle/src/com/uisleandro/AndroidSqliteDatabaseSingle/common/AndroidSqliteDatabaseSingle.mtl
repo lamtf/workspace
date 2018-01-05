@@ -1061,8 +1061,14 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import [pname /].model.DbHelper;
 //import [pname /].[modul.name /].model.[tbl.name.ToCamelCase() /]DbHelper;
-import [pname /].[modul.name /].model.DbHelper;
+
+import [pname /].DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+[comment]
 import [pname /].[modul.name /].view.[tbl.name.ToCamelCase() /]View;
+[/comment]
+
 [end_reserve('reserved-for:android-sqlite-db.imports') /]
 
 //[protected ('reserved-for:android-sqlite-sync.imports')]
@@ -1106,6 +1112,7 @@ separator (', \n')]
 		db_helper.close();
 	}
 
+[comment] TODO: MOVE TO ANOTHER PLACE
 	public [tbl.name.ToCamelCase() /]View cursorTo[tbl.name.ToCamelCase() /]View(Cursor cursor){
 
 	 	[tbl.name.ToCamelCase() /]View that = new [tbl.name.ToCamelCase() /]View();
@@ -1118,7 +1125,7 @@ separator (', \n')]
 		return that;
 
 	}
-
+[/comment][comment] TODO: MOVE TO ANOTHER PLACE
 	//vai ser o desacoplamento do cursor
 	public List<[tbl.name.ToCamelCase() /]View> cursorToListOf[tbl.name.ToCamelCase() /]View(Cursor cursor){
 
@@ -1134,26 +1141,24 @@ separator (', \n')]
 		return those;
 	
 	}
-
-	//desacoplamento
+[/comment]
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -1167,6 +1172,7 @@ separator (', \n')]
 		}
 
 		values.put(DbHelper.[tbl.name.toUpperCase() /]_DIRTY, that.isDirty());
+
 [comment 
 
 Algumas chaves estrangeiras estao em outros pacotes, precisam ser fixadas.
@@ -1217,51 +1223,56 @@ I mean i must get it from another place
 		return rows_affected;
 	}
 
-	public void delete([tbl.name.ToCamelCase() /]View that){
-		database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete([tbl.name.ToCamelCase() /]View that){
+		return database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + String.valueOf(id), null);
 	}
 
 	[comment RENAMED /]
-	public List<[tbl.name.ToCamelCase() /]View> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_[tbl.name.toUpperCase()/],
 			selectableColumns,null,null, null, null, null);
-
+[comment]
 		return cursorToListOf[tbl.name.ToCamelCase() /]View(cursor);
+[/comment]
+		return cursor;
 	}
 
-	public [tbl.name.ToCamelCase() /]View getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_[tbl.name.toUpperCase() /],
 			selectableColumns,
 			DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + id,
 			null, null, null, null);
 
+		return cursor;
+[comment]
 		cursor.moveToFirst();
 		[tbl.name.ToCamelCase() /]View that = cursorTo[tbl.name.ToCamelCase() /]View(cursor);
 		cursor.close();
 		return that;
+[/comment]
 	}
 
 	[comment renamed /]
-	public List<[tbl.name.ToCamelCase() /]View> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 [for (prop : Property | get_fields(tbl) ) separator (', " +\n') after ('" +\n')]			"[prop.getName()/][/for]			" FROM " + DbHelper.TABLE_[tbl.name.toUpperCase() /];
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
+		return cursor;
+[comment]
 		return cursorToListOf[tbl.name.ToCamelCase() /]View(cursor);
+[/comment]
 	}
 
 	public long getLastId(){

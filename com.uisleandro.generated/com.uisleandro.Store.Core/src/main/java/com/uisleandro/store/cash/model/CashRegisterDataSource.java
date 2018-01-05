@@ -13,8 +13,11 @@ import android.util.Log;
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
 //import com.uisleandro.store.cash.model.CashRegisterDbHelper;
-import com.uisleandro.store.cash.model.DbHelper;
-import com.uisleandro.store.cash.view.CashRegisterView;
+
+import com.uisleandro.store.DbHelper;
+
+//TODO: I wont return any view, Id rather return the cursor instead 
+
 // reserved-for:android-sqlite-db.imports
 //End of user code
 
@@ -60,57 +63,23 @@ public class CashRegisterDataSource {
 		db_helper.close();
 	}
 
-	public CashRegisterView cursorToCashRegisterView(Cursor cursor){
-
-	 	CashRegisterView that = new CashRegisterView();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-		that.setLastUpdate(cursor.getLong(0));
-		that.setFkUser(cursor.getLong(1));
-		that.setOpeningValue(cursor.getFloat(2));
-		that.setReceivedValue(cursor.getFloat(3));
-		that.setClosingValue(cursor.getFloat(4));
-		that.setFkCurrency(cursor.getLong(5));
-		return that;
-
-	}
-
-	//vai ser o desacoplamento do cursor
-	public List<CashRegisterView> cursorToListOfCashRegisterView(Cursor cursor){
-
-		List<CashRegisterView> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			CashRegisterView that = cursorToCashRegisterView(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-
-	//desacoplamento
 	public long cursorToLong(Cursor cursor){
 		long result = 0L;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getLong(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
-	//desacoplamento
 	public int cursorToInteger(Cursor cursor){
 		int result = 0;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
-
+		cursor.close();
 		return result;
 	}
 
@@ -124,6 +93,7 @@ public class CashRegisterDataSource {
 		}
 
 		values.put(DbHelper.CASH_REGISTER_DIRTY, that.isDirty());
+
 		values.put(DbHelper.CASH_REGISTER_LAST_UPDATE, that.getLastUpdate());
 		if(that.getFkUser() > 0){
 			values.put(DbHelper.CASH_REGISTER_FK_USER, that.getFkUser());
@@ -162,36 +132,32 @@ public class CashRegisterDataSource {
 		return rows_affected;
 	}
 
-	public void delete(CashRegisterView that){
-		database.delete(DbHelper.TABLE_CASH_REGISTER, DbHelper.CASH_REGISTER_ID + " = " + String.valueOf(that.getId()), null);
+	public long delete(CashRegisterView that){
+		return database.delete(DbHelper.TABLE_CASH_REGISTER, DbHelper.CASH_REGISTER_ID + " = " + String.valueOf(that.getId()), null);
 	}
 
-	public void deleteById(long id){
-		database.delete(DbHelper.TABLE_CASH_REGISTER, DbHelper.CASH_REGISTER_ID + " = " + String.valueOf(id), null);
+	public long deleteById(long id){
+		return database.delete(DbHelper.TABLE_CASH_REGISTER, DbHelper.CASH_REGISTER_ID + " = " + String.valueOf(id), null);
 	}
 
-	public List<CashRegisterView> listAll(){
+	public Cursor listAll(){
 
 		Cursor cursor = database.query(DbHelper.TABLE_CASH_REGISTER,
 			selectableColumns,null,null, null, null, null);
-
-		return cursorToListOfCashRegisterView(cursor);
+		return cursor;
 	}
 
-	public CashRegisterView getById(long id){
+	public Cursor getById(long id){
 
 		Cursor cursor = database.query(DbHelper.TABLE_CASH_REGISTER,
 			selectableColumns,
 			DbHelper.CASH_REGISTER_ID + " = " + id,
 			null, null, null, null);
 
-		cursor.moveToFirst();
-		CashRegisterView that = cursorToCashRegisterView(cursor);
-		cursor.close();
-		return that;
+		return cursor;
 	}
 
-	public List<CashRegisterView> listSome(long page_count, long page_size){
+	public Cursor listSome(long page_count, long page_size){
 
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
@@ -201,16 +167,13 @@ public class CashRegisterDataSource {
 			"closing_value, " +
 			"fk_currency" +
 			" FROM " + DbHelper.TABLE_CASH_REGISTER;
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
 
 		Cursor cursor = database.rawQuery(query, null);
-
-		return cursorToListOfCashRegisterView(cursor);
+		return cursor;
 	}
 
 	public long getLastId(){
