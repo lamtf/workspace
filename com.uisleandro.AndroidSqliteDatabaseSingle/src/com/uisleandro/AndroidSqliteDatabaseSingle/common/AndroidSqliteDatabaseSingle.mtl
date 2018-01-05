@@ -1083,7 +1083,26 @@ import [pname /].[modul.name /].view.[tbl.name.ToCamelCase() /]View;
 //[/protected]
 
 [begin_reserve('reserved-for:android-sqlite-db.functions') /]
-public class [tbl.name.ToCamelCase() /]DataSource extends ContentProvider {
+public class [tbl.name.ToCamelCase() /]Provider extends ContentProvider {
+
+
+	public static final String AUTHORITY = "com.spaceforsales.[tbl.name /]";
+	public static final String SCHEME = "content://";
+
+	[comment]
+		The name of the functions will be place here
+	[/comment]
+	public static final String [tbl.name.toUpperCase() /]_ALL = SCHEME + AUTHORITY + "/all";
+	public static final Uri URI_[tbl.name.toUpperCase() /]_ALL = Uri.parse([tbl.name.toUpperCase() /]_ALL);
+	public static final String [tbl.name.toUpperCase() /]_ALL_BASE = [tbl.name.toUpperCase() /]_ALL + "/";
+
+	public static final String [tbl.name.toUpperCase() /]_SOME = SCHEME + AUTHORITY + "/some";
+	public static final Uri URI_[tbl.name.toUpperCase() /]_SOME = Uri.parse([tbl.name.toUpperCase() /]_SOME);
+	public static final String [tbl.name.toUpperCase() /]_SOME_BASE = [tbl.name.toUpperCase() /]_SOME + "/";
+
+	public static final String [tbl.name.toUpperCase() /]_BYID = SCHEME + AUTHORITY + "/byid";
+	public static final Uri URI_[tbl.name.toUpperCase() /]_BYID = Uri.parse([tbl.name.toUpperCase() /]_BYID);
+	public static final String [tbl.name.toUpperCase() /]_BYID_BASE = [tbl.name.toUpperCase() /]_BYID + "/";
 
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
@@ -1115,87 +1134,8 @@ separator (', \n')]
 		db_helper.close();
 	}
 
-[comment] TODO: MOVE TO ANOTHER PLACE
-	public [tbl.name.ToCamelCase() /]View cursorTo[tbl.name.ToCamelCase() /]View(Cursor cursor){
-
-	 	[tbl.name.ToCamelCase() /]View that = new [tbl.name.ToCamelCase() /]View();
-		that.setId(cursor.getLong(0));
-		that.setServerId(cursor.getLong(1));
-		that.setDirty(cursor.getInt(2) > 0);
-[for (prop : Property | get_fields(tbl))]
-		that.set[prop.getName().ToCamelCase() /]([getter_indexed(prop,'cursor', i-1) /]);
-[/for]
-		return that;
-
-	}
-[/comment][comment] TODO: MOVE TO ANOTHER PLACE
-	//vai ser o desacoplamento do cursor
-	public List<[tbl.name.ToCamelCase() /]View> cursorToListOf[tbl.name.ToCamelCase() /]View(Cursor cursor){
-
-		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList();
-
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			[tbl.name.ToCamelCase() /]View that = cursorTo[tbl.name.ToCamelCase() /]View(cursor);
-			those.add(that);
-			cursor.moveToNext();
-		}
-		cursor.close();
-		return those;
-	
-	}
-[/comment]
-	public long cursorToLong(Cursor cursor){
-		long result = 0L;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getLong(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-	public int cursorToInteger(Cursor cursor){
-		int result = 0;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getInt(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-	[comment] 
-	public long insert([tbl.name.ToCamelCase() /]View that){
-	[/comment]
-	@Nullable
-	@Override
-	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-		long last_id = database.insert(DbHelper.TABLE_[tbl.name.toUpperCase() /], null, values);
-		return last_id;
-	}
-
-[comment]
-	public int update([tbl.name.ToCamelCase() /]View that){
-[/comment]
-	@Override
-	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
-
-		int rows_affected = database.update(DbHelper.TABLE_[tbl.name.toUpperCase() /], values, DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + values.getAsString("id"), null);
-		return rows_affected;
-	}
-
-[comment] 
-	public long delete([tbl.name.ToCamelCase() /]View that){
-[/comment]
-	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
-		return database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + values.getAsString("id"), null);
-	}
-
 	[comment RENAMED /]
 	public Cursor listAll(){
-
 		Cursor cursor = database.query(DbHelper.TABLE_[tbl.name.toUpperCase()/],
 			selectableColumns,null,null, null, null, null);
 [comment]
@@ -1205,7 +1145,6 @@ separator (', \n')]
 	}
 
 	public Cursor getById(long id){
-
 		Cursor cursor = database.query(DbHelper.TABLE_[tbl.name.toUpperCase() /],
 			selectableColumns,
 			DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + id,
@@ -1247,21 +1186,11 @@ separator (', \n')]
 		return cursorToLong(cursor);
 	}
 
-
-
-//BEGIN THINGS FOR CONTENT PROVIDER
+// begin content-provider-interface
 
 	@Override
 	public boolean onCreate() {
 		return false;
-	}
-
-
-	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
-	@Nullable
-	@Override
-	public Cursor query(@NonNull Uri uri, @Nullable String[ '[' /][ ']' /] projection, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs, @Nullable String sortOrder) {
-		return listAll();
 	}
 
 	@Nullable
@@ -1270,9 +1199,26 @@ separator (', \n')]
 		return null;
 	}
 
+	@Nullable
+	@Override
+	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+		long last_id = database.insert(DbHelper.TABLE_[tbl.name.toUpperCase() /], null, values);
+		return last_id;
+	}
 
-//END THINGS FOR CONTENT PROVIDER
+	@Override
+	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
+		int rows_affected = database.update(DbHelper.TABLE_[tbl.name.toUpperCase() /], values, DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + selectionArgs[ '[' /]0[ ']' /], null);
+		return rows_affected;
+	}
 
+	@Override
+	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
+		int rows_affected = database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + selectionArgs[ '[' /]0[ ']' /], null);
+		return rows_affected;
+	}
+
+// end content-provider-interface 
 
 [end_reserve('reserved-for:android-sqlite-db.functions') /]
 
@@ -1284,10 +1230,36 @@ separator (', \n')]
 //reserved-for:query3.functions
 //[/protected]
 
+
+[begin_reserve('reserved-for:android-sqlite-db.begin-default-query') /]
+	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
+	@Nullable
+	@Override
+	public Cursor query(@NonNull Uri uri, @Nullable String[ '[' /][ ']' /] projection, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs, @Nullable String sortOrder) {
+		Cursor result = null;
+		if (URI_[tbl.name.toUpperCase() /]_ALL.equals(uri)) {
+			result = listAll();
+		} else if(URI_[tbl.name.toUpperCase() /]_SOME.equals(uri)) {
+			result = listSome(Long.parseLong(selectionArgs[ '[' /]0[ ']' /]), Long.parseLong(selectionArgs[ '[' /]1[ ']' /]));
+		} else if(URI_[tbl.name.toUpperCase() /]_BYID.equals(uri)) {
+			result = getById(Long.parseLong(selectionArgs[ '[' /]0[ ']' /]));
+		}
+[end_reserve('reserved-for:android-sqlite-db.begin-default-query') /]
+
+// [protected ('reserved-for:android-sqlite-sync.default-query')]
+
+// reserved-for:android-sqlite-sync.default-query
+// [/protected]
+
+[begin_reserve('reserved-for:android-sqlite-db.end-default-query') /]
+		return result;
+	}
+[end_reserve('reserved-for:android-sqlite-db.end-default-query') /]
+
+
+[begin_reserve('reserved-for:android-sqlite-db.end-class') /]
 }
-
-
-
+[end_reserve('reserved-for:android-sqlite-db.end-class') /]
 
 [/if]
 [/template]
@@ -1339,7 +1311,7 @@ separator (', \n')]
 [android_create_tblviewclass(pname, modul, tbl) /]
 [/file]
 
-[file (cName+'.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'DataSource.java', false, 'UTF-8')]
+[file (cName+'.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'Provider.java', false, 'UTF-8')]
 [android_create_tbl_datasource_class(pname, modul, tbl)/]
 [/file]
 
