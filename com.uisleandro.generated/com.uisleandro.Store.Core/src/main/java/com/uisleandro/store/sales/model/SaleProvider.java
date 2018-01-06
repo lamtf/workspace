@@ -33,7 +33,23 @@ import com.uisleandro.store.DbHelper;
 //End of user code
 
 //Start of user code reserved-for:android-sqlite-db.functions
-public class SaleDataSource extends ContentProvider {
+public class SaleProvider extends ContentProvider {
+
+
+	public static final String AUTHORITY = "com.spaceforsales.sale";
+	public static final String SCHEME = "content://";
+
+	public static final String SALE_ALL = SCHEME + AUTHORITY + "/all";
+	public static final Uri URI_SALE_ALL = Uri.parse(SALE_ALL);
+	public static final String SALE_ALL_BASE = SALE_ALL + "/";
+
+	public static final String SALE_SOME = SCHEME + AUTHORITY + "/some";
+	public static final Uri URI_SALE_SOME = Uri.parse(SALE_SOME);
+	public static final String SALE_SOME_BASE = SALE_SOME + "/";
+
+	public static final String SALE_BYID = SCHEME + AUTHORITY + "/byid";
+	public static final Uri URI_SALE_BYID = Uri.parse(SALE_BYID);
+	public static final String SALE_BYID_BASE = SALE_BYID + "/";
 
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
@@ -67,106 +83,13 @@ public class SaleDataSource extends ContentProvider {
 		db_helper.close();
 	}
 
-	public long cursorToLong(Cursor cursor){
-		long result = 0L;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getLong(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-	public int cursorToInteger(Cursor cursor){
-		int result = 0;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getInt(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-
-	public long insert(SaleView that){
-		ContentValues values = new ContentValues();
-		//should not set the server id
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.SALE_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.SALE_DIRTY, that.isDirty());
-
-		values.put(DbHelper.SALE_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkSaleType() > 0){
-			values.put(DbHelper.SALE_FK_SALE_TYPE, that.getFkSaleType());
-		}
-		if(that.getFkSystem() > 0){
-			values.put(DbHelper.SALE_FK_SYSTEM, that.getFkSystem());
-		}
-		values.put(DbHelper.SALE_TOTAL_VALUE, that.getTotalValue());
-		if(that.getFkUser() > 0){
-			values.put(DbHelper.SALE_FK_USER, that.getFkUser());
-		}
-		if(that.getFkClientFromSystem() > 0){
-			values.put(DbHelper.SALE_FK_CLIENT_FROM_SYSTEM, that.getFkClientFromSystem());
-		}
-		if(that.getFkCurrency() > 0){
-			values.put(DbHelper.SALE_FK_CURRENCY, that.getFkCurrency());
-		}
-		long last_id = database.insert(DbHelper.TABLE_SALE, null, values);
-		return last_id;
-	}
-
-	public int update(SaleView that){
-		ContentValues values = new ContentValues();
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.SALE_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.SALE_DIRTY, that.isDirty());
-
-		values.put(DbHelper.SALE_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkSaleType() > 0){
-			values.put(DbHelper.SALE_FK_SALE_TYPE, that.getFkSaleType());
-		}
-		if(that.getFkSystem() > 0){
-			values.put(DbHelper.SALE_FK_SYSTEM, that.getFkSystem());
-		}
-		values.put(DbHelper.SALE_TOTAL_VALUE, that.getTotalValue());
-		if(that.getFkUser() > 0){
-			values.put(DbHelper.SALE_FK_USER, that.getFkUser());
-		}
-		if(that.getFkClientFromSystem() > 0){
-			values.put(DbHelper.SALE_FK_CLIENT_FROM_SYSTEM, that.getFkClientFromSystem());
-		}
-		if(that.getFkCurrency() > 0){
-			values.put(DbHelper.SALE_FK_CURRENCY, that.getFkCurrency());
-		}
-
-		int rows_affected = database.update(DbHelper.TABLE_SALE, values, DbHelper.SALE_ID + " = " + String.valueOf(that.getId()), null);
-		return rows_affected;
-	}
-
-	public long delete(SaleView that){
-		return database.delete(DbHelper.TABLE_SALE, DbHelper.SALE_ID + " = " + String.valueOf(that.getId()), null);
-	}
-
-	public long deleteById(long id){
-		return database.delete(DbHelper.TABLE_SALE, DbHelper.SALE_ID + " = " + String.valueOf(id), null);
-	}
-
 	public Cursor listAll(){
-
 		Cursor cursor = database.query(DbHelper.TABLE_SALE,
 			selectableColumns,null,null, null, null, null);
 		return cursor;
 	}
 
 	public Cursor getById(long id){
-
 		Cursor cursor = database.query(DbHelper.TABLE_SALE,
 			selectableColumns,
 			DbHelper.SALE_ID + " = " + id,
@@ -205,19 +128,11 @@ public class SaleDataSource extends ContentProvider {
 		return cursorToLong(cursor);
 	}
 
-
-
-//BEGIN THINGS FOR CONTENT PROVIDER
+// begin content-provider-interface
 
 	@Override
 	public boolean onCreate() {
 		return false;
-	}
-
-	@Nullable
-	@Override
-	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-		return null;
 	}
 
 	@Nullable
@@ -229,22 +144,23 @@ public class SaleDataSource extends ContentProvider {
 	@Nullable
 	@Override
 	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-		return null;
-	}
-
-	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-		return 0;
+		long last_id = database.insert(DbHelper.TABLE_SALE, null, values);
+		return last_id;
 	}
 
 	@Override
 	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-		return 0;
+		int rows_affected = database.update(DbHelper.TABLE_SALE, values, DbHelper.SALE_ID + " = " + selectionArgs[0], null);
+		return rows_affected;
 	}
 
+	@Override
+	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+		int rows_affected = database.delete(DbHelper.TABLE_SALE, DbHelper.SALE_ID + " = " + selectionArgs[0], null);
+		return rows_affected;
+	}
 
-//END THINGS FOR CONTENT PROVIDER
-
+// end content-provider-interface 
 
 // reserved-for:android-sqlite-db.functions
 //End of user code
@@ -257,9 +173,38 @@ public class SaleDataSource extends ContentProvider {
 //reserved-for:query3.functions
 //End of user code
 
+
+//Start of user code reserved-for:android-sqlite-db.begin-default-query
+	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
+	@Nullable
+	@Override
+	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+		Cursor result = null;
+		if (URI_SALE_ALL.equals(uri)) {
+			result = listAll();
+		} else if(URI_SALE_SOME.equals(uri)) {
+			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
+		} else if(URI_SALE_BYID.equals(uri)) {
+			result = getById(Long.parseLong(selectionArgs[0]));
+		}
+// reserved-for:android-sqlite-db.begin-default-query
+//End of user code
+
+// Start of user code reserved-for:android-sqlite-sync.default-query
+
+// reserved-for:android-sqlite-sync.default-query
+// End of user code
+
+//Start of user code reserved-for:android-sqlite-db.end-default-query
+		return result;
+	}
+// reserved-for:android-sqlite-db.end-default-query
+//End of user code
+
+
+//Start of user code reserved-for:android-sqlite-db.end-class
 }
-
-
-
+// reserved-for:android-sqlite-db.end-class
+//End of user code
 
 

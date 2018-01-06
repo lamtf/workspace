@@ -33,7 +33,23 @@ import com.uisleandro.store.DbHelper;
 //End of user code
 
 //Start of user code reserved-for:android-sqlite-db.functions
-public class UserDataSource extends ContentProvider {
+public class UserProvider extends ContentProvider {
+
+
+	public static final String AUTHORITY = "com.spaceforsales.user";
+	public static final String SCHEME = "content://";
+
+	public static final String USER_ALL = SCHEME + AUTHORITY + "/all";
+	public static final Uri URI_USER_ALL = Uri.parse(USER_ALL);
+	public static final String USER_ALL_BASE = USER_ALL + "/";
+
+	public static final String USER_SOME = SCHEME + AUTHORITY + "/some";
+	public static final Uri URI_USER_SOME = Uri.parse(USER_SOME);
+	public static final String USER_SOME_BASE = USER_SOME + "/";
+
+	public static final String USER_BYID = SCHEME + AUTHORITY + "/byid";
+	public static final Uri URI_USER_BYID = Uri.parse(USER_BYID);
+	public static final String USER_BYID_BASE = USER_BYID + "/";
 
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
@@ -71,102 +87,13 @@ public class UserDataSource extends ContentProvider {
 		db_helper.close();
 	}
 
-	public long cursorToLong(Cursor cursor){
-		long result = 0L;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getLong(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-	public int cursorToInteger(Cursor cursor){
-		int result = 0;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getInt(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-
-	public long insert(UserView that){
-		ContentValues values = new ContentValues();
-		//should not set the server id
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.USER_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.USER_DIRTY, that.isDirty());
-
-		values.put(DbHelper.USER_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkSystem() > 0){
-			values.put(DbHelper.USER_FK_SYSTEM, that.getFkSystem());
-		}
-		if(that.getFkRole() > 0){
-			values.put(DbHelper.USER_FK_ROLE, that.getFkRole());
-		}
-		values.put(DbHelper.USER_USERNAME, that.getUsername());
-		values.put(DbHelper.USER_PASSWORD, that.getPassword());
-		values.put(DbHelper.USER_NAME, that.getName());
-		values.put(DbHelper.USER_EMAIL, that.getEmail());
-		values.put(DbHelper.USER_LAST_USE_TIME, that.getLastUseTime());
-		values.put(DbHelper.USER_LAST_ERROR_TIME, that.getLastErrorTime());
-		values.put(DbHelper.USER_ERROR_COUNT, that.getErrorCount());
-		values.put(DbHelper.USER_ACTIVE, that.getActive());
-		long last_id = database.insert(DbHelper.TABLE_USER, null, values);
-		return last_id;
-	}
-
-	public int update(UserView that){
-		ContentValues values = new ContentValues();
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.USER_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.USER_DIRTY, that.isDirty());
-
-		values.put(DbHelper.USER_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkSystem() > 0){
-			values.put(DbHelper.USER_FK_SYSTEM, that.getFkSystem());
-		}
-		if(that.getFkRole() > 0){
-			values.put(DbHelper.USER_FK_ROLE, that.getFkRole());
-		}
-		values.put(DbHelper.USER_USERNAME, that.getUsername());
-		values.put(DbHelper.USER_PASSWORD, that.getPassword());
-		values.put(DbHelper.USER_NAME, that.getName());
-		values.put(DbHelper.USER_EMAIL, that.getEmail());
-		values.put(DbHelper.USER_LAST_USE_TIME, that.getLastUseTime());
-		values.put(DbHelper.USER_LAST_ERROR_TIME, that.getLastErrorTime());
-		values.put(DbHelper.USER_ERROR_COUNT, that.getErrorCount());
-		values.put(DbHelper.USER_ACTIVE, that.getActive());
-
-		int rows_affected = database.update(DbHelper.TABLE_USER, values, DbHelper.USER_ID + " = " + String.valueOf(that.getId()), null);
-		return rows_affected;
-	}
-
-	public long delete(UserView that){
-		return database.delete(DbHelper.TABLE_USER, DbHelper.USER_ID + " = " + String.valueOf(that.getId()), null);
-	}
-
-	public long deleteById(long id){
-		return database.delete(DbHelper.TABLE_USER, DbHelper.USER_ID + " = " + String.valueOf(id), null);
-	}
-
 	public Cursor listAll(){
-
 		Cursor cursor = database.query(DbHelper.TABLE_USER,
 			selectableColumns,null,null, null, null, null);
 		return cursor;
 	}
 
 	public Cursor getById(long id){
-
 		Cursor cursor = database.query(DbHelper.TABLE_USER,
 			selectableColumns,
 			DbHelper.USER_ID + " = " + id,
@@ -209,19 +136,11 @@ public class UserDataSource extends ContentProvider {
 		return cursorToLong(cursor);
 	}
 
-
-
-//BEGIN THINGS FOR CONTENT PROVIDER
+// begin content-provider-interface
 
 	@Override
 	public boolean onCreate() {
 		return false;
-	}
-
-	@Nullable
-	@Override
-	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-		return null;
 	}
 
 	@Nullable
@@ -233,22 +152,23 @@ public class UserDataSource extends ContentProvider {
 	@Nullable
 	@Override
 	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-		return null;
-	}
-
-	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-		return 0;
+		long last_id = database.insert(DbHelper.TABLE_USER, null, values);
+		return last_id;
 	}
 
 	@Override
 	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-		return 0;
+		int rows_affected = database.update(DbHelper.TABLE_USER, values, DbHelper.USER_ID + " = " + selectionArgs[0], null);
+		return rows_affected;
 	}
 
+	@Override
+	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+		int rows_affected = database.delete(DbHelper.TABLE_USER, DbHelper.USER_ID + " = " + selectionArgs[0], null);
+		return rows_affected;
+	}
 
-//END THINGS FOR CONTENT PROVIDER
-
+// end content-provider-interface 
 
 // reserved-for:android-sqlite-db.functions
 //End of user code
@@ -261,9 +181,38 @@ public class UserDataSource extends ContentProvider {
 //reserved-for:query3.functions
 //End of user code
 
+
+//Start of user code reserved-for:android-sqlite-db.begin-default-query
+	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
+	@Nullable
+	@Override
+	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+		Cursor result = null;
+		if (URI_USER_ALL.equals(uri)) {
+			result = listAll();
+		} else if(URI_USER_SOME.equals(uri)) {
+			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
+		} else if(URI_USER_BYID.equals(uri)) {
+			result = getById(Long.parseLong(selectionArgs[0]));
+		}
+// reserved-for:android-sqlite-db.begin-default-query
+//End of user code
+
+// Start of user code reserved-for:android-sqlite-sync.default-query
+
+// reserved-for:android-sqlite-sync.default-query
+// End of user code
+
+//Start of user code reserved-for:android-sqlite-db.end-default-query
+		return result;
+	}
+// reserved-for:android-sqlite-db.end-default-query
+//End of user code
+
+
+//Start of user code reserved-for:android-sqlite-db.end-class
 }
-
-
-
+// reserved-for:android-sqlite-db.end-class
+//End of user code
 
 

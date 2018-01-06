@@ -33,7 +33,23 @@ import com.uisleandro.store.DbHelper;
 //End of user code
 
 //Start of user code reserved-for:android-sqlite-db.functions
-public class CountryDataSource extends ContentProvider {
+public class CountryProvider extends ContentProvider {
+
+
+	public static final String AUTHORITY = "com.spaceforsales.country";
+	public static final String SCHEME = "content://";
+
+	public static final String COUNTRY_ALL = SCHEME + AUTHORITY + "/all";
+	public static final Uri URI_COUNTRY_ALL = Uri.parse(COUNTRY_ALL);
+	public static final String COUNTRY_ALL_BASE = COUNTRY_ALL + "/";
+
+	public static final String COUNTRY_SOME = SCHEME + AUTHORITY + "/some";
+	public static final Uri URI_COUNTRY_SOME = Uri.parse(COUNTRY_SOME);
+	public static final String COUNTRY_SOME_BASE = COUNTRY_SOME + "/";
+
+	public static final String COUNTRY_BYID = SCHEME + AUTHORITY + "/byid";
+	public static final Uri URI_COUNTRY_BYID = Uri.parse(COUNTRY_BYID);
+	public static final String COUNTRY_BYID_BASE = COUNTRY_BYID + "/";
 
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
@@ -62,76 +78,13 @@ public class CountryDataSource extends ContentProvider {
 		db_helper.close();
 	}
 
-	public long cursorToLong(Cursor cursor){
-		long result = 0L;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getLong(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-	public int cursorToInteger(Cursor cursor){
-		int result = 0;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getInt(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-
-	public long insert(CountryView that){
-		ContentValues values = new ContentValues();
-		//should not set the server id
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.COUNTRY_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.COUNTRY_DIRTY, that.isDirty());
-
-		values.put(DbHelper.COUNTRY_LAST_UPDATE, that.getLastUpdate());
-		values.put(DbHelper.COUNTRY_NAME, that.getName());
-		long last_id = database.insert(DbHelper.TABLE_COUNTRY, null, values);
-		return last_id;
-	}
-
-	public int update(CountryView that){
-		ContentValues values = new ContentValues();
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.COUNTRY_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.COUNTRY_DIRTY, that.isDirty());
-
-		values.put(DbHelper.COUNTRY_LAST_UPDATE, that.getLastUpdate());
-		values.put(DbHelper.COUNTRY_NAME, that.getName());
-
-		int rows_affected = database.update(DbHelper.TABLE_COUNTRY, values, DbHelper.COUNTRY_ID + " = " + String.valueOf(that.getId()), null);
-		return rows_affected;
-	}
-
-	public long delete(CountryView that){
-		return database.delete(DbHelper.TABLE_COUNTRY, DbHelper.COUNTRY_ID + " = " + String.valueOf(that.getId()), null);
-	}
-
-	public long deleteById(long id){
-		return database.delete(DbHelper.TABLE_COUNTRY, DbHelper.COUNTRY_ID + " = " + String.valueOf(id), null);
-	}
-
 	public Cursor listAll(){
-
 		Cursor cursor = database.query(DbHelper.TABLE_COUNTRY,
 			selectableColumns,null,null, null, null, null);
 		return cursor;
 	}
 
 	public Cursor getById(long id){
-
 		Cursor cursor = database.query(DbHelper.TABLE_COUNTRY,
 			selectableColumns,
 			DbHelper.COUNTRY_ID + " = " + id,
@@ -165,19 +118,11 @@ public class CountryDataSource extends ContentProvider {
 		return cursorToLong(cursor);
 	}
 
-
-
-//BEGIN THINGS FOR CONTENT PROVIDER
+// begin content-provider-interface
 
 	@Override
 	public boolean onCreate() {
 		return false;
-	}
-
-	@Nullable
-	@Override
-	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-		return null;
 	}
 
 	@Nullable
@@ -189,22 +134,23 @@ public class CountryDataSource extends ContentProvider {
 	@Nullable
 	@Override
 	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-		return null;
-	}
-
-	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-		return 0;
+		long last_id = database.insert(DbHelper.TABLE_COUNTRY, null, values);
+		return last_id;
 	}
 
 	@Override
 	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-		return 0;
+		int rows_affected = database.update(DbHelper.TABLE_COUNTRY, values, DbHelper.COUNTRY_ID + " = " + selectionArgs[0], null);
+		return rows_affected;
 	}
 
+	@Override
+	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+		int rows_affected = database.delete(DbHelper.TABLE_COUNTRY, DbHelper.COUNTRY_ID + " = " + selectionArgs[0], null);
+		return rows_affected;
+	}
 
-//END THINGS FOR CONTENT PROVIDER
-
+// end content-provider-interface 
 
 // reserved-for:android-sqlite-db.functions
 //End of user code
@@ -217,9 +163,38 @@ public class CountryDataSource extends ContentProvider {
 //reserved-for:query3.functions
 //End of user code
 
+
+//Start of user code reserved-for:android-sqlite-db.begin-default-query
+	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
+	@Nullable
+	@Override
+	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+		Cursor result = null;
+		if (URI_COUNTRY_ALL.equals(uri)) {
+			result = listAll();
+		} else if(URI_COUNTRY_SOME.equals(uri)) {
+			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
+		} else if(URI_COUNTRY_BYID.equals(uri)) {
+			result = getById(Long.parseLong(selectionArgs[0]));
+		}
+// reserved-for:android-sqlite-db.begin-default-query
+//End of user code
+
+// Start of user code reserved-for:android-sqlite-sync.default-query
+
+// reserved-for:android-sqlite-sync.default-query
+// End of user code
+
+//Start of user code reserved-for:android-sqlite-db.end-default-query
+		return result;
+	}
+// reserved-for:android-sqlite-db.end-default-query
+//End of user code
+
+
+//Start of user code reserved-for:android-sqlite-db.end-class
 }
-
-
-
+// reserved-for:android-sqlite-db.end-class
+//End of user code
 
 

@@ -33,7 +33,23 @@ import com.uisleandro.store.DbHelper;
 //End of user code
 
 //Start of user code reserved-for:android-sqlite-db.functions
-public class StockReviewDataSource extends ContentProvider {
+public class StockReviewProvider extends ContentProvider {
+
+
+	public static final String AUTHORITY = "com.spaceforsales.stock_review";
+	public static final String SCHEME = "content://";
+
+	public static final String STOCK_REVIEW_ALL = SCHEME + AUTHORITY + "/all";
+	public static final Uri URI_STOCK_REVIEW_ALL = Uri.parse(STOCK_REVIEW_ALL);
+	public static final String STOCK_REVIEW_ALL_BASE = STOCK_REVIEW_ALL + "/";
+
+	public static final String STOCK_REVIEW_SOME = SCHEME + AUTHORITY + "/some";
+	public static final Uri URI_STOCK_REVIEW_SOME = Uri.parse(STOCK_REVIEW_SOME);
+	public static final String STOCK_REVIEW_SOME_BASE = STOCK_REVIEW_SOME + "/";
+
+	public static final String STOCK_REVIEW_BYID = SCHEME + AUTHORITY + "/byid";
+	public static final Uri URI_STOCK_REVIEW_BYID = Uri.parse(STOCK_REVIEW_BYID);
+	public static final String STOCK_REVIEW_BYID_BASE = STOCK_REVIEW_BYID + "/";
 
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
@@ -66,88 +82,13 @@ public class StockReviewDataSource extends ContentProvider {
 		db_helper.close();
 	}
 
-	public long cursorToLong(Cursor cursor){
-		long result = 0L;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getLong(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-	public int cursorToInteger(Cursor cursor){
-		int result = 0;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getInt(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-
-	public long insert(StockReviewView that){
-		ContentValues values = new ContentValues();
-		//should not set the server id
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.STOCK_REVIEW_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.STOCK_REVIEW_DIRTY, that.isDirty());
-
-		values.put(DbHelper.STOCK_REVIEW_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkProduct() > 0){
-			values.put(DbHelper.STOCK_REVIEW_FK_PRODUCT, that.getFkProduct());
-		}
-		values.put(DbHelper.STOCK_REVIEW_ACTUAL_AMOUNT, that.getActualAmount());
-		values.put(DbHelper.STOCK_REVIEW_SOLD_ITEMS, that.getSoldItems());
-		values.put(DbHelper.STOCK_REVIEW_PREVIOUS_AMOUNT, that.getPreviousAmount());
-		values.put(DbHelper.STOCK_REVIEW_MISSING_AMOUNT, that.getMissingAmount());
-		long last_id = database.insert(DbHelper.TABLE_STOCK_REVIEW, null, values);
-		return last_id;
-	}
-
-	public int update(StockReviewView that){
-		ContentValues values = new ContentValues();
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.STOCK_REVIEW_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.STOCK_REVIEW_DIRTY, that.isDirty());
-
-		values.put(DbHelper.STOCK_REVIEW_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkProduct() > 0){
-			values.put(DbHelper.STOCK_REVIEW_FK_PRODUCT, that.getFkProduct());
-		}
-		values.put(DbHelper.STOCK_REVIEW_ACTUAL_AMOUNT, that.getActualAmount());
-		values.put(DbHelper.STOCK_REVIEW_SOLD_ITEMS, that.getSoldItems());
-		values.put(DbHelper.STOCK_REVIEW_PREVIOUS_AMOUNT, that.getPreviousAmount());
-		values.put(DbHelper.STOCK_REVIEW_MISSING_AMOUNT, that.getMissingAmount());
-
-		int rows_affected = database.update(DbHelper.TABLE_STOCK_REVIEW, values, DbHelper.STOCK_REVIEW_ID + " = " + String.valueOf(that.getId()), null);
-		return rows_affected;
-	}
-
-	public long delete(StockReviewView that){
-		return database.delete(DbHelper.TABLE_STOCK_REVIEW, DbHelper.STOCK_REVIEW_ID + " = " + String.valueOf(that.getId()), null);
-	}
-
-	public long deleteById(long id){
-		return database.delete(DbHelper.TABLE_STOCK_REVIEW, DbHelper.STOCK_REVIEW_ID + " = " + String.valueOf(id), null);
-	}
-
 	public Cursor listAll(){
-
 		Cursor cursor = database.query(DbHelper.TABLE_STOCK_REVIEW,
 			selectableColumns,null,null, null, null, null);
 		return cursor;
 	}
 
 	public Cursor getById(long id){
-
 		Cursor cursor = database.query(DbHelper.TABLE_STOCK_REVIEW,
 			selectableColumns,
 			DbHelper.STOCK_REVIEW_ID + " = " + id,
@@ -185,19 +126,11 @@ public class StockReviewDataSource extends ContentProvider {
 		return cursorToLong(cursor);
 	}
 
-
-
-//BEGIN THINGS FOR CONTENT PROVIDER
+// begin content-provider-interface
 
 	@Override
 	public boolean onCreate() {
 		return false;
-	}
-
-	@Nullable
-	@Override
-	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-		return null;
 	}
 
 	@Nullable
@@ -209,22 +142,23 @@ public class StockReviewDataSource extends ContentProvider {
 	@Nullable
 	@Override
 	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-		return null;
-	}
-
-	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-		return 0;
+		long last_id = database.insert(DbHelper.TABLE_STOCK_REVIEW, null, values);
+		return last_id;
 	}
 
 	@Override
 	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-		return 0;
+		int rows_affected = database.update(DbHelper.TABLE_STOCK_REVIEW, values, DbHelper.STOCK_REVIEW_ID + " = " + selectionArgs[0], null);
+		return rows_affected;
 	}
 
+	@Override
+	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+		int rows_affected = database.delete(DbHelper.TABLE_STOCK_REVIEW, DbHelper.STOCK_REVIEW_ID + " = " + selectionArgs[0], null);
+		return rows_affected;
+	}
 
-//END THINGS FOR CONTENT PROVIDER
-
+// end content-provider-interface 
 
 // reserved-for:android-sqlite-db.functions
 //End of user code
@@ -237,9 +171,38 @@ public class StockReviewDataSource extends ContentProvider {
 //reserved-for:query3.functions
 //End of user code
 
+
+//Start of user code reserved-for:android-sqlite-db.begin-default-query
+	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
+	@Nullable
+	@Override
+	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+		Cursor result = null;
+		if (URI_STOCK_REVIEW_ALL.equals(uri)) {
+			result = listAll();
+		} else if(URI_STOCK_REVIEW_SOME.equals(uri)) {
+			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
+		} else if(URI_STOCK_REVIEW_BYID.equals(uri)) {
+			result = getById(Long.parseLong(selectionArgs[0]));
+		}
+// reserved-for:android-sqlite-db.begin-default-query
+//End of user code
+
+// Start of user code reserved-for:android-sqlite-sync.default-query
+
+// reserved-for:android-sqlite-sync.default-query
+// End of user code
+
+//Start of user code reserved-for:android-sqlite-db.end-default-query
+		return result;
+	}
+// reserved-for:android-sqlite-db.end-default-query
+//End of user code
+
+
+//Start of user code reserved-for:android-sqlite-db.end-class
 }
-
-
-
+// reserved-for:android-sqlite-db.end-class
+//End of user code
 
 

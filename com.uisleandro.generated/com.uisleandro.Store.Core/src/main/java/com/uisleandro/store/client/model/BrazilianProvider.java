@@ -33,7 +33,23 @@ import com.uisleandro.store.DbHelper;
 //End of user code
 
 //Start of user code reserved-for:android-sqlite-db.functions
-public class BrazilianDataSource extends ContentProvider {
+public class BrazilianProvider extends ContentProvider {
+
+
+	public static final String AUTHORITY = "com.spaceforsales.brazilian";
+	public static final String SCHEME = "content://";
+
+	public static final String BRAZILIAN_ALL = SCHEME + AUTHORITY + "/all";
+	public static final Uri URI_BRAZILIAN_ALL = Uri.parse(BRAZILIAN_ALL);
+	public static final String BRAZILIAN_ALL_BASE = BRAZILIAN_ALL + "/";
+
+	public static final String BRAZILIAN_SOME = SCHEME + AUTHORITY + "/some";
+	public static final Uri URI_BRAZILIAN_SOME = Uri.parse(BRAZILIAN_SOME);
+	public static final String BRAZILIAN_SOME_BASE = BRAZILIAN_SOME + "/";
+
+	public static final String BRAZILIAN_BYID = SCHEME + AUTHORITY + "/byid";
+	public static final Uri URI_BRAZILIAN_BYID = Uri.parse(BRAZILIAN_BYID);
+	public static final String BRAZILIAN_BYID_BASE = BRAZILIAN_BYID + "/";
 
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
@@ -64,84 +80,13 @@ public class BrazilianDataSource extends ContentProvider {
 		db_helper.close();
 	}
 
-	public long cursorToLong(Cursor cursor){
-		long result = 0L;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getLong(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-	public int cursorToInteger(Cursor cursor){
-		int result = 0;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getInt(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-
-	public long insert(BrazilianView that){
-		ContentValues values = new ContentValues();
-		//should not set the server id
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.BRAZILIAN_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.BRAZILIAN_DIRTY, that.isDirty());
-
-		values.put(DbHelper.BRAZILIAN_LAST_UPDATE, that.getLastUpdate());
-		values.put(DbHelper.BRAZILIAN_CPF, that.getCpf());
-		values.put(DbHelper.BRAZILIAN_RG, that.getRg());
-		if(that.getFkBasicClient() > 0){
-			values.put(DbHelper.BRAZILIAN_FK_BASIC_CLIENT, that.getFkBasicClient());
-		}
-		long last_id = database.insert(DbHelper.TABLE_BRAZILIAN, null, values);
-		return last_id;
-	}
-
-	public int update(BrazilianView that){
-		ContentValues values = new ContentValues();
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.BRAZILIAN_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.BRAZILIAN_DIRTY, that.isDirty());
-
-		values.put(DbHelper.BRAZILIAN_LAST_UPDATE, that.getLastUpdate());
-		values.put(DbHelper.BRAZILIAN_CPF, that.getCpf());
-		values.put(DbHelper.BRAZILIAN_RG, that.getRg());
-		if(that.getFkBasicClient() > 0){
-			values.put(DbHelper.BRAZILIAN_FK_BASIC_CLIENT, that.getFkBasicClient());
-		}
-
-		int rows_affected = database.update(DbHelper.TABLE_BRAZILIAN, values, DbHelper.BRAZILIAN_ID + " = " + String.valueOf(that.getId()), null);
-		return rows_affected;
-	}
-
-	public long delete(BrazilianView that){
-		return database.delete(DbHelper.TABLE_BRAZILIAN, DbHelper.BRAZILIAN_ID + " = " + String.valueOf(that.getId()), null);
-	}
-
-	public long deleteById(long id){
-		return database.delete(DbHelper.TABLE_BRAZILIAN, DbHelper.BRAZILIAN_ID + " = " + String.valueOf(id), null);
-	}
-
 	public Cursor listAll(){
-
 		Cursor cursor = database.query(DbHelper.TABLE_BRAZILIAN,
 			selectableColumns,null,null, null, null, null);
 		return cursor;
 	}
 
 	public Cursor getById(long id){
-
 		Cursor cursor = database.query(DbHelper.TABLE_BRAZILIAN,
 			selectableColumns,
 			DbHelper.BRAZILIAN_ID + " = " + id,
@@ -177,19 +122,11 @@ public class BrazilianDataSource extends ContentProvider {
 		return cursorToLong(cursor);
 	}
 
-
-
-//BEGIN THINGS FOR CONTENT PROVIDER
+// begin content-provider-interface
 
 	@Override
 	public boolean onCreate() {
 		return false;
-	}
-
-	@Nullable
-	@Override
-	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-		return null;
 	}
 
 	@Nullable
@@ -201,22 +138,23 @@ public class BrazilianDataSource extends ContentProvider {
 	@Nullable
 	@Override
 	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-		return null;
-	}
-
-	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-		return 0;
+		long last_id = database.insert(DbHelper.TABLE_BRAZILIAN, null, values);
+		return last_id;
 	}
 
 	@Override
 	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-		return 0;
+		int rows_affected = database.update(DbHelper.TABLE_BRAZILIAN, values, DbHelper.BRAZILIAN_ID + " = " + selectionArgs[0], null);
+		return rows_affected;
 	}
 
+	@Override
+	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+		int rows_affected = database.delete(DbHelper.TABLE_BRAZILIAN, DbHelper.BRAZILIAN_ID + " = " + selectionArgs[0], null);
+		return rows_affected;
+	}
 
-//END THINGS FOR CONTENT PROVIDER
-
+// end content-provider-interface 
 
 // reserved-for:android-sqlite-db.functions
 //End of user code
@@ -229,9 +167,38 @@ public class BrazilianDataSource extends ContentProvider {
 //reserved-for:query3.functions
 //End of user code
 
+
+//Start of user code reserved-for:android-sqlite-db.begin-default-query
+	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
+	@Nullable
+	@Override
+	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+		Cursor result = null;
+		if (URI_BRAZILIAN_ALL.equals(uri)) {
+			result = listAll();
+		} else if(URI_BRAZILIAN_SOME.equals(uri)) {
+			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
+		} else if(URI_BRAZILIAN_BYID.equals(uri)) {
+			result = getById(Long.parseLong(selectionArgs[0]));
+		}
+// reserved-for:android-sqlite-db.begin-default-query
+//End of user code
+
+// Start of user code reserved-for:android-sqlite-sync.default-query
+
+// reserved-for:android-sqlite-sync.default-query
+// End of user code
+
+//Start of user code reserved-for:android-sqlite-db.end-default-query
+		return result;
+	}
+// reserved-for:android-sqlite-db.end-default-query
+//End of user code
+
+
+//Start of user code reserved-for:android-sqlite-db.end-class
 }
-
-
-
+// reserved-for:android-sqlite-db.end-class
+//End of user code
 
 

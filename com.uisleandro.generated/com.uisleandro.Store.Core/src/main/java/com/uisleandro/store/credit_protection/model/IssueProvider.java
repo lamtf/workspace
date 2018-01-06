@@ -33,7 +33,23 @@ import com.uisleandro.store.DbHelper;
 //End of user code
 
 //Start of user code reserved-for:android-sqlite-db.functions
-public class IssueDataSource extends ContentProvider {
+public class IssueProvider extends ContentProvider {
+
+
+	public static final String AUTHORITY = "com.spaceforsales.Issue";
+	public static final String SCHEME = "content://";
+
+	public static final String ISSUE_ALL = SCHEME + AUTHORITY + "/all";
+	public static final Uri URI_ISSUE_ALL = Uri.parse(ISSUE_ALL);
+	public static final String ISSUE_ALL_BASE = ISSUE_ALL + "/";
+
+	public static final String ISSUE_SOME = SCHEME + AUTHORITY + "/some";
+	public static final Uri URI_ISSUE_SOME = Uri.parse(ISSUE_SOME);
+	public static final String ISSUE_SOME_BASE = ISSUE_SOME + "/";
+
+	public static final String ISSUE_BYID = SCHEME + AUTHORITY + "/byid";
+	public static final Uri URI_ISSUE_BYID = Uri.parse(ISSUE_BYID);
+	public static final String ISSUE_BYID_BASE = ISSUE_BYID + "/";
 
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
@@ -67,98 +83,13 @@ public class IssueDataSource extends ContentProvider {
 		db_helper.close();
 	}
 
-	public long cursorToLong(Cursor cursor){
-		long result = 0L;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getLong(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-	public int cursorToInteger(Cursor cursor){
-		int result = 0;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getInt(0);
-		}
-		cursor.close();
-		return result;
-	}
-
-
-	public long insert(IssueView that){
-		ContentValues values = new ContentValues();
-		//should not set the server id
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.ISSUE_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.ISSUE_DIRTY, that.isDirty());
-
-		values.put(DbHelper.ISSUE_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkSharedClient() > 0){
-			values.put(DbHelper.ISSUE_FK_SHARED_CLIENT, that.getFkSharedClient());
-		}
-		if(that.getFkSystem() > 0){
-			values.put(DbHelper.ISSUE_FK_SYSTEM, that.getFkSystem());
-		}
-		values.put(DbHelper.ISSUE_DESCRIPTION, that.getDescription());
-		values.put(DbHelper.ISSUE_ACTIVE, that.getActive());
-		values.put(DbHelper.ISSUE_ISANSWER, that.getIsAnswer());
-		if(that.getFkIssue() > 0){
-			values.put(DbHelper.ISSUE_FK_ISSUE, that.getFkIssue());
-		}
-		long last_id = database.insert(DbHelper.TABLE_ISSUE, null, values);
-		return last_id;
-	}
-
-	public int update(IssueView that){
-		ContentValues values = new ContentValues();
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.ISSUE_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.ISSUE_DIRTY, that.isDirty());
-
-		values.put(DbHelper.ISSUE_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkSharedClient() > 0){
-			values.put(DbHelper.ISSUE_FK_SHARED_CLIENT, that.getFkSharedClient());
-		}
-		if(that.getFkSystem() > 0){
-			values.put(DbHelper.ISSUE_FK_SYSTEM, that.getFkSystem());
-		}
-		values.put(DbHelper.ISSUE_DESCRIPTION, that.getDescription());
-		values.put(DbHelper.ISSUE_ACTIVE, that.getActive());
-		values.put(DbHelper.ISSUE_ISANSWER, that.getIsAnswer());
-		if(that.getFkIssue() > 0){
-			values.put(DbHelper.ISSUE_FK_ISSUE, that.getFkIssue());
-		}
-
-		int rows_affected = database.update(DbHelper.TABLE_ISSUE, values, DbHelper.ISSUE_ID + " = " + String.valueOf(that.getId()), null);
-		return rows_affected;
-	}
-
-	public long delete(IssueView that){
-		return database.delete(DbHelper.TABLE_ISSUE, DbHelper.ISSUE_ID + " = " + String.valueOf(that.getId()), null);
-	}
-
-	public long deleteById(long id){
-		return database.delete(DbHelper.TABLE_ISSUE, DbHelper.ISSUE_ID + " = " + String.valueOf(id), null);
-	}
-
 	public Cursor listAll(){
-
 		Cursor cursor = database.query(DbHelper.TABLE_ISSUE,
 			selectableColumns,null,null, null, null, null);
 		return cursor;
 	}
 
 	public Cursor getById(long id){
-
 		Cursor cursor = database.query(DbHelper.TABLE_ISSUE,
 			selectableColumns,
 			DbHelper.ISSUE_ID + " = " + id,
@@ -197,19 +128,11 @@ public class IssueDataSource extends ContentProvider {
 		return cursorToLong(cursor);
 	}
 
-
-
-//BEGIN THINGS FOR CONTENT PROVIDER
+// begin content-provider-interface
 
 	@Override
 	public boolean onCreate() {
 		return false;
-	}
-
-	@Nullable
-	@Override
-	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-		return null;
 	}
 
 	@Nullable
@@ -221,22 +144,23 @@ public class IssueDataSource extends ContentProvider {
 	@Nullable
 	@Override
 	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-		return null;
-	}
-
-	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-		return 0;
+		long last_id = database.insert(DbHelper.TABLE_ISSUE, null, values);
+		return last_id;
 	}
 
 	@Override
 	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-		return 0;
+		int rows_affected = database.update(DbHelper.TABLE_ISSUE, values, DbHelper.ISSUE_ID + " = " + selectionArgs[0], null);
+		return rows_affected;
 	}
 
+	@Override
+	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+		int rows_affected = database.delete(DbHelper.TABLE_ISSUE, DbHelper.ISSUE_ID + " = " + selectionArgs[0], null);
+		return rows_affected;
+	}
 
-//END THINGS FOR CONTENT PROVIDER
-
+// end content-provider-interface 
 
 // reserved-for:android-sqlite-db.functions
 //End of user code
@@ -249,9 +173,38 @@ public class IssueDataSource extends ContentProvider {
 //reserved-for:query3.functions
 //End of user code
 
+
+//Start of user code reserved-for:android-sqlite-db.begin-default-query
+	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
+	@Nullable
+	@Override
+	public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
+		Cursor result = null;
+		if (URI_ISSUE_ALL.equals(uri)) {
+			result = listAll();
+		} else if(URI_ISSUE_SOME.equals(uri)) {
+			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
+		} else if(URI_ISSUE_BYID.equals(uri)) {
+			result = getById(Long.parseLong(selectionArgs[0]));
+		}
+// reserved-for:android-sqlite-db.begin-default-query
+//End of user code
+
+// Start of user code reserved-for:android-sqlite-sync.default-query
+
+// reserved-for:android-sqlite-sync.default-query
+// End of user code
+
+//Start of user code reserved-for:android-sqlite-db.end-default-query
+		return result;
+	}
+// reserved-for:android-sqlite-db.end-default-query
+//End of user code
+
+
+//Start of user code reserved-for:android-sqlite-db.end-class
 }
-
-
-
+// reserved-for:android-sqlite-db.end-class
+//End of user code
 
 
