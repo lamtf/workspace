@@ -1039,7 +1039,7 @@ owner.owner.oclAsType(NamedElement).name)
 /][/if][/template]
 
 
-[template public android_create_content_provider(pname: String, modul: Package, tbl: Class)]
+[template public android_create_tbl_datasource_class(pname: String, modul: Package, tbl: Class)]
 [if (tbl.eContents(Property)->exists(x | null = x.type)) ]
 /*
 ON [tbl.getQualifiedName() /]
@@ -1077,7 +1077,7 @@ import [pname /].[modul.name /].view.[tbl.name.ToCamelCase() /]View;
 //[/protected]
 
 [begin_reserve('reserved-for:android-sqlite-db.functions') /]
-public class [tbl.name.ToCamelCase() /]Provider {
+public class [tbl.name.ToCamelCase() /]DataSource {
 
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
@@ -1341,8 +1341,8 @@ one for each module
 [android_create_tblviewclass(pname, modul, tbl) /]
 [/file]
 
-[file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'Provider.java', false, 'UTF-8')]
-[android_create_content_provider(pname, modul, tbl)/]
+[file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'DataSource.java', false, 'UTF-8')]
+[android_create_tbl_datasource_class(pname, modul, tbl)/]
 [/file]
 
 [/for]
