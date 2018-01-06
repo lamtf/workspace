@@ -1,6 +1,6 @@
 [comment encoding = UTF-8 /]
 [module AndroidSqliteQuery('http://www.eclipse.org/uml2/5.0.0/UML')]
-[import com::uisleandro::AndroidSqliteQuery::common::util /]
+[import com::uisleandro::AndroidSqliteQuerySingle::common::util /]
 
 [comment
 
