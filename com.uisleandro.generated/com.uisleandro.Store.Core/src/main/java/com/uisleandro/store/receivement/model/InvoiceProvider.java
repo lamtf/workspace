@@ -51,6 +51,10 @@ public class InvoiceProvider extends ContentProvider {
 	public static final Uri URI_INVOICE_BYID = Uri.parse(INVOICE_BYID);
 	public static final String INVOICE_BYID_BASE = INVOICE_BYID + "/";
 
+	public static final String INVOICE_LASTID = SCHEME + AUTHORITY + "/lastid";
+	public static final Uri URI_INVOICE_LASTID = Uri.parse(INVOICE_LASTID);
+	public static final String INVOICE_LASTID_BASE = INVOICE_LASTID + "/";
+
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
 	private static final String[] selectableColumns = new String[]{ 
@@ -95,12 +99,10 @@ public class InvoiceProvider extends ContentProvider {
 			selectableColumns,
 			DbHelper.INVOICE_ID + " = " + id,
 			null, null, null, null);
-
 		return cursor;
 	}
 
 	public Cursor listSome(long page_count, long page_size){
-
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
 			"fk_system, " +
@@ -115,19 +117,14 @@ public class InvoiceProvider extends ContentProvider {
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
 		query += ";";
-
 		Cursor cursor = database.rawQuery(query, null);
 		return cursor;
 	}
 
-	public long getLastId(){
-
-		long result = 0;
-
+	public Cursor getLastId(){
 		String query = "SELECT MAX(id) FROM " + DbHelper.TABLE_INVOICE +";";
 		Cursor cursor = database.rawQuery(query, null);
-		
-		return cursorToLong(cursor);
+		return cursor;		
 	}
 
 // begin content-provider-interface
@@ -188,6 +185,8 @@ public class InvoiceProvider extends ContentProvider {
 			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
 		} else if(URI_INVOICE_BYID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[0]));
+		} else if(URI_INVOICE_LASTID.equals(uri)) {
+			result = getLastId();
 		}
 // reserved-for:android-sqlite-db.begin-default-query
 //End of user code
@@ -200,13 +199,7 @@ public class InvoiceProvider extends ContentProvider {
 //Start of user code reserved-for:android-sqlite-db.end-default-query
 		return result;
 	}
+}
 // reserved-for:android-sqlite-db.end-default-query
 //End of user code
-
-
-//Start of user code reserved-for:android-sqlite-db.end-class
-}
-// reserved-for:android-sqlite-db.end-class
-//End of user code
-
 
