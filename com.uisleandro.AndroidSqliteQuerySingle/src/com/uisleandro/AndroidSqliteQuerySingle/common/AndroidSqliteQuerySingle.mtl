@@ -313,7 +313,7 @@ else
 endif
 /]
 
-[template public createBehaviorModelClass(controller : Class, mName: String)]
+[template public create_android_content_provider(controller : Class, mName: String)]
 //[protected ('reserved-for:android-sqlite-db.imports')]
 // reserved-for:android-sqlite-db.imports
 //[/protected]
@@ -326,7 +326,7 @@ endif
 [for (op : Operation | controller.eContents(Operation)
 ->select(x | not(gotStereotype(x, 'SelectValueWhere')) and (null <> out_parameter_definition(x)) )
 )]
-import [mName /].[ ToCamelCase(out_parameter_definition(op).name) /];
+import [mName /].[ToCamelCase(out_parameter_definition(op).name) /];
 [/for]
 [end_reserve('reserved-for:query3.imports') /]
 
@@ -427,23 +427,23 @@ i must call it just 'queries'
 		->select(x|x.name = 'mvc')
 		->first()
 ][for (modul : Package | pack.eContents(Package))
-][for (ctrl : Class | modul.eContents(Package)
-->select(p|p.name = 'controller')
-->first()
-.eContents(Class)
+][for (ctrl : Class | modul
+		.eContents(Package)
+		->select(p|p.name = 'controller')
+		->first()
+		.eContents(Class)
 )]
-
+[comment]
+TODO: temporarialy removed
 [create_out_classes(
-ctrl,
-cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+modul.name+'/view',
-pname +'.'+ modul.name+'.view'
+	ctrl,
+	cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+modul.name+'/view',
+	pname +'.'+ modul.name+'.view'
 ) /]
+[/comment]
 
-[file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+ctrl.name.ToCamelCase()+'DataSource.java', false, 'UTF-8')]
-[createBehaviorModelClass(ctrl, pname +'.'+ modul.name+'.view') /]
-
-}
-
+[file (cName+'.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+ToCamelCase(ctrl.name)+'Provider.java', false, 'UTF-8')]
+[create_android_content_provider(ctrl, pname +'.'+ modul.name+'.view') /]
 [/file]
 
 [/for][/for][/let]
