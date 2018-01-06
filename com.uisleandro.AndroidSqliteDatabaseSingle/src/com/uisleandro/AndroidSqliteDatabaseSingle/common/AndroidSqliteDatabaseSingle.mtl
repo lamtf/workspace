@@ -1138,6 +1138,9 @@ separator (', \n')]
 	public Cursor listAll(){
 		Cursor cursor = database.query(DbHelper.TABLE_[tbl.name.toUpperCase()/],
 			selectableColumns,null,null, null, null, null);
+[comment]
+		return cursorToListOf[tbl.name.ToCamelCase() /]View(cursor);
+[/comment]
 		return cursor;
 	}
 
@@ -1148,6 +1151,12 @@ separator (', \n')]
 			null, null, null, null);
 
 		return cursor;
+[comment]
+		cursor.moveToFirst();
+		[tbl.name.ToCamelCase() /]View that = cursorTo[tbl.name.ToCamelCase() /]View(cursor);
+		cursor.close();
+		return that;
+[/comment]
 	}
 
 	[comment renamed /]
@@ -1162,6 +1171,9 @@ separator (', \n')]
 
 		Cursor cursor = database.rawQuery(query, null);
 		return cursor;
+[comment]
+		return cursorToListOf[tbl.name.ToCamelCase() /]View(cursor);
+[/comment]
 	}
 
 	public long getLastId(){
