@@ -315,209 +315,6 @@ x.eContents(Class)->exists(c : Class | c.name = name)
  /]
 
 
-[comment
- 
-Verificar se modul_tabela vai dar algum problema
-
-TODO: VOU REMOVER, NAO POSSO TER MODULOS DEPENDENDO DE OUTRO MODULO PARA COMPILAR
-
-/]
-[template public database_creator(modul: Package, pname : String)]
-package [pname /].[name /];
-
-import android.database.sqlite.SQLiteDatabase;
-[comment] import android.database.sqlite.SQLiteOpenHelper; [/comment]
-
-public class [ToCamelCase(modul.name) /]Design {
-
-
-	public static int VERSION = 1;
-
-[for (tbl : Class | get_tables())]
-	public static final String TABLE_[tbl.name.toUpperCase()/] = "[modul.name/]_[tbl.name/]";
-	public static final String [tbl.name.toUpperCase() /]_ID = "id";
-	public static final String [tbl.name.toUpperCase() /]_SERVER_ID = "server_id";
-	public static final String [tbl.name.toUpperCase() /]_DIRTY = "dirty";
-[for (prop : Property | get_fields(tbl) )]
-	public static final String [tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /] = "[prop.getName() /]";
-[/for]
-
-	private static final String CREATE_TABLE_[tbl.name.toUpperCase() /] = "CREATE TABLE " + 
-	TABLE_[tbl.name.toUpperCase() /] + " ("+ 
-	[tbl.name.toUpperCase() /]_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-	[tbl.name.toUpperCase() /]_SERVER_ID + " INTEGER NULL, " +
-	[tbl.name.toUpperCase() /]_DIRTY + " BOOLEAN NOT NULL, " +
-[for (prop : Property | get_fields(tbl) )
-separator (', " + \n') after (' " + \n')]
-	[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /] + " [get_sqlite_type(prop) /] [prop.nullable()/][/for]
-	");";
-
-	private static final String CREATE_INDEX_[tbl.name.toUpperCase() /]_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_[tbl.name.toUpperCase() /] + "_serverid_idx" +
-	" ON " + TABLE_[tbl.name.toUpperCase() /] + " ("+ [tbl.name.toUpperCase() /]_SERVER_ID +")"; 
-
-[if (tbl.eContents(Property)->exists(p: Property | p.name.equalsIgnoreCase('cpf') ))]
-	private static final String CREATE_INDEX_[tbl.name.toUpperCase() /]_CPF = "CREATE UNIQUE INDEX " + TABLE_[tbl.name.toUpperCase()/] + "_cpf_idx" +
-	" ON " + TABLE_[tbl.name.toUpperCase() /] + " ("+ [tbl.name.toUpperCase() /]_CPF +")";
-[/if]
-[/for]
-
-	public void create(SQLiteDatabase db) {
-
-[for (tbl : Class | get_tables(modul) )]
-		db.execSQL(CREATE_TABLE_[tbl.name.toUpperCase() /]);
-		db.execSQL(CREATE_INDEX_[tbl.name.toUpperCase() /]_SERVER_ID);
-[if (tbl.eContents(Property)->exists(p: Property | p.name.equalsIgnoreCase('cpf') ))]
-		db.execSQL(CREATE_INDEX_[tbl.name.toUpperCase() /]_CPF);
-[/if]
-[/for]
-
-	}
-
-	//fill with the default data if possible
-	public void fill(SQLiteDatabase db) {
-
-	}
-
-	public void drop(SQLiteDatabase db){
-[for (tbl : Class | get_tables(modul) )]
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_[tbl.name.toUpperCase() /]);
-[/for]
-	}
-
-
-} 
-
-[/template]
-
-[template public main_db_helper(root : Model, pname : String)]
-
-package [pname /].core;
-
-import android.content.ContentValues;
-import android.content.Context;
-//import android.database.DatabaseErrorHandler;
-import android.database.sqlite.SQLiteDatabase;
-//import android.database.sqlite.SQLiteDatabase.CursorFactory;
-import android.database.sqlite.SQLiteOpenHelper;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class DbHelper extends SQLiteOpenHelper {
-
-	private static DbHelper db_instance = null;
-	private Context context;
-
-	private static final String DATABASE_NAME = "store.db";
-	private static final int DATABASE_VERSION = 1;
-
-
-
-	public static final String TABLE_UPDATE_HISTORY = "update_history";
-	public static final String UPDATE_HISTORY_TABLE_VERSION = "table_version";
-	public static final String UPDATE_HISTORY_TABLE_NAME = "table_name";
-	public static final String UPDATE_HISTORY_LAST_UPDATE_TIME = "last_update_time";
-
-	public static final String CREATE_TABLE_UPDATE_HISTORY = "CREATE TABLE IF NOT EXISTS " + TABLE_UPDATE_HISTORY + " (" +
-			UPDATE_HISTORY_TABLE_VERSION + " INTEGER  NULL, " +
-			UPDATE_HISTORY_TABLE_NAME + " CHAR(30) NOT NULL, "+
-			UPDATE_HISTORY_LAST_UPDATE_TIME + " INTEGER  NULL " +
-			" );";
-
-	private static final String CREATE_INDEX_UPDATE_HISTORY_TNAME = "CREATE UNIQUE INDEX " + TABLE_UPDATE_HISTORY + "_serverid_idx" +
-			" ON " + TABLE_UPDATE_HISTORY + " ("+ UPDATE_HISTORY_TABLE_NAME +");";
-
-//web package
-
-
-	public static final String TABLE_COOKIE = "cookie";
-	public static final String COOKIE_ID = "id";
-	public static final String COOKIE_BASE_DOMAIN ="baseDomain";
-	public static final String COOKIE_NAME = "name";
-	public static final String COOKIE_VALUE ="value";
-	public static final String COOKIE_HOST ="host";
-	public static final String COOKIE_PATH = "path";
-	public static final String COOKIE_EXPIRY = "expiry";
-	public static final String COOKIE_CREATION_TIME = "creationTime";
-	public static final String COOKIE_IS_SECURE = "isSecure";
-	public static final String COOKIE_LAST_ACESSED = "lastAcessed";
-	public static final String COOKIE_IS_HTTP_ONLY = "isHttpOnly"; 
-
-	private static final String CREATE_TABLE_COOKIE = "CREATE TABLE IF NOT EXISTS "+TABLE_COOKIE+" ("+
-		COOKIE_ID + " INTEGER PRIMARY KEY ASC AUTOINCREMENT,"+
-		COOKIE_BASE_DOMAIN + " TEXT,"+
-		COOKIE_NAME + " TEXT,"+
-		COOKIE_VALUE + " TEXT,"+
-		COOKIE_HOST + " TEXT,"+
-		COOKIE_PATH + " TEXT,"+
-		COOKIE_EXPIRY + " INTEGER,"+
-		COOKIE_CREATION_TIME + " INTEGER,"+
-		COOKIE_IS_SECURE + " BOOLEAN,"+
-		COOKIE_LAST_ACESSED + " INTEGER,"+
-		COOKIE_IS_HTTP_ONLY +" BOOLEAN" +
-	");";
-
-
-	private DbHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		this.context = context;
-	}
-
-	public static DbHelper getInstance(Context ctx) {
-		if (db_instance == null) {
-			db_instance = new DbHelper(ctx.getApplicationContext());
-		}
-		return db_instance;
-	}
-
-	void fill(SQLiteDatabase db){
-[for (modul : Package | get_modules(root))]
-		[name.ToCamelCase() /]Design.fill(db);
-[/for]
-	}
-
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-
-		db.execSQL(CREATE_TABLE_COOKIE);
-		db.execSQL(CREATE_TABLE_UPDATE_HISTORY);
-		db.execSQL(CREATE_INDEX_UPDATE_HISTORY_TNAME);
-
-[for (modul : Package | get_modules(root))]
-		[name.ToCamelCase() /]Design.create(db);
-[/for]
-
-		fill(db);
-
-	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		//db.execSQL("PRAGMA foreign_keys = OFF;");
-
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_COOKIE);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_HISTORY_TNAME);
-
-[for (modul : Package | get_modules(root) )]
-[for (tbl : Class | get_tables(modul) )]
-		db.execSQL("DROP TABLE IF EXISTS " + [ToCamelCase(modul.name) /]Design.TABLE_[tbl.name.toUpperCase() /]);
-[/for]
-[/for]
-
-		//db.execSQL("PRAGMA foreign_keys = ON;");
-		onCreate(db);
-	}
-
-
-}
-
-[/template]
-
-
-
 [template public android_create_dbhelper(root : Model, pname: String)]
 package [pname /].sqlite;
 
@@ -741,112 +538,6 @@ separator (', " + \n') after (' " + \n')]
 }
 [/template]
 
-[template public an_independency_db_helper(modul: Package, pname : String)]
-package [pname /].[name /].model;
-
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class DbHelper extends SQLiteOpenHelper {
-
-	private static DbHelper db_instance = null;
-	private Context context;
-
-
-	private DbHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		this.context = context;
-	}
-
-	public static DbHelper getInstance(Context ctx) {
-		if (db_instance == null) {
-			db_instance = new DbHelper(ctx.getApplicationContext());
-		}
-		return db_instance;
-	}
-
-
-	private static final String DATABASE_NAME = "[name /].db";
-	private static final int DATABASE_VERSION = 1;
-
-[for (tbl : Class | get_tables())]
-	public static final String TABLE_[tbl.name.toUpperCase()/] = "[modul.name/]_[tbl.name/]";
-	public static final String [tbl.name.toUpperCase() /]_ID = "id";
-	public static final String [tbl.name.toUpperCase() /]_SERVER_ID = "server_id";
-	public static final String [tbl.name.toUpperCase() /]_DIRTY = "dirty";
-[for (prop : Property | get_fields(tbl) )]
-	public static final String [tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /] = "[prop.getName() /]";
-[/for]
-
-	private static final String CREATE_TABLE_[tbl.name.toUpperCase() /] = "CREATE TABLE " + 
-	TABLE_[tbl.name.toUpperCase() /] + " ("+ 
-	[tbl.name.toUpperCase() /]_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-	[tbl.name.toUpperCase() /]_SERVER_ID + " INTEGER NULL, " +
-	[tbl.name.toUpperCase() /]_DIRTY + " BOOLEAN NOT NULL, " +
-[for (prop : Property | get_fields(tbl) )
-separator (', " + \n') after (' " + \n')]
-	[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /] + " [get_sqlite_type(prop) /] [prop.nullable()/][/for]
-	");";
-
-	private static final String CREATE_INDEX_[tbl.name.toUpperCase() /]_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_[tbl.name.toUpperCase() /] + "_serverid_idx" +
-	" ON " + TABLE_[tbl.name.toUpperCase() /] + " ("+ [tbl.name.toUpperCase() /]_SERVER_ID +")"; 
-
-[if (tbl.eContents(Property)->exists(p: Property | p.name.equalsIgnoreCase('cpf') ))]
-	private static final String CREATE_INDEX_[tbl.name.toUpperCase() /]_CPF = "CREATE UNIQUE INDEX " + TABLE_[tbl.name.toUpperCase()/] + "_cpf_idx" +
-	" ON " + TABLE_[tbl.name.toUpperCase() /] + " ("+ [tbl.name.toUpperCase() /]_CPF +")";
-[/if]
-[/for]
-
-	@Override
-	public void onCreate(SQLiteDatabase db) {
-
-[for (tbl : Class | get_tables(modul) )]
-		db.execSQL(CREATE_TABLE_[tbl.name.toUpperCase() /]);
-		db.execSQL(CREATE_INDEX_[tbl.name.toUpperCase() /]_SERVER_ID);
-[if (tbl.eContents(Property)->exists(p: Property | p.name.equalsIgnoreCase('cpf') ))]
-		db.execSQL(CREATE_INDEX_[tbl.name.toUpperCase() /]_CPF);
-[/if]
-[/for]
-
-	}
-
-	//fill with the default data if possible
-	public void fill(SQLiteDatabase db) {
-
-	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		//db.execSQL("PRAGMA foreign_keys = OFF;");
-
-[for (tbl : Class | get_tables(modul) )]
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_[tbl.name.toUpperCase() /]);
-[/for]
-
-		//db.execSQL("PRAGMA foreign_keys = ON;");
-		onCreate(db);
-	}
-
-
-
-
-} 
-
-[/template]
-
-[template public a_public_dn_helper(arg : Type)]
-//gerar um banco de dados unico para todo o projeto: ou verificar o sync
-
-
-[/template]
-
 
 [query public isDate(arg : Property) : Boolean = 
 self.type.name.toString().equalsIgnoreCase('date') /]
@@ -1036,7 +727,7 @@ owner.owner.oclAsType(NamedElement).name)
 /][/if][/template]
 
 
-[template public android_create_tbl_datasource_class(pname: String, modul: Package, tbl: Class)]
+[template public android_create_content_provider(pname: String, modul: Package, tbl: Class)]
 [if (tbl.eContents(Property)->exists(x | null = x.type)) ]
 /*
 ON [tbl.getQualifiedName() /]
@@ -1086,7 +777,7 @@ import [pname /].[modul.name /].view.[tbl.name.ToCamelCase() /]View;
 public class [tbl.name.ToCamelCase() /]Provider extends ContentProvider {
 
 
-	public static final String AUTHORITY = "com.spaceforsales.[tbl.name /]";
+	public static final String AUTHORITY = "com.uisleandro.[tbl.name /]";
 	public static final String SCHEME = "content://";
 
 	[comment]
@@ -1264,12 +955,6 @@ separator (', \n')]
 [/if]
 [/template]
 
-
-[comment 
-
-	EU preciso mudar de paradigma
-
- /]
 [template public Camel2(arg : String)
 ][for (name : String | tokenize('.')) separator ('.')
 ][name /][/for][/template]
@@ -1312,7 +997,7 @@ separator (', \n')]
 [/file]
 
 [file (cName+'.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'Provider.java', false, 'UTF-8')]
-[android_create_tbl_datasource_class(pname, modul, tbl)/]
+[android_create_content_provider(pname, modul, tbl)/]
 [/file]
 
 [/for]
