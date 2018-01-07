@@ -18,6 +18,23 @@
 
 [query public getValidOperations(arg : Class) : Set(Operation) = self.eContents(Operation)->select(x| x.name <> 'example_op')->asSet() /]
 
+[query public gotValue(arg : Property) : Boolean = (
+	(getStereotypeValue('Equalsto', 'hint') <> null) or
+	(getStereotypeValue('GreatherThan', 'hint') <> null) or
+	(getStereotypeValue('AndGreatherThan', 'hint') <> null) or
+	(getStereotypeValue('LessThan', 'hint') <> null) or
+	(getStereotypeValue('OrLessThan', 'hint') <> null) or
+	(getStereotypeValue('Like', 'hint') <> null) or
+	(getStereotypeValue('Having', 'hint') <> null)
+	) or ( 
+	gotStereotype('DefaultSystemId') or
+	gotStereotype('DefaultUserId') or
+	gotStereotype('IsToday') or
+	gotStereotype('IsRightNow') or
+	gotStereotype('IsEmpty') ) /]
+
+[query public gotNoValue(arg : Property) : Boolean = not gotValue(arg) /]
+
 [template public begin_reserve(name : String)]
 // Start of user code [name /]
 [/template]
