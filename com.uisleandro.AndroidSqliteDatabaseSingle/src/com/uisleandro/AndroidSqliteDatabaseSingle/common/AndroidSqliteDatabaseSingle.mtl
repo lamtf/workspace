@@ -375,7 +375,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "store.db";
 	private static final int DATABASE_VERSION = 1;
 
-//[protected ('cookies')]
+// [protected ('cookies')]
 
 	public static final String TABLE_UPDATE_HISTORY = "update_history";
 	public static final String UPDATE_HISTORY_TABLE_NAME = "table_name";
@@ -416,7 +416,7 @@ public class DbHelper extends SQLiteOpenHelper {
 		COOKIE_LAST_ACESSED + " INTEGER,"+
 		COOKIE_IS_HTTP_ONLY +" BOOLEAN" +
 	");";
-//[/protected]
+// [/protected]
 
 
 //TODO: controlar a versao do modulo
@@ -499,11 +499,11 @@ separator (', " + \n') after (' " + \n')]
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
-//[protected ('user specification for onCreate')]
+// [protected ('user specification for onCreate')]
 		db.execSQL(CREATE_TABLE_COOKIE);
 		db.execSQL(CREATE_TABLE_UPDATE_HISTORY);
 		db.execSQL(CREATE_INDEX_UPDATE_HISTORY_TNAME);
-//[/protected]
+// [/protected]
 
 [for (modul : Package | get_modules(root) )]
 // [modul.name /]
@@ -737,8 +737,8 @@ ON [tbl.getQualifiedName() /]
 [/for]
 */
 [else]
-[begin_reserve('reserved-for:android-sqlite-db.imports') /]
-package [pname /].Core.model;  [comment Core is modul.name/]
+[begin_reserve('reserved-for:AndroidSqliteDatabase001') /]
+package [pname /].Core.model;  [comment 'Core' == modul.name/]
 
 import java.util.ArrayList;
 import java.util.List;
@@ -757,23 +757,17 @@ import android.util.Log;
 //import [pname /].[modul.name /].model.[tbl.name.ToCamelCase() /]DbHelper;
 
 import [pname /].DbHelper;
+[end_reserve('reserved-for:AndroidSqliteDatabase001') /]
 
-//TODO: I wont return any view, Id rather return the cursor instead 
-[comment]
-import [pname /].[modul.name /].view.[tbl.name.ToCamelCase() /]View;
-[/comment]
+// [protected ('reserved-for:AndroidSqliteSyncSingle001')]
+// reserved-for:AndroidSqliteSyncSingle001
+// [/protected]
 
-[end_reserve('reserved-for:android-sqlite-db.imports') /]
+// [protected ('reserved-for:AndroidSqliteQuerySingle001')]
+// reserved-for:AndroidSqliteQuerySingle001
+// [/protected]
 
-//[protected ('reserved-for:android-sqlite-sync.imports')]
-//reserved-for:android-sqlite-sync.imports
-//[/protected]
-
-//[protected ('reserved-for:query3.imports')]
-// reserved-for:query3.imports
-//[/protected]
-
-[begin_reserve('reserved-for:android-sqlite-db.functions') /]
+[begin_reserve('reserved-for:AndroidSqliteDatabase002') /]
 public class [tbl.name.ToCamelCase() /]Provider extends ContentProvider {
 
 
@@ -799,6 +793,18 @@ public class [tbl.name.ToCamelCase() /]Provider extends ContentProvider {
 	public static final Uri URI_[tbl.name.toUpperCase() /]_LASTID = Uri.parse([tbl.name.toUpperCase() /]_LASTID);
 	public static final String [tbl.name.toUpperCase() /]_LASTID_BASE = [tbl.name.toUpperCase() /]_LASTID + "/";
 
+[end_reserve('reserved-for:AndroidSqliteDatabase002') /]
+
+
+// [protected ('reserved-for:AndroidSqliteSyncSingle002')]
+// reserved-for:AndroidSqliteSyncSingle003
+// [/protected]
+
+// [protected ('reserved-for:AndroidSqliteQuerySingle002')]
+// reserved-for:AndroidSqliteQuerySingle002
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabase003') /]
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
 	private static final String[ '[' /][ ']' /] selectableColumns = new String[ '[' /][ ']' /]{ 
@@ -893,19 +899,18 @@ separator (', \n')]
 	}
 
 // end content-provider-interface 
+[end_reserve('reserved-for:AndroidSqliteDatabase003') /]
 
-[end_reserve('reserved-for:android-sqlite-db.functions') /]
+// [protected ('reserved-for:AndroidSqliteSyncSingle003')]
+// reserved-for:AndroidSqliteSyncSingle003
+// [/protected]
 
-//[protected ('reserved-for:android-sqlite-sync.functions')]
-//reserved-for:android-sqlite-sync.functions
-//[/protected]
-
-//[protected ('reserved-for:query3.functions')]
-//reserved-for:query3.functions
-//[/protected]
+// [protected ('reserved-for:AndroidSqliteQuerySingle003')]
+// reserved-for:AndroidSqliteQuerySingle003
+// [/protected]
 
 
-[begin_reserve('reserved-for:android-sqlite-db.begin-default-query') /]
+[begin_reserve('reserved-for:AndroidSqliteDatabase004') /]
 	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
 	@Nullable
 	@Override
@@ -920,18 +925,21 @@ separator (', \n')]
 		} else if(URI_[tbl.name.toUpperCase() /]_LASTID.equals(uri)) {
 			result = getLastId();
 		}
-[end_reserve('reserved-for:android-sqlite-db.begin-default-query') /]
+[end_reserve('reserved-for:AndroidSqliteDatabase004') /]
 
-// [protected ('reserved-for:android-sqlite-sync.default-query')]
-
-// reserved-for:android-sqlite-sync.default-query
+// [protected ('reserved-for:AndroidSqliteSyncSingle004')]
+// reserved-for:AndroidSqliteSyncSingle004
 // [/protected]
 
-[begin_reserve('reserved-for:android-sqlite-db.end-default-query') /]
+// [protected ('reserved-for:AndroidSqliteQuerySingle004')]
+// reserved-for:AndroidSqliteQuerySingle004
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabase005') /]
 		return result;
 	}
 }
-[end_reserve('reserved-for:android-sqlite-db.end-default-query') /]
+[end_reserve('reserved-for:AndroidSqliteDatabase005') /]
 [/if]
 [/template]
 
