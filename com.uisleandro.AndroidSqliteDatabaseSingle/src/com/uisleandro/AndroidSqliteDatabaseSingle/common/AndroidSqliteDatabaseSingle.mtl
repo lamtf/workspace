@@ -5,12 +5,12 @@
 
 
 [template public begin_reserve(name : String)]
-//Start of user code [name /]
+// Start of user code [name /]
 [/template]
 
 [template public end_reserve(name : String)]
 // [name /]
-//End of user code
+// End of user code
 [/template]
 
 [comment TODO: add filters here if needed /]
@@ -777,6 +777,18 @@ public class [tbl.name.ToCamelCase() /]Provider extends ContentProvider {
 	[comment]
 		The name of the functions will be place here
 	[/comment]
+	public static final String [tbl.name.toUpperCase() /]_INSERT = SCHEME + AUTHORITY + "/insert";
+	public static final Uri URI_[tbl.name.toUpperCase() /]_INSERT = Uri.parse([tbl.name.toUpperCase() /]_INSERT);
+	public static final String [tbl.name.toUpperCase() /]_INSERT_BASE = [tbl.name.toUpperCase() /]_INSERT + "/";
+
+	public static final String [tbl.name.toUpperCase() /]_UPDATE = SCHEME + AUTHORITY + "/update";
+	public static final Uri URI_[tbl.name.toUpperCase() /]_UPDATE = Uri.parse([tbl.name.toUpperCase() /]_UPDATE);
+	public static final String [tbl.name.toUpperCase() /]_UPDATE_BASE = [tbl.name.toUpperCase() /]_UPDATE + "/";
+
+	public static final String [tbl.name.toUpperCase() /]_DELETE = SCHEME + AUTHORITY + "/delete";
+	public static final Uri URI_[tbl.name.toUpperCase() /]_DELETE = Uri.parse([tbl.name.toUpperCase() /]_DELETE);
+	public static final String [tbl.name.toUpperCase() /]_DELETE_BASE = [tbl.name.toUpperCase() /]_DELETE + "/";
+
 	public static final String [tbl.name.toUpperCase() /]_ALL = SCHEME + AUTHORITY + "/all";
 	public static final Uri URI_[tbl.name.toUpperCase() /]_ALL = Uri.parse([tbl.name.toUpperCase() /]_ALL);
 	public static final String [tbl.name.toUpperCase() /]_ALL_BASE = [tbl.name.toUpperCase() /]_ALL + "/";
@@ -878,39 +890,74 @@ separator (', \n')]
 	public String getType(@NonNull Uri uri) {
 		return null;
 	}
+[end_reserve('reserved-for:AndroidSqliteDatabase003') /]
 
+[begin_reserve('reserved-for:AndroidSqliteDatabase004') /]
 	@Nullable
 	@Override
 	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-		long last_id = database.insert(DbHelper.TABLE_[tbl.name.toUpperCase() /], null, values);
-		return last_id;
-	}
-
-	@Override
-	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
-		int rows_affected = database.update(DbHelper.TABLE_[tbl.name.toUpperCase() /], values, DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + selectionArgs[ '[' /]0[ ']' /], null);
-		return rows_affected;
-	}
-
-	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
-		int rows_affected = database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + selectionArgs[ '[' /]0[ ']' /], null);
-		return rows_affected;
-	}
-
-// end content-provider-interface 
-[end_reserve('reserved-for:AndroidSqliteDatabase003') /]
-
-// [protected ('reserved-for:AndroidSqliteSyncSingle003')]
-// reserved-for:AndroidSqliteSyncSingle003
-// [/protected]
+		Cursor result = null;
+		if (URI_[tbl.name.toUpperCase() /]_INSERT.equals(uri)) {
+			result = database.insert(DbHelper.TABLE_[tbl.name.toUpperCase() /], null, values);
+		}
+[end_reserve('reserved-for:AndroidSqliteDatabase004') /]
 
 // [protected ('reserved-for:AndroidSqliteQuerySingle003')]
 // reserved-for:AndroidSqliteQuerySingle003
 // [/protected]
 
+[begin_reserve('reserved-for:AndroidSqliteDatabase005') /]
+		return null;
+	}
+[end_reserve('reserved-for:AndroidSqliteDatabase005') /]
 
-[begin_reserve('reserved-for:AndroidSqliteDatabase004') /]
+[begin_reserve('reserved-for:AndroidSqliteDatabase006') /]
+	@Override
+	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
+		int result = 0;
+		if (URI_[tbl.name.toUpperCase() /]_UPDATE.equals(uri)) {
+			result = database.update(DbHelper.TABLE_[tbl.name.toUpperCase() /], values, DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + selectionArgs[ '[' /]0[ ']' /], null);
+		}
+[end_reserve('reserved-for:AndroidSqliteDatabase006') /]
+
+// [protected ('reserved-for:AndroidSqliteQuerySingle004')]
+// reserved-for:AndroidSqliteQuerySingle004
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabase007') /]
+		return result;
+	}
+[end_reserve('reserved-for:AndroidSqliteDatabase007') /]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabase008') /]
+	@Override
+	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
+		int result = 0;
+		if (URI_[tbl.name.toUpperCase() /]_DELETE.equals(uri)) {
+			result = database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + selectionArgs[ '[' /]0[ ']' /], null);
+		}
+[end_reserve('reserved-for:AndroidSqliteDatabase008') /]
+
+// [protected ('reserved-for:AndroidSqliteQuerySingle005')]
+// reserved-for:AndroidSqliteQuerySingle005
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabase009') /]
+		return result;
+	}
+[end_reserve('reserved-for:AndroidSqliteDatabase009') /]
+
+// end content-provider-interface
+
+// [protected ('reserved-for:AndroidSqliteSyncSingle003')]
+// reserved-for:AndroidSqliteSyncSingle003
+// [/protected]
+
+// [protected ('reserved-for:AndroidSqliteQuerySingle006')]
+// reserved-for:AndroidSqliteQuerySingle006
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabase010') /]
 	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
 	@Nullable
 	@Override
@@ -918,28 +965,31 @@ separator (', \n')]
 		Cursor result = null;
 		if (URI_[tbl.name.toUpperCase() /]_ALL.equals(uri)) {
 			result = listAll();
-		} else if(URI_[tbl.name.toUpperCase() /]_SOME.equals(uri)) {
+		}
+		else if(URI_[tbl.name.toUpperCase() /]_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[ '[' /]0[ ']' /]), Long.parseLong(selectionArgs[ '[' /]1[ ']' /]));
-		} else if(URI_[tbl.name.toUpperCase() /]_BYID.equals(uri)) {
+		}
+		else if(URI_[tbl.name.toUpperCase() /]_BYID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[ '[' /]0[ ']' /]));
-		} else if(URI_[tbl.name.toUpperCase() /]_LASTID.equals(uri)) {
+		}
+		else if(URI_[tbl.name.toUpperCase() /]_LASTID.equals(uri)) {
 			result = getLastId();
 		}
-[end_reserve('reserved-for:AndroidSqliteDatabase004') /]
+[end_reserve('reserved-for:AndroidSqliteDatabase010') /]
 
 // [protected ('reserved-for:AndroidSqliteSyncSingle004')]
 // reserved-for:AndroidSqliteSyncSingle004
 // [/protected]
 
-// [protected ('reserved-for:AndroidSqliteQuerySingle004')]
-// reserved-for:AndroidSqliteQuerySingle004
+// [protected ('reserved-for:AndroidSqliteQuerySingle007')]
+// reserved-for:AndroidSqliteQuerySingle007
 // [/protected]
 
-[begin_reserve('reserved-for:AndroidSqliteDatabase005') /]
+[begin_reserve('reserved-for:AndroidSqliteDatabase011') /]
 		return result;
 	}
 }
-[end_reserve('reserved-for:AndroidSqliteDatabase005') /]
+[end_reserve('reserved-for:AndroidSqliteDatabase011') /]
 [/if]
 [/template]
 

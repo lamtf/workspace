@@ -1,4 +1,4 @@
-//Start of user code reserved-for:android-sqlite-db.imports
+// Start of user code reserved-for:AndroidSqliteDatabase001
 package com.uisleandro.store.Core.model;  
 
 import java.util.ArrayList;
@@ -18,26 +18,34 @@ import android.util.Log;
 //import com.uisleandro.store.credit_protection.model.IssueDbHelper;
 
 import com.uisleandro.store.DbHelper;
+// reserved-for:AndroidSqliteDatabase001
+// End of user code
 
-//TODO: I wont return any view, Id rather return the cursor instead 
+// Start of user code reserved-for:AndroidSqliteSyncSingle001
+// reserved-for:AndroidSqliteSyncSingle001
+// End of user code
 
-// reserved-for:android-sqlite-db.imports
-//End of user code
+// Start of user code reserved-for:AndroidSqliteQuerySingle001// reserved-for:AndroidSqliteQuerySingle001
+// End of user code
 
-//Start of user code reserved-for:android-sqlite-sync.imports
-//reserved-for:android-sqlite-sync.imports
-//End of user code
-
-//Start of user code reserved-for:query3.imports
-// reserved-for:query3.imports
-//End of user code
-
-//Start of user code reserved-for:android-sqlite-db.functions
+// Start of user code reserved-for:AndroidSqliteDatabase002
 public class IssueProvider extends ContentProvider {
 
 
 	public static final String AUTHORITY = "com.uisleandro.Issue";
 	public static final String SCHEME = "content://";
+
+	public static final String ISSUE_INSERT = SCHEME + AUTHORITY + "/insert";
+	public static final Uri URI_ISSUE_INSERT = Uri.parse(ISSUE_INSERT);
+	public static final String ISSUE_INSERT_BASE = ISSUE_INSERT + "/";
+
+	public static final String ISSUE_UPDATE = SCHEME + AUTHORITY + "/update";
+	public static final Uri URI_ISSUE_UPDATE = Uri.parse(ISSUE_UPDATE);
+	public static final String ISSUE_UPDATE_BASE = ISSUE_UPDATE + "/";
+
+	public static final String ISSUE_DELETE = SCHEME + AUTHORITY + "/delete";
+	public static final Uri URI_ISSUE_DELETE = Uri.parse(ISSUE_DELETE);
+	public static final String ISSUE_DELETE_BASE = ISSUE_DELETE + "/";
 
 	public static final String ISSUE_ALL = SCHEME + AUTHORITY + "/all";
 	public static final Uri URI_ISSUE_ALL = Uri.parse(ISSUE_ALL);
@@ -55,6 +63,24 @@ public class IssueProvider extends ContentProvider {
 	public static final Uri URI_ISSUE_LASTID = Uri.parse(ISSUE_LASTID);
 	public static final String ISSUE_LASTID_BASE = ISSUE_LASTID + "/";
 
+// reserved-for:AndroidSqliteDatabase002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteSyncSingle002
+// reserved-for:AndroidSqliteSyncSingle003
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002
+	public static final String ISSUE_REGISTER_ISSUE = SCHEME + AUTHORITY + "/register_issue";
+	public static final Uri URI_ISSUE_REGISTER_ISSUE = Uri.parse(ISSUE_REGISTER_ISSUE);
+	public static final String ISSUE_REGISTER_ISSUE_BASE = ISSUE_REGISTER_ISSUE + "/";
+	public static final String ISSUE_CHECK_CLIENT = SCHEME + AUTHORITY + "/check_client";
+	public static final Uri URI_ISSUE_CHECK_CLIENT = Uri.parse(ISSUE_CHECK_CLIENT);
+	public static final String ISSUE_CHECK_CLIENT_BASE = ISSUE_CHECK_CLIENT + "/";
+// reserved-for:AndroidSqliteQuerySingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
 	private static final String[] selectableColumns = new String[]{ 
@@ -137,41 +163,107 @@ public class IssueProvider extends ContentProvider {
 	public String getType(@NonNull Uri uri) {
 		return null;
 	}
+// reserved-for:AndroidSqliteDatabase003
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteDatabase004
 	@Nullable
 	@Override
 	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-		long last_id = database.insert(DbHelper.TABLE_ISSUE, null, values);
-		return last_id;
-	}
+		Cursor result = null;
+		if (URI_ISSUE_INSERT.equals(uri)) {
+			result = database.insert(DbHelper.TABLE_ISSUE, null, values);
+		}
+// reserved-for:AndroidSqliteDatabase004
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle003
+/* @Insert */
+	else if (URI_ISSUE_register_issue.equals(uri)) {
+			result = register_issue(selectionArgs); // << missing arguments
+	}
+// reserved-for:AndroidSqliteQuerySingle003
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase005
+		return null;
+	}
+// reserved-for:AndroidSqliteDatabase005
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase006
 	@Override
 	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-		int rows_affected = database.update(DbHelper.TABLE_ISSUE, values, DbHelper.ISSUE_ID + " = " + selectionArgs[0], null);
-		return rows_affected;
-	}
+		int result = 0;
+		if (URI_ISSUE_UPDATE.equals(uri)) {
+			result = database.update(DbHelper.TABLE_ISSUE, values, DbHelper.ISSUE_ID + " = " + selectionArgs[0], null);
+		}
+// reserved-for:AndroidSqliteDatabase006
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle004
+/* @UpdateWhere */
+// reserved-for:AndroidSqliteQuerySingle004
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase007
+		return result;
+	}
+// reserved-for:AndroidSqliteDatabase007
+// End of user code
+
+
+// Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-		int rows_affected = database.delete(DbHelper.TABLE_ISSUE, DbHelper.ISSUE_ID + " = " + selectionArgs[0], null);
-		return rows_affected;
+		int result = 0;
+		if (URI_ISSUE_DELETE.equals(uri)) {
+			result = database.delete(DbHelper.TABLE_ISSUE, DbHelper.ISSUE_ID + " = " + selectionArgs[0], null);
+		}
+// reserved-for:AndroidSqliteDatabase008
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle005
+/* @DeleteWhere */
+// reserved-for:AndroidSqliteQuerySingle005
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase009
+		return result;
 	}
+// reserved-for:AndroidSqliteDatabase009
+// End of user code
 
-// end content-provider-interface 
+// Start of user code reserved-for:AndroidSqliteSyncSingle003
+// reserved-for:AndroidSqliteSyncSingle003
+// End of user code
 
-// reserved-for:android-sqlite-db.functions
-//End of user code
+// Start of user code reserved-for:AndroidSqliteQuerySingle006
+	/* @Insert */
+	public int register_issue(String[] selectionArgs){
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "INSERT INTO Issue(last_update,fk_shared_client,description,active,isAnswer) VALUES (?,?,?,?,?);";
+		Cursor cursor = database.rawQuery(query, selectionArgs);
+		//TODO: I don't knwo if its returning the last_id, I guess it's not
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			result = cursor.getInt(0);
+		}
+		return result;
+	}
+	/* @ExistsWhere */
+	public Cursor check_client(String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT exists(*) FROM Issue WHERE Issue.fk_shared_client = ? AND Issue.active = ? AND (Issue.fk_issue is null or Issue.fk_issue = '');";
+		Cursor cursor = database.rawQuery(query, new String[]{ String.valueOf(fk_shared_client), "1" });
+		return cursor;
+	}
+// reserved-for:AndroidSqliteQuerySingle006
+// End of user code
 
-//Start of user code reserved-for:android-sqlite-sync.functions
-//reserved-for:android-sqlite-sync.functions
-//End of user code
-
-//Start of user code reserved-for:query3.functions
-//reserved-for:query3.functions
-//End of user code
-
-
-//Start of user code reserved-for:android-sqlite-db.begin-default-query
+// Start of user code reserved-for:AndroidSqliteDatabase010
 	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
 	@Nullable
 	@Override
@@ -179,25 +271,30 @@ public class IssueProvider extends ContentProvider {
 		Cursor result = null;
 		if (URI_ISSUE_ALL.equals(uri)) {
 			result = listAll();
-		} else if(URI_ISSUE_SOME.equals(uri)) {
+		}
+		else if(URI_ISSUE_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
-		} else if(URI_ISSUE_BYID.equals(uri)) {
+		}
+		else if(URI_ISSUE_BYID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[0]));
-		} else if(URI_ISSUE_LASTID.equals(uri)) {
+		}
+		else if(URI_ISSUE_LASTID.equals(uri)) {
 			result = getLastId();
 		}
-// reserved-for:android-sqlite-db.begin-default-query
-//End of user code
-
-// Start of user code reserved-for:android-sqlite-sync.default-query
-
-// reserved-for:android-sqlite-sync.default-query
+// reserved-for:AndroidSqliteDatabase010
 // End of user code
 
-//Start of user code reserved-for:android-sqlite-db.end-default-query
-		return result;
-	}
-}
-// reserved-for:android-sqlite-db.end-default-query
-//End of user code
+// Start of user code reserved-for:AndroidSqliteSyncSingle004
+// reserved-for:AndroidSqliteSyncSingle004
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle007
+/* @ExistsWhere||@SelectValueWhere||@SelectOneWhere||@SelectListWhere */
+	else if (URI_ISSUE_CHECK_CLIENT.equals(uri)) {
+		result = check_client(selectionArgs);
+	}
+// Start of user code reserved-for:AndroidSqliteQuerySingle007
+
+// Start of user code reserved-for:AndroidSqliteDatabase011
+// reserved-for:AndroidSqliteDatabase011
+// End of user code

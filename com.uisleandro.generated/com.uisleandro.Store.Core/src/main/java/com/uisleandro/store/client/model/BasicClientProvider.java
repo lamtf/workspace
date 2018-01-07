@@ -1,4 +1,4 @@
-//Start of user code reserved-for:android-sqlite-db.imports
+// Start of user code reserved-for:AndroidSqliteDatabase001
 package com.uisleandro.store.Core.model;  
 
 import java.util.ArrayList;
@@ -18,26 +18,37 @@ import android.util.Log;
 //import com.uisleandro.store.client.model.BasicClientDbHelper;
 
 import com.uisleandro.store.DbHelper;
+// reserved-for:AndroidSqliteDatabase001
+// End of user code
 
-//TODO: I wont return any view, Id rather return the cursor instead 
+// Start of user code reserved-for:AndroidSqliteSyncSingle001
+// reserved-for:AndroidSqliteSyncSingle001
+// End of user code
 
-// reserved-for:android-sqlite-db.imports
-//End of user code
+// Start of user code reserved-for:AndroidSqliteQuerySingle001import com.uisleandro.store.client.view.FindByCpfOut;
+import com.uisleandro.store.client.view.FindByCpfOut;
+import com.uisleandro.store.client.view.FindByCpfOut;
+// reserved-for:AndroidSqliteQuerySingle001
+// End of user code
 
-//Start of user code reserved-for:android-sqlite-sync.imports
-//reserved-for:android-sqlite-sync.imports
-//End of user code
-
-//Start of user code reserved-for:query3.imports
-// reserved-for:query3.imports
-//End of user code
-
-//Start of user code reserved-for:android-sqlite-db.functions
+// Start of user code reserved-for:AndroidSqliteDatabase002
 public class BasicClientProvider extends ContentProvider {
 
 
 	public static final String AUTHORITY = "com.uisleandro.basic_client";
 	public static final String SCHEME = "content://";
+
+	public static final String BASIC_CLIENT_INSERT = SCHEME + AUTHORITY + "/insert";
+	public static final Uri URI_BASIC_CLIENT_INSERT = Uri.parse(BASIC_CLIENT_INSERT);
+	public static final String BASIC_CLIENT_INSERT_BASE = BASIC_CLIENT_INSERT + "/";
+
+	public static final String BASIC_CLIENT_UPDATE = SCHEME + AUTHORITY + "/update";
+	public static final Uri URI_BASIC_CLIENT_UPDATE = Uri.parse(BASIC_CLIENT_UPDATE);
+	public static final String BASIC_CLIENT_UPDATE_BASE = BASIC_CLIENT_UPDATE + "/";
+
+	public static final String BASIC_CLIENT_DELETE = SCHEME + AUTHORITY + "/delete";
+	public static final Uri URI_BASIC_CLIENT_DELETE = Uri.parse(BASIC_CLIENT_DELETE);
+	public static final String BASIC_CLIENT_DELETE_BASE = BASIC_CLIENT_DELETE + "/";
 
 	public static final String BASIC_CLIENT_ALL = SCHEME + AUTHORITY + "/all";
 	public static final Uri URI_BASIC_CLIENT_ALL = Uri.parse(BASIC_CLIENT_ALL);
@@ -55,6 +66,27 @@ public class BasicClientProvider extends ContentProvider {
 	public static final Uri URI_BASIC_CLIENT_LASTID = Uri.parse(BASIC_CLIENT_LASTID);
 	public static final String BASIC_CLIENT_LASTID_BASE = BASIC_CLIENT_LASTID + "/";
 
+// reserved-for:AndroidSqliteDatabase002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteSyncSingle002
+// reserved-for:AndroidSqliteSyncSingle003
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002
+	public static final String BASIC_CLIENT_FIND_BY_ID = SCHEME + AUTHORITY + "/find_by_id";
+	public static final Uri URI_BASIC_CLIENT_FIND_BY_ID = Uri.parse(BASIC_CLIENT_FIND_BY_ID);
+	public static final String BASIC_CLIENT_FIND_BY_ID_BASE = BASIC_CLIENT_FIND_BY_ID + "/";
+	public static final String BASIC_CLIENT_FIND_BY_CPF = SCHEME + AUTHORITY + "/find_by_cpf";
+	public static final Uri URI_BASIC_CLIENT_FIND_BY_CPF = Uri.parse(BASIC_CLIENT_FIND_BY_CPF);
+	public static final String BASIC_CLIENT_FIND_BY_CPF_BASE = BASIC_CLIENT_FIND_BY_CPF + "/";
+	public static final String BASIC_CLIENT_FIND_BY_NAME = SCHEME + AUTHORITY + "/find_by_name";
+	public static final Uri URI_BASIC_CLIENT_FIND_BY_NAME = Uri.parse(BASIC_CLIENT_FIND_BY_NAME);
+	public static final String BASIC_CLIENT_FIND_BY_NAME_BASE = BASIC_CLIENT_FIND_BY_NAME + "/";
+// reserved-for:AndroidSqliteQuerySingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
 	private static final String[] selectableColumns = new String[]{ 
@@ -153,41 +185,107 @@ public class BasicClientProvider extends ContentProvider {
 	public String getType(@NonNull Uri uri) {
 		return null;
 	}
+// reserved-for:AndroidSqliteDatabase003
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteDatabase004
 	@Nullable
 	@Override
 	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
-		long last_id = database.insert(DbHelper.TABLE_BASIC_CLIENT, null, values);
-		return last_id;
-	}
+		Cursor result = null;
+		if (URI_BASIC_CLIENT_INSERT.equals(uri)) {
+			result = database.insert(DbHelper.TABLE_BASIC_CLIENT, null, values);
+		}
+// reserved-for:AndroidSqliteDatabase004
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle003
+/* @Insert */
+// reserved-for:AndroidSqliteQuerySingle003
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase005
+		return null;
+	}
+// reserved-for:AndroidSqliteDatabase005
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase006
 	@Override
 	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-		int rows_affected = database.update(DbHelper.TABLE_BASIC_CLIENT, values, DbHelper.BASIC_CLIENT_ID + " = " + selectionArgs[0], null);
-		return rows_affected;
-	}
+		int result = 0;
+		if (URI_BASIC_CLIENT_UPDATE.equals(uri)) {
+			result = database.update(DbHelper.TABLE_BASIC_CLIENT, values, DbHelper.BASIC_CLIENT_ID + " = " + selectionArgs[0], null);
+		}
+// reserved-for:AndroidSqliteDatabase006
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle004
+/* @UpdateWhere */
+// reserved-for:AndroidSqliteQuerySingle004
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase007
+		return result;
+	}
+// reserved-for:AndroidSqliteDatabase007
+// End of user code
+
+
+// Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-		int rows_affected = database.delete(DbHelper.TABLE_BASIC_CLIENT, DbHelper.BASIC_CLIENT_ID + " = " + selectionArgs[0], null);
-		return rows_affected;
+		int result = 0;
+		if (URI_BASIC_CLIENT_DELETE.equals(uri)) {
+			result = database.delete(DbHelper.TABLE_BASIC_CLIENT, DbHelper.BASIC_CLIENT_ID + " = " + selectionArgs[0], null);
+		}
+// reserved-for:AndroidSqliteDatabase008
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle005
+/* @DeleteWhere */
+// reserved-for:AndroidSqliteQuerySingle005
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase009
+		return result;
 	}
+// reserved-for:AndroidSqliteDatabase009
+// End of user code
 
-// end content-provider-interface 
+// Start of user code reserved-for:AndroidSqliteSyncSingle003
+// reserved-for:AndroidSqliteSyncSingle003
+// End of user code
 
-// reserved-for:android-sqlite-db.functions
-//End of user code
+// Start of user code reserved-for:AndroidSqliteQuerySingle006
+	/* @SelectOneWhere */
+	public Cursor find_by_id(String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT brazilian.last_update,brazilian.cpf,brazilian.rg,basic_client.last_update,basic_client.name,basic_client.birth_date,basic_client.birth_city,basic_client.birth_state,basic_client.mothers_name,basic_client.fathers_name,basic_client.profession,basic_client.zip_code,basic_client.address,basic_client.neighborhood,basic_client.city,basic_client.state,basic_client.complement,country.last_update,country.name FROM brazilian INNER JOIN basic_client ON brazilian.fk_basic_client = basic_client.id INNER JOIN country ON basic_client.fk_country = country.id WHERE id = ?;";
+		Cursor cursor = database.rawQuery(query, selectionArgs);
+		return cursor;
+	}
+	/* @SelectOneWhere */
+	public Cursor find_by_cpf(String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT brazilian.last_update,brazilian.cpf,brazilian.rg,basic_client.last_update,basic_client.name,basic_client.birth_date,basic_client.birth_city,basic_client.birth_state,basic_client.mothers_name,basic_client.fathers_name,basic_client.profession,basic_client.zip_code,basic_client.address,basic_client.neighborhood,basic_client.city,basic_client.state,basic_client.complement,country.last_update,country.name FROM brazilian INNER JOIN basic_client ON brazilian.fk_basic_client = basic_client.id INNER JOIN country ON basic_client.fk_country = country.id WHERE brazilian.cpf = ?;";
+		Cursor cursor = database.rawQuery(query, selectionArgs);
+		return cursor;
+	}
+	/* @SelectOneWhere */
+	public Cursor find_by_name(String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT brazilian.last_update,brazilian.cpf,brazilian.rg,basic_client.last_update,basic_client.name,basic_client.birth_date,basic_client.birth_city,basic_client.birth_state,basic_client.mothers_name,basic_client.fathers_name,basic_client.profession,basic_client.zip_code,basic_client.address,basic_client.neighborhood,basic_client.city,basic_client.state,basic_client.complement,country.last_update,country.name FROM brazilian INNER JOIN basic_client ON brazilian.fk_basic_client = basic_client.id INNER JOIN country ON basic_client.fk_country = country.id WHERE basic_client.name = ?;";
+		Cursor cursor = database.rawQuery(query, selectionArgs);
+		return cursor;
+	}
+// reserved-for:AndroidSqliteQuerySingle006
+// End of user code
 
-//Start of user code reserved-for:android-sqlite-sync.functions
-//reserved-for:android-sqlite-sync.functions
-//End of user code
-
-//Start of user code reserved-for:query3.functions
-//reserved-for:query3.functions
-//End of user code
-
-
-//Start of user code reserved-for:android-sqlite-db.begin-default-query
+// Start of user code reserved-for:AndroidSqliteDatabase010
 	// TODO: I NEED TO KNOW HOW TO MAKE VARIOUS QUERIES DEPENDING ON THE URI
 	@Nullable
 	@Override
@@ -195,25 +293,36 @@ public class BasicClientProvider extends ContentProvider {
 		Cursor result = null;
 		if (URI_BASIC_CLIENT_ALL.equals(uri)) {
 			result = listAll();
-		} else if(URI_BASIC_CLIENT_SOME.equals(uri)) {
+		}
+		else if(URI_BASIC_CLIENT_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
-		} else if(URI_BASIC_CLIENT_BYID.equals(uri)) {
+		}
+		else if(URI_BASIC_CLIENT_BYID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[0]));
-		} else if(URI_BASIC_CLIENT_LASTID.equals(uri)) {
+		}
+		else if(URI_BASIC_CLIENT_LASTID.equals(uri)) {
 			result = getLastId();
 		}
-// reserved-for:android-sqlite-db.begin-default-query
-//End of user code
-
-// Start of user code reserved-for:android-sqlite-sync.default-query
-
-// reserved-for:android-sqlite-sync.default-query
+// reserved-for:AndroidSqliteDatabase010
 // End of user code
 
-//Start of user code reserved-for:android-sqlite-db.end-default-query
-		return result;
-	}
-}
-// reserved-for:android-sqlite-db.end-default-query
-//End of user code
+// Start of user code reserved-for:AndroidSqliteSyncSingle004
+// reserved-for:AndroidSqliteSyncSingle004
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle007
+/* @ExistsWhere||@SelectValueWhere||@SelectOneWhere||@SelectListWhere */
+	else if (URI_BASIC_CLIENT_FIND_BY_ID.equals(uri)) {
+		result = find_by_id(selectionArgs);
+	}
+	else if (URI_BASIC_CLIENT_FIND_BY_CPF.equals(uri)) {
+		result = find_by_cpf(selectionArgs);
+	}
+	else if (URI_BASIC_CLIENT_FIND_BY_NAME.equals(uri)) {
+		result = find_by_name(selectionArgs);
+	}
+// Start of user code reserved-for:AndroidSqliteQuerySingle007
+
+// Start of user code reserved-for:AndroidSqliteDatabase011
+// reserved-for:AndroidSqliteDatabase011
+// End of user code

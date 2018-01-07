@@ -536,7 +536,7 @@ I will probably not make deletions
 functionName : String,
 queryIns: Sequence(Property)
 )]
-//insert
+/* @Insert */
 public int [functionName 
 /]([query_parameters_definition(queryIns) /]){
 
@@ -558,7 +558,7 @@ public int [functionName
 functionName : String,
 queryIns: Sequence(Property)
 )]
-//existsWhere
+/* @ExistsWhere */
 public boolean [functionName 
 /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
 
@@ -581,7 +581,7 @@ public boolean [functionName
 	functionName : String,
 	queryIns: Sequence(Property),
 	queryOuts: Sequence(Property))]
-//selectOneWhere 
+/* @SelectOneWhere */ 
 public [returnName.ToCamelCase() /] [functionName 
 /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
 
@@ -605,7 +605,7 @@ public [returnName.ToCamelCase() /] [functionName
 	functionName : String,
 	queryIns: Sequence(Property),
 	queryOuts: Sequence(Property))]
-//selectListWhere
+/* @SelectListWhere */
 public List<[returnName.ToCamelCase() /]> [functionName 
 /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /], [else][if (not HasDefaultValuey(queryIns))]long id, [/if][/if]long page_count, long page_size){
 
@@ -634,7 +634,7 @@ public List<[returnName.ToCamelCase() /]> [functionName
 	functionName : String,
 	queryIns: Sequence(Property),
 	queryOuts: Sequence(Property))]
-//selectValueWhere
+/* @SelectValueWhere */
 public [(if queryOuts->notEmpty()
 then get_java_type(queryOuts->at(1)) else 'long' endif) /] [functionName
 
@@ -705,7 +705,7 @@ or gotStereotype(x, 'DefaultSystemId')
 	functionName : String,
 	queryIns: Sequence(Property),
 	queryOuts: Sequence(Property))]
-//updateWhere
+/* @UpdateWhere */
 public int [functionName 
 /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
 
@@ -728,7 +728,7 @@ database.delete(DbHelper.TABLE_CASH_LAUNCH, DbHelper.CASH_LAUNCH_ID + " = " + St
 [template public deleteWhere(
 	functionName : String,
 	queryIns: Sequence(Property))]
-//deleteWhere
+/* @DeleteWhere */
 public int [functionName /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
 
 	int result = 0;
@@ -751,7 +751,7 @@ public int [functionName /]([if (params_not_empty(queryIns))][query_parameters_d
 [template public tooComplexQuery(
 	functionName : String,
 	queryIns: Sequence(Property))]
-//tooComplexQuery
+/* @TooComplexQuery */
 public void [functionName 
 /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
 

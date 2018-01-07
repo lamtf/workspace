@@ -57,7 +57,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String DATABASE_NAME = "store.db";
 	private static final int DATABASE_VERSION = 1;
 
-//Start of user code cookies
+// Start of user code cookies
 
 	public static final String TABLE_UPDATE_HISTORY = "update_history";
 	public static final String UPDATE_HISTORY_TABLE_NAME = "table_name";
@@ -1091,7 +1091,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 
-//Start of user code user specification for onCreate
+// Start of user code user specification for onCreate
 		db.execSQL(CREATE_TABLE_COOKIE);
 		db.execSQL(CREATE_TABLE_UPDATE_HISTORY);
 		db.execSQL(CREATE_INDEX_UPDATE_HISTORY_TNAME);

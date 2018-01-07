@@ -1,5 +1,5 @@
 [comment encoding = UTF-8 /]
-[module AndroidSqliteQuery('http://www.eclipse.org/uml2/5.0.0/UML')]
+[module AndroidSqliteQuerySingle('http://www.eclipse.org/uml2/5.0.0/UML')]
 [import com::uisleandro::AndroidSqliteQuerySingle::common::util /]
 
 [comment
@@ -16,13 +16,15 @@
 
 /]
 
+[query public getValidOperations(arg : Class) : Set(Operation) = self.eContents(Operation)->select(x| x.name <> 'example_op')->asSet() /]
+
 [template public begin_reserve(name : String)]
-//Start of user code [name /]
+// Start of user code [name /]
 [/template]
 
 [template public end_reserve(name : String)]
 // [name /]
-//End of user code
+// End of user code
 [/template]
 
 [comment TODO: add filters here if needed /]
@@ -322,8 +324,8 @@ endif
 // reserved-for:AndroidSqliteSyncSingle001
 // [/protected]
 
-[begin_reserve('reserved-for:AndroidSqliteQuerySingle001') /]
-[for (op : Operation | controller.eContents(Operation)
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle001')
+/][for (op : Operation | getValidOperations(controller)
 ->select(x | not(gotStereotype(x, 'SelectValueWhere')) and (null <> out_parameter_definition(x)) )
 )]
 import [mName /].[ToCamelCase(out_parameter_definition(op).name) /];
@@ -339,24 +341,75 @@ import [mName /].[ToCamelCase(out_parameter_definition(op).name) /];
 // [/protected]
 
 [begin_reserve('reserved-for:AndroidSqliteQuerySingle002') /]
-	TODO: NOT IMPLEMENTED YET
-[comment]
-	public static final String [tbl.name.toUpperCase() /]_LASTID = SCHEME + AUTHORITY + "/lastid";
-	public static final Uri URI_[tbl.name.toUpperCase() /]_LASTID = Uri.parse([tbl.name.toUpperCase() /]_LASTID);
-	public static final String [tbl.name.toUpperCase() /]_LASTID_BASE = [tbl.name.toUpperCase() /]_LASTID + "/";
-[/comment]
+[for (op : Operation | getValidOperations(controller))]
+	public static final String [controller.name.toUpperCase() /]_[op.name.toUpperCase()/] = SCHEME + AUTHORITY + "/[op.name/]";
+	public static final Uri URI_[controller.name.toUpperCase() /]_[op.name.toUpperCase()/] = Uri.parse([controller.name.toUpperCase() /]_[op.name.toUpperCase()/]);
+	public static final String [controller.name.toUpperCase() /]_[op.name.toUpperCase()/]_BASE = [controller.name.toUpperCase() /]_[op.name.toUpperCase()/] + "/";
+[/for]
 [end_reserve('reserved-for:AndroidSqliteQuerySingle002') /]
 
 // [protected ('reserved-for:AndroidSqliteDatabase003')]
 // reserved-for:AndroidSqliteDatabase003
 // [/protected]
 
+// [protected ('reserved-for:AndroidSqliteDatabase004')]
+// reserved-for:AndroidSqliteDatabase004
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle003') /]
+/* @Insert */
+[for (op : Operation | getValidOperations(controller)->select(x| gotStereotype(x, 'Insert')))]
+	else if (URI_[controller.name.toUpperCase() /]_[op.name /].equals(uri)) {
+			result = [op.name /](selectionArgs); // << missing arguments
+	}
+[/for]
+[end_reserve('reserved-for:AndroidSqliteQuerySingle003') /]
+
+// [protected ('reserved-for:AndroidSqliteDatabase005')]
+// reserved-for:AndroidSqliteDatabase004
+// [/protected]
+
+// [protected ('reserved-for:AndroidSqliteDatabase006')]
+// reserved-for:AndroidSqliteDatabase004
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle004') /]
+/* @UpdateWhere */
+[for (op : Operation | getValidOperations(controller)->select(x| gotStereotype(x, 'UpdateWhere')))]
+	else if (URI_[controller.name.toUpperCase() /]_[op.name /].equals(uri)) {
+			result = [op.name /](selectionArgs); // << missing arguments
+	}
+[/for]
+[end_reserve('reserved-for:AndroidSqliteQuerySingle004') /]
+
+// [protected ('reserved-for:AndroidSqliteDatabase007')]
+// reserved-for:AndroidSqliteDatabase004
+// [/protected]
+
+
+// [protected ('reserved-for:AndroidSqliteDatabase008')]
+// reserved-for:AndroidSqliteDatabase008
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle005') /]
+/* @DeleteWhere */
+[for (op : Operation | getValidOperations(controller)->select(x| gotStereotype(x, 'DeleteWhere')))]
+	else if (URI_[controller.name.toUpperCase() /]_[op.name /].equals(uri)) {
+			result = [op.name /](selectionArgs);
+	}
+[/for]
+[end_reserve('reserved-for:AndroidSqliteQuerySingle005') /]
+
+// [protected ('reserved-for:AndroidSqliteDatabase009')]
+// reserved-for:AndroidSqliteDatabase009
+// [/protected]
+
 // [protected ('reserved-for:AndroidSqliteSyncSingle003')]
 // reserved-for:AndroidSqliteSyncSingle003
 // [/protected]
 
-[begin_reserve('reserved-for:AndroidSqliteQuerySingle003') /]
-[for (op : Operation | controller.eContents(Operation))]
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle006') /]
+[for (op : Operation | getValidOperations(controller))]
 [let inView : Class = in_parameter_definition()
 ][let inProps : Sequence(Property) =
 	nonrecFlatProperties(inView,1,1)
@@ -395,37 +448,33 @@ else recursiveFlatProperties(getSubject(outView),1)->reverse() endif]
 [else][tooComplexQuery(op.name,inProps) /]
 [/if][/if][/if][/if][/let][/if][/if][/if][/let][/let]
 [/for]
-[end_reserve('reserved-for:AndroidSqliteQuerySingle003') /]
+[end_reserve('reserved-for:AndroidSqliteQuerySingle006') /]
 
-// [protected ('reserved-for:AndroidSqliteDatabase004')]
-// reserved-for:AndroidSqliteDatabase004
+// [protected ('reserved-for:AndroidSqliteDatabase010')]
+// reserved-for:AndroidSqliteDatabase010
 // [/protected]
 
 // [protected ('reserved-for:AndroidSqliteSyncSingle004')]
 // reserved-for:AndroidSqliteSyncSingle004
 // [/protected]
 
-[begin_reserve('reserved-for:AndroidSqliteQuerySingle004') /]
-// TODO: NOT IMPLEMENTED YET
-[comment]
-else if(URI_[tbl.name.toUpperCase() /]_SOME.equals(uri)) {
-			result = listSome(Long.parseLong(selectionArgs[ '[' /]0[ ']' /]), Long.parseLong(selectionArgs[ '[' /]1[ ']' /]));
-		} else if(URI_[tbl.name.toUpperCase() /]_BYID.equals(uri)) {
-			result = getById(Long.parseLong(selectionArgs[ '[' /]0[ ']' /]));
-		} else if(URI_[tbl.name.toUpperCase() /]_LASTID.equals(uri)) {
-			result = getLastId();
-		}
-[/comment]
-[begin_reserve('reserved-for:AndroidSqliteQuerySingle004') /]
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle007') /]
+/* @ExistsWhere||@SelectValueWhere||@SelectOneWhere||@SelectListWhere */
+[for (op : Operation | getValidOperations(controller)->select(x| gotStereotype(x, 'ExistsWhere') or gotStereotype(x, 'SelectValueWhere') or gotStereotype(x, 'SelectOneWhere') or gotStereotype(x, 'SelectListWhere')))]
+	else if (URI_[controller.name.toUpperCase() /]_[op.name.toUpperCase()/].equals(uri)) {
+		result = [op.name /](selectionArgs);
+	}
+[/for]
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle007') /]
 
-// [protected ('reserved-for:AndroidSqliteDatabase005')]
-// reserved-for:AndroidSqliteDatabase005
+// [protected ('reserved-for:AndroidSqliteDatabase011')]
+// reserved-for:AndroidSqliteDatabase011
 // [/protected]
 [/template]
 
 
 [template public create_out_classes(controller : Class, folder_name : String, pName: String)
-][for (op : Operation | controller.eContents(Operation))
+][for (op : Operation | getValidOperations(controller))
 ][let outView : Class = out_parameter_definition()
 ][if (op.gotStereotype('SelectOneWhere')
 or op.gotStereotype('SelectListWhere'))
@@ -483,7 +532,7 @@ TODO: temporarialy removed
 	pname +'.'+ modul.name+'.view'
 ) /]
 [/comment]
-[file (cName+'.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+ToCamelCase(tbl.name)+'Provider.java', false, 'UTF-8')]
+[file (cName+'.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+ToCamelCase(ctrl.name)+'Provider.java', false, 'UTF-8')]
 [create_android_content_provider(ctrl, pname +'.'+ modul.name+'.view') /]
 [/file]
 
@@ -495,103 +544,29 @@ TODO: temporarialy removed
 [/let]
 [/template]
 
-
-
-[comment]
-[template public generateElement2(root : Model)]
-[file ('queries.txt', false, 'UTF-8')]
-
-[let pack : Package = root
-		.eContents(Package)
-		->select(x|x.name = 'queries')
-		->first()
-][for (assoc : Association | 
-	pack.eContents(Association)
-	->select(x| 
-		gotStereotype(x,'selectOneWhere') or
-		gotStereotype(x,'selectListWhere') or
-		gotStereotype(x,'selectValueWhere') or
-		gotStereotype(x,'existsWhere')
-	)
-)][let queryOuts : Class = assoc.memberEnd->at(2).type.oclAsType(Class)
-][let queryIns : Class = assoc.memberEnd->at(1).type.oclAsType(Class)
-][let that : Class = 
-queryOuts
-	.eContents(Class)
-	->select(x| gotStereotype(x, 'Subject'))
-	->first()
-][let outProps: Sequence(Property) = 
-recursiveFlatProperties(
-	that
-	,1)->reverse()][if (
-gotStereotype(assoc,'selectOneWhere') or
-gotStereotype(assoc,'selectListWhere')
-)]
-[return_class(queryOuts.name, outProps)/]
-
-[cursor_to_classname(queryOuts.name, outProps)/]
-
-[/if][if (gotStereotype(assoc,'selectOneWhere'))
-][let inProps : Sequence(Property) =
-	nonrecFlatProperties(queryIns,1,1)
-	->reverse()][selectOneWhere(
-	queryOuts.name,
-	assoc.name,
-	inProps,
-	outProps
-) /][/let][/if][if (gotStereotype(assoc,'selectListWhere'))
-][let inProps : Sequence(Property) =
-	nonrecFlatProperties(queryIns,1,1)
-	->reverse()][selectListWhere(
-	queryOuts.name,
-	assoc.name,
-	inProps,
-	outProps
-) /][/let][/if][if (gotStereotype(assoc,'selectValueWhere'))
-][let inProps : Sequence(Property) =
-	nonrecFlatProperties(queryIns,1,1)
-	->reverse()][selectValueWhere(
-	assoc.name,
-	inProps,
-	outProps
-) /][/let][/if][if (gotStereotype(assoc,'existsWhere'))
-][let inProps : Sequence(Property) =
-	nonrecFlatProperties(queryIns,1,1)
-	->reverse()][existsWhere(
-	assoc.name,
-	inProps
-) /][/let][/if]
-[/let][/let][/let][/let]
-
-[/for][/let][/file][/template][/comment]
-
 [comment 
-
-I will make a lot of selections
-I will make a lot of insertions
-I will make some updatings
-I will probably not make deletions
-
+	I will make a lot of selections
+	I will make a lot of insertions
+	I will make some updatings
+	I will probably not make deletions
  /]
 [template public insert(
 functionName : String,
 queryIns: Sequence(Property)
 )]
-//insert
+/* @Insert */
 public int [functionName 
-/]([query_parameters_definition(queryIns) /]){
-
+/](String[ '[' /][ ']' /] selectionArgs){
+	//TODO: I might have some data from 'selectionArgs' and also some predefined data
+	//TODO: the way it is the transformation is wrong
 	String query = "[insert_query(queryIns)/]";
-	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [query_parameters_usage(queryIns) /] });
-
-	int that = 0;
+	Cursor cursor = database.rawQuery(query, selectionArgs);
+	//TODO: I don't knwo if its returning the last_id, I guess it's not
 	cursor.moveToFirst();
 	if(!cursor.isAfterLast()){
-		that = cursor.getInt(0);
+		result = cursor.getInt(0);
 	}
-
-	return that;
-
+	return result;
 }
 [/template]
 
@@ -599,21 +574,14 @@ public int [functionName
 functionName : String,
 queryIns: Sequence(Property)
 )]
-//existsWhere
-public boolean [functionName 
-/]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
-
+/* @ExistsWhere */
+public Cursor [functionName 
+/](String[ '[' /][ ']' /] selectionArgs) {
+	//TODO: I might have some data from 'selectionArgs' and also some predefined data
+	//TODO: the way it is the transformation is wrong
 	String query = "[exists_query(queryIns)/]";
 	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] });
-
-	boolean that = false;
-	cursor.moveToFirst();
-	if(!cursor.isAfterLast()){
-		that = (cursor.getInt(0) > 0);
-	}
-
-	return that;
-
+	return cursor;
 }
 [/template]
 
@@ -622,22 +590,14 @@ public boolean [functionName
 	functionName : String,
 	queryIns: Sequence(Property),
 	queryOuts: Sequence(Property))]
-//selectOneWhere 
-public [returnName.ToCamelCase() /] [functionName 
-/]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
-
+/* @SelectOneWhere */
+public Cursor [functionName 
+/](String[ '[' /][ ']' /] selectionArgs) {
+	//TODO: I might have some data from 'selectionArgs' and also some predefined data
+	//TODO: the way it is the transformation is wrong
 	String query = "[select_query(queryIns,queryOuts)/]";
-
-	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] });
-
-	[returnName.ToCamelCase() /] that = null;
-	cursor.moveToFirst();
-	if(!cursor.isAfterLast()){
-		that = [returnName.ToCamelCase() /].FromCursor(cursor);
-	}
-
-
-	return that;
+	Cursor cursor = database.rawQuery(query, selectionArgs);
+	return cursor;
 }
 [/template]
 
@@ -646,28 +606,17 @@ public [returnName.ToCamelCase() /] [functionName
 	functionName : String,
 	queryIns: Sequence(Property),
 	queryOuts: Sequence(Property))]
-//selectListWhere
-public List<[returnName.ToCamelCase() /]> [functionName 
-/]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /], [else][if (not HasDefaultValuey(queryIns))]long id, [/if][/if]long page_count, long page_size){
-
-
+/* @SelectListWhere */
+public Cursor [functionName 
+/](String[ '[' /][ ']' /] selectionArgs,long page_count, long page_size) {
+	//TODO: I might have some data from 'selectionArgs' and also some predefined data
+	//TODO: the way it is the transformation is wrong
 	String query = "[select_query(queryIns,queryOuts)/]";
-
 	if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 	}
-
-	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] });
-
-	List<[returnName.ToCamelCase() /]> those = null;
-	cursor.moveToFirst();
-	while(!cursor.isAfterLast()){
-		those.add( [returnName.ToCamelCase() /].FromCursor(cursor) );
-		cursor.moveToNext();
-	}
-
-	return those;
-
+	Cursor cursor = database.rawQuery(query, selectionArgs);
+	return cursor;
 }
 [/template]
 
@@ -675,25 +624,15 @@ public List<[returnName.ToCamelCase() /]> [functionName
 	functionName : String,
 	queryIns: Sequence(Property),
 	queryOuts: Sequence(Property))]
-//selectValueWhere
-public [(if queryOuts->notEmpty()
-then get_java_type(queryOuts->at(1)) else 'long' endif) /] [functionName
-
-/]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
+/* @SelectValueWhere */
+public Cursor [functionName
+/](String[ '[' /][ ']' /] selectionArgs) {
+	//TODO: I might have some data from 'selectionArgs' and also some predefined data
+	//TODO: the way it is the transformation is wrong
 	[comment vou precisar fazer os joins /]
 	String query = "[select_query(queryIns,queryOuts)/]";
-	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] });
-
-	[(if queryOuts->notEmpty()
-then get_java_type(queryOuts->at(1)) else 'long' endif) /] that = [(if queryOuts->notEmpty()
-then 'null' else '0' endif) /];
-	cursor.moveToFirst();
-	if(!cursor.isAfterLast()){
-		that = [ (if queryOuts->notEmpty() then getter_indexed(queryOuts->at(1),'cursor', 0) else 'cursor.getLong(0)' endif) /];
-	}
-
-	return that;
-
+	Cursor cursor = database.rawQuery(query, selectionArgs);
+	return cursor;
 }
 [/template]
 
@@ -746,19 +685,17 @@ or gotStereotype(x, 'DefaultSystemId')
 	functionName : String,
 	queryIns: Sequence(Property),
 	queryOuts: Sequence(Property))]
-//updateWhere
+/* @UpdateWhere */
 public int [functionName 
-/]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
-
+/](String[ '[' /][ ']' /] selectionArgs) {
+	//TODO: I might have some data from 'selectionArgs' and also some predefined data
+	//TODO: the way it is the transformation is wrong
 	String query = "[update_query(queryIns,queryOuts)/]";
-
-	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]id[/if] });
-
+	Cursor cursor = database.rawQuery(query, selectionArgs);
 	cursor.moveToFirst();
 	if(!cursor.isAfterLast()){
 		result = cursor.getInt(0);
 	}
-
 	return result;
 }
 [/template]
@@ -769,22 +706,18 @@ database.delete(DbHelper.TABLE_CASH_LAUNCH, DbHelper.CASH_LAUNCH_ID + " = " + St
 [template public deleteWhere(
 	functionName : String,
 	queryIns: Sequence(Property))]
-//deleteWhere
-public int [functionName /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
-
+/* @DeleteWhere */
+public int [functionName /](String[ '[' /][ ']' /] selectionArgs) {
+	//TODO: I might have some data from 'selectionArgs' and also some predefined data
+	//TODO: the way it is the transformation is wrong
 	int result = 0;
-
 	String query = "[delete_query(queryIns)/]";
-
-	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]id[/if] });
-
+	Cursor cursor = database.rawQuery(query, selectionArgs);
 	cursor.moveToFirst();
 	if(!cursor.isAfterLast()){
 		result = cursor.getInt(0);
 	}
-
 	return result;
-
 }
 [/template]
 
@@ -792,14 +725,12 @@ public int [functionName /]([if (params_not_empty(queryIns))][query_parameters_d
 [template public tooComplexQuery(
 	functionName : String,
 	queryIns: Sequence(Property))]
-//tooComplexQuery
+/* @TooComplexQuery */
 public void [functionName 
-/]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
-
+/]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]) {
 	String query = "";
-
 	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]id[/if] });
-
+	return cursor;
 }
 [/template]
 
