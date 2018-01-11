@@ -25,7 +25,8 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001// reserved-for:AndroidSqliteQuerySingle001
+// Start of user code reserved-for:AndroidSqliteQuerySingle001
+// reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase002
@@ -66,17 +67,18 @@ public class InvoiceProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
 
+
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final String INVOICE_INSERT_INSTALLMENT_SICOOB = SCHEME + AUTHORITY + "/insert_installment_sicoob";
-	public static final Uri URI_INVOICE_INSERT_INSTALLMENT_SICOOB = Uri.parse(INVOICE_INSERT_INSTALLMENT_SICOOB);
-	public static final String INVOICE_INSERT_INSTALLMENT_SICOOB_BASE = INVOICE_INSERT_INSTALLMENT_SICOOB + "/";
 	public static final String INVOICE_INSERT_INSTALLMENT = SCHEME + AUTHORITY + "/insert_installment";
 	public static final Uri URI_INVOICE_INSERT_INSTALLMENT = Uri.parse(INVOICE_INSERT_INSTALLMENT);
 	public static final String INVOICE_INSERT_INSTALLMENT_BASE = INVOICE_INSERT_INSTALLMENT + "/";
+	public static final String INVOICE_INSERT_INSTALLMENT_SICOOB = SCHEME + AUTHORITY + "/insert_installment_sicoob";
+	public static final Uri URI_INVOICE_INSERT_INSTALLMENT_SICOOB = Uri.parse(INVOICE_INSERT_INSTALLMENT_SICOOB);
+	public static final String INVOICE_INSERT_INSTALLMENT_SICOOB_BASE = INVOICE_INSERT_INSTALLMENT_SICOOB + "/";
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
@@ -181,11 +183,11 @@ public class InvoiceProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle003
 /* @Insert */
-	else if (URI_INVOICE_insert_installment_sicoob.equals(uri)) {
-			result = insert_installment_sicoob(selectionArgs); // << missing arguments
-	}
 	else if (URI_INVOICE_insert_installment.equals(uri)) {
 			result = insert_installment(selectionArgs); // << missing arguments
+	}
+	else if (URI_INVOICE_insert_installment_sicoob.equals(uri)) {
+			result = insert_installment_sicoob(selectionArgs); // << missing arguments
 	}
 // reserved-for:AndroidSqliteQuerySingle003
 // End of user code
@@ -217,7 +219,6 @@ public class InvoiceProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase007
 // End of user code
 
-
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -239,13 +240,15 @@ public class InvoiceProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
 
+// end content-provider-interface
+
 // Start of user code reserved-for:AndroidSqliteSyncSingle003
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
 	/* @Insert */
-	public int insert_installment_sicoob(String[] selectionArgs){
+	public int insert_installment(String[] selectionArgs){
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "INSERT INTO invoice(last_update,system,sale,client_from_system,installment_type,interest_rate_type,bank,currency,last_update,name,enabled,currency,last_update,sale_type,system,total_value,user,client_from_system,currency,last_update,system,basic_client,shared_client,user,last_update,name,last_update,name,last_update,code,name,last_update,abbreviature,description,last_update,name,last_update,system,role,username,password,name,email,last_use_time,last_error_time,error_count,active,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,last_update,name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
@@ -258,7 +261,7 @@ public class InvoiceProvider extends ContentProvider {
 		return result;
 	}
 	/* @Insert */
-	public int insert_installment(String[] selectionArgs){
+	public int insert_installment_sicoob(String[] selectionArgs){
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "INSERT INTO invoice(last_update,system,sale,client_from_system,installment_type,interest_rate_type,bank,currency,last_update,name,enabled,currency,last_update,sale_type,system,total_value,user,client_from_system,currency,last_update,system,basic_client,shared_client,user,last_update,name,last_update,name,last_update,code,name,last_update,abbreviature,description,last_update,name,last_update,system,role,username,password,name,email,last_use_time,last_error_time,error_count,active,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,last_update,name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
@@ -303,5 +306,16 @@ public class InvoiceProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
+// reserved-for:AndroidSqliteDatabase011
+// End of user code
+

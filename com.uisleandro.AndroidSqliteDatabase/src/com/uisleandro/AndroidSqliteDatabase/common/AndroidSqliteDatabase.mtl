@@ -1116,7 +1116,7 @@ separator (', \n')]
 		that.setServerId(cursor.getLong(1));
 		that.setDirty(cursor.getInt(2) > 0);
 [for (prop : Property | get_fields(tbl))]
-		that.set[prop.getName().ToCamelCase() /]([getter_indexed(prop,'cursor', i-1) /]);
+		that.set[prop.getName().ToCamelCase() /]([getter_indexed(prop,'cursor', i+2) /]);
 [/for]
 		return that;
 

@@ -180,8 +180,6 @@ cname +'.getString('+arg.name+')'
 endif endif endif endif endif
 /]
 
-
-
 [comment
 criar um stereotipo unico value
 ainda preciso substituir a interrogação

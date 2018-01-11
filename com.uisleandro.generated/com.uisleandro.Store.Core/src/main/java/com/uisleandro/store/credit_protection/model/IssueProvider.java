@@ -25,7 +25,8 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001// reserved-for:AndroidSqliteQuerySingle001
+// Start of user code reserved-for:AndroidSqliteQuerySingle001
+// reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase002
@@ -66,17 +67,18 @@ public class IssueProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
 
+
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final String ISSUE_REGISTER_ISSUE = SCHEME + AUTHORITY + "/register_issue";
-	public static final Uri URI_ISSUE_REGISTER_ISSUE = Uri.parse(ISSUE_REGISTER_ISSUE);
-	public static final String ISSUE_REGISTER_ISSUE_BASE = ISSUE_REGISTER_ISSUE + "/";
 	public static final String ISSUE_CHECK_CLIENT = SCHEME + AUTHORITY + "/check_client";
 	public static final Uri URI_ISSUE_CHECK_CLIENT = Uri.parse(ISSUE_CHECK_CLIENT);
 	public static final String ISSUE_CHECK_CLIENT_BASE = ISSUE_CHECK_CLIENT + "/";
+	public static final String ISSUE_REGISTER_ISSUE = SCHEME + AUTHORITY + "/register_issue";
+	public static final Uri URI_ISSUE_REGISTER_ISSUE = Uri.parse(ISSUE_REGISTER_ISSUE);
+	public static final String ISSUE_REGISTER_ISSUE_BASE = ISSUE_REGISTER_ISSUE + "/";
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
@@ -212,7 +214,6 @@ public class IssueProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase007
 // End of user code
 
-
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -234,11 +235,21 @@ public class IssueProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
 
+// end content-provider-interface
+
 // Start of user code reserved-for:AndroidSqliteSyncSingle003
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
+	/* @ExistsWhere */
+	public Cursor check_client(String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT exists(*) FROM Issue WHERE Issue.fk_shared_client = ? AND Issue.active = ? AND (Issue.fk_issue is null or Issue.fk_issue = '');";
+		Cursor cursor = database.rawQuery(query, new String[]{ String.valueOf(fk_shared_client), "1" });
+		return cursor;
+	}
 	/* @Insert */
 	public int register_issue(String[] selectionArgs){
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
@@ -251,14 +262,6 @@ public class IssueProvider extends ContentProvider {
 			result = cursor.getInt(0);
 		}
 		return result;
-	}
-	/* @ExistsWhere */
-	public Cursor check_client(String[] selectionArgs) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		String query = "SELECT exists(*) FROM Issue WHERE Issue.fk_shared_client = ? AND Issue.active = ? AND (Issue.fk_issue is null or Issue.fk_issue = '');";
-		Cursor cursor = database.rawQuery(query, new String[]{ String.valueOf(fk_shared_client), "1" });
-		return cursor;
 	}
 // reserved-for:AndroidSqliteQuerySingle006
 // End of user code
@@ -296,5 +299,16 @@ public class IssueProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
+// reserved-for:AndroidSqliteDatabase011
+// End of user code
+

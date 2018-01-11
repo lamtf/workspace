@@ -3,8 +3,9 @@ package com.uisleandro.store.receivement.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.database.Cursor;
 
-public class BankView{
+public class BankView {
 
 	private long id;
 	private long server_id;
@@ -16,7 +17,7 @@ public class BankView{
 	private String name;
 	private String name;
 
-	public BankView(){
+	public BankView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;
@@ -26,85 +27,82 @@ public class BankView{
 		this.name = "";
 		this.name = "";
 		this.name = "";
-
 	}
 
-	public long getId(){
+	public long getId () {
 		return id;
 	}
 
-	public void setId(long id){
+	public void setId (long id) {
 		this.id = id;
 	}
 
-	public long getServerId(){
+	public long getServerId () {
 		return server_id;
 	}
 
-	public void setServerId(long server_id){
+	public void setServerId (long server_id) {
 		this.server_id = server_id;
 	}
 
-	public boolean isDirty(){
+	public boolean isDirty () {
 		return dirty;
 	}
 
-	public void setDirty(boolean dirty){
+	public void setDirty (boolean dirty) {
 		this.dirty = dirty;
 	}
 
-	public long getLastUpdate(){
+	public long getLastUpdate () {
 		return last_update;
 	}
 
-	public void setLastUpdate(long last_update){
+	public void setLastUpdate (long last_update) {
 		this.last_update = last_update;
 	}
 
-	public String getCode(){
+	public String getCode () {
 		return code;
 	}
 
-	public void setCode(String code){
+	public void setCode (String code) {
 		this.code = code;
 	}
 
-	public String getName(){
+	public String getName () {
 		return name;
 	}
 
-	public void setName(String name){
+	public void setName (String name) {
 		this.name = name;
 	}
 
-	public String getName(){
+	public String getName () {
 		return name;
 	}
 
-	public void setName(String name){
+	public void setName (String name) {
 		this.name = name;
 	}
 
-	public String getName(){
+	public String getName () {
 		return name;
 	}
 
-	public void setName(String name){
+	public void setName (String name) {
 		this.name = name;
 	}
 
-	public String getName(){
+	public String getName () {
 		return name;
 	}
 
-	public void setName(String name){
+	public void setName (String name) {
 		this.name = name;
 	}
 
-
-	public String toJsonString(){
-
-		String that = "{" +
+	public String toJsonString () {
+		String result = "{" +
 			"\"client_id\":\"" + this.id + "\"," +
 			"\"server_id\":\"" + this.server_id + "\"," +
 			"\"last_update\":\"" + this.last_update+ "\"," + 
@@ -114,78 +112,67 @@ public class BankView{
 			"\"name\":\"" + this.name+ "\"," + 
 			"\"name\":\"" + this.name+ "\"" + 
 		"}";
-
-		return that;
-
+		return result;
 	}
 
-	public String toString(){
-
+	public String toString () {
 		return this.name;
 
 	}
 
 	public static BankView FromJson(String json){
-
 		if(json != null) {
-		try {
-
-		JSONObject obj = new JSONObject(json);
-				BankView result = new BankView();
-
-				if(obj.has("client_id") && !obj.isNull("client_id")){
-					result.setId(obj.getLong("client_id"));
-				}
-				if(obj.has("server_id") && !obj.isNull("server_id")){
-					result.setServerId(obj.getLong("server_id"));
-				}
-				result.setLastUpdate(obj.getLong("last_update"));
-				result.setCode(obj.getString("code"));
-				result.setName(obj.getString("name"));
-				result.setName(obj.getString("name"));
-				result.setName(obj.getString("name"));
-				result.setName(obj.getString("name"));
-
-				return result;
-
+			try {
+				JSONObject obj = new JSONObject(json);
+				return BankView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-
 		return null;
-
 	}
 
-
-	public static BankView FromJsonObj(JSONObject obj){
-
+	public static BankView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
 				BankView result = new BankView();
-
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
 				if(obj.has("server_id") && !obj.isNull("server_id")){
 					result.setServerId(obj.getLong("server_id"));
 				}
+				/* if(obj.has("dirty") && !obj.isNull("dirty")){
+					result.setDirty(obj.getInt("dirty") > 0);
+				} */
 				result.setLastUpdate(obj.getLong("last_update"));
 				result.setCode(obj.getString("code"));
 				result.setName(obj.getString("name"));
 				result.setName(obj.getString("name"));
 				result.setName(obj.getString("name"));
 				result.setName(obj.getString("name"));
-
 				return result;
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-
 		return null;
-
 	}
 
-
+	public static BankView FromCursor (Cursor cursor) {
+		if(null != cursor){
+			BankView result = new BankView();
+			result.setId(cursor.getLong(0));
+			result.setServerId(cursor.getLong(1));
+			result.setDirty(cursor.getInt(2) > 0);
+			result.setLastUpdate(cursor.getLong(3));
+			result.setCode(cursor.getString(4));
+			result.setName(cursor.getString(5));
+			result.setName(cursor.getString(6));
+			result.setName(cursor.getString(7));
+			result.setName(cursor.getString(8));
+			return result;		
+		}
+		return null;
+	}
 }

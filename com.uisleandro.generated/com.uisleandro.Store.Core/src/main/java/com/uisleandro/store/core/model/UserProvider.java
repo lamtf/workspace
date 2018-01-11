@@ -25,8 +25,7 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001import com.uisleandro.store.core.view.LoginOut;
-import com.uisleandro.store.core.view.CanAccessOut;
+// Start of user code reserved-for:AndroidSqliteQuerySingle001
 // reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -68,17 +67,18 @@ public class UserProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
 
+
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final String USER_LOGIN = SCHEME + AUTHORITY + "/login";
-	public static final Uri URI_USER_LOGIN = Uri.parse(USER_LOGIN);
-	public static final String USER_LOGIN_BASE = USER_LOGIN + "/";
 	public static final String USER_USER_CAN_ACCESS = SCHEME + AUTHORITY + "/user_can_access";
 	public static final Uri URI_USER_USER_CAN_ACCESS = Uri.parse(USER_USER_CAN_ACCESS);
 	public static final String USER_USER_CAN_ACCESS_BASE = USER_USER_CAN_ACCESS + "/";
+	public static final String USER_LOGIN = SCHEME + AUTHORITY + "/login";
+	public static final Uri URI_USER_LOGIN = Uri.parse(USER_LOGIN);
+	public static final String USER_LOGIN_BASE = USER_LOGIN + "/";
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
@@ -219,7 +219,6 @@ public class UserProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase007
 // End of user code
 
-
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -241,13 +240,15 @@ public class UserProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
 
+// end content-provider-interface
+
 // Start of user code reserved-for:AndroidSqliteSyncSingle003
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
 	/* @SelectOneWhere */
-	public Cursor login(String[] selectionArgs) {
+	public Cursor user_can_access(String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "SELECT user.last_update,user.username,user.password,user.name,user.email,user.last_use_time,user.last_error_time,user.error_count,user.active,role.last_update,role.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM user INNER JOIN system ON user.fk_system = system.id INNER JOIN role ON user.fk_role = role.id INNER JOIN currency ON system.fk_currency = currency.id WHERE user.last_update = ? AND user.fk_system = ? AND user.fk_role = ? AND user.username = ? AND user.password = ? AND user.name = ? AND user.email = ? AND user.last_use_time = ? AND user.last_error_time = ? AND user.error_count = ? AND user.active = ? AND system.last_update = ? AND system.name = ? AND system.enabled = ? AND system.fk_currency = ? AND role.last_update = ? AND role.name = ? AND currency.last_update = ? AND currency.abbreviature = ? AND currency.description = ?;";
@@ -255,7 +256,7 @@ public class UserProvider extends ContentProvider {
 		return cursor;
 	}
 	/* @SelectOneWhere */
-	public Cursor user_can_access(String[] selectionArgs) {
+	public Cursor login(String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "SELECT user.last_update,user.username,user.password,user.name,user.email,user.last_use_time,user.last_error_time,user.error_count,user.active,role.last_update,role.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM user INNER JOIN system ON user.fk_system = system.id INNER JOIN role ON user.fk_role = role.id INNER JOIN currency ON system.fk_currency = currency.id WHERE user.last_update = ? AND user.fk_system = ? AND user.fk_role = ? AND user.username = ? AND user.password = ? AND user.name = ? AND user.email = ? AND user.last_use_time = ? AND user.last_error_time = ? AND user.error_count = ? AND user.active = ? AND system.last_update = ? AND system.name = ? AND system.enabled = ? AND system.fk_currency = ? AND role.last_update = ? AND role.name = ? AND currency.last_update = ? AND currency.abbreviature = ? AND currency.description = ?;";
@@ -292,14 +293,25 @@ public class UserProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 /* @ExistsWhere||@SelectValueWhere||@SelectOneWhere||@SelectListWhere */
-	else if (URI_USER_LOGIN.equals(uri)) {
-		result = login(selectionArgs);
-	}
 	else if (URI_USER_USER_CAN_ACCESS.equals(uri)) {
 		result = user_can_access(selectionArgs);
+	}
+	else if (URI_USER_LOGIN.equals(uri)) {
+		result = login(selectionArgs);
 	}
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
+// reserved-for:AndroidSqliteDatabase011
+// End of user code
+

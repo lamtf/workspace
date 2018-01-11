@@ -3,8 +3,9 @@ package com.uisleandro.store.supply.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.database.Cursor;
 
-public class StockReviewView{
+public class StockReviewView {
 
 	private long id;
 	private long server_id;
@@ -16,7 +17,7 @@ public class StockReviewView{
 	private int previous_amount;
 	private int missing_amount;
 
-	public StockReviewView(){
+	public StockReviewView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;
@@ -26,85 +27,82 @@ public class StockReviewView{
 		this.sold_items = 0;
 		this.previous_amount = 0;
 		this.missing_amount = 0;
-
 	}
 
-	public long getId(){
+	public long getId () {
 		return id;
 	}
 
-	public void setId(long id){
+	public void setId (long id) {
 		this.id = id;
 	}
 
-	public long getServerId(){
+	public long getServerId () {
 		return server_id;
 	}
 
-	public void setServerId(long server_id){
+	public void setServerId (long server_id) {
 		this.server_id = server_id;
 	}
 
-	public boolean isDirty(){
+	public boolean isDirty () {
 		return dirty;
 	}
 
-	public void setDirty(boolean dirty){
+	public void setDirty (boolean dirty) {
 		this.dirty = dirty;
 	}
 
-	public long getLastUpdate(){
+	public long getLastUpdate () {
 		return last_update;
 	}
 
-	public void setLastUpdate(long last_update){
+	public void setLastUpdate (long last_update) {
 		this.last_update = last_update;
 	}
 
-	public long getFkProduct(){
+	public long getFkProduct () {
 		return fk_product;
 	}
 
-	public void setFkProduct(long fk_product){
+	public void setFkProduct (long fk_product) {
 		this.fk_product = fk_product;
 	}
 
-	public int getActualAmount(){
+	public int getActualAmount () {
 		return actual_amount;
 	}
 
-	public void setActualAmount(int actual_amount){
+	public void setActualAmount (int actual_amount) {
 		this.actual_amount = actual_amount;
 	}
 
-	public int getSoldItems(){
+	public int getSoldItems () {
 		return sold_items;
 	}
 
-	public void setSoldItems(int sold_items){
+	public void setSoldItems (int sold_items) {
 		this.sold_items = sold_items;
 	}
 
-	public int getPreviousAmount(){
+	public int getPreviousAmount () {
 		return previous_amount;
 	}
 
-	public void setPreviousAmount(int previous_amount){
+	public void setPreviousAmount (int previous_amount) {
 		this.previous_amount = previous_amount;
 	}
 
-	public int getMissingAmount(){
+	public int getMissingAmount () {
 		return missing_amount;
 	}
 
-	public void setMissingAmount(int missing_amount){
+	public void setMissingAmount (int missing_amount) {
 		this.missing_amount = missing_amount;
 	}
 
-
-	public String toJsonString(){
-
-		String that = "{" +
+	public String toJsonString () {
+		String result = "{" +
 			"\"client_id\":\"" + this.id + "\"," +
 			"\"server_id\":\"" + this.server_id + "\"," +
 			"\"last_update\":\"" + this.last_update+ "\"," + 
@@ -114,64 +112,39 @@ public class StockReviewView{
 			"\"previous_amount\":\"" + this.previous_amount+ "\"," + 
 			"\"missing_amount\":\"" + this.missing_amount+ "\"" + 
 		"}";
-
-		return that;
-
+		return result;
 	}
 
-	public String toString(){
-
+	public String toString () {
 		return "StockReviewView";
 
 	}
 
 	public static StockReviewView FromJson(String json){
-
 		if(json != null) {
-		try {
-
-		JSONObject obj = new JSONObject(json);
-				StockReviewView result = new StockReviewView();
-
-				if(obj.has("client_id") && !obj.isNull("client_id")){
-					result.setId(obj.getLong("client_id"));
-				}
-				if(obj.has("server_id") && !obj.isNull("server_id")){
-					result.setServerId(obj.getLong("server_id"));
-				}
-				result.setLastUpdate(obj.getLong("last_update"));
-				if(obj.has("server_id") && !obj.isNull("fk_product")){
-					result.setFkProduct(obj.getLong("fk_product"));
-				}
-				result.setActualAmount(obj.getInt("actual_amount"));
-				result.setSoldItems(obj.getInt("sold_items"));
-				result.setPreviousAmount(obj.getInt("previous_amount"));
-				result.setMissingAmount(obj.getInt("missing_amount"));
-
-				return result;
-
+			try {
+				JSONObject obj = new JSONObject(json);
+				return StockReviewView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-
 		return null;
-
 	}
 
-
-	public static StockReviewView FromJsonObj(JSONObject obj){
-
+	public static StockReviewView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
 				StockReviewView result = new StockReviewView();
-
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
 				if(obj.has("server_id") && !obj.isNull("server_id")){
 					result.setServerId(obj.getLong("server_id"));
 				}
+				/* if(obj.has("dirty") && !obj.isNull("dirty")){
+					result.setDirty(obj.getInt("dirty") > 0);
+				} */
 				result.setLastUpdate(obj.getLong("last_update"));
 				if(obj.has("fk_product") && !obj.isNull("fk_product")){
 					result.setFkProduct(obj.getLong("fk_product"));
@@ -180,16 +153,28 @@ public class StockReviewView{
 				result.setSoldItems(obj.getInt("sold_items"));
 				result.setPreviousAmount(obj.getInt("previous_amount"));
 				result.setMissingAmount(obj.getInt("missing_amount"));
-
 				return result;
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-
 		return null;
-
 	}
 
-
+	public static StockReviewView FromCursor (Cursor cursor) {
+		if(null != cursor){
+			StockReviewView result = new StockReviewView();
+			result.setId(cursor.getLong(0));
+			result.setServerId(cursor.getLong(1));
+			result.setDirty(cursor.getInt(2) > 0);
+			result.setLastUpdate(cursor.getLong(3));
+			result.setFkProduct(cursor.getLong(4));
+			result.setActualAmount(cursor.getInt(5));
+			result.setSoldItems(cursor.getInt(6));
+			result.setPreviousAmount(cursor.getInt(7));
+			result.setMissingAmount(cursor.getInt(8));
+			return result;		
+		}
+		return null;
+	}
 }

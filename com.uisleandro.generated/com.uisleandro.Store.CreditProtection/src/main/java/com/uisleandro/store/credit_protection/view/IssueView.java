@@ -3,8 +3,9 @@ package com.uisleandro.store.credit_protection.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.database.Cursor;
 
-public class IssueView{
+public class IssueView {
 
 	private long id;
 	private long server_id;
@@ -17,7 +18,7 @@ public class IssueView{
 	private boolean isAnswer;
 	private long fk_issue;
 
-	public IssueView(){
+	public IssueView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;
@@ -28,93 +29,90 @@ public class IssueView{
 		this.active = false;
 		this.isAnswer = false;
 		this.fk_issue = 0L;
-
 	}
 
-	public long getId(){
+	public long getId () {
 		return id;
 	}
 
-	public void setId(long id){
+	public void setId (long id) {
 		this.id = id;
 	}
 
-	public long getServerId(){
+	public long getServerId () {
 		return server_id;
 	}
 
-	public void setServerId(long server_id){
+	public void setServerId (long server_id) {
 		this.server_id = server_id;
 	}
 
-	public boolean isDirty(){
+	public boolean isDirty () {
 		return dirty;
 	}
 
-	public void setDirty(boolean dirty){
+	public void setDirty (boolean dirty) {
 		this.dirty = dirty;
 	}
 
-	public long getLastUpdate(){
+	public long getLastUpdate () {
 		return last_update;
 	}
 
-	public void setLastUpdate(long last_update){
+	public void setLastUpdate (long last_update) {
 		this.last_update = last_update;
 	}
 
-	public long getFkSharedClient(){
+	public long getFkSharedClient () {
 		return fk_shared_client;
 	}
 
-	public void setFkSharedClient(long fk_shared_client){
+	public void setFkSharedClient (long fk_shared_client) {
 		this.fk_shared_client = fk_shared_client;
 	}
 
-	public long getFkSystem(){
+	public long getFkSystem () {
 		return fk_system;
 	}
 
-	public void setFkSystem(long fk_system){
+	public void setFkSystem (long fk_system) {
 		this.fk_system = fk_system;
 	}
 
-	public String getDescription(){
+	public String getDescription () {
 		return description;
 	}
 
-	public void setDescription(String description){
+	public void setDescription (String description) {
 		this.description = description;
 	}
 
-	public boolean getActive(){
+	public boolean getActive () {
 		return active;
 	}
 
-	public void setActive(boolean active){
+	public void setActive (boolean active) {
 		this.active = active;
 	}
 
-	public boolean getIsAnswer(){
+	public boolean getIsAnswer () {
 		return isAnswer;
 	}
 
-	public void setIsAnswer(boolean isAnswer){
+	public void setIsAnswer (boolean isAnswer) {
 		this.isAnswer = isAnswer;
 	}
 
-	public long getFkIssue(){
+	public long getFkIssue () {
 		return fk_issue;
 	}
 
-	public void setFkIssue(long fk_issue){
+	public void setFkIssue (long fk_issue) {
 		this.fk_issue = fk_issue;
 	}
 
-
-	public String toJsonString(){
-
-		String that = "{" +
+	public String toJsonString () {
+		String result = "{" +
 			"\"client_id\":\"" + this.id + "\"," +
 			"\"server_id\":\"" + this.server_id + "\"," +
 			"\"last_update\":\"" + this.last_update+ "\"," + 
@@ -125,69 +123,39 @@ public class IssueView{
 			"\"isAnswer\":\"" + this.isAnswer+ "\"," + 
 			"\"fk_issue\":\"" + this.fk_issue+ "\"" + 
 		"}";
-
-		return that;
-
+		return result;
 	}
 
-	public String toString(){
-
+	public String toString () {
 		return this.description;
 
 	}
 
 	public static IssueView FromJson(String json){
-
 		if(json != null) {
-		try {
-
-		JSONObject obj = new JSONObject(json);
-				IssueView result = new IssueView();
-
-				if(obj.has("client_id") && !obj.isNull("client_id")){
-					result.setId(obj.getLong("client_id"));
-				}
-				if(obj.has("server_id") && !obj.isNull("server_id")){
-					result.setServerId(obj.getLong("server_id"));
-				}
-				result.setLastUpdate(obj.getLong("last_update"));
-				if(obj.has("server_id") && !obj.isNull("fk_shared_client")){
-					result.setFkSharedClient(obj.getLong("fk_shared_client"));
-				}
-				if(obj.has("server_id") && !obj.isNull("fk_system")){
-					result.setFkSystem(obj.getLong("fk_system"));
-				}
-				result.setDescription(obj.getString("description"));
-				result.setActive(obj.getInt("active") > 0);
-				result.setIsAnswer(obj.getInt("isAnswer") > 0);
-				if(obj.has("server_id") && !obj.isNull("fk_issue")){
-					result.setFkIssue(obj.getLong("fk_issue"));
-				}
-
-				return result;
-
+			try {
+				JSONObject obj = new JSONObject(json);
+				return IssueView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-
 		return null;
-
 	}
 
-
-	public static IssueView FromJsonObj(JSONObject obj){
-
+	public static IssueView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
 				IssueView result = new IssueView();
-
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
 				if(obj.has("server_id") && !obj.isNull("server_id")){
 					result.setServerId(obj.getLong("server_id"));
 				}
+				/* if(obj.has("dirty") && !obj.isNull("dirty")){
+					result.setDirty(obj.getInt("dirty") > 0);
+				} */
 				result.setLastUpdate(obj.getLong("last_update"));
 				if(obj.has("fk_shared_client") && !obj.isNull("fk_shared_client")){
 					result.setFkSharedClient(obj.getLong("fk_shared_client"));
@@ -201,16 +169,29 @@ public class IssueView{
 				if(obj.has("fk_issue") && !obj.isNull("fk_issue")){
 					result.setFkIssue(obj.getLong("fk_issue"));
 				}
-
 				return result;
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
 		}
-
 		return null;
-
 	}
 
-
+	public static IssueView FromCursor (Cursor cursor) {
+		if(null != cursor){
+			IssueView result = new IssueView();
+			result.setId(cursor.getLong(0));
+			result.setServerId(cursor.getLong(1));
+			result.setDirty(cursor.getInt(2) > 0);
+			result.setLastUpdate(cursor.getLong(3));
+			result.setFkSharedClient(cursor.getLong(4));
+			result.setFkSystem(cursor.getLong(5));
+			result.setDescription(cursor.getString(6));
+			result.setActive((cursor.getInt(7) > 0));
+			result.setIsAnswer((cursor.getInt(8) > 0));
+			result.setFkIssue(cursor.getLong(9));
+			return result;		
+		}
+		return null;
+	}
 }

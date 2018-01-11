@@ -25,7 +25,8 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001// reserved-for:AndroidSqliteQuerySingle001
+// Start of user code reserved-for:AndroidSqliteQuerySingle001
+// reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase002
@@ -66,11 +67,18 @@ public class DiscountProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
 
+
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
+	public static final String DISCOUNT_NEW_BRAND_BASED_PROMOTION = SCHEME + AUTHORITY + "/new_brand_based_promotion";
+	public static final Uri URI_DISCOUNT_NEW_BRAND_BASED_PROMOTION = Uri.parse(DISCOUNT_NEW_BRAND_BASED_PROMOTION);
+	public static final String DISCOUNT_NEW_BRAND_BASED_PROMOTION_BASE = DISCOUNT_NEW_BRAND_BASED_PROMOTION + "/";
+	public static final String DISCOUNT_NEW_GENDER_PROMOTION = SCHEME + AUTHORITY + "/new_gender_promotion";
+	public static final Uri URI_DISCOUNT_NEW_GENDER_PROMOTION = Uri.parse(DISCOUNT_NEW_GENDER_PROMOTION);
+	public static final String DISCOUNT_NEW_GENDER_PROMOTION_BASE = DISCOUNT_NEW_GENDER_PROMOTION + "/";
 	public static final String DISCOUNT_NEW_EVENTUAL_DISCOUNT = SCHEME + AUTHORITY + "/new_eventual_discount";
 	public static final Uri URI_DISCOUNT_NEW_EVENTUAL_DISCOUNT = Uri.parse(DISCOUNT_NEW_EVENTUAL_DISCOUNT);
 	public static final String DISCOUNT_NEW_EVENTUAL_DISCOUNT_BASE = DISCOUNT_NEW_EVENTUAL_DISCOUNT + "/";
@@ -80,12 +88,6 @@ public class DiscountProvider extends ContentProvider {
 	public static final String DISCOUNT_NEW_CATEGORY_PROMOTION = SCHEME + AUTHORITY + "/new_category_promotion";
 	public static final Uri URI_DISCOUNT_NEW_CATEGORY_PROMOTION = Uri.parse(DISCOUNT_NEW_CATEGORY_PROMOTION);
 	public static final String DISCOUNT_NEW_CATEGORY_PROMOTION_BASE = DISCOUNT_NEW_CATEGORY_PROMOTION + "/";
-	public static final String DISCOUNT_NEW_GENDER_PROMOTION = SCHEME + AUTHORITY + "/new_gender_promotion";
-	public static final Uri URI_DISCOUNT_NEW_GENDER_PROMOTION = Uri.parse(DISCOUNT_NEW_GENDER_PROMOTION);
-	public static final String DISCOUNT_NEW_GENDER_PROMOTION_BASE = DISCOUNT_NEW_GENDER_PROMOTION + "/";
-	public static final String DISCOUNT_NEW_BRAND_BASED_PROMOTION = SCHEME + AUTHORITY + "/new_brand_based_promotion";
-	public static final Uri URI_DISCOUNT_NEW_BRAND_BASED_PROMOTION = Uri.parse(DISCOUNT_NEW_BRAND_BASED_PROMOTION);
-	public static final String DISCOUNT_NEW_BRAND_BASED_PROMOTION_BASE = DISCOUNT_NEW_BRAND_BASED_PROMOTION + "/";
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
@@ -220,7 +222,6 @@ public class DiscountProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase007
 // End of user code
 
-
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -241,6 +242,8 @@ public class DiscountProvider extends ContentProvider {
 	}
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
+
+// end content-provider-interface
 
 // Start of user code reserved-for:AndroidSqliteSyncSingle003
 // reserved-for:AndroidSqliteSyncSingle003
@@ -280,5 +283,16 @@ public class DiscountProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
+// reserved-for:AndroidSqliteDatabase011
+// End of user code
+
