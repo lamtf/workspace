@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.client.view; 
 
 import org.json.JSONException;
@@ -294,4 +293,13 @@ public class BasicClientView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), name, String.valueOf(birth_date), birth_city, birth_state, mothers_name, fathers_name, profession, zip_code, address, neighborhood, city, state, complement, String.valueOf(country)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name, String.valueOf(birth_date), birth_city, birth_state, mothers_name, fathers_name, profession, zip_code, address, neighborhood, city, state, complement, String.valueOf(country)};
+	}
+
 }

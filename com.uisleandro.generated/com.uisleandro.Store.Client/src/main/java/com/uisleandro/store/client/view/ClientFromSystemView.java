@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.client.view; 
 
 import org.json.JSONException;
@@ -170,4 +169,13 @@ public class ClientFromSystemView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), String.valueOf(system), String.valueOf(basic_client), String.valueOf(shared_client), String.valueOf(user)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(system), String.valueOf(basic_client), String.valueOf(shared_client), String.valueOf(user)};
+	}
+
 }

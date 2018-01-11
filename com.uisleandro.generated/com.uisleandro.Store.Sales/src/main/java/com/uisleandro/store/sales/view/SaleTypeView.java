@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.sales.view; 
 
 import org.json.JSONException;
@@ -123,4 +122,13 @@ public class SaleTypeView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), name};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name};
+	}
+
 }

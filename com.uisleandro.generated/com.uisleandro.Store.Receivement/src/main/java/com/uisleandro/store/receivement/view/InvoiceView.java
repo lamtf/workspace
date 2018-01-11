@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.receivement.view; 
 
 import org.json.JSONException;
@@ -215,4 +214,13 @@ public class InvoiceView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), String.valueOf(system), String.valueOf(sale), String.valueOf(client_from_system), String.valueOf(installment_type), String.valueOf(interest_rate_type), String.valueOf(bank), String.valueOf(currency)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(system), String.valueOf(sale), String.valueOf(client_from_system), String.valueOf(installment_type), String.valueOf(interest_rate_type), String.valueOf(bank), String.valueOf(currency)};
+	}
+
 }

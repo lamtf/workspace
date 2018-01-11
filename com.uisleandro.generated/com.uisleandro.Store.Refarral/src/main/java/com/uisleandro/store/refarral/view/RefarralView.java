@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.refarral.view; 
 
 import org.json.JSONException;
@@ -203,4 +202,13 @@ public class RefarralView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), String.valueOf(system_amount), name, address, neighborhood, city, state, zip_code};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(system_amount), name, address, neighborhood, city, state, zip_code};
+	}
+
 }

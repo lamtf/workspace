@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.discount.view; 
 
 import org.json.JSONException;
@@ -211,4 +210,13 @@ public class DiscountView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), String.valueOf(value), String.valueOf(percentage), String.valueOf(product), String.valueOf(category), String.valueOf(brand), String.valueOf(client_from_system), String.valueOf(gender)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(value), String.valueOf(percentage), String.valueOf(product), String.valueOf(category), String.valueOf(brand), String.valueOf(client_from_system), String.valueOf(gender)};
+	}
+
 }

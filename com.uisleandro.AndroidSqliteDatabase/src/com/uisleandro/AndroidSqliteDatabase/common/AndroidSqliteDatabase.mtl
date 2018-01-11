@@ -3,7 +3,6 @@
 
 [comment CPF is a unique key, please fix it on all databases /]
 
-
 [template public begin_reserve(name : String)]
 //Start of user code [name /]
 [/template]

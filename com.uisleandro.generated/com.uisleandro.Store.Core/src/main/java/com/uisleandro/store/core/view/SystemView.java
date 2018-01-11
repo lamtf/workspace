@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.core.view; 
 
 import org.json.JSONException;
@@ -283,4 +282,13 @@ public class SystemView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), name, String.valueOf(enabled), String.valueOf(currency), fantasy_name, stores_address, srores_address_number, stores_city, stores_neighborhood, stores_zip_code, stores_state, stores_email, stores_phonenumber, String.valueOf(refarral)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name, String.valueOf(enabled), String.valueOf(currency), fantasy_name, stores_address, srores_address_number, stores_city, stores_neighborhood, stores_zip_code, stores_state, stores_email, stores_phonenumber, String.valueOf(refarral)};
+	}
+
 }

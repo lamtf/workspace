@@ -542,8 +542,25 @@ separator (', " + \n') after (' " + \n')]
 [query public isDate(arg : Property) : Boolean = 
 self.type.name.toString().equalsIgnoreCase('date') /]
 
-[template public android_create_tblviewclass(pname: String, modul: Package, tbl: Class)]
+[comment]
+	TODO: UTIL PACKAGE
+[/comment]
+[query public to_java_string(arg: Property): String =
+if null = arg.type
+or arg.type.name.equalsIgnoreCase('BarcodeType')
+or arg.type.name.equalsIgnoreCase('File')
+or arg.type.name.equalsIgnoreCase('GuidType')
+or arg.type.name.equalsIgnoreCase('BigText')
+or arg.type.name.equalsIgnoreCase('SmallText')
+or arg.type.name.equalsIgnoreCase('Abbreviature')
+or arg.type.name.equalsIgnoreCase('MediumText') then
+arg.name
+else
+'String.valueOf('+arg.name+')'
+endif/]
 
+
+[template public android_create_tblviewclass(pname: String, modul: Package, tbl: Class)]
 package [pname /].[modul.name /].view; [comment Core is modul.name /]
 
 import org.json.JSONException;
@@ -687,6 +704,15 @@ public class [tbl.name.ToCamelCase() /]View {
 		}
 		return null;
 	}
+
+	public String[ '[' /][ ']' /] toInsertArray () {
+		return new String[ '[' /][ ']' /]{[for (prop : Property | get_fields(tbl)) separator (', ')][to_java_string(prop) /][/for]};
+	}
+
+	public String[ '[' /][ ']' /] toUpdateArray () {
+		return new String[ '[' /][ ']' /]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), [for (prop : Property | get_fields(tbl)) separator (', ')][to_java_string(prop) /][/for]};
+	}
+
 }
 [/template]
 
@@ -717,6 +743,7 @@ package [pname /].Core.model;  [comment 'Core' == modul.name/]
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -968,6 +995,127 @@ separator (', \n')]
 [/if]
 [/template]
 
+[template public android_create_content_provider_ds(pname: String, modul: Package, tbl: Class)]
+[if (tbl.eContents(Property)->exists(x | null = x.type)) ]
+/*
+ON [tbl.getQualifiedName() /]
+	ERROR ON PROPERTY DEFINITION:
+[for (it : Property | tbl.eContents(Property)->select(x | null = x.type))]
+	THE TYPE OF "[it.name.toString() /]" IS SET TO NULL
+[/for]
+*/
+[else]
+[begin_reserve('reserved-for:AndroidSqliteDatabase001') /]
+package [pname /].[modul.name/].model;  
+
+import java.util.ArrayList;
+import java.util.List;
+import android.database.Cursor;
+import android.net.Uri;
+import android.util.Log;
+import [pname /].[modul.name/].view.[tbl.name.ToCamelCase() /]View
+[comment]
+	PLEASE IMPORT THE CONTENT PROVIDER CLASS 
+[/comment]
+
+public class [tbl.name.ToCamelCase() /]DataSource {
+
+	public static final String AUTHORITY = "com.uisleandro.[tbl.name /]";
+	public static final String SCHEME = "content://";
+
+	[comment]
+		The name of the functions will be place here
+	[/comment]
+	public static final String [tbl.name.toUpperCase() /]_INSERT = SCHEME + AUTHORITY + "/insert";
+	public static final String [tbl.name.toUpperCase() /]_UPDATE = SCHEME + AUTHORITY + "/update";
+	public static final String [tbl.name.toUpperCase() /]_DELETE = SCHEME + AUTHORITY + "/delete";
+	public static final String [tbl.name.toUpperCase() /]_ALL = SCHEME + AUTHORITY + "/all";
+	public static final String [tbl.name.toUpperCase() /]_SOME = SCHEME + AUTHORITY + "/some";
+	public static final String [tbl.name.toUpperCase() /]_BYID = SCHEME + AUTHORITY + "/byid";
+	public static final String [tbl.name.toUpperCase() /]_LASTID = SCHEME + AUTHORITY + "/lastid";
+
+	Context context;
+	public [tbl.name.ToCamelCase() /]DataSource(Context context){
+		this.context = context;
+	}
+
+	public List<[tbl.name.ToCamelCase() /]View> listAll(){
+		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
+		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_ALL, null, null null, null);
+		if (null != cursor) {
+			cursor.moveToFirst();
+		    while(!cursor.isAfterLast()){
+		      [tbl.name.ToCamelCase() /]View that = [tbl.name.ToCamelCase() /]View.FromCursor(cursor);
+		      those.add(that);
+		      cursor.moveToNext();
+		    }
+		    cursor.close();
+		}
+	    return those;
+	}
+
+	public [tbl.name.ToCamelCase() /]View getById(long id){
+		CashRegister that = null;
+		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_BYID, null, null, new String[ '[' /][ ']' /]{ String.valueOf(id) }, null);
+		if (null != cursor) {
+			cursor.moveToFirst();
+		    if(!cursor.isAfterLast()){
+		      that = [tbl.name.ToCamelCase() /]View.FromCursor(cursor);
+		    }
+			cursor.close();
+		}
+	    return that;
+	}
+
+	public List<[tbl.name.ToCamelCase() /]View listSome(long page_count, long page_size){
+		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
+		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_SOME, new String[ '[' /][ ']' /]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		if (null != cursor) {
+			cursor.moveToFirst();
+		    while(!cursor.isAfterLast()){
+		      [tbl.name.ToCamelCase() /]View that = [tbl.name.ToCamelCase() /]View.FromCursor(cursor);
+		      those.add(that);
+		      cursor.moveToNext();
+		    }
+		    cursor.close();
+		}
+	    return those;
+	}
+
+	public long getLastId(){
+		long result = 0;
+		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_LASTID, null, null, null, null);
+		if (null != cursor) {
+			cursor.moveToFirst();
+		    if(!cursor.isAfterLast()){
+		      result = cursor.getLong(0)
+		    }
+		}
+	    return result;	
+	}
+
+	public int insert([tbl.name.ToCamelCase() /]View that) {
+		context.getContentResolver().insert([tbl.name.toUpperCase() /]_INSERT, that.toInsertArray());
+		return 0;
+	}
+
+	public int update([tbl.name.ToCamelCase() /]View that) {
+		return context.getContentResolver().update([tbl.name.toUpperCase() /]_UPDATE, that.toUpdateArray(), that.getId());
+	}
+
+	public int delete([tbl.name.ToCamelCase() /]View that) {
+		return context.getContentResolver().delete([tbl.name.toUpperCase() /]_DELETE, null, new String[ '[' /][ ']' /]{ String.valueOf(that.getId()) });
+	}
+
+	public int deleteById(long id) {
+		return context.getContentResolver().delete([tbl.name.toUpperCase() /]_DELETE, null, new String[ '[' /][ ']' /]{ String.valueOf(id) });
+	}
+
+}
+[/if]
+[/template]
+
+
 [template public Camel2(arg : String)
 ][for (name : String | tokenize('.')) separator ('.')
 ][name /][/for][/template]
@@ -1009,7 +1157,16 @@ separator (', \n')]
 [android_create_tblviewclass(pname, modul, tbl) /]
 [/file]
 
+[comment]
+	NOW IM GONNA GO CREATE THE DATASOURCE CLASS ON EACH PACKAGE
+[/comment]
+[file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'DataSource.java', false, 'UTF-8')]
+[android_create_content_provider_ds(pname, modul, tbl)/]
+[/file]
 
+[comment]
+	I DONT KNOW WHY TO CREATE A CONTENT PROVIDER TO CORE ITSELF
+[/comment]
 [file (cName+'.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'Provider.java', false, 'UTF-8')]
 [android_create_content_provider(pname, modul, tbl)/]
 [/file]

@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.supply.view; 
 
 import org.json.JSONException;
@@ -138,4 +137,13 @@ public class CategoryView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), String.valueOf(category), name};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(category), name};
+	}
+
 }

@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.core.view; 
 
 import org.json.JSONException;
@@ -151,4 +150,13 @@ public class DbLogView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), action_name, parameter, String.valueOf(user)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), action_name, parameter, String.valueOf(user)};
+	}
+
 }

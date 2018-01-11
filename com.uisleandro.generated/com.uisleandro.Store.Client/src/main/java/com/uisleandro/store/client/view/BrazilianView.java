@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.client.view; 
 
 import org.json.JSONException;
@@ -151,4 +150,13 @@ public class BrazilianView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), cpf, rg, String.valueOf(basic_client)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), cpf, rg, String.valueOf(basic_client)};
+	}
+
 }

@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.supply.view; 
 
 import org.json.JSONException;
@@ -216,4 +215,13 @@ public class DistributorContactView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), name, email1, email2, phone_number1, phone_number2, phone_number3, phone_number4, String.valueOf(brand)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name, email1, email2, phone_number1, phone_number2, phone_number3, phone_number4, String.valueOf(brand)};
+	}
+
 }

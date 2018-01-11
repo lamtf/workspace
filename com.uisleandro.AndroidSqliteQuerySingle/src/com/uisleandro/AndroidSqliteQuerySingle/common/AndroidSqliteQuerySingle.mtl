@@ -96,7 +96,9 @@ s.name = 'OrGreatherThan'
 ) /]
 
 
-[comment novo 001 /]
+[comment]
+	TODO: UTIL PACKAGE
+[/comment]
 [query public to_java_string(arg: Property): String =
 if null = arg.type
 or arg.type.name.equalsIgnoreCase('BarcodeType')
@@ -198,8 +200,6 @@ pelo nome da variavel ou pelo valor padrão
 /][else][if gotStereotype(arg, 'DefaultUserId')]com.uisleandro.util.config.getUserIdString()[else][comment 
 /][if gotStereotype(arg, 'IsToday')]com.uisleandro.util.config.getTodayString()[else][comment
 /][if gotStereotype(arg, 'IsRightNow')]com.uisleandro.util.config.getRightNowString()[/if][/if][/if][/if][/if][/if][/template]
-
-
 
 [comment]
 [template public value_to_database(arg : Property)

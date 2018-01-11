@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.supply.view; 
 
 import org.json.JSONException;
@@ -177,4 +176,13 @@ public class StockReviewView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), String.valueOf(product), String.valueOf(actual_amount), String.valueOf(sold_items), String.valueOf(previous_amount), String.valueOf(missing_amount)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(product), String.valueOf(actual_amount), String.valueOf(sold_items), String.valueOf(previous_amount), String.valueOf(missing_amount)};
+	}
+
 }

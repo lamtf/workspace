@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.receivement.view; 
 
 import org.json.JSONException;
@@ -268,4 +267,13 @@ public class BoletoSicoobView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), cpf, numero, String.valueOf(data), String.valueOf(vencimento), String.valueOf(valor), nosso_numero, String.valueOf(quantidade), String.valueOf(parcela), String.valueOf(foi_pago), String.valueOf(data_de_pagamento), String.valueOf(valor_recebido), String.valueOf(invoice)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), cpf, numero, String.valueOf(data), String.valueOf(vencimento), String.valueOf(valor), nosso_numero, String.valueOf(quantidade), String.valueOf(parcela), String.valueOf(foi_pago), String.valueOf(data_de_pagamento), String.valueOf(valor_recebido), String.valueOf(invoice)};
+	}
+
 }

@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.credit_protection.view; 
 
 import org.json.JSONException;
@@ -194,4 +193,13 @@ public class IssueView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), String.valueOf(shared_client), String.valueOf(system), description, String.valueOf(active), String.valueOf(isAnswer), String.valueOf(issue)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(shared_client), String.valueOf(system), description, String.valueOf(active), String.valueOf(isAnswer), String.valueOf(issue)};
+	}
+
 }

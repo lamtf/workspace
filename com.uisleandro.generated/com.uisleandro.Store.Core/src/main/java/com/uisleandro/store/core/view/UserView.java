@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.core.view; 
 
 import org.json.JSONException;
@@ -244,4 +243,13 @@ public class UserView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), String.valueOf(system), String.valueOf(role), username, password, name, email, String.valueOf(last_use_time), String.valueOf(last_error_time), String.valueOf(error_count), String.valueOf(active)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(system), String.valueOf(role), username, password, name, email, String.valueOf(last_use_time), String.valueOf(last_error_time), String.valueOf(error_count), String.valueOf(active)};
+	}
+
 }

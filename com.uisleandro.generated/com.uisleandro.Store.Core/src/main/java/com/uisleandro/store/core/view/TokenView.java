@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.core.view; 
 
 import org.json.JSONException;
@@ -194,4 +193,13 @@ public class TokenView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), String.valueOf(user), String.valueOf(system), String.valueOf(token_type), guid, String.valueOf(last_use_time), String.valueOf(expiration_time)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(user), String.valueOf(system), String.valueOf(token_type), guid, String.valueOf(last_use_time), String.valueOf(expiration_time)};
+	}
+
 }

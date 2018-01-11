@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.cash.view; 
 
 import org.json.JSONException;
@@ -166,4 +165,13 @@ public class CashLaunchView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), String.valueOf(cash_register), justification, String.valueOf(amount_spent), String.valueOf(currency)};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(cash_register), justification, String.valueOf(amount_spent), String.valueOf(currency)};
+	}
+
 }

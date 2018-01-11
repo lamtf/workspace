@@ -1,4 +1,3 @@
-
 package com.uisleandro.store.supply.view; 
 
 import org.json.JSONException;
@@ -136,4 +135,13 @@ public class BrandView {
 		}
 		return null;
 	}
+
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), company_name, fantasy_name};
+	}
+
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), company_name, fantasy_name};
+	}
+
 }
