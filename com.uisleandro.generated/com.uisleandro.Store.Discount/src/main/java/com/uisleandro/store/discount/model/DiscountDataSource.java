@@ -29,11 +29,11 @@ public class DiscountDataSource {
 	public static final String DISCOUNT_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public DiscountDataSource(Context context){
+	public DiscountDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<DiscountView> listAll(){
+	public List<DiscountView> listAll () {
 		List<DiscountView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(DISCOUNT_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class DiscountDataSource {
 	    return those;
 	}
 
-	public DiscountView getById(long id){
+	public DiscountView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(DISCOUNT_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class DiscountDataSource {
 	    return that;
 	}
 
-	public List<DiscountView listSome(long page_count, long page_size){
+	public List<DiscountView listSome (long page_count, long page_size) {
 		List<DiscountView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(DISCOUNT_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class DiscountDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(DISCOUNT_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,20 +88,20 @@ public class DiscountDataSource {
 	    return result;	
 	}
 
-	public int insert(DiscountView that) {
+	public int insert (DiscountView that) {
 		context.getContentResolver().insert(DISCOUNT_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(DiscountView that) {
+	public int update (DiscountView that) {
 		return context.getContentResolver().update(DISCOUNT_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(DiscountView that) {
+	public int delete (DiscountView that) {
 		return context.getContentResolver().delete(DISCOUNT_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(DISCOUNT_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
@@ -115,4 +115,3 @@ public class DiscountDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

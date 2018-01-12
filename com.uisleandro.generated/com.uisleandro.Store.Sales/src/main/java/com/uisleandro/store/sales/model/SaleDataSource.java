@@ -11,6 +11,7 @@ import com.uisleandro.store.sales.view.SaleDataView
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle001
+import com.uisleandro.store.sales.view.ListProductsOnSalesChartOut;
 // reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -29,11 +30,11 @@ public class SaleDataSource {
 	public static final String SALE_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public SaleDataSource(Context context){
+	public SaleDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<SaleView> listAll(){
+	public List<SaleView> listAll () {
 		List<SaleView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SALE_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +49,7 @@ public class SaleDataSource {
 	    return those;
 	}
 
-	public SaleView getById(long id){
+	public SaleView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(SALE_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +62,7 @@ public class SaleDataSource {
 	    return that;
 	}
 
-	public List<SaleView listSome(long page_count, long page_size){
+	public List<SaleView listSome (long page_count, long page_size) {
 		List<SaleView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SALE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +77,7 @@ public class SaleDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(SALE_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,26 +89,73 @@ public class SaleDataSource {
 	    return result;	
 	}
 
-	public int insert(SaleView that) {
+	public int insert (SaleView that) {
 		context.getContentResolver().insert(SALE_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(SaleView that) {
+	public int update (SaleView that) {
 		return context.getContentResolver().update(SALE_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(SaleView that) {
+	public int delete (SaleView that) {
 		return context.getContentResolver().delete(SALE_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(SALE_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
+	/* @Insert */
+	public int create_sales_chart (){
+		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), "0", com.uisleandro.util.config.getSystemIdString(), com.uisleandro.util.config.getUserIdString() };
+		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+		context.getContentResolver().insert("content://com.uisleandro.sale/create_sales_chart", contentValues);
+	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @DeleteWhere */
+	public int cancel_sales_chart(Long id){
+		String selectionArgs = new String[]{ String.valueOf(id) };
+		return context.getContentResolver().delete("content://com.uisleandro.sale/cancel_sales_chart", null, selectionArgs);
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @SelectListWhere */
+	public List<ListProductsOnSalesChartOut> list_products_on_sales_chart (Long fk_sale, long page_count, long page_size){
+		String selectionArgs = new String[]{ String.valueOf(fk_sale) }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.sale/list_products_on_sales_chart",null, null, selectionArgs, null);
+		List<ListProductsOnSalesChartOut> those = null;
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			those.add( ListProductsOnSalesChartOut.FromCursor(cursor) );
+			cursor.moveToNext();
+		}
+		return those;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @Insert */
+	public int add_product_to_sales_chart (Long fk_sale, Long fk_product){
+		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_sale), String.valueOf(fk_product) };
+		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+		context.getContentResolver().insert("content://com.uisleandro.sale/add_product_to_sales_chart", contentValues);
+	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @DeleteWhere */
+	public int remove_all_products_from_sales_chart(Long fk_sale){
+		String selectionArgs = new String[]{ String.valueOf(fk_sale) };
+		return context.getContentResolver().delete("content://com.uisleandro.sale/remove_all_products_from_sales_chart", null, selectionArgs);
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @DeleteWhere */
+	public int remove_product_from_sales_chart(Long fk_sale, Long fk_product){
+		String selectionArgs = new String[]{ String.valueOf(fk_sale), String.valueOf(fk_product) };
+		return context.getContentResolver().delete("content://com.uisleandro.sale/remove_product_from_sales_chart", null, selectionArgs);
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
@@ -115,4 +163,3 @@ public class SaleDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

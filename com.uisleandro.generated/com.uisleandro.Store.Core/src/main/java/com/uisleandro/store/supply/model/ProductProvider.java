@@ -26,11 +26,11 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001import com.uisleandro.store.supply.view.view.GetByQrcodeOut;
-import com.uisleandro.store.supply.view.view.GetByIdOut;
-import com.uisleandro.store.supply.view.view.ProductRecountingOut;
-import com.uisleandro.store.supply.view.view.MissingProductsRelatoryOut;
-import com.uisleandro.store.supply.view.view.GetByRepeatedProductCodeOut;
+// Start of user code reserved-for:AndroidSqliteQuerySingle001import com.uisleandro.store.supply.view.MissingProductsRelatoryOut;
+import com.uisleandro.store.supply.view.GetByRepeatedProductCodeOut;
+import com.uisleandro.store.supply.view.ProductRecountingOut;
+import com.uisleandro.store.supply.view.GetByIdOut;
+import com.uisleandro.store.supply.view.GetByQrcodeOut;
 // reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -77,15 +77,6 @@ public class ProductProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final String PRODUCT_GET_BY_QRCODE = SCHEME + AUTHORITY + "/get_by_qrcode";
-	public static final Uri URI_PRODUCT_GET_BY_QRCODE = Uri.parse(PRODUCT_GET_BY_QRCODE);
-	public static final String PRODUCT_GET_BY_QRCODE_BASE = PRODUCT_GET_BY_QRCODE + "/";
-	public static final String PRODUCT_GET_BY_ID = SCHEME + AUTHORITY + "/get_by_id";
-	public static final Uri URI_PRODUCT_GET_BY_ID = Uri.parse(PRODUCT_GET_BY_ID);
-	public static final String PRODUCT_GET_BY_ID_BASE = PRODUCT_GET_BY_ID + "/";
-	public static final String PRODUCT_PRODUCT_RECOUNTING = SCHEME + AUTHORITY + "/product_recounting";
-	public static final Uri URI_PRODUCT_PRODUCT_RECOUNTING = Uri.parse(PRODUCT_PRODUCT_RECOUNTING);
-	public static final String PRODUCT_PRODUCT_RECOUNTING_BASE = PRODUCT_PRODUCT_RECOUNTING + "/";
 	public static final String PRODUCT_MISSING_PRODUCTS_RELATORY = SCHEME + AUTHORITY + "/missing_products_relatory";
 	public static final Uri URI_PRODUCT_MISSING_PRODUCTS_RELATORY = Uri.parse(PRODUCT_MISSING_PRODUCTS_RELATORY);
 	public static final String PRODUCT_MISSING_PRODUCTS_RELATORY_BASE = PRODUCT_MISSING_PRODUCTS_RELATORY + "/";
@@ -95,13 +86,22 @@ public class ProductProvider extends ContentProvider {
 	public static final String PRODUCT_START_PRODUCT_RECOUNTING = SCHEME + AUTHORITY + "/start_product_recounting";
 	public static final Uri URI_PRODUCT_START_PRODUCT_RECOUNTING = Uri.parse(PRODUCT_START_PRODUCT_RECOUNTING);
 	public static final String PRODUCT_START_PRODUCT_RECOUNTING_BASE = PRODUCT_START_PRODUCT_RECOUNTING + "/";
+	public static final String PRODUCT_PRODUCT_RECOUNTING = SCHEME + AUTHORITY + "/product_recounting";
+	public static final Uri URI_PRODUCT_PRODUCT_RECOUNTING = Uri.parse(PRODUCT_PRODUCT_RECOUNTING);
+	public static final String PRODUCT_PRODUCT_RECOUNTING_BASE = PRODUCT_PRODUCT_RECOUNTING + "/";
+	public static final String PRODUCT_GET_BY_ID = SCHEME + AUTHORITY + "/get_by_id";
+	public static final Uri URI_PRODUCT_GET_BY_ID = Uri.parse(PRODUCT_GET_BY_ID);
+	public static final String PRODUCT_GET_BY_ID_BASE = PRODUCT_GET_BY_ID + "/";
+	public static final String PRODUCT_GET_BY_QRCODE = SCHEME + AUTHORITY + "/get_by_qrcode";
+	public static final Uri URI_PRODUCT_GET_BY_QRCODE = Uri.parse(PRODUCT_GET_BY_QRCODE);
+	public static final String PRODUCT_GET_BY_QRCODE_BASE = PRODUCT_GET_BY_QRCODE + "/";
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase003
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
-	private static final String[] selectableColumns = new String[]{ 
+	private static final String[] selectableColumns = new String[] { 
 		DbHelper.PRODUCT_ID,
 		DbHelper.PRODUCT_SERVER_ID,
 		DbHelper.PRODUCT_DIRTY,
@@ -121,7 +121,7 @@ public class ProductProvider extends ContentProvider {
 		DbHelper.PRODUCT_FK_BRAND
 	};
 
-	public ProductDataSource(Context context){
+	public ProductDataSource (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -130,21 +130,21 @@ public class ProductProvider extends ContentProvider {
 		}
 	}
 
-	public void open() throws SQLException{
+	public void open () throws SQLException {
 		database = db_helper.getWritableDatabase();
 	}
 
-	public void close(){
+	public void close () {
 		db_helper.close();
 	}
 
-	public Cursor listAll(){
+	public Cursor listAll () {
 		Cursor cursor = database.query(DbHelper.TABLE_PRODUCT,
 			selectableColumns,null,null, null, null, null);
 		return cursor;
 	}
 
-	public Cursor getById(long id){
+	public Cursor getById (long id) {
 		Cursor cursor = database.query(DbHelper.TABLE_PRODUCT,
 			selectableColumns,
 			DbHelper.PRODUCT_ID + " = " + id,
@@ -152,7 +152,7 @@ public class ProductProvider extends ContentProvider {
 		return cursor;
 	}
 
-	public Cursor listSome(long page_count, long page_size){
+	public Cursor listSome (long page_count, long page_size) {
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
 			"fk_system, " +
@@ -177,7 +177,7 @@ public class ProductProvider extends ContentProvider {
 		return cursor;
 	}
 
-	public Cursor getLastId(){
+	public Cursor getLastId () {
 		String query = "SELECT MAX(id) FROM " + DbHelper.TABLE_PRODUCT +";";
 		Cursor cursor = database.rawQuery(query, null);
 		return cursor;		
@@ -186,13 +186,13 @@ public class ProductProvider extends ContentProvider {
 // begin content-provider-interface
 
 	@Override
-	public boolean onCreate() {
+	public boolean onCreate () {
 		return false;
 	}
 
 	@Nullable
 	@Override
-	public String getType(@NonNull Uri uri) {
+	public String getType (@NonNull Uri uri) {
 		return null;
 	}
 // reserved-for:AndroidSqliteDatabase003
@@ -201,7 +201,7 @@ public class ProductProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteDatabase004
 	@Nullable
 	@Override
-	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+	public Uri insert (@NonNull Uri uri, @Nullable ContentValues values) {
 		Cursor result = null;
 		if (URI_PRODUCT_INSERT.equals(uri)) {
 			result = database.insert(DbHelper.TABLE_PRODUCT, null, values);
@@ -222,7 +222,7 @@ public class ProductProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteDatabase006
 	@Override
-	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+	public int update (@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
 		int result = 0;
 		if (URI_PRODUCT_UPDATE.equals(uri)) {
 			result = database.update(DbHelper.TABLE_PRODUCT, values, DbHelper.PRODUCT_ID + " = " + selectionArgs[0], null);
@@ -247,7 +247,7 @@ public class ProductProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+	public int delete (@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
 		int result = 0;
 		if (URI_PRODUCT_DELETE.equals(uri)) {
 			result = database.delete(DbHelper.TABLE_PRODUCT, DbHelper.PRODUCT_ID + " = " + selectionArgs[0], null);
@@ -271,36 +271,8 @@ public class ProductProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
-	/* @SelectOneWhere */
-	public Cursor get_by_qrcode(String[] selectionArgs) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		String query = "SELECT product.last_update,product.barcode,product.description,product.amount,product.purchase_price,product.sale_price,product.size,product.expiration_date,brand.last_update,brand.company_name,brand.fantasy_name,unit.last_update,unit.name,category.last_update,category.name,gender.last_update,gender.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM product INNER JOIN system ON product.fk_system = system.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN brand ON product.fk_brand = brand.id INNER JOIN currency ON system.fk_currency = currency.id WHERE product.barcode = ?;";
-		Cursor cursor = database.rawQuery(query, selectionArgs);
-		return cursor;
-	}
-	/* @SelectOneWhere */
-	public Cursor get_by_id(String[] selectionArgs) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		String query = "SELECT product.last_update,product.barcode,product.description,product.amount,product.purchase_price,product.sale_price,product.size,product.expiration_date,brand.last_update,brand.company_name,brand.fantasy_name,unit.last_update,unit.name,category.last_update,category.name,gender.last_update,gender.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM product INNER JOIN system ON product.fk_system = system.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN brand ON product.fk_brand = brand.id INNER JOIN currency ON system.fk_currency = currency.id WHERE product.id = ?;";
-		Cursor cursor = database.rawQuery(query, selectionArgs);
-		return cursor;
-	}
-	/* @UpdateWhere */
-	public int product_recounting(String[] selectionArgs) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		String query = "UPDATE stock_review SET (stock_review.actual_amount = ?,stock_review.sold_items = ?,stock_review.previous_amount = ?,stock_review.missing_amount = ?,stock_review.barcode = ?) WHERE stock_review.last_update = ?,stock_review.fk_product = ?,stock_review.actual_amount = ?;";
-		Cursor cursor = database.rawQuery(query, selectionArgs);
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getInt(0);
-		}
-		return result;
-	}
 	/* @SelectListWhere */
-	public Cursor missing_products_relatory(String[] selectionArgs,long page_count, long page_size) {
+	public Cursor missing_products_relatory (String[] selectionArgs,long page_count, long page_size) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "SELECT stock_review.last_update,stock_review.actual_amount,stock_review.sold_items,stock_review.previous_amount,stock_review.missing_amount,product.last_update,product.barcode,product.description,product.amount,product.purchase_price,product.sale_price,product.size,product.expiration_date,brand.last_update,brand.company_name,brand.fantasy_name,unit.last_update,unit.name,category.last_update,category.name,gender.last_update,gender.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM stock_review INNER JOIN product ON stock_review.fk_product = product.id INNER JOIN system ON product.fk_system = system.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN brand ON product.fk_brand = brand.id INNER JOIN currency ON system.fk_currency = currency.id WHERE stock_review.last_update = ?;";
@@ -311,13 +283,42 @@ public class ProductProvider extends ContentProvider {
 		return cursor;
 	}
 	/* @SelectListWhere */
-	public Cursor get_by_repeated_product_code(String[] selectionArgs,long page_count, long page_size) {
+	public Cursor get_by_repeated_product_code (String[] selectionArgs,long page_count, long page_size) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "SELECT product.last_update,product.barcode,product.description,product.amount,product.purchase_price,product.sale_price,product.size,product.expiration_date,brand.last_update,brand.company_name,brand.fantasy_name,unit.last_update,unit.name,category.last_update,category.name,gender.last_update,gender.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM product INNER JOIN system ON product.fk_system = system.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN brand ON product.fk_brand = brand.id INNER JOIN currency ON system.fk_currency = currency.id WHERE product.fk_systen = ? AND product.barcode = ?;";
 		if(page_size > 0){
 				query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
+		Cursor cursor = database.rawQuery(query, selectionArgs);
+		return cursor;
+	}
+	/* @UpdateWhere */
+	public int product_recounting (ContentValues values, String[] selectionArgs) {
+		//TODO: PLEASE FIX IT
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "UPDATE stock_review SET (stock_review.actual_amount = ?,stock_review.sold_items = ?,stock_review.previous_amount = ?,stock_review.missing_amount = ?,stock_review.barcode = ?) WHERE stock_review.last_update = ?,stock_review.fk_product = ?,stock_review.actual_amount = ?;";
+		Cursor cursor = database.rawQuery(query, selectionArgs);
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			result = cursor.getInt(0);
+		}
+		return result;
+	}
+	/* @SelectOneWhere */
+	public Cursor get_by_id (String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT product.last_update,product.barcode,product.description,product.amount,product.purchase_price,product.sale_price,product.size,product.expiration_date,brand.last_update,brand.company_name,brand.fantasy_name,unit.last_update,unit.name,category.last_update,category.name,gender.last_update,gender.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM product INNER JOIN system ON product.fk_system = system.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN brand ON product.fk_brand = brand.id INNER JOIN currency ON system.fk_currency = currency.id WHERE product.id = ?;";
+		Cursor cursor = database.rawQuery(query, selectionArgs);
+		return cursor;
+	}
+	/* @SelectOneWhere */
+	public Cursor get_by_qrcode (String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT product.last_update,product.barcode,product.description,product.amount,product.purchase_price,product.sale_price,product.size,product.expiration_date,brand.last_update,brand.company_name,brand.fantasy_name,unit.last_update,unit.name,category.last_update,category.name,gender.last_update,gender.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM product INNER JOIN system ON product.fk_system = system.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN brand ON product.fk_brand = brand.id INNER JOIN currency ON system.fk_currency = currency.id WHERE product.barcode = ?;";
 		Cursor cursor = database.rawQuery(query, selectionArgs);
 		return cursor;
 	}
@@ -333,13 +334,13 @@ public class ProductProvider extends ContentProvider {
 		if (URI_PRODUCT_ALL.equals(uri)) {
 			result = listAll();
 		}
-		else if(URI_PRODUCT_SOME.equals(uri)) {
+		else if (URI_PRODUCT_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
 		}
-		else if(URI_PRODUCT_BYID.equals(uri)) {
+		else if (URI_PRODUCT_BYID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[0]));
 		}
-		else if(URI_PRODUCT_LASTID.equals(uri)) {
+		else if (URI_PRODUCT_LASTID.equals(uri)) {
 			result = getLastId();
 		}
 // reserved-for:AndroidSqliteDatabase010
@@ -351,23 +352,20 @@ public class ProductProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 /* @ExistsWhere||@SelectValueWhere||@SelectOneWhere||@SelectListWhere */
-	else if (URI_PRODUCT_GET_BY_QRCODE.equals(uri)) {
-		result = get_by_qrcode(selectionArgs);
-	}
-	else if (URI_PRODUCT_GET_BY_ID.equals(uri)) {
-		result = get_by_id(selectionArgs);
-	}
 	else if (URI_PRODUCT_MISSING_PRODUCTS_RELATORY.equals(uri)) {
 		result = missing_products_relatory(selectionArgs);
 	}
 	else if (URI_PRODUCT_GET_BY_REPEATED_PRODUCT_CODE.equals(uri)) {
 		result = get_by_repeated_product_code(selectionArgs);
 	}
+	else if (URI_PRODUCT_GET_BY_ID.equals(uri)) {
+		result = get_by_id(selectionArgs);
+	}
+	else if (URI_PRODUCT_GET_BY_QRCODE.equals(uri)) {
+		result = get_by_qrcode(selectionArgs);
+	}
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
-		return result;
-	}
-}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code

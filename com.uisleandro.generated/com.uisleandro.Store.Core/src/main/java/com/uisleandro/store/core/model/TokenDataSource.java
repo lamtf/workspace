@@ -29,11 +29,11 @@ public class TokenDataSource {
 	public static final String TOKEN_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public TokenDataSource(Context context){
+	public TokenDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<TokenView> listAll(){
+	public List<TokenView> listAll () {
 		List<TokenView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(TOKEN_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class TokenDataSource {
 	    return those;
 	}
 
-	public TokenView getById(long id){
+	public TokenView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(TOKEN_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class TokenDataSource {
 	    return that;
 	}
 
-	public List<TokenView listSome(long page_count, long page_size){
+	public List<TokenView listSome (long page_count, long page_size) {
 		List<TokenView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(TOKEN_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class TokenDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(TOKEN_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,20 +88,20 @@ public class TokenDataSource {
 	    return result;	
 	}
 
-	public int insert(TokenView that) {
+	public int insert (TokenView that) {
 		context.getContentResolver().insert(TOKEN_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(TokenView that) {
+	public int update (TokenView that) {
 		return context.getContentResolver().update(TOKEN_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(TokenView that) {
+	public int delete (TokenView that) {
 		return context.getContentResolver().delete(TOKEN_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(TOKEN_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
@@ -115,4 +115,3 @@ public class TokenDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

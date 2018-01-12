@@ -29,11 +29,11 @@ public class InterestRateTypeDataSource {
 	public static final String INTEREST_RATE_TYPE_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public InterestRateTypeDataSource(Context context){
+	public InterestRateTypeDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<InterestRateTypeView> listAll(){
+	public List<InterestRateTypeView> listAll () {
 		List<InterestRateTypeView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(INTEREST_RATE_TYPE_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class InterestRateTypeDataSource {
 	    return those;
 	}
 
-	public InterestRateTypeView getById(long id){
+	public InterestRateTypeView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(INTEREST_RATE_TYPE_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class InterestRateTypeDataSource {
 	    return that;
 	}
 
-	public List<InterestRateTypeView listSome(long page_count, long page_size){
+	public List<InterestRateTypeView listSome (long page_count, long page_size) {
 		List<InterestRateTypeView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(INTEREST_RATE_TYPE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class InterestRateTypeDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(INTEREST_RATE_TYPE_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,20 +88,20 @@ public class InterestRateTypeDataSource {
 	    return result;	
 	}
 
-	public int insert(InterestRateTypeView that) {
+	public int insert (InterestRateTypeView that) {
 		context.getContentResolver().insert(INTEREST_RATE_TYPE_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(InterestRateTypeView that) {
+	public int update (InterestRateTypeView that) {
 		return context.getContentResolver().update(INTEREST_RATE_TYPE_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(InterestRateTypeView that) {
+	public int delete (InterestRateTypeView that) {
 		return context.getContentResolver().delete(INTEREST_RATE_TYPE_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(INTEREST_RATE_TYPE_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
@@ -115,4 +115,3 @@ public class InterestRateTypeDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

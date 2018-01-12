@@ -29,11 +29,11 @@ public class InstallmentTypeDataSource {
 	public static final String INSTALLMENT_TYPE_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public InstallmentTypeDataSource(Context context){
+	public InstallmentTypeDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<InstallmentTypeView> listAll(){
+	public List<InstallmentTypeView> listAll () {
 		List<InstallmentTypeView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(INSTALLMENT_TYPE_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class InstallmentTypeDataSource {
 	    return those;
 	}
 
-	public InstallmentTypeView getById(long id){
+	public InstallmentTypeView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(INSTALLMENT_TYPE_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class InstallmentTypeDataSource {
 	    return that;
 	}
 
-	public List<InstallmentTypeView listSome(long page_count, long page_size){
+	public List<InstallmentTypeView listSome (long page_count, long page_size) {
 		List<InstallmentTypeView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(INSTALLMENT_TYPE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class InstallmentTypeDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(INSTALLMENT_TYPE_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,20 +88,20 @@ public class InstallmentTypeDataSource {
 	    return result;	
 	}
 
-	public int insert(InstallmentTypeView that) {
+	public int insert (InstallmentTypeView that) {
 		context.getContentResolver().insert(INSTALLMENT_TYPE_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(InstallmentTypeView that) {
+	public int update (InstallmentTypeView that) {
 		return context.getContentResolver().update(INSTALLMENT_TYPE_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(InstallmentTypeView that) {
+	public int delete (InstallmentTypeView that) {
 		return context.getContentResolver().delete(INSTALLMENT_TYPE_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(INSTALLMENT_TYPE_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
@@ -115,4 +115,3 @@ public class InstallmentTypeDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

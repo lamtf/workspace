@@ -29,11 +29,11 @@ public class BoletoSicoobDataSource {
 	public static final String BOLETO_SICOOB_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public BoletoSicoobDataSource(Context context){
+	public BoletoSicoobDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<BoletoSicoobView> listAll(){
+	public List<BoletoSicoobView> listAll () {
 		List<BoletoSicoobView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(BOLETO_SICOOB_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class BoletoSicoobDataSource {
 	    return those;
 	}
 
-	public BoletoSicoobView getById(long id){
+	public BoletoSicoobView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(BOLETO_SICOOB_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class BoletoSicoobDataSource {
 	    return that;
 	}
 
-	public List<BoletoSicoobView listSome(long page_count, long page_size){
+	public List<BoletoSicoobView listSome (long page_count, long page_size) {
 		List<BoletoSicoobView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(BOLETO_SICOOB_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class BoletoSicoobDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(BOLETO_SICOOB_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,20 +88,20 @@ public class BoletoSicoobDataSource {
 	    return result;	
 	}
 
-	public int insert(BoletoSicoobView that) {
+	public int insert (BoletoSicoobView that) {
 		context.getContentResolver().insert(BOLETO_SICOOB_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(BoletoSicoobView that) {
+	public int update (BoletoSicoobView that) {
 		return context.getContentResolver().update(BOLETO_SICOOB_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(BoletoSicoobView that) {
+	public int delete (BoletoSicoobView that) {
 		return context.getContentResolver().delete(BOLETO_SICOOB_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(BOLETO_SICOOB_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
@@ -115,4 +115,3 @@ public class BoletoSicoobDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

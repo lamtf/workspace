@@ -29,11 +29,11 @@ public class SaleTypeDataSource {
 	public static final String SALE_TYPE_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public SaleTypeDataSource(Context context){
+	public SaleTypeDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<SaleTypeView> listAll(){
+	public List<SaleTypeView> listAll () {
 		List<SaleTypeView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SALE_TYPE_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class SaleTypeDataSource {
 	    return those;
 	}
 
-	public SaleTypeView getById(long id){
+	public SaleTypeView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(SALE_TYPE_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class SaleTypeDataSource {
 	    return that;
 	}
 
-	public List<SaleTypeView listSome(long page_count, long page_size){
+	public List<SaleTypeView listSome (long page_count, long page_size) {
 		List<SaleTypeView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SALE_TYPE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class SaleTypeDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(SALE_TYPE_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,20 +88,20 @@ public class SaleTypeDataSource {
 	    return result;	
 	}
 
-	public int insert(SaleTypeView that) {
+	public int insert (SaleTypeView that) {
 		context.getContentResolver().insert(SALE_TYPE_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(SaleTypeView that) {
+	public int update (SaleTypeView that) {
 		return context.getContentResolver().update(SALE_TYPE_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(SaleTypeView that) {
+	public int delete (SaleTypeView that) {
 		return context.getContentResolver().delete(SALE_TYPE_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(SALE_TYPE_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
@@ -115,4 +115,3 @@ public class SaleTypeDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

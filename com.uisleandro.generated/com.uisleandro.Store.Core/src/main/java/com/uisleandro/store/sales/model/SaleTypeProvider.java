@@ -78,7 +78,7 @@ public class SaleTypeProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteDatabase003
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
-	private static final String[] selectableColumns = new String[]{ 
+	private static final String[] selectableColumns = new String[] { 
 		DbHelper.SALE_TYPE_ID,
 		DbHelper.SALE_TYPE_SERVER_ID,
 		DbHelper.SALE_TYPE_DIRTY,
@@ -86,7 +86,7 @@ public class SaleTypeProvider extends ContentProvider {
 		DbHelper.SALE_TYPE_NAME
 	};
 
-	public SaleTypeDataSource(Context context){
+	public SaleTypeDataSource (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -95,21 +95,21 @@ public class SaleTypeProvider extends ContentProvider {
 		}
 	}
 
-	public void open() throws SQLException{
+	public void open () throws SQLException {
 		database = db_helper.getWritableDatabase();
 	}
 
-	public void close(){
+	public void close () {
 		db_helper.close();
 	}
 
-	public Cursor listAll(){
+	public Cursor listAll () {
 		Cursor cursor = database.query(DbHelper.TABLE_SALE_TYPE,
 			selectableColumns,null,null, null, null, null);
 		return cursor;
 	}
 
-	public Cursor getById(long id){
+	public Cursor getById (long id) {
 		Cursor cursor = database.query(DbHelper.TABLE_SALE_TYPE,
 			selectableColumns,
 			DbHelper.SALE_TYPE_ID + " = " + id,
@@ -117,7 +117,7 @@ public class SaleTypeProvider extends ContentProvider {
 		return cursor;
 	}
 
-	public Cursor listSome(long page_count, long page_size){
+	public Cursor listSome (long page_count, long page_size) {
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
 			"name" +
@@ -130,7 +130,7 @@ public class SaleTypeProvider extends ContentProvider {
 		return cursor;
 	}
 
-	public Cursor getLastId(){
+	public Cursor getLastId () {
 		String query = "SELECT MAX(id) FROM " + DbHelper.TABLE_SALE_TYPE +";";
 		Cursor cursor = database.rawQuery(query, null);
 		return cursor;		
@@ -139,13 +139,13 @@ public class SaleTypeProvider extends ContentProvider {
 // begin content-provider-interface
 
 	@Override
-	public boolean onCreate() {
+	public boolean onCreate () {
 		return false;
 	}
 
 	@Nullable
 	@Override
-	public String getType(@NonNull Uri uri) {
+	public String getType (@NonNull Uri uri) {
 		return null;
 	}
 // reserved-for:AndroidSqliteDatabase003
@@ -154,7 +154,7 @@ public class SaleTypeProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteDatabase004
 	@Nullable
 	@Override
-	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+	public Uri insert (@NonNull Uri uri, @Nullable ContentValues values) {
 		Cursor result = null;
 		if (URI_SALE_TYPE_INSERT.equals(uri)) {
 			result = database.insert(DbHelper.TABLE_SALE_TYPE, null, values);
@@ -175,7 +175,7 @@ public class SaleTypeProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteDatabase006
 	@Override
-	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+	public int update (@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
 		int result = 0;
 		if (URI_SALE_TYPE_UPDATE.equals(uri)) {
 			result = database.update(DbHelper.TABLE_SALE_TYPE, values, DbHelper.SALE_TYPE_ID + " = " + selectionArgs[0], null);
@@ -197,7 +197,7 @@ public class SaleTypeProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+	public int delete (@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
 		int result = 0;
 		if (URI_SALE_TYPE_DELETE.equals(uri)) {
 			result = database.delete(DbHelper.TABLE_SALE_TYPE, DbHelper.SALE_TYPE_ID + " = " + selectionArgs[0], null);
@@ -233,13 +233,13 @@ public class SaleTypeProvider extends ContentProvider {
 		if (URI_SALE_TYPE_ALL.equals(uri)) {
 			result = listAll();
 		}
-		else if(URI_SALE_TYPE_SOME.equals(uri)) {
+		else if (URI_SALE_TYPE_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
 		}
-		else if(URI_SALE_TYPE_BYID.equals(uri)) {
+		else if (URI_SALE_TYPE_BYID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[0]));
 		}
-		else if(URI_SALE_TYPE_LASTID.equals(uri)) {
+		else if (URI_SALE_TYPE_LASTID.equals(uri)) {
 			result = getLastId();
 		}
 // reserved-for:AndroidSqliteDatabase010
@@ -254,8 +254,5 @@ public class SaleTypeProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
-		return result;
-	}
-}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code

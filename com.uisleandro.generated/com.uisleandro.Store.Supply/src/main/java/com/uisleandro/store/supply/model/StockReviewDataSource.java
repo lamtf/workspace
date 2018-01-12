@@ -29,11 +29,11 @@ public class StockReviewDataSource {
 	public static final String STOCK_REVIEW_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public StockReviewDataSource(Context context){
+	public StockReviewDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<StockReviewView> listAll(){
+	public List<StockReviewView> listAll () {
 		List<StockReviewView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(STOCK_REVIEW_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class StockReviewDataSource {
 	    return those;
 	}
 
-	public StockReviewView getById(long id){
+	public StockReviewView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(STOCK_REVIEW_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class StockReviewDataSource {
 	    return that;
 	}
 
-	public List<StockReviewView listSome(long page_count, long page_size){
+	public List<StockReviewView listSome (long page_count, long page_size) {
 		List<StockReviewView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(STOCK_REVIEW_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class StockReviewDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(STOCK_REVIEW_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,20 +88,20 @@ public class StockReviewDataSource {
 	    return result;	
 	}
 
-	public int insert(StockReviewView that) {
+	public int insert (StockReviewView that) {
 		context.getContentResolver().insert(STOCK_REVIEW_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(StockReviewView that) {
+	public int update (StockReviewView that) {
 		return context.getContentResolver().update(STOCK_REVIEW_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(StockReviewView that) {
+	public int delete (StockReviewView that) {
 		return context.getContentResolver().delete(STOCK_REVIEW_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(STOCK_REVIEW_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
@@ -115,4 +115,3 @@ public class StockReviewDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

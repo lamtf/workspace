@@ -18,6 +18,11 @@
 
 [query public getValidOperations(arg : Class) : Set(Operation) = self.eContents(Operation)->select(x| x.name <> 'example_op')->asSet() /]
 
+[query public getSelectOperations(arg : Class) : Set(Operation) = 
+self.eContents(Operation)
+->select(x | gotStereotype(x, 'SelectListWhere') or gotStereotype(x, 'SelectOneWhere') )
+->asSet() /]
+
 [query public gotValue(arg : Property) : Boolean = (
 	(getStereotypeValue('Equalsto', 'hint') <> null) or
 	(getStereotypeValue('GreatherThan', 'hint') <> null) or
@@ -201,24 +206,6 @@ pelo nome da variavel ou pelo valor padrão
 /][if gotStereotype(arg, 'IsToday')]com.uisleandro.util.config.getTodayString()[else][comment
 /][if gotStereotype(arg, 'IsRightNow')]com.uisleandro.util.config.getRightNowString()[/if][/if][/if][/if][/if][/if][/template]
 
-[comment]
-[template public value_to_database(arg : Property)
-][if arg.getAppliedStereotypes()->isEmpty()][arg.name /][else][if gotStereotype(arg,'equalsTo')
-][setvalue_to_database(getStereotypeValue(arg,'equalsTo','hint'),arg.name)/][else][if gotStereotype(arg,'lessThan')
-][setvalue_to_database(getStereotypeValue(arg,'lessThan','hint'),arg.name)/][else][if gotStereotype(arg,'greatherThan')
-][setvalue_to_database(getStereotypeValue(arg,'greatherThan','hint'),arg.name)/][else][if gotStereotype(arg,'andLessThan')
-],[setvalue_to_database(getStereotypeValue(arg,'andLessThan','hint'),arg.name)/][else][if gotStereotype(arg,'orLessThan')
-],[setvalue_to_database(getStereotypeValue(arg,'orLessThan','hint'),arg.name)/][else][if gotStereotype(arg,'andGreatherThan')
-],[setvalue_to_database(getStereotypeValue(arg,'andGreaterThan','hint'),arg.name)/][else][if gotStereotype(arg,'orGreatherThan')
-],[setvalue_to_database(getStereotypeValue(arg,'orGreatherThan','hint'),arg.name)/][else][if
-arg.gotStereotype('defaultSystemId')]com.uisleandro.util.config.getSystemId()[else][if 
-arg.gotStereotype('defaultUserId')]com.uisleandro.util.config.getUserId()[else][if 
-arg.gotStereotype('isToday')]com.uisleandro.util.config.getToday()[else][if 
-arg.gotStereotype('isRightNow')]com.uisleandro.util.config.getRightNow()[else][arg.name /][/if][/if][/if][/if][/if][/if][/if][/if][/if][/if][/if][/if][/template]
-[/comment]
-
-
-
 [query public fieldName(arg : Property, p : Boolean) : String =
 if arg.isfk() then
 if p then
@@ -232,7 +219,7 @@ arg.owner.oclAsType(NamedElement).name+'.'+arg.name
 else
 arg.name
 endif
-endif 
+endif
  /]
 
 [comment cant cover everything 
@@ -493,7 +480,65 @@ else recursiveFlatProperties(getSubject(outView),1)->reverse() endif]
 		* Pass the Arguments to the Function which will will use them;
 [/comment]
 [template public create_android_content_provider_ds(controller : Class, mName: String)]
+// [protected ('reserved-for:AndroidSqliteDatabaseSingle001')]
+// reserved-for:AndroidSqliteDatabaseSingle001
+// [/protected]
 
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle001') /]
+[for (op : Operation | getSelectOperations(controller))]
+import [mName /].view.[ToCamelCase(out_parameter_definition(op).name) /];
+[/for]
+[end_reserve('reserved-for:AndroidSqliteQuerySingle001') /]
+
+// [protected ('reserved-for:AndroidSqliteDatabaseSingle002')]
+// reserved-for:AndroidSqliteDatabaseSingle002
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle002') /]
+[for (op : Operation | getValidOperations(controller))]
+[let inView : Class = in_parameter_definition()
+][let inProps : Sequence(Property) =
+	nonrecFlatProperties(inView,1,1)
+	->reverse()]
+[if (op.gotStereotype('ExistsWhere'))]
+	[existsWhere_Usage(controller.name, op.name, inProps) /]
+[else][if (op.gotStereotype('Insert'))]
+	[insert_Usage(controller.name, op.name, inProps) /]
+[else][if (op.gotStereotype('DeleteWhere'))]
+	[deleteWhere_Usage(controller.name, op.name, inProps) /]
+[else][let outView : Class = out_parameter_definition()
+][if (op.gotStereotype('UpdateWhere'))]
+[let outProps: Sequence(Property) = 
+if null = outView then Sequence(Property){}
+else recursiveFlatProperties(getSubject(outView),1)->reverse() endif]
+	[updateWhere_Usage(controller.name, op.name,inProps,outProps) /]
+[/let]
+[else][if (op.gotStereotype('SelectValueWhere'))]
+[let outProps: Sequence(Property) = 
+if null = outView then Sequence(Property){}
+else recursiveFlatProperties(getSubject(outView),1)->reverse() endif]
+	[selectValueWhere_Usage(controller.name, op.name,inProps,outProps) /]
+[/let]
+[else][if (op.gotStereotype('SelectOneWhere'))]
+[let outProps: Sequence(Property) = 
+if null = outView then Sequence(Property){}
+else recursiveFlatProperties(getSubject(outView),1)->reverse() endif]
+	[selectOneWhere_Usage(controller.name, outView.name,op.name,inProps,outProps) /]
+[/let]
+[else][if (op.gotStereotype('SelectListWhere'))]
+[let outProps: Sequence(Property) = 
+if null = outView then Sequence(Property){}
+else recursiveFlatProperties(getSubject(outView),1)->reverse() endif]
+	[selectListWhere_Usage(controller.name, outView.name,op.name,inProps,outProps) /]
+[/let]
+[else][tooComplexQuery(op.name,inProps) /]
+[/if][/if][/if][/if][/let][/if][/if][/if][/let][/let]
+[/for]
+[end_reserve('reserved-for:AndroidSqliteQuerySingle002') /]
+
+// [protected ('reserved-for:AndroidSqliteDatabaseSingle003')]
+// reserved-for:AndroidSqliteDatabaseSingle003
+// [/protected]
 [/template]
 
 [template public create_out_classes(controller : Class, folder_name : String, pName: String)
@@ -556,7 +601,12 @@ TODO: temporarialy removed
 ) /]
 [/comment]
 [file (cName+'.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+ToCamelCase(ctrl.name)+'Provider.java', false, 'UTF-8')]
-[create_android_content_provider(ctrl, pname +'.'+ modul.name+'.view') /]
+[create_android_content_provider(ctrl, pname +'.'+ modul.name) /]
+[/file]
+
+
+[file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+ToCamelCase(ctrl.name)+'DataSource.java', false, 'UTF-8')]
+[create_android_content_provider_ds(ctrl, pname +'.'+ modul.name) /]
 [/file]
 
 [/for][/for][/let]
@@ -579,7 +629,7 @@ queryIns: Sequence(Property)
 )]
 /* @Insert */
 public int [functionName 
-/](String[ '[' /][ ']' /] selectionArgs){
+/] (String[ '[' /][ ']' /] selectionArgs) {
 	//TODO: I might have some data from 'selectionArgs' and also some predefined data
 	//TODO: the way it is the transformation is wrong
 	String query = "[insert_query(queryIns)/]";
@@ -593,18 +643,57 @@ public int [functionName
 }
 [/template]
 
+
+[template public insert_Usage(
+className : String,
+functionName : String,
+queryIns: Sequence(Property)
+)]
+/* @Insert */
+public int [functionName /] ([query_parameters_definition(queryIns) /]){
+	String[ '[' /][ ']' /] insertArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] };
+	ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+	context.getContentResolver().insert("content://com.uisleandro.[className /]/[functionName /]", contentValues);
+// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
+// TODO: PLEASE DONT USE SYNC CODE
+}
+[/template]
+
+
 [template public existsWhere(
 functionName : String,
 queryIns: Sequence(Property)
 )]
 /* @ExistsWhere */
-public Cursor [functionName 
-/](String[ '[' /][ ']' /] selectionArgs) {
+public Cursor [functionName /] (String[ '[' /][ ']' /] selectionArgs) {
 	//TODO: I might have some data from 'selectionArgs' and also some predefined data
 	//TODO: the way it is the transformation is wrong
 	String query = "[exists_query(queryIns)/]";
 	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] });
 	return cursor;
+}
+[/template]
+
+
+[comment]
+	I NEED TO USE THE CLASS "LoaderManager () { }"
+[/comment]
+[template public existsWhere_Usage(
+className : String,
+functionName : String,
+queryIns: Sequence(Property)
+)]
+/* @ExistsWhere */
+public boolean [functionName /] ([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]) {
+	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
+	Cursor cursor = context.getContentResolver().query("content://com.uisleandro.[className /]/[functionName /]",null, null, selectionArgs, null);
+	boolean that = false;
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		that = (cursor.getInt(0) > 0);
+	}
+	return that;
+// TODO: PLEASE DONT USE SYNC CODE
 }
 [/template]
 
@@ -615,12 +704,33 @@ public Cursor [functionName
 	queryOuts: Sequence(Property))]
 /* @SelectOneWhere */
 public Cursor [functionName 
-/](String[ '[' /][ ']' /] selectionArgs) {
+/] (String[ '[' /][ ']' /] selectionArgs) {
 	//TODO: I might have some data from 'selectionArgs' and also some predefined data
 	//TODO: the way it is the transformation is wrong
 	String query = "[select_query(queryIns,queryOuts)/]";
 	Cursor cursor = database.rawQuery(query, selectionArgs);
 	return cursor;
+}
+[/template]
+
+[template public selectOneWhere_Usage(
+	className : String,
+	returnName : String,
+	functionName : String,
+	queryIns: Sequence(Property),
+	queryOuts: Sequence(Property))]
+/* @SelectOneWhere */
+public [returnName.ToCamelCase() /] [functionName 
+/]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
+	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
+	Cursor cursor = context.getContentResolver().query("content://com.uisleandro.[className /]/[functionName /]",null, null, selectionArgs, null);
+	[returnName.ToCamelCase() /] that = null;
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		that = [returnName.ToCamelCase() /].FromCursor(cursor);
+	}
+	return that;
+// TODO: PLEASE DONT USE SYNC CODE
 }
 [/template]
 
@@ -631,7 +741,7 @@ public Cursor [functionName
 	queryOuts: Sequence(Property))]
 /* @SelectListWhere */
 public Cursor [functionName 
-/](String[ '[' /][ ']' /] selectionArgs,long page_count, long page_size) {
+/] (String[ '[' /][ ']' /] selectionArgs,long page_count, long page_size) {
 	//TODO: I might have some data from 'selectionArgs' and also some predefined data
 	//TODO: the way it is the transformation is wrong
 	String query = "[select_query(queryIns,queryOuts)/]";
@@ -643,13 +753,35 @@ public Cursor [functionName
 }
 [/template]
 
+[template public selectListWhere_Usage(
+	className : String,
+	returnName : String,
+	functionName : String,
+	queryIns: Sequence(Property),
+	queryOuts: Sequence(Property))]
+/* @SelectListWhere */
+public List<[returnName.ToCamelCase() /]> [functionName 
+/] ([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /], [else][if (not HasDefaultValuey(queryIns))]long id, [/if][/if]long page_count, long page_size){
+	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
+	Cursor cursor = context.getContentResolver().query("content://com.uisleandro.[className /]/[functionName /]",null, null, selectionArgs, null);
+	List<[returnName.ToCamelCase() /]> those = null;
+	cursor.moveToFirst();
+	while(!cursor.isAfterLast()){
+		those.add( [returnName.ToCamelCase() /].FromCursor(cursor) );
+		cursor.moveToNext();
+	}
+	return those;
+// TODO: PLEASE DONT USE SYNC CODE
+}
+[/template]
+
 [template public selectValueWhere(
 	functionName : String,
 	queryIns: Sequence(Property),
 	queryOuts: Sequence(Property))]
 /* @SelectValueWhere */
 public Cursor [functionName
-/](String[ '[' /][ ']' /] selectionArgs) {
+/] (String[ '[' /][ ']' /] selectionArgs) {
 	//TODO: I might have some data from 'selectionArgs' and also some predefined data
 	//TODO: the way it is the transformation is wrong
 	[comment vou precisar fazer os joins /]
@@ -659,28 +791,28 @@ public Cursor [functionName
 }
 [/template]
 
-
-[comment]
-ContentValues values = new ContentValues();
-
-		if(that.getServerId() > 0){
-			values.put(DbHelper.CASH_LAUNCH_SERVER_ID, that.getServerId());
-		}
-
-		values.put(DbHelper.CASH_LAUNCH_DIRTY, that.isDirty());
-		values.put(DbHelper.CASH_LAUNCH_LAST_UPDATE_TIME, that.getLastUpdateTime());
-		if(that.getFkCashRegister() > 0){
-			values.put(DbHelper.CASH_LAUNCH_FK_CASH_REGISTER, that.getFkCashRegister());
-		}
-		values.put(DbHelper.CASH_LAUNCH_JUSTIFICATION, that.getJustification());
-		values.put(DbHelper.CASH_LAUNCH_AMOUNT_SPENT, that.getAmountSpent());
-		if(that.getFkCurrency() > 0){
-			values.put(DbHelper.CASH_LAUNCH_FK_CURRENCY, that.getFkCurrency());
-		}
-		int rows_affected = database.update(DbHelper.TABLE_CASH_LAUNCH, values, DbHelper.CASH_LAUNCH_ID + " = " + String.valueOf(that.getId()), null);
-		return rows_affected;
-[/comment]
-
+[template public selectValueWhere_Usage(
+	className : String,
+	functionName : String,
+	queryIns: Sequence(Property),
+	queryOuts: Sequence(Property))]
+/* @SelectValueWhere */
+public [(if queryOuts->notEmpty()
+then get_java_type(queryOuts->at(1)) else 'long' endif) /] [functionName
+/] ([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]) {
+	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
+	Cursor cursor = context.getContentResolver().query("content://com.uisleandro.[className /]/[functionName /]",null, null, selectionArgs, null);
+	[(if queryOuts->notEmpty()
+then get_java_type(queryOuts->at(1)) else 'long' endif) /] that = [(if queryOuts->notEmpty()
+then 'null' else '0' endif) /];
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		that = [ (if queryOuts->notEmpty() then getter_indexed(queryOuts->at(1),'cursor', 0) else 'cursor.getLong(0)' endif) /];
+	}
+	return that;
+// TODO: PLEASE DONT USE SYNC CODE
+}
+[/template]
 
 [query public HasDefaultValuey(arg : Sequence(Property)) : Boolean = 
 self->exists(x|
@@ -702,15 +834,14 @@ or gotStereotype(x, 'DefaultSystemId')
 )
  /]
 
-
-
 [template public updateWhere(
 	functionName : String,
 	queryIns: Sequence(Property),
 	queryOuts: Sequence(Property))]
 /* @UpdateWhere */
 public int [functionName 
-/](String[ '[' /][ ']' /] selectionArgs) {
+/] (ContentValues values, String[ '[' /][ ']' /] selectionArgs) {
+	//TODO: PLEASE FIX IT
 	//TODO: I might have some data from 'selectionArgs' and also some predefined data
 	//TODO: the way it is the transformation is wrong
 	String query = "[update_query(queryIns,queryOuts)/]";
@@ -723,6 +854,29 @@ public int [functionName
 }
 [/template]
 
+[template public updateWhere_Usage(
+	className: String,
+	functionName: String,
+	queryIns: Sequence(Property),
+	queryOuts: Sequence(Property))]
+/* @UpdateWhere */
+public int [functionName 
+/]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
+	//TODO: PLEASE FIX IT IT'S WRONG
+	int result = 0;
+	ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+	String selection = null;
+	String['['/][']'/] selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }
+	Cursor cursor = context.getContentResolver().update("content://com.uisleandro.[className /]/[functionName /]", contentValues, null,	selectionArgs); 
+	cursor.moveToFirst();
+	if(!cursor.isAfterLast()){
+		result = cursor.getInt(0);
+	}
+	return result;
+// TODO: PLEASE DONT USE SYNC CODE
+}
+[/template]
+
 [comment]
 database.delete(DbHelper.TABLE_CASH_LAUNCH, DbHelper.CASH_LAUNCH_ID + " = " + String.valueOf(that.getId()), null);
 [/comment]
@@ -730,7 +884,7 @@ database.delete(DbHelper.TABLE_CASH_LAUNCH, DbHelper.CASH_LAUNCH_ID + " = " + St
 	functionName : String,
 	queryIns: Sequence(Property))]
 /* @DeleteWhere */
-public int [functionName /](String[ '[' /][ ']' /] selectionArgs) {
+public int [functionName /] (String[ '[' /][ ']' /] selectionArgs) {
 	//TODO: I might have some data from 'selectionArgs' and also some predefined data
 	//TODO: the way it is the transformation is wrong
 	int result = 0;
@@ -744,55 +898,39 @@ public int [functionName /](String[ '[' /][ ']' /] selectionArgs) {
 }
 [/template]
 
+[template public deleteWhere_Usage(
+	className: String,
+	functionName: String,
+	queryIns: Sequence(Property))]
+/* @DeleteWhere */
+public int [functionName /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
+	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] };
+	return context.getContentResolver().delete("content://com.uisleandro.[className /]/[functionName /]", null, selectionArgs);
+// TODO: PLEASE DONT USE SYNC CODE
+}
+[/template]
 
 [template public tooComplexQuery(
 	functionName : String,
 	queryIns: Sequence(Property))]
 /* @TooComplexQuery */
 public void [functionName 
-/]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]) {
+/] ([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]) {
 	String query = "";
 	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]id[/if] });
 	return cursor;
 }
 [/template]
 
-
-[comment 
-
-Generate the parameters for this class
-
-	and not gotStereotype(x, 'value')
-	and not gotStereotype(x, 'now')
-	and not gotStereotype(x, 'today')
-
-and x.getAppliedStereotypes()->isEmpty()
-
-'having' or << nao usar having
-
-x.name = 'like' or
-x.name = 'equalsTo' or
-x.name = 'greatherThan' or
-x.name = 'andGreatherThan' or
-x.name = 'orGreatherThan' or
-x.name = 'lessThan' or
-x.name = 'andLessThan' or
-x.name = 'orLessThan'
-
-"apply_count"
-"apply_sum"
-"apply_avg"
-
-"notInDatabase"
-
-"defaultSystemId"
-"defaultUserId"
-"isToday"
-"isRightNow"
-
-"isEmpty"
-"category"
-/]
+[template public tooComplexQuery_Usage(
+	functionName : String,
+	queryIns: Sequence(Property))]
+/* @TooComplexQuery */
+public void [functionName 
+/] ([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]) {
+// TODO: PLEASE DONT USE SYNC CODE
+}
+[/template]
 
 [query public gotDefaultQueryValue(arg : Element) : Boolean = 
 getAppliedStereotypes()
@@ -1021,7 +1159,7 @@ Eu poderia:
 package [pName /];
 import android.database.Cursor;
 
-public class [className.ToCamelCase() /]{
+public class [className.ToCamelCase() /] {
 
 	public static [className.ToCamelCase() /] FromCursor(Cursor cursor){
 		[className.ToCamelCase() /] instance = new [className.ToCamelCase() /]();
@@ -1040,13 +1178,13 @@ public class [className.ToCamelCase() /]{
 [for (column : Property | props)]
 	public [get_java_type(column) /][comment android type 
 	/] get[column.owner.oclAsType(NamedElement).name.ToCamelCase() 
-			/][column.name.ToCamelCase() /](){
+			/][column.name.ToCamelCase() /] () {
 		return [column.owner.oclAsType(NamedElement).name /]_[column.name /];
 	}
 	
 	public void set[column.owner.oclAsType(NamedElement).name.ToCamelCase() 
-			/][column.name.ToCamelCase() /]([get_java_type(column) 
-		/] [column.owner.oclAsType(NamedElement).name /]_[column.name /]){
+			/][column.name.ToCamelCase() /] ([get_java_type(column) 
+		/] [column.owner.oclAsType(NamedElement).name /]_[column.name /]) {
 		this.[column.owner.oclAsType(NamedElement).name /]_[column.name 
 		/] = [column.owner.oclAsType(NamedElement).name /]_[column.name /];
 	}
@@ -1057,7 +1195,7 @@ public class [className.ToCamelCase() /]{
 [comment CHECKED /]
 [template public cursor_to_classname(className : String, props: Sequence(Property))]
 public [className.ToCamelCase()
-/] cursorTo[className.ToCamelCase() /](Cursor cursor){
+/] cursorTo[className.ToCamelCase() /] (Cursor cursor) {
 
 	[className.ToCamelCase() /] [className 
 /] = new [className.ToCamelCase()/]();

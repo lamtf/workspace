@@ -29,11 +29,11 @@ public class RoleDataSource {
 	public static final String ROLE_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public RoleDataSource(Context context){
+	public RoleDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<RoleView> listAll(){
+	public List<RoleView> listAll () {
 		List<RoleView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(ROLE_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class RoleDataSource {
 	    return those;
 	}
 
-	public RoleView getById(long id){
+	public RoleView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(ROLE_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class RoleDataSource {
 	    return that;
 	}
 
-	public List<RoleView listSome(long page_count, long page_size){
+	public List<RoleView listSome (long page_count, long page_size) {
 		List<RoleView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(ROLE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class RoleDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(ROLE_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,20 +88,20 @@ public class RoleDataSource {
 	    return result;	
 	}
 
-	public int insert(RoleView that) {
+	public int insert (RoleView that) {
 		context.getContentResolver().insert(ROLE_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(RoleView that) {
+	public int update (RoleView that) {
 		return context.getContentResolver().update(ROLE_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(RoleView that) {
+	public int delete (RoleView that) {
 		return context.getContentResolver().delete(ROLE_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(ROLE_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
@@ -115,4 +115,3 @@ public class RoleDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

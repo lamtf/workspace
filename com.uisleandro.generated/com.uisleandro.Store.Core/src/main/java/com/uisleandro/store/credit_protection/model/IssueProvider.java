@@ -72,19 +72,19 @@ public class IssueProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final String ISSUE_CHECK_CLIENT = SCHEME + AUTHORITY + "/check_client";
-	public static final Uri URI_ISSUE_CHECK_CLIENT = Uri.parse(ISSUE_CHECK_CLIENT);
-	public static final String ISSUE_CHECK_CLIENT_BASE = ISSUE_CHECK_CLIENT + "/";
 	public static final String ISSUE_REGISTER_ISSUE = SCHEME + AUTHORITY + "/register_issue";
 	public static final Uri URI_ISSUE_REGISTER_ISSUE = Uri.parse(ISSUE_REGISTER_ISSUE);
 	public static final String ISSUE_REGISTER_ISSUE_BASE = ISSUE_REGISTER_ISSUE + "/";
+	public static final String ISSUE_CHECK_CLIENT = SCHEME + AUTHORITY + "/check_client";
+	public static final Uri URI_ISSUE_CHECK_CLIENT = Uri.parse(ISSUE_CHECK_CLIENT);
+	public static final String ISSUE_CHECK_CLIENT_BASE = ISSUE_CHECK_CLIENT + "/";
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase003
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
-	private static final String[] selectableColumns = new String[]{ 
+	private static final String[] selectableColumns = new String[] { 
 		DbHelper.ISSUE_ID,
 		DbHelper.ISSUE_SERVER_ID,
 		DbHelper.ISSUE_DIRTY,
@@ -97,7 +97,7 @@ public class IssueProvider extends ContentProvider {
 		DbHelper.ISSUE_FK_ISSUE
 	};
 
-	public IssueDataSource(Context context){
+	public IssueDataSource (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -106,21 +106,21 @@ public class IssueProvider extends ContentProvider {
 		}
 	}
 
-	public void open() throws SQLException{
+	public void open () throws SQLException {
 		database = db_helper.getWritableDatabase();
 	}
 
-	public void close(){
+	public void close () {
 		db_helper.close();
 	}
 
-	public Cursor listAll(){
+	public Cursor listAll () {
 		Cursor cursor = database.query(DbHelper.TABLE_ISSUE,
 			selectableColumns,null,null, null, null, null);
 		return cursor;
 	}
 
-	public Cursor getById(long id){
+	public Cursor getById (long id) {
 		Cursor cursor = database.query(DbHelper.TABLE_ISSUE,
 			selectableColumns,
 			DbHelper.ISSUE_ID + " = " + id,
@@ -128,7 +128,7 @@ public class IssueProvider extends ContentProvider {
 		return cursor;
 	}
 
-	public Cursor listSome(long page_count, long page_size){
+	public Cursor listSome (long page_count, long page_size) {
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
 			"fk_shared_client, " +
@@ -146,7 +146,7 @@ public class IssueProvider extends ContentProvider {
 		return cursor;
 	}
 
-	public Cursor getLastId(){
+	public Cursor getLastId () {
 		String query = "SELECT MAX(id) FROM " + DbHelper.TABLE_ISSUE +";";
 		Cursor cursor = database.rawQuery(query, null);
 		return cursor;		
@@ -155,13 +155,13 @@ public class IssueProvider extends ContentProvider {
 // begin content-provider-interface
 
 	@Override
-	public boolean onCreate() {
+	public boolean onCreate () {
 		return false;
 	}
 
 	@Nullable
 	@Override
-	public String getType(@NonNull Uri uri) {
+	public String getType (@NonNull Uri uri) {
 		return null;
 	}
 // reserved-for:AndroidSqliteDatabase003
@@ -170,7 +170,7 @@ public class IssueProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteDatabase004
 	@Nullable
 	@Override
-	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+	public Uri insert (@NonNull Uri uri, @Nullable ContentValues values) {
 		Cursor result = null;
 		if (URI_ISSUE_INSERT.equals(uri)) {
 			result = database.insert(DbHelper.TABLE_ISSUE, null, values);
@@ -194,7 +194,7 @@ public class IssueProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteDatabase006
 	@Override
-	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+	public int update (@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
 		int result = 0;
 		if (URI_ISSUE_UPDATE.equals(uri)) {
 			result = database.update(DbHelper.TABLE_ISSUE, values, DbHelper.ISSUE_ID + " = " + selectionArgs[0], null);
@@ -216,7 +216,7 @@ public class IssueProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+	public int delete (@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
 		int result = 0;
 		if (URI_ISSUE_DELETE.equals(uri)) {
 			result = database.delete(DbHelper.TABLE_ISSUE, DbHelper.ISSUE_ID + " = " + selectionArgs[0], null);
@@ -240,16 +240,8 @@ public class IssueProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
-	/* @ExistsWhere */
-	public Cursor check_client(String[] selectionArgs) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		String query = "SELECT exists(*) FROM Issue WHERE Issue.fk_shared_client = ? AND Issue.active = ? AND (Issue.fk_issue is null or Issue.fk_issue = '');";
-		Cursor cursor = database.rawQuery(query, new String[]{ String.valueOf(fk_shared_client), "1" });
-		return cursor;
-	}
 	/* @Insert */
-	public int register_issue(String[] selectionArgs){
+	public int register_issue (String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "INSERT INTO Issue(last_update,fk_shared_client,description,active,isAnswer) VALUES (?,?,?,?,?);";
@@ -260,6 +252,14 @@ public class IssueProvider extends ContentProvider {
 			result = cursor.getInt(0);
 		}
 		return result;
+	}
+	/* @ExistsWhere */
+	public Cursor check_client (String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT exists(*) FROM Issue WHERE Issue.fk_shared_client = ? AND Issue.active = ? AND (Issue.fk_issue is null or Issue.fk_issue = '');";
+		Cursor cursor = database.rawQuery(query, new String[]{ String.valueOf(fk_shared_client), "1" });
+		return cursor;
 	}
 // reserved-for:AndroidSqliteQuerySingle006
 // End of user code
@@ -273,13 +273,13 @@ public class IssueProvider extends ContentProvider {
 		if (URI_ISSUE_ALL.equals(uri)) {
 			result = listAll();
 		}
-		else if(URI_ISSUE_SOME.equals(uri)) {
+		else if (URI_ISSUE_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
 		}
-		else if(URI_ISSUE_BYID.equals(uri)) {
+		else if (URI_ISSUE_BYID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[0]));
 		}
-		else if(URI_ISSUE_LASTID.equals(uri)) {
+		else if (URI_ISSUE_LASTID.equals(uri)) {
 			result = getLastId();
 		}
 // reserved-for:AndroidSqliteDatabase010
@@ -297,8 +297,5 @@ public class IssueProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
-		return result;
-	}
-}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code

@@ -29,11 +29,11 @@ public class DistributorContactDataSource {
 	public static final String DISTRIBUTOR_CONTACT_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public DistributorContactDataSource(Context context){
+	public DistributorContactDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<DistributorContactView> listAll(){
+	public List<DistributorContactView> listAll () {
 		List<DistributorContactView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(DISTRIBUTOR_CONTACT_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class DistributorContactDataSource {
 	    return those;
 	}
 
-	public DistributorContactView getById(long id){
+	public DistributorContactView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(DISTRIBUTOR_CONTACT_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class DistributorContactDataSource {
 	    return that;
 	}
 
-	public List<DistributorContactView listSome(long page_count, long page_size){
+	public List<DistributorContactView listSome (long page_count, long page_size) {
 		List<DistributorContactView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(DISTRIBUTOR_CONTACT_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class DistributorContactDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(DISTRIBUTOR_CONTACT_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,20 +88,20 @@ public class DistributorContactDataSource {
 	    return result;	
 	}
 
-	public int insert(DistributorContactView that) {
+	public int insert (DistributorContactView that) {
 		context.getContentResolver().insert(DISTRIBUTOR_CONTACT_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(DistributorContactView that) {
+	public int update (DistributorContactView that) {
 		return context.getContentResolver().update(DISTRIBUTOR_CONTACT_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(DistributorContactView that) {
+	public int delete (DistributorContactView that) {
 		return context.getContentResolver().delete(DISTRIBUTOR_CONTACT_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(DISTRIBUTOR_CONTACT_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
@@ -115,4 +115,3 @@ public class DistributorContactDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

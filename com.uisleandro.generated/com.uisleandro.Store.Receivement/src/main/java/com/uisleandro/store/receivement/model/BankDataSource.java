@@ -29,11 +29,11 @@ public class BankDataSource {
 	public static final String BANK_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public BankDataSource(Context context){
+	public BankDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<BankView> listAll(){
+	public List<BankView> listAll () {
 		List<BankView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(BANK_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class BankDataSource {
 	    return those;
 	}
 
-	public BankView getById(long id){
+	public BankView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(BANK_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class BankDataSource {
 	    return that;
 	}
 
-	public List<BankView listSome(long page_count, long page_size){
+	public List<BankView listSome (long page_count, long page_size) {
 		List<BankView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(BANK_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class BankDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(BANK_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,20 +88,20 @@ public class BankDataSource {
 	    return result;	
 	}
 
-	public int insert(BankView that) {
+	public int insert (BankView that) {
 		context.getContentResolver().insert(BANK_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(BankView that) {
+	public int update (BankView that) {
 		return context.getContentResolver().update(BANK_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(BankView that) {
+	public int delete (BankView that) {
 		return context.getContentResolver().delete(BANK_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(BANK_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
@@ -115,4 +115,3 @@ public class BankDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

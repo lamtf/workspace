@@ -11,6 +11,10 @@ import com.uisleandro.store.supply.view.ProductDataView
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle001
+import com.uisleandro.store.supply.view.MissingProductsRelatoryOut;
+import com.uisleandro.store.supply.view.GetByRepeatedProductCodeOut;
+import com.uisleandro.store.supply.view.GetByIdOut;
+import com.uisleandro.store.supply.view.GetByQrcodeOut;
 // reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -29,11 +33,11 @@ public class ProductDataSource {
 	public static final String PRODUCT_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public ProductDataSource(Context context){
+	public ProductDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<ProductView> listAll(){
+	public List<ProductView> listAll () {
 		List<ProductView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(PRODUCT_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +52,7 @@ public class ProductDataSource {
 	    return those;
 	}
 
-	public ProductView getById(long id){
+	public ProductView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(PRODUCT_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +65,7 @@ public class ProductDataSource {
 	    return that;
 	}
 
-	public List<ProductView listSome(long page_count, long page_size){
+	public List<ProductView listSome (long page_count, long page_size) {
 		List<ProductView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(PRODUCT_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +80,7 @@ public class ProductDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(PRODUCT_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,26 +92,91 @@ public class ProductDataSource {
 	    return result;	
 	}
 
-	public int insert(ProductView that) {
+	public int insert (ProductView that) {
 		context.getContentResolver().insert(PRODUCT_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(ProductView that) {
+	public int update (ProductView that) {
 		return context.getContentResolver().update(PRODUCT_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(ProductView that) {
+	public int delete (ProductView that) {
 		return context.getContentResolver().delete(PRODUCT_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(PRODUCT_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
+	/* @SelectListWhere */
+	public List<MissingProductsRelatoryOut> missing_products_relatory (long page_count, long page_size){
+		String selectionArgs = new String[]{ com.uisleandro.util.config.getTodayString() }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/missing_products_relatory",null, null, selectionArgs, null);
+		List<MissingProductsRelatoryOut> those = null;
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			those.add( MissingProductsRelatoryOut.FromCursor(cursor) );
+			cursor.moveToNext();
+		}
+		return those;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @SelectListWhere */
+	public List<GetByRepeatedProductCodeOut> get_by_repeated_product_code (Long fk_systen, String barcode, long page_count, long page_size){
+		String selectionArgs = new String[]{ String.valueOf(fk_systen), barcode }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/get_by_repeated_product_code",null, null, selectionArgs, null);
+		List<GetByRepeatedProductCodeOut> those = null;
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			those.add( GetByRepeatedProductCodeOut.FromCursor(cursor) );
+			cursor.moveToNext();
+		}
+		return those;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @UpdateWhere */
+	public int product_recounting(Long fk_product){
+		//TODO: PLEASE FIX IT IT'S WRONG
+		int result = 0;
+		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+		String selection = null;
+		String[] selectionArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_product), "actual_amount + 1" }
+		Cursor cursor = context.getContentResolver().update("content://com.uisleandro.product/product_recounting", contentValues, null,	selectionArgs); 
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			result = cursor.getInt(0);
+		}
+		return result;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @SelectOneWhere */
+	public GetByIdOut get_by_id(Long id){
+		String selectionArgs = new String[]{ String.valueOf(id) }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/get_by_id",null, null, selectionArgs, null);
+		GetByIdOut that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = GetByIdOut.FromCursor(cursor);
+		}
+		return that;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @SelectOneWhere */
+	public GetByQrcodeOut get_by_qrcode(String barcode){
+		String selectionArgs = new String[]{  }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/get_by_qrcode",null, null, selectionArgs, null);
+		GetByQrcodeOut that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = GetByQrcodeOut.FromCursor(cursor);
+		}
+		return that;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
@@ -115,4 +184,3 @@ public class ProductDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

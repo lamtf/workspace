@@ -821,7 +821,7 @@ public class [tbl.name.ToCamelCase() /]Provider extends ContentProvider {
 [begin_reserve('reserved-for:AndroidSqliteDatabase003') /]
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
-	private static final String[ '[' /][ ']' /] selectableColumns = new String[ '[' /][ ']' /]{ 
+	private static final String[ '[' /][ ']' /] selectableColumns = new String[ '[' /][ ']' /] { 
 		DbHelper.[tbl.name.toUpperCase() /]_ID,
 		DbHelper.[tbl.name.toUpperCase() /]_SERVER_ID,
 		DbHelper.[tbl.name.toUpperCase() /]_DIRTY,
@@ -832,7 +832,7 @@ separator (', \n')]
 
 	};
 
-	public [tbl.name.ToCamelCase() /]DataSource(Context context){
+	public [tbl.name.ToCamelCase() /]DataSource (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -841,21 +841,21 @@ separator (', \n')]
 		}
 	}
 
-	public void open() throws SQLException{
+	public void open () throws SQLException {
 		database = db_helper.getWritableDatabase();
 	}
 
-	public void close(){
+	public void close () {
 		db_helper.close();
 	}
 
-	public Cursor listAll(){
+	public Cursor listAll () {
 		Cursor cursor = database.query(DbHelper.TABLE_[tbl.name.toUpperCase()/],
 			selectableColumns,null,null, null, null, null);
 		return cursor;
 	}
 
-	public Cursor getById(long id){
+	public Cursor getById (long id) {
 		Cursor cursor = database.query(DbHelper.TABLE_[tbl.name.toUpperCase() /],
 			selectableColumns,
 			DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + id,
@@ -863,7 +863,7 @@ separator (', \n')]
 		return cursor;
 	}
 
-	public Cursor listSome(long page_count, long page_size){
+	public Cursor listSome (long page_count, long page_size) {
 		String query = "SELECT id, server_id, dirty, " +
 [for (prop : Property | get_fields(tbl) ) separator (', " +\n') after ('" +\n')]			"[prop.getName()/][/for]			" FROM " + DbHelper.TABLE_[tbl.name.toUpperCase() /];
 		if(page_size > 0){
@@ -874,7 +874,7 @@ separator (', \n')]
 		return cursor;
 	}
 
-	public Cursor getLastId(){
+	public Cursor getLastId () {
 		String query = "SELECT MAX(id) FROM " + DbHelper.TABLE_[tbl.name.toUpperCase() /] +";";
 		Cursor cursor = database.rawQuery(query, null);
 		return cursor;		
@@ -883,13 +883,13 @@ separator (', \n')]
 // begin content-provider-interface
 
 	@Override
-	public boolean onCreate() {
+	public boolean onCreate () {
 		return false;
 	}
 
 	@Nullable
 	@Override
-	public String getType(@NonNull Uri uri) {
+	public String getType (@NonNull Uri uri) {
 		return null;
 	}
 [end_reserve('reserved-for:AndroidSqliteDatabase003') /]
@@ -897,7 +897,7 @@ separator (', \n')]
 [begin_reserve('reserved-for:AndroidSqliteDatabase004') /]
 	@Nullable
 	@Override
-	public Uri insert(@NonNull Uri uri, @Nullable ContentValues values) {
+	public Uri insert (@NonNull Uri uri, @Nullable ContentValues values) {
 		Cursor result = null;
 		if (URI_[tbl.name.toUpperCase() /]_INSERT.equals(uri)) {
 			result = database.insert(DbHelper.TABLE_[tbl.name.toUpperCase() /], null, values);
@@ -915,7 +915,7 @@ separator (', \n')]
 
 [begin_reserve('reserved-for:AndroidSqliteDatabase006') /]
 	@Override
-	public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
+	public int update (@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
 		int result = 0;
 		if (URI_[tbl.name.toUpperCase() /]_UPDATE.equals(uri)) {
 			result = database.update(DbHelper.TABLE_[tbl.name.toUpperCase() /], values, DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + selectionArgs[ '[' /]0[ ']' /], null);
@@ -933,7 +933,7 @@ separator (', \n')]
 
 [begin_reserve('reserved-for:AndroidSqliteDatabase008') /]
 	@Override
-	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
+	public int delete (@NonNull Uri uri, @Nullable String selection, @Nullable String[ '[' /][ ']' /] selectionArgs) {
 		int result = 0;
 		if (URI_[tbl.name.toUpperCase() /]_DELETE.equals(uri)) {
 			result = database.delete(DbHelper.TABLE_[tbl.name.toUpperCase()/], DbHelper.[tbl.name.toUpperCase()/]_ID + " = " + selectionArgs[ '[' /]0[ ']' /], null);
@@ -968,13 +968,13 @@ separator (', \n')]
 		if (URI_[tbl.name.toUpperCase() /]_ALL.equals(uri)) {
 			result = listAll();
 		}
-		else if(URI_[tbl.name.toUpperCase() /]_SOME.equals(uri)) {
+		else if (URI_[tbl.name.toUpperCase() /]_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[ '[' /]0[ ']' /]), Long.parseLong(selectionArgs[ '[' /]1[ ']' /]));
 		}
-		else if(URI_[tbl.name.toUpperCase() /]_BYID.equals(uri)) {
+		else if (URI_[tbl.name.toUpperCase() /]_BYID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[ '[' /]0[ ']' /]));
 		}
-		else if(URI_[tbl.name.toUpperCase() /]_LASTID.equals(uri)) {
+		else if (URI_[tbl.name.toUpperCase() /]_LASTID.equals(uri)) {
 			result = getLastId();
 		}
 [end_reserve('reserved-for:AndroidSqliteDatabase010') /]
@@ -1038,11 +1038,11 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 	public static final String [tbl.name.toUpperCase() /]_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public [tbl.name.ToCamelCase() /]DataSource(Context context){
+	public [tbl.name.ToCamelCase() /]DataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<[tbl.name.ToCamelCase() /]View> listAll(){
+	public List<[tbl.name.ToCamelCase() /]View> listAll () {
 		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_ALL, null, null null, null);
 		if (null != cursor) {
@@ -1057,7 +1057,7 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 	    return those;
 	}
 
-	public [tbl.name.ToCamelCase() /]View getById(long id){
+	public [tbl.name.ToCamelCase() /]View getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_BYID, null, null, new String[ '[' /][ ']' /]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -1070,7 +1070,7 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 	    return that;
 	}
 
-	public List<[tbl.name.ToCamelCase() /]View listSome(long page_count, long page_size){
+	public List<[tbl.name.ToCamelCase() /]View listSome (long page_count, long page_size) {
 		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_SOME, new String[ '[' /][ ']' /]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -1085,7 +1085,7 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -1097,20 +1097,20 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 	    return result;	
 	}
 
-	public int insert([tbl.name.ToCamelCase() /]View that) {
+	public int insert ([tbl.name.ToCamelCase() /]View that) {
 		context.getContentResolver().insert([tbl.name.toUpperCase() /]_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update([tbl.name.ToCamelCase() /]View that) {
+	public int update ([tbl.name.ToCamelCase() /]View that) {
 		return context.getContentResolver().update([tbl.name.toUpperCase() /]_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete([tbl.name.ToCamelCase() /]View that) {
+	public int delete ([tbl.name.ToCamelCase() /]View that) {
 		return context.getContentResolver().delete([tbl.name.toUpperCase() /]_DELETE, null, new String[ '[' /][ ']' /]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete([tbl.name.toUpperCase() /]_DELETE, null, new String[ '[' /][ ']' /]{ String.valueOf(id) });
 	}
 [end_reserve('reserved-for:AndroidSqliteDatabaseSingle002') /]

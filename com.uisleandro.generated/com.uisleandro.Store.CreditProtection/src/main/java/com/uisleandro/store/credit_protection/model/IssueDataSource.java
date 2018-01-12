@@ -29,11 +29,11 @@ public class IssueDataSource {
 	public static final String ISSUE_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public IssueDataSource(Context context){
+	public IssueDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<IssueView> listAll(){
+	public List<IssueView> listAll () {
 		List<IssueView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(ISSUE_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class IssueDataSource {
 	    return those;
 	}
 
-	public IssueView getById(long id){
+	public IssueView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(ISSUE_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class IssueDataSource {
 	    return that;
 	}
 
-	public List<IssueView listSome(long page_count, long page_size){
+	public List<IssueView listSome (long page_count, long page_size) {
 		List<IssueView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(ISSUE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class IssueDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(ISSUE_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,26 +88,46 @@ public class IssueDataSource {
 	    return result;	
 	}
 
-	public int insert(IssueView that) {
+	public int insert (IssueView that) {
 		context.getContentResolver().insert(ISSUE_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(IssueView that) {
+	public int update (IssueView that) {
 		return context.getContentResolver().update(ISSUE_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(IssueView that) {
+	public int delete (IssueView that) {
 		return context.getContentResolver().delete(ISSUE_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(ISSUE_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
+	/* @Insert */
+	public int register_issue (Long fk_shared_client, String description){
+		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_shared_client), description, "0", "0" };
+		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+		context.getContentResolver().insert("content://com.uisleandro.Issue/register_issue", contentValues);
+	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @ExistsWhere */
+	public boolean check_client (Long fk_shared_client) {
+		String selectionArgs = new String[]{ String.valueOf(fk_shared_client), "1" }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.Issue/check_client",null, null, selectionArgs, null);
+		boolean that = false;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = (cursor.getInt(0) > 0);
+		}
+		return that;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
@@ -115,4 +135,3 @@ public class IssueDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

@@ -29,11 +29,11 @@ public class CurrencyDataSource {
 	public static final String CURRENCY_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public CurrencyDataSource(Context context){
+	public CurrencyDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<CurrencyView> listAll(){
+	public List<CurrencyView> listAll () {
 		List<CurrencyView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(CURRENCY_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class CurrencyDataSource {
 	    return those;
 	}
 
-	public CurrencyView getById(long id){
+	public CurrencyView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(CURRENCY_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class CurrencyDataSource {
 	    return that;
 	}
 
-	public List<CurrencyView listSome(long page_count, long page_size){
+	public List<CurrencyView listSome (long page_count, long page_size) {
 		List<CurrencyView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(CURRENCY_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class CurrencyDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(CURRENCY_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,20 +88,20 @@ public class CurrencyDataSource {
 	    return result;	
 	}
 
-	public int insert(CurrencyView that) {
+	public int insert (CurrencyView that) {
 		context.getContentResolver().insert(CURRENCY_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(CurrencyView that) {
+	public int update (CurrencyView that) {
 		return context.getContentResolver().update(CURRENCY_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(CurrencyView that) {
+	public int delete (CurrencyView that) {
 		return context.getContentResolver().delete(CURRENCY_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(CURRENCY_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
@@ -115,4 +115,3 @@ public class CurrencyDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

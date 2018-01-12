@@ -29,11 +29,11 @@ public class CategoryDataSource {
 	public static final String CATEGORY_LASTID = SCHEME + AUTHORITY + "/lastid";
 
 	Context context;
-	public CategoryDataSource(Context context){
+	public CategoryDataSource (Context context) {
 		this.context = context;
 	}
 
-	public List<CategoryView> listAll(){
+	public List<CategoryView> listAll () {
 		List<CategoryView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(CATEGORY_ALL, null, null null, null);
 		if (null != cursor) {
@@ -48,7 +48,7 @@ public class CategoryDataSource {
 	    return those;
 	}
 
-	public CategoryView getById(long id){
+	public CategoryView getById (long id) {
 		CashRegister that = null;
 		Cursor cursor = context.getContentResolver().query(CATEGORY_BYID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
@@ -61,7 +61,7 @@ public class CategoryDataSource {
 	    return that;
 	}
 
-	public List<CategoryView listSome(long page_count, long page_size){
+	public List<CategoryView listSome (long page_count, long page_size) {
 		List<CategoryView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(CATEGORY_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
@@ -76,7 +76,7 @@ public class CategoryDataSource {
 	    return those;
 	}
 
-	public long getLastId(){
+	public long getLastId () {
 		long result = 0;
 		Cursor cursor = context.getContentResolver().query(CATEGORY_LASTID, null, null, null, null);
 		if (null != cursor) {
@@ -88,20 +88,20 @@ public class CategoryDataSource {
 	    return result;	
 	}
 
-	public int insert(CategoryView that) {
+	public int insert (CategoryView that) {
 		context.getContentResolver().insert(CATEGORY_INSERT, that.toInsertArray());
 		return 0;
 	}
 
-	public int update(CategoryView that) {
+	public int update (CategoryView that) {
 		return context.getContentResolver().update(CATEGORY_UPDATE, that.toUpdateArray(), that.getId());
 	}
 
-	public int delete(CategoryView that) {
+	public int delete (CategoryView that) {
 		return context.getContentResolver().delete(CATEGORY_DELETE, null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById(long id) {
+	public int deleteById (long id) {
 		return context.getContentResolver().delete(CATEGORY_DELETE, null, new String[]{ String.valueOf(id) });
 	}
 // reserved-for:AndroidSqliteDatabaseSingle002
@@ -115,4 +115,3 @@ public class CategoryDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-
