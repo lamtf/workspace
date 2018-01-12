@@ -1,4 +1,4 @@
-// Start of user code reserved-for:AndroidSqliteDatabase001
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle001
 package com.uisleandro.store.receivement.model;  
 
 import java.util.ArrayList;
@@ -6,8 +6,15 @@ import java.util.List;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
-import com.uisleandro.store.receivement.view.InterestRateTypeView
+import com.uisleandro.store.receivement.view.InterestRateTypeDataView
+// reserved-for:AndroidSqliteDatabaseSingle001
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle001
+// reserved-for:AndroidSqliteQuerySingle001
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002
 public class InterestRateTypeDataSource {
 
 	public static final String AUTHORITY = "com.uisleandro.interest_rate_type";
@@ -97,6 +104,15 @@ public class InterestRateTypeDataSource {
 	public int deleteById(long id) {
 		return context.getContentResolver().delete(INTEREST_RATE_TYPE_DELETE, null, new String[]{ String.valueOf(id) });
 	}
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle002
+// reserved-for:AndroidSqliteQuerySingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle003
 }
+// reserved-for:AndroidSqliteDatabaseSingle003
+// End of user code
 

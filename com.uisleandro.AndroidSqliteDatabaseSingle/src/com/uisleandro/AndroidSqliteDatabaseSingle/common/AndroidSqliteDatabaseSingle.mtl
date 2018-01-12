@@ -567,7 +567,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import android.database.Cursor;
 
-public class [tbl.name.ToCamelCase() /]View {
+public class [tbl.name.ToCamelCase() /]DataView {
 
 	private long id;
 	private long server_id;
@@ -1005,7 +1005,7 @@ ON [tbl.getQualifiedName() /]
 [/for]
 */
 [else]
-[begin_reserve('reserved-for:AndroidSqliteDatabase001') /]
+[begin_reserve('reserved-for:AndroidSqliteDatabaseSingle001') /]
 package [pname /].[modul.name/].model;  
 
 import java.util.ArrayList;
@@ -1013,11 +1013,14 @@ import java.util.List;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
-import [pname /].[modul.name/].view.[tbl.name.ToCamelCase() /]View
-[comment]
-	PLEASE IMPORT THE CONTENT PROVIDER CLASS 
-[/comment]
+import [pname /].[modul.name/].view.[tbl.name.ToCamelCase() /]DataView
+[end_reserve('reserved-for:AndroidSqliteDatabaseSingle001') /]
 
+// [protected ('reserved-for:AndroidSqliteQuerySingle001')]
+// reserved-for:AndroidSqliteQuerySingle001
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002') /]
 public class [tbl.name.ToCamelCase() /]DataSource {
 
 	public static final String AUTHORITY = "com.uisleandro.[tbl.name /]";
@@ -1110,8 +1113,15 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 	public int deleteById(long id) {
 		return context.getContentResolver().delete([tbl.name.toUpperCase() /]_DELETE, null, new String[ '[' /][ ']' /]{ String.valueOf(id) });
 	}
+[end_reserve('reserved-for:AndroidSqliteDatabaseSingle002') /]
 
+// [protected ('reserved-for:AndroidSqliteQuerySingle002')]
+// reserved-for:AndroidSqliteQuerySingle002
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabaseSingle003') /]
 }
+[end_reserve('reserved-for:AndroidSqliteDatabaseSingle003') /]
 [/if]
 [/template]
 
@@ -1153,7 +1163,7 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 [comment]
 	MAYBE IM GONNA CREATE EACH VIEW ON ITS RESPECTIVE PACKAGE
 [/comment]
-[file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/view/'+tbl.name.ToCamelCase()+'View.java', false, 'UTF-8')]
+[file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/view/'+tbl.name.ToCamelCase()+'DataView.java', false, 'UTF-8')]
 [android_create_tblviewclass(pname, modul, tbl) /]
 [/file]
 

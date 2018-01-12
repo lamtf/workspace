@@ -1,4 +1,4 @@
-// Start of user code reserved-for:AndroidSqliteDatabase001
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle001
 package com.uisleandro.store.supply.model;  
 
 import java.util.ArrayList;
@@ -6,8 +6,15 @@ import java.util.List;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
-import com.uisleandro.store.supply.view.ProductView
+import com.uisleandro.store.supply.view.ProductDataView
+// reserved-for:AndroidSqliteDatabaseSingle001
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle001
+// reserved-for:AndroidSqliteQuerySingle001
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002
 public class ProductDataSource {
 
 	public static final String AUTHORITY = "com.uisleandro.product";
@@ -97,6 +104,15 @@ public class ProductDataSource {
 	public int deleteById(long id) {
 		return context.getContentResolver().delete(PRODUCT_DELETE, null, new String[]{ String.valueOf(id) });
 	}
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle002
+// reserved-for:AndroidSqliteQuerySingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle003
 }
+// reserved-for:AndroidSqliteDatabaseSingle003
+// End of user code
 

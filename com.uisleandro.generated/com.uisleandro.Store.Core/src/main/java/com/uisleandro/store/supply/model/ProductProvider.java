@@ -26,7 +26,11 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001
+// Start of user code reserved-for:AndroidSqliteQuerySingle001import com.uisleandro.store.supply.view.view.GetByQrcodeOut;
+import com.uisleandro.store.supply.view.view.GetByIdOut;
+import com.uisleandro.store.supply.view.view.ProductRecountingOut;
+import com.uisleandro.store.supply.view.view.MissingProductsRelatoryOut;
+import com.uisleandro.store.supply.view.view.GetByRepeatedProductCodeOut;
 // reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -67,7 +71,6 @@ public class ProductProvider extends ContentProvider {
 
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
-
 
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
 // reserved-for:AndroidSqliteSyncSingle003
@@ -241,6 +244,7 @@ public class ProductProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase007
 // End of user code
 
+
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -261,8 +265,6 @@ public class ProductProvider extends ContentProvider {
 	}
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
-
-// end content-provider-interface
 
 // Start of user code reserved-for:AndroidSqliteSyncSingle003
 // reserved-for:AndroidSqliteSyncSingle003
@@ -369,11 +371,3 @@ public class ProductProvider extends ContentProvider {
 }
 // reserved-for:AndroidSqliteDatabase011
 // End of user code
-
-// Start of user code reserved-for:AndroidSqliteDatabase011
-		return result;
-	}
-}
-// reserved-for:AndroidSqliteDatabase011
-// End of user code
-

@@ -1,4 +1,4 @@
-// Start of user code reserved-for:AndroidSqliteDatabase001
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle001
 package com.uisleandro.store.receivement.model;  
 
 import java.util.ArrayList;
@@ -6,8 +6,15 @@ import java.util.List;
 import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
-import com.uisleandro.store.receivement.view.BoletoSicoobView
+import com.uisleandro.store.receivement.view.BoletoSicoobDataView
+// reserved-for:AndroidSqliteDatabaseSingle001
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle001
+// reserved-for:AndroidSqliteQuerySingle001
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002
 public class BoletoSicoobDataSource {
 
 	public static final String AUTHORITY = "com.uisleandro.boleto_sicoob";
@@ -97,6 +104,15 @@ public class BoletoSicoobDataSource {
 	public int deleteById(long id) {
 		return context.getContentResolver().delete(BOLETO_SICOOB_DELETE, null, new String[]{ String.valueOf(id) });
 	}
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle002
+// reserved-for:AndroidSqliteQuerySingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle003
 }
+// reserved-for:AndroidSqliteDatabaseSingle003
+// End of user code
 

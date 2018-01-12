@@ -343,7 +343,7 @@ endif
 /][for (op : Operation | getValidOperations(controller)
 ->select(x | not(gotStereotype(x, 'SelectValueWhere')) and (null <> out_parameter_definition(x)) )
 )]
-import [mName /].[ToCamelCase(out_parameter_definition(op).name) /];
+import [mName /].view.[ToCamelCase(out_parameter_definition(op).name) /];
 [/for]
 [end_reserve('reserved-for:AndroidSqliteQuerySingle001') /]
 
@@ -487,6 +487,14 @@ else recursiveFlatProperties(getSubject(outView),1)->reverse() endif]
 // [/protected]
 [/template]
 
+[comment]
+	Inside of here I'm gonna:
+		* Create Agruments and Then (maybe) Convert them to String;
+		* Pass the Arguments to the Function which will will use them;
+[/comment]
+[template public create_android_content_provider_ds(controller : Class, mName: String)]
+
+[/template]
 
 [template public create_out_classes(controller : Class, folder_name : String, pName: String)
 ][for (op : Operation | getValidOperations(controller))
@@ -758,11 +766,9 @@ Generate the parameters for this class
 	and not gotStereotype(x, 'now')
 	and not gotStereotype(x, 'today')
 
-
 and x.getAppliedStereotypes()->isEmpty()
 
 'having' or << nao usar having
-
 
 x.name = 'like' or
 x.name = 'equalsTo' or
