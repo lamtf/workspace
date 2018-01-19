@@ -1,11 +1,11 @@
 // Start of user code reserved-for:AndroidSqliteDatabase001
 package com.uisleandro.store.Core.model;  
 
-import java.util.ArrayList;
-import java.util.List;
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +13,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //old
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
@@ -27,7 +31,6 @@ import com.uisleandro.store.DbHelper;
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle001import com.uisleandro.store.core.view.LoginOut;
-import com.uisleandro.store.core.view.CanAccessOut;
 // reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -37,34 +40,50 @@ public class UserProvider extends ContentProvider {
 
 	public static final String AUTHORITY = "com.uisleandro.user";
 	public static final String SCHEME = "content://";
-
+	private static final UriMatcher MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
+	
+	public static final int USER_INSERT_NUMBER = 1;
+	public static final String USER_INSERT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/insert";
 	public static final String USER_INSERT = SCHEME + AUTHORITY + "/insert";
 	public static final Uri URI_USER_INSERT = Uri.parse(USER_INSERT);
 	public static final String USER_INSERT_BASE = USER_INSERT + "/";
 
+	public static final int USER_UPDATE_NUMBER = 2;
+	public static final String USER_UPDATE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/update";
 	public static final String USER_UPDATE = SCHEME + AUTHORITY + "/update";
 	public static final Uri URI_USER_UPDATE = Uri.parse(USER_UPDATE);
 	public static final String USER_UPDATE_BASE = USER_UPDATE + "/";
 
+	public static final int USER_DELETE_NUMBER = 3;
+	public static final String USER_DELETE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/delete";
 	public static final String USER_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final Uri URI_USER_DELETE = Uri.parse(USER_DELETE);
 	public static final String USER_DELETE_BASE = USER_DELETE + "/";
 
+	public static final int USER_ALL_NUMBER = 4;
+	public static final String USER_ALL_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/all";
 	public static final String USER_ALL = SCHEME + AUTHORITY + "/all";
 	public static final Uri URI_USER_ALL = Uri.parse(USER_ALL);
 	public static final String USER_ALL_BASE = USER_ALL + "/";
 
+	public static final int USER_SOME_NUMBER = 5;
+	public static final String USER_SOME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/some";
 	public static final String USER_SOME = SCHEME + AUTHORITY + "/some";
 	public static final Uri URI_USER_SOME = Uri.parse(USER_SOME);
 	public static final String USER_SOME_BASE = USER_SOME + "/";
 
-	public static final String USER_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final Uri URI_USER_BYID = Uri.parse(USER_BYID);
-	public static final String USER_BYID_BASE = USER_BYID + "/";
+	public static final int USER_BY_ID_NUMBER = 6;
+	public static final String USER_BY_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/by_id";
+	public static final String USER_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final Uri URI_USER_BY_ID = Uri.parse(USER_BY_ID);
+	public static final String USER_BY_ID_BASE = USER_BY_ID + "/";
 
-	public static final String USER_LASTID = SCHEME + AUTHORITY + "/lastid";
-	public static final Uri URI_USER_LASTID = Uri.parse(USER_LASTID);
-	public static final String USER_LASTID_BASE = USER_LASTID + "/";
+	public static final int USER_LAST_ID_NUMBER = 7;
+	public static final String USER_LAST_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/last_id";
+	public static final String USER_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Uri URI_USER_LAST_ID = Uri.parse(USER_LAST_ID);
+	public static final String USER_LAST_ID_BASE = USER_LAST_ID + "/";
+
 
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
@@ -74,16 +93,43 @@ public class UserProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final String USER_LOGIN = SCHEME + AUTHORITY + "/login";
-	public static final Uri URI_USER_LOGIN = Uri.parse(USER_LOGIN);
-	public static final String USER_LOGIN_BASE = USER_LOGIN + "/";
+	public static final int USER_USER_CAN_ACCESS_NUMBER = 8;
+	public static final String USER_USER_CAN_ACCESS_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/user_can_access";
 	public static final String USER_USER_CAN_ACCESS = SCHEME + AUTHORITY + "/user_can_access";
 	public static final Uri URI_USER_USER_CAN_ACCESS = Uri.parse(USER_USER_CAN_ACCESS);
 	public static final String USER_USER_CAN_ACCESS_BASE = USER_USER_CAN_ACCESS + "/";
+
+	public static final int USER_LOGIN_NUMBER = 9;
+	public static final String USER_LOGIN_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/login";
+	public static final String USER_LOGIN = SCHEME + AUTHORITY + "/login";
+	public static final Uri URI_USER_LOGIN = Uri.parse(USER_LOGIN);
+	public static final String USER_LOGIN_BASE = USER_LOGIN + "/";
+
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase003
+
+	static {
+		MATCHER.addURI(AUTHORITY,"insert", USER_INSERT_NUMBER);
+		MATCHER.addURI(AUTHORITY,"update", USER_UPDATE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"delete", USER_DELETE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"all", USER_ALL_NUMBER);
+		MATCHER.addURI(AUTHORITY,"some", USER_SOME_NUMBER);
+		MATCHER.addURI(AUTHORITY,"by_id", USER_BY_ID_NUMBER);
+		MATCHER.addURI(AUTHORITY,"last_id", USER_LAST_ID_NUMBER);
+// reserved-for:AndroidSqliteDatabase003
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.1
+		MATCHER.addURI(AUTHORITY,"user_can_access", USER_USER_CAN_ACCESS_NUMBER);
+		MATCHER.addURI(AUTHORITY,"login", USER_LOGIN_NUMBER);
+// reserved-for:AndroidSqliteQuerySingle002.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.1
+	}
+
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
 	private static final String[] selectableColumns = new String[] { 
@@ -172,9 +218,38 @@ public class UserProvider extends ContentProvider {
 	@Nullable
 	@Override
 	public String getType (@NonNull Uri uri) {
+
+		switch (MATCHER.match(uri)){
+			case USER_INSERT_NUMBER:
+				return USER_INSERT_TYPE;
+			case USER_UPDATE_NUMBER:
+				return USER_UPDATE_TYPE;
+			case USER_DELETE_NUMBER:
+				return USER_DELETE_TYPE;
+			case USER_ALL_NUMBER:
+				return USER_ALL_TYPE;
+			case USER_SOME_NUMBER:
+				return USER_SOME_TYPE;
+			case USER_BY_ID_NUMBER:
+				return USER_BY_ID_TYPE;
+			case USER_LAST_ID_NUMBER:
+				return USER_LAST_ID_TYPE;
+// reserved-for:AndroidSqliteDatabase003.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.2
+			case USER_USER_CAN_ACCESS_NUMBER:
+				return USER_USER_CAN_ACCESS_TYPE;
+			case USER_LOGIN_NUMBER:
+				return USER_LOGIN_TYPE;
+// reserved-for:AndroidSqliteQuerySingle002.2
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.2
+		}
 		return null;
 	}
-// reserved-for:AndroidSqliteDatabase003
+// reserved-for:AndroidSqliteDatabase003.2
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase004
@@ -247,20 +322,20 @@ public class UserProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
+	/* @ExistsWhere */
+	public Cursor user_can_access (String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT exists(*) FROM user INNER JOIN system ON user.fk_system = system.id INNER JOIN role ON user.fk_role = role.id WHERE user.username = ? AND system.enabled = ? AND system.id = ? AND role.name = ?;";
+		Cursor cursor = database.rawQuery(query, new String[]{selectionArgs[0], "1", com.uisleandro.util.config.getSystemIdString(), selectionArgs[1]});
+		return cursor;
+	}
 	/* @SelectOneWhere */
 	public Cursor login (String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
-		String query = "SELECT user.last_update,user.username,user.password,user.name,user.email,user.last_use_time,user.last_error_time,user.error_count,user.active,role.last_update,role.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM user INNER JOIN system ON user.fk_system = system.id INNER JOIN role ON user.fk_role = role.id INNER JOIN currency ON system.fk_currency = currency.id WHERE user.last_update = ? AND user.fk_system = ? AND user.fk_role = ? AND user.username = ? AND user.password = ? AND user.name = ? AND user.email = ? AND user.last_use_time = ? AND user.last_error_time = ? AND user.error_count = ? AND user.active = ? AND system.last_update = ? AND system.name = ? AND system.enabled = ? AND system.fk_currency = ? AND role.last_update = ? AND role.name = ? AND currency.last_update = ? AND currency.abbreviature = ? AND currency.description = ?;";
-		Cursor cursor = database.rawQuery(query, selectionArgs);
-		return cursor;
-	}
-	/* @SelectOneWhere */
-	public Cursor user_can_access (String[] selectionArgs) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		String query = "SELECT user.last_update,user.username,user.password,user.name,user.email,user.last_use_time,user.last_error_time,user.error_count,user.active,role.last_update,role.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM user INNER JOIN system ON user.fk_system = system.id INNER JOIN role ON user.fk_role = role.id INNER JOIN currency ON system.fk_currency = currency.id WHERE user.last_update = ? AND user.fk_system = ? AND user.fk_role = ? AND user.username = ? AND user.password = ? AND user.name = ? AND user.email = ? AND user.last_use_time = ? AND user.last_error_time = ? AND user.error_count = ? AND user.active = ? AND system.last_update = ? AND system.name = ? AND system.enabled = ? AND system.fk_currency = ? AND role.last_update = ? AND role.name = ? AND currency.last_update = ? AND currency.abbreviature = ? AND currency.description = ?;";
-		Cursor cursor = database.rawQuery(query, selectionArgs);
+		String query = "SELECT user.last_update,user.username,user.password,user.name,user.email,user.last_use_time,user.last_error_time,user.error_count,user.active,role.last_update,role.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM user INNER JOIN system ON user.fk_system = system.id INNER JOIN role ON user.fk_role = role.id INNER JOIN currency ON system.fk_currency = currency.id WHERE user.fk_system = ? AND user.username = ? AND user.password = ? AND user.error_count < ? AND user.active = ?;";
+		Cursor cursor = database.rawQuery(query, new String[]{com.uisleandro.util.config.getSystemIdString(), selectionArgs[0], selectionArgs[1], "3", "1"});
 		return cursor;
 	}
 // reserved-for:AndroidSqliteQuerySingle006
@@ -278,10 +353,10 @@ public class UserProvider extends ContentProvider {
 		else if (URI_USER_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
 		}
-		else if (URI_USER_BYID.equals(uri)) {
+		else if (URI_USER_BY_ID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[0]));
 		}
-		else if (URI_USER_LASTID.equals(uri)) {
+		else if (URI_USER_LAST_ID.equals(uri)) {
 			result = getLastId();
 		}
 // reserved-for:AndroidSqliteDatabase010
@@ -293,14 +368,17 @@ public class UserProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 /* @ExistsWhere||@SelectValueWhere||@SelectOneWhere||@SelectListWhere */
-	else if (URI_USER_LOGIN.equals(uri)) {
-		result = login(selectionArgs);
-	}
 	else if (URI_USER_USER_CAN_ACCESS.equals(uri)) {
 		result = user_can_access(selectionArgs);
+	}
+	else if (URI_USER_LOGIN.equals(uri)) {
+		result = login(selectionArgs);
 	}
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code

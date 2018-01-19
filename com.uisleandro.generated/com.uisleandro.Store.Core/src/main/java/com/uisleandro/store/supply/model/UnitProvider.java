@@ -1,11 +1,11 @@
 // Start of user code reserved-for:AndroidSqliteDatabase001
 package com.uisleandro.store.Core.model;  
 
-import java.util.ArrayList;
-import java.util.List;
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +13,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //old
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
@@ -35,34 +39,50 @@ public class UnitProvider extends ContentProvider {
 
 	public static final String AUTHORITY = "com.uisleandro.unit";
 	public static final String SCHEME = "content://";
-
+	private static final UriMatcher MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
+	
+	public static final int UNIT_INSERT_NUMBER = 1;
+	public static final String UNIT_INSERT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/insert";
 	public static final String UNIT_INSERT = SCHEME + AUTHORITY + "/insert";
 	public static final Uri URI_UNIT_INSERT = Uri.parse(UNIT_INSERT);
 	public static final String UNIT_INSERT_BASE = UNIT_INSERT + "/";
 
+	public static final int UNIT_UPDATE_NUMBER = 2;
+	public static final String UNIT_UPDATE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/update";
 	public static final String UNIT_UPDATE = SCHEME + AUTHORITY + "/update";
 	public static final Uri URI_UNIT_UPDATE = Uri.parse(UNIT_UPDATE);
 	public static final String UNIT_UPDATE_BASE = UNIT_UPDATE + "/";
 
+	public static final int UNIT_DELETE_NUMBER = 3;
+	public static final String UNIT_DELETE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/delete";
 	public static final String UNIT_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final Uri URI_UNIT_DELETE = Uri.parse(UNIT_DELETE);
 	public static final String UNIT_DELETE_BASE = UNIT_DELETE + "/";
 
+	public static final int UNIT_ALL_NUMBER = 4;
+	public static final String UNIT_ALL_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/all";
 	public static final String UNIT_ALL = SCHEME + AUTHORITY + "/all";
 	public static final Uri URI_UNIT_ALL = Uri.parse(UNIT_ALL);
 	public static final String UNIT_ALL_BASE = UNIT_ALL + "/";
 
+	public static final int UNIT_SOME_NUMBER = 5;
+	public static final String UNIT_SOME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/some";
 	public static final String UNIT_SOME = SCHEME + AUTHORITY + "/some";
 	public static final Uri URI_UNIT_SOME = Uri.parse(UNIT_SOME);
 	public static final String UNIT_SOME_BASE = UNIT_SOME + "/";
 
-	public static final String UNIT_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final Uri URI_UNIT_BYID = Uri.parse(UNIT_BYID);
-	public static final String UNIT_BYID_BASE = UNIT_BYID + "/";
+	public static final int UNIT_BY_ID_NUMBER = 6;
+	public static final String UNIT_BY_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/by_id";
+	public static final String UNIT_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final Uri URI_UNIT_BY_ID = Uri.parse(UNIT_BY_ID);
+	public static final String UNIT_BY_ID_BASE = UNIT_BY_ID + "/";
 
-	public static final String UNIT_LASTID = SCHEME + AUTHORITY + "/lastid";
-	public static final Uri URI_UNIT_LASTID = Uri.parse(UNIT_LASTID);
-	public static final String UNIT_LASTID_BASE = UNIT_LASTID + "/";
+	public static final int UNIT_LAST_ID_NUMBER = 7;
+	public static final String UNIT_LAST_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/last_id";
+	public static final String UNIT_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Uri URI_UNIT_LAST_ID = Uri.parse(UNIT_LAST_ID);
+	public static final String UNIT_LAST_ID_BASE = UNIT_LAST_ID + "/";
+
 
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
@@ -76,6 +96,25 @@ public class UnitProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase003
+
+	static {
+		MATCHER.addURI(AUTHORITY,"insert", UNIT_INSERT_NUMBER);
+		MATCHER.addURI(AUTHORITY,"update", UNIT_UPDATE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"delete", UNIT_DELETE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"all", UNIT_ALL_NUMBER);
+		MATCHER.addURI(AUTHORITY,"some", UNIT_SOME_NUMBER);
+		MATCHER.addURI(AUTHORITY,"by_id", UNIT_BY_ID_NUMBER);
+		MATCHER.addURI(AUTHORITY,"last_id", UNIT_LAST_ID_NUMBER);
+// reserved-for:AndroidSqliteDatabase003
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.1
+// reserved-for:AndroidSqliteQuerySingle002.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.1
+	}
+
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
 	private static final String[] selectableColumns = new String[] { 
@@ -146,9 +185,34 @@ public class UnitProvider extends ContentProvider {
 	@Nullable
 	@Override
 	public String getType (@NonNull Uri uri) {
+
+		switch (MATCHER.match(uri)){
+			case UNIT_INSERT_NUMBER:
+				return UNIT_INSERT_TYPE;
+			case UNIT_UPDATE_NUMBER:
+				return UNIT_UPDATE_TYPE;
+			case UNIT_DELETE_NUMBER:
+				return UNIT_DELETE_TYPE;
+			case UNIT_ALL_NUMBER:
+				return UNIT_ALL_TYPE;
+			case UNIT_SOME_NUMBER:
+				return UNIT_SOME_TYPE;
+			case UNIT_BY_ID_NUMBER:
+				return UNIT_BY_ID_TYPE;
+			case UNIT_LAST_ID_NUMBER:
+				return UNIT_LAST_ID_TYPE;
+// reserved-for:AndroidSqliteDatabase003.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.2
+// reserved-for:AndroidSqliteQuerySingle002.2
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.2
+		}
 		return null;
 	}
-// reserved-for:AndroidSqliteDatabase003
+// reserved-for:AndroidSqliteDatabase003.2
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase004
@@ -236,10 +300,10 @@ public class UnitProvider extends ContentProvider {
 		else if (URI_UNIT_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
 		}
-		else if (URI_UNIT_BYID.equals(uri)) {
+		else if (URI_UNIT_BY_ID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[0]));
 		}
-		else if (URI_UNIT_LASTID.equals(uri)) {
+		else if (URI_UNIT_LAST_ID.equals(uri)) {
 			result = getLastId();
 		}
 // reserved-for:AndroidSqliteDatabase010
@@ -254,5 +318,8 @@ public class UnitProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code

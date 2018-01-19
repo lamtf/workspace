@@ -529,11 +529,7 @@ DESCOMENTAR QUANDO RESOLVER O PROBLEMA */
 [template public generateElement(root : Model)]
 [comment @main/]
 
-[let pname : String = root.get_configuration_namespace()]
-[let vendor : String = 'uisleandro']
-[let appName : String = 'Store']
-[let cName : String = 'com.'+vendor+'.'+appName]
-
+[let pname : String = root.get_configuration_namespace()][let vendor : String = 'uisleandro'][let appName : String = 'Store'][let cName : String = 'com.'+vendor+'.'+appName]
 [comment
 
 I think its better to have
@@ -546,10 +542,7 @@ one for each module
 [/file]
 [/comment]
 
-
 [for (modul : Package | get_modules(root))]
-
-
 [for (tbl : Class | get_tables(modul))]
 
 [file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'DataSource.java', false, 'UTF-8')]
@@ -557,13 +550,9 @@ one for each module
 [/file]
 
 [/for]
-
 [/for]
 
-[/let]
-[/let]
-[/let]
-[/let]
+[/let][/let][/let][/let]
 [/template]
 
 

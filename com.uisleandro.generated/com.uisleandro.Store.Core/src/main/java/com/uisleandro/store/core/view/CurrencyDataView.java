@@ -13,7 +13,7 @@ public class CurrencyDataView {
 	private String abbreviature;
 	private String description;
 
-	public CurrencyView () {
+	public CurrencyDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

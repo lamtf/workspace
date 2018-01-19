@@ -14,7 +14,7 @@ public class BrazilianDataView {
 	private String rg;
 	private long fk_basic_client;
 
-	public BrazilianView () {
+	public BrazilianDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

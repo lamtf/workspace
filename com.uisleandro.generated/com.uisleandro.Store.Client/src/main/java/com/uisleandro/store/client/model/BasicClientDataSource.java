@@ -28,8 +28,8 @@ public class BasicClientDataSource {
 	public static final String BASIC_CLIENT_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final String BASIC_CLIENT_ALL = SCHEME + AUTHORITY + "/all";
 	public static final String BASIC_CLIENT_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String BASIC_CLIENT_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final String BASIC_CLIENT_LASTID = SCHEME + AUTHORITY + "/lastid";
+	public static final String BASIC_CLIENT_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final String BASIC_CLIENT_LAST_ID = SCHEME + AUTHORITY + "/last_id";
 
 	Context context;
 	public BasicClientDataSource (Context context) {
@@ -53,7 +53,7 @@ public class BasicClientDataSource {
 
 	public BasicClientView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(BASIC_CLIENT_BYID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(BASIC_CLIENT_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -81,7 +81,7 @@ public class BasicClientDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(BASIC_CLIENT_LASTID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(BASIC_CLIENT_LAST_ID, null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -124,9 +124,9 @@ public class BasicClientDataSource {
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @SelectOneWhere */
-	public FindByCpfOut find_by_cpf(String cpf){
-		String selectionArgs = new String[]{ cpf }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.basic_client/find_by_cpf",null, null, selectionArgs, null);
+	public FindByCpfOut find_by_name(String name){
+		String selectionArgs = new String[]{ name }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.basic_client/find_by_name",null, null, selectionArgs, null);
 		FindByCpfOut that = null;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
@@ -136,9 +136,9 @@ public class BasicClientDataSource {
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @SelectOneWhere */
-	public FindByCpfOut find_by_name(String name){
-		String selectionArgs = new String[]{ name }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.basic_client/find_by_name",null, null, selectionArgs, null);
+	public FindByCpfOut find_by_cpf(String cpf){
+		String selectionArgs = new String[]{ cpf }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.basic_client/find_by_cpf",null, null, selectionArgs, null);
 		FindByCpfOut that = null;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){

@@ -13,7 +13,7 @@ public class ProductOnSaleDataView {
 	private long fk_sale;
 	private long fk_product;
 
-	public ProductOnSaleView () {
+	public ProductOnSaleDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

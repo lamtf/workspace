@@ -12,7 +12,6 @@ import com.uisleandro.store.core.view.UserDataView
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle001
 import com.uisleandro.store.core.view.LoginOut;
-import com.uisleandro.store.core.view.CanAccessOut;
 // reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -27,8 +26,8 @@ public class UserDataSource {
 	public static final String USER_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final String USER_ALL = SCHEME + AUTHORITY + "/all";
 	public static final String USER_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String USER_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final String USER_LASTID = SCHEME + AUTHORITY + "/lastid";
+	public static final String USER_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final String USER_LAST_ID = SCHEME + AUTHORITY + "/last_id";
 
 	Context context;
 	public UserDataSource (Context context) {
@@ -52,7 +51,7 @@ public class UserDataSource {
 
 	public UserView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(USER_BYID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(USER_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -80,7 +79,7 @@ public class UserDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(USER_LASTID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(USER_LAST_ID, null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -110,26 +109,26 @@ public class UserDataSource {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	/* @SelectOneWhere */
-	public LoginOut login(Long last_update, String username, String password, String name, String email, Long last_use_time, Long last_error_time, Integer error_count, Boolean active, Long last_update, String name, Boolean enabled, Long last_update, String name, Long last_update, String abbreviature, String description){
-		String selectionArgs = new String[]{ String.valueOf(last_update), String.valueOf(system), String.valueOf(role), username, password, name, email, String.valueOf(last_use_time), String.valueOf(last_error_time), String.valueOf(error_count), String.valueOf(active), String.valueOf(last_update), name, String.valueOf(enabled), String.valueOf(currency), String.valueOf(last_update), name, String.valueOf(last_update), abbreviature, description }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.user/login",null, null, selectionArgs, null);
-		LoginOut that = null;
+	/* @ExistsWhere */
+	public boolean user_can_access (String username, String name) {
+		String selectionArgs = new String[]{ String.valueOf(system), String.valueOf(role), username, "1", com.uisleandro.util.config.getSystemIdString(), name }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.user/user_can_access",null, null, selectionArgs, null);
+		boolean that = false;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
-			that = LoginOut.FromCursor(cursor);
+			that = (cursor.getInt(0) > 0);
 		}
 		return that;
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @SelectOneWhere */
-	public CanAccessOut user_can_access(Long last_update, String username, String password, String name, String email, Long last_use_time, Long last_error_time, Integer error_count, Boolean active, Long last_update, String name, Boolean enabled, Long last_update, String name, Long last_update, String abbreviature, String description){
-		String selectionArgs = new String[]{ String.valueOf(last_update), String.valueOf(system), String.valueOf(role), username, password, name, email, String.valueOf(last_use_time), String.valueOf(last_error_time), String.valueOf(error_count), String.valueOf(active), String.valueOf(last_update), name, String.valueOf(enabled), String.valueOf(currency), String.valueOf(last_update), name, String.valueOf(last_update), abbreviature, description }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.user/user_can_access",null, null, selectionArgs, null);
-		CanAccessOut that = null;
+	public LoginOut login(String username, String password){
+		String selectionArgs = new String[]{ com.uisleandro.util.config.getSystemIdString(), username, password, "3", "1" }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.user/login",null, null, selectionArgs, null);
+		LoginOut that = null;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
-			that = CanAccessOut.FromCursor(cursor);
+			that = LoginOut.FromCursor(cursor);
 		}
 		return that;
 	// TODO: PLEASE DONT USE SYNC CODE

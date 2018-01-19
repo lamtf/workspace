@@ -17,7 +17,7 @@ public class TokenDataView {
 	private long last_use_time;
 	private long expiration_time;
 
-	public TokenView () {
+	public TokenDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

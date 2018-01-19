@@ -1,11 +1,11 @@
 // Start of user code reserved-for:AndroidSqliteDatabase001
 package com.uisleandro.store.Core.model;  
 
-import java.util.ArrayList;
-import java.util.List;
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +13,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //old
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
@@ -36,34 +40,50 @@ public class CashRegisterProvider extends ContentProvider {
 
 	public static final String AUTHORITY = "com.uisleandro.cash_register";
 	public static final String SCHEME = "content://";
-
+	private static final UriMatcher MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
+	
+	public static final int CASH_REGISTER_INSERT_NUMBER = 1;
+	public static final String CASH_REGISTER_INSERT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/insert";
 	public static final String CASH_REGISTER_INSERT = SCHEME + AUTHORITY + "/insert";
 	public static final Uri URI_CASH_REGISTER_INSERT = Uri.parse(CASH_REGISTER_INSERT);
 	public static final String CASH_REGISTER_INSERT_BASE = CASH_REGISTER_INSERT + "/";
 
+	public static final int CASH_REGISTER_UPDATE_NUMBER = 2;
+	public static final String CASH_REGISTER_UPDATE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/update";
 	public static final String CASH_REGISTER_UPDATE = SCHEME + AUTHORITY + "/update";
 	public static final Uri URI_CASH_REGISTER_UPDATE = Uri.parse(CASH_REGISTER_UPDATE);
 	public static final String CASH_REGISTER_UPDATE_BASE = CASH_REGISTER_UPDATE + "/";
 
+	public static final int CASH_REGISTER_DELETE_NUMBER = 3;
+	public static final String CASH_REGISTER_DELETE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/delete";
 	public static final String CASH_REGISTER_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final Uri URI_CASH_REGISTER_DELETE = Uri.parse(CASH_REGISTER_DELETE);
 	public static final String CASH_REGISTER_DELETE_BASE = CASH_REGISTER_DELETE + "/";
 
+	public static final int CASH_REGISTER_ALL_NUMBER = 4;
+	public static final String CASH_REGISTER_ALL_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/all";
 	public static final String CASH_REGISTER_ALL = SCHEME + AUTHORITY + "/all";
 	public static final Uri URI_CASH_REGISTER_ALL = Uri.parse(CASH_REGISTER_ALL);
 	public static final String CASH_REGISTER_ALL_BASE = CASH_REGISTER_ALL + "/";
 
+	public static final int CASH_REGISTER_SOME_NUMBER = 5;
+	public static final String CASH_REGISTER_SOME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/some";
 	public static final String CASH_REGISTER_SOME = SCHEME + AUTHORITY + "/some";
 	public static final Uri URI_CASH_REGISTER_SOME = Uri.parse(CASH_REGISTER_SOME);
 	public static final String CASH_REGISTER_SOME_BASE = CASH_REGISTER_SOME + "/";
 
-	public static final String CASH_REGISTER_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final Uri URI_CASH_REGISTER_BYID = Uri.parse(CASH_REGISTER_BYID);
-	public static final String CASH_REGISTER_BYID_BASE = CASH_REGISTER_BYID + "/";
+	public static final int CASH_REGISTER_BY_ID_NUMBER = 6;
+	public static final String CASH_REGISTER_BY_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/by_id";
+	public static final String CASH_REGISTER_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final Uri URI_CASH_REGISTER_BY_ID = Uri.parse(CASH_REGISTER_BY_ID);
+	public static final String CASH_REGISTER_BY_ID_BASE = CASH_REGISTER_BY_ID + "/";
 
-	public static final String CASH_REGISTER_LASTID = SCHEME + AUTHORITY + "/lastid";
-	public static final Uri URI_CASH_REGISTER_LASTID = Uri.parse(CASH_REGISTER_LASTID);
-	public static final String CASH_REGISTER_LASTID_BASE = CASH_REGISTER_LASTID + "/";
+	public static final int CASH_REGISTER_LAST_ID_NUMBER = 7;
+	public static final String CASH_REGISTER_LAST_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/last_id";
+	public static final String CASH_REGISTER_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Uri URI_CASH_REGISTER_LAST_ID = Uri.parse(CASH_REGISTER_LAST_ID);
+	public static final String CASH_REGISTER_LAST_ID_BASE = CASH_REGISTER_LAST_ID + "/";
+
 
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
@@ -73,28 +93,71 @@ public class CashRegisterProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final String CASH_REGISTER_CHECK_HISTORY = SCHEME + AUTHORITY + "/check_history";
-	public static final Uri URI_CASH_REGISTER_CHECK_HISTORY = Uri.parse(CASH_REGISTER_CHECK_HISTORY);
-	public static final String CASH_REGISTER_CHECK_HISTORY_BASE = CASH_REGISTER_CHECK_HISTORY + "/";
+	public static final int CASH_REGISTER_CLOSE_CASH_REGISTER_NUMBER = 8;
+	public static final String CASH_REGISTER_CLOSE_CASH_REGISTER_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/close_cash_register";
 	public static final String CASH_REGISTER_CLOSE_CASH_REGISTER = SCHEME + AUTHORITY + "/close_cash_register";
 	public static final Uri URI_CASH_REGISTER_CLOSE_CASH_REGISTER = Uri.parse(CASH_REGISTER_CLOSE_CASH_REGISTER);
 	public static final String CASH_REGISTER_CLOSE_CASH_REGISTER_BASE = CASH_REGISTER_CLOSE_CASH_REGISTER + "/";
+
+	public static final int CASH_REGISTER_CHECK_HISTORY_NUMBER = 9;
+	public static final String CASH_REGISTER_CHECK_HISTORY_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/check_history";
+	public static final String CASH_REGISTER_CHECK_HISTORY = SCHEME + AUTHORITY + "/check_history";
+	public static final Uri URI_CASH_REGISTER_CHECK_HISTORY = Uri.parse(CASH_REGISTER_CHECK_HISTORY);
+	public static final String CASH_REGISTER_CHECK_HISTORY_BASE = CASH_REGISTER_CHECK_HISTORY + "/";
+
+	public static final int CASH_REGISTER_IS_OPEN_TODAY_NUMBER = 10;
+	public static final String CASH_REGISTER_IS_OPEN_TODAY_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/is_open_today";
 	public static final String CASH_REGISTER_IS_OPEN_TODAY = SCHEME + AUTHORITY + "/is_open_today";
 	public static final Uri URI_CASH_REGISTER_IS_OPEN_TODAY = Uri.parse(CASH_REGISTER_IS_OPEN_TODAY);
 	public static final String CASH_REGISTER_IS_OPEN_TODAY_BASE = CASH_REGISTER_IS_OPEN_TODAY + "/";
-	public static final String CASH_REGISTER_OPEN_CASH_REGISTER = SCHEME + AUTHORITY + "/open_cash_register";
-	public static final Uri URI_CASH_REGISTER_OPEN_CASH_REGISTER = Uri.parse(CASH_REGISTER_OPEN_CASH_REGISTER);
-	public static final String CASH_REGISTER_OPEN_CASH_REGISTER_BASE = CASH_REGISTER_OPEN_CASH_REGISTER + "/";
-	public static final String CASH_REGISTER_SUM_CASH_LAUNCHES = SCHEME + AUTHORITY + "/sum_cash_launches";
-	public static final Uri URI_CASH_REGISTER_SUM_CASH_LAUNCHES = Uri.parse(CASH_REGISTER_SUM_CASH_LAUNCHES);
-	public static final String CASH_REGISTER_SUM_CASH_LAUNCHES_BASE = CASH_REGISTER_SUM_CASH_LAUNCHES + "/";
+
+	public static final int CASH_REGISTER_EVENTUAL_CASH_USAGE_NUMBER = 11;
+	public static final String CASH_REGISTER_EVENTUAL_CASH_USAGE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/eventual_cash_usage";
 	public static final String CASH_REGISTER_EVENTUAL_CASH_USAGE = SCHEME + AUTHORITY + "/eventual_cash_usage";
 	public static final Uri URI_CASH_REGISTER_EVENTUAL_CASH_USAGE = Uri.parse(CASH_REGISTER_EVENTUAL_CASH_USAGE);
 	public static final String CASH_REGISTER_EVENTUAL_CASH_USAGE_BASE = CASH_REGISTER_EVENTUAL_CASH_USAGE + "/";
+
+	public static final int CASH_REGISTER_SUM_CASH_LAUNCHES_NUMBER = 12;
+	public static final String CASH_REGISTER_SUM_CASH_LAUNCHES_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/sum_cash_launches";
+	public static final String CASH_REGISTER_SUM_CASH_LAUNCHES = SCHEME + AUTHORITY + "/sum_cash_launches";
+	public static final Uri URI_CASH_REGISTER_SUM_CASH_LAUNCHES = Uri.parse(CASH_REGISTER_SUM_CASH_LAUNCHES);
+	public static final String CASH_REGISTER_SUM_CASH_LAUNCHES_BASE = CASH_REGISTER_SUM_CASH_LAUNCHES + "/";
+
+	public static final int CASH_REGISTER_OPEN_CASH_REGISTER_NUMBER = 13;
+	public static final String CASH_REGISTER_OPEN_CASH_REGISTER_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/open_cash_register";
+	public static final String CASH_REGISTER_OPEN_CASH_REGISTER = SCHEME + AUTHORITY + "/open_cash_register";
+	public static final Uri URI_CASH_REGISTER_OPEN_CASH_REGISTER = Uri.parse(CASH_REGISTER_OPEN_CASH_REGISTER);
+	public static final String CASH_REGISTER_OPEN_CASH_REGISTER_BASE = CASH_REGISTER_OPEN_CASH_REGISTER + "/";
+
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase003
+
+	static {
+		MATCHER.addURI(AUTHORITY,"insert", CASH_REGISTER_INSERT_NUMBER);
+		MATCHER.addURI(AUTHORITY,"update", CASH_REGISTER_UPDATE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"delete", CASH_REGISTER_DELETE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"all", CASH_REGISTER_ALL_NUMBER);
+		MATCHER.addURI(AUTHORITY,"some", CASH_REGISTER_SOME_NUMBER);
+		MATCHER.addURI(AUTHORITY,"by_id", CASH_REGISTER_BY_ID_NUMBER);
+		MATCHER.addURI(AUTHORITY,"last_id", CASH_REGISTER_LAST_ID_NUMBER);
+// reserved-for:AndroidSqliteDatabase003
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.1
+		MATCHER.addURI(AUTHORITY,"close_cash_register", CASH_REGISTER_CLOSE_CASH_REGISTER_NUMBER);
+		MATCHER.addURI(AUTHORITY,"check_history", CASH_REGISTER_CHECK_HISTORY_NUMBER);
+		MATCHER.addURI(AUTHORITY,"is_open_today", CASH_REGISTER_IS_OPEN_TODAY_NUMBER);
+		MATCHER.addURI(AUTHORITY,"eventual_cash_usage", CASH_REGISTER_EVENTUAL_CASH_USAGE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"sum_cash_launches", CASH_REGISTER_SUM_CASH_LAUNCHES_NUMBER);
+		MATCHER.addURI(AUTHORITY,"open_cash_register", CASH_REGISTER_OPEN_CASH_REGISTER_NUMBER);
+// reserved-for:AndroidSqliteQuerySingle002.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.1
+	}
+
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
 	private static final String[] selectableColumns = new String[] { 
@@ -173,9 +236,46 @@ public class CashRegisterProvider extends ContentProvider {
 	@Nullable
 	@Override
 	public String getType (@NonNull Uri uri) {
+
+		switch (MATCHER.match(uri)){
+			case CASH_REGISTER_INSERT_NUMBER:
+				return CASH_REGISTER_INSERT_TYPE;
+			case CASH_REGISTER_UPDATE_NUMBER:
+				return CASH_REGISTER_UPDATE_TYPE;
+			case CASH_REGISTER_DELETE_NUMBER:
+				return CASH_REGISTER_DELETE_TYPE;
+			case CASH_REGISTER_ALL_NUMBER:
+				return CASH_REGISTER_ALL_TYPE;
+			case CASH_REGISTER_SOME_NUMBER:
+				return CASH_REGISTER_SOME_TYPE;
+			case CASH_REGISTER_BY_ID_NUMBER:
+				return CASH_REGISTER_BY_ID_TYPE;
+			case CASH_REGISTER_LAST_ID_NUMBER:
+				return CASH_REGISTER_LAST_ID_TYPE;
+// reserved-for:AndroidSqliteDatabase003.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.2
+			case CASH_REGISTER_CLOSE_CASH_REGISTER_NUMBER:
+				return CASH_REGISTER_CLOSE_CASH_REGISTER_TYPE;
+			case CASH_REGISTER_CHECK_HISTORY_NUMBER:
+				return CASH_REGISTER_CHECK_HISTORY_TYPE;
+			case CASH_REGISTER_IS_OPEN_TODAY_NUMBER:
+				return CASH_REGISTER_IS_OPEN_TODAY_TYPE;
+			case CASH_REGISTER_EVENTUAL_CASH_USAGE_NUMBER:
+				return CASH_REGISTER_EVENTUAL_CASH_USAGE_TYPE;
+			case CASH_REGISTER_SUM_CASH_LAUNCHES_NUMBER:
+				return CASH_REGISTER_SUM_CASH_LAUNCHES_TYPE;
+			case CASH_REGISTER_OPEN_CASH_REGISTER_NUMBER:
+				return CASH_REGISTER_OPEN_CASH_REGISTER_TYPE;
+// reserved-for:AndroidSqliteQuerySingle002.2
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.2
+		}
 		return null;
 	}
-// reserved-for:AndroidSqliteDatabase003
+// reserved-for:AndroidSqliteDatabase003.2
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase004
@@ -191,11 +291,11 @@ public class CashRegisterProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle003
 /* @Insert */
-	else if (URI_CASH_REGISTER_open_cash_register.equals(uri)) {
-			result = open_cash_register(selectionArgs); // << missing arguments
-	}
 	else if (URI_CASH_REGISTER_eventual_cash_usage.equals(uri)) {
 			result = eventual_cash_usage(selectionArgs); // << missing arguments
+	}
+	else if (URI_CASH_REGISTER_open_cash_register.equals(uri)) {
+			result = open_cash_register(selectionArgs); // << missing arguments
 	}
 // reserved-for:AndroidSqliteQuerySingle003
 // End of user code
@@ -262,7 +362,7 @@ public class CashRegisterProvider extends ContentProvider {
 		if(page_size > 0){
 				query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-		Cursor cursor = database.rawQuery(query, selectionArgs);
+		Cursor cursor = database.rawQuery(query, new String[]{com.uisleandro.util.config.getTodayString()});
 		return cursor;
 	}
 	/* @ExistsWhere */
@@ -270,14 +370,14 @@ public class CashRegisterProvider extends ContentProvider {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "SELECT exists(*) FROM cash_register WHERE cash_register.last_update = ? AND cash_register.user = ? AND cash_register.opening_value > ? AND cash_register.closing_value = ?;";
-		Cursor cursor = database.rawQuery(query, new String[]{ com.uisleandro.util.config.getTodayString(), com.uisleandro.util.config.getUserIdString(), "0", "0" });
+		Cursor cursor = database.rawQuery(query, new String[]{com.uisleandro.util.config.getTodayString(), com.uisleandro.util.config.getUserIdString(), "0", "0"});
 		return cursor;
 	}
 	/* @Insert */
-	public int open_cash_register (String[] selectionArgs) {
+	public int eventual_cash_usage (String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
-		String query = "INSERT INTO cash_register(last_update,user,opening_value,received_value,closing_value) VALUES (?,?,?,?,?);";
+		String query = "INSERT INTO cash_launch(last_update,fk_cash_register,justification,amount_spent) VALUES (?,?,?,?);";
 		Cursor cursor = database.rawQuery(query, selectionArgs);
 		//TODO: I don't knwo if its returning the last_id, I guess it's not
 		cursor.moveToFirst();
@@ -295,10 +395,10 @@ public class CashRegisterProvider extends ContentProvider {
 		return cursor;
 	}
 	/* @Insert */
-	public int eventual_cash_usage (String[] selectionArgs) {
+	public int open_cash_register (String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
-		String query = "INSERT INTO cash_launch(last_update,fk_cash_register,justification,amount_spent) VALUES (?,?,?,?);";
+		String query = "INSERT INTO cash_register(last_update,user,opening_value,received_value,closing_value) VALUES (?,?,?,?,?);";
 		Cursor cursor = database.rawQuery(query, selectionArgs);
 		//TODO: I don't knwo if its returning the last_id, I guess it's not
 		cursor.moveToFirst();
@@ -322,10 +422,10 @@ public class CashRegisterProvider extends ContentProvider {
 		else if (URI_CASH_REGISTER_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
 		}
-		else if (URI_CASH_REGISTER_BYID.equals(uri)) {
+		else if (URI_CASH_REGISTER_BY_ID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[0]));
 		}
-		else if (URI_CASH_REGISTER_LASTID.equals(uri)) {
+		else if (URI_CASH_REGISTER_LAST_ID.equals(uri)) {
 			result = getLastId();
 		}
 // reserved-for:AndroidSqliteDatabase010
@@ -349,5 +449,8 @@ public class CashRegisterProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code

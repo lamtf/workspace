@@ -12,7 +12,7 @@ public class RoleDataView {
 	private long last_update;
 	private String name;
 
-	public RoleView () {
+	public RoleDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

@@ -25,7 +25,7 @@ public class BasicClientDataView {
 	private String complement;
 	private long fk_country;
 
-	public BasicClientView () {
+	public BasicClientDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

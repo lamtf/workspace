@@ -1,11 +1,11 @@
 // Start of user code reserved-for:AndroidSqliteDatabase001
 package com.uisleandro.store.Core.model;  
 
-import java.util.ArrayList;
-import java.util.List;
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +13,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //old
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
@@ -35,34 +39,50 @@ public class DbLogProvider extends ContentProvider {
 
 	public static final String AUTHORITY = "com.uisleandro.db_log";
 	public static final String SCHEME = "content://";
-
+	private static final UriMatcher MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
+	
+	public static final int DB_LOG_INSERT_NUMBER = 1;
+	public static final String DB_LOG_INSERT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/insert";
 	public static final String DB_LOG_INSERT = SCHEME + AUTHORITY + "/insert";
 	public static final Uri URI_DB_LOG_INSERT = Uri.parse(DB_LOG_INSERT);
 	public static final String DB_LOG_INSERT_BASE = DB_LOG_INSERT + "/";
 
+	public static final int DB_LOG_UPDATE_NUMBER = 2;
+	public static final String DB_LOG_UPDATE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/update";
 	public static final String DB_LOG_UPDATE = SCHEME + AUTHORITY + "/update";
 	public static final Uri URI_DB_LOG_UPDATE = Uri.parse(DB_LOG_UPDATE);
 	public static final String DB_LOG_UPDATE_BASE = DB_LOG_UPDATE + "/";
 
+	public static final int DB_LOG_DELETE_NUMBER = 3;
+	public static final String DB_LOG_DELETE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/delete";
 	public static final String DB_LOG_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final Uri URI_DB_LOG_DELETE = Uri.parse(DB_LOG_DELETE);
 	public static final String DB_LOG_DELETE_BASE = DB_LOG_DELETE + "/";
 
+	public static final int DB_LOG_ALL_NUMBER = 4;
+	public static final String DB_LOG_ALL_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/all";
 	public static final String DB_LOG_ALL = SCHEME + AUTHORITY + "/all";
 	public static final Uri URI_DB_LOG_ALL = Uri.parse(DB_LOG_ALL);
 	public static final String DB_LOG_ALL_BASE = DB_LOG_ALL + "/";
 
+	public static final int DB_LOG_SOME_NUMBER = 5;
+	public static final String DB_LOG_SOME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/some";
 	public static final String DB_LOG_SOME = SCHEME + AUTHORITY + "/some";
 	public static final Uri URI_DB_LOG_SOME = Uri.parse(DB_LOG_SOME);
 	public static final String DB_LOG_SOME_BASE = DB_LOG_SOME + "/";
 
-	public static final String DB_LOG_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final Uri URI_DB_LOG_BYID = Uri.parse(DB_LOG_BYID);
-	public static final String DB_LOG_BYID_BASE = DB_LOG_BYID + "/";
+	public static final int DB_LOG_BY_ID_NUMBER = 6;
+	public static final String DB_LOG_BY_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/by_id";
+	public static final String DB_LOG_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final Uri URI_DB_LOG_BY_ID = Uri.parse(DB_LOG_BY_ID);
+	public static final String DB_LOG_BY_ID_BASE = DB_LOG_BY_ID + "/";
 
-	public static final String DB_LOG_LASTID = SCHEME + AUTHORITY + "/lastid";
-	public static final Uri URI_DB_LOG_LASTID = Uri.parse(DB_LOG_LASTID);
-	public static final String DB_LOG_LASTID_BASE = DB_LOG_LASTID + "/";
+	public static final int DB_LOG_LAST_ID_NUMBER = 7;
+	public static final String DB_LOG_LAST_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/last_id";
+	public static final String DB_LOG_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Uri URI_DB_LOG_LAST_ID = Uri.parse(DB_LOG_LAST_ID);
+	public static final String DB_LOG_LAST_ID_BASE = DB_LOG_LAST_ID + "/";
+
 
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
@@ -76,6 +96,25 @@ public class DbLogProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase003
+
+	static {
+		MATCHER.addURI(AUTHORITY,"insert", DB_LOG_INSERT_NUMBER);
+		MATCHER.addURI(AUTHORITY,"update", DB_LOG_UPDATE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"delete", DB_LOG_DELETE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"all", DB_LOG_ALL_NUMBER);
+		MATCHER.addURI(AUTHORITY,"some", DB_LOG_SOME_NUMBER);
+		MATCHER.addURI(AUTHORITY,"by_id", DB_LOG_BY_ID_NUMBER);
+		MATCHER.addURI(AUTHORITY,"last_id", DB_LOG_LAST_ID_NUMBER);
+// reserved-for:AndroidSqliteDatabase003
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.1
+// reserved-for:AndroidSqliteQuerySingle002.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.1
+	}
+
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
 	private static final String[] selectableColumns = new String[] { 
@@ -150,9 +189,34 @@ public class DbLogProvider extends ContentProvider {
 	@Nullable
 	@Override
 	public String getType (@NonNull Uri uri) {
+
+		switch (MATCHER.match(uri)){
+			case DB_LOG_INSERT_NUMBER:
+				return DB_LOG_INSERT_TYPE;
+			case DB_LOG_UPDATE_NUMBER:
+				return DB_LOG_UPDATE_TYPE;
+			case DB_LOG_DELETE_NUMBER:
+				return DB_LOG_DELETE_TYPE;
+			case DB_LOG_ALL_NUMBER:
+				return DB_LOG_ALL_TYPE;
+			case DB_LOG_SOME_NUMBER:
+				return DB_LOG_SOME_TYPE;
+			case DB_LOG_BY_ID_NUMBER:
+				return DB_LOG_BY_ID_TYPE;
+			case DB_LOG_LAST_ID_NUMBER:
+				return DB_LOG_LAST_ID_TYPE;
+// reserved-for:AndroidSqliteDatabase003.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.2
+// reserved-for:AndroidSqliteQuerySingle002.2
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.2
+		}
 		return null;
 	}
-// reserved-for:AndroidSqliteDatabase003
+// reserved-for:AndroidSqliteDatabase003.2
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase004
@@ -240,10 +304,10 @@ public class DbLogProvider extends ContentProvider {
 		else if (URI_DB_LOG_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
 		}
-		else if (URI_DB_LOG_BYID.equals(uri)) {
+		else if (URI_DB_LOG_BY_ID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[0]));
 		}
-		else if (URI_DB_LOG_LASTID.equals(uri)) {
+		else if (URI_DB_LOG_LAST_ID.equals(uri)) {
 			result = getLastId();
 		}
 // reserved-for:AndroidSqliteDatabase010
@@ -258,5 +322,8 @@ public class DbLogProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code

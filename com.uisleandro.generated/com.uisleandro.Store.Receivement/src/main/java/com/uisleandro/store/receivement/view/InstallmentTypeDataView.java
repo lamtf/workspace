@@ -12,7 +12,7 @@ public class InstallmentTypeDataView {
 	private long last_update;
 	private String name;
 
-	public InstallmentTypeView () {
+	public InstallmentTypeDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

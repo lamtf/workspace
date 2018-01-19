@@ -23,7 +23,7 @@ public class BoletoSicoobDataView {
 	private float valor_recebido;
 	private long fk_invoice;
 
-	public BoletoSicoobView () {
+	public BoletoSicoobDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

@@ -18,7 +18,7 @@ public class InvoiceDataView {
 	private long fk_bank;
 	private long fk_currency;
 
-	public InvoiceView () {
+	public InvoiceDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

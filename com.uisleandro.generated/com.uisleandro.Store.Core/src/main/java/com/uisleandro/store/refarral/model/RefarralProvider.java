@@ -25,6 +25,22 @@
 // reserved-for:AndroidSqliteDatabase003
 // End of user code
 
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.1
+// reserved-for:AndroidSqliteQuerySingle002.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.1
+// reserved-for:AndroidSqliteDatabase003.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.2
+// reserved-for:AndroidSqliteQuerySingle002.2
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.2
+// reserved-for:AndroidSqliteDatabase003.2
+// End of user code
+
 // Start of user code reserved-for:AndroidSqliteDatabase004
 // reserved-for:AndroidSqliteDatabase004
 // End of user code

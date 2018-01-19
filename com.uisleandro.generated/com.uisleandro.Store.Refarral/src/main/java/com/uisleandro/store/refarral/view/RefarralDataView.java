@@ -18,7 +18,7 @@ public class RefarralDataView {
 	private String state;
 	private long zip_code;
 
-	public RefarralView () {
+	public RefarralDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

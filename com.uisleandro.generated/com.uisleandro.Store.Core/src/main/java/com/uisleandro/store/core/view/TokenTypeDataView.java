@@ -12,7 +12,7 @@ public class TokenTypeDataView {
 	private long last_update;
 	private String name;
 
-	public TokenTypeView () {
+	public TokenTypeDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

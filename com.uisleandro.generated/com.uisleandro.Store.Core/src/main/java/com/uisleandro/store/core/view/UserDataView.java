@@ -21,7 +21,7 @@ public class UserDataView {
 	private int error_count;
 	private boolean active;
 
-	public UserView () {
+	public UserDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

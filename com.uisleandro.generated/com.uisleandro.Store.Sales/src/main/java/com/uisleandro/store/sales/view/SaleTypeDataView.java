@@ -12,7 +12,7 @@ public class SaleTypeDataView {
 	private long last_update;
 	private String name;
 
-	public SaleTypeView () {
+	public SaleTypeDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

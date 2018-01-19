@@ -576,7 +576,7 @@ public class [tbl.name.ToCamelCase() /]DataView {
 	private [get_java_type(prop) /] [prop.getName() /];
 [/for]
 
-	public [tbl.name.ToCamelCase()/]View () {
+	public [tbl.name.ToCamelCase()/]DataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;
@@ -741,11 +741,11 @@ ON [tbl.getQualifiedName() /]
 [begin_reserve('reserved-for:AndroidSqliteDatabase001') /]
 package [pname /].Core.model;  [comment 'Core' == modul.name/]
 
-import java.util.ArrayList;
-import java.util.List;
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -753,6 +753,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //old
 //import com.uisleandro.util.LongDateFormatter;
 //import [pname /].model.DbHelper;
@@ -775,37 +779,53 @@ public class [tbl.name.ToCamelCase() /]Provider extends ContentProvider {
 
 	public static final String AUTHORITY = "com.uisleandro.[tbl.name /]";
 	public static final String SCHEME = "content://";
-
+	private static final UriMatcher MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
+	
 	[comment]
 		The name of the functions will be place here
 	[/comment]
+	public static final int [tbl.name.toUpperCase() /]_INSERT_NUMBER = 1;
+	public static final String [tbl.name.toUpperCase() /]_INSERT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/insert";
 	public static final String [tbl.name.toUpperCase() /]_INSERT = SCHEME + AUTHORITY + "/insert";
 	public static final Uri URI_[tbl.name.toUpperCase() /]_INSERT = Uri.parse([tbl.name.toUpperCase() /]_INSERT);
 	public static final String [tbl.name.toUpperCase() /]_INSERT_BASE = [tbl.name.toUpperCase() /]_INSERT + "/";
 
+	public static final int [tbl.name.toUpperCase() /]_UPDATE_NUMBER = 2;
+	public static final String [tbl.name.toUpperCase() /]_UPDATE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/update";
 	public static final String [tbl.name.toUpperCase() /]_UPDATE = SCHEME + AUTHORITY + "/update";
 	public static final Uri URI_[tbl.name.toUpperCase() /]_UPDATE = Uri.parse([tbl.name.toUpperCase() /]_UPDATE);
 	public static final String [tbl.name.toUpperCase() /]_UPDATE_BASE = [tbl.name.toUpperCase() /]_UPDATE + "/";
 
+	public static final int [tbl.name.toUpperCase() /]_DELETE_NUMBER = 3;
+	public static final String [tbl.name.toUpperCase() /]_DELETE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/delete";
 	public static final String [tbl.name.toUpperCase() /]_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final Uri URI_[tbl.name.toUpperCase() /]_DELETE = Uri.parse([tbl.name.toUpperCase() /]_DELETE);
 	public static final String [tbl.name.toUpperCase() /]_DELETE_BASE = [tbl.name.toUpperCase() /]_DELETE + "/";
 
+	public static final int [tbl.name.toUpperCase() /]_ALL_NUMBER = 4;
+	public static final String [tbl.name.toUpperCase() /]_ALL_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/all";
 	public static final String [tbl.name.toUpperCase() /]_ALL = SCHEME + AUTHORITY + "/all";
 	public static final Uri URI_[tbl.name.toUpperCase() /]_ALL = Uri.parse([tbl.name.toUpperCase() /]_ALL);
 	public static final String [tbl.name.toUpperCase() /]_ALL_BASE = [tbl.name.toUpperCase() /]_ALL + "/";
 
+	public static final int [tbl.name.toUpperCase() /]_SOME_NUMBER = 5;
+	public static final String [tbl.name.toUpperCase() /]_SOME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/some";
 	public static final String [tbl.name.toUpperCase() /]_SOME = SCHEME + AUTHORITY + "/some";
 	public static final Uri URI_[tbl.name.toUpperCase() /]_SOME = Uri.parse([tbl.name.toUpperCase() /]_SOME);
 	public static final String [tbl.name.toUpperCase() /]_SOME_BASE = [tbl.name.toUpperCase() /]_SOME + "/";
 
-	public static final String [tbl.name.toUpperCase() /]_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final Uri URI_[tbl.name.toUpperCase() /]_BYID = Uri.parse([tbl.name.toUpperCase() /]_BYID);
-	public static final String [tbl.name.toUpperCase() /]_BYID_BASE = [tbl.name.toUpperCase() /]_BYID + "/";
+	public static final int [tbl.name.toUpperCase() /]_BY_ID_NUMBER = 6;
+	public static final String [tbl.name.toUpperCase() /]_BY_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/by_id";
+	public static final String [tbl.name.toUpperCase() /]_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final Uri URI_[tbl.name.toUpperCase() /]_BY_ID = Uri.parse([tbl.name.toUpperCase() /]_BY_ID);
+	public static final String [tbl.name.toUpperCase() /]_BY_ID_BASE = [tbl.name.toUpperCase() /]_BY_ID + "/";
 
-	public static final String [tbl.name.toUpperCase() /]_LASTID = SCHEME + AUTHORITY + "/lastid";
-	public static final Uri URI_[tbl.name.toUpperCase() /]_LASTID = Uri.parse([tbl.name.toUpperCase() /]_LASTID);
-	public static final String [tbl.name.toUpperCase() /]_LASTID_BASE = [tbl.name.toUpperCase() /]_LASTID + "/";
+	public static final int [tbl.name.toUpperCase() /]_LAST_ID_NUMBER = 7;
+	public static final String [tbl.name.toUpperCase() /]_LAST_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/last_id";
+	public static final String [tbl.name.toUpperCase() /]_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Uri URI_[tbl.name.toUpperCase() /]_LAST_ID = Uri.parse([tbl.name.toUpperCase() /]_LAST_ID);
+	public static final String [tbl.name.toUpperCase() /]_LAST_ID_BASE = [tbl.name.toUpperCase() /]_LAST_ID + "/";
+
 
 [end_reserve('reserved-for:AndroidSqliteDatabase002') /]
 
@@ -819,6 +839,24 @@ public class [tbl.name.ToCamelCase() /]Provider extends ContentProvider {
 // [/protected]
 
 [begin_reserve('reserved-for:AndroidSqliteDatabase003') /]
+
+	static {
+		MATCHER.addURI(AUTHORITY,"insert", [tbl.name.toUpperCase() /]_INSERT_NUMBER);
+		MATCHER.addURI(AUTHORITY,"update", [tbl.name.toUpperCase() /]_UPDATE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"delete", [tbl.name.toUpperCase() /]_DELETE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"all", [tbl.name.toUpperCase() /]_ALL_NUMBER);
+		MATCHER.addURI(AUTHORITY,"some", [tbl.name.toUpperCase() /]_SOME_NUMBER);
+		MATCHER.addURI(AUTHORITY,"by_id", [tbl.name.toUpperCase() /]_BY_ID_NUMBER);
+		MATCHER.addURI(AUTHORITY,"last_id", [tbl.name.toUpperCase() /]_LAST_ID_NUMBER);
+[end_reserve('reserved-for:AndroidSqliteDatabase003') /]
+
+// [protected ('reserved-for:AndroidSqliteQuerySingle002.1')]
+// reserved-for:AndroidSqliteQuerySingle002.1
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabase003.1') /]
+	}
+
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
 	private static final String[ '[' /][ ']' /] selectableColumns = new String[ '[' /][ ']' /] { 
@@ -890,9 +928,33 @@ separator (', \n')]
 	@Nullable
 	@Override
 	public String getType (@NonNull Uri uri) {
+
+		switch (MATCHER.match(uri)){
+			case [tbl.name.toUpperCase() /]_INSERT_NUMBER:
+				return [tbl.name.toUpperCase() /]_INSERT_TYPE;
+			case [tbl.name.toUpperCase() /]_UPDATE_NUMBER:
+				return [tbl.name.toUpperCase() /]_UPDATE_TYPE;
+			case [tbl.name.toUpperCase() /]_DELETE_NUMBER:
+				return [tbl.name.toUpperCase() /]_DELETE_TYPE;
+			case [tbl.name.toUpperCase() /]_ALL_NUMBER:
+				return [tbl.name.toUpperCase() /]_ALL_TYPE;
+			case [tbl.name.toUpperCase() /]_SOME_NUMBER:
+				return [tbl.name.toUpperCase() /]_SOME_TYPE;
+			case [tbl.name.toUpperCase() /]_BY_ID_NUMBER:
+				return [tbl.name.toUpperCase() /]_BY_ID_TYPE;
+			case [tbl.name.toUpperCase() /]_LAST_ID_NUMBER:
+				return [tbl.name.toUpperCase() /]_LAST_ID_TYPE;
+[end_reserve('reserved-for:AndroidSqliteDatabase003.1') /]
+
+// [protected ('reserved-for:AndroidSqliteQuerySingle002.2')]
+// reserved-for:AndroidSqliteQuerySingle002.2
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabase003.2') /]
+		}
 		return null;
 	}
-[end_reserve('reserved-for:AndroidSqliteDatabase003') /]
+[end_reserve('reserved-for:AndroidSqliteDatabase003.2') /]
 
 [begin_reserve('reserved-for:AndroidSqliteDatabase004') /]
 	@Nullable
@@ -971,10 +1033,10 @@ separator (', \n')]
 		else if (URI_[tbl.name.toUpperCase() /]_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[ '[' /]0[ ']' /]), Long.parseLong(selectionArgs[ '[' /]1[ ']' /]));
 		}
-		else if (URI_[tbl.name.toUpperCase() /]_BYID.equals(uri)) {
+		else if (URI_[tbl.name.toUpperCase() /]_BY_ID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[ '[' /]0[ ']' /]));
 		}
-		else if (URI_[tbl.name.toUpperCase() /]_LASTID.equals(uri)) {
+		else if (URI_[tbl.name.toUpperCase() /]_LAST_ID.equals(uri)) {
 			result = getLastId();
 		}
 [end_reserve('reserved-for:AndroidSqliteDatabase010') /]
@@ -1034,8 +1096,8 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 	public static final String [tbl.name.toUpperCase() /]_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final String [tbl.name.toUpperCase() /]_ALL = SCHEME + AUTHORITY + "/all";
 	public static final String [tbl.name.toUpperCase() /]_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String [tbl.name.toUpperCase() /]_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final String [tbl.name.toUpperCase() /]_LASTID = SCHEME + AUTHORITY + "/lastid";
+	public static final String [tbl.name.toUpperCase() /]_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final String [tbl.name.toUpperCase() /]_LAST_ID = SCHEME + AUTHORITY + "/last_id";
 
 	Context context;
 	public [tbl.name.ToCamelCase() /]DataSource (Context context) {
@@ -1059,7 +1121,7 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 
 	public [tbl.name.ToCamelCase() /]View getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_BYID, null, null, new String[ '[' /][ ']' /]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_BY_ID, null, null, new String[ '[' /][ ']' /]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -1087,7 +1149,7 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_LASTID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_LAST_ID, null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){

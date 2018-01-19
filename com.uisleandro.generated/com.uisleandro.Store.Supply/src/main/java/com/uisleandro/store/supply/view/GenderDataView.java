@@ -12,7 +12,7 @@ public class GenderDataView {
 	private long last_update;
 	private String name;
 
-	public GenderView () {
+	public GenderDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

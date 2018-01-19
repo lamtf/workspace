@@ -1,11 +1,11 @@
 // Start of user code reserved-for:AndroidSqliteDatabase001
 package com.uisleandro.store.Core.model;  
 
-import java.util.ArrayList;
-import java.util.List;
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +13,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //old
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
@@ -38,34 +42,50 @@ public class BasicClientProvider extends ContentProvider {
 
 	public static final String AUTHORITY = "com.uisleandro.basic_client";
 	public static final String SCHEME = "content://";
-
+	private static final UriMatcher MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
+	
+	public static final int BASIC_CLIENT_INSERT_NUMBER = 1;
+	public static final String BASIC_CLIENT_INSERT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/insert";
 	public static final String BASIC_CLIENT_INSERT = SCHEME + AUTHORITY + "/insert";
 	public static final Uri URI_BASIC_CLIENT_INSERT = Uri.parse(BASIC_CLIENT_INSERT);
 	public static final String BASIC_CLIENT_INSERT_BASE = BASIC_CLIENT_INSERT + "/";
 
+	public static final int BASIC_CLIENT_UPDATE_NUMBER = 2;
+	public static final String BASIC_CLIENT_UPDATE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/update";
 	public static final String BASIC_CLIENT_UPDATE = SCHEME + AUTHORITY + "/update";
 	public static final Uri URI_BASIC_CLIENT_UPDATE = Uri.parse(BASIC_CLIENT_UPDATE);
 	public static final String BASIC_CLIENT_UPDATE_BASE = BASIC_CLIENT_UPDATE + "/";
 
+	public static final int BASIC_CLIENT_DELETE_NUMBER = 3;
+	public static final String BASIC_CLIENT_DELETE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/delete";
 	public static final String BASIC_CLIENT_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final Uri URI_BASIC_CLIENT_DELETE = Uri.parse(BASIC_CLIENT_DELETE);
 	public static final String BASIC_CLIENT_DELETE_BASE = BASIC_CLIENT_DELETE + "/";
 
+	public static final int BASIC_CLIENT_ALL_NUMBER = 4;
+	public static final String BASIC_CLIENT_ALL_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/all";
 	public static final String BASIC_CLIENT_ALL = SCHEME + AUTHORITY + "/all";
 	public static final Uri URI_BASIC_CLIENT_ALL = Uri.parse(BASIC_CLIENT_ALL);
 	public static final String BASIC_CLIENT_ALL_BASE = BASIC_CLIENT_ALL + "/";
 
+	public static final int BASIC_CLIENT_SOME_NUMBER = 5;
+	public static final String BASIC_CLIENT_SOME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/some";
 	public static final String BASIC_CLIENT_SOME = SCHEME + AUTHORITY + "/some";
 	public static final Uri URI_BASIC_CLIENT_SOME = Uri.parse(BASIC_CLIENT_SOME);
 	public static final String BASIC_CLIENT_SOME_BASE = BASIC_CLIENT_SOME + "/";
 
-	public static final String BASIC_CLIENT_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final Uri URI_BASIC_CLIENT_BYID = Uri.parse(BASIC_CLIENT_BYID);
-	public static final String BASIC_CLIENT_BYID_BASE = BASIC_CLIENT_BYID + "/";
+	public static final int BASIC_CLIENT_BY_ID_NUMBER = 6;
+	public static final String BASIC_CLIENT_BY_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/by_id";
+	public static final String BASIC_CLIENT_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final Uri URI_BASIC_CLIENT_BY_ID = Uri.parse(BASIC_CLIENT_BY_ID);
+	public static final String BASIC_CLIENT_BY_ID_BASE = BASIC_CLIENT_BY_ID + "/";
 
-	public static final String BASIC_CLIENT_LASTID = SCHEME + AUTHORITY + "/lastid";
-	public static final Uri URI_BASIC_CLIENT_LASTID = Uri.parse(BASIC_CLIENT_LASTID);
-	public static final String BASIC_CLIENT_LASTID_BASE = BASIC_CLIENT_LASTID + "/";
+	public static final int BASIC_CLIENT_LAST_ID_NUMBER = 7;
+	public static final String BASIC_CLIENT_LAST_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/last_id";
+	public static final String BASIC_CLIENT_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Uri URI_BASIC_CLIENT_LAST_ID = Uri.parse(BASIC_CLIENT_LAST_ID);
+	public static final String BASIC_CLIENT_LAST_ID_BASE = BASIC_CLIENT_LAST_ID + "/";
+
 
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
@@ -75,19 +95,50 @@ public class BasicClientProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
+	public static final int BASIC_CLIENT_FIND_BY_ID_NUMBER = 8;
+	public static final String BASIC_CLIENT_FIND_BY_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/find_by_id";
 	public static final String BASIC_CLIENT_FIND_BY_ID = SCHEME + AUTHORITY + "/find_by_id";
 	public static final Uri URI_BASIC_CLIENT_FIND_BY_ID = Uri.parse(BASIC_CLIENT_FIND_BY_ID);
 	public static final String BASIC_CLIENT_FIND_BY_ID_BASE = BASIC_CLIENT_FIND_BY_ID + "/";
-	public static final String BASIC_CLIENT_FIND_BY_CPF = SCHEME + AUTHORITY + "/find_by_cpf";
-	public static final Uri URI_BASIC_CLIENT_FIND_BY_CPF = Uri.parse(BASIC_CLIENT_FIND_BY_CPF);
-	public static final String BASIC_CLIENT_FIND_BY_CPF_BASE = BASIC_CLIENT_FIND_BY_CPF + "/";
+
+	public static final int BASIC_CLIENT_FIND_BY_NAME_NUMBER = 9;
+	public static final String BASIC_CLIENT_FIND_BY_NAME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/find_by_name";
 	public static final String BASIC_CLIENT_FIND_BY_NAME = SCHEME + AUTHORITY + "/find_by_name";
 	public static final Uri URI_BASIC_CLIENT_FIND_BY_NAME = Uri.parse(BASIC_CLIENT_FIND_BY_NAME);
 	public static final String BASIC_CLIENT_FIND_BY_NAME_BASE = BASIC_CLIENT_FIND_BY_NAME + "/";
+
+	public static final int BASIC_CLIENT_FIND_BY_CPF_NUMBER = 10;
+	public static final String BASIC_CLIENT_FIND_BY_CPF_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/find_by_cpf";
+	public static final String BASIC_CLIENT_FIND_BY_CPF = SCHEME + AUTHORITY + "/find_by_cpf";
+	public static final Uri URI_BASIC_CLIENT_FIND_BY_CPF = Uri.parse(BASIC_CLIENT_FIND_BY_CPF);
+	public static final String BASIC_CLIENT_FIND_BY_CPF_BASE = BASIC_CLIENT_FIND_BY_CPF + "/";
+
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase003
+
+	static {
+		MATCHER.addURI(AUTHORITY,"insert", BASIC_CLIENT_INSERT_NUMBER);
+		MATCHER.addURI(AUTHORITY,"update", BASIC_CLIENT_UPDATE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"delete", BASIC_CLIENT_DELETE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"all", BASIC_CLIENT_ALL_NUMBER);
+		MATCHER.addURI(AUTHORITY,"some", BASIC_CLIENT_SOME_NUMBER);
+		MATCHER.addURI(AUTHORITY,"by_id", BASIC_CLIENT_BY_ID_NUMBER);
+		MATCHER.addURI(AUTHORITY,"last_id", BASIC_CLIENT_LAST_ID_NUMBER);
+// reserved-for:AndroidSqliteDatabase003
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.1
+		MATCHER.addURI(AUTHORITY,"find_by_id", BASIC_CLIENT_FIND_BY_ID_NUMBER);
+		MATCHER.addURI(AUTHORITY,"find_by_name", BASIC_CLIENT_FIND_BY_NAME_NUMBER);
+		MATCHER.addURI(AUTHORITY,"find_by_cpf", BASIC_CLIENT_FIND_BY_CPF_NUMBER);
+// reserved-for:AndroidSqliteQuerySingle002.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.1
+	}
+
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
 	private static final String[] selectableColumns = new String[] { 
@@ -184,9 +235,40 @@ public class BasicClientProvider extends ContentProvider {
 	@Nullable
 	@Override
 	public String getType (@NonNull Uri uri) {
+
+		switch (MATCHER.match(uri)){
+			case BASIC_CLIENT_INSERT_NUMBER:
+				return BASIC_CLIENT_INSERT_TYPE;
+			case BASIC_CLIENT_UPDATE_NUMBER:
+				return BASIC_CLIENT_UPDATE_TYPE;
+			case BASIC_CLIENT_DELETE_NUMBER:
+				return BASIC_CLIENT_DELETE_TYPE;
+			case BASIC_CLIENT_ALL_NUMBER:
+				return BASIC_CLIENT_ALL_TYPE;
+			case BASIC_CLIENT_SOME_NUMBER:
+				return BASIC_CLIENT_SOME_TYPE;
+			case BASIC_CLIENT_BY_ID_NUMBER:
+				return BASIC_CLIENT_BY_ID_TYPE;
+			case BASIC_CLIENT_LAST_ID_NUMBER:
+				return BASIC_CLIENT_LAST_ID_TYPE;
+// reserved-for:AndroidSqliteDatabase003.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.2
+			case BASIC_CLIENT_FIND_BY_ID_NUMBER:
+				return BASIC_CLIENT_FIND_BY_ID_TYPE;
+			case BASIC_CLIENT_FIND_BY_NAME_NUMBER:
+				return BASIC_CLIENT_FIND_BY_NAME_TYPE;
+			case BASIC_CLIENT_FIND_BY_CPF_NUMBER:
+				return BASIC_CLIENT_FIND_BY_CPF_TYPE;
+// reserved-for:AndroidSqliteQuerySingle002.2
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.2
+		}
 		return null;
 	}
-// reserved-for:AndroidSqliteDatabase003
+// reserved-for:AndroidSqliteDatabase003.2
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase004
@@ -268,18 +350,18 @@ public class BasicClientProvider extends ContentProvider {
 		return cursor;
 	}
 	/* @SelectOneWhere */
-	public Cursor find_by_cpf (String[] selectionArgs) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		String query = "SELECT brazilian.last_update,brazilian.cpf,brazilian.rg,basic_client.last_update,basic_client.name,basic_client.birth_date,basic_client.birth_city,basic_client.birth_state,basic_client.mothers_name,basic_client.fathers_name,basic_client.profession,basic_client.zip_code,basic_client.address,basic_client.neighborhood,basic_client.city,basic_client.state,basic_client.complement,country.last_update,country.name FROM brazilian INNER JOIN basic_client ON brazilian.fk_basic_client = basic_client.id INNER JOIN country ON basic_client.fk_country = country.id WHERE brazilian.cpf = ?;";
-		Cursor cursor = database.rawQuery(query, selectionArgs);
-		return cursor;
-	}
-	/* @SelectOneWhere */
 	public Cursor find_by_name (String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "SELECT brazilian.last_update,brazilian.cpf,brazilian.rg,basic_client.last_update,basic_client.name,basic_client.birth_date,basic_client.birth_city,basic_client.birth_state,basic_client.mothers_name,basic_client.fathers_name,basic_client.profession,basic_client.zip_code,basic_client.address,basic_client.neighborhood,basic_client.city,basic_client.state,basic_client.complement,country.last_update,country.name FROM brazilian INNER JOIN basic_client ON brazilian.fk_basic_client = basic_client.id INNER JOIN country ON basic_client.fk_country = country.id WHERE basic_client.name = ?;";
+		Cursor cursor = database.rawQuery(query, selectionArgs);
+		return cursor;
+	}
+	/* @SelectOneWhere */
+	public Cursor find_by_cpf (String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT brazilian.last_update,brazilian.cpf,brazilian.rg,basic_client.last_update,basic_client.name,basic_client.birth_date,basic_client.birth_city,basic_client.birth_state,basic_client.mothers_name,basic_client.fathers_name,basic_client.profession,basic_client.zip_code,basic_client.address,basic_client.neighborhood,basic_client.city,basic_client.state,basic_client.complement,country.last_update,country.name FROM brazilian INNER JOIN basic_client ON brazilian.fk_basic_client = basic_client.id INNER JOIN country ON basic_client.fk_country = country.id WHERE brazilian.cpf = ?;";
 		Cursor cursor = database.rawQuery(query, selectionArgs);
 		return cursor;
 	}
@@ -298,10 +380,10 @@ public class BasicClientProvider extends ContentProvider {
 		else if (URI_BASIC_CLIENT_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
 		}
-		else if (URI_BASIC_CLIENT_BYID.equals(uri)) {
+		else if (URI_BASIC_CLIENT_BY_ID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[0]));
 		}
-		else if (URI_BASIC_CLIENT_LASTID.equals(uri)) {
+		else if (URI_BASIC_CLIENT_LAST_ID.equals(uri)) {
 			result = getLastId();
 		}
 // reserved-for:AndroidSqliteDatabase010
@@ -316,14 +398,17 @@ public class BasicClientProvider extends ContentProvider {
 	else if (URI_BASIC_CLIENT_FIND_BY_ID.equals(uri)) {
 		result = find_by_id(selectionArgs);
 	}
-	else if (URI_BASIC_CLIENT_FIND_BY_CPF.equals(uri)) {
-		result = find_by_cpf(selectionArgs);
-	}
 	else if (URI_BASIC_CLIENT_FIND_BY_NAME.equals(uri)) {
 		result = find_by_name(selectionArgs);
+	}
+	else if (URI_BASIC_CLIENT_FIND_BY_CPF.equals(uri)) {
+		result = find_by_cpf(selectionArgs);
 	}
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code

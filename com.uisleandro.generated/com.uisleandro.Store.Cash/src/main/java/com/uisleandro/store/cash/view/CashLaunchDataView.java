@@ -15,7 +15,7 @@ public class CashLaunchDataView {
 	private float amount_spent;
 	private long fk_currency;
 
-	public CashLaunchView () {
+	public CashLaunchDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

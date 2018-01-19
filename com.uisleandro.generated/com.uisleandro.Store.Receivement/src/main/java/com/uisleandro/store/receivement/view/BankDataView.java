@@ -16,7 +16,7 @@ public class BankDataView {
 	private String name;
 	private String name;
 
-	public BankView () {
+	public BankDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

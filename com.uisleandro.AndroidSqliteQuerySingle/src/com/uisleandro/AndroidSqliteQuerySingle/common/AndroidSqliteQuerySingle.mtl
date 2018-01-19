@@ -24,7 +24,7 @@ self.eContents(Operation)
 ->asSet() /]
 
 [query public gotValue(arg : Property) : Boolean = (
-	(getStereotypeValue('Equalsto', 'hint') <> null) or
+	(getStereotypeValue('EqualsTo', 'hint') <> null) or
 	(getStereotypeValue('GreatherThan', 'hint') <> null) or
 	(getStereotypeValue('AndGreatherThan', 'hint') <> null) or
 	(getStereotypeValue('LessThan', 'hint') <> null) or
@@ -38,7 +38,61 @@ self.eContents(Operation)
 	gotStereotype('IsRightNow') or
 	gotStereotype('IsEmpty') ) /]
 
+[query public getHintIndex(arg : Property) : Integer = 
+if (getStereotypeValue('EqualsTo', 'hint') <> null) then 1
+else if (getStereotypeValue('GreatherThan', 'hint') <> null) then 2
+else if (getStereotypeValue('AndGreatherThan', 'hint') <> null) then 3
+else if (getStereotypeValue('LessThan', 'hint') <> null) then 4
+else if (getStereotypeValue('OrLessThan', 'hint') <> null) then 5
+else if (getStereotypeValue('Like', 'hint') <> null) then 6
+else if (getStereotypeValue('Having', 'hint') <> null) then 7
+else if gotStereotype('DefaultSystemId') then 8
+else if gotStereotype('DefaultUserId') then 9
+else if gotStereotype('IsToday') then 10
+else if gotStereotype('IsRightNow') then 11
+else if gotStereotype('IsEmpty') then 12
+else 0
+endif endif endif endif endif endif endif endif endif endif endif endif
+/]
+
+
+[comment 
+TODO: I dont know if pass "NULL" as a string is a good idea, because the value could be set to the custom query
+/]
+[query public value_to_database_v2(arg : Property, i: Integer) : String =
+if 1 = i then '"'+getStereotypeValue('EqualsTo', 'hint')+'"'
+else if 2 = i then '"'+getStereotypeValue('GreatherThan', 'hint')+'"'
+else if 3 = i then '"'+getStereotypeValue('AndGreatherThan', 'hint')+'"'
+else if 4 = i then '"'+getStereotypeValue('LessThan', 'hint')+'"'
+else if 5 = i then '"'+getStereotypeValue('OrLessThan', 'hint')+'"'
+else if 6 = i then '"'+getStereotypeValue('Like', 'hint')+'"'
+else if 7 = i then '"'+getStereotypeValue('Having', 'hint')+'"'
+else if 8 = i then 'com.uisleandro.util.config.getSystemIdString()'
+else if 9 = i then 'com.uisleandro.util.config.getUserIdString()'
+else if 10 = i then 'com.uisleandro.util.config.getTodayString()'
+else if 11 = i then 'com.uisleandro.util.config.getRightNowString()'
+else if 12 = i then ''
+else ''
+endif endif endif endif endif endif endif endif endif endif endif endif
+/]
+
 [query public gotNoValue(arg : Property) : Boolean = not gotValue(arg) /]
+
+[query public get_properties_with_no_value(arg : Sequence(Property)) : Sequence(Property) = self->select(x|gotNoValue(x) and not isfk(x))->asSequence() /]
+
+[comment] 
+[query public getIndexOf(noValues : Sequence(Property), p: Property, i: Integer) : Integer = 0 /]
+[/comment]
+
+[query public getIndexOf(noValues : Sequence(Property), p: Property, i: Integer) : Integer =
+if i <= noValues->size() then 
+	if p = noValues->at(i) then i 
+	else getIndexOf(noValues , p, i+1)
+	endif
+else 
+	0
+endif
+ /]
 
 [template public begin_reserve(name : String)]
 // Start of user code [name /]
@@ -227,8 +281,8 @@ endif
 preciso diferenciar se estou fazendo update ou select
 /]
 [template public getWhereQ(arg : Property, b: Boolean)
-][if arg.gotStereotype('IsntEmpty')](not [fieldName(arg,b)/] is null or not [fieldName(arg,b)
-/] = '')[else][if arg.gotStereotype('IsEmpty')]([fieldName(arg,b)/] is null or [fieldName(arg,b)
+][if arg.gotStereotype('IsntEmpty')](not ([fieldName(arg,b)/] is null or [fieldName(arg,b)
+/] = ''))[else][if arg.gotStereotype('IsEmpty')]([fieldName(arg,b)/] is null or [fieldName(arg,b)
 /] = '')[else][if
  gotStereotype(arg, 'Like') or
  gotStereotype(arg, 'GreatherThan') or
@@ -344,14 +398,38 @@ import [mName /].view.[ToCamelCase(out_parameter_definition(op).name) /];
 
 [begin_reserve('reserved-for:AndroidSqliteQuerySingle002') /]
 [for (op : Operation | getValidOperations(controller))]
+	public static final int [controller.name.toUpperCase() /]_[op.name.toUpperCase()/]_NUMBER = [(7+i)/];
+	public static final String [controller.name.toUpperCase() /]_[op.name.toUpperCase()/]_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/[op.name/]";
 	public static final String [controller.name.toUpperCase() /]_[op.name.toUpperCase()/] = SCHEME + AUTHORITY + "/[op.name/]";
 	public static final Uri URI_[controller.name.toUpperCase() /]_[op.name.toUpperCase()/] = Uri.parse([controller.name.toUpperCase() /]_[op.name.toUpperCase()/]);
 	public static final String [controller.name.toUpperCase() /]_[op.name.toUpperCase()/]_BASE = [controller.name.toUpperCase() /]_[op.name.toUpperCase()/] + "/";
+
 [/for]
 [end_reserve('reserved-for:AndroidSqliteQuerySingle002') /]
 
 // [protected ('reserved-for:AndroidSqliteDatabase003')]
 // reserved-for:AndroidSqliteDatabase003
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle002.1') /]
+[for (op : Operation | getValidOperations(controller))]
+		MATCHER.addURI(AUTHORITY,"[op.name/]", [controller.name.toUpperCase() /]_[op.name.toUpperCase()/]_NUMBER);
+[/for]
+[end_reserve('reserved-for:AndroidSqliteQuerySingle002.1') /]
+
+// [protected ('reserved-for:AndroidSqliteDatabase003.1')]
+// reserved-for:AndroidSqliteDatabase003.1
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle002.2') /]
+[for (op : Operation | getValidOperations(controller))]
+			case [controller.name.toUpperCase() /]_[op.name.toUpperCase()/]_NUMBER:
+				return [controller.name.toUpperCase() /]_[op.name.toUpperCase()/]_TYPE;
+[/for]
+[end_reserve('reserved-for:AndroidSqliteQuerySingle002.2') /]
+
+// [protected ('reserved-for:AndroidSqliteDatabase003.2')]
+// reserved-for:AndroidSqliteDatabase003.2
 // [/protected]
 
 // [protected ('reserved-for:AndroidSqliteDatabase004')]
@@ -669,7 +747,13 @@ public Cursor [functionName /] (String[ '[' /][ ']' /] selectionArgs) {
 	//TODO: I might have some data from 'selectionArgs' and also some predefined data
 	//TODO: the way it is the transformation is wrong
 	String query = "[exists_query(queryIns)/]";
-	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] });
+[let noValues : Sequence(Property) = get_properties_with_no_value(queryIns) ]
+	Cursor cursor = database.rawQuery(query, [if (noValues->size() = queryIns->size())
+]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isfk(x) )) 
+separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
+][value_to_database_v2(it, hintIndex)/][else]selectionArgs['['/][getIndexOf(noValues, it, 1)-1 
+/][']'/][/if][/let][/for]}[/if]);
+	[/let]
 	return cursor;
 }
 [/template]
@@ -697,6 +781,11 @@ public boolean [functionName /] ([if (params_not_empty(queryIns))][query_paramet
 }
 [/template]
 
+
+[comment]
+	TODO: FAZER UM NOVO SELECT_QUERY
+	eu preciso garantir que eu tenho um modelo para testar isto
+[/comment]
 [template public selectOneWhere(
 	returnName : String,
 	functionName : String,
@@ -708,7 +797,13 @@ public Cursor [functionName
 	//TODO: I might have some data from 'selectionArgs' and also some predefined data
 	//TODO: the way it is the transformation is wrong
 	String query = "[select_query(queryIns,queryOuts)/]";
-	Cursor cursor = database.rawQuery(query, selectionArgs);
+[let noValues : Sequence(Property) = get_properties_with_no_value(queryIns) ]
+	Cursor cursor = database.rawQuery(query, [if (noValues->size() = queryIns->size())
+]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isfk(x) )) 
+separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
+][value_to_database_v2(it, hintIndex)/][else]selectionArgs['['/][getIndexOf(noValues, it, 1)-1 
+/][']'/][/if][/let][/for]}[/if]);
+	[/let]
 	return cursor;
 }
 [/template]
@@ -748,7 +843,13 @@ public Cursor [functionName
 	if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 	}
-	Cursor cursor = database.rawQuery(query, selectionArgs);
+[let noValues : Sequence(Property) = get_properties_with_no_value(queryIns) ]
+	Cursor cursor = database.rawQuery(query, [if (noValues->size() = queryIns->size())
+]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isfk(x) )) 
+separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
+][value_to_database_v2(it, hintIndex)/][else]selectionArgs['['/][getIndexOf(noValues, it, 1)-1 
+/][']'/][/if][/let][/for]}[/if]);
+	[/let]
 	return cursor;
 }
 [/template]
@@ -786,7 +887,13 @@ public Cursor [functionName
 	//TODO: the way it is the transformation is wrong
 	[comment vou precisar fazer os joins /]
 	String query = "[select_query(queryIns,queryOuts)/]";
-	Cursor cursor = database.rawQuery(query, selectionArgs);
+[let noValues : Sequence(Property) = get_properties_with_no_value(queryIns) ]
+	Cursor cursor = database.rawQuery(query, [if (noValues->size() = queryIns->size())
+]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isfk(x) )) 
+separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
+][value_to_database_v2(it, hintIndex)/][else]selectionArgs['['/][getIndexOf(noValues, it, 1)-1 
+/][']'/][/if][/let][/for]}[/if]);
+	[/let]
 	return cursor;
 }
 [/template]
@@ -845,7 +952,13 @@ public int [functionName
 	//TODO: I might have some data from 'selectionArgs' and also some predefined data
 	//TODO: the way it is the transformation is wrong
 	String query = "[update_query(queryIns,queryOuts)/]";
-	Cursor cursor = database.rawQuery(query, selectionArgs);
+[let noValues : Sequence(Property) = get_properties_with_no_value(queryIns) ]
+	Cursor cursor = database.rawQuery(query, [if (noValues->size() = queryIns->size())
+]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isfk(x) )) 
+separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
+][value_to_database_v2(it, hintIndex)/][else]selectionArgs['['/][getIndexOf(noValues, it, 1)-1 
+/][']'/][/if][/let][/for]}[/if]);
+	[/let]
 	cursor.moveToFirst();
 	if(!cursor.isAfterLast()){
 		result = cursor.getInt(0);
@@ -889,7 +1002,13 @@ public int [functionName /] (String[ '[' /][ ']' /] selectionArgs) {
 	//TODO: the way it is the transformation is wrong
 	int result = 0;
 	String query = "[delete_query(queryIns)/]";
-	Cursor cursor = database.rawQuery(query, selectionArgs);
+	[let noValues : Sequence(Property) = get_properties_with_no_value(queryIns) ]
+	Cursor cursor = database.rawQuery(query, [if (noValues->size() = queryIns->size())
+]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')))) 
+separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
+][value_to_database_v2(it, hintIndex)/][else]selectionArgs['['/][getIndexOf(noValues, it, 1)-1 
+/][']'/][/if][/let][/for]}[/if]);
+	[/let]
 	cursor.moveToFirst();
 	if(!cursor.isAfterLast()){
 		result = cursor.getInt(0);
@@ -913,13 +1032,14 @@ public int [functionName /]([if (params_not_empty(queryIns))][query_parameters_d
 [template public tooComplexQuery(
 	functionName : String,
 	queryIns: Sequence(Property))]
-/* @TooComplexQuery */
+// [protected ('@TooComplexQuery')]
 public void [functionName 
 /] ([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]) {
 	String query = "";
 	Cursor cursor = database.rawQuery(query, new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]id[/if] });
 	return cursor;
 }
+// [/protected]
 [/template]
 
 [template public tooComplexQuery_Usage(
@@ -1057,7 +1177,7 @@ queryOuts : Sequence(Property)
 
 error-generating: queryOuts is empty somehow
  
-}}[/if] WHERE [if (queryIns->notEmpty())][for (it : Property | queryIns) 
+}}[/if] WHERE [if (queryIns->notEmpty())][for (it : Property | queryIns->select(x|not isfk(x))) 
 separator(' AND ')][getWhereQ(it, true) /][/for][else]id = ?[/if];[/template]
 
 
@@ -1089,7 +1209,7 @@ queryIns : Sequence(Property)
 [template public exists_query(
 queryIns : Sequence(Property))]SELECT exists(*) FROM [let itself : Class = queryIns->select(x| gotStereotype(x.owner, 'Subject'))->first().owner
 ][itself.name /][recursive_join(itself)
-/][/let] WHERE [for (it : Property | queryIns) separator(' AND ')][getWhereQ(it, true) /][/for];[/template]
+/][/let] WHERE [for (it : Property | queryIns->select(x|not isfk(x))) separator(' AND ')][getWhereQ(it, true) /][/for];[/template]
 
 
 [template public insert_query(
@@ -1196,10 +1316,8 @@ public class [className.ToCamelCase() /] {
 [template public cursor_to_classname(className : String, props: Sequence(Property))]
 public [className.ToCamelCase()
 /] cursorTo[className.ToCamelCase() /] (Cursor cursor) {
-
 	[className.ToCamelCase() /] [className 
 /] = new [className.ToCamelCase()/]();
-
 [for (p :Property | props)]
 	[className/].set[p.owner
 	.oclAsType(NamedElement).name
@@ -1207,8 +1325,6 @@ public [className.ToCamelCase()
 	.ToCamelCase()
 /]([cursor_getter(p, 'cursor',i-1)/]);[comment from 'what the heck' comes this i variable :D /]
 [/for]
-
 	return [className /];
-
 }
 [/template]

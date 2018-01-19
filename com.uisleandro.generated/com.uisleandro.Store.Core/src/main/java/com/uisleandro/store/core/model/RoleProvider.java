@@ -1,11 +1,11 @@
 // Start of user code reserved-for:AndroidSqliteDatabase001
 package com.uisleandro.store.Core.model;  
 
-import java.util.ArrayList;
-import java.util.List;
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,6 +13,10 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
 //old
 //import com.uisleandro.util.LongDateFormatter;
 //import com.uisleandro.store.model.DbHelper;
@@ -35,34 +39,50 @@ public class RoleProvider extends ContentProvider {
 
 	public static final String AUTHORITY = "com.uisleandro.role";
 	public static final String SCHEME = "content://";
-
+	private static final UriMatcher MATCHER = new UriMatcher(UriMatcher.NO_MATCH);
+	
+	public static final int ROLE_INSERT_NUMBER = 1;
+	public static final String ROLE_INSERT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/insert";
 	public static final String ROLE_INSERT = SCHEME + AUTHORITY + "/insert";
 	public static final Uri URI_ROLE_INSERT = Uri.parse(ROLE_INSERT);
 	public static final String ROLE_INSERT_BASE = ROLE_INSERT + "/";
 
+	public static final int ROLE_UPDATE_NUMBER = 2;
+	public static final String ROLE_UPDATE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/update";
 	public static final String ROLE_UPDATE = SCHEME + AUTHORITY + "/update";
 	public static final Uri URI_ROLE_UPDATE = Uri.parse(ROLE_UPDATE);
 	public static final String ROLE_UPDATE_BASE = ROLE_UPDATE + "/";
 
+	public static final int ROLE_DELETE_NUMBER = 3;
+	public static final String ROLE_DELETE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/delete";
 	public static final String ROLE_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final Uri URI_ROLE_DELETE = Uri.parse(ROLE_DELETE);
 	public static final String ROLE_DELETE_BASE = ROLE_DELETE + "/";
 
+	public static final int ROLE_ALL_NUMBER = 4;
+	public static final String ROLE_ALL_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/all";
 	public static final String ROLE_ALL = SCHEME + AUTHORITY + "/all";
 	public static final Uri URI_ROLE_ALL = Uri.parse(ROLE_ALL);
 	public static final String ROLE_ALL_BASE = ROLE_ALL + "/";
 
+	public static final int ROLE_SOME_NUMBER = 5;
+	public static final String ROLE_SOME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/some";
 	public static final String ROLE_SOME = SCHEME + AUTHORITY + "/some";
 	public static final Uri URI_ROLE_SOME = Uri.parse(ROLE_SOME);
 	public static final String ROLE_SOME_BASE = ROLE_SOME + "/";
 
-	public static final String ROLE_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final Uri URI_ROLE_BYID = Uri.parse(ROLE_BYID);
-	public static final String ROLE_BYID_BASE = ROLE_BYID + "/";
+	public static final int ROLE_BY_ID_NUMBER = 6;
+	public static final String ROLE_BY_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/by_id";
+	public static final String ROLE_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final Uri URI_ROLE_BY_ID = Uri.parse(ROLE_BY_ID);
+	public static final String ROLE_BY_ID_BASE = ROLE_BY_ID + "/";
 
-	public static final String ROLE_LASTID = SCHEME + AUTHORITY + "/lastid";
-	public static final Uri URI_ROLE_LASTID = Uri.parse(ROLE_LASTID);
-	public static final String ROLE_LASTID_BASE = ROLE_LASTID + "/";
+	public static final int ROLE_LAST_ID_NUMBER = 7;
+	public static final String ROLE_LAST_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/last_id";
+	public static final String ROLE_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Uri URI_ROLE_LAST_ID = Uri.parse(ROLE_LAST_ID);
+	public static final String ROLE_LAST_ID_BASE = ROLE_LAST_ID + "/";
+
 
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
@@ -76,6 +96,25 @@ public class RoleProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase003
+
+	static {
+		MATCHER.addURI(AUTHORITY,"insert", ROLE_INSERT_NUMBER);
+		MATCHER.addURI(AUTHORITY,"update", ROLE_UPDATE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"delete", ROLE_DELETE_NUMBER);
+		MATCHER.addURI(AUTHORITY,"all", ROLE_ALL_NUMBER);
+		MATCHER.addURI(AUTHORITY,"some", ROLE_SOME_NUMBER);
+		MATCHER.addURI(AUTHORITY,"by_id", ROLE_BY_ID_NUMBER);
+		MATCHER.addURI(AUTHORITY,"last_id", ROLE_LAST_ID_NUMBER);
+// reserved-for:AndroidSqliteDatabase003
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.1
+// reserved-for:AndroidSqliteQuerySingle002.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.1
+	}
+
 	private SQLiteDatabase database;
 	private DbHelper db_helper;
 	private static final String[] selectableColumns = new String[] { 
@@ -146,9 +185,34 @@ public class RoleProvider extends ContentProvider {
 	@Nullable
 	@Override
 	public String getType (@NonNull Uri uri) {
+
+		switch (MATCHER.match(uri)){
+			case ROLE_INSERT_NUMBER:
+				return ROLE_INSERT_TYPE;
+			case ROLE_UPDATE_NUMBER:
+				return ROLE_UPDATE_TYPE;
+			case ROLE_DELETE_NUMBER:
+				return ROLE_DELETE_TYPE;
+			case ROLE_ALL_NUMBER:
+				return ROLE_ALL_TYPE;
+			case ROLE_SOME_NUMBER:
+				return ROLE_SOME_TYPE;
+			case ROLE_BY_ID_NUMBER:
+				return ROLE_BY_ID_TYPE;
+			case ROLE_LAST_ID_NUMBER:
+				return ROLE_LAST_ID_TYPE;
+// reserved-for:AndroidSqliteDatabase003.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.2
+// reserved-for:AndroidSqliteQuerySingle002.2
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase003.2
+		}
 		return null;
 	}
-// reserved-for:AndroidSqliteDatabase003
+// reserved-for:AndroidSqliteDatabase003.2
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase004
@@ -236,10 +300,10 @@ public class RoleProvider extends ContentProvider {
 		else if (URI_ROLE_SOME.equals(uri)) {
 			result = listSome(Long.parseLong(selectionArgs[0]), Long.parseLong(selectionArgs[1]));
 		}
-		else if (URI_ROLE_BYID.equals(uri)) {
+		else if (URI_ROLE_BY_ID.equals(uri)) {
 			result = getById(Long.parseLong(selectionArgs[0]));
 		}
-		else if (URI_ROLE_LASTID.equals(uri)) {
+		else if (URI_ROLE_LAST_ID.equals(uri)) {
 			result = getLastId();
 		}
 // reserved-for:AndroidSqliteDatabase010
@@ -254,5 +318,8 @@ public class RoleProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code

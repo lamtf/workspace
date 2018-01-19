@@ -13,7 +13,7 @@ public class BrandDataView {
 	private String company_name;
 	private String fantasy_name;
 
-	public BrandView () {
+	public BrandDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

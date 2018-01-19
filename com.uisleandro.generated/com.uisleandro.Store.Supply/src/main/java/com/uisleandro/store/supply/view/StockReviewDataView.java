@@ -16,7 +16,7 @@ public class StockReviewDataView {
 	private int previous_amount;
 	private int missing_amount;
 
-	public StockReviewView () {
+	public StockReviewDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

@@ -26,8 +26,8 @@ public class CashRegisterDataSource {
 	public static final String CASH_REGISTER_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final String CASH_REGISTER_ALL = SCHEME + AUTHORITY + "/all";
 	public static final String CASH_REGISTER_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String CASH_REGISTER_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final String CASH_REGISTER_LASTID = SCHEME + AUTHORITY + "/lastid";
+	public static final String CASH_REGISTER_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final String CASH_REGISTER_LAST_ID = SCHEME + AUTHORITY + "/last_id";
 
 	Context context;
 	public CashRegisterDataSource (Context context) {
@@ -51,7 +51,7 @@ public class CashRegisterDataSource {
 
 	public CashRegisterView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(CASH_REGISTER_BYID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(CASH_REGISTER_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -79,7 +79,7 @@ public class CashRegisterDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(CASH_REGISTER_LASTID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(CASH_REGISTER_LAST_ID, null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -135,10 +135,10 @@ public class CashRegisterDataSource {
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @Insert */
-	public int open_cash_register (Long user){
-		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(user), "0", "0", "0" };
+	public int eventual_cash_usage (Long fk_cash_register, String justification, Float amount_spent){
+		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_cash_register), justification, String.valueOf(amount_spent) };
 		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
-		context.getContentResolver().insert("content://com.uisleandro.cash_register/open_cash_register", contentValues);
+		context.getContentResolver().insert("content://com.uisleandro.cash_register/eventual_cash_usage", contentValues);
 	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
@@ -155,10 +155,10 @@ public class CashRegisterDataSource {
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @Insert */
-	public int eventual_cash_usage (Long fk_cash_register, String justification, Float amount_spent){
-		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_cash_register), justification, String.valueOf(amount_spent) };
+	public int open_cash_register (Long user){
+		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(user), "0", "0", "0" };
 		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
-		context.getContentResolver().insert("content://com.uisleandro.cash_register/eventual_cash_usage", contentValues);
+		context.getContentResolver().insert("content://com.uisleandro.cash_register/open_cash_register", contentValues);
 	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
 	// TODO: PLEASE DONT USE SYNC CODE
 	}

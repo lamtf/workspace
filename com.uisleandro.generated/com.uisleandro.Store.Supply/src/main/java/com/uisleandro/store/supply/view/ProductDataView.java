@@ -24,7 +24,7 @@ public class ProductDataView {
 	private long expiration_date;
 	private long fk_brand;
 
-	public ProductView () {
+	public ProductDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

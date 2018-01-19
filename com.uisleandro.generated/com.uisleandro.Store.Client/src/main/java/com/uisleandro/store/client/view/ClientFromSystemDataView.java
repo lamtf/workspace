@@ -15,7 +15,7 @@ public class ClientFromSystemDataView {
 	private long fk_shared_client;
 	private long fk_user;
 
-	public ClientFromSystemView () {
+	public ClientFromSystemDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

@@ -13,7 +13,7 @@ public class CategoryDataView {
 	private long fk_category;
 	private String name;
 
-	public CategoryView () {
+	public CategoryDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

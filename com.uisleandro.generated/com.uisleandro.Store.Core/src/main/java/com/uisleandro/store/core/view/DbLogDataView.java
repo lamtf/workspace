@@ -14,7 +14,7 @@ public class DbLogDataView {
 	private String parameter;
 	private long fk_user;
 
-	public DbLogView () {
+	public DbLogDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

@@ -26,8 +26,8 @@ public class SaleDataSource {
 	public static final String SALE_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final String SALE_ALL = SCHEME + AUTHORITY + "/all";
 	public static final String SALE_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String SALE_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final String SALE_LASTID = SCHEME + AUTHORITY + "/lastid";
+	public static final String SALE_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final String SALE_LAST_ID = SCHEME + AUTHORITY + "/last_id";
 
 	Context context;
 	public SaleDataSource (Context context) {
@@ -51,7 +51,7 @@ public class SaleDataSource {
 
 	public SaleView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(SALE_BYID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(SALE_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -79,7 +79,7 @@ public class SaleDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(SALE_LASTID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(SALE_LAST_ID, null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -110,17 +110,11 @@ public class SaleDataSource {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
 	/* @Insert */
-	public int create_sales_chart (){
-		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), "0", com.uisleandro.util.config.getSystemIdString(), com.uisleandro.util.config.getUserIdString() };
+	public int add_product_to_sales_chart (Long fk_sale, Long fk_product){
+		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_sale), String.valueOf(fk_product) };
 		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
-		context.getContentResolver().insert("content://com.uisleandro.sale/create_sales_chart", contentValues);
+		context.getContentResolver().insert("content://com.uisleandro.sale/add_product_to_sales_chart", contentValues);
 	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-	// TODO: PLEASE DONT USE SYNC CODE
-	}
-	/* @DeleteWhere */
-	public int cancel_sales_chart(Long id){
-		String selectionArgs = new String[]{ String.valueOf(id) };
-		return context.getContentResolver().delete("content://com.uisleandro.sale/cancel_sales_chart", null, selectionArgs);
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @SelectListWhere */
@@ -136,18 +130,24 @@ public class SaleDataSource {
 		return those;
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
-	/* @Insert */
-	public int add_product_to_sales_chart (Long fk_sale, Long fk_product){
-		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_sale), String.valueOf(fk_product) };
-		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
-		context.getContentResolver().insert("content://com.uisleandro.sale/add_product_to_sales_chart", contentValues);
-	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
+	/* @DeleteWhere */
+	public int cancel_sales_chart(Long id){
+		String selectionArgs = new String[]{ String.valueOf(id) };
+		return context.getContentResolver().delete("content://com.uisleandro.sale/cancel_sales_chart", null, selectionArgs);
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @DeleteWhere */
 	public int remove_all_products_from_sales_chart(Long fk_sale){
 		String selectionArgs = new String[]{ String.valueOf(fk_sale) };
 		return context.getContentResolver().delete("content://com.uisleandro.sale/remove_all_products_from_sales_chart", null, selectionArgs);
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @Insert */
+	public int create_sales_chart (){
+		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), "0", com.uisleandro.util.config.getSystemIdString(), com.uisleandro.util.config.getUserIdString() };
+		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+		context.getContentResolver().insert("content://com.uisleandro.sale/create_sales_chart", contentValues);
+	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @DeleteWhere */

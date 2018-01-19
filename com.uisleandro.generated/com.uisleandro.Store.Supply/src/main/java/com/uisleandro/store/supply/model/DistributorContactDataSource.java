@@ -25,8 +25,8 @@ public class DistributorContactDataSource {
 	public static final String DISTRIBUTOR_CONTACT_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final String DISTRIBUTOR_CONTACT_ALL = SCHEME + AUTHORITY + "/all";
 	public static final String DISTRIBUTOR_CONTACT_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String DISTRIBUTOR_CONTACT_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final String DISTRIBUTOR_CONTACT_LASTID = SCHEME + AUTHORITY + "/lastid";
+	public static final String DISTRIBUTOR_CONTACT_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final String DISTRIBUTOR_CONTACT_LAST_ID = SCHEME + AUTHORITY + "/last_id";
 
 	Context context;
 	public DistributorContactDataSource (Context context) {
@@ -50,7 +50,7 @@ public class DistributorContactDataSource {
 
 	public DistributorContactView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(DISTRIBUTOR_CONTACT_BYID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(DISTRIBUTOR_CONTACT_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -78,7 +78,7 @@ public class DistributorContactDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(DISTRIBUTOR_CONTACT_LASTID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(DISTRIBUTOR_CONTACT_LAST_ID, null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){

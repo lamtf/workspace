@@ -25,8 +25,8 @@ public class StockReviewDataSource {
 	public static final String STOCK_REVIEW_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final String STOCK_REVIEW_ALL = SCHEME + AUTHORITY + "/all";
 	public static final String STOCK_REVIEW_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String STOCK_REVIEW_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final String STOCK_REVIEW_LASTID = SCHEME + AUTHORITY + "/lastid";
+	public static final String STOCK_REVIEW_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final String STOCK_REVIEW_LAST_ID = SCHEME + AUTHORITY + "/last_id";
 
 	Context context;
 	public StockReviewDataSource (Context context) {
@@ -50,7 +50,7 @@ public class StockReviewDataSource {
 
 	public StockReviewView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(STOCK_REVIEW_BYID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(STOCK_REVIEW_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -78,7 +78,7 @@ public class StockReviewDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(STOCK_REVIEW_LASTID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(STOCK_REVIEW_LAST_ID, null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){

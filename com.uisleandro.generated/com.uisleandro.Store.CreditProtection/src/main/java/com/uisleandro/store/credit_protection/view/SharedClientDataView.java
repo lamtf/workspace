@@ -25,7 +25,7 @@ public class SharedClientDataView {
 	private String complement;
 	private long fk_country;
 
-	public SharedClientView () {
+	public SharedClientDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

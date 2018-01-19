@@ -16,7 +16,7 @@ public class CashRegisterDataView {
 	private float closing_value;
 	private long fk_currency;
 
-	public CashRegisterView () {
+	public CashRegisterDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

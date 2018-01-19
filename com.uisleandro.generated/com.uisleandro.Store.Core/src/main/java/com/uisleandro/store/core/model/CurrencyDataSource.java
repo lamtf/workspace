@@ -25,8 +25,8 @@ public class CurrencyDataSource {
 	public static final String CURRENCY_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final String CURRENCY_ALL = SCHEME + AUTHORITY + "/all";
 	public static final String CURRENCY_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String CURRENCY_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final String CURRENCY_LASTID = SCHEME + AUTHORITY + "/lastid";
+	public static final String CURRENCY_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final String CURRENCY_LAST_ID = SCHEME + AUTHORITY + "/last_id";
 
 	Context context;
 	public CurrencyDataSource (Context context) {
@@ -50,7 +50,7 @@ public class CurrencyDataSource {
 
 	public CurrencyView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(CURRENCY_BYID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(CURRENCY_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -78,7 +78,7 @@ public class CurrencyDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(CURRENCY_LASTID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(CURRENCY_LAST_ID, null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){

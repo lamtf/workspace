@@ -19,7 +19,7 @@ public class DistributorContactDataView {
 	private String phone_number4;
 	private long fk_brand;
 
-	public DistributorContactView () {
+	public DistributorContactDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

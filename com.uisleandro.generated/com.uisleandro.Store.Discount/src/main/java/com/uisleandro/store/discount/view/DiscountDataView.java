@@ -18,7 +18,7 @@ public class DiscountDataView {
 	private long fk_client_from_system;
 	private long fk_gender;
 
-	public DiscountView () {
+	public DiscountDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

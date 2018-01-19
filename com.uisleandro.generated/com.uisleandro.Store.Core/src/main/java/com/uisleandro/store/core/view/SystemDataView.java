@@ -24,7 +24,7 @@ public class SystemDataView {
 	private String stores_phonenumber;
 	private long fk_refarral;
 
-	public SystemView () {
+	public SystemDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

@@ -25,8 +25,8 @@ public class DiscountDataSource {
 	public static final String DISCOUNT_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final String DISCOUNT_ALL = SCHEME + AUTHORITY + "/all";
 	public static final String DISCOUNT_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String DISCOUNT_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final String DISCOUNT_LASTID = SCHEME + AUTHORITY + "/lastid";
+	public static final String DISCOUNT_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final String DISCOUNT_LAST_ID = SCHEME + AUTHORITY + "/last_id";
 
 	Context context;
 	public DiscountDataSource (Context context) {
@@ -50,7 +50,7 @@ public class DiscountDataSource {
 
 	public DiscountView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(DISCOUNT_BYID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(DISCOUNT_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -78,7 +78,7 @@ public class DiscountDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(DISCOUNT_LASTID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(DISCOUNT_LAST_ID, null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){

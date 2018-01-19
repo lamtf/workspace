@@ -17,7 +17,7 @@ public class IssueDataView {
 	private boolean isAnswer;
 	private long fk_issue;
 
-	public IssueView () {
+	public IssueDataView () {
 		this.id = 0L;
 		this.server_id = 0L;
 		this.dirty = false;

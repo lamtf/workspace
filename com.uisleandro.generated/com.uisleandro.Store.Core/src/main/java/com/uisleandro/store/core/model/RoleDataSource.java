@@ -25,8 +25,8 @@ public class RoleDataSource {
 	public static final String ROLE_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final String ROLE_ALL = SCHEME + AUTHORITY + "/all";
 	public static final String ROLE_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String ROLE_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final String ROLE_LASTID = SCHEME + AUTHORITY + "/lastid";
+	public static final String ROLE_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final String ROLE_LAST_ID = SCHEME + AUTHORITY + "/last_id";
 
 	Context context;
 	public RoleDataSource (Context context) {
@@ -50,7 +50,7 @@ public class RoleDataSource {
 
 	public RoleView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(ROLE_BYID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(ROLE_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -78,7 +78,7 @@ public class RoleDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(ROLE_LASTID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(ROLE_LAST_ID, null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){

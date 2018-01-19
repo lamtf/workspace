@@ -25,8 +25,8 @@ public class IssueDataSource {
 	public static final String ISSUE_DELETE = SCHEME + AUTHORITY + "/delete";
 	public static final String ISSUE_ALL = SCHEME + AUTHORITY + "/all";
 	public static final String ISSUE_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String ISSUE_BYID = SCHEME + AUTHORITY + "/byid";
-	public static final String ISSUE_LASTID = SCHEME + AUTHORITY + "/lastid";
+	public static final String ISSUE_BY_ID = SCHEME + AUTHORITY + "/by_id";
+	public static final String ISSUE_LAST_ID = SCHEME + AUTHORITY + "/last_id";
 
 	Context context;
 	public IssueDataSource (Context context) {
@@ -50,7 +50,7 @@ public class IssueDataSource {
 
 	public IssueView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(ISSUE_BYID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(ISSUE_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -78,7 +78,7 @@ public class IssueDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(ISSUE_LASTID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(ISSUE_LAST_ID, null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -108,14 +108,6 @@ public class IssueDataSource {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	/* @Insert */
-	public int register_issue (Long fk_shared_client, String description){
-		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_shared_client), description, "0", "0" };
-		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
-		context.getContentResolver().insert("content://com.uisleandro.Issue/register_issue", contentValues);
-	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-	// TODO: PLEASE DONT USE SYNC CODE
-	}
 	/* @ExistsWhere */
 	public boolean check_client (Long fk_shared_client) {
 		String selectionArgs = new String[]{ String.valueOf(fk_shared_client), "1" }; 
@@ -126,6 +118,14 @@ public class IssueDataSource {
 			that = (cursor.getInt(0) > 0);
 		}
 		return that;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @Insert */
+	public int register_issue (Long fk_shared_client, String description){
+		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_shared_client), description, "0", "0" };
+		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+		context.getContentResolver().insert("content://com.uisleandro.Issue/register_issue", contentValues);
+	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 // reserved-for:AndroidSqliteQuerySingle002
