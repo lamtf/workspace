@@ -134,6 +134,19 @@ task clean(type: Delete) {
 [/template]
 
 
+[template public begin_reserve(name : String)]
+<!--
+Start of user code [name /]
+-->
+[/template]
+
+[template public end_reserve(name : String)]
+<!--
+[name /]
+End of user code
+-->
+[/template]
+
 [comment 
 
 eu preciso gerar este arquivo para todos os subprojetos que eu possuo
@@ -141,6 +154,7 @@ eu preciso gerar este arquivo para todos os subprojetos que eu possuo
 /]
 [template public build_android_core_manifest(modul : Package, pname : String)]
 <?xml version="1.0" encoding="utf-8"?>
+[begin_reserve('reserved-for:AndroidProject001') /]
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 package="com.uisleandro.store"
 >
@@ -161,7 +175,18 @@ package="com.uisleandro.store"
 		android:theme="@style/AppTheme">
 	</application>
 
+[end_reserve('reserved-for:AndroidProject001') /]
+<!--
+[protected ('reserved-for:AndroidSqliteDatabaseSingle001')]
+-->
+
+<!--
+reserved-for:AndroidSqliteDatabaseSingle001
+[/protected]
+-->
+[begin_reserve('reserved-for:AndroidProject002') /]
 </manifest>
+[end_reserve('reserved-for:AndroidProject002') /]
 [/template]
 
 

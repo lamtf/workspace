@@ -1200,6 +1200,10 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 [let appName : String = 'Store']
 [let cName : String = 'com.'+vendor+'.'+appName]
 
+[file (cName+'.Core/src/main/AndroidManifest.xml', false, 'UTF-8')]
+[/file]
+
+
 [comment]
 	FROM THIS VERSION OF THE CODE
 	I JUST BRING BACK THIS CODE, WHICH MEANS THAT
