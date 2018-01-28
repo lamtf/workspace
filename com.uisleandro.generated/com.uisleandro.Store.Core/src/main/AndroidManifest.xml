@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+Start of user code reserved-for:AndroidProject001
+-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 package="com.uisleandro.store"
 >
 
+<!-- build_android_core_manifest() -->
+
+	<!-- Start of user code protected -->
+
+	<uses-permission android:name="android.permission.CAMERA"/>
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 	<uses-permission android:name="android.permission.SEND_SMS"/>
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 	<uses-permission android:name="android.permission.INTERNET"/>
-
-	<!--
-		I need to solve ic_launcher, app_name and @style/AppTheme
-		Maybe with bash it's better
-	-->
 
 	<application
 		android:allowBackup="true"
@@ -19,15 +22,25 @@ package="com.uisleandro.store"
 		android:label="@string/app_name"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-
-		<!-- Auto Generated -->
-		<activity android:name=".MainActivity">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN"/>
-				<category android:name="android.intent.category.LAUNCHER"/>
-			</intent-filter>
-		</activity>
-
 	</application>
 
+<!--
+reserved-for:AndroidProject001
+End of user code
+-->
+<!--
+Start of user code reserved-for:AndroidSqliteDatabaseSingle001
+-->
+
+<!--
+reserved-for:AndroidSqliteDatabaseSingle001
+End of user code
+-->
+<!--
+Start of user code reserved-for:AndroidProject002
+-->
 </manifest>
+<!--
+reserved-for:AndroidProject002
+End of user code
+-->

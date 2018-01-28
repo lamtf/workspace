@@ -159,6 +159,8 @@ eu preciso gerar este arquivo para todos os subprojetos que eu possuo
 package="com.uisleandro.store"
 >
 
+<!-- build_android_core_manifest() -->
+
 	<!-- Start of user code protected -->
 
 	<uses-permission android:name="android.permission.CAMERA"/>
@@ -195,6 +197,8 @@ reserved-for:AndroidSqliteDatabaseSingle001
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 package="[pname/]"
 >
+
+<!-- build_android_manifest() -->
 
 [if ('supply' = name or 'sales' = name)]
 	<uses-permission android:name="android.permission.CAMERA"/>
@@ -412,7 +416,11 @@ Makes a project for each module
 ][let fName : String = cName+'.'+ToCamelCase(modul.name)]
 
 [file (fName + '/src/main/AndroidManifest.xml', false, 'UTF-8')]
+[if (modul.name = 'core') ]
+[build_android_core_manifest(modul, pname) /]
+[else]
 [build_android_manifest(modul, pname) /]
+[/if]
 [/file]
 
 [file (fName+'/src/main/libs/README.txt', false, 'UTF-8')]

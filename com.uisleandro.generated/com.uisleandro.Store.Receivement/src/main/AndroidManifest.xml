@@ -3,6 +3,8 @@
 package="com.uisleandro.store"
 >
 
+<!-- build_android_manifest() -->
+
 	<uses-permission android:name="android.permission.INTERNET"/>
 
 	<!--
