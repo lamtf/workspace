@@ -30,9 +30,7 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001import com.uisleandro.store.client.view.FindByCpfOut;
-import com.uisleandro.store.client.view.FindByCpfOut;
-import com.uisleandro.store.client.view.FindByCpfOut;
+// Start of user code reserved-for:AndroidSqliteQuerySingle001
 // reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -89,6 +87,7 @@ public class BasicClientProvider extends ContentProvider {
 
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
+
 
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
 // reserved-for:AndroidSqliteSyncSingle003
@@ -314,7 +313,6 @@ public class BasicClientProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase007
 // End of user code
 
-
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete (@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -335,6 +333,8 @@ public class BasicClientProvider extends ContentProvider {
 	}
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
+
+// end content-provider-interface
 
 // Start of user code reserved-for:AndroidSqliteSyncSingle003
 // reserved-for:AndroidSqliteSyncSingle003
@@ -412,3 +412,11 @@ public class BasicClientProvider extends ContentProvider {
 }
 // reserved-for:AndroidSqliteDatabase011
 // End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
+// reserved-for:AndroidSqliteDatabase011
+// End of user code
+

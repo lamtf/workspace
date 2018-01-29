@@ -36,6 +36,9 @@
       <ownedComment xmi:type="uml:Comment" xmi:id="_Y0EvUNIDEeao-7rxcgX3fg" annotatedElement="_cMbTQH3lEeaTh9hdCfhtsA">
         <body>It should be in another database?</body>
       </ownedComment>
+      <ownedComment xmi:type="uml:Comment" xmi:id="_C1bQgAUOEei18NYAOxGoNg">
+        <body>Todo I need to add a Table called 'culture'.. The table will be used to set currency, language and time</body>
+      </ownedComment>
       <packagedElement xmi:type="uml:Class" xmi:id="_uqnsgH2bEeadmqRkk0UdPw" name="role">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_qON9kH3mEeaTh9hdCfhtsA" name="name">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
@@ -218,7 +221,6 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="_vxGOEtHqEeao-7rxcgX3fg" name="installment_type" type="_sumY0H2oEeadmqRkk0UdPw" association="_vxFnANHqEeao-7rxcgX3fg"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_Ut9QgtHtEeao-7rxcgX3fg" name="interest_rate_type" type="_EWmAgNHtEeao-7rxcgX3fg" association="_Ut8CYNHtEeao-7rxcgX3fg"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_So7gEtIhEeao-7rxcgX3fg" name="bank" type="_IOwxUH3tEeaTh9hdCfhtsA" association="_So65ANIhEeao-7rxcgX3fg"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_jyV40PABEeah4caBEHU56w" name="currency" type="_sjSVYO_SEeaQ4OY13ZoO6w" association="_jyOkEPABEeah4caBEHU56w"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_EWmAgNHtEeao-7rxcgX3fg" name="interest_rate_type">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_PB6TsNHtEeao-7rxcgX3fg" name="name">
@@ -290,7 +292,6 @@
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5Lp7EO7VEea1jORrciasog" value="15"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_KygMYNdxEeaUKqnJtWqfXg" name="unit" type="_s1WF8H3oEeaTh9hdCfhtsA" association="_Kyas0NdxEeaUKqnJtWqfXg"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_B7Lqku_UEeaQ4OY13ZoO6w" name="currency" type="_sjSVYO_SEeaQ4OY13ZoO6w" association="_B7KccO_UEeaQ4OY13ZoO6w"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_ogItAAgQEeeUucLWv03fqg" name="expiration_date">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrV39YEeaVP9RPox9M_A"/>
         </ownedAttribute>
@@ -459,7 +460,6 @@ com a data..</body>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_sZJYgn3wEeaTh9hdCfhtsA" name="user" type="_fpudAH2XEeadmqRkk0UdPw" association="_sZIKYH3wEeaTh9hdCfhtsA"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_E1a3cn8gEeaNP7lvaBpbiQ" name="client_from_system" type="_Bri0MH2mEeadmqRkk0UdPw" association="_E1ZpUH8gEeaNP7lvaBpbiQ"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_9LuiUPBWEea-wemYrIgn_g" name="currency" type="_sjSVYO_SEeaQ4OY13ZoO6w" association="_9LaZQPBWEea-wemYrIgn_g"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Dependency" xmi:id="_XTNnsIXfEeatheJ11KJw0A" client="_iMzUcIQ_EeaCGJdAcOtWZg" supplier="_gBCAcIQ_EeaCGJdAcOtWZg"/>
       <packagedElement xmi:type="uml:Dependency" xmi:id="_YJE4sIXfEeatheJ11KJw0A" client="_iMzUcIQ_EeaCGJdAcOtWZg" supplier="_hXs4cIQ_EeaCGJdAcOtWZg"/>
@@ -506,7 +506,6 @@ cadastro de NFE e emissao de NFE</body>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_VOXS8H37EeaTh9hdCfhtsA" name="closing_value" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrU39YEeaVP9RPox9M_A"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_xT1d0O_TEeaQ4OY13ZoO6w" name="currency" type="_sjSVYO_SEeaQ4OY13ZoO6w" association="_xTzBkO_TEeaQ4OY13ZoO6w"/>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_73YOcH2rEeadmqRkk0UdPw" name="cash_launch">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_MUjykn2sEeadmqRkk0UdPw" name="cash_register" type="_6eODIH2rEeadmqRkk0UdPw" association="_MUjLgH2sEeadmqRkk0UdPw"/>
@@ -516,7 +515,6 @@ cadastro de NFE e emissao de NFE</body>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_hQqnMH37EeaTh9hdCfhtsA" name="amount_spent" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrU39YEeaVP9RPox9M_A"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_thkGEe_TEeaQ4OY13ZoO6w" name="currency" type="_sjSVYO_SEeaQ4OY13ZoO6w" association="_thhCwO_TEeaQ4OY13ZoO6w"/>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Package" xmi:id="_4eIUMAfjEeeUucLWv03fqg" name="discount">
@@ -773,36 +771,6 @@ cadastro de NFE e emissao de NFE</body>
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_MhcUEO_TEeaQ4OY13ZoO6w" key="nature" value="UML_Nature"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:Property" xmi:id="_MhcUEu_TEeaQ4OY13ZoO6w" name="system" type="_eyHfkH2XEeadmqRkk0UdPw" association="_Mhae4O_TEeaQ4OY13ZoO6w"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_thhCwO_TEeaQ4OY13ZoO6w" memberEnd="_thkGEe_TEeaQ4OY13ZoO6w _thktIO_TEeaQ4OY13ZoO6w">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_thjfAO_TEeaQ4OY13ZoO6w" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_thkGEO_TEeaQ4OY13ZoO6w" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_thktIO_TEeaQ4OY13ZoO6w" name="cash_launch" type="_73YOcH2rEeadmqRkk0UdPw" association="_thhCwO_TEeaQ4OY13ZoO6w"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_xTzBkO_TEeaQ4OY13ZoO6w" memberEnd="_xT1d0O_TEeaQ4OY13ZoO6w _xT1d0e_TEeaQ4OY13ZoO6w">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_xT02wO_TEeaQ4OY13ZoO6w" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_xT02we_TEeaQ4OY13ZoO6w" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_xT1d0e_TEeaQ4OY13ZoO6w" name="cash_register" type="_6eODIH2rEeadmqRkk0UdPw" association="_xTzBkO_TEeaQ4OY13ZoO6w"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_B7KccO_UEeaQ4OY13ZoO6w" memberEnd="_B7Lqku_UEeaQ4OY13ZoO6w _B7MRoO_UEeaQ4OY13ZoO6w">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_B7LqkO_UEeaQ4OY13ZoO6w" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_B7Lqke_UEeaQ4OY13ZoO6w" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_B7MRoO_UEeaQ4OY13ZoO6w" name="product" type="_Slh30H2gEeadmqRkk0UdPw" association="_B7KccO_UEeaQ4OY13ZoO6w"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_jyOkEPABEeah4caBEHU56w" memberEnd="_jyV40PABEeah4caBEHU56w _jyXG8PABEeah4caBEHU56w">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_jyTckPABEeah4caBEHU56w" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_jyUDoPABEeah4caBEHU56w" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_jyXG8PABEeah4caBEHU56w" name="invoice" type="_OAheQNHkEeao-7rxcgX3fg" association="_jyOkEPABEeah4caBEHU56w"/>
-    </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_9LaZQPBWEea-wemYrIgn_g" memberEnd="_9LuiUPBWEea-wemYrIgn_g _9LwXgPBWEea-wemYrIgn_g">
-      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_9Lq38PBWEea-wemYrIgn_g" source="org.eclipse.papyrus">
-        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_9LsGEPBWEea-wemYrIgn_g" key="nature" value="UML_Nature"/>
-      </eAnnotations>
-      <ownedEnd xmi:type="uml:Property" xmi:id="_9LwXgPBWEea-wemYrIgn_g" name="sale" type="_2JAtgH2XEeadmqRkk0UdPw" association="_9LaZQPBWEea-wemYrIgn_g"/>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_MYfs4AgQEeeUucLWv03fqg" memberEnd="_MYhiEAgQEeeUucLWv03fqg _MYhiEQgQEeeUucLWv03fqg">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_MYg7AAgQEeeUucLWv03fqg" source="org.eclipse.papyrus">

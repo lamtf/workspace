@@ -30,7 +30,8 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001// reserved-for:AndroidSqliteQuerySingle001
+// Start of user code reserved-for:AndroidSqliteQuerySingle001
+// reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase002
@@ -86,6 +87,7 @@ public class InvoiceProvider extends ContentProvider {
 
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
+
 
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
 // reserved-for:AndroidSqliteSyncSingle003
@@ -258,10 +260,10 @@ public class InvoiceProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle003
 /* @Insert */
-	else if (URI_INVOICE_insert_installment.equals(uri)) {
+	else if (URI_INVOICE_INSERT_INSTALLMENT.equals(uri)) {
 			result = insert_installment(selectionArgs); // << missing arguments
 	}
-	else if (URI_INVOICE_insert_installment_sicoob.equals(uri)) {
+	else if (URI_INVOICE_INSERT_INSTALLMENT_SICOOB.equals(uri)) {
 			result = insert_installment_sicoob(selectionArgs); // << missing arguments
 	}
 // reserved-for:AndroidSqliteQuerySingle003
@@ -294,7 +296,6 @@ public class InvoiceProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase007
 // End of user code
 
-
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete (@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -315,6 +316,8 @@ public class InvoiceProvider extends ContentProvider {
 	}
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
+
+// end content-provider-interface
 
 // Start of user code reserved-for:AndroidSqliteSyncSingle003
 // reserved-for:AndroidSqliteSyncSingle003
@@ -385,3 +388,11 @@ public class InvoiceProvider extends ContentProvider {
 }
 // reserved-for:AndroidSqliteDatabase011
 // End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
+// reserved-for:AndroidSqliteDatabase011
+// End of user code
+

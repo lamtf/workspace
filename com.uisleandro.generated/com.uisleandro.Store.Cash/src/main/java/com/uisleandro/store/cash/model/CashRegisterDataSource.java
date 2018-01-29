@@ -111,12 +111,18 @@ public class CashRegisterDataSource {
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
 	/* @Insert */
 	public int eventual_cash_usage (Long fk_cash_register, String justification, Float amount_spent){
-		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_cash_register), justification, String.valueOf(amount_spent) };
-		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+		ContentValues contentValues = new ContentValues(4);
+		contentValues.put("last_update",com.uisleandro.util.config.getRightNowString());
+		contentValues.put("fk_cash_register",fk_cash_register);
+		contentValues.put("justification",justification);
+		contentValues.put("amount_spent",amount_spent);
+	
 		context.getContentResolver().insert("content://com.uisleandro.cash_register/eventual_cash_usage", contentValues);
 	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-	// TODO: PLEASE DONT USE SYNC CODE
+	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
 	}
+	
+	
 	/* @SelectListWhere */
 	public List<CheckHistoryOut> check_history (long page_count, long page_size){
 		String selectionArgs = new String[]{ com.uisleandro.util.config.getTodayString() }; 
@@ -144,12 +150,19 @@ public class CashRegisterDataSource {
 	}
 	/* @Insert */
 	public int open_cash_register (Long user){
-		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(user), "0", "0", "0" };
-		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+		ContentValues contentValues = new ContentValues(5);
+		contentValues.put("last_update",com.uisleandro.util.config.getRightNowString());
+		contentValues.put("user",user);
+		contentValues.put("opening_value","0");
+		contentValues.put("received_value","0");
+		contentValues.put("closing_value","0");
+	
 		context.getContentResolver().insert("content://com.uisleandro.cash_register/open_cash_register", contentValues);
 	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-	// TODO: PLEASE DONT USE SYNC CODE
+	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
 	}
+	
+	
 	/* @ExistsWhere */
 	public boolean is_open_today () {
 		String selectionArgs = new String[]{ com.uisleandro.util.config.getTodayString(), com.uisleandro.util.config.getUserIdString(), "0", "0" }; 
@@ -169,3 +182,4 @@ public class CashRegisterDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
+

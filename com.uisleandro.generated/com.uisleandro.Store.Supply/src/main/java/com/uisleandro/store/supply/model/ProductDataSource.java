@@ -127,18 +127,25 @@ public class ProductDataSource {
 	}
 	/* @UpdateWhere */
 	public int product_recounting(Long fk_product){
-		//TODO: PLEASE FIX IT IT'S WRONG
 		int result = 0;
-		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
-		String selection = null;
+	
+		ContentValues contentValues = new ContentValues(5);
+		contentValues.put("actual_amount",actual_amount);
+		contentValues.put("sold_items",sold_items);
+		contentValues.put("previous_amount",previous_amount);
+		contentValues.put("missing_amount",missing_amount);
+		contentValues.put("barcode",barcode);
+	
 		String[] selectionArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_product), "actual_amount + 1" }
-		Cursor cursor = context.getContentResolver().update("content://com.uisleandro.product/product_recounting", contentValues, null,	selectionArgs); 
+	
+		Cursor cursor = context.getContentResolver().update("content://com.uisleandro.product/product_recounting", contentValues, null, selectionArgs); 
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);
 		}
 		return result;
-	// TODO: PLEASE DONT USE SYNC CODE
+	// TODO: PLEASE DON'T USE SYNCHRONIZED CODE
+	
 	}
 	/* @SelectListWhere */
 	public List<MissingProductsRelatoryOut> missing_products_relatory (long page_count, long page_size){
@@ -184,3 +191,4 @@ public class ProductDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
+

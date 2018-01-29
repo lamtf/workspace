@@ -260,6 +260,22 @@ pelo nome da variavel ou pelo valor padrão
 /][if gotStereotype(arg, 'IsToday')]com.uisleandro.util.config.getTodayString()[else][comment
 /][if gotStereotype(arg, 'IsRightNow')]com.uisleandro.util.config.getRightNowString()[/if][/if][/if][/if][/if][/if][/template]
 
+[template public value_to_database_nostring(arg : Property)
+][if arg.getAppliedStereotypes()->isEmpty()][arg.name/][else][if getComparisons()->notEmpty()][comment 
+/][for (it : Stereotype | getComparisons()) separator(',')][comment 
+/][if gotStereotype(arg, 'DefaultSystemId')]com.uisleandro.util.config.getSystemIdString()[comment 
+/][else][if gotStereotype(arg, 'DefaultUserId')]com.uisleandro.util.config.getUserIdString()[else][comment 
+/][if gotStereotype(arg, 'IsToday')]com.uisleandro.util.config.getTodayString()[else][comment
+/][if gotStereotype(arg, 'IsRightNow')]com.uisleandro.util.config.getRightNowString()[else][comment 
+/][if not (isNullOrEmpty(arg.getValue(it, 'hint').toString())) ]"[arg.getValue(it, 'hint').toString() /]"[else][comment 
+/][to_java_string(arg)/][/if][/if][/if][/if][/if][/for][else][comment 
+/][if gotStereotype(arg, 'DefaultSystemId')]com.uisleandro.util.config.getSystemIdString()[comment 
+/][else][if gotStereotype(arg, 'DefaultUserId')]com.uisleandro.util.config.getUserIdString()[else][comment 
+/][if gotStereotype(arg, 'IsToday')]com.uisleandro.util.config.getTodayString()[else][comment
+/][if gotStereotype(arg, 'IsRightNow')]com.uisleandro.util.config.getRightNowString()[/if][/if][/if][/if][/if][/if][/template]
+
+
+
 [query public fieldName(arg : Property, p : Boolean) : String =
 if arg.isfk() then
 if p then
@@ -439,7 +455,7 @@ import [mName /].view.[ToCamelCase(out_parameter_definition(op).name) /];
 [begin_reserve('reserved-for:AndroidSqliteQuerySingle003') /]
 /* @Insert */
 [for (op : Operation | getValidOperations(controller)->select(x| gotStereotype(x, 'Insert')))]
-	else if (URI_[controller.name.toUpperCase() /]_[op.name /].equals(uri)) {
+	else if (URI_[controller.name.toUpperCase() /]_[op.name.toUpperCase() /].equals(uri)) {
 			result = [op.name /](selectionArgs); // << missing arguments
 	}
 [/for]
@@ -727,14 +743,27 @@ className : String,
 functionName : String,
 queryIns: Sequence(Property)
 )]
+[let queryIns_notEmpty : Sequence(Property) = query_parameters_filter_empty(queryIns)]
 /* @Insert */
 public int [functionName /] ([query_parameters_definition(queryIns) /]){
-	String[ '[' /][ ']' /] insertArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] };
-	ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+	[comment]
+	String[ '[' /][ ']' /] insertArgs = new String['['/][']'/]{ [if (queryIns_notEmpty->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] };
+	[/comment]
+	ContentValues contentValues = new ContentValues([if (queryIns_notEmpty->notEmpty())][queryIns_notEmpty->size()/][else]1[/if]);
+[if (queryIns_notEmpty->notEmpty())]
+[for (it : Property | queryIns_notEmpty)]
+	contentValues.put("[it.name /]",[value_to_database_nostring(it)/]);
+[/for]
+[else]
+	contentValues.put("id",id);
+[/if]
+
 	context.getContentResolver().insert("content://com.uisleandro.[className /]/[functionName /]", contentValues);
 // TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-// TODO: PLEASE DONT USE SYNC CODE
+// TODO: PLEASE DONT USE SYNCHRONIZED CODE
 }
+
+[/let]
 [/template]
 
 
@@ -972,21 +1001,32 @@ separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 	functionName: String,
 	queryIns: Sequence(Property),
 	queryOuts: Sequence(Property))]
+[let queryOuts_notEmpty : Sequence(Property) = query_parameters_filter_empty(queryOuts)]
 /* @UpdateWhere */
 public int [functionName 
 /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
-	//TODO: PLEASE FIX IT IT'S WRONG
 	int result = 0;
-	ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
-	String selection = null;
+
+	ContentValues contentValues = new ContentValues([if (queryOuts_notEmpty->notEmpty())][queryOuts_notEmpty->size()/][else]1[/if]);
+[if (queryOuts_notEmpty->notEmpty())]
+[for (it : Property | queryOuts_notEmpty)]
+	contentValues.put("[it.name /]",[value_to_database_nostring(it)/]);
+[/for]
+[else]
+	contentValues.put("id",id);
+[/if]
+
 	String['['/][']'/] selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }
-	Cursor cursor = context.getContentResolver().update("content://com.uisleandro.[className /]/[functionName /]", contentValues, null,	selectionArgs); 
+
+	Cursor cursor = context.getContentResolver().update("content://com.uisleandro.[className /]/[functionName /]", contentValues, null, selectionArgs); 
 	cursor.moveToFirst();
 	if(!cursor.isAfterLast()){
 		result = cursor.getInt(0);
 	}
 	return result;
-// TODO: PLEASE DONT USE SYNC CODE
+// TODO: PLEASE DON'T USE SYNCHRONIZED CODE
+
+[/let]
 }
 [/template]
 
@@ -1109,6 +1149,13 @@ I cant use isEmpty in all cases
 [for (prop : Property | props->select(
 x | not gotStereotype(x, 'IsEmpty') and not gotStereotype(x, 'IsntEmpty')
 )) separator(', ')][value_to_database(prop)/][/for][/template]
+
+
+[query public query_parameters_filter_empty(arg : Sequence(Property)) : Sequence(Property) = arg->select(
+x| not(gotStereotype(x, 'IsEmpty')) and not(gotStereotype(x, 'IsntEmpty'))
+)->asSequence() /]
+
+
 
 [comment 
 

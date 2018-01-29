@@ -115,3 +115,4 @@ public class ProductOnSaleDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
+

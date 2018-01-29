@@ -30,7 +30,7 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001import com.uisleandro.store.sales.view.ListProductsOnSalesChartOut;
+// Start of user code reserved-for:AndroidSqliteQuerySingle001
 // reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -87,6 +87,7 @@ public class SaleProvider extends ContentProvider {
 
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
+
 
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
 // reserved-for:AndroidSqliteSyncSingle003
@@ -293,10 +294,10 @@ public class SaleProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle003
 /* @Insert */
-	else if (URI_SALE_create_sales_chart.equals(uri)) {
+	else if (URI_SALE_CREATE_SALES_CHART.equals(uri)) {
 			result = create_sales_chart(selectionArgs); // << missing arguments
 	}
-	else if (URI_SALE_add_product_to_sales_chart.equals(uri)) {
+	else if (URI_SALE_ADD_PRODUCT_TO_SALES_CHART.equals(uri)) {
 			result = add_product_to_sales_chart(selectionArgs); // << missing arguments
 	}
 // reserved-for:AndroidSqliteQuerySingle003
@@ -329,7 +330,6 @@ public class SaleProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase007
 // End of user code
 
-
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete (@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -359,6 +359,8 @@ public class SaleProvider extends ContentProvider {
 	}
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
+
+// end content-provider-interface
 
 // Start of user code reserved-for:AndroidSqliteSyncSingle003
 // reserved-for:AndroidSqliteSyncSingle003
@@ -482,3 +484,11 @@ public class SaleProvider extends ContentProvider {
 }
 // reserved-for:AndroidSqliteDatabase011
 // End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabase011
+		return result;
+	}
+}
+// reserved-for:AndroidSqliteDatabase011
+// End of user code
+

@@ -110,12 +110,19 @@ public class IssueDataSource {
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
 	/* @Insert */
 	public int register_issue (Long fk_shared_client, String description){
-		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_shared_client), description, "0", "0" };
-		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+		ContentValues contentValues = new ContentValues(5);
+		contentValues.put("last_update",com.uisleandro.util.config.getRightNowString());
+		contentValues.put("fk_shared_client",fk_shared_client);
+		contentValues.put("description",description);
+		contentValues.put("active","0");
+		contentValues.put("isAnswer","0");
+	
 		context.getContentResolver().insert("content://com.uisleandro.Issue/register_issue", contentValues);
 	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-	// TODO: PLEASE DONT USE SYNC CODE
+	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
 	}
+	
+	
 	/* @ExistsWhere */
 	public boolean check_client (Long fk_shared_client) {
 		String selectionArgs = new String[]{ String.valueOf(fk_shared_client), "1" }; 
@@ -135,3 +142,4 @@ public class IssueDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
+

@@ -117,12 +117,18 @@ public class SaleDataSource {
 	}
 	/* @Insert */
 	public int create_sales_chart (){
-		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), "0", com.uisleandro.util.config.getSystemIdString(), com.uisleandro.util.config.getUserIdString() };
-		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+		ContentValues contentValues = new ContentValues(4);
+		contentValues.put("last_update",com.uisleandro.util.config.getRightNowString());
+		contentValues.put("total_value","0");
+		contentValues.put("fk_system",com.uisleandro.util.config.getSystemIdString());
+		contentValues.put("fk_user",com.uisleandro.util.config.getUserIdString());
+	
 		context.getContentResolver().insert("content://com.uisleandro.sale/create_sales_chart", contentValues);
 	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-	// TODO: PLEASE DONT USE SYNC CODE
+	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
 	}
+	
+	
 	/* @DeleteWhere */
 	public int cancel_sales_chart(Long id){
 		String selectionArgs = new String[]{ String.valueOf(id) };
@@ -137,12 +143,17 @@ public class SaleDataSource {
 	}
 	/* @Insert */
 	public int add_product_to_sales_chart (Long fk_sale, Long fk_product){
-		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_sale), String.valueOf(fk_product) };
-		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+		ContentValues contentValues = new ContentValues(3);
+		contentValues.put("last_update",com.uisleandro.util.config.getRightNowString());
+		contentValues.put("fk_sale",fk_sale);
+		contentValues.put("fk_product",fk_product);
+	
 		context.getContentResolver().insert("content://com.uisleandro.sale/add_product_to_sales_chart", contentValues);
 	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-	// TODO: PLEASE DONT USE SYNC CODE
+	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
 	}
+	
+	
 	/* @SelectListWhere */
 	public List<ListProductsOnSalesChartOut> list_products_on_sales_chart (Long fk_sale, long page_count, long page_size){
 		String selectionArgs = new String[]{ String.valueOf(fk_sale) }; 
@@ -163,3 +174,4 @@ public class SaleDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
+
