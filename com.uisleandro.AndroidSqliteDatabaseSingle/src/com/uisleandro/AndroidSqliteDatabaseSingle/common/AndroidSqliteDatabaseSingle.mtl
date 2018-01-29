@@ -739,7 +739,7 @@ ON [tbl.getQualifiedName() /]
 */
 [else]
 [begin_reserve('reserved-for:AndroidSqliteDatabase001') /]
-package [pname /].Core.model;  [comment 'Core' == modul.name/]
+package [pname /].[modul.name /].model;  [comment 'Core' == modul.name/]
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -1192,6 +1192,34 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 ][for (name : String | tokenize('.')) separator ('.')
 ][name /][/for][/template]
 
+[template public build_android_core_manifest(root: Model, vendor: String, pName: String)]
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+[protected ('reserved-for:AndroidProject001')]
+[/protected]
+-->
+<!--
+[begin_reserve('reserved-for:AndroidSqliteDatabaseSingle001') /]
+-->
+
+[for (modul : Package | get_modules(root))]
+[for (tbl : Class | get_tables(modul))]
+<provider
+  android:authorities="com.[vendor /].[tbl.name /]"
+  android:name="[pName.toLowerCase()/].[modul.name /].model.[ToCamelCase(tbl.name)/]Provider">
+</provider>
+
+[/for][/for]
+<!--
+[end_reserve('reserved-for:AndroidSqliteDatabaseSingle001') /]
+-->
+<!--
+[protected ('reserved-for:AndroidProject002')]
+[/protected]
+-->
+[/template]
+
+
 [template public generateElement(root : Model)]
 [comment @main/]
 
@@ -1201,8 +1229,8 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 [let cName : String = 'com.'+vendor+'.'+appName]
 
 [file (cName+'.Core/src/main/AndroidManifest.xml', false, 'UTF-8')]
+[build_android_core_manifest(root, vendor, cName)/]
 [/file]
-
 
 [comment]
 	FROM THIS VERSION OF THE CODE

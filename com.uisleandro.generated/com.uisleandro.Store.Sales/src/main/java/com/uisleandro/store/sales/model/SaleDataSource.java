@@ -163,4 +163,3 @@ public class SaleDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

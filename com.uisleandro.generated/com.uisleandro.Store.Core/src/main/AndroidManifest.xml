@@ -29,12 +29,172 @@ reserved-for:AndroidProject001
 End of user code
 -->
 <!--
-Start of user code reserved-for:AndroidSqliteDatabaseSingle001
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle001
 -->
 
+<provider
+  android:authorities="com.uisleandro.cash_register"
+  android:name="com.uisleandro.store.cash.model.CashRegisterProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.cash_launch"
+  android:name="com.uisleandro.store.cash.model.CashLaunchProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.stock_review"
+  android:name="com.uisleandro.store.supply.model.StockReviewProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.unit"
+  android:name="com.uisleandro.store.supply.model.UnitProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.category"
+  android:name="com.uisleandro.store.supply.model.CategoryProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.brand"
+  android:name="com.uisleandro.store.supply.model.BrandProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.gender"
+  android:name="com.uisleandro.store.supply.model.GenderProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.product"
+  android:name="com.uisleandro.store.supply.model.ProductProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.distributor_contact"
+  android:name="com.uisleandro.store.supply.model.DistributorContactProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.Issue"
+  android:name="com.uisleandro.store.credit_protection.model.IssueProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.shared_client"
+  android:name="com.uisleandro.store.credit_protection.model.SharedClientProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.product_on_sale"
+  android:name="com.uisleandro.store.sales.model.ProductOnSaleProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.sale_type"
+  android:name="com.uisleandro.store.sales.model.SaleTypeProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.sale"
+  android:name="com.uisleandro.store.sales.model.SaleProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.db_log"
+  android:name="com.uisleandro.store.core.model.DbLogProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.currency"
+  android:name="com.uisleandro.store.core.model.CurrencyProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.token_type"
+  android:name="com.uisleandro.store.core.model.TokenTypeProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.user"
+  android:name="com.uisleandro.store.core.model.UserProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.token"
+  android:name="com.uisleandro.store.core.model.TokenProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.system"
+  android:name="com.uisleandro.store.core.model.SystemProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.role"
+  android:name="com.uisleandro.store.core.model.RoleProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.discount"
+  android:name="com.uisleandro.store.discount.model.DiscountProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.country"
+  android:name="com.uisleandro.store.client.model.CountryProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.brazilian"
+  android:name="com.uisleandro.store.client.model.BrazilianProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.client_from_system"
+  android:name="com.uisleandro.store.client.model.ClientFromSystemProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.basic_client"
+  android:name="com.uisleandro.store.client.model.BasicClientProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.bank"
+  android:name="com.uisleandro.store.receivement.model.BankProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.invoice"
+  android:name="com.uisleandro.store.receivement.model.InvoiceProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.installment_type"
+  android:name="com.uisleandro.store.receivement.model.InstallmentTypeProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.boleto_sicoob"
+  android:name="com.uisleandro.store.receivement.model.BoletoSicoobProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.interest_rate_type"
+  android:name="com.uisleandro.store.receivement.model.InterestRateTypeProvider">
+</provider>
+
+<provider
+  android:authorities="com.uisleandro.refarral"
+  android:name="com.uisleandro.store.refarral.model.RefarralProvider">
+</provider>
+
 <!--
-reserved-for:AndroidSqliteDatabaseSingle001
-End of user code
+// reserved-for:AndroidSqliteDatabaseSingle001
+// End of user code
 -->
 <!--
 Start of user code reserved-for:AndroidProject002
