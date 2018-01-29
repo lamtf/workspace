@@ -126,6 +126,8 @@ public class BankProvider extends ContentProvider {
 		DbHelper.BANK_NAME, 
 		DbHelper.BANK_NAME, 
 		DbHelper.BANK_NAME, 
+		DbHelper.BANK_NAME, 
+		DbHelper.BANK_NAME, 
 		DbHelper.BANK_NAME
 	};
 
@@ -164,6 +166,8 @@ public class BankProvider extends ContentProvider {
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
 			"code, " +
+			"name, " +
+			"name, " +
 			"name, " +
 			"name, " +
 			"name, " +

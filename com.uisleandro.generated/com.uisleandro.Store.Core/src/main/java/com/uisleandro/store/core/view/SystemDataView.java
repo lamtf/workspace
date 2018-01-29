@@ -22,7 +22,8 @@ public class SystemDataView {
 	private String stores_state;
 	private String stores_email;
 	private String stores_phonenumber;
-	private long fk_refarral;
+	private long refarral;
+	private long reseller;
 
 	public SystemDataView () {
 		this.id = 0L;
@@ -41,7 +42,8 @@ public class SystemDataView {
 		this.stores_state = "";
 		this.stores_email = "";
 		this.stores_phonenumber = "";
-		this.fk_refarral = 0L;
+		this.refarral = 0L;
+		this.reseller = 0L;
 	}
 
 	public long getId () {
@@ -172,12 +174,20 @@ public class SystemDataView {
 		this.stores_phonenumber = stores_phonenumber;
 	}
 
-	public long getFkRefarral () {
-		return fk_refarral;
+	public long getRefarral () {
+		return refarral;
 	}
 
-	public void setFkRefarral (long fk_refarral) {
-		this.fk_refarral = fk_refarral;
+	public void setRefarral (long refarral) {
+		this.refarral = refarral;
+	}
+
+	public long getReseller () {
+		return reseller;
+	}
+
+	public void setReseller (long reseller) {
+		this.reseller = reseller;
 	}
 
 	public String toJsonString () {
@@ -197,7 +207,8 @@ public class SystemDataView {
 			"\"stores_state\":\"" + this.stores_state+ "\"," + 
 			"\"stores_email\":\"" + this.stores_email+ "\"," + 
 			"\"stores_phonenumber\":\"" + this.stores_phonenumber+ "\"," + 
-			"\"fk_refarral\":\"" + this.fk_refarral+ "\"" + 
+			"\"refarral\":\"" + this.refarral+ "\"," + 
+			"\"reseller\":\"" + this.reseller+ "\"" + 
 		"}";
 		return result;
 	}
@@ -247,8 +258,11 @@ public class SystemDataView {
 				result.setStoresState(obj.getString("stores_state"));
 				result.setStoresEmail(obj.getString("stores_email"));
 				result.setStoresPhonenumber(obj.getString("stores_phonenumber"));
-				if(obj.has("fk_refarral") && !obj.isNull("fk_refarral")){
-					result.setFkRefarral(obj.getLong("fk_refarral"));
+				if(obj.has("refarral") && !obj.isNull("refarral")){
+					result.setRefarral(obj.getLong("refarral"));
+				}
+				if(obj.has("reseller") && !obj.isNull("reseller")){
+					result.setReseller(obj.getLong("reseller"));
 				}
 				return result;
 			} catch (JSONException e) {
@@ -277,18 +291,19 @@ public class SystemDataView {
 			result.setStoresState(cursor.getString(13));
 			result.setStoresEmail(cursor.getString(14));
 			result.setStoresPhonenumber(cursor.getString(15));
-			result.setFkRefarral(cursor.getLong(16));
+			result.setRefarral(cursor.getLong(16));
+			result.setReseller(cursor.getLong(17));
 			return result;		
 		}
 		return null;
 	}
 
 	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), name, String.valueOf(enabled), String.valueOf(currency), fantasy_name, stores_address, srores_address_number, stores_city, stores_neighborhood, stores_zip_code, stores_state, stores_email, stores_phonenumber, String.valueOf(refarral)};
+		return new String[]{String.valueOf(last_update), name, String.valueOf(enabled), String.valueOf(currency), fantasy_name, stores_address, srores_address_number, stores_city, stores_neighborhood, stores_zip_code, stores_state, stores_email, stores_phonenumber, refarral, reseller};
 	}
 
 	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name, String.valueOf(enabled), String.valueOf(currency), fantasy_name, stores_address, srores_address_number, stores_city, stores_neighborhood, stores_zip_code, stores_state, stores_email, stores_phonenumber, String.valueOf(refarral)};
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name, String.valueOf(enabled), String.valueOf(currency), fantasy_name, stores_address, srores_address_number, stores_city, stores_neighborhood, stores_zip_code, stores_state, stores_email, stores_phonenumber, refarral, reseller};
 	}
 
 }

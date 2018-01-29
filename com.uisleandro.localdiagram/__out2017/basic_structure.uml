@@ -112,7 +112,7 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="_bzDvwLvxEeeQvoZl7-YYzQ" name="stores_phonenumber">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_tAPeYbv6EeeQvoZl7-YYzQ" name="refarral" type="_ZttvsLv4EeeQvoZl7-YYzQ" association="_tAMbELv6EeeQvoZl7-YYzQ">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_tAPeYbv6EeeQvoZl7-YYzQ" name="reseller" type="_ZttvsLv4EeeQvoZl7-YYzQ" association="_tAMbELv6EeeQvoZl7-YYzQ">
           <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tAWMELv6EeeQvoZl7-YYzQ"/>
           <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tAbEkLv6EeeQvoZl7-YYzQ" value="1"/>
         </ownedAttribute>
@@ -537,11 +537,11 @@ cadastro de NFE e emissao de NFE</body>
         </ownedAttribute>
       </packagedElement>
     </packagedElement>
-    <packagedElement xmi:type="uml:Package" xmi:id="_5UsZ8Lv3EeeQvoZl7-YYzQ" name="refarral">
+    <packagedElement xmi:type="uml:Package" xmi:id="_5UsZ8Lv3EeeQvoZl7-YYzQ" name="referral">
       <ownedComment xmi:type="uml:Comment" xmi:id="_x_XKILwCEeeQvoZl7-YYzQ">
         <body>novo: 28 out 2017</body>
       </ownedComment>
-      <packagedElement xmi:type="uml:Class" xmi:id="_ZttvsLv4EeeQvoZl7-YYzQ" name="refarral">
+      <packagedElement xmi:type="uml:Class" xmi:id="_ZttvsLv4EeeQvoZl7-YYzQ" name="reseller">
         <generalization xmi:type="uml:Generalization" xmi:id="_TkubYLv8EeeQvoZl7-YYzQ" general="_fpudAH2XEeadmqRkk0UdPw"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_-YqiwLv6EeeQvoZl7-YYzQ" name="system_amount">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>

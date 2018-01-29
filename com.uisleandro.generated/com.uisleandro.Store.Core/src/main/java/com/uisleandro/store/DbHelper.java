@@ -653,7 +653,8 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static final String SYSTEM_STORES_STATE = "stores_state";
 	public static final String SYSTEM_STORES_EMAIL = "stores_email";
 	public static final String SYSTEM_STORES_PHONENUMBER = "stores_phonenumber";
-	public static final String SYSTEM_FK_REFARRAL = "fk_refarral";
+	public static final String SYSTEM_REFARRAL = "refarral";
+	public static final String SYSTEM_RESELLER = "reseller";
 
 	private static final String CREATE_TABLE_SYSTEM = "CREATE TABLE " + 
 	TABLE_SYSTEM + " ("+ 
@@ -673,7 +674,8 @@ public class DbHelper extends SQLiteOpenHelper {
 	SYSTEM_STORES_STATE + " CHAR(30) NOT NULL, " + 
 	SYSTEM_STORES_EMAIL + " VARCHAR(45) NOT NULL, " + 
 	SYSTEM_STORES_PHONENUMBER + " CHAR(30) NOT NULL, " + 
-	SYSTEM_FK_REFARRAL + " INTEGER NULL " + 
+	SYSTEM_REFARRAL + " INTEGER NOT NULL, " + 
+	SYSTEM_RESELLER + " INTEGER NOT NULL " + 
 	");";
 
 	private static final String CREATE_INDEX_SYSTEM_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_SYSTEM + "_serverid_idx" +
@@ -863,6 +865,8 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static final String BANK_NAME = "name";
 	public static final String BANK_NAME = "name";
 	public static final String BANK_NAME = "name";
+	public static final String BANK_NAME = "name";
+	public static final String BANK_NAME = "name";
 
 	private static final String CREATE_TABLE_BANK = "CREATE TABLE " + 
 	TABLE_BANK + " ("+ 
@@ -872,6 +876,8 @@ public class DbHelper extends SQLiteOpenHelper {
 	BANK_LAST_UPDATE + " INTEGER NULL, " + 
 	BANK_CODE + " CHAR(30) NOT NULL, " + 
 	BANK_NAME + " VARCHAR(45) NOT NULL, " + 
+	BANK_NAME + " CHAR(30) NOT NULL, " + 
+	BANK_NAME + " CHAR(30) NOT NULL, " + 
 	BANK_NAME + " CHAR(30) NOT NULL, " + 
 	BANK_NAME + " CHAR(30) NOT NULL, " + 
 	BANK_NAME + " CHAR(30) NOT NULL " + 
@@ -996,38 +1002,38 @@ public class DbHelper extends SQLiteOpenHelper {
 	private static final String CREATE_INDEX_INTEREST_RATE_TYPE_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_INTEREST_RATE_TYPE + "_serverid_idx" +
 	" ON " + TABLE_INTEREST_RATE_TYPE + " ("+ INTEREST_RATE_TYPE_SERVER_ID +")"; 
 
-// refarral
+// referral
 
-	public static final String TABLE_REFARRAL = "refarral_refarral";
-	public static final String REFARRAL_ID = "id";
-	public static final String REFARRAL_SERVER_ID = "server_id";
-	public static final String REFARRAL_DIRTY = "dirty";
-	public static final String REFARRAL_LAST_UPDATE = "last_update";
-	public static final String REFARRAL_SYSTEM_AMOUNT = "system_amount";
-	public static final String REFARRAL_NAME = "name";
-	public static final String REFARRAL_ADDRESS = "address";
-	public static final String REFARRAL_NEIGHBORHOOD = "neighborhood";
-	public static final String REFARRAL_CITY = "city";
-	public static final String REFARRAL_STATE = "state";
-	public static final String REFARRAL_ZIP_CODE = "zip_code";
+	public static final String TABLE_RESELLER = "referral_reseller";
+	public static final String RESELLER_ID = "id";
+	public static final String RESELLER_SERVER_ID = "server_id";
+	public static final String RESELLER_DIRTY = "dirty";
+	public static final String RESELLER_LAST_UPDATE = "last_update";
+	public static final String RESELLER_SYSTEM_AMOUNT = "system_amount";
+	public static final String RESELLER_NAME = "name";
+	public static final String RESELLER_ADDRESS = "address";
+	public static final String RESELLER_NEIGHBORHOOD = "neighborhood";
+	public static final String RESELLER_CITY = "city";
+	public static final String RESELLER_STATE = "state";
+	public static final String RESELLER_ZIP_CODE = "zip_code";
 
-	private static final String CREATE_TABLE_REFARRAL = "CREATE TABLE " + 
-	TABLE_REFARRAL + " ("+ 
-	REFARRAL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-	REFARRAL_SERVER_ID + " INTEGER NULL, " +
-	REFARRAL_DIRTY + " BOOLEAN NOT NULL, " +
-	REFARRAL_LAST_UPDATE + " INTEGER NULL, " + 
-	REFARRAL_SYSTEM_AMOUNT + " INTEGER NOT NULL, " + 
-	REFARRAL_NAME + " VARCHAR(45) NOT NULL, " + 
-	REFARRAL_ADDRESS + " VARCHAR(45) NOT NULL, " + 
-	REFARRAL_NEIGHBORHOOD + " VARCHAR(45) NOT NULL, " + 
-	REFARRAL_CITY + " VARCHAR(45) NOT NULL, " + 
-	REFARRAL_STATE + " CHAR(30) NOT NULL, " + 
-	REFARRAL_ZIP_CODE + " INTEGER NOT NULL " + 
+	private static final String CREATE_TABLE_RESELLER = "CREATE TABLE " + 
+	TABLE_RESELLER + " ("+ 
+	RESELLER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+	RESELLER_SERVER_ID + " INTEGER NULL, " +
+	RESELLER_DIRTY + " BOOLEAN NOT NULL, " +
+	RESELLER_LAST_UPDATE + " INTEGER NULL, " + 
+	RESELLER_SYSTEM_AMOUNT + " INTEGER NOT NULL, " + 
+	RESELLER_NAME + " VARCHAR(45) NOT NULL, " + 
+	RESELLER_ADDRESS + " VARCHAR(45) NOT NULL, " + 
+	RESELLER_NEIGHBORHOOD + " VARCHAR(45) NOT NULL, " + 
+	RESELLER_CITY + " VARCHAR(45) NOT NULL, " + 
+	RESELLER_STATE + " CHAR(30) NOT NULL, " + 
+	RESELLER_ZIP_CODE + " INTEGER NOT NULL " + 
 	");";
 
-	private static final String CREATE_INDEX_REFARRAL_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_REFARRAL + "_serverid_idx" +
-	" ON " + TABLE_REFARRAL + " ("+ REFARRAL_SERVER_ID +")"; 
+	private static final String CREATE_INDEX_RESELLER_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_RESELLER + "_serverid_idx" +
+	" ON " + TABLE_RESELLER + " ("+ RESELLER_SERVER_ID +")"; 
 
 
 	private void fill(SQLiteDatabase db){
@@ -1071,8 +1077,8 @@ public class DbHelper extends SQLiteOpenHelper {
 		db.rawQuery("INSERT INTO update_history (table_name) VALUES ('installment_type')", null);
 		db.rawQuery("INSERT INTO update_history (table_name) VALUES ('boleto_sicoob')", null);
 		db.rawQuery("INSERT INTO update_history (table_name) VALUES ('interest_rate_type')", null);
-// refarral
-		db.rawQuery("INSERT INTO update_history (table_name) VALUES ('refarral')", null);
+// referral
+		db.rawQuery("INSERT INTO update_history (table_name) VALUES ('reseller')", null);
 
 	}
 
@@ -1169,9 +1175,9 @@ public class DbHelper extends SQLiteOpenHelper {
 		db.execSQL(CREATE_INDEX_BOLETO_SICOOB_CPF);
 		db.execSQL(CREATE_TABLE_INTEREST_RATE_TYPE);
 		db.execSQL(CREATE_INDEX_INTEREST_RATE_TYPE_SERVER_ID);
-// refarral
-		db.execSQL(CREATE_TABLE_REFARRAL);
-		db.execSQL(CREATE_INDEX_REFARRAL_SERVER_ID);
+// referral
+		db.execSQL(CREATE_TABLE_RESELLER);
+		db.execSQL(CREATE_INDEX_RESELLER_SERVER_ID);
 
 		fill(db);
 	}
@@ -1220,8 +1226,8 @@ public class DbHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_INSTALLMENT_TYPE);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_BOLETO_SICOOB);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_INTEREST_RATE_TYPE);
-// refarral
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_REFARRAL);
+// referral
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESELLER);
 
 		//db.execSQL("PRAGMA foreign_keys = ON;");
 		onCreate(db);

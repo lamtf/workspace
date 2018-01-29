@@ -93,17 +93,17 @@ public class UserProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final int USER_USER_CAN_ACCESS_NUMBER = 8;
-	public static final String USER_USER_CAN_ACCESS_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/user_can_access";
-	public static final String USER_USER_CAN_ACCESS = SCHEME + AUTHORITY + "/user_can_access";
-	public static final Uri URI_USER_USER_CAN_ACCESS = Uri.parse(USER_USER_CAN_ACCESS);
-	public static final String USER_USER_CAN_ACCESS_BASE = USER_USER_CAN_ACCESS + "/";
-
-	public static final int USER_LOGIN_NUMBER = 9;
+	public static final int USER_LOGIN_NUMBER = 8;
 	public static final String USER_LOGIN_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/login";
 	public static final String USER_LOGIN = SCHEME + AUTHORITY + "/login";
 	public static final Uri URI_USER_LOGIN = Uri.parse(USER_LOGIN);
 	public static final String USER_LOGIN_BASE = USER_LOGIN + "/";
+
+	public static final int USER_USER_CAN_ACCESS_NUMBER = 9;
+	public static final String USER_USER_CAN_ACCESS_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/user_can_access";
+	public static final String USER_USER_CAN_ACCESS = SCHEME + AUTHORITY + "/user_can_access";
+	public static final Uri URI_USER_USER_CAN_ACCESS = Uri.parse(USER_USER_CAN_ACCESS);
+	public static final String USER_USER_CAN_ACCESS_BASE = USER_USER_CAN_ACCESS + "/";
 
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
@@ -122,8 +122,8 @@ public class UserProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.1
-		MATCHER.addURI(AUTHORITY,"user_can_access", USER_USER_CAN_ACCESS_NUMBER);
 		MATCHER.addURI(AUTHORITY,"login", USER_LOGIN_NUMBER);
+		MATCHER.addURI(AUTHORITY,"user_can_access", USER_USER_CAN_ACCESS_NUMBER);
 // reserved-for:AndroidSqliteQuerySingle002.1
 // End of user code
 
@@ -238,10 +238,10 @@ public class UserProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.2
-			case USER_USER_CAN_ACCESS_NUMBER:
-				return USER_USER_CAN_ACCESS_TYPE;
 			case USER_LOGIN_NUMBER:
 				return USER_LOGIN_TYPE;
+			case USER_USER_CAN_ACCESS_NUMBER:
+				return USER_USER_CAN_ACCESS_TYPE;
 // reserved-for:AndroidSqliteQuerySingle002.2
 // End of user code
 
@@ -322,20 +322,20 @@ public class UserProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
-	/* @ExistsWhere */
-	public Cursor user_can_access (String[] selectionArgs) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		String query = "SELECT exists(*) FROM user INNER JOIN system ON user.fk_system = system.id INNER JOIN role ON user.fk_role = role.id WHERE user.username = ? AND system.enabled = ? AND system.id = ? AND role.name = ?;";
-		Cursor cursor = database.rawQuery(query, new String[]{selectionArgs[0], "1", com.uisleandro.util.config.getSystemIdString(), selectionArgs[1]});
-		return cursor;
-	}
 	/* @SelectOneWhere */
 	public Cursor login (String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "SELECT user.last_update,user.username,user.password,user.name,user.email,user.last_use_time,user.last_error_time,user.error_count,user.active,role.last_update,role.name,system.last_update,system.name,system.enabled,currency.last_update,currency.abbreviature,currency.description FROM user INNER JOIN system ON user.fk_system = system.id INNER JOIN role ON user.fk_role = role.id INNER JOIN currency ON system.fk_currency = currency.id WHERE user.fk_system = ? AND user.username = ? AND user.password = ? AND user.error_count < ? AND user.active = ?;";
 		Cursor cursor = database.rawQuery(query, new String[]{com.uisleandro.util.config.getSystemIdString(), selectionArgs[0], selectionArgs[1], "3", "1"});
+		return cursor;
+	}
+	/* @ExistsWhere */
+	public Cursor user_can_access (String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT exists(*) FROM user INNER JOIN system ON user.fk_system = system.id INNER JOIN role ON user.fk_role = role.id WHERE user.username = ? AND system.enabled = ? AND system.id = ? AND role.name = ?;";
+		Cursor cursor = database.rawQuery(query, new String[]{selectionArgs[0], "1", com.uisleandro.util.config.getSystemIdString(), selectionArgs[1]});
 		return cursor;
 	}
 // reserved-for:AndroidSqliteQuerySingle006
@@ -368,11 +368,11 @@ public class UserProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 /* @ExistsWhere||@SelectValueWhere||@SelectOneWhere||@SelectListWhere */
-	else if (URI_USER_USER_CAN_ACCESS.equals(uri)) {
-		result = user_can_access(selectionArgs);
-	}
 	else if (URI_USER_LOGIN.equals(uri)) {
 		result = login(selectionArgs);
+	}
+	else if (URI_USER_USER_CAN_ACCESS.equals(uri)) {
+		result = user_can_access(selectionArgs);
 	}
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 

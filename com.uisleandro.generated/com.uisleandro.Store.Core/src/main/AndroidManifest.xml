@@ -188,8 +188,8 @@ End of user code
 </provider>
 
 <provider
-  android:authorities="com.uisleandro.refarral"
-  android:name="com.uisleandro.store.refarral.model.RefarralProvider">
+  android:authorities="com.uisleandro.reseller"
+  android:name="com.uisleandro.store.referral.model.ResellerProvider">
 </provider>
 
 <!--

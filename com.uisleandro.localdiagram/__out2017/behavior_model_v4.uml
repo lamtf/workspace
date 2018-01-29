@@ -701,6 +701,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NaM-dOzGEeecrJ5nJ-nmkA" name="refarral" type="_NbFIIOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsapAT-EeiwkbjDpLUowg" name="reseller" type="_9LH98AT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqnm7qoIEeeSt_cFmj0r8A" name="role">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqnm76oIEeeSt_cFmj0r8A" name="last_update">
@@ -730,8 +731,8 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NbFIJ-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NbFIKOzGEeecrJ5nJ-nmkA" name="system"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NbFIKezGEeecrJ5nJ-nmkA" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NbFIKOzGEeecrJ5nJ-nmkA" name="system" type="_rqnm6aoIEeeSt_cFmj0r8A"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NbFIKezGEeecrJ5nJ-nmkA" name="role" type="_rqnm7qoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NbFIKuzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
@@ -772,6 +773,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_ve74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_9LH98AT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH98QT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH98gT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH98wT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH99AT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH99QT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH99gT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH99wT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH9-AT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH9-QT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH9-gT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH9-wT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH9_AT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH9_QT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH9_gT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH9_wT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH-AAT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH-AQT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH-AgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH-AwT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DJQUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DJgUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -887,6 +947,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NbFvPOzGEeecrJ5nJ-nmkA" name="refarral" type="_NdHvgOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip41AT-EeiwkbjDpLUowg" name="reseller" type="_9JsakAT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqnnFKoIEeeSt_cFmj0r8A" name="role">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqnnFaoIEeeSt_cFmj0r8A" name="last_update">
@@ -916,8 +977,8 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NdHvh-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NdHviOzGEeecrJ5nJ-nmkA" name="system"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NdHviezGEeecrJ5nJ-nmkA" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NdHviOzGEeecrJ5nJ-nmkA" name="system" type="_rqnnD6oIEeeSt_cFmj0r8A"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NdHviezGEeecrJ5nJ-nmkA" name="role" type="_rqnnFKoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NdHviuzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
@@ -958,6 +1019,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_v-74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_9JsakAT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsakQT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsakgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsakwT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsalAT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsalQT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsalgT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsalwT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsamAT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsamQT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsamgT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsamwT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsanAT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsanQT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsangT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsanwT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsaoAT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsaoQT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsaogT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9JsaowT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DIwUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DJAUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -1417,6 +1537,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NW-ENOzGEeecrJ5nJ-nmkA" name="refarral" type="_NXzKoOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8x0GFAT-EeiwkbjDpLUowg" name="reseller" type="_8zSswAT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqoN6qoIEeeSt_cFmj0r8A" name="gender">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqoN66oIEeeSt_cFmj0r8A" name="last_update">
@@ -1485,7 +1606,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NXzKp-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NXzKqOzGEeecrJ5nJ-nmkA" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NXzKqOzGEeecrJ5nJ-nmkA" name="system" type="_rqoN5aoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NXzKqezGEeecrJ5nJ-nmkA" name="role"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NXzKquzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
@@ -1527,6 +1648,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_ue74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_8zSswAT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSswQT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSswgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSswwT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSsxAT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSsxQT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSsxgT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSsxwT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSsyAT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSsyQT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSsygT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSsywT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSszAT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSszQT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSszgT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSszwT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSs0AT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSs0QT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSs0gT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSs0wT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DIQUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DIgUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -1647,6 +1827,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NYg8VezGEeecrJ5nJ-nmkA" name="refarral" type="_NaMXUOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgVAT-EeiwkbjDpLUowg" name="reseller" type="_8xyQ4AT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqoOI6oIEeeSt_cFmj0r8A" name="gender">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqoOJKoIEeeSt_cFmj0r8A" name="last_update">
@@ -1715,7 +1896,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NaMXV-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NaMXWOzGEeecrJ5nJ-nmkA" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NaMXWOzGEeecrJ5nJ-nmkA" name="system" type="_rqoOHqoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NaMXWezGEeecrJ5nJ-nmkA" name="role"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NaMXWuzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
@@ -1757,6 +1938,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_u-74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_8xyQ4AT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xyQ4QT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xyQ4gT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xyQ4wT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xyQ5AT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xyQ5QT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xyQ5gT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xyQ5wT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xy38AT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xy38QT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xy38gT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xy38wT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xy39AT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xy39QT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xy39gT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8xy39wT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8x0GEAT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8x0GEQT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8x0GEgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8x0GEwT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DHwUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DIAUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -2475,6 +2715,8 @@ como vou pegar o resultado desta activity?</body>
             <generalization xmi:type="uml:Generalization" xmi:id="_Nl3b0OzGEeecrJ5nJ-nmkA" general="_rqqDF6oIEeeSt_cFmj0r8A"/>
             <generalization xmi:type="uml:Generalization" xmi:id="_yYAgIO2FEeek3faVaWm3jQ" general="_rqqDF6oIEeeSt_cFmj0r8A"/>
             <generalization xmi:type="uml:Generalization" xmi:id="_Dk_ycO74EeeNWe_rLew7EQ" general="_rqqDF6oIEeeSt_cFmj0r8A"/>
+            <generalization xmi:type="uml:Generalization" xmi:id="_9LvpAAT-EeiwkbjDpLUowg" general="_rqqDF6oIEeeSt_cFmj0r8A"/>
+            <generalization xmi:type="uml:Generalization" xmi:id="_JjrZkAUAEei1dNXkAMuTyQ" general="_rqqDF6oIEeeSt_cFmj0r8A"/>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_rqoOZ6oIEeeSt_cFmj0r8A" name="last_update">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
             </ownedAttribute>
@@ -2554,6 +2796,18 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:Class" href="basic_structure.uml#_nckRcNH9Eeao-7rxcgX3fg"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_te74EeeNWe_rLew7EQ" name="issue">
+                <type xmi:type="uml:Class" href="basic_structure.uml#_nckRcNH9Eeao-7rxcgX3fg"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jZAT-EeiwkbjDpLUowg" name="issue">
+                <type xmi:type="uml:Class" href="basic_structure.uml#_nckRcNH9Eeao-7rxcgX3fg"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jZQT-EeiwkbjDpLUowg" name="issue">
+                <type xmi:type="uml:Class" href="basic_structure.uml#_nckRcNH9Eeao-7rxcgX3fg"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DEwUAEei1dNXkAMuTyQ" name="issue">
+                <type xmi:type="uml:Class" href="basic_structure.uml#_nckRcNH9Eeao-7rxcgX3fg"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DFAUAEei1dNXkAMuTyQ" name="issue">
                 <type xmi:type="uml:Class" href="basic_structure.uml#_nckRcNH9Eeao-7rxcgX3fg"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -2641,6 +2895,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NU4Zo-zGEeecrJ5nJ-nmkA" name="refarral" type="_NW9dIOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jZgT-EeiwkbjDpLUowg" name="reseller" type="_9Ip4wAT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqoOlaoIEeeSt_cFmj0r8A" name="issue">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqoOlqoIEeeSt_cFmj0r8A" name="last_update">
@@ -2686,7 +2941,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NW9dJ-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NW9dKOzGEeecrJ5nJ-nmkA" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NW9dKOzGEeecrJ5nJ-nmkA" name="system" type="_rqoOkKoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NW9dKezGEeecrJ5nJ-nmkA" name="role"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NW9dKuzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
@@ -2728,6 +2983,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_t-74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_9Ip4wAT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4wQT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4wgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4wwT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4xAT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4xQT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4xgT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4xwT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4yAT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4yQT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4ygT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4ywT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4zAT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4zQT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4zgT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip4zwT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip40AT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip40QT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip40gT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9Ip40wT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DFQUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DFgUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -2972,6 +3286,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NlWekOzGEeecrJ5nJ-nmkA" name="refarral" type="_NmAlwOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8oEUMAT-EeiwkbjDpLUowg" name="reseller" type="_8rD90AT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqo1E6oIEeeSt_cFmj0r8A" name="user">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqo1FKoIEeeSt_cFmj0r8A" name="last_update">
@@ -3186,8 +3501,8 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NmAlx-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NmAlyOzGEeecrJ5nJ-nmkA" name="system"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NmAlyezGEeecrJ5nJ-nmkA" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NmAlyOzGEeecrJ5nJ-nmkA" name="system" type="_rqo1DqoIEeeSt_cFmj0r8A"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NmAlyezGEeecrJ5nJ-nmkA" name="role" type="_rqo1N6oIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NmAlyuzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
@@ -3228,6 +3543,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_0u74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_8rD90AT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD90QT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD90gT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD90wT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD91AT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD91QT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD91gT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD91wT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD92AT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD92QT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD92gT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD92wT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD93AT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD93QT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD93gT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD93wT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD94AT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD94QT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD94gT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD94wT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DFwUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DGAUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -3303,6 +3677,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NkSupOzGEeecrJ5nJ-nmkA" name="refarral" type="_NlWecOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8rD95AT-EeiwkbjDpLUowg" name="reseller" type="_8tiqEAT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqo1cqoIEeeSt_cFmj0r8A" name="user">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqo1c6oIEeeSt_cFmj0r8A" name="last_update">
@@ -3481,8 +3856,8 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NlWed-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NlWeeOzGEeecrJ5nJ-nmkA" name="system"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NlWeeezGEeecrJ5nJ-nmkA" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NlWeeOzGEeecrJ5nJ-nmkA" name="system" type="_rqo1baoIEeeSt_cFmj0r8A"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NlWeeezGEeecrJ5nJ-nmkA" name="role" type="_rqo1iKoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NlWeeuzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
@@ -3523,6 +3898,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_0O74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_8tiqEAT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqEQT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqEgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqEwT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqFAT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqFQT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqFgT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqFwT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqGAT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqGQT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqGgT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqGwT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqHAT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqHQT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqHgT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqHwT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqIAT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqIQT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqIgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqIwT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DGQUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DGgUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -3807,7 +4241,8 @@ como vou pegar o resultado desta activity?</body>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_Nf9oQezGEeecrJ5nJ-nmkA" name="stores_phonenumber">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_Nf9oQuzGEeecrJ5nJ-nmkA" name="refarral" type="_NOdBYOzGEeecrJ5nJ-nmkA"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_Nf9oQuzGEeecrJ5nJ-nmkA" name="refarral"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSs1AT-EeiwkbjDpLUowg" name="reseller"/>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_rqo14aoIEeeSt_cFmj0r8A" name="role">
             <ownedAttribute xmi:type="uml:Property" xmi:id="_rqpb8KoIEeeSt_cFmj0r8A" name="last_update">
@@ -3902,6 +4337,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NgwScOzGEeecrJ5nJ-nmkA" name="refarral" type="_NhxmAOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRxAT-EeiwkbjDpLUowg" name="reseller" type="_82yssAT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqpcCqoIEeeSt_cFmj0r8A" name="role">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqpcC6oIEeeSt_cFmj0r8A" name="last_update">
@@ -3942,8 +4378,8 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NhxmB-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NhxmCOzGEeecrJ5nJ-nmkA" name="system"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NhxmCezGEeecrJ5nJ-nmkA" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NhxmCOzGEeecrJ5nJ-nmkA" name="system" type="_rqpcBaoIEeeSt_cFmj0r8A"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NhxmCezGEeecrJ5nJ-nmkA" name="role" type="_rqpcCqoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NhxmCuzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
@@ -3984,6 +4420,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_yO74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_82yssAT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTwAT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTwQT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTwgT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTwwT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTxAT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTxQT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTxgT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTxwT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTyAT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTyQT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTygT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTywT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTzAT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTzQT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTzgT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zTzwT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zT0AT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zT0QT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zT0gT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DMgUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DMwUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -4082,6 +4577,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NhxmH-zGEeecrJ5nJ-nmkA" name="refarral" type="_Nh-aUOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_82zT0wT-EeiwkbjDpLUowg" name="reseller" type="_83FnoAT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqpcLKoIEeeSt_cFmj0r8A" name="role">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqpcLaoIEeeSt_cFmj0r8A" name="last_update">
@@ -4122,8 +4618,8 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_Nh-aV-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_Nh-aWOzGEeecrJ5nJ-nmkA" name="system"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_Nh-aWezGEeecrJ5nJ-nmkA" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Nh-aWOzGEeecrJ5nJ-nmkA" name="system" type="_rqpcJ6oIEeeSt_cFmj0r8A"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Nh-aWezGEeecrJ5nJ-nmkA" name="role" type="_rqpcLKoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_Nh-aWuzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
@@ -4164,6 +4660,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_yu74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_83FnoAT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnoQT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnogT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnowT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnpAT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnpQT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnpgT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnpwT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnqAT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnqQT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnqgT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnqwT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnrAT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnrQT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnrgT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnrwT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnsAT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnsQT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnsgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_83FnswT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DLgUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DLwUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -4256,6 +4811,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NiYqBOzGEeecrJ5nJ-nmkA" name="refarral" type="_NjO-kOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80iqBAT-EeiwkbjDpLUowg" name="reseller" type="_81HRsAT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqpcTaoIEeeSt_cFmj0r8A" name="token_type">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqpcTqoIEeeSt_cFmj0r8A" name="last_update">
@@ -4304,8 +4860,8 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NjO-l-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NjO-mOzGEeecrJ5nJ-nmkA" name="system"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NjO-mezGEeecrJ5nJ-nmkA" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NjO-mOzGEeecrJ5nJ-nmkA" name="system" type="_rqpcSKoIEeeSt_cFmj0r8A"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NjO-mezGEeecrJ5nJ-nmkA" name="role" type="_rqpcUKoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NjO-muzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
@@ -4346,6 +4902,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_zO74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_81HRsAT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRsQT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRsgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRswT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRtAT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRtQT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRtgT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRtwT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRuAT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRuQT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRugT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRuwT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRvAT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRvQT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRvgT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRvwT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRwAT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRwQT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRwgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_81HRwwT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DMAUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DMQUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -4390,6 +5005,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_Nf9oVuzGEeecrJ5nJ-nmkA" name="refarral" type="_NgwSUOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8zSs1QT-EeiwkbjDpLUowg" name="reseller" type="_80ip8AT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqpcXaoIEeeSt_cFmj0r8A" name="currency">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqpcXqoIEeeSt_cFmj0r8A" name="last_update">
@@ -4422,7 +5038,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NgwSV-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NgwSWOzGEeecrJ5nJ-nmkA" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NgwSWOzGEeecrJ5nJ-nmkA" name="system" type="_rqpcWKoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NgwSWezGEeecrJ5nJ-nmkA" name="role"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NgwSWuzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
@@ -4464,6 +5080,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_xu74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_80ip8AT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip8QT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip8gT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip8wT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip9AT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip9QT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip9gT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip9wT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip-AT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip-QT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip-gT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip-wT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip_AT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip_QT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip_gT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80ip_wT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80iqAAT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80iqAQT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80iqAgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_80iqAwT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DLAUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DLQUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -4765,6 +5440,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NS1LHOzGEeecrJ5nJ-nmkA" name="refarral" type="_NU3ycOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9LH-BAT-EeiwkbjDpLUowg" name="reseller" type="_9L72QAT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqpcsqoIEeeSt_cFmj0r8A" name="unit">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqpcs6oIEeeSt_cFmj0r8A" name="last_update">
@@ -4953,8 +5629,8 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NU4ZhuzGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NU4Zh-zGEeecrJ5nJ-nmkA" name="system"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NU4ZiOzGEeecrJ5nJ-nmkA" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NU4Zh-zGEeecrJ5nJ-nmkA" name="system" type="_rqpcraoIEeeSt_cFmj0r8A"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NU4ZiOzGEeecrJ5nJ-nmkA" name="role" type="_rqqDAKoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NU4ZiezGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
@@ -4995,6 +5671,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_s-74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_9L72QAT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72QQT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72QgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72QwT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72RAT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72RQT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72RgT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72RwT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72SAT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72SQT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72SgT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72SwT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72TAT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72TQT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72TgT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72TwT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72UAT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72UQT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72UgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9L72UwT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DGwUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DHAUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -5217,6 +5952,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NjO-s-zGEeecrJ5nJ-nmkA" name="refarral" type="_NkSugOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8tiqJAT-EeiwkbjDpLUowg" name="reseller" type="_8wKgQAT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqqDUaoIEeeSt_cFmj0r8A" name="basic_client">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqqDUqoIEeeSt_cFmj0r8A" name="last_update">
@@ -5386,8 +6122,8 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NkSuh-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NkSuiOzGEeecrJ5nJ-nmkA" name="system"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NkSuiezGEeecrJ5nJ-nmkA" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NkSuiOzGEeecrJ5nJ-nmkA" name="system" type="_rqqDTKoIEeeSt_cFmj0r8A"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_NkSuiezGEeecrJ5nJ-nmkA" name="role" type="_rqqDhKoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NkSuiuzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
@@ -5428,6 +6164,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_zu74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_8wKgQAT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgQQT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgQgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgQwT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgRAT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgRQT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgRgT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgRwT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgSAT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgSQT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgSgT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgSwT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgTAT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgTQT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgTgT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgTwT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgUAT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgUQT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgUgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_8wKgUwT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DHQUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DHgUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -5754,6 +6549,12 @@ como vou pegar o resultado desta activity?</body>
             <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_wO74EeeNWe_rLew7EQ" name="name">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
             </ownedAttribute>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_9E3k8wT-EeiwkbjDpLUowg" name="name">
+              <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+            </ownedAttribute>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DJwUAEei1dNXkAMuTyQ" name="name">
+              <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+            </ownedAttribute>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_rqqDr6oIEeeSt_cFmj0r8A" name="invoice">
             <ownedAttribute xmi:type="uml:Property" xmi:id="_rqqDsKoIEeeSt_cFmj0r8A" name="last_update">
@@ -5889,6 +6690,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NekhAezGEeecrJ5nJ-nmkA" name="refarral" type="_Nf9oIOzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9E3k9AT-EeiwkbjDpLUowg" name="reseller" type="_9GptoAT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqqD4aoIEeeSt_cFmj0r8A" name="sale">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqqD4qoIEeeSt_cFmj0r8A" name="last_update">
@@ -6115,8 +6917,8 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_Nf9oJ-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_Nf9oKOzGEeecrJ5nJ-nmkA" name="system"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_Nf9oKezGEeecrJ5nJ-nmkA" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Nf9oKOzGEeecrJ5nJ-nmkA" name="system" type="_rqqD3KoIEeeSt_cFmj0r8A"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Nf9oKezGEeecrJ5nJ-nmkA" name="role" type="_rqqqOKoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_Nf9oKuzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
@@ -6157,6 +6959,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_xO74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_9GptoAT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptoQT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptogT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptowT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptpAT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptpQT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptpgT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptpwT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptqAT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptqQT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptqgT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptqwT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptrAT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptrQT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptrgT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptrwT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptsAT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptsQT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptsgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GptswT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DKAUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DKQUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -6262,6 +7123,7 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_NdHvoezGEeecrJ5nJ-nmkA" name="refarral" type="_Ndfi8OzGEeecrJ5nJ-nmkA"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9GpttAT-EeiwkbjDpLUowg" name="reseller" type="_9H-jUAT-EeiwkbjDpLUowg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_rqqqX6oIEeeSt_cFmj0r8A" name="sale">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_rqqqYKoIEeeSt_cFmj0r8A" name="last_update">
@@ -6488,8 +7350,8 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_Ndfi9-zGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_Ndfi-OzGEeecrJ5nJ-nmkA" name="system"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_Ndfi-ezGEeecrJ5nJ-nmkA" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Ndfi-OzGEeecrJ5nJ-nmkA" name="system" type="_rqqqWqoIEeeSt_cFmj0r8A"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Ndfi-ezGEeecrJ5nJ-nmkA" name="role" type="_rqqqqqoIEeeSt_cFmj0r8A"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_Ndfi-uzGEeecrJ5nJ-nmkA" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
@@ -6530,6 +7392,65 @@ como vou pegar o resultado desta activity?</body>
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_wu74EeeNWe_rLew7EQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+            </nestedClassifier>
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_9H-jUAT-EeiwkbjDpLUowg" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jUQT-EeiwkbjDpLUowg" name="system_amount">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jUgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jUwT-EeiwkbjDpLUowg" name="address">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jVAT-EeiwkbjDpLUowg" name="neighborhood">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jVQT-EeiwkbjDpLUowg" name="city">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jVgT-EeiwkbjDpLUowg" name="state">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jVwT-EeiwkbjDpLUowg" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jWAT-EeiwkbjDpLUowg" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jWQT-EeiwkbjDpLUowg" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jWgT-EeiwkbjDpLUowg" name="username">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jWwT-EeiwkbjDpLUowg" name="password">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jXAT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jXQT-EeiwkbjDpLUowg" name="email">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jXgT-EeiwkbjDpLUowg" name="last_use_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jXwT-EeiwkbjDpLUowg" name="last_error_time">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jYAT-EeiwkbjDpLUowg" name="error_count">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jYQT-EeiwkbjDpLUowg" name="active">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jYgT-EeiwkbjDpLUowg" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_9H-jYwT-EeiwkbjDpLUowg" name="last_update">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DKgUAEei1dNXkAMuTyQ" name="name">
+                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+              </ownedAttribute>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DKwUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
@@ -7043,109 +7964,95 @@ como vou pegar o resultado desta activity?</body>
         <packagedElement xmi:type="uml:Dependency" xmi:id="_NmAl2-zGEeecrJ5nJ-nmkA" name="receivement_depends_on_client" client="_rqqDqaoIEeeSt_cFmj0r8A" supplier="_rqqDB6oIEeeSt_cFmj0r8A"/>
         <packagedElement xmi:type="uml:Dependency" xmi:id="_NmAl3uzGEeecrJ5nJ-nmkA" name="receivement_depends_on_core" client="_rqqDqaoIEeeSt_cFmj0r8A" supplier="_rqo1uqoIEeeSt_cFmj0r8A"/>
       </packagedElement>
-      <packagedElement xmi:type="uml:Package" xmi:id="_NN1WUOzGEeecrJ5nJ-nmkA" name="refarral">
-        <packagedElement xmi:type="uml:Package" xmi:id="_NN1WUezGEeecrJ5nJ-nmkA" name="dataModels">
-          <packagedElement xmi:type="uml:Class" xmi:id="_NOdBYOzGEeecrJ5nJ-nmkA" name="refarral">
-            <generalization xmi:type="uml:Generalization" xmi:id="_Nl_XoOzGEeecrJ5nJ-nmkA" general="_rqo1yKoIEeeSt_cFmj0r8A"/>
-            <generalization xmi:type="uml:Generalization" xmi:id="_yYNUcO2FEeek3faVaWm3jQ" general="_rqo1yKoIEeeSt_cFmj0r8A"/>
-            <generalization xmi:type="uml:Generalization" xmi:id="_DlKxkO74EeeNWe_rLew7EQ" general="_rqo1yKoIEeeSt_cFmj0r8A"/>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_NOdBYezGEeecrJ5nJ-nmkA" name="last_update">
+      <packagedElement xmi:type="uml:Package" xmi:id="_I_qGgAUAEei1dNXkAMuTyQ" name="referral">
+        <packagedElement xmi:type="uml:Package" xmi:id="_I_qGgQUAEei1dNXkAMuTyQ" name="dataModels">
+          <packagedElement xmi:type="uml:Class" xmi:id="_JBoccAUAEei1dNXkAMuTyQ" name="reseller">
+            <generalization xmi:type="uml:Generalization" xmi:id="_Jjuc4AUAEei1dNXkAMuTyQ" general="_rqo1yKoIEeeSt_cFmj0r8A"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_JBoccQUAEei1dNXkAMuTyQ" name="last_update">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_NOdBYuzGEeecrJ5nJ-nmkA" name="system_amount">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_JBoccgUAEei1dNXkAMuTyQ" name="system_amount">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_NOdBY-zGEeecrJ5nJ-nmkA" name="name">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_JBoccwUAEei1dNXkAMuTyQ" name="name">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_NOdBZOzGEeecrJ5nJ-nmkA" name="address">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_JBocdAUAEei1dNXkAMuTyQ" name="address">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_NOdBZezGEeecrJ5nJ-nmkA" name="neighborhood">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_JBocdQUAEei1dNXkAMuTyQ" name="neighborhood">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_NOdBZuzGEeecrJ5nJ-nmkA" name="city">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_JBocdgUAEei1dNXkAMuTyQ" name="city">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_NOdBZ-zGEeecrJ5nJ-nmkA" name="state">
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_JBocdwUAEei1dNXkAMuTyQ" name="state">
               <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
             </ownedAttribute>
-            <ownedAttribute xmi:type="uml:Property" xmi:id="_NOdBaOzGEeecrJ5nJ-nmkA" name="zip_code"/>
+            <ownedAttribute xmi:type="uml:Property" xmi:id="_JBoceAUAEei1dNXkAMuTyQ" name="zip_code"/>
           </packagedElement>
         </packagedElement>
-        <packagedElement xmi:type="uml:Package" xmi:id="_NN1WUuzGEeecrJ5nJ-nmkA" name="queryViews">
-          <packagedElement xmi:type="uml:Class" xmi:id="_NOdBauzGEeecrJ5nJ-nmkA" name="refarral_vw">
-            <nestedClassifier xmi:type="uml:Class" xmi:id="_NOdocOzGEeecrJ5nJ-nmkA" name="refarral">
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuMsOzGEeecrJ5nJ-nmkA" name="system_amount">
+        <packagedElement xmi:type="uml:Package" xmi:id="_I_qGggUAEei1dNXkAMuTyQ" name="queryViews">
+          <packagedElement xmi:type="uml:Class" xmi:id="_JBocegUAEei1dNXkAMuTyQ" name="reseller_vw">
+            <nestedClassifier xmi:type="uml:Class" xmi:id="_JBocewUAEei1dNXkAMuTyQ" name="reseller">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrcAUAEei1dNXkAMuTyQ" name="system_amount">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuMsezGEeecrJ5nJ-nmkA" name="name">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrcQUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuMsuzGEeecrJ5nJ-nmkA" name="address">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrcgUAEei1dNXkAMuTyQ" name="address">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuMs-zGEeecrJ5nJ-nmkA" name="neighborhood">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrcwUAEei1dNXkAMuTyQ" name="neighborhood">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuMtOzGEeecrJ5nJ-nmkA" name="city">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrdAUAEei1dNXkAMuTyQ" name="city">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuMtezGEeecrJ5nJ-nmkA" name="state">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrdQUAEei1dNXkAMuTyQ" name="state">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuMtuzGEeecrJ5nJ-nmkA" name="zip_code"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuMt-zGEeecrJ5nJ-nmkA" name="system"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuMuOzGEeecrJ5nJ-nmkA" name="role"/>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuMuezGEeecrJ5nJ-nmkA" name="username">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrdgUAEei1dNXkAMuTyQ" name="zip_code"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrdwUAEei1dNXkAMuTyQ" name="system"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPreAUAEei1dNXkAMuTyQ" name="role"/>
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPreQUAEei1dNXkAMuTyQ" name="username">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuzwOzGEeecrJ5nJ-nmkA" name="password">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPregUAEei1dNXkAMuTyQ" name="password">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuzwezGEeecrJ5nJ-nmkA" name="name">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrewUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuzwuzGEeecrJ5nJ-nmkA" name="email">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrfAUAEei1dNXkAMuTyQ" name="email">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuzw-zGEeecrJ5nJ-nmkA" name="last_use_time">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrfQUAEei1dNXkAMuTyQ" name="last_use_time">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuzxOzGEeecrJ5nJ-nmkA" name="last_error_time">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrfgUAEei1dNXkAMuTyQ" name="last_error_time">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuzxezGEeecrJ5nJ-nmkA" name="error_count">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrfwUAEei1dNXkAMuTyQ" name="error_count">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuzxuzGEeecrJ5nJ-nmkA" name="active">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrgAUAEei1dNXkAMuTyQ" name="active">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrYX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NPuzx-zGEeecrJ5nJ-nmkA" name="name">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_JLPrgQUAEei1dNXkAMuTyQ" name="name">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_NS1LEOzGEeecrJ5nJ-nmkA" name="last_update">
+              <ownedAttribute xmi:type="uml:Property" xmi:id="_Jj6DEAUAEei1dNXkAMuTyQ" name="last_update">
                 <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrW39YEeaVP9RPox9M_A"/>
-              </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_yYOikO2FEeek3faVaWm3jQ" name="name">
-                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
-              </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_yYOike2FEeek3faVaWm3jQ" name="name">
-                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
-              </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_sO74EeeNWe_rLew7EQ" name="name">
-                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
-              </ownedAttribute>
-              <ownedAttribute xmi:type="uml:Property" xmi:id="_DlL_se74EeeNWe_rLew7EQ" name="name">
-                <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
         </packagedElement>
-        <packagedElement xmi:type="uml:Package" xmi:id="_NN1WU-zGEeecrJ5nJ-nmkA" name="controller">
-          <packagedElement xmi:type="uml:Class" xmi:id="_NOdBaezGEeecrJ5nJ-nmkA" name="refarral">
-            <ownedOperation xmi:type="uml:Operation" xmi:id="_NS1LEezGEeecrJ5nJ-nmkA" name="example_op">
-              <ownedParameter xmi:type="uml:Parameter" xmi:id="_NS1LEuzGEeecrJ5nJ-nmkA" name="view" type="_NOdBauzGEeecrJ5nJ-nmkA"/>
+        <packagedElement xmi:type="uml:Package" xmi:id="_I_qGgwUAEei1dNXkAMuTyQ" name="controller">
+          <packagedElement xmi:type="uml:Class" xmi:id="_JBoceQUAEei1dNXkAMuTyQ" name="reseller">
+            <ownedOperation xmi:type="uml:Operation" xmi:id="_Jj6DEQUAEei1dNXkAMuTyQ" name="example_op">
+              <ownedParameter xmi:type="uml:Parameter" xmi:id="_Jj6DEgUAEei1dNXkAMuTyQ" name="view" type="_JBocegUAEei1dNXkAMuTyQ"/>
             </ownedOperation>
           </packagedElement>
         </packagedElement>
@@ -7597,11 +8504,11 @@ como vou pegar o resultado desta activity?</body>
   <query:IsRightNow xmi:id="_FNNLsK3kEeeEPdkkGPficg" base_Property="_9kPEoq3iEeeEPdkkGPficg"/>
   <query:Subject xmi:id="_T5A40K3kEeeEPdkkGPficg" base_Class="_T4_Doa3kEeeEPdkkGPficg"/>
   <project:NotPassed xmi:id="_geP7AK3kEeeEPdkkGPficg" base_Class="_T4_DoK3kEeeEPdkkGPficg"/>
-  <query:Subject xmi:id="_NOrD0OzGEeecrJ5nJ-nmkA" base_Class="_NOdocOzGEeecrJ5nJ-nmkA"/>
   <query:LessThan xmi:id="_sgCrsP0yEee3pqNx1ngM-A" hint="3" base_Property="_9T_cAKoJEee7s7jN2Y2F9A"/>
   <query:EqualsTo xmi:id="_umD9AP0yEee3pqNx1ngM-A" hint="1" base_Property="_9T_cAaoJEee7s7jN2Y2F9A"/>
   <query:DefaultSystemId xmi:id="_3abVoP0yEee3pqNx1ngM-A" base_Property="_9T_b-KoJEee7s7jN2Y2F9A"/>
   <query:ExistsWhere xmi:id="_VPhxkP09Eee3pqNx1ngM-A" base_Operation="_9VPY8KoJEee7s7jN2Y2F9A"/>
   <query:DefaultSystemId xmi:id="_21gpsP09Eee3pqNx1ngM-A" base_Property="_jq-HcP09Eee3pqNx1ngM-A"/>
   <query:EqualsTo xmi:id="_6fmV0P09Eee3pqNx1ngM-A" hint="1" base_Property="_9UAC56oJEee7s7jN2Y2F9A"/>
+  <query:Subject xmi:id="_JJ-gIAUAEei1dNXkAMuTyQ" base_Class="_JBocewUAEei1dNXkAMuTyQ"/>
 </xmi:XMI>

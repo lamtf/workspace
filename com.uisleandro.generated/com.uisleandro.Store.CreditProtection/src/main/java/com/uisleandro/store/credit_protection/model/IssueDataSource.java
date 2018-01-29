@@ -108,6 +108,14 @@ public class IssueDataSource {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
+	/* @Insert */
+	public int register_issue (Long fk_shared_client, String description){
+		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_shared_client), description, "0", "0" };
+		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
+		context.getContentResolver().insert("content://com.uisleandro.Issue/register_issue", contentValues);
+	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
 	/* @ExistsWhere */
 	public boolean check_client (Long fk_shared_client) {
 		String selectionArgs = new String[]{ String.valueOf(fk_shared_client), "1" }; 
@@ -118,14 +126,6 @@ public class IssueDataSource {
 			that = (cursor.getInt(0) > 0);
 		}
 		return that;
-	// TODO: PLEASE DONT USE SYNC CODE
-	}
-	/* @Insert */
-	public int register_issue (Long fk_shared_client, String description){
-		String[] insertArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_shared_client), description, "0", "0" };
-		ContentValues contentValues = null; ~~~~> PLEASE FIX IT <~~~~~
-		context.getContentResolver().insert("content://com.uisleandro.Issue/register_issue", contentValues);
-	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 // reserved-for:AndroidSqliteQuerySingle002
