@@ -115,7 +115,6 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static final String CASH_REGISTER_OPENING_VALUE = "opening_value";
 	public static final String CASH_REGISTER_RECEIVED_VALUE = "received_value";
 	public static final String CASH_REGISTER_CLOSING_VALUE = "closing_value";
-	public static final String CASH_REGISTER_FK_CURRENCY = "fk_currency";
 
 	private static final String CREATE_TABLE_CASH_REGISTER = "CREATE TABLE " + 
 	TABLE_CASH_REGISTER + " ("+ 
@@ -126,8 +125,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	CASH_REGISTER_FK_USER + " INTEGER NULL, " + 
 	CASH_REGISTER_OPENING_VALUE + " REAL(10,2) NOT NULL, " + 
 	CASH_REGISTER_RECEIVED_VALUE + " REAL(10,2) NOT NULL, " + 
-	CASH_REGISTER_CLOSING_VALUE + " REAL(10,2) NOT NULL, " + 
-	CASH_REGISTER_FK_CURRENCY + " INTEGER NULL " + 
+	CASH_REGISTER_CLOSING_VALUE + " REAL(10,2) NOT NULL " + 
 	");";
 
 	private static final String CREATE_INDEX_CASH_REGISTER_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_CASH_REGISTER + "_serverid_idx" +
@@ -142,7 +140,6 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static final String CASH_LAUNCH_FK_CASH_REGISTER = "fk_cash_register";
 	public static final String CASH_LAUNCH_JUSTIFICATION = "justification";
 	public static final String CASH_LAUNCH_AMOUNT_SPENT = "amount_spent";
-	public static final String CASH_LAUNCH_FK_CURRENCY = "fk_currency";
 
 	private static final String CREATE_TABLE_CASH_LAUNCH = "CREATE TABLE " + 
 	TABLE_CASH_LAUNCH + " ("+ 
@@ -152,8 +149,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	CASH_LAUNCH_LAST_UPDATE + " INTEGER NULL, " + 
 	CASH_LAUNCH_FK_CASH_REGISTER + " INTEGER NULL, " + 
 	CASH_LAUNCH_JUSTIFICATION + " CHAR(30) NOT NULL, " + 
-	CASH_LAUNCH_AMOUNT_SPENT + " REAL(10,2) NOT NULL, " + 
-	CASH_LAUNCH_FK_CURRENCY + " INTEGER NULL " + 
+	CASH_LAUNCH_AMOUNT_SPENT + " REAL(10,2) NOT NULL " + 
 	");";
 
 	private static final String CREATE_INDEX_CASH_LAUNCH_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_CASH_LAUNCH + "_serverid_idx" +
@@ -288,7 +284,6 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static final String PRODUCT_FK_CATEGORY = "fk_category";
 	public static final String PRODUCT_SIZE = "size";
 	public static final String PRODUCT_FK_UNIT = "fk_unit";
-	public static final String PRODUCT_FK_CURRENCY = "fk_currency";
 	public static final String PRODUCT_EXPIRATION_DATE = "expiration_date";
 	public static final String PRODUCT_FK_BRAND = "fk_brand";
 
@@ -308,7 +303,6 @@ public class DbHelper extends SQLiteOpenHelper {
 	PRODUCT_FK_CATEGORY + " INTEGER NULL, " + 
 	PRODUCT_SIZE + " CHAR(30) NOT NULL, " + 
 	PRODUCT_FK_UNIT + " INTEGER NULL, " + 
-	PRODUCT_FK_CURRENCY + " INTEGER NULL, " + 
 	PRODUCT_EXPIRATION_DATE + " INTEGER NOT NULL, " + 
 	PRODUCT_FK_BRAND + " INTEGER NULL " + 
 	");";
@@ -481,7 +475,6 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static final String SALE_TOTAL_VALUE = "total_value";
 	public static final String SALE_FK_USER = "fk_user";
 	public static final String SALE_FK_CLIENT_FROM_SYSTEM = "fk_client_from_system";
-	public static final String SALE_FK_CURRENCY = "fk_currency";
 
 	private static final String CREATE_TABLE_SALE = "CREATE TABLE " + 
 	TABLE_SALE + " ("+ 
@@ -493,8 +486,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	SALE_FK_SYSTEM + " INTEGER NULL, " + 
 	SALE_TOTAL_VALUE + " REAL(10,2) NOT NULL, " + 
 	SALE_FK_USER + " INTEGER NULL, " + 
-	SALE_FK_CLIENT_FROM_SYSTEM + " INTEGER NULL, " + 
-	SALE_FK_CURRENCY + " INTEGER NULL " + 
+	SALE_FK_CLIENT_FROM_SYSTEM + " INTEGER NULL " + 
 	");";
 
 	private static final String CREATE_INDEX_SALE_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_SALE + "_serverid_idx" +
@@ -653,8 +645,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static final String SYSTEM_STORES_STATE = "stores_state";
 	public static final String SYSTEM_STORES_EMAIL = "stores_email";
 	public static final String SYSTEM_STORES_PHONENUMBER = "stores_phonenumber";
-	public static final String SYSTEM_REFARRAL = "refarral";
-	public static final String SYSTEM_RESELLER = "reseller";
+	public static final String SYSTEM_FK_RESELLER = "fk_reseller";
 
 	private static final String CREATE_TABLE_SYSTEM = "CREATE TABLE " + 
 	TABLE_SYSTEM + " ("+ 
@@ -674,8 +665,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	SYSTEM_STORES_STATE + " CHAR(30) NOT NULL, " + 
 	SYSTEM_STORES_EMAIL + " VARCHAR(45) NOT NULL, " + 
 	SYSTEM_STORES_PHONENUMBER + " CHAR(30) NOT NULL, " + 
-	SYSTEM_REFARRAL + " INTEGER NOT NULL, " + 
-	SYSTEM_RESELLER + " INTEGER NOT NULL " + 
+	SYSTEM_FK_RESELLER + " INTEGER NULL " + 
 	");";
 
 	private static final String CREATE_INDEX_SYSTEM_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_SYSTEM + "_serverid_idx" +
@@ -867,6 +857,10 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static final String BANK_NAME = "name";
 	public static final String BANK_NAME = "name";
 	public static final String BANK_NAME = "name";
+	public static final String BANK_NAME = "name";
+	public static final String BANK_NAME = "name";
+	public static final String BANK_NAME = "name";
+	public static final String BANK_NAME = "name";
 
 	private static final String CREATE_TABLE_BANK = "CREATE TABLE " + 
 	TABLE_BANK + " ("+ 
@@ -876,6 +870,10 @@ public class DbHelper extends SQLiteOpenHelper {
 	BANK_LAST_UPDATE + " INTEGER NULL, " + 
 	BANK_CODE + " CHAR(30) NOT NULL, " + 
 	BANK_NAME + " VARCHAR(45) NOT NULL, " + 
+	BANK_NAME + " CHAR(30) NOT NULL, " + 
+	BANK_NAME + " CHAR(30) NOT NULL, " + 
+	BANK_NAME + " CHAR(30) NOT NULL, " + 
+	BANK_NAME + " CHAR(30) NOT NULL, " + 
 	BANK_NAME + " CHAR(30) NOT NULL, " + 
 	BANK_NAME + " CHAR(30) NOT NULL, " + 
 	BANK_NAME + " CHAR(30) NOT NULL, " + 
@@ -898,7 +896,6 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static final String INVOICE_FK_INSTALLMENT_TYPE = "fk_installment_type";
 	public static final String INVOICE_FK_INTEREST_RATE_TYPE = "fk_interest_rate_type";
 	public static final String INVOICE_FK_BANK = "fk_bank";
-	public static final String INVOICE_FK_CURRENCY = "fk_currency";
 
 	private static final String CREATE_TABLE_INVOICE = "CREATE TABLE " + 
 	TABLE_INVOICE + " ("+ 
@@ -911,8 +908,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	INVOICE_FK_CLIENT_FROM_SYSTEM + " INTEGER NULL, " + 
 	INVOICE_FK_INSTALLMENT_TYPE + " INTEGER NULL, " + 
 	INVOICE_FK_INTEREST_RATE_TYPE + " INTEGER NULL, " + 
-	INVOICE_FK_BANK + " INTEGER NULL, " + 
-	INVOICE_FK_CURRENCY + " INTEGER NULL " + 
+	INVOICE_FK_BANK + " INTEGER NULL " + 
 	");";
 
 	private static final String CREATE_INDEX_INVOICE_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_INVOICE + "_serverid_idx" +

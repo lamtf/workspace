@@ -109,18 +109,6 @@ public class UserDataSource {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	/* @SelectOneWhere */
-	public LoginOut login(String username, String password){
-		String selectionArgs = new String[]{ com.uisleandro.util.config.getSystemIdString(), username, password, "3", "1" }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.user/login",null, null, selectionArgs, null);
-		LoginOut that = null;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			that = LoginOut.FromCursor(cursor);
-		}
-		return that;
-	// TODO: PLEASE DONT USE SYNC CODE
-	}
 	/* @ExistsWhere */
 	public boolean user_can_access (String username, String name) {
 		String selectionArgs = new String[]{ String.valueOf(system), String.valueOf(role), username, "1", com.uisleandro.util.config.getSystemIdString(), name }; 
@@ -133,6 +121,18 @@ public class UserDataSource {
 		return that;
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
+	/* @SelectOneWhere */
+	public LoginOut login(String username, String password){
+		String selectionArgs = new String[]{ com.uisleandro.util.config.getSystemIdString(), username, password, "3", "1" }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.user/login",null, null, selectionArgs, null);
+		LoginOut that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = LoginOut.FromCursor(cursor);
+		}
+		return that;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
@@ -140,4 +140,3 @@ public class UserDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

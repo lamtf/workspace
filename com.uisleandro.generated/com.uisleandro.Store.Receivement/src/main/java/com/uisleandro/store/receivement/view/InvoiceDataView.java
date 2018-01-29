@@ -16,7 +16,6 @@ public class InvoiceDataView {
 	private long fk_installment_type;
 	private long fk_interest_rate_type;
 	private long fk_bank;
-	private long fk_currency;
 
 	public InvoiceDataView () {
 		this.id = 0L;
@@ -29,7 +28,6 @@ public class InvoiceDataView {
 		this.fk_installment_type = 0L;
 		this.fk_interest_rate_type = 0L;
 		this.fk_bank = 0L;
-		this.fk_currency = 0L;
 	}
 
 	public long getId () {
@@ -112,14 +110,6 @@ public class InvoiceDataView {
 		this.fk_bank = fk_bank;
 	}
 
-	public long getFkCurrency () {
-		return fk_currency;
-	}
-
-	public void setFkCurrency (long fk_currency) {
-		this.fk_currency = fk_currency;
-	}
-
 	public String toJsonString () {
 		String result = "{" +
 			"\"client_id\":\"" + this.id + "\"," +
@@ -130,8 +120,7 @@ public class InvoiceDataView {
 			"\"fk_client_from_system\":\"" + this.fk_client_from_system+ "\"," + 
 			"\"fk_installment_type\":\"" + this.fk_installment_type+ "\"," + 
 			"\"fk_interest_rate_type\":\"" + this.fk_interest_rate_type+ "\"," + 
-			"\"fk_bank\":\"" + this.fk_bank+ "\"," + 
-			"\"fk_currency\":\"" + this.fk_currency+ "\"" + 
+			"\"fk_bank\":\"" + this.fk_bank+ "\"" + 
 		"}";
 		return result;
 	}
@@ -185,9 +174,6 @@ public class InvoiceDataView {
 				if(obj.has("fk_bank") && !obj.isNull("fk_bank")){
 					result.setFkBank(obj.getLong("fk_bank"));
 				}
-				if(obj.has("fk_currency") && !obj.isNull("fk_currency")){
-					result.setFkCurrency(obj.getLong("fk_currency"));
-				}
 				return result;
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -209,18 +195,17 @@ public class InvoiceDataView {
 			result.setFkInstallmentType(cursor.getLong(7));
 			result.setFkInterestRateType(cursor.getLong(8));
 			result.setFkBank(cursor.getLong(9));
-			result.setFkCurrency(cursor.getLong(10));
 			return result;		
 		}
 		return null;
 	}
 
 	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(system), String.valueOf(sale), String.valueOf(client_from_system), String.valueOf(installment_type), String.valueOf(interest_rate_type), String.valueOf(bank), String.valueOf(currency)};
+		return new String[]{String.valueOf(last_update), String.valueOf(system), String.valueOf(sale), String.valueOf(client_from_system), String.valueOf(installment_type), String.valueOf(interest_rate_type), String.valueOf(bank)};
 	}
 
 	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(system), String.valueOf(sale), String.valueOf(client_from_system), String.valueOf(installment_type), String.valueOf(interest_rate_type), String.valueOf(bank), String.valueOf(currency)};
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(system), String.valueOf(sale), String.valueOf(client_from_system), String.valueOf(installment_type), String.valueOf(interest_rate_type), String.valueOf(bank)};
 	}
 
 }

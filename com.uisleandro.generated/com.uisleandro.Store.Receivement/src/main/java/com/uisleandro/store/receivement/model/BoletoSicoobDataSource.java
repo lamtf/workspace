@@ -115,4 +115,3 @@ public class BoletoSicoobDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

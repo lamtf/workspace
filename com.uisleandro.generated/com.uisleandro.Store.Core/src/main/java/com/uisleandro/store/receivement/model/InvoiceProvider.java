@@ -30,8 +30,7 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001
-// reserved-for:AndroidSqliteQuerySingle001
+// Start of user code reserved-for:AndroidSqliteQuerySingle001// reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase002
@@ -88,23 +87,22 @@ public class InvoiceProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
 
-
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final int INVOICE_INSERT_INSTALLMENT_NUMBER = 8;
-	public static final String INVOICE_INSERT_INSTALLMENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/insert_installment";
-	public static final String INVOICE_INSERT_INSTALLMENT = SCHEME + AUTHORITY + "/insert_installment";
-	public static final Uri URI_INVOICE_INSERT_INSTALLMENT = Uri.parse(INVOICE_INSERT_INSTALLMENT);
-	public static final String INVOICE_INSERT_INSTALLMENT_BASE = INVOICE_INSERT_INSTALLMENT + "/";
-
-	public static final int INVOICE_INSERT_INSTALLMENT_SICOOB_NUMBER = 9;
+	public static final int INVOICE_INSERT_INSTALLMENT_SICOOB_NUMBER = 8;
 	public static final String INVOICE_INSERT_INSTALLMENT_SICOOB_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/insert_installment_sicoob";
 	public static final String INVOICE_INSERT_INSTALLMENT_SICOOB = SCHEME + AUTHORITY + "/insert_installment_sicoob";
 	public static final Uri URI_INVOICE_INSERT_INSTALLMENT_SICOOB = Uri.parse(INVOICE_INSERT_INSTALLMENT_SICOOB);
 	public static final String INVOICE_INSERT_INSTALLMENT_SICOOB_BASE = INVOICE_INSERT_INSTALLMENT_SICOOB + "/";
+
+	public static final int INVOICE_INSERT_INSTALLMENT_NUMBER = 9;
+	public static final String INVOICE_INSERT_INSTALLMENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/insert_installment";
+	public static final String INVOICE_INSERT_INSTALLMENT = SCHEME + AUTHORITY + "/insert_installment";
+	public static final Uri URI_INVOICE_INSERT_INSTALLMENT = Uri.parse(INVOICE_INSERT_INSTALLMENT);
+	public static final String INVOICE_INSERT_INSTALLMENT_BASE = INVOICE_INSERT_INSTALLMENT + "/";
 
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
@@ -123,8 +121,8 @@ public class InvoiceProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.1
-		MATCHER.addURI(AUTHORITY,"insert_installment", INVOICE_INSERT_INSTALLMENT_NUMBER);
 		MATCHER.addURI(AUTHORITY,"insert_installment_sicoob", INVOICE_INSERT_INSTALLMENT_SICOOB_NUMBER);
+		MATCHER.addURI(AUTHORITY,"insert_installment", INVOICE_INSERT_INSTALLMENT_NUMBER);
 // reserved-for:AndroidSqliteQuerySingle002.1
 // End of user code
 
@@ -143,8 +141,7 @@ public class InvoiceProvider extends ContentProvider {
 		DbHelper.INVOICE_FK_CLIENT_FROM_SYSTEM, 
 		DbHelper.INVOICE_FK_INSTALLMENT_TYPE, 
 		DbHelper.INVOICE_FK_INTEREST_RATE_TYPE, 
-		DbHelper.INVOICE_FK_BANK, 
-		DbHelper.INVOICE_FK_CURRENCY
+		DbHelper.INVOICE_FK_BANK
 	};
 
 	public InvoiceDataSource (Context context) {
@@ -186,8 +183,7 @@ public class InvoiceProvider extends ContentProvider {
 			"fk_client_from_system, " +
 			"fk_installment_type, " +
 			"fk_interest_rate_type, " +
-			"fk_bank, " +
-			"fk_currency" +
+			"fk_bank" +
 			" FROM " + DbHelper.TABLE_INVOICE;
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
@@ -233,10 +229,10 @@ public class InvoiceProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.2
-			case INVOICE_INSERT_INSTALLMENT_NUMBER:
-				return INVOICE_INSERT_INSTALLMENT_TYPE;
 			case INVOICE_INSERT_INSTALLMENT_SICOOB_NUMBER:
 				return INVOICE_INSERT_INSTALLMENT_SICOOB_TYPE;
+			case INVOICE_INSERT_INSTALLMENT_NUMBER:
+				return INVOICE_INSERT_INSTALLMENT_TYPE;
 // reserved-for:AndroidSqliteQuerySingle002.2
 // End of user code
 
@@ -260,11 +256,11 @@ public class InvoiceProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle003
 /* @Insert */
-	else if (URI_INVOICE_INSERT_INSTALLMENT.equals(uri)) {
-			result = insert_installment(selectionArgs); // << missing arguments
-	}
 	else if (URI_INVOICE_INSERT_INSTALLMENT_SICOOB.equals(uri)) {
 			result = insert_installment_sicoob(selectionArgs); // << missing arguments
+	}
+	else if (URI_INVOICE_INSERT_INSTALLMENT.equals(uri)) {
+			result = insert_installment(selectionArgs); // << missing arguments
 	}
 // reserved-for:AndroidSqliteQuerySingle003
 // End of user code
@@ -296,6 +292,7 @@ public class InvoiceProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase007
 // End of user code
 
+
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete (@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -317,15 +314,13 @@ public class InvoiceProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
 
-// end content-provider-interface
-
 // Start of user code reserved-for:AndroidSqliteSyncSingle003
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
 	/* @Insert */
-	public int insert_installment (String[] selectionArgs) {
+	public int insert_installment_sicoob (String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "INSERT INTO invoice(last_update,system,sale,client_from_system,installment_type,interest_rate_type,bank,currency,last_update,name,enabled,currency,last_update,sale_type,system,total_value,user,client_from_system,currency,last_update,system,basic_client,shared_client,user,last_update,name,last_update,name,last_update,code,name,last_update,abbreviature,description,last_update,name,last_update,system,role,username,password,name,email,last_use_time,last_error_time,error_count,active,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,last_update,name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
@@ -338,10 +333,10 @@ public class InvoiceProvider extends ContentProvider {
 		return result;
 	}
 	/* @Insert */
-	public int insert_installment_sicoob (String[] selectionArgs) {
+	public int insert_installment (String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
-		String query = "INSERT INTO invoice(last_update,system,sale,client_from_system,installment_type,interest_rate_type,bank,currency,last_update,name,enabled,currency,last_update,sale_type,system,total_value,user,client_from_system,currency,last_update,system,basic_client,shared_client,user,last_update,name,last_update,name,last_update,code,name,last_update,abbreviature,description,last_update,name,last_update,system,role,username,password,name,email,last_use_time,last_error_time,error_count,active,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,last_update,name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
+		String query = "INSERT INTO invoice(last_update,system,sale,client_from_system,installment_type,interest_rate_type,bank,last_update,name,enabled,currency,last_update,sale_type,system,total_value,user,client_from_system,currency,last_update,system,basic_client,shared_client,user,last_update,name,last_update,name,last_update,code,name,last_update,abbreviature,description,last_update,name,last_update,system,role,username,password,name,email,last_use_time,last_error_time,error_count,active,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,birth_date,birth_city,birth_state,mothers_name,fathers_name,profession,zip_code,address,neighborhood,city,state,complement,country,last_update,name,last_update,name) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 		Cursor cursor = database.rawQuery(query, selectionArgs);
 		//TODO: I don't knwo if its returning the last_id, I guess it's not
 		cursor.moveToFirst();
@@ -388,11 +383,3 @@ public class InvoiceProvider extends ContentProvider {
 }
 // reserved-for:AndroidSqliteDatabase011
 // End of user code
-
-// Start of user code reserved-for:AndroidSqliteDatabase011
-		return result;
-	}
-}
-// reserved-for:AndroidSqliteDatabase011
-// End of user code
-

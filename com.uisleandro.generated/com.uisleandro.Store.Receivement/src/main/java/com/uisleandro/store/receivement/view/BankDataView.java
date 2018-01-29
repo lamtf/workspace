@@ -17,6 +17,10 @@ public class BankDataView {
 	private String name;
 	private String name;
 	private String name;
+	private String name;
+	private String name;
+	private String name;
+	private String name;
 
 	public BankDataView () {
 		this.id = 0L;
@@ -24,6 +28,10 @@ public class BankDataView {
 		this.dirty = false;
 		this.last_update = 0L;
 		this.code = "";
+		this.name = "";
+		this.name = "";
+		this.name = "";
+		this.name = "";
 		this.name = "";
 		this.name = "";
 		this.name = "";
@@ -120,12 +128,48 @@ public class BankDataView {
 		this.name = name;
 	}
 
+	public String getName () {
+		return name;
+	}
+
+	public void setName (String name) {
+		this.name = name;
+	}
+
+	public String getName () {
+		return name;
+	}
+
+	public void setName (String name) {
+		this.name = name;
+	}
+
+	public String getName () {
+		return name;
+	}
+
+	public void setName (String name) {
+		this.name = name;
+	}
+
+	public String getName () {
+		return name;
+	}
+
+	public void setName (String name) {
+		this.name = name;
+	}
+
 	public String toJsonString () {
 		String result = "{" +
 			"\"client_id\":\"" + this.id + "\"," +
 			"\"server_id\":\"" + this.server_id + "\"," +
 			"\"last_update\":\"" + this.last_update+ "\"," + 
 			"\"code\":\"" + this.code+ "\"," + 
+			"\"name\":\"" + this.name+ "\"," + 
+			"\"name\":\"" + this.name+ "\"," + 
+			"\"name\":\"" + this.name+ "\"," + 
+			"\"name\":\"" + this.name+ "\"," + 
 			"\"name\":\"" + this.name+ "\"," + 
 			"\"name\":\"" + this.name+ "\"," + 
 			"\"name\":\"" + this.name+ "\"," + 
@@ -174,6 +218,10 @@ public class BankDataView {
 				result.setName(obj.getString("name"));
 				result.setName(obj.getString("name"));
 				result.setName(obj.getString("name"));
+				result.setName(obj.getString("name"));
+				result.setName(obj.getString("name"));
+				result.setName(obj.getString("name"));
+				result.setName(obj.getString("name"));
 				return result;
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -196,17 +244,21 @@ public class BankDataView {
 			result.setName(cursor.getString(8));
 			result.setName(cursor.getString(9));
 			result.setName(cursor.getString(10));
+			result.setName(cursor.getString(11));
+			result.setName(cursor.getString(12));
+			result.setName(cursor.getString(13));
+			result.setName(cursor.getString(14));
 			return result;		
 		}
 		return null;
 	}
 
 	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), code, name, name, name, name, name, name};
+		return new String[]{String.valueOf(last_update), code, name, name, name, name, name, name, name, name, name, name};
 	}
 
 	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), code, name, name, name, name, name, name};
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), code, name, name, name, name, name, name, name, name, name, name};
 	}
 
 }

@@ -20,7 +20,6 @@ public class ProductDataView {
 	private long fk_category;
 	private String size;
 	private long fk_unit;
-	private long fk_currency;
 	private long expiration_date;
 	private long fk_brand;
 
@@ -39,7 +38,6 @@ public class ProductDataView {
 		this.fk_category = 0L;
 		this.size = "";
 		this.fk_unit = 0L;
-		this.fk_currency = 0L;
 		this.expiration_date = 0L;
 		this.fk_brand = 0L;
 	}
@@ -156,14 +154,6 @@ public class ProductDataView {
 		this.fk_unit = fk_unit;
 	}
 
-	public long getFkCurrency () {
-		return fk_currency;
-	}
-
-	public void setFkCurrency (long fk_currency) {
-		this.fk_currency = fk_currency;
-	}
-
 	public long getExpirationDate () {
 		return expiration_date;
 	}
@@ -195,7 +185,6 @@ public class ProductDataView {
 			"\"fk_category\":\"" + this.fk_category+ "\"," + 
 			"\"size\":\"" + this.size+ "\"," + 
 			"\"fk_unit\":\"" + this.fk_unit+ "\"," + 
-			"\"fk_currency\":\"" + this.fk_currency+ "\"," + 
 			"\"expiration_date\":\"" + this.expiration_date+ "\"," + 
 			"\"fk_brand\":\"" + this.fk_brand+ "\"" + 
 		"}";
@@ -251,9 +240,6 @@ public class ProductDataView {
 				if(obj.has("fk_unit") && !obj.isNull("fk_unit")){
 					result.setFkUnit(obj.getLong("fk_unit"));
 				}
-				if(obj.has("fk_currency") && !obj.isNull("fk_currency")){
-					result.setFkCurrency(obj.getLong("fk_currency"));
-				}
 				result.setExpirationDate(obj.getLong("expiration_date"));
 				if(obj.has("fk_brand") && !obj.isNull("fk_brand")){
 					result.setFkBrand(obj.getLong("fk_brand"));
@@ -283,20 +269,19 @@ public class ProductDataView {
 			result.setFkCategory(cursor.getLong(11));
 			result.setSize(cursor.getString(12));
 			result.setFkUnit(cursor.getLong(13));
-			result.setFkCurrency(cursor.getLong(14));
-			result.setExpirationDate(cursor.getLong(15));
-			result.setFkBrand(cursor.getLong(16));
+			result.setExpirationDate(cursor.getLong(14));
+			result.setFkBrand(cursor.getLong(15));
 			return result;		
 		}
 		return null;
 	}
 
 	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(system), barcode, description, String.valueOf(amount), String.valueOf(gender), String.valueOf(purchase_price), String.valueOf(sale_price), String.valueOf(category), size, String.valueOf(unit), String.valueOf(currency), String.valueOf(expiration_date), String.valueOf(brand)};
+		return new String[]{String.valueOf(last_update), String.valueOf(system), barcode, description, String.valueOf(amount), String.valueOf(gender), String.valueOf(purchase_price), String.valueOf(sale_price), String.valueOf(category), size, String.valueOf(unit), String.valueOf(expiration_date), String.valueOf(brand)};
 	}
 
 	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(system), barcode, description, String.valueOf(amount), String.valueOf(gender), String.valueOf(purchase_price), String.valueOf(sale_price), String.valueOf(category), size, String.valueOf(unit), String.valueOf(currency), String.valueOf(expiration_date), String.valueOf(brand)};
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(system), barcode, description, String.valueOf(amount), String.valueOf(gender), String.valueOf(purchase_price), String.valueOf(sale_price), String.valueOf(category), size, String.valueOf(unit), String.valueOf(expiration_date), String.valueOf(brand)};
 	}
 
 }

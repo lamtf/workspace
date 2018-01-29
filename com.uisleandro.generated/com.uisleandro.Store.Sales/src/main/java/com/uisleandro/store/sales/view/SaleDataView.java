@@ -15,7 +15,6 @@ public class SaleDataView {
 	private float total_value;
 	private long fk_user;
 	private long fk_client_from_system;
-	private long fk_currency;
 
 	public SaleDataView () {
 		this.id = 0L;
@@ -27,7 +26,6 @@ public class SaleDataView {
 		this.total_value = 0F;
 		this.fk_user = 0L;
 		this.fk_client_from_system = 0L;
-		this.fk_currency = 0L;
 	}
 
 	public long getId () {
@@ -102,14 +100,6 @@ public class SaleDataView {
 		this.fk_client_from_system = fk_client_from_system;
 	}
 
-	public long getFkCurrency () {
-		return fk_currency;
-	}
-
-	public void setFkCurrency (long fk_currency) {
-		this.fk_currency = fk_currency;
-	}
-
 	public String toJsonString () {
 		String result = "{" +
 			"\"client_id\":\"" + this.id + "\"," +
@@ -119,8 +109,7 @@ public class SaleDataView {
 			"\"fk_system\":\"" + this.fk_system+ "\"," + 
 			"\"total_value\":\"" + this.total_value+ "\"," + 
 			"\"fk_user\":\"" + this.fk_user+ "\"," + 
-			"\"fk_client_from_system\":\"" + this.fk_client_from_system+ "\"," + 
-			"\"fk_currency\":\"" + this.fk_currency+ "\"" + 
+			"\"fk_client_from_system\":\"" + this.fk_client_from_system+ "\"" + 
 		"}";
 		return result;
 	}
@@ -169,9 +158,6 @@ public class SaleDataView {
 				if(obj.has("fk_client_from_system") && !obj.isNull("fk_client_from_system")){
 					result.setFkClientFromSystem(obj.getLong("fk_client_from_system"));
 				}
-				if(obj.has("fk_currency") && !obj.isNull("fk_currency")){
-					result.setFkCurrency(obj.getLong("fk_currency"));
-				}
 				return result;
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -192,18 +178,17 @@ public class SaleDataView {
 			result.setTotalValue(cursor.getFloat(6));
 			result.setFkUser(cursor.getLong(7));
 			result.setFkClientFromSystem(cursor.getLong(8));
-			result.setFkCurrency(cursor.getLong(9));
 			return result;		
 		}
 		return null;
 	}
 
 	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(sale_type), String.valueOf(system), String.valueOf(total_value), String.valueOf(user), String.valueOf(client_from_system), String.valueOf(currency)};
+		return new String[]{String.valueOf(last_update), String.valueOf(sale_type), String.valueOf(system), String.valueOf(total_value), String.valueOf(user), String.valueOf(client_from_system)};
 	}
 
 	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(sale_type), String.valueOf(system), String.valueOf(total_value), String.valueOf(user), String.valueOf(client_from_system), String.valueOf(currency)};
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(sale_type), String.valueOf(system), String.valueOf(total_value), String.valueOf(user), String.valueOf(client_from_system)};
 	}
 
 }

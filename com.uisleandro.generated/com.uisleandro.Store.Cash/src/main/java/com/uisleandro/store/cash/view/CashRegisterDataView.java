@@ -14,7 +14,6 @@ public class CashRegisterDataView {
 	private float opening_value;
 	private float received_value;
 	private float closing_value;
-	private long fk_currency;
 
 	public CashRegisterDataView () {
 		this.id = 0L;
@@ -25,7 +24,6 @@ public class CashRegisterDataView {
 		this.opening_value = 0F;
 		this.received_value = 0F;
 		this.closing_value = 0F;
-		this.fk_currency = 0L;
 	}
 
 	public long getId () {
@@ -92,14 +90,6 @@ public class CashRegisterDataView {
 		this.closing_value = closing_value;
 	}
 
-	public long getFkCurrency () {
-		return fk_currency;
-	}
-
-	public void setFkCurrency (long fk_currency) {
-		this.fk_currency = fk_currency;
-	}
-
 	public String toJsonString () {
 		String result = "{" +
 			"\"client_id\":\"" + this.id + "\"," +
@@ -108,8 +98,7 @@ public class CashRegisterDataView {
 			"\"fk_user\":\"" + this.fk_user+ "\"," + 
 			"\"opening_value\":\"" + this.opening_value+ "\"," + 
 			"\"received_value\":\"" + this.received_value+ "\"," + 
-			"\"closing_value\":\"" + this.closing_value+ "\"," + 
-			"\"fk_currency\":\"" + this.fk_currency+ "\"" + 
+			"\"closing_value\":\"" + this.closing_value+ "\"" + 
 		"}";
 		return result;
 	}
@@ -151,9 +140,6 @@ public class CashRegisterDataView {
 				result.setOpeningValue(Float.valueOf(obj.getString("opening_value")));
 				result.setReceivedValue(Float.valueOf(obj.getString("received_value")));
 				result.setClosingValue(Float.valueOf(obj.getString("closing_value")));
-				if(obj.has("fk_currency") && !obj.isNull("fk_currency")){
-					result.setFkCurrency(obj.getLong("fk_currency"));
-				}
 				return result;
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -173,18 +159,17 @@ public class CashRegisterDataView {
 			result.setOpeningValue(cursor.getFloat(5));
 			result.setReceivedValue(cursor.getFloat(6));
 			result.setClosingValue(cursor.getFloat(7));
-			result.setFkCurrency(cursor.getLong(8));
 			return result;		
 		}
 		return null;
 	}
 
 	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(user), String.valueOf(opening_value), String.valueOf(received_value), String.valueOf(closing_value), String.valueOf(currency)};
+		return new String[]{String.valueOf(last_update), String.valueOf(user), String.valueOf(opening_value), String.valueOf(received_value), String.valueOf(closing_value)};
 	}
 
 	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(user), String.valueOf(opening_value), String.valueOf(received_value), String.valueOf(closing_value), String.valueOf(currency)};
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(user), String.valueOf(opening_value), String.valueOf(received_value), String.valueOf(closing_value)};
 	}
 
 }

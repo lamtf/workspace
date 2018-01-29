@@ -30,7 +30,9 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001
+// Start of user code reserved-for:AndroidSqliteQuerySingle001import com.uisleandro.store.client.view.FindByCpfOut;
+import com.uisleandro.store.client.view.FindByCpfOut;
+import com.uisleandro.store.client.view.FindByCpfOut;
 // reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -88,29 +90,28 @@ public class BasicClientProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
 
-
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final int BASIC_CLIENT_FIND_BY_CPF_NUMBER = 8;
+	public static final int BASIC_CLIENT_FIND_BY_NAME_NUMBER = 8;
+	public static final String BASIC_CLIENT_FIND_BY_NAME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/find_by_name";
+	public static final String BASIC_CLIENT_FIND_BY_NAME = SCHEME + AUTHORITY + "/find_by_name";
+	public static final Uri URI_BASIC_CLIENT_FIND_BY_NAME = Uri.parse(BASIC_CLIENT_FIND_BY_NAME);
+	public static final String BASIC_CLIENT_FIND_BY_NAME_BASE = BASIC_CLIENT_FIND_BY_NAME + "/";
+
+	public static final int BASIC_CLIENT_FIND_BY_CPF_NUMBER = 9;
 	public static final String BASIC_CLIENT_FIND_BY_CPF_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/find_by_cpf";
 	public static final String BASIC_CLIENT_FIND_BY_CPF = SCHEME + AUTHORITY + "/find_by_cpf";
 	public static final Uri URI_BASIC_CLIENT_FIND_BY_CPF = Uri.parse(BASIC_CLIENT_FIND_BY_CPF);
 	public static final String BASIC_CLIENT_FIND_BY_CPF_BASE = BASIC_CLIENT_FIND_BY_CPF + "/";
 
-	public static final int BASIC_CLIENT_FIND_BY_ID_NUMBER = 9;
+	public static final int BASIC_CLIENT_FIND_BY_ID_NUMBER = 10;
 	public static final String BASIC_CLIENT_FIND_BY_ID_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/find_by_id";
 	public static final String BASIC_CLIENT_FIND_BY_ID = SCHEME + AUTHORITY + "/find_by_id";
 	public static final Uri URI_BASIC_CLIENT_FIND_BY_ID = Uri.parse(BASIC_CLIENT_FIND_BY_ID);
 	public static final String BASIC_CLIENT_FIND_BY_ID_BASE = BASIC_CLIENT_FIND_BY_ID + "/";
-
-	public static final int BASIC_CLIENT_FIND_BY_NAME_NUMBER = 10;
-	public static final String BASIC_CLIENT_FIND_BY_NAME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/find_by_name";
-	public static final String BASIC_CLIENT_FIND_BY_NAME = SCHEME + AUTHORITY + "/find_by_name";
-	public static final Uri URI_BASIC_CLIENT_FIND_BY_NAME = Uri.parse(BASIC_CLIENT_FIND_BY_NAME);
-	public static final String BASIC_CLIENT_FIND_BY_NAME_BASE = BASIC_CLIENT_FIND_BY_NAME + "/";
 
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
@@ -129,9 +130,9 @@ public class BasicClientProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.1
+		MATCHER.addURI(AUTHORITY,"find_by_name", BASIC_CLIENT_FIND_BY_NAME_NUMBER);
 		MATCHER.addURI(AUTHORITY,"find_by_cpf", BASIC_CLIENT_FIND_BY_CPF_NUMBER);
 		MATCHER.addURI(AUTHORITY,"find_by_id", BASIC_CLIENT_FIND_BY_ID_NUMBER);
-		MATCHER.addURI(AUTHORITY,"find_by_name", BASIC_CLIENT_FIND_BY_NAME_NUMBER);
 // reserved-for:AndroidSqliteQuerySingle002.1
 // End of user code
 
@@ -254,12 +255,12 @@ public class BasicClientProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.2
+			case BASIC_CLIENT_FIND_BY_NAME_NUMBER:
+				return BASIC_CLIENT_FIND_BY_NAME_TYPE;
 			case BASIC_CLIENT_FIND_BY_CPF_NUMBER:
 				return BASIC_CLIENT_FIND_BY_CPF_TYPE;
 			case BASIC_CLIENT_FIND_BY_ID_NUMBER:
 				return BASIC_CLIENT_FIND_BY_ID_TYPE;
-			case BASIC_CLIENT_FIND_BY_NAME_NUMBER:
-				return BASIC_CLIENT_FIND_BY_NAME_TYPE;
 // reserved-for:AndroidSqliteQuerySingle002.2
 // End of user code
 
@@ -313,6 +314,7 @@ public class BasicClientProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase007
 // End of user code
 
+
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete (@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -334,13 +336,19 @@ public class BasicClientProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
 
-// end content-provider-interface
-
 // Start of user code reserved-for:AndroidSqliteSyncSingle003
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
+	/* @SelectOneWhere */
+	public Cursor find_by_name (String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT brazilian.last_update,brazilian.cpf,brazilian.rg,basic_client.last_update,basic_client.name,basic_client.birth_date,basic_client.birth_city,basic_client.birth_state,basic_client.mothers_name,basic_client.fathers_name,basic_client.profession,basic_client.zip_code,basic_client.address,basic_client.neighborhood,basic_client.city,basic_client.state,basic_client.complement,country.last_update,country.name FROM brazilian INNER JOIN basic_client ON brazilian.fk_basic_client = basic_client.id INNER JOIN country ON basic_client.fk_country = country.id WHERE basic_client.name = ?;";
+		Cursor cursor = database.rawQuery(query, selectionArgs);
+		return cursor;
+	}
 	/* @SelectOneWhere */
 	public Cursor find_by_cpf (String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
@@ -354,14 +362,6 @@ public class BasicClientProvider extends ContentProvider {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "SELECT brazilian.last_update,brazilian.cpf,brazilian.rg,basic_client.last_update,basic_client.name,basic_client.birth_date,basic_client.birth_city,basic_client.birth_state,basic_client.mothers_name,basic_client.fathers_name,basic_client.profession,basic_client.zip_code,basic_client.address,basic_client.neighborhood,basic_client.city,basic_client.state,basic_client.complement,country.last_update,country.name FROM brazilian INNER JOIN basic_client ON brazilian.fk_basic_client = basic_client.id INNER JOIN country ON basic_client.fk_country = country.id WHERE id = ?;";
-		Cursor cursor = database.rawQuery(query, selectionArgs);
-		return cursor;
-	}
-	/* @SelectOneWhere */
-	public Cursor find_by_name (String[] selectionArgs) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		String query = "SELECT brazilian.last_update,brazilian.cpf,brazilian.rg,basic_client.last_update,basic_client.name,basic_client.birth_date,basic_client.birth_city,basic_client.birth_state,basic_client.mothers_name,basic_client.fathers_name,basic_client.profession,basic_client.zip_code,basic_client.address,basic_client.neighborhood,basic_client.city,basic_client.state,basic_client.complement,country.last_update,country.name FROM brazilian INNER JOIN basic_client ON brazilian.fk_basic_client = basic_client.id INNER JOIN country ON basic_client.fk_country = country.id WHERE basic_client.name = ?;";
 		Cursor cursor = database.rawQuery(query, selectionArgs);
 		return cursor;
 	}
@@ -395,14 +395,14 @@ public class BasicClientProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 /* @ExistsWhere||@SelectValueWhere||@SelectOneWhere||@SelectListWhere */
+	else if (URI_BASIC_CLIENT_FIND_BY_NAME.equals(uri)) {
+		result = find_by_name(selectionArgs);
+	}
 	else if (URI_BASIC_CLIENT_FIND_BY_CPF.equals(uri)) {
 		result = find_by_cpf(selectionArgs);
 	}
 	else if (URI_BASIC_CLIENT_FIND_BY_ID.equals(uri)) {
 		result = find_by_id(selectionArgs);
-	}
-	else if (URI_BASIC_CLIENT_FIND_BY_NAME.equals(uri)) {
-		result = find_by_name(selectionArgs);
 	}
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
@@ -412,11 +412,3 @@ public class BasicClientProvider extends ContentProvider {
 }
 // reserved-for:AndroidSqliteDatabase011
 // End of user code
-
-// Start of user code reserved-for:AndroidSqliteDatabase011
-		return result;
-	}
-}
-// reserved-for:AndroidSqliteDatabase011
-// End of user code
-

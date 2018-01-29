@@ -12,9 +12,9 @@ import com.uisleandro.store.supply.view.ProductDataView
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle001
 import com.uisleandro.store.supply.view.GetByRepeatedProductCodeOut;
-import com.uisleandro.store.supply.view.MissingProductsRelatoryOut;
 import com.uisleandro.store.supply.view.GetByIdOut;
 import com.uisleandro.store.supply.view.GetByQrcodeOut;
+import com.uisleandro.store.supply.view.MissingProductsRelatoryOut;
 // reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -147,19 +147,6 @@ public class ProductDataSource {
 	// TODO: PLEASE DON'T USE SYNCHRONIZED CODE
 	
 	}
-	/* @SelectListWhere */
-	public List<MissingProductsRelatoryOut> missing_products_relatory (long page_count, long page_size){
-		String selectionArgs = new String[]{ com.uisleandro.util.config.getTodayString() }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/missing_products_relatory",null, null, selectionArgs, null);
-		List<MissingProductsRelatoryOut> those = null;
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			those.add( MissingProductsRelatoryOut.FromCursor(cursor) );
-			cursor.moveToNext();
-		}
-		return those;
-	// TODO: PLEASE DONT USE SYNC CODE
-	}
 	/* @SelectOneWhere */
 	public GetByIdOut get_by_id(Long id){
 		String selectionArgs = new String[]{ String.valueOf(id) }; 
@@ -184,6 +171,19 @@ public class ProductDataSource {
 		return that;
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
+	/* @SelectListWhere */
+	public List<MissingProductsRelatoryOut> missing_products_relatory (long page_count, long page_size){
+		String selectionArgs = new String[]{ com.uisleandro.util.config.getTodayString() }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/missing_products_relatory",null, null, selectionArgs, null);
+		List<MissingProductsRelatoryOut> those = null;
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			those.add( MissingProductsRelatoryOut.FromCursor(cursor) );
+			cursor.moveToNext();
+		}
+		return those;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
@@ -191,4 +191,3 @@ public class ProductDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

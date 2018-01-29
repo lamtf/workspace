@@ -109,12 +109,6 @@ public class SaleDataSource {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	/* @DeleteWhere */
-	public int remove_all_products_from_sales_chart(Long fk_sale){
-		String selectionArgs = new String[]{ String.valueOf(fk_sale) };
-		return context.getContentResolver().delete("content://com.uisleandro.sale/remove_all_products_from_sales_chart", null, selectionArgs);
-	// TODO: PLEASE DONT USE SYNC CODE
-	}
 	/* @Insert */
 	public int create_sales_chart (){
 		ContentValues contentValues = new ContentValues(4);
@@ -135,12 +129,6 @@ public class SaleDataSource {
 		return context.getContentResolver().delete("content://com.uisleandro.sale/cancel_sales_chart", null, selectionArgs);
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
-	/* @DeleteWhere */
-	public int remove_product_from_sales_chart(Long fk_sale, Long fk_product){
-		String selectionArgs = new String[]{ String.valueOf(fk_sale), String.valueOf(fk_product) };
-		return context.getContentResolver().delete("content://com.uisleandro.sale/remove_product_from_sales_chart", null, selectionArgs);
-	// TODO: PLEASE DONT USE SYNC CODE
-	}
 	/* @Insert */
 	public int add_product_to_sales_chart (Long fk_sale, Long fk_product){
 		ContentValues contentValues = new ContentValues(3);
@@ -154,6 +142,12 @@ public class SaleDataSource {
 	}
 	
 	
+	/* @DeleteWhere */
+	public int remove_product_from_sales_chart(Long fk_sale, Long fk_product){
+		String selectionArgs = new String[]{ String.valueOf(fk_sale), String.valueOf(fk_product) };
+		return context.getContentResolver().delete("content://com.uisleandro.sale/remove_product_from_sales_chart", null, selectionArgs);
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
 	/* @SelectListWhere */
 	public List<ListProductsOnSalesChartOut> list_products_on_sales_chart (Long fk_sale, long page_count, long page_size){
 		String selectionArgs = new String[]{ String.valueOf(fk_sale) }; 
@@ -167,6 +161,12 @@ public class SaleDataSource {
 		return those;
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
+	/* @DeleteWhere */
+	public int remove_all_products_from_sales_chart(Long fk_sale){
+		String selectionArgs = new String[]{ String.valueOf(fk_sale) };
+		return context.getContentResolver().delete("content://com.uisleandro.sale/remove_all_products_from_sales_chart", null, selectionArgs);
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
@@ -174,4 +174,3 @@ public class SaleDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

@@ -30,8 +30,7 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001
-// reserved-for:AndroidSqliteQuerySingle001
+// Start of user code reserved-for:AndroidSqliteQuerySingle001// reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase002
@@ -88,41 +87,40 @@ public class DiscountProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
 
-
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final int DISCOUNT_NEW_EVENTUAL_DISCOUNT_NUMBER = 8;
-	public static final String DISCOUNT_NEW_EVENTUAL_DISCOUNT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/new_eventual_discount";
-	public static final String DISCOUNT_NEW_EVENTUAL_DISCOUNT = SCHEME + AUTHORITY + "/new_eventual_discount";
-	public static final Uri URI_DISCOUNT_NEW_EVENTUAL_DISCOUNT = Uri.parse(DISCOUNT_NEW_EVENTUAL_DISCOUNT);
-	public static final String DISCOUNT_NEW_EVENTUAL_DISCOUNT_BASE = DISCOUNT_NEW_EVENTUAL_DISCOUNT + "/";
-
-	public static final int DISCOUNT_NEW_CATEGORY_PROMOTION_NUMBER = 9;
-	public static final String DISCOUNT_NEW_CATEGORY_PROMOTION_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/new_category_promotion";
-	public static final String DISCOUNT_NEW_CATEGORY_PROMOTION = SCHEME + AUTHORITY + "/new_category_promotion";
-	public static final Uri URI_DISCOUNT_NEW_CATEGORY_PROMOTION = Uri.parse(DISCOUNT_NEW_CATEGORY_PROMOTION);
-	public static final String DISCOUNT_NEW_CATEGORY_PROMOTION_BASE = DISCOUNT_NEW_CATEGORY_PROMOTION + "/";
-
-	public static final int DISCOUNT_NEW_BRAND_BASED_PROMOTION_NUMBER = 10;
-	public static final String DISCOUNT_NEW_BRAND_BASED_PROMOTION_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/new_brand_based_promotion";
-	public static final String DISCOUNT_NEW_BRAND_BASED_PROMOTION = SCHEME + AUTHORITY + "/new_brand_based_promotion";
-	public static final Uri URI_DISCOUNT_NEW_BRAND_BASED_PROMOTION = Uri.parse(DISCOUNT_NEW_BRAND_BASED_PROMOTION);
-	public static final String DISCOUNT_NEW_BRAND_BASED_PROMOTION_BASE = DISCOUNT_NEW_BRAND_BASED_PROMOTION + "/";
-
-	public static final int DISCOUNT_NEW_GENDER_PROMOTION_NUMBER = 11;
+	public static final int DISCOUNT_NEW_GENDER_PROMOTION_NUMBER = 8;
 	public static final String DISCOUNT_NEW_GENDER_PROMOTION_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/new_gender_promotion";
 	public static final String DISCOUNT_NEW_GENDER_PROMOTION = SCHEME + AUTHORITY + "/new_gender_promotion";
 	public static final Uri URI_DISCOUNT_NEW_GENDER_PROMOTION = Uri.parse(DISCOUNT_NEW_GENDER_PROMOTION);
 	public static final String DISCOUNT_NEW_GENDER_PROMOTION_BASE = DISCOUNT_NEW_GENDER_PROMOTION + "/";
 
-	public static final int DISCOUNT_NEW_PRODUCT_PROMOTION_NUMBER = 12;
+	public static final int DISCOUNT_NEW_PRODUCT_PROMOTION_NUMBER = 9;
 	public static final String DISCOUNT_NEW_PRODUCT_PROMOTION_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/new_product_promotion";
 	public static final String DISCOUNT_NEW_PRODUCT_PROMOTION = SCHEME + AUTHORITY + "/new_product_promotion";
 	public static final Uri URI_DISCOUNT_NEW_PRODUCT_PROMOTION = Uri.parse(DISCOUNT_NEW_PRODUCT_PROMOTION);
 	public static final String DISCOUNT_NEW_PRODUCT_PROMOTION_BASE = DISCOUNT_NEW_PRODUCT_PROMOTION + "/";
+
+	public static final int DISCOUNT_NEW_CATEGORY_PROMOTION_NUMBER = 10;
+	public static final String DISCOUNT_NEW_CATEGORY_PROMOTION_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/new_category_promotion";
+	public static final String DISCOUNT_NEW_CATEGORY_PROMOTION = SCHEME + AUTHORITY + "/new_category_promotion";
+	public static final Uri URI_DISCOUNT_NEW_CATEGORY_PROMOTION = Uri.parse(DISCOUNT_NEW_CATEGORY_PROMOTION);
+	public static final String DISCOUNT_NEW_CATEGORY_PROMOTION_BASE = DISCOUNT_NEW_CATEGORY_PROMOTION + "/";
+
+	public static final int DISCOUNT_NEW_EVENTUAL_DISCOUNT_NUMBER = 11;
+	public static final String DISCOUNT_NEW_EVENTUAL_DISCOUNT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/new_eventual_discount";
+	public static final String DISCOUNT_NEW_EVENTUAL_DISCOUNT = SCHEME + AUTHORITY + "/new_eventual_discount";
+	public static final Uri URI_DISCOUNT_NEW_EVENTUAL_DISCOUNT = Uri.parse(DISCOUNT_NEW_EVENTUAL_DISCOUNT);
+	public static final String DISCOUNT_NEW_EVENTUAL_DISCOUNT_BASE = DISCOUNT_NEW_EVENTUAL_DISCOUNT + "/";
+
+	public static final int DISCOUNT_NEW_BRAND_BASED_PROMOTION_NUMBER = 12;
+	public static final String DISCOUNT_NEW_BRAND_BASED_PROMOTION_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/new_brand_based_promotion";
+	public static final String DISCOUNT_NEW_BRAND_BASED_PROMOTION = SCHEME + AUTHORITY + "/new_brand_based_promotion";
+	public static final Uri URI_DISCOUNT_NEW_BRAND_BASED_PROMOTION = Uri.parse(DISCOUNT_NEW_BRAND_BASED_PROMOTION);
+	public static final String DISCOUNT_NEW_BRAND_BASED_PROMOTION_BASE = DISCOUNT_NEW_BRAND_BASED_PROMOTION + "/";
 
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
@@ -141,11 +139,11 @@ public class DiscountProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.1
-		MATCHER.addURI(AUTHORITY,"new_eventual_discount", DISCOUNT_NEW_EVENTUAL_DISCOUNT_NUMBER);
-		MATCHER.addURI(AUTHORITY,"new_category_promotion", DISCOUNT_NEW_CATEGORY_PROMOTION_NUMBER);
-		MATCHER.addURI(AUTHORITY,"new_brand_based_promotion", DISCOUNT_NEW_BRAND_BASED_PROMOTION_NUMBER);
 		MATCHER.addURI(AUTHORITY,"new_gender_promotion", DISCOUNT_NEW_GENDER_PROMOTION_NUMBER);
 		MATCHER.addURI(AUTHORITY,"new_product_promotion", DISCOUNT_NEW_PRODUCT_PROMOTION_NUMBER);
+		MATCHER.addURI(AUTHORITY,"new_category_promotion", DISCOUNT_NEW_CATEGORY_PROMOTION_NUMBER);
+		MATCHER.addURI(AUTHORITY,"new_eventual_discount", DISCOUNT_NEW_EVENTUAL_DISCOUNT_NUMBER);
+		MATCHER.addURI(AUTHORITY,"new_brand_based_promotion", DISCOUNT_NEW_BRAND_BASED_PROMOTION_NUMBER);
 // reserved-for:AndroidSqliteQuerySingle002.1
 // End of user code
 
@@ -254,16 +252,16 @@ public class DiscountProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.2
-			case DISCOUNT_NEW_EVENTUAL_DISCOUNT_NUMBER:
-				return DISCOUNT_NEW_EVENTUAL_DISCOUNT_TYPE;
-			case DISCOUNT_NEW_CATEGORY_PROMOTION_NUMBER:
-				return DISCOUNT_NEW_CATEGORY_PROMOTION_TYPE;
-			case DISCOUNT_NEW_BRAND_BASED_PROMOTION_NUMBER:
-				return DISCOUNT_NEW_BRAND_BASED_PROMOTION_TYPE;
 			case DISCOUNT_NEW_GENDER_PROMOTION_NUMBER:
 				return DISCOUNT_NEW_GENDER_PROMOTION_TYPE;
 			case DISCOUNT_NEW_PRODUCT_PROMOTION_NUMBER:
 				return DISCOUNT_NEW_PRODUCT_PROMOTION_TYPE;
+			case DISCOUNT_NEW_CATEGORY_PROMOTION_NUMBER:
+				return DISCOUNT_NEW_CATEGORY_PROMOTION_TYPE;
+			case DISCOUNT_NEW_EVENTUAL_DISCOUNT_NUMBER:
+				return DISCOUNT_NEW_EVENTUAL_DISCOUNT_TYPE;
+			case DISCOUNT_NEW_BRAND_BASED_PROMOTION_NUMBER:
+				return DISCOUNT_NEW_BRAND_BASED_PROMOTION_TYPE;
 // reserved-for:AndroidSqliteQuerySingle002.2
 // End of user code
 
@@ -317,6 +315,7 @@ public class DiscountProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase007
 // End of user code
 
+
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete (@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -337,8 +336,6 @@ public class DiscountProvider extends ContentProvider {
 	}
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
-
-// end content-provider-interface
 
 // Start of user code reserved-for:AndroidSqliteSyncSingle003
 // reserved-for:AndroidSqliteSyncSingle003
@@ -383,11 +380,3 @@ public class DiscountProvider extends ContentProvider {
 }
 // reserved-for:AndroidSqliteDatabase011
 // End of user code
-
-// Start of user code reserved-for:AndroidSqliteDatabase011
-		return result;
-	}
-}
-// reserved-for:AndroidSqliteDatabase011
-// End of user code
-

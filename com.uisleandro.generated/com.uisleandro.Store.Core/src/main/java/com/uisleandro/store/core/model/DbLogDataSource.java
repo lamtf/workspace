@@ -115,4 +115,3 @@ public class DbLogDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

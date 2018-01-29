@@ -136,18 +136,6 @@ public class CashRegisterDataSource {
 		return those;
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
-	/* @SelectValueWhere */
-	public Float sum_cash_launches (Long fk_cash_register) {
-		String selectionArgs = new String[]{ String.valueOf(fk_cash_register) }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.cash_register/sum_cash_launches",null, null, selectionArgs, null);
-		Float that = null;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			that = cursor.getFloat(0);
-		}
-		return that;
-	// TODO: PLEASE DONT USE SYNC CODE
-	}
 	/* @Insert */
 	public int open_cash_register (Long user){
 		ContentValues contentValues = new ContentValues(5);
@@ -163,6 +151,18 @@ public class CashRegisterDataSource {
 	}
 	
 	
+	/* @SelectValueWhere */
+	public Float sum_cash_launches (Long fk_cash_register) {
+		String selectionArgs = new String[]{ String.valueOf(fk_cash_register) }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.cash_register/sum_cash_launches",null, null, selectionArgs, null);
+		Float that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = cursor.getFloat(0);
+		}
+		return that;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
 	/* @ExistsWhere */
 	public boolean is_open_today () {
 		String selectionArgs = new String[]{ com.uisleandro.util.config.getTodayString(), com.uisleandro.util.config.getUserIdString(), "0", "0" }; 
@@ -182,4 +182,3 @@ public class CashRegisterDataSource {
 }
 // reserved-for:AndroidSqliteDatabaseSingle003
 // End of user code
-

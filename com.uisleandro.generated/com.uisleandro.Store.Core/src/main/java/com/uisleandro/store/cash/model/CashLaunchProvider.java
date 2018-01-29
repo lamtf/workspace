@@ -30,8 +30,7 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteSyncSingle001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteQuerySingle001
-// reserved-for:AndroidSqliteQuerySingle001
+// Start of user code reserved-for:AndroidSqliteQuerySingle001// reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabase002
@@ -88,7 +87,6 @@ public class CashLaunchProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase002
 // End of user code
 
-
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
 // reserved-for:AndroidSqliteSyncSingle003
 // End of user code
@@ -126,8 +124,7 @@ public class CashLaunchProvider extends ContentProvider {
 		DbHelper.CASH_LAUNCH_LAST_UPDATE, 
 		DbHelper.CASH_LAUNCH_FK_CASH_REGISTER, 
 		DbHelper.CASH_LAUNCH_JUSTIFICATION, 
-		DbHelper.CASH_LAUNCH_AMOUNT_SPENT, 
-		DbHelper.CASH_LAUNCH_FK_CURRENCY
+		DbHelper.CASH_LAUNCH_AMOUNT_SPENT
 	};
 
 	public CashLaunchDataSource (Context context) {
@@ -166,8 +163,7 @@ public class CashLaunchProvider extends ContentProvider {
 			"last_update, " +
 			"fk_cash_register, " +
 			"justification, " +
-			"amount_spent, " +
-			"fk_currency" +
+			"amount_spent" +
 			" FROM " + DbHelper.TABLE_CASH_LAUNCH;
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
@@ -266,6 +262,7 @@ public class CashLaunchProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase007
 // End of user code
 
+
 // Start of user code reserved-for:AndroidSqliteDatabase008
 	@Override
 	public int delete (@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -286,8 +283,6 @@ public class CashLaunchProvider extends ContentProvider {
 	}
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
-
-// end content-provider-interface
 
 // Start of user code reserved-for:AndroidSqliteSyncSingle003
 // reserved-for:AndroidSqliteSyncSingle003
@@ -332,11 +327,3 @@ public class CashLaunchProvider extends ContentProvider {
 }
 // reserved-for:AndroidSqliteDatabase011
 // End of user code
-
-// Start of user code reserved-for:AndroidSqliteDatabase011
-		return result;
-	}
-}
-// reserved-for:AndroidSqliteDatabase011
-// End of user code
-
