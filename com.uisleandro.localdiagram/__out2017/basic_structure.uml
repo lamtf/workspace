@@ -115,10 +115,6 @@
         <ownedAttribute xmi:type="uml:Property" xmi:id="_bzDvwLvxEeeQvoZl7-YYzQ" name="stores_phonenumber">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_tAPeYbv6EeeQvoZl7-YYzQ" name="reseller" type="_ZttvsLv4EeeQvoZl7-YYzQ" association="_tAMbELv6EeeQvoZl7-YYzQ">
-          <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tAWMELv6EeeQvoZl7-YYzQ"/>
-          <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tAbEkLv6EeeQvoZl7-YYzQ" value="1"/>
-        </ownedAttribute>
       </packagedElement>
       <packagedElement xmi:type="uml:Class" xmi:id="_fpudAH2XEeadmqRkk0UdPw" name="user">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_sLcw0X2aEeadmqRkk0UdPw" name="system" type="_eyHfkH2XEeadmqRkk0UdPw" association="_sLZGcH2aEeadmqRkk0UdPw"/>
@@ -559,7 +555,9 @@ cadastro de NFE e emissao de NFE</body>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_hbHY4Lv7EeeQvoZl7-YYzQ" name="state">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_m5QckLv7EeeQvoZl7-YYzQ" name="zip_code"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_1C4nsAVPEeigCu41kUVz6g" name="zip_code">
+          <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+        </ownedAttribute>
       </packagedElement>
     </packagedElement>
     <packagedElement xmi:type="uml:Association" xmi:id="_sLZGcH2aEeadmqRkk0UdPw" memberEnd="_sLcw0X2aEeadmqRkk0UdPw _sLd-8H2aEeadmqRkk0UdPw">
@@ -826,11 +824,15 @@ cadastro de NFE e emissao de NFE</body>
       </eAnnotations>
       <ownedEnd xmi:type="uml:Property" xmi:id="_COEkIaz_EeeVevdnGkV1AA" name="discount" type="_WSmw8AfhEeeUucLWv03fqg" association="_CN-dgKz_EeeVevdnGkV1AA"/>
     </packagedElement>
-    <packagedElement xmi:type="uml:Association" xmi:id="_tAMbELv6EeeQvoZl7-YYzQ" memberEnd="_tAPeYbv6EeeQvoZl7-YYzQ _tAeu8Lv6EeeQvoZl7-YYzQ">
+    <packagedElement xmi:type="uml:Association" xmi:id="_tAMbELv6EeeQvoZl7-YYzQ" memberEnd="_tAPeYbv6EeeQvoZl7-YYzQ _tAeu8Lv6EeeQvoZl7-YYzQ" navigableOwnedEnd="_tAPeYbv6EeeQvoZl7-YYzQ">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_tAO3ULv6EeeQvoZl7-YYzQ" source="org.eclipse.papyrus">
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_tAPeYLv6EeeQvoZl7-YYzQ" key="nature" value="UML_Nature"/>
       </eAnnotations>
       <ownedEnd xmi:type="uml:Property" xmi:id="_tAeu8Lv6EeeQvoZl7-YYzQ" name="system" type="_eyHfkH2XEeadmqRkk0UdPw" association="_tAMbELv6EeeQvoZl7-YYzQ"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_tAPeYbv6EeeQvoZl7-YYzQ" name="reseller" type="_ZttvsLv4EeeQvoZl7-YYzQ" association="_tAMbELv6EeeQvoZl7-YYzQ">
+        <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_tAWMELv6EeeQvoZl7-YYzQ"/>
+        <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_tAbEkLv6EeeQvoZl7-YYzQ" value="1"/>
+      </ownedEnd>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_9gbsMKnQEeePP5PTE0tIhQ">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_9gc6UKnQEeePP5PTE0tIhQ" source="http://www.eclipse.org/uml2/2.0.0/UML">
