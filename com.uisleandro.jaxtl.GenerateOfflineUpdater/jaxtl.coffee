@@ -1,7 +1,7 @@
 ###
 	JAXTL:     Javascript And XML Transformation Library
 	Author:    Uisleandro Costa dos Santos
-  Email:     uisleandro@gmail.com
+	Email:     uisleandro@gmail.com
 	License:   https://creativecommons.org/licenses/by/4.0/
 ###
 
