@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/uis/ws-rcp-oxygen/com.uisleandro.generated/com.uisleandro.Store.Client/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-v13/values-v13.xml",
+            "outputFile": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Client/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-v13/values-v13.xml",
             "map": [
                 {
-                    "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/values-v13/values-v13.xml",
+                    "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/655125a73874cfdc7dc256c9dac84a07/res/values-v13/values-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

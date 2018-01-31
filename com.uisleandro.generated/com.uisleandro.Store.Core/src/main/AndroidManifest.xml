@@ -22,14 +22,22 @@ package="com.uisleandro.store"
 		android:label="@string/app_name"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-	</application>
+
+		<activity android:name=".MainActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+		</activity>
+
 
 <!--
 reserved-for:AndroidProject001
 End of user code
 -->
 <!--
-// Start of user code reserved-for:AndroidSqliteDatabaseSingle001
+Start of user code reserved-for:AndroidSqliteDatabaseSingle001
 -->
 
 <provider
@@ -199,6 +207,7 @@ End of user code
 <!--
 Start of user code reserved-for:AndroidProject002
 -->
+ 	</application>
 </manifest>
 <!--
 reserved-for:AndroidProject002

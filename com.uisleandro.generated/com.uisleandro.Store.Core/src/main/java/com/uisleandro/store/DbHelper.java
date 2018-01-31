@@ -870,15 +870,15 @@ public class DbHelper extends SQLiteOpenHelper {
 	BANK_LAST_UPDATE + " INTEGER NULL, " + 
 	BANK_CODE + " CHAR(30) NOT NULL, " + 
 	BANK_NAME + " VARCHAR(45) NOT NULL, " + 
-	BANK_NAME + " CHAR(30) NOT NULL, " + 
-	BANK_NAME + " CHAR(30) NOT NULL, " + 
-	BANK_NAME + " CHAR(30) NOT NULL, " + 
-	BANK_NAME + " CHAR(30) NOT NULL, " + 
-	BANK_NAME + " CHAR(30) NOT NULL, " + 
-	BANK_NAME + " CHAR(30) NOT NULL, " + 
-	BANK_NAME + " CHAR(30) NOT NULL, " + 
-	BANK_NAME + " CHAR(30) NOT NULL, " + 
-	BANK_NAME + " CHAR(30) NOT NULL " + 
+	BANK_NAME + " CHAR(30) NOT NULL, " +
+	BANK_NAME + " CHAR(30) NOT NULL, " +
+	BANK_NAME + " CHAR(30) NOT NULL, " +
+	BANK_NAME + " CHAR(30) NOT NULL, " +
+	BANK_NAME + " CHAR(30) NOT NULL, " +
+	BANK_NAME + " CHAR(30) NOT NULL, " +
+	BANK_NAME + " CHAR(30) NOT NULL, " +
+	BANK_NAME + " CHAR(30) NOT NULL, " +
+	BANK_NAME + " CHAR(30) NOT NULL " +
 	");";
 
 	private static final String CREATE_INDEX_BANK_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_BANK + "_serverid_idx" +

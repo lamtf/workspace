@@ -156,7 +156,7 @@ eu preciso gerar este arquivo para todos os subprojetos que eu possuo
 <?xml version="1.0" encoding="utf-8"?>
 [begin_reserve('reserved-for:AndroidProject001') /]
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.uisleandro.store"
+package="[pname /]"
 >
 
 <!-- build_android_core_manifest() -->
@@ -175,7 +175,15 @@ package="com.uisleandro.store"
 		android:label="@string/app_name"
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
-	</application>
+
+		<activity android:name=".MainActivity">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN"/>
+
+				<category android:name="android.intent.category.LAUNCHER"/>
+			</intent-filter>
+		</activity>
+
 
 [end_reserve('reserved-for:AndroidProject001') /]
 <!--
@@ -187,6 +195,7 @@ reserved-for:AndroidSqliteDatabaseSingle001
 [/protected]
 -->
 [begin_reserve('reserved-for:AndroidProject002') /]
+ 	</application>
 </manifest>
 [end_reserve('reserved-for:AndroidProject002') /]
 [/template]

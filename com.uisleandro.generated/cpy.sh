@@ -118,15 +118,15 @@ cp -R ${SRC}/src/main/res/mipmap-xxxhdpi ${TAR}/com.uisleandro.Store.Receivement
 
 echo "step 9"
 
-cp -R ${SRC}/src/main/res/values/colors.xml ${TAR}/com.uisleandro.Store.Refarral/src/main/res/values/colors.xml
-cp -R ${SRC}/src/main/res/values/dimens.xml ${TAR}/com.uisleandro.Store.Refarral/src/main/res/values/dimens.xml
-cp -R ${SRC}/src/main/res/values/drawables.xml ${TAR}/com.uisleandro.Store.Refarral/src/main/res/values/drawables.xml
-cp -R ${SRC}/src/main/res/values/styles.xml ${TAR}/com.uisleandro.Store.Refarral/src/main/res/values/styles.xml
+cp -R ${SRC}/src/main/res/values/colors.xml ${TAR}/com.uisleandro.Store.Referral/src/main/res/values/colors.xml
+cp -R ${SRC}/src/main/res/values/dimens.xml ${TAR}/com.uisleandro.Store.Referral/src/main/res/values/dimens.xml
+cp -R ${SRC}/src/main/res/values/drawables.xml ${TAR}/com.uisleandro.Store.Referral/src/main/res/values/drawables.xml
+cp -R ${SRC}/src/main/res/values/styles.xml ${TAR}/com.uisleandro.Store.Referral/src/main/res/values/styles.xml
 
-cp -R ${SRC}/src/main/res/drawable ${TAR}/com.uisleandro.Store.Refarral/src/main/res/drawable
-cp -R ${SRC}/src/main/res/mipmap-mdpi ${TAR}/com.uisleandro.Store.Refarral/src/main/res/mipmap-mdpi
-cp -R ${SRC}/src/main/res/mipmap-hdpi ${TAR}/com.uisleandro.Store.Refarral/src/main/res/mipmap-hdpi
-cp -R ${SRC}/src/main/res/mipmap-xhdpi ${TAR}/com.uisleandro.Store.Refarral/src/main/res/mipmap-xhdpi
-cp -R ${SRC}/src/main/res/mipmap-xxxhdpi ${TAR}/com.uisleandro.Store.Refarral/src/main/res/mipmap-xxxhdpi
+cp -R ${SRC}/src/main/res/drawable ${TAR}/com.uisleandro.Store.Referral/src/main/res/drawable
+cp -R ${SRC}/src/main/res/mipmap-mdpi ${TAR}/com.uisleandro.Store.Referral/src/main/res/mipmap-mdpi
+cp -R ${SRC}/src/main/res/mipmap-hdpi ${TAR}/com.uisleandro.Store.Referral/src/main/res/mipmap-hdpi
+cp -R ${SRC}/src/main/res/mipmap-xhdpi ${TAR}/com.uisleandro.Store.Referral/src/main/res/mipmap-xhdpi
+cp -R ${SRC}/src/main/res/mipmap-xxxhdpi ${TAR}/com.uisleandro.Store.Referral/src/main/res/mipmap-xxxhdpi
 
 

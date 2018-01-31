@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/home/uis/ws-rcp-oxygen/com.uisleandro.generated/com.uisleandro.Store.Sales/build/intermediates/incremental/mergeDebugResources/merged.dir/values-land/values-land.xml",
+            "outputFile": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Sales/build/intermediates/incremental/mergeDebugResources/merged.dir/values-land/values-land.xml",
             "map": [
                 {
-                    "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/values-land/values-land.xml",
+                    "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/655125a73874cfdc7dc256c9dac84a07/res/values-land/values-land.xml",
                     "from": {
                         "startLines": "2,3,4,5",
                         "startColumns": "4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/dc2071f4d2f6431f98c9680a1425f7ba/res/values-land/values-land.xml",
+                    "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/a75c259220af11cb70aec94921636b69/res/values-land/values-land.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

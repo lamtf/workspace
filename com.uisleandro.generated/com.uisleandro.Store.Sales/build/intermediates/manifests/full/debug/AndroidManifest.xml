@@ -8,6 +8,8 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="26" />
 
+    <!-- build_android_manifest() -->
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
 

@@ -30,6 +30,7 @@
     <string name="enabled">Enabled</string>
     <string name="error_count">Error Count</string>
     <string name="expiration_time">Expiration Time</string>
+    <string name="fantasy_name">Fantasy Name</string>
     <string name="guid">Guid</string>
     <string name="last_error_time">Last Error Time</string>
     <string name="last_update">last_update</string>
@@ -39,7 +40,15 @@
     <string name="password">Password</string>
     <string name="role">Role</string>
     <string msgid="146198913615257606" name="search_menu_title">"Pesquisar"</string>
+    <string name="srores_address_number">Srores Address Number</string>
     <string msgid="2869576371154716097" name="status_bar_notification_info_overflow">"999+"</string>
+    <string name="stores_address">Stores Address</string>
+    <string name="stores_city">Stores City</string>
+    <string name="stores_email">Stores Email</string>
+    <string name="stores_neighborhood">Stores Neighborhood</string>
+    <string name="stores_phonenumber">Stores Phonenumber</string>
+    <string name="stores_state">Stores State</string>
+    <string name="stores_zip_code">Stores Zip Code</string>
     <string name="system">System</string>
     <string name="token">Token</string>
     <string name="token_type">Token Type</string>

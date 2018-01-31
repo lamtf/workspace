@@ -702,6 +702,12 @@
     <dimen name="tooltip_vertical_padding">6.5dp</dimen>
     <dimen name="tooltip_y_offset_non_touch">0dp</dimen>
     <dimen name="tooltip_y_offset_touch">16dp</dimen>
+    <item name="ic_menu_camera" type="drawable">@android:drawable/ic_menu_camera</item>
+    <item name="ic_menu_gallery" type="drawable">@android:drawable/ic_menu_gallery</item>
+    <item name="ic_menu_manage" type="drawable">@android:drawable/ic_menu_manage</item>
+    <item name="ic_menu_send" type="drawable">@android:drawable/ic_menu_send</item>
+    <item name="ic_menu_share" type="drawable">@android:drawable/ic_menu_share</item>
+    <item name="ic_menu_slideshow" type="drawable">@android:drawable/ic_menu_slideshow</item>
     <drawable name="notification_template_icon_bg">#3333B5E5</drawable>
     <drawable name="notification_template_icon_low_bg">#0cffffff</drawable>
     <item name="action_bar_activity_content" type="id"/>
@@ -787,6 +793,7 @@
     <string name="enabled">Enabled</string>
     <string name="error_count">Error Count</string>
     <string name="expiration_time">Expiration Time</string>
+    <string name="fantasy_name">Fantasy Name</string>
     <string name="guid">Guid</string>
     <string name="last_error_time">Last Error Time</string>
     <string name="last_update">last_update</string>
@@ -801,7 +808,15 @@
     <string name="path_password_strike_through" translatable="false">M3.27,4.27 L19.74,20.74</string>
     <string name="role">Role</string>
     <string name="search_menu_title">Search</string>
+    <string name="srores_address_number">Srores Address Number</string>
     <string name="status_bar_notification_info_overflow">999+</string>
+    <string name="stores_address">Stores Address</string>
+    <string name="stores_city">Stores City</string>
+    <string name="stores_email">Stores Email</string>
+    <string name="stores_neighborhood">Stores Neighborhood</string>
+    <string name="stores_phonenumber">Stores Phonenumber</string>
+    <string name="stores_state">Stores State</string>
+    <string name="stores_zip_code">Stores Zip Code</string>
     <string name="system">System</string>
     <string name="token">Token</string>
     <string name="token_type">Token Type</string>

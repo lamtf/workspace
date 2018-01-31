@@ -1,0 +1,20 @@
+<resources>
+<!-- 
+Start of user code reserved for the programmer
+-->
+	<string name="name">Name</string>
+	<string name="last_update">last_update</string>
+	<string name="last_use_time">last_use_time</string>
+<!--
+End of user code
+-->
+	<string name="app_name">Referral</string>
+	<string name="reseller">Reseller</string>
+	<string name="system_amount">System Amount</string>	
+	<string name="address">Address</string>	
+	<string name="neighborhood">Neighborhood</string>	
+	<string name="city">City</string>	
+	<string name="state">State</string>	
+	<string name="zip_code">Zip Code</string>	
+
+</resources>

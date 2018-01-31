@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Start of user code reserved-for:AndroidProject001 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spaceforsales.loginapp"
     android:versionCode="1"
@@ -8,15 +9,17 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="26" />
 
+    <!-- build_android_core_manifest() -->
+
+
+    <!-- Start of user code protected -->
+
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!--
-		I need to solve ic_launcher, app_name and @style/AppTheme
-		Maybe with bash it's better
-    -->
     <application
         android:allowBackup="true"
         android:debuggable="true"
@@ -24,8 +27,6 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
-
-        <!-- Auto Generated -->
         <activity android:name="com.uisleandro.store.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,6 +35,146 @@
             </intent-filter>
         </activity>
 
+        <!--
+reserved-for:AndroidProject001
+End of user code
+        -->
+<!-- Start of user code reserved-for:AndroidSqliteDatabaseSingle001 -->
+
+        <provider
+            android:name="com.uisleandro.store.cash.model.CashRegisterProvider"
+            android:authorities="com.uisleandro.cash_register" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.cash.model.CashLaunchProvider"
+            android:authorities="com.uisleandro.cash_launch" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.supply.model.StockReviewProvider"
+            android:authorities="com.uisleandro.stock_review" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.supply.model.UnitProvider"
+            android:authorities="com.uisleandro.unit" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.supply.model.CategoryProvider"
+            android:authorities="com.uisleandro.category" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.supply.model.BrandProvider"
+            android:authorities="com.uisleandro.brand" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.supply.model.GenderProvider"
+            android:authorities="com.uisleandro.gender" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.supply.model.ProductProvider"
+            android:authorities="com.uisleandro.product" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.supply.model.DistributorContactProvider"
+            android:authorities="com.uisleandro.distributor_contact" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.credit_protection.model.IssueProvider"
+            android:authorities="com.uisleandro.Issue" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.credit_protection.model.SharedClientProvider"
+            android:authorities="com.uisleandro.shared_client" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.sales.model.ProductOnSaleProvider"
+            android:authorities="com.uisleandro.product_on_sale" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.sales.model.SaleTypeProvider"
+            android:authorities="com.uisleandro.sale_type" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.sales.model.SaleProvider"
+            android:authorities="com.uisleandro.sale" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.core.model.DbLogProvider"
+            android:authorities="com.uisleandro.db_log" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.core.model.CurrencyProvider"
+            android:authorities="com.uisleandro.currency" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.core.model.TokenTypeProvider"
+            android:authorities="com.uisleandro.token_type" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.core.model.UserProvider"
+            android:authorities="com.uisleandro.user" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.core.model.TokenProvider"
+            android:authorities="com.uisleandro.token" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.core.model.SystemProvider"
+            android:authorities="com.uisleandro.system" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.core.model.RoleProvider"
+            android:authorities="com.uisleandro.role" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.discount.model.DiscountProvider"
+            android:authorities="com.uisleandro.discount" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.client.model.CountryProvider"
+            android:authorities="com.uisleandro.country" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.client.model.BrazilianProvider"
+            android:authorities="com.uisleandro.brazilian" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.client.model.ClientFromSystemProvider"
+            android:authorities="com.uisleandro.client_from_system" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.client.model.BasicClientProvider"
+            android:authorities="com.uisleandro.basic_client" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.receivement.model.BankProvider"
+            android:authorities="com.uisleandro.bank" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.receivement.model.InvoiceProvider"
+            android:authorities="com.uisleandro.invoice" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.receivement.model.InstallmentTypeProvider"
+            android:authorities="com.uisleandro.installment_type" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.receivement.model.BoletoSicoobProvider"
+            android:authorities="com.uisleandro.boleto_sicoob" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.receivement.model.InterestRateTypeProvider"
+            android:authorities="com.uisleandro.interest_rate_type" >
+        </provider>
+        <provider
+            android:name="com.uisleandro.store.referral.model.ResellerProvider"
+            android:authorities="com.uisleandro.reseller" >
+        </provider>
+
+        <!--
+// reserved-for:AndroidSqliteDatabaseSingle001
+// End of user code
+        -->
+<!-- Start of user code reserved-for:AndroidProject002 -->
         <meta-data
             android:name="android.support.VERSION"
             android:value="26.1.0" />
@@ -42,4 +183,7 @@
             android:value="27.0.0-SNAPSHOT" />
     </application>
 
-</manifest>
+</manifest><!--
+reserved-for:AndroidProject002
+End of user code
+-->
