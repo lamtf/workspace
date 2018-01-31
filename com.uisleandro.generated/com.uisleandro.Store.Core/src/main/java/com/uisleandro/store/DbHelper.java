@@ -586,7 +586,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	USER_FK_ROLE + " INTEGER NULL, " + 
 	USER_USERNAME + " CHAR(30) NOT NULL, " + 
 	USER_PASSWORD + " CHAR(30) NOT NULL, " + 
-	USER_NAME + " CHAR(30) NOT NULL, " + 
+	USER_NAME + " VARCHAR(45) NOT NULL, " + 
 	USER_EMAIL + " CHAR(30) NOT NULL, " + 
 	USER_LAST_USE_TIME + " INTEGER NOT NULL, " + 
 	USER_LAST_ERROR_TIME + " INTEGER NOT NULL, " + 
@@ -852,15 +852,6 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static final String BANK_LAST_UPDATE = "last_update";
 	public static final String BANK_CODE = "code";
 	public static final String BANK_NAME = "name";
-	public static final String BANK_NAME = "name";
-	public static final String BANK_NAME = "name";
-	public static final String BANK_NAME = "name";
-	public static final String BANK_NAME = "name";
-	public static final String BANK_NAME = "name";
-	public static final String BANK_NAME = "name";
-	public static final String BANK_NAME = "name";
-	public static final String BANK_NAME = "name";
-	public static final String BANK_NAME = "name";
 
 	private static final String CREATE_TABLE_BANK = "CREATE TABLE " + 
 	TABLE_BANK + " ("+ 
@@ -869,16 +860,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	BANK_DIRTY + " BOOLEAN NOT NULL, " +
 	BANK_LAST_UPDATE + " INTEGER NULL, " + 
 	BANK_CODE + " CHAR(30) NOT NULL, " + 
-	BANK_NAME + " VARCHAR(45) NOT NULL, " + 
-	BANK_NAME + " CHAR(30) NOT NULL, " +
-	BANK_NAME + " CHAR(30) NOT NULL, " +
-	BANK_NAME + " CHAR(30) NOT NULL, " +
-	BANK_NAME + " CHAR(30) NOT NULL, " +
-	BANK_NAME + " CHAR(30) NOT NULL, " +
-	BANK_NAME + " CHAR(30) NOT NULL, " +
-	BANK_NAME + " CHAR(30) NOT NULL, " +
-	BANK_NAME + " CHAR(30) NOT NULL, " +
-	BANK_NAME + " CHAR(30) NOT NULL " +
+	BANK_NAME + " CHAR(30) NOT NULL " + 
 	");";
 
 	private static final String CREATE_INDEX_BANK_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_BANK + "_serverid_idx" +
@@ -1025,7 +1007,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	RESELLER_NEIGHBORHOOD + " VARCHAR(45) NOT NULL, " + 
 	RESELLER_CITY + " VARCHAR(45) NOT NULL, " + 
 	RESELLER_STATE + " CHAR(30) NOT NULL, " + 
-	RESELLER_ZIP_CODE + " INTEGER NOT NULL " + 
+	RESELLER_ZIP_CODE + " CHAR(15) NOT NULL " + 
 	");";
 
 	private static final String CREATE_INDEX_RESELLER_SERVER_ID = "CREATE UNIQUE INDEX " + TABLE_RESELLER + "_serverid_idx" +

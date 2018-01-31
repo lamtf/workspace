@@ -108,6 +108,18 @@ public class IssueDataSource {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
+	/* @ExistsWhere */
+	public boolean check_client (Long fk_shared_client) {
+		String selectionArgs = new String[]{ String.valueOf(fk_shared_client), "1" }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.Issue/check_client",null, null, selectionArgs, null);
+		boolean that = false;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = (cursor.getInt(0) > 0);
+		}
+		return that;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
 	/* @Insert */
 	public int register_issue (Long fk_shared_client, String description){
 		ContentValues contentValues = new ContentValues(5);
@@ -123,18 +135,6 @@ public class IssueDataSource {
 	}
 	
 	
-	/* @ExistsWhere */
-	public boolean check_client (Long fk_shared_client) {
-		String selectionArgs = new String[]{ String.valueOf(fk_shared_client), "1" }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.Issue/check_client",null, null, selectionArgs, null);
-		boolean that = false;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			that = (cursor.getInt(0) > 0);
-		}
-		return that;
-	// TODO: PLEASE DONT USE SYNC CODE
-	}
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 

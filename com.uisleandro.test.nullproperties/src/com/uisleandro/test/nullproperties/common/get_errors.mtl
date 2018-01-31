@@ -19,6 +19,12 @@ eContents(Package)->select(x|'queryViews' = x.name)
 /]
 
 
+[query public all_tables(arg : Package) : Sequence(Class) = 
+eContents(Package)->select(x|'dataModels' = x.name)
+->asSequence()->first().eContents(Class)
+/]
+
+
 [query public all_controllers(arg : Package) : Sequence(Class) = 
 eContents(Package)->select(x|'controller' = x.name)
 ->asSequence()->first().eContents(Class)
@@ -179,6 +185,28 @@ null types:
 [prop.owner.oclAsType(Class).getQualifiedName() /].[prop.name /]
 [/if][/for][/for][/for][/for]
 empty?
+
+
+Models with Repeated Properties:
+[for (modul3 : Package | all_modules())
+][for (cls : Class | all_tables())
+][for (prop : Property | eContents(Property))
+][if ( cls.eContents(Property)->select(x|x.name = prop.name)->size() > 1 )]
+[prop.owner.oclAsType(Class).getQualifiedName() /] -> [prop.name /] is repeated
+[/if][/for][/for][/for]
+
+
+Views with Repeated Properties:
+[for (modul3 : Package | all_modules())
+][for (view : Class | all_views())
+][for (cls : Class | eContents(Class))
+][for (prop : Property | eContents(Property))
+][if ( cls.eContents(Property)->select(x|x.name = prop.name)->size() > 1 )]
+[prop.owner.oclAsType(Class).getQualifiedName() /] -> [prop.name /] is repeated
+[/if][/for][/for][/for][/for]
+
+
+
 
 [comment]
 [for (modul3 : Package | all_modules())

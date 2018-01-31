@@ -123,15 +123,6 @@ public class BankProvider extends ContentProvider {
 		DbHelper.BANK_DIRTY,
 		DbHelper.BANK_LAST_UPDATE, 
 		DbHelper.BANK_CODE, 
-		DbHelper.BANK_NAME, 
-		DbHelper.BANK_NAME, 
-		DbHelper.BANK_NAME, 
-		DbHelper.BANK_NAME, 
-		DbHelper.BANK_NAME, 
-		DbHelper.BANK_NAME, 
-		DbHelper.BANK_NAME, 
-		DbHelper.BANK_NAME, 
-		DbHelper.BANK_NAME, 
 		DbHelper.BANK_NAME
 	};
 
@@ -170,15 +161,6 @@ public class BankProvider extends ContentProvider {
 		String query = "SELECT id, server_id, dirty, " +
 			"last_update, " +
 			"code, " +
-			"name, " +
-			"name, " +
-			"name, " +
-			"name, " +
-			"name, " +
-			"name, " +
-			"name, " +
-			"name, " +
-			"name, " +
 			"name" +
 			" FROM " + DbHelper.TABLE_BANK;
 		if(page_size > 0){

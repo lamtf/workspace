@@ -119,14 +119,14 @@
       <packagedElement xmi:type="uml:Class" xmi:id="_fpudAH2XEeadmqRkk0UdPw" name="user">
         <ownedAttribute xmi:type="uml:Property" xmi:id="_sLcw0X2aEeadmqRkk0UdPw" name="system" type="_eyHfkH2XEeadmqRkk0UdPw" association="_sLZGcH2aEeadmqRkk0UdPw"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_3pM7oX2cEeadmqRkk0UdPw" name="role" type="_uqnsgH2bEeadmqRkk0UdPw" association="_3pLtgH2cEeadmqRkk0UdPw"/>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_n4_BAH3lEeaTh9hdCfhtsA" name="username">
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_n4_BAH3lEeaTh9hdCfhtsA" name="username" visibility="public">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_pK7xEH3lEeaTh9hdCfhtsA" name="password">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
         </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_qV024H3lEeaTh9hdCfhtsA" name="name">
-          <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
+        <ownedAttribute xmi:type="uml:Property" xmi:id="_qV024H3lEeaTh9hdCfhtsA" name="name" visibility="public">
+          <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_rPGoQH3lEeaTh9hdCfhtsA" name="email">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrXX9YEeaVP9RPox9M_A"/>
@@ -539,9 +539,6 @@ cadastro de NFE e emissao de NFE</body>
         <generalization xmi:type="uml:Generalization" xmi:id="_TkubYLv8EeeQvoZl7-YYzQ" general="_fpudAH2XEeadmqRkk0UdPw"/>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_-YqiwLv6EeeQvoZl7-YYzQ" name="system_amount">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrY39YEeaVP9RPox9M_A"/>
-        </ownedAttribute>
-        <ownedAttribute xmi:type="uml:Property" xmi:id="_BXtGwLv7EeeQvoZl7-YYzQ" name="name">
-          <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>
         </ownedAttribute>
         <ownedAttribute xmi:type="uml:Property" xmi:id="_HeyZwLv7EeeQvoZl7-YYzQ" name="address">
           <type xmi:type="uml:PrimitiveType" href="types.uml#_4UmrVX9YEeaVP9RPox9M_A"/>

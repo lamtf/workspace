@@ -92,17 +92,17 @@ public class IssueProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final int ISSUE_REGISTER_ISSUE_NUMBER = 8;
-	public static final String ISSUE_REGISTER_ISSUE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/register_issue";
-	public static final String ISSUE_REGISTER_ISSUE = SCHEME + AUTHORITY + "/register_issue";
-	public static final Uri URI_ISSUE_REGISTER_ISSUE = Uri.parse(ISSUE_REGISTER_ISSUE);
-	public static final String ISSUE_REGISTER_ISSUE_BASE = ISSUE_REGISTER_ISSUE + "/";
-
-	public static final int ISSUE_CHECK_CLIENT_NUMBER = 9;
+	public static final int ISSUE_CHECK_CLIENT_NUMBER = 8;
 	public static final String ISSUE_CHECK_CLIENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/check_client";
 	public static final String ISSUE_CHECK_CLIENT = SCHEME + AUTHORITY + "/check_client";
 	public static final Uri URI_ISSUE_CHECK_CLIENT = Uri.parse(ISSUE_CHECK_CLIENT);
 	public static final String ISSUE_CHECK_CLIENT_BASE = ISSUE_CHECK_CLIENT + "/";
+
+	public static final int ISSUE_REGISTER_ISSUE_NUMBER = 9;
+	public static final String ISSUE_REGISTER_ISSUE_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/register_issue";
+	public static final String ISSUE_REGISTER_ISSUE = SCHEME + AUTHORITY + "/register_issue";
+	public static final Uri URI_ISSUE_REGISTER_ISSUE = Uri.parse(ISSUE_REGISTER_ISSUE);
+	public static final String ISSUE_REGISTER_ISSUE_BASE = ISSUE_REGISTER_ISSUE + "/";
 
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
@@ -121,8 +121,8 @@ public class IssueProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.1
-		MATCHER.addURI(AUTHORITY,"register_issue", ISSUE_REGISTER_ISSUE_NUMBER);
 		MATCHER.addURI(AUTHORITY,"check_client", ISSUE_CHECK_CLIENT_NUMBER);
+		MATCHER.addURI(AUTHORITY,"register_issue", ISSUE_REGISTER_ISSUE_NUMBER);
 // reserved-for:AndroidSqliteQuerySingle002.1
 // End of user code
 
@@ -229,10 +229,10 @@ public class IssueProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.2
-			case ISSUE_REGISTER_ISSUE_NUMBER:
-				return ISSUE_REGISTER_ISSUE_TYPE;
 			case ISSUE_CHECK_CLIENT_NUMBER:
 				return ISSUE_CHECK_CLIENT_TYPE;
+			case ISSUE_REGISTER_ISSUE_NUMBER:
+				return ISSUE_REGISTER_ISSUE_TYPE;
 // reserved-for:AndroidSqliteQuerySingle002.2
 // End of user code
 
@@ -316,6 +316,14 @@ public class IssueProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
+	/* @ExistsWhere */
+	public Cursor check_client (String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT exists(*) FROM Issue WHERE Issue.fk_shared_client = ? AND Issue.active = ? AND (Issue.fk_issue is null or Issue.fk_issue = '');";
+		Cursor cursor = database.rawQuery(query, new String[]{selectionArgs[0], "1", });
+		return cursor;
+	}
 	/* @Insert */
 	public int register_issue (String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
@@ -328,14 +336,6 @@ public class IssueProvider extends ContentProvider {
 			result = cursor.getInt(0);
 		}
 		return result;
-	}
-	/* @ExistsWhere */
-	public Cursor check_client (String[] selectionArgs) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		String query = "SELECT exists(*) FROM Issue WHERE Issue.fk_shared_client = ? AND Issue.active = ? AND (Issue.fk_issue is null or Issue.fk_issue = '');";
-		Cursor cursor = database.rawQuery(query, new String[]{selectionArgs[0], "1", });
-		return cursor;
 	}
 // reserved-for:AndroidSqliteQuerySingle006
 // End of user code

@@ -112,9 +112,9 @@ public class BasicClientDataSource {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
 	/* @SelectOneWhere */
-	public FindByCpfOut find_by_name(String name){
-		String selectionArgs = new String[]{ name }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.basic_client/find_by_name",null, null, selectionArgs, null);
+	public FindByCpfOut find_by_id(long id){
+		String selectionArgs = new String[]{ String.valueOf(id) }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.basic_client/find_by_id",null, null, selectionArgs, null);
 		FindByCpfOut that = null;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
@@ -136,9 +136,9 @@ public class BasicClientDataSource {
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @SelectOneWhere */
-	public FindByCpfOut find_by_id(long id){
-		String selectionArgs = new String[]{ String.valueOf(id) }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.basic_client/find_by_id",null, null, selectionArgs, null);
+	public FindByCpfOut find_by_name(String name){
+		String selectionArgs = new String[]{ name }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.basic_client/find_by_name",null, null, selectionArgs, null);
 		FindByCpfOut that = null;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){

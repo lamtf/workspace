@@ -93,41 +93,41 @@ public class SaleProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
-	public static final int SALE_CREATE_SALES_CHART_NUMBER = 8;
+	public static final int SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART_NUMBER = 8;
+	public static final String SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/remove_all_products_from_sales_chart";
+	public static final String SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART = SCHEME + AUTHORITY + "/remove_all_products_from_sales_chart";
+	public static final Uri URI_SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART = Uri.parse(SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART);
+	public static final String SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART_BASE = SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART + "/";
+
+	public static final int SALE_CREATE_SALES_CHART_NUMBER = 9;
 	public static final String SALE_CREATE_SALES_CHART_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/create_sales_chart";
 	public static final String SALE_CREATE_SALES_CHART = SCHEME + AUTHORITY + "/create_sales_chart";
 	public static final Uri URI_SALE_CREATE_SALES_CHART = Uri.parse(SALE_CREATE_SALES_CHART);
 	public static final String SALE_CREATE_SALES_CHART_BASE = SALE_CREATE_SALES_CHART + "/";
 
-	public static final int SALE_CANCEL_SALES_CHART_NUMBER = 9;
-	public static final String SALE_CANCEL_SALES_CHART_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/cancel_sales_chart";
-	public static final String SALE_CANCEL_SALES_CHART = SCHEME + AUTHORITY + "/cancel_sales_chart";
-	public static final Uri URI_SALE_CANCEL_SALES_CHART = Uri.parse(SALE_CANCEL_SALES_CHART);
-	public static final String SALE_CANCEL_SALES_CHART_BASE = SALE_CANCEL_SALES_CHART + "/";
-
-	public static final int SALE_ADD_PRODUCT_TO_SALES_CHART_NUMBER = 10;
-	public static final String SALE_ADD_PRODUCT_TO_SALES_CHART_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/add_product_to_sales_chart";
-	public static final String SALE_ADD_PRODUCT_TO_SALES_CHART = SCHEME + AUTHORITY + "/add_product_to_sales_chart";
-	public static final Uri URI_SALE_ADD_PRODUCT_TO_SALES_CHART = Uri.parse(SALE_ADD_PRODUCT_TO_SALES_CHART);
-	public static final String SALE_ADD_PRODUCT_TO_SALES_CHART_BASE = SALE_ADD_PRODUCT_TO_SALES_CHART + "/";
-
-	public static final int SALE_REMOVE_PRODUCT_FROM_SALES_CHART_NUMBER = 11;
-	public static final String SALE_REMOVE_PRODUCT_FROM_SALES_CHART_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/remove_product_from_sales_chart";
-	public static final String SALE_REMOVE_PRODUCT_FROM_SALES_CHART = SCHEME + AUTHORITY + "/remove_product_from_sales_chart";
-	public static final Uri URI_SALE_REMOVE_PRODUCT_FROM_SALES_CHART = Uri.parse(SALE_REMOVE_PRODUCT_FROM_SALES_CHART);
-	public static final String SALE_REMOVE_PRODUCT_FROM_SALES_CHART_BASE = SALE_REMOVE_PRODUCT_FROM_SALES_CHART + "/";
-
-	public static final int SALE_LIST_PRODUCTS_ON_SALES_CHART_NUMBER = 12;
+	public static final int SALE_LIST_PRODUCTS_ON_SALES_CHART_NUMBER = 10;
 	public static final String SALE_LIST_PRODUCTS_ON_SALES_CHART_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/list_products_on_sales_chart";
 	public static final String SALE_LIST_PRODUCTS_ON_SALES_CHART = SCHEME + AUTHORITY + "/list_products_on_sales_chart";
 	public static final Uri URI_SALE_LIST_PRODUCTS_ON_SALES_CHART = Uri.parse(SALE_LIST_PRODUCTS_ON_SALES_CHART);
 	public static final String SALE_LIST_PRODUCTS_ON_SALES_CHART_BASE = SALE_LIST_PRODUCTS_ON_SALES_CHART + "/";
 
-	public static final int SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART_NUMBER = 13;
-	public static final String SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/remove_all_products_from_sales_chart";
-	public static final String SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART = SCHEME + AUTHORITY + "/remove_all_products_from_sales_chart";
-	public static final Uri URI_SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART = Uri.parse(SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART);
-	public static final String SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART_BASE = SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART + "/";
+	public static final int SALE_ADD_PRODUCT_TO_SALES_CHART_NUMBER = 11;
+	public static final String SALE_ADD_PRODUCT_TO_SALES_CHART_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/add_product_to_sales_chart";
+	public static final String SALE_ADD_PRODUCT_TO_SALES_CHART = SCHEME + AUTHORITY + "/add_product_to_sales_chart";
+	public static final Uri URI_SALE_ADD_PRODUCT_TO_SALES_CHART = Uri.parse(SALE_ADD_PRODUCT_TO_SALES_CHART);
+	public static final String SALE_ADD_PRODUCT_TO_SALES_CHART_BASE = SALE_ADD_PRODUCT_TO_SALES_CHART + "/";
+
+	public static final int SALE_CANCEL_SALES_CHART_NUMBER = 12;
+	public static final String SALE_CANCEL_SALES_CHART_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/cancel_sales_chart";
+	public static final String SALE_CANCEL_SALES_CHART = SCHEME + AUTHORITY + "/cancel_sales_chart";
+	public static final Uri URI_SALE_CANCEL_SALES_CHART = Uri.parse(SALE_CANCEL_SALES_CHART);
+	public static final String SALE_CANCEL_SALES_CHART_BASE = SALE_CANCEL_SALES_CHART + "/";
+
+	public static final int SALE_REMOVE_PRODUCT_FROM_SALES_CHART_NUMBER = 13;
+	public static final String SALE_REMOVE_PRODUCT_FROM_SALES_CHART_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE+"/remove_product_from_sales_chart";
+	public static final String SALE_REMOVE_PRODUCT_FROM_SALES_CHART = SCHEME + AUTHORITY + "/remove_product_from_sales_chart";
+	public static final Uri URI_SALE_REMOVE_PRODUCT_FROM_SALES_CHART = Uri.parse(SALE_REMOVE_PRODUCT_FROM_SALES_CHART);
+	public static final String SALE_REMOVE_PRODUCT_FROM_SALES_CHART_BASE = SALE_REMOVE_PRODUCT_FROM_SALES_CHART + "/";
 
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
@@ -146,12 +146,12 @@ public class SaleProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.1
-		MATCHER.addURI(AUTHORITY,"create_sales_chart", SALE_CREATE_SALES_CHART_NUMBER);
-		MATCHER.addURI(AUTHORITY,"cancel_sales_chart", SALE_CANCEL_SALES_CHART_NUMBER);
-		MATCHER.addURI(AUTHORITY,"add_product_to_sales_chart", SALE_ADD_PRODUCT_TO_SALES_CHART_NUMBER);
-		MATCHER.addURI(AUTHORITY,"remove_product_from_sales_chart", SALE_REMOVE_PRODUCT_FROM_SALES_CHART_NUMBER);
-		MATCHER.addURI(AUTHORITY,"list_products_on_sales_chart", SALE_LIST_PRODUCTS_ON_SALES_CHART_NUMBER);
 		MATCHER.addURI(AUTHORITY,"remove_all_products_from_sales_chart", SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART_NUMBER);
+		MATCHER.addURI(AUTHORITY,"create_sales_chart", SALE_CREATE_SALES_CHART_NUMBER);
+		MATCHER.addURI(AUTHORITY,"list_products_on_sales_chart", SALE_LIST_PRODUCTS_ON_SALES_CHART_NUMBER);
+		MATCHER.addURI(AUTHORITY,"add_product_to_sales_chart", SALE_ADD_PRODUCT_TO_SALES_CHART_NUMBER);
+		MATCHER.addURI(AUTHORITY,"cancel_sales_chart", SALE_CANCEL_SALES_CHART_NUMBER);
+		MATCHER.addURI(AUTHORITY,"remove_product_from_sales_chart", SALE_REMOVE_PRODUCT_FROM_SALES_CHART_NUMBER);
 // reserved-for:AndroidSqliteQuerySingle002.1
 // End of user code
 
@@ -256,18 +256,18 @@ public class SaleProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.2
-			case SALE_CREATE_SALES_CHART_NUMBER:
-				return SALE_CREATE_SALES_CHART_TYPE;
-			case SALE_CANCEL_SALES_CHART_NUMBER:
-				return SALE_CANCEL_SALES_CHART_TYPE;
-			case SALE_ADD_PRODUCT_TO_SALES_CHART_NUMBER:
-				return SALE_ADD_PRODUCT_TO_SALES_CHART_TYPE;
-			case SALE_REMOVE_PRODUCT_FROM_SALES_CHART_NUMBER:
-				return SALE_REMOVE_PRODUCT_FROM_SALES_CHART_TYPE;
-			case SALE_LIST_PRODUCTS_ON_SALES_CHART_NUMBER:
-				return SALE_LIST_PRODUCTS_ON_SALES_CHART_TYPE;
 			case SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART_NUMBER:
 				return SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART_TYPE;
+			case SALE_CREATE_SALES_CHART_NUMBER:
+				return SALE_CREATE_SALES_CHART_TYPE;
+			case SALE_LIST_PRODUCTS_ON_SALES_CHART_NUMBER:
+				return SALE_LIST_PRODUCTS_ON_SALES_CHART_TYPE;
+			case SALE_ADD_PRODUCT_TO_SALES_CHART_NUMBER:
+				return SALE_ADD_PRODUCT_TO_SALES_CHART_TYPE;
+			case SALE_CANCEL_SALES_CHART_NUMBER:
+				return SALE_CANCEL_SALES_CHART_TYPE;
+			case SALE_REMOVE_PRODUCT_FROM_SALES_CHART_NUMBER:
+				return SALE_REMOVE_PRODUCT_FROM_SALES_CHART_TYPE;
 // reserved-for:AndroidSqliteQuerySingle002.2
 // End of user code
 
@@ -340,14 +340,14 @@ public class SaleProvider extends ContentProvider {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle005
 /* @DeleteWhere */
+	else if (URI_SALE_remove_all_products_from_sales_chart.equals(uri)) {
+			result = remove_all_products_from_sales_chart(selectionArgs);
+	}
 	else if (URI_SALE_cancel_sales_chart.equals(uri)) {
 			result = cancel_sales_chart(selectionArgs);
 	}
 	else if (URI_SALE_remove_product_from_sales_chart.equals(uri)) {
 			result = remove_product_from_sales_chart(selectionArgs);
-	}
-	else if (URI_SALE_remove_all_products_from_sales_chart.equals(uri)) {
-			result = remove_all_products_from_sales_chart(selectionArgs);
 	}
 // reserved-for:AndroidSqliteQuerySingle005
 // End of user code
@@ -363,11 +363,48 @@ public class SaleProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
+	/* @DeleteWhere */
+	public int remove_all_products_from_sales_chart (String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		int result = 0;
+		String query = "DELETE FROM product_on_sale WHERE product_on_sale.fk_sale = ?;";
+		Cursor cursor = database.rawQuery(query, selectionArgs);
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			result = cursor.getInt(0);
+		}
+		return result;
+	}
 	/* @Insert */
 	public int create_sales_chart (String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		String query = "INSERT INTO sale(last_update,fk_sale_type,total_value,fk_system,fk_user,fk_client_from_system) VALUES (?,NULL,?,?,?,NULL);";
+		Cursor cursor = database.rawQuery(query, selectionArgs);
+		//TODO: I don't knwo if its returning the last_id, I guess it's not
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			result = cursor.getInt(0);
+		}
+		return result;
+	}
+	/* @SelectListWhere */
+	public Cursor list_products_on_sales_chart (String[] selectionArgs,long page_count, long page_size) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "SELECT product_on_sale.last_update,product.barcode,product.description,product.sale_price,product.size,product.expiration_date,brand.fantasy_name,currency.abbreviature,unit.name,category.name,category.fk_category,gender.name FROM product_on_sale INNER JOIN product ON product_on_sale.fk_product = product.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN currency ON product.fk_currency = currency.id INNER JOIN brand ON product.fk_brand = brand.id WHERE product_on_sale.fk_sale = ?;";
+		if(page_size > 0){
+				query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
+		}
+		Cursor cursor = database.rawQuery(query, selectionArgs);
+		return cursor;
+	}
+	/* @Insert */
+	public int add_product_to_sales_chart (String[] selectionArgs) {
+		//TODO: I might have some data from 'selectionArgs' and also some predefined data
+		//TODO: the way it is the transformation is wrong
+		String query = "INSERT INTO product_on_sale(last_update,fk_sale,fk_product) VALUES (?,?,?);";
 		Cursor cursor = database.rawQuery(query, selectionArgs);
 		//TODO: I don't knwo if its returning the last_id, I guess it's not
 		cursor.moveToFirst();
@@ -389,49 +426,12 @@ public class SaleProvider extends ContentProvider {
 		}
 		return result;
 	}
-	/* @Insert */
-	public int add_product_to_sales_chart (String[] selectionArgs) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		String query = "INSERT INTO product_on_sale(last_update,fk_sale,fk_product) VALUES (?,?,?);";
-		Cursor cursor = database.rawQuery(query, selectionArgs);
-		//TODO: I don't knwo if its returning the last_id, I guess it's not
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getInt(0);
-		}
-		return result;
-	}
 	/* @DeleteWhere */
 	public int remove_product_from_sales_chart (String[] selectionArgs) {
 		//TODO: I might have some data from 'selectionArgs' and also some predefined data
 		//TODO: the way it is the transformation is wrong
 		int result = 0;
 		String query = "DELETE FROM product_on_sale WHERE product_on_sale.fk_sale = ?,product_on_sale.fk_product = ?;";
-		Cursor cursor = database.rawQuery(query, selectionArgs);
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			result = cursor.getInt(0);
-		}
-		return result;
-	}
-	/* @SelectListWhere */
-	public Cursor list_products_on_sales_chart (String[] selectionArgs,long page_count, long page_size) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		String query = "SELECT product_on_sale.last_update,product.barcode,product.description,product.sale_price,product.size,product.expiration_date,brand.fantasy_name,currency.abbreviature,unit.name,category.name,gender.name FROM product_on_sale INNER JOIN product ON product_on_sale.fk_product = product.id INNER JOIN gender ON product.fk_gender = gender.id INNER JOIN category ON product.fk_category = category.id INNER JOIN unit ON product.fk_unit = unit.id INNER JOIN currency ON product.fk_currency = currency.id INNER JOIN brand ON product.fk_brand = brand.id WHERE product_on_sale.fk_sale = ?;";
-		if(page_size > 0){
-				query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
-		}
-		Cursor cursor = database.rawQuery(query, selectionArgs);
-		return cursor;
-	}
-	/* @DeleteWhere */
-	public int remove_all_products_from_sales_chart (String[] selectionArgs) {
-		//TODO: I might have some data from 'selectionArgs' and also some predefined data
-		//TODO: the way it is the transformation is wrong
-		int result = 0;
-		String query = "DELETE FROM product_on_sale WHERE product_on_sale.fk_sale = ?;";
 		Cursor cursor = database.rawQuery(query, selectionArgs);
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){

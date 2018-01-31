@@ -11,10 +11,10 @@ import com.uisleandro.store.supply.view.ProductDataView
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle001
-import com.uisleandro.store.supply.view.GetByRepeatedProductCodeOut;
-import com.uisleandro.store.supply.view.GetByIdOut;
-import com.uisleandro.store.supply.view.GetByQrcodeOut;
 import com.uisleandro.store.supply.view.MissingProductsRelatoryOut;
+import com.uisleandro.store.supply.view.GetByIdOut;
+import com.uisleandro.store.supply.view.GetByRepeatedProductCodeOut;
+import com.uisleandro.store.supply.view.GetByQrcodeOut;
 // reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -113,6 +113,31 @@ public class ProductDataSource {
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
 	/* @SelectListWhere */
+	public List<MissingProductsRelatoryOut> missing_products_relatory (long page_count, long page_size){
+		String selectionArgs = new String[]{ com.uisleandro.util.config.getTodayString() }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/missing_products_relatory",null, null, selectionArgs, null);
+		List<MissingProductsRelatoryOut> those = null;
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()){
+			those.add( MissingProductsRelatoryOut.FromCursor(cursor) );
+			cursor.moveToNext();
+		}
+		return those;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @SelectOneWhere */
+	public GetByIdOut get_by_id(Long id){
+		String selectionArgs = new String[]{ String.valueOf(id) }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/get_by_id",null, null, selectionArgs, null);
+		GetByIdOut that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = GetByIdOut.FromCursor(cursor);
+		}
+		return that;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @SelectListWhere */
 	public List<GetByRepeatedProductCodeOut> get_by_repeated_product_code (Long fk_systen, String barcode, long page_count, long page_size){
 		String selectionArgs = new String[]{ String.valueOf(fk_systen), barcode }; 
 		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/get_by_repeated_product_code",null, null, selectionArgs, null);
@@ -123,6 +148,18 @@ public class ProductDataSource {
 			cursor.moveToNext();
 		}
 		return those;
+	// TODO: PLEASE DONT USE SYNC CODE
+	}
+	/* @SelectOneWhere */
+	public GetByQrcodeOut get_by_qrcode(String barcode){
+		String selectionArgs = new String[]{  }; 
+		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/get_by_qrcode",null, null, selectionArgs, null);
+		GetByQrcodeOut that = null;
+		cursor.moveToFirst();
+		if(!cursor.isAfterLast()){
+			that = GetByQrcodeOut.FromCursor(cursor);
+		}
+		return that;
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @UpdateWhere */
@@ -146,43 +183,6 @@ public class ProductDataSource {
 		return result;
 	// TODO: PLEASE DON'T USE SYNCHRONIZED CODE
 	
-	}
-	/* @SelectOneWhere */
-	public GetByIdOut get_by_id(Long id){
-		String selectionArgs = new String[]{ String.valueOf(id) }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/get_by_id",null, null, selectionArgs, null);
-		GetByIdOut that = null;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			that = GetByIdOut.FromCursor(cursor);
-		}
-		return that;
-	// TODO: PLEASE DONT USE SYNC CODE
-	}
-	/* @SelectOneWhere */
-	public GetByQrcodeOut get_by_qrcode(String barcode){
-		String selectionArgs = new String[]{  }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/get_by_qrcode",null, null, selectionArgs, null);
-		GetByQrcodeOut that = null;
-		cursor.moveToFirst();
-		if(!cursor.isAfterLast()){
-			that = GetByQrcodeOut.FromCursor(cursor);
-		}
-		return that;
-	// TODO: PLEASE DONT USE SYNC CODE
-	}
-	/* @SelectListWhere */
-	public List<MissingProductsRelatoryOut> missing_products_relatory (long page_count, long page_size){
-		String selectionArgs = new String[]{ com.uisleandro.util.config.getTodayString() }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/missing_products_relatory",null, null, selectionArgs, null);
-		List<MissingProductsRelatoryOut> those = null;
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()){
-			those.add( MissingProductsRelatoryOut.FromCursor(cursor) );
-			cursor.moveToNext();
-		}
-		return those;
-	// TODO: PLEASE DONT USE SYNC CODE
 	}
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code

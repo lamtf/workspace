@@ -16,7 +16,7 @@ public class ResellerDataView {
 	private String neighborhood;
 	private String city;
 	private String state;
-	private long zip_code;
+	private String zip_code;
 
 	public ResellerDataView () {
 		this.id = 0L;
@@ -29,7 +29,7 @@ public class ResellerDataView {
 		this.neighborhood = "";
 		this.city = "";
 		this.state = "";
-		this.zip_code = 0L;
+		this.zip_code = "";
 	}
 
 	public long getId () {
@@ -112,11 +112,11 @@ public class ResellerDataView {
 		this.state = state;
 	}
 
-	public long getZipCode () {
+	public String getZipCode () {
 		return zip_code;
 	}
 
-	public void setZipCode (long zip_code) {
+	public void setZipCode (String zip_code) {
 		this.zip_code = zip_code;
 	}
 
@@ -173,9 +173,7 @@ public class ResellerDataView {
 				result.setNeighborhood(obj.getString("neighborhood"));
 				result.setCity(obj.getString("city"));
 				result.setState(obj.getString("state"));
-				if(obj.has("zip_code") && !obj.isNull("zip_code")){
-					result.setZipCode(obj.getLong("zip_code"));
-				}
+				result.setZipCode(obj.getString("zip_code"));
 				return result;
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -197,7 +195,7 @@ public class ResellerDataView {
 			result.setNeighborhood(cursor.getString(7));
 			result.setCity(cursor.getString(8));
 			result.setState(cursor.getString(9));
-			result.setZipCode(cursor.getLong(10));
+			result.setZipCode(cursor.getString(10));
 			return result;		
 		}
 		return null;
