@@ -6,6 +6,9 @@
 ###
 
 
+uml_model = "../com.uisleandro.localdiagram/__out2017/behavior_model_v4.uml"
+target_file = "../com.uisleandro.generated/com.uisleandro.Store.Core/src/main/java/com/uisleandro/store/OfflineDatabaseUptader.java"
+
 ###
 Agora eu preciso fazer um parsing
 que me de condição de gerar codigo
@@ -264,48 +267,6 @@ disp = (obj, tabs)->
 
 		value += "</"+obj.tagName+">"
 
-###
-	fazer o carregamento dos href do xml,
-	se a opcao for habilitada no parser
-
-	os ids dos elementos referenciados
-	se iniciam com o caractere '#'
-
-xmldata = """
-<?xml version="1.0" encoding="UTF-8"?>
-<uis:root xmlns:uis="uisleandro.com/uis">
-	<uis:child id="test">
-		<br id="mybr" name="customname" />
-		<br id="mybr2"
-		name="customname" />
-		<grandchild1 name="uislcs" lang="english" >content 1</grandchild1>
-		<grandchild2 href="doc2.xml#idC4">content 2</grandchild2>
-		<grandchild3>content 3</grandchild3>
-	</uis:child>
-	<uis:child>
-		<br id="mybr3" name="customname" />
-		<grandchild1 name="uislcs" lang="english" >content 1</grandchild1>
-		<grandchild2 href="doc2.xml#idC4">content 2</grandchild2>
-		<grandchild3>content 3</grandchild3>
-	</uis:child>
-</uis:root>
-"""
-
-obj = (new XmlParser()).parse xmldata
-
-###
-
-###
-xsdTypes = [
-	"xsd:anyURI"
-	"xsd:dateTime"
-	"xsd:ID"
-	"xsd:IDREF"
-	"xsd:IDREFS"
-	"xsd:QName"
-	"xsd:string"
-]
-###
 
 ###
 
@@ -397,7 +358,7 @@ query=(x)->
 			i++
 		j++
 	r
-
+#@queryR
 queryR=(x, r, root)->
 	if "undefined" is typeof r
 		r = []
@@ -500,7 +461,6 @@ nochild=(arr)->
 
 fs = require "fs"
 
-uml_model = "abr2017/behavior_model_v1.uml"
 
 #  Here i can get all the stereotypes
 getAllStereotypes=(a)->
@@ -589,27 +549,32 @@ special_sort_for_updating_1=(x)->
 
 main_update_class_template=(loops)->
 	x = """
-	package com.uisleandro.util.web.sync;
+	package com.uisleandro.store;
 
 	import android.content.Context;
 
 #{loops[0]}
 
-	import com.uisleandro.util.web.TLSUtils;
-	import com.uisleandro.util.web.TLSWebClient2;
+	import com.uisleandro.store.util.web.TLSUtils;
+	import com.uisleandro.store.util.web.TLSWebClient2;
 
 	import java.util.ArrayList;
 	import java.util.Iterator;
 	import java.util.List;
 
 	/*
-	Created by Uisleandro
+	Created by Uisleandro Costa dos Santos
+	uisleandro@gmail.com
+	
+	This class is Responsible to update a Remote Database based on date In the local database
+	After comming offline. It's userfull if you're going to collect offline data from a phone
+	and then send it to a server.
 	*/
-	public class MainUpdater {
+	public class OfflineDatabaseUptader {
 
 		TLSUtils utils;
 
-		public MainUpdater(TLSUtils utils) {
+		public OfflineDatabaseUptader(TLSUtils utils) {
 			this.utils = utils;
 		}
 
@@ -668,11 +633,11 @@ String.prototype.toCamelCase =()->
 	return res
 
 package_class_declaration=(sorted, genPackageName)->
-	#import com.uisleandro.salestestapp.web.sync.ProductSync;
+	#import com.uisleandro.store.[].sync.[]
 	decl = ""
 	i = 0
 	while(i < sorted.length)
-		decl += "import " + genPackageName + "."+sorted[i].className.toCamelCase()+"Sync;\n"
+		decl += "import #{genPackageName}.#{sorted[i].packageName}.sync.#{sorted[i].className.toCamelCase()}Sync;\n"
 		i++
 	return decl
 
@@ -685,7 +650,7 @@ call_class_sync_code=(sorted, functionName)->
 		decl += "\t\t"+functionName+"(new "+sorted[i].className.toCamelCase()+"Sync(client, context));"
 		j = 0
 		while j < sorted[i].fks.length
-			decl += "\n\t\t//"+sorted[i].fks[j]
+			decl += "\n\t\t// #{sorted[i].className} points to: #{sorted[i].fks[j]}"
 			j++
 		i++
 		decl += "\n"
@@ -694,11 +659,25 @@ call_class_sync_code=(sorted, functionName)->
 
 
 first_code_generation_for_updating=(x)->
-	declarations = package_class_declaration x,"com.uisleandro.salestestapp.web.sync"
+	declarations = package_class_declaration x,"com.uisleandro.store"
 	synccode = call_class_sync_code x,"syncList.add"
 	result = main_update_class_template [declarations, synccode]
 	return result
 
+
+
+# begin adding new code: diagram specific
+getPackageByName=(jPackage, name)->
+	is_mvc = (a)->
+		contains_attribute_equals("xmi:type","uml:Package")(a) and contains_attribute_equals("name",name)(a)
+	return queryR select(jPackage).where is_mvc
+	# R stands for recursive
+
+
+# end adding new code: diagram specific
+
+
+# @main
 fs.readFile uml_model,(err,data)->
 	if err?
 		console.log "error reading"
@@ -706,10 +685,24 @@ fs.readFile uml_model,(err,data)->
 		jsonData = (new XmlParser()).parse data.toString()
 		#ALL_STEREOTYPES = getAllStereotypes(jsonData)
 
+		root_model = jsonData.children[0]
+		mvc_package = getPackageByName(root_model,'mvc')[0];
+		data_models = getPackageByName(mvc_package,'dataModels')
+
+		# filter all classes
+		i = 0
+		allClasses = []
+		while i < data_models.length
+			named_classes = getAllNamedClasses data_models[i]
+			j = 0
+			while j < named_classes.length
+				allClasses[allClasses.length] = named_classes[j]
+				j++
+			i++
+
 		# funciona mas nao funciona
 		#xxx = getStereotypeById("_n2sWIFFIEeesvOUB-zZRiA")
 		#console.log JSON.stringify xxx,null,'\t'
-
 
 		#                root  >  android:pc  >  client*  >  model >  brazilian:cl* >  basic_client:pp *
 		#root0 = jsonData.children[0].children[10].children[0].children[0].children[1].children[2]
@@ -718,12 +711,12 @@ fs.readFile uml_model,(err,data)->
 
 		#android_package = jsonData.children[0].children[10] #[i].getAttr("name") #children[0].children[j].getAttr("name")
 		# android_package = jsonData.children[0].children[10]
-		sqlite_package = jsonData.children[0].children[9]
+		# sqlite_package = jsonData.children[0].children[9]
 
 
 		#work on it
-		#allClasses = queryR select(jsonData).where contains_attribute_equals("xmi:type","uml:Class")
-		allClasses = getAllNamedClasses sqlite_package
+		# allClasses = queryR select(jsonData).where contains_attribute_equals("xmi:type","uml:Class")
+		# allClasses = getAllNamedClasses sqlite_package
 
 		to_sort = [];
 
@@ -734,7 +727,7 @@ fs.readFile uml_model,(err,data)->
 			#packageName = mClass.getParent().getAttr("name")
 			#className = mClass.getAttr("name")
 			that =
-				packageName: mClass.getParent().getAttr("name")
+				packageName: mClass.getParent().getParent().getAttr("name")
 				className: mClass.getAttr("name")
 				fks: []
 			to_sort[to_sort.length] = that
@@ -751,9 +744,9 @@ fs.readFile uml_model,(err,data)->
 
 		SORTED = special_sort_for_updating_1 to_sort
 
-		MainUpdaterContent = first_code_generation_for_updating SORTED
+		targetFileContent = first_code_generation_for_updating SORTED
 
-		fs.writeFile "MainUpdater.java", MainUpdaterContent,
+		fs.writeFile target_file, targetFileContent,
 		(err)->
 			if(err)
 				console.log err
