@@ -24,7 +24,7 @@ public class SystemOfflineHelper {
 		try{
 			database = db_helper.getWritableDatabase();
 		}catch(SQLException e){
-			Log.wtf("SystemDataSource", "Exception: "+Log.getStackTraceString(e));
+			Log.wtf("SystemOfflineHelper", "Exception: "+Log.getStackTraceString(e));
 		}
 	}
 
@@ -34,6 +34,66 @@ public class SystemOfflineHelper {
 
 	public void close () {
 		db_helper.close();
+	}
+
+	public long insert(SystemView that){
+		ContentValues values = new ContentValues();
+		//should not set the server id
+
+		if(that.getServerId() > 0){
+			values.put(DbHelper.SYSTEM_SERVER_ID, that.getServerId());
+		}
+
+		values.put(DbHelper.SYSTEM_DIRTY, that.isDirty());
+		values.put(DbHelper.SYSTEM_LAST_UPDATE, that.getLastUpdate());
+		values.put(DbHelper.SYSTEM_NAME, that.getName());
+		values.put(DbHelper.SYSTEM_ENABLED, that.getEnabled());
+		if(that.getFkFkCurrency() > 0){
+			values.put(DbHelper.SYSTEM_FK_CURRENCY, that.getFkFkCurrency());
+		}
+		values.put(DbHelper.SYSTEM_FANTASY_NAME, that.getFantasyName());
+		values.put(DbHelper.SYSTEM_STORES_ADDRESS, that.getStoresAddress());
+		values.put(DbHelper.SYSTEM_SRORES_ADDRESS_NUMBER, that.getSroresAddressNumber());
+		values.put(DbHelper.SYSTEM_STORES_CITY, that.getStoresCity());
+		values.put(DbHelper.SYSTEM_STORES_NEIGHBORHOOD, that.getStoresNeighborhood());
+		values.put(DbHelper.SYSTEM_STORES_ZIP_CODE, that.getStoresZipCode());
+		values.put(DbHelper.SYSTEM_STORES_STATE, that.getStoresState());
+		values.put(DbHelper.SYSTEM_STORES_EMAIL, that.getStoresEmail());
+		values.put(DbHelper.SYSTEM_STORES_PHONENUMBER, that.getStoresPhonenumber());
+		if(that.getFkFkReseller() > 0){
+			values.put(DbHelper.SYSTEM_FK_RESELLER, that.getFkFkReseller());
+		}
+		long last_id = database.insert(DbHelper.TABLE_SYSTEM, null, values);
+		return last_id;
+	}
+
+	public int update(SystemView that){
+		ContentValues values = new ContentValues();
+		if(that.getServerId() > 0){
+			values.put(DbHelper.SYSTEM_SERVER_ID, that.getServerId());
+		}
+		values.put(DbHelper.SYSTEM_DIRTY, that.isDirty());
+
+		values.put(DbHelper.SYSTEM_LAST_UPDATE, that.getLastUpdate());
+		values.put(DbHelper.SYSTEM_NAME, that.getName());
+		values.put(DbHelper.SYSTEM_ENABLED, that.getEnabled());
+		if(that.getFkFkCurrency() > 0){
+			values.put(DbHelper.SYSTEM_FK_CURRENCY, that.getFkFkCurrency());
+		}
+		values.put(DbHelper.SYSTEM_FANTASY_NAME, that.getFantasyName());
+		values.put(DbHelper.SYSTEM_STORES_ADDRESS, that.getStoresAddress());
+		values.put(DbHelper.SYSTEM_SRORES_ADDRESS_NUMBER, that.getSroresAddressNumber());
+		values.put(DbHelper.SYSTEM_STORES_CITY, that.getStoresCity());
+		values.put(DbHelper.SYSTEM_STORES_NEIGHBORHOOD, that.getStoresNeighborhood());
+		values.put(DbHelper.SYSTEM_STORES_ZIP_CODE, that.getStoresZipCode());
+		values.put(DbHelper.SYSTEM_STORES_STATE, that.getStoresState());
+		values.put(DbHelper.SYSTEM_STORES_EMAIL, that.getStoresEmail());
+		values.put(DbHelper.SYSTEM_STORES_PHONENUMBER, that.getStoresPhonenumber());
+		if(that.getFkFkReseller() > 0){
+			values.put(DbHelper.SYSTEM_FK_RESELLER, that.getFkFkReseller());
+		}
+		int rows_affected = database.update(DbHelper.TABLE_SYSTEM, values, DbHelper.SYSTEM_ID + " = " + String.valueOf(that.getId()), null);
+		return rows_affected;
 	}
 
 	public List<SystemDataView> listForInsertOnServer(long page_count, long page_size){
@@ -55,37 +115,28 @@ public class SystemOfflineHelper {
 		"t14.server_id as fk_reseller" +
 		" FROM "+DbHelper.TABLE_SYSTEM+" t0" +
 		" INNER JOIN "+DbHelper.TABLE_CURRENCY+" t1 ON t0.fk_currency = t1.id" +
-		" INNER JOIN "+DbHelper.TABLE_RESELLER+" t2 ON t0.fk_reseller = t2.id";
-		query += " WHERE t0.server_id IS NULL";
-
+		" INNER JOIN "+DbHelper.TABLE_RESELLER+" t2 ON t0.fk_reseller = t2.id";		query += " WHERE t0.server_id IS NULL";
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
-
 		Log.wtf("rest-api", query);
-
 		List<SystemView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
-
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
 	      those.add(SystemView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
-
 		return those;
 	}
 
 	//list for update on server
 	//translates the foreign keys
 	public List<SystemDataView> listForUpdateOnServer(long page_count, long page_size){
-
 		//Log.wtf("rest-api", "listSomeDirty");
 		// Estou com um erro pois nao gero as tabelas que nao fazem parte deste modulo
-
 		String query = "SELECT t0.id, t0.server_id, t0.dirty, "+
 		"t0.last_update, " +
 		"t0.name, " +
@@ -101,37 +152,27 @@ public class SystemOfflineHelper {
 		"t0.stores_phonenumber" +
 		" FROM "+DbHelper.TABLE_SYSTEM+" t0" +
 		" INNER JOIN "+DbHelper.TABLE_CURRENCY+" t1 ON t0.fk_currency = t1.id" +
-		" INNER JOIN "+DbHelper.TABLE_RESELLER+" t2 ON t0.fk_reseller = t2.id";
-		query += " WHERE t0." + DbHelper.SYSTEM_DIRTY + " = 1";
-
+		" INNER JOIN "+DbHelper.TABLE_RESELLER+" t2 ON t0.fk_reseller = t2.id";		query += " WHERE t0." + DbHelper.SYSTEM_DIRTY + " = 1";
 		if(page_size > 0) {
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
-
 		//Log.wtf("rest-api", query);
-
 		List<SystemView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
-
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
 	      those.add(SystemView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
-
 	}
 
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
-
 		values.put(DbHelper.SYSTEM_SERVER_ID, remote_id);
 		values.put(DbHelper.SYSTEM_LAST_UPDATE_TIME, last_update_time);
 		values.put(DbHelper.SYSTEM_DIRTY, 0);
-
-
 		int rows_affected = database.update(
 			DbHelper.TABLE_SYSTEM,
 			values,
@@ -143,13 +184,9 @@ public class SystemOfflineHelper {
 	// given the last id i have on client i can
 	// on the client side
 	public long getLastServerId(){
-
 		long result = 0;
-
-
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_SYSTEM +";";
 		Cursor cursor = database.rawQuery(query, null);
-
 		return cursorToLong(cursor);
 	}
 
@@ -158,49 +195,35 @@ public class SystemOfflineHelper {
 	//just bring from the server what is newer than my newer data, for updating
 	//the implementation is also easier :D
 	public long getLastUpdateTime(){
-
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_SYSTEM+"';";
 		Cursor cursor = database.rawQuery(query, null);
-
 		return cursorToLong(cursor);
-
 	} 
 
 	//get the last_update_time, from this table, if if null
 	public void before_client_updating(){
-
 		String query = "UPDATE " + DbHelper.TABLE_UPDATE_HISTORY + " SET last_update_time = ( SELECT MAX(last_update_time) FROM " +
 			DbHelper.TABLE_SYSTEM + " ) WHERE table_name = '" + DbHelper.TABLE_SYSTEM + "' AND last_update_time IS NULL;";
 		database.rawQuery(query, null);
-
 	}
 
 	//set the last_update_time, from this table, to null
 	public void after_client_updating(){
-
 		String query = "UPDATE " + DbHelper.TABLE_UPDATE_HISTORY + " SET last_update_time = NULL WHERE table_name = '" + DbHelper.TABLE_SYSTEM + "';";
 		database.rawQuery(query, null);
-
 	}
 
 
 	//after i will update then client
 	//and after updating the client i need to fix the foreign keys
 	public int fixClientForeignKeys(){
-
 		String query = "UPDATE " + DbHelper.TABLE_SYSTEM + " SET "+
 		"fk_currency = ( SELECT id FROM " + DbHelper.TABLE_CURRENCY + " WHERE " + DbHelper.TABLE_CURRENCY + ".server_id = " + DbHelper.TABLE_SYSTEM + ".fk_currency ), " +
-		"fk_reseller = ( SELECT id FROM " + DbHelper.TABLE_RESELLER + " WHERE " + DbHelper.TABLE_RESELLER + ".server_id = " + DbHelper.TABLE_SYSTEM + ".fk_reseller );";
-
-		int result = 0;
+		"fk_reseller = ( SELECT id FROM " + DbHelper.TABLE_RESELLER + " WHERE " + DbHelper.TABLE_RESELLER + ".server_id = " + DbHelper.TABLE_SYSTEM + ".fk_reseller );";		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-
 		return cursorToInteger(cursor);
 	}
-
-
-
 
 
 

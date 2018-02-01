@@ -637,7 +637,7 @@ package_class_declaration=(sorted, genPackageName)->
 	decl = ""
 	i = 0
 	while(i < sorted.length)
-		decl += "import #{genPackageName}.#{sorted[i].packageName}.sync.#{sorted[i].className.toCamelCase()}Sync;\n"
+		decl += "import #{genPackageName}.#{sorted[i].packageName}.sync.#{sorted[i].className.toCamelCase()}OfflineDataSync;\n"
 		i++
 	return decl
 
@@ -647,7 +647,7 @@ call_class_sync_code=(sorted, functionName)->
 			#[loop] ... list of foreign keys
 	decl = ""
 	while i < sorted.length
-		decl += "\t\t"+functionName+"(new "+sorted[i].className.toCamelCase()+"Sync(client, context));"
+		decl += "\t\t"+functionName+"(new "+sorted[i].className.toCamelCase()+"OfflineDataSync(client, context));"
 		j = 0
 		while j < sorted[i].fks.length
 			decl += "\n\t\t// #{sorted[i].className} points to: #{sorted[i].fks[j]}"

@@ -329,7 +329,11 @@ owner.owner.oclAsType(NamedElement).name)
 /][/if][else][ToCamelCase(owner.owner.oclAsType(NamedElement).name)
 /][/if][/template]
 
+[comment
 
+TODO: Preciso adicionar as funcoes insert() e update()
+
+/]
 [template public android_create_offline_helper_class(pname: String, modul: Package, tbl: Class)]
 package [pname /].[modul.name/].model;
 
@@ -357,7 +361,7 @@ public class [tbl.name.ToCamelCase() /]OfflineHelper {
 		try{
 			database = db_helper.getWritableDatabase();
 		}catch(SQLException e){
-			Log.wtf("[tbl.name.ToCamelCase() /]DataSource", "Exception: "+Log.getStackTraceString(e));
+			Log.wtf("[tbl.name.ToCamelCase() /]OfflineHelper", "Exception: "+Log.getStackTraceString(e));
 		}
 	}
 
@@ -367,6 +371,47 @@ public class [tbl.name.ToCamelCase() /]OfflineHelper {
 
 	public void close () {
 		db_helper.close();
+	}
+
+	public long insert([tbl.name.ToCamelCase() /]View that){
+		ContentValues values = new ContentValues();
+		//should not set the server id
+
+		if(that.getServerId() > 0){
+			values.put(DbHelper.[tbl.name.toUpperCase() /]_SERVER_ID, that.getServerId());
+		}
+
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_DIRTY, that.isDirty());
+[for (prop : Property | get_fields(tbl) )
+][if (prop.isFk())]
+		if(that.getFk[prop.getName().ToCamelCase() /]() > 0){
+			values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], that.getFk[prop.getName().ToCamelCase() /]());
+		}
+[else]
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], that.get[prop.getName().ToCamelCase() /]());
+[/if][/for]
+		long last_id = database.insert(DbHelper.TABLE_[tbl.name.toUpperCase() /], null, values);
+		return last_id;
+	}
+
+	public int update([tbl.name.ToCamelCase() /]View that){
+		ContentValues values = new ContentValues();
+		if(that.getServerId() > 0){
+			values.put(DbHelper.[tbl.name.toUpperCase() /]_SERVER_ID, that.getServerId());
+		}
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_DIRTY, that.isDirty());
+
+[for (prop : Property | get_fields(tbl) )]
+[if (prop.isFk())]
+		if(that.getFk[prop.getName().ToCamelCase() /]() > 0){
+			values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], that.getFk[prop.getName().ToCamelCase() /]());
+		}
+[else]
+		values.put(DbHelper.[tbl.name.toUpperCase() /]_[prop.getName().toUpperCase() /], that.get[prop.getName().ToCamelCase() /]());
+[/if]
+[/for]
+		int rows_affected = database.update(DbHelper.TABLE_[tbl.name.toUpperCase() /], values, DbHelper.[tbl.name.toUpperCase() /]_ID + " = " + String.valueOf(that.getId()), null);
+		return rows_affected;
 	}
 
 	public List<[tbl.name.ToCamelCase() /]DataView> listForInsertOnServer(long page_count, long page_size){
@@ -383,38 +428,29 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 [for (prop : Property | fks) separator ('" +\n') after ('";')
 ]		" INNER JOIN "+DbHelper.TABLE_[prop.name.toUpperCase() /]+" t[i/] ON t0.fk_[prop.name /] = t[i/].id[/for]
 [/let]
-
 		query += " WHERE t0.server_id IS NULL";
-
 		if(page_size > 0){
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
-
 		Log.wtf("rest-api", query);
-
 		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
-
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
 	      those.add([tbl.name.ToCamelCase() /]View.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
-
 		return those;
 	}
 
 	//list for update on server
 	//translates the foreign keys
 	public List<[tbl.name.ToCamelCase() /]DataView> listForUpdateOnServer(long page_count, long page_size){
-
 		//Log.wtf("rest-api", "listSomeDirty");
 		[comment // Estou com um erro pois nao gero as tabelas que nao fazem parte deste modulo /]
 		// Estou com um erro pois nao gero as tabelas que nao fazem parte deste modulo
-
 		String query = "[let fks : Sequence(Property) = get_fks(tbl)]
 SELECT t0.id, t0.server_id, t0.dirty, "+
 [for (prop : Property | get_no_fks(tbl))
@@ -424,38 +460,28 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 [for (prop : Property | fks) separator ('" +\n') after ('";')
 ]		" INNER JOIN "+DbHelper.TABLE_[prop.name.toUpperCase() /]+" t[i/] ON t0.fk_[prop.name /] = t[i/].id[/for]
 [/let]
-
 		query += " WHERE t0." + DbHelper.[tbl.name.toUpperCase() /]_DIRTY + " = 1";
-
 		if(page_size > 0) {
 			query += " LIMIT " + String.valueOf(page_size) + " OFFSET " + String.valueOf(page_size * page_count);
 		}
-
 		query += ";";
-
 		//Log.wtf("rest-api", query);
-
 		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
-
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
 	      those.add([tbl.name.ToCamelCase() /]View.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
-
 	}
 
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
-
 		values.put(DbHelper.[tbl.name.toUpperCase() /]_SERVER_ID, remote_id);
 		values.put(DbHelper.[tbl.name.toUpperCase() /]_LAST_UPDATE_TIME, last_update_time);
 		values.put(DbHelper.[tbl.name.toUpperCase() /]_DIRTY, 0);
-
 		[comment im sorry i know this column /]
-
 		int rows_affected = database.update(
 			DbHelper.TABLE_[tbl.name.toUpperCase() /],
 			values,
@@ -467,13 +493,9 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 	// given the last id i have on client i can
 	// on the client side
 	public long getLastServerId(){
-
 		long result = 0;
-
-
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_[tbl.name.toUpperCase() /] +";";
 		Cursor cursor = database.rawQuery(query, null);
-
 		return cursorToLong(cursor);
 	}
 
@@ -482,31 +504,24 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 	//just bring from the server what is newer than my newer data, for updating
 	//the implementation is also easier :D
 	public long getLastUpdateTime(){
-
 		long result = 0;
 [comment]String query = "SELECT MAX(last_update_time) FROM " + DbHelper.TABLE_[tbl.name.toUpperCase() /] +";";[/comment]
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_[tbl.name.toUpperCase() /]+"';";
 		Cursor cursor = database.rawQuery(query, null);
-
 		return cursorToLong(cursor);
-
 	} 
 
 	//get the last_update_time, from this table, if if null
 	public void before_client_updating(){
-
 		String query = "UPDATE " + DbHelper.TABLE_UPDATE_HISTORY + " SET last_update_time = ( SELECT MAX(last_update_time) FROM " +
 			DbHelper.TABLE_[tbl.name.toUpperCase() /] + " ) WHERE table_name = '" + DbHelper.TABLE_[tbl.name.toUpperCase() /] + "' AND last_update_time IS NULL;";
 		database.rawQuery(query, null);
-
 	}
 
 	//set the last_update_time, from this table, to null
 	public void after_client_updating(){
-
 		String query = "UPDATE " + DbHelper.TABLE_UPDATE_HISTORY + " SET last_update_time = NULL WHERE table_name = '" + DbHelper.TABLE_[tbl.name.toUpperCase() /] + "';";
 		database.rawQuery(query, null);
-
 	}
 
 
@@ -515,18 +530,13 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 ][let fks : Sequence(Property) = get_fks(tbl)]
 	//and after updating the client i need to fix the foreign keys
 	public int fixClientForeignKeys(){
-
 		String query = "UPDATE " + DbHelper.TABLE_[tbl.name.toUpperCase() /] + " SET "+
 [for (prop : Property | fks) separator (', " +\n') after (';";')]
 		"fk_[prop.name /] = ( SELECT id FROM " + DbHelper.TABLE_[prop.name.toUpperCase() /] + " WHERE " + DbHelper.TABLE_[prop.name.toUpperCase() /] + ".server_id = " + DbHelper.TABLE_[tbl.name.toUpperCase() /] + ".fk_[prop.name /] )[/for]
-
-
 		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-
 		return cursorToInteger(cursor);
 	}
-
 
 [/let][else]
 	// this class don't need to fix client foreign keys
@@ -540,8 +550,6 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 	ainda não sei como atualizar o cliente de forma eficiente 
 	pois não posso usar uma flag dirty no servidor como no cliente..
 	não quero usar todos os dados, acho que fiz alguma alteracao no php /]
-
-
 }
 [/template]
 
@@ -728,11 +736,333 @@ else
 endif/]
 
 
+[comment >> BEGIN INSERT AND UPDATE ON CLIENT /]
+[template public android_insert_on_client(tbl: Class)]
+public void insert_on_client(){
+[comment
+	from the maximum id on client to upper, solved
+/]
+	long the_last_server_id_on_client = [tbl.name.ToCamelCase().toLowerFirst()/]OfflineHelper.getLastServerId(); //step 1,1
+	//paginator.setPageSize(100);
+	paginator.setPageNumber(0);
+	paginator.setFinished(false);
+	paginator.setError(false);
+	Log.v("rest-api", "atempt to insert on the client .. ");
+	//i think now im repeating the process
+	while (false == paginator.isFinished()) {
+		String json = "{ \"server_id\": " + String.valueOf(the_last_server_id_on_client) + "," +
+					" \"page_number\" : " + String.valueOf(paginator.getPageNumber()) + "," +
+					" \"page_size\": " + String.valueOf(paginator.getPageSize()) + " }"; 
+		paginator.nextPage();
+		Log.v("rest-api", "get_for_client_insert :\n" + json);
+		//step 1,2
+		client.run(
+			"https://192.168.0.250/naiara/sync/[tbl.name/]/get_for_client_insert", json,
+			new TlsCallback() {
+				@Override
+				public void CallBack(String result) {
+					Log.v("rest-api", "get_for_client_insert :\n" + result);
+					try {
+						JSONArray array = new JSONArray(result);
+						if (0 == array.length()) {
+							paginator.setFinished(true);
+						}
+						for (int i = 0; i < array.length(); i++) {
+							//Log.v("rest-api", array.getJSONObject(i).toString());
+							[tbl.name.ToCamelCase()/] [tbl.name/] = [tbl.name.ToCamelCase()/].FromJsonObj(array.getJSONObject(i));
+							[tbl.name.ToCamelCase().toLowerFirst()/]OfflineHelper.insert([tbl.name/]); //step 1,3
+						}
+					} catch (JSONException ex) {
+						paginator.setFinished(true);
+						ex.printStackTrace();
+					}
+				}
+			}
+		);
+	}
+
+}
+[/template]
+
+[template public android_update_on_client(tbl: Class)]
+//todo error se eu quero usar assim eu tenho que ter esta informação, no cliente, por tabela
+public void update_on_client(){
+[comment 
+	fine updating.. difficult and expensive..
+	1. from the client to the server send a comparing list with
+	id and last_update_time
+	2. for each item on the list, select if the client
+	last_update_time is greather
+	3. update on client
+/]
+	//not exactly yet implemented
+	//todo test..
+	//paginator.setPageSize(100);
+	paginator.setPageNumber(0);
+	paginator.setFinished(false);
+	paginator.setError(false);
+		Log.v("rest-api", "atempt to update on client .. ");
+		[tbl.name.ToCamelCase().toLowerFirst()/]OfflineHelper.before_client_updating();
+		while (false == paginator.isFinished()) {
+			long lastUpdateTime = [tbl.name.ToCamelCase().toLowerFirst()/]OfflineHelper.getLastUpdateTime();
+			String json = "{ " +
+			"\"last_update_time\" : " + String.valueOf(lastUpdateTime) +
+			", \"page_number\" : " + paginator.getPageNumber() +
+			", \"page_size\" : " + paginator.getPageSize() +
+			" }";
+			paginator.nextPage();
+			Log.v("rest-api", "get_for_client_update :\n" + json);
+			client.run("https://192.168.0.250/naiara/sync/[tbl.name/]/get_for_client_update", json, new TlsCallback() {
+					@Override
+					public void CallBack(String result) {
+					Log.v("rest-api", "get_for_client_update :\n" + result);
+						try {
+							JSONArray array = new JSONArray(result);
+							//i can't finish it if this don't have any value
+							if(0 < array.length()){
+								for (int i = 0; i < array.length(); i++) {
+									[tbl.name.ToCamelCase()/] obj = [tbl.name.ToCamelCase()/].FromJsonObj(
+											array.getJSONObject(i)
+									);
+									[tbl.name.ToCamelCase().toLowerFirst()/]OfflineHelper.update(obj);
+								}
+							} else {
+								paginator.setFinished(true);
+							}
+						} catch (JSONException e) {
+							e.printStackTrace();
+							paginator.setFinished(true);
+							paginator.setError(true);
+						}
+					}
+				}
+			);
+		}
+
+		if(!paginator.isError()) {
+			[tbl.name.ToCamelCase().toLowerFirst()/]OfflineHelper.after_client_updating();
+		}
+
+}
+[/template]
+
+[comment
+	Select from client; 
+	Update on client;
+/]
+[template public android_fix_foreign_keys_on_client(tbl: Class)]
+public void fix_foreign_keys_on_client(){
+[if (tbl.eContents(Property)->exists(x | x.type.name.toString().equalsIgnoreCase('invalid'))) ]
+/*
+	ACCELEO ERROR ON PROPERTY DEFINITION:
+[for (it : Property | tbl.eContents(Property))]
+	[it.type.name.toString() /]  [it.name.toString() /] [it.toString() /]
+[/for]
+*/
+[else]
+[if (tbl.eContents(Property)->exists(x: Property| x.type.name.equalsIgnoreCase(x.name)))]
+[if (0 < tbl.eContents(Property)->select(x: Property| x.type.name.equalsIgnoreCase(x.name) 
+and
+	not(
+		x.type.oclAsType(Class).gotStereotype('server_only') or 
+		x.type.oclAsType(Class).gotStereotype('client_const')
+	)
+)->size())
+ ]
+[tbl.name.ToCamelCase().toLowerFirst()/]OfflineHelper.fixClientForeignKeys();
+[/if]
+[/if]
+[/if]
+}
+[/template]
+[comment << END INSERT AND UPDATE ON CLIENT /]
+
+[comment >> BEGIN INSERT AND UPDATE ON SERVER /]
+[template public android_insert_on_server(tbl: Class)]
+public void insert_on_server(){
+[comment
+	all registers with no server_id, solved
+/]
+	//paginator.setPageSize(100);
+	paginator.setPageNumber(0);
+	paginator.setFinished(false);
+	paginator.setError(false);
+	Log.v("rest-api", "atempt to insert on the server .. ");
+	while (false == paginator.isFinished()) {
+		List<[tbl.name.ToCamelCase()/]> [tbl.name/]_for_insertion_on_server =
+				[tbl.name.ToCamelCase().toLowerFirst()/]OfflineHelper.listForInsertOnServer(
+						paginator.getPageNumber(),
+						paginator.getPageSize()); //step 2,1
+		paginator.nextPage();
+		Iterator<[tbl.name.ToCamelCase()/]> it = [tbl.name/]_for_insertion_on_server.iterator();
+		String json = "['['/]";
+		if(it.hasNext()){
+			Log.v("rest-api", "building the message .. ");
+			json += it.next().toJsonString();
+			while(it.hasNext()){
+				json += ", " + it.next().toJsonString();
+			}
+		}else{
+			paginator.setFinished(true);
+			Log.v("rest-api", "abort insertions..");
+			continue;
+		}
+		json += "[']'/]";
+		Log.v("rest-api", "bash_insert:\n"+ json);
+		//step 2,2
+		client.run(
+			"https://192.168.0.250/naiara/sync/[tbl.name/]/bash_insert",
+			json,
+			new TlsCallback() {
+				@Override
+				public void CallBack(String result) {
+				Log.v("rest-api", "bash_insert :\n" + result);
+				try {
+					JSONArray array = new JSONArray(result);
+[comment] This code is also not likelly to run
+					/*
+					if (0 == array.length()) {
+						paginator.setFinished(true);
+					}*/
+[/comment]
+					for (int i = 0; i < array.length(); i++) {
+						JSONObject row = array.getJSONObject(i);
+						//step 2,3
+						[tbl.name.ToCamelCase().toLowerFirst()/]OfflineHelper.fixAfterServerInsertAndUpdate(
+								row.getLong("client_id"),
+								row.getLong("server_id"),
+								row.getLong("last_update_time")
+						);
+						Log.v("rest-api", "updating the client");
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					paginator.setFinished(true);
+				}
+			}
+		});
+	}
+
+}
+[/template]
+
+[template public android_update_on_server(tbl: Class)]
+public void update_on_server(){
+[comment
+	take all the dirty registers on client side, solved
+/]
+	Log.v("rest-api", "attempt to update on the server .. ");
+	//paginator.setPageSize(100);
+	paginator.setPageNumber(0);
+	paginator.setFinished(false);
+	paginator.setError(false);
+	while (false == paginator.isFinished()) {
+		//4,2
+		List<[tbl.name.ToCamelCase() /]> update_remote = [tbl.name.ToCamelCase().toLowerFirst()/]OfflineHelper.listForUpdateOnServer(paginator.getPageNumber(), paginator.getPageSize());
+		paginator.nextPage();
+		Iterator<[tbl.name.ToCamelCase() /]> it = update_remote.iterator();
+		String json = "['['/]";
+		if (it.hasNext()) {
+			Log.v("rest-api", "updating the server..\n");
+			json += it.next().toJsonString();
+			while (it.hasNext()) {
+				json += "," + it.next().toJsonString();
+			}
+		}else{
+			paginator.setFinished(true);
+			Log.v("rest-api", "abort server updates..");
+			continue;
+		}
+		json += "[']'/]";
+		Log.v("rest-api", "bash_update :\n" + json);
+		//todo the date is not correct
+		//4,3
+		client.run(
+			"https://192.168.0.250/naiara/sync/[tbl.name/]/bash_update", json, new TlsCallback() {
+			@Override
+			public void CallBack(String result) {
+				Log.v("rest-api", "bash_update :\n" + result);
+				try {
+					JSONArray array = new JSONArray(result);
+[comment] This code will never run
+					/*
+					if(0 == array.length()){
+						paginator.setFinished(true);
+					}*/
+[/ comment]
+					for (int i = 0; i < array.length(); i++) {
+						JSONObject row = array.getJSONObject(i);
+						//step 4,4
+						[tbl.name.ToCamelCase().toLowerFirst()/]OfflineHelper.fixAfterServerInsertAndUpdate(
+								row.getLong("client_id"),
+								row.getLong("server_id"),
+								row.getLong("last_update_time")
+						);
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					paginator.setFinished(true);
+				}
+			}
+		});
+	}
+}
+[/template]
+
+
+[template public updater_class(pname: String, modul: Package, tbl: Class)]
+package [pname /].[modul.name /].sync;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.uisleandro.util.DBPaginator;
+import [pname /].[modul.name /].model.[tbl.name.ToCamelCase() /]OfflineHelper;
+import [pname /].[modul.name /].view.[tbl.name.ToCamelCase() /]DataView;
+import com.uisleandro.util.web.TLSWebClient2;
+import com.uisleandro.util.web.TlsCallback;
+import com.uisleandro.util.web.sync.SyncUpdater;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Iterator;
+import java.util.List;
+
+public class [tbl.name.ToCamelCase() /]OfflineDataSync implements SyncUpdater {
+
+	final DBPaginator paginator;
+	TLSWebClient2 client;
+	[tbl.name.ToCamelCase() /]OfflineHelper [tbl.name.ToCamelCase().toLowerFirst() /]OfflineHelper;
+
+	public [tbl.name.ToCamelCase() /]Sync(TLSWebClient2 client, Context context){
+		this.client = client;
+		paginator = new DBPaginator();
+		[tbl.name.ToCamelCase().toLowerFirst() /]OfflineHelper = new [tbl.name.ToCamelCase()/]OfflineHelper(context);
+	}
+
+	[android_insert_on_client(tbl)/]
+
+	[android_update_on_client(tbl)/]
+
+	[android_fix_foreign_keys_on_client(tbl)/]
+
+	[android_insert_on_server(tbl)/]
+
+	[android_update_on_server(tbl)/]
+
+}
+[/template]
+
 
 [template public generateElement(root : Model)]
 [comment @main/]
 
-[let pname : String = root.get_configuration_namespace()][let vendor : String = 'uisleandro'][let appName : String = 'Store'][let cName : String = 'com.'+vendor+'.'+appName]
+[let pname : String = root.get_configuration_namespace()]
+[let vendor : String = 'uisleandro']
+[let appName : String = 'Store']
+[let cName : String = 'com.'+vendor+'.'+appName]
 [comment
 
 I think its better to have
@@ -755,6 +1085,11 @@ I will need to create the views which im returning :'D
 [android_create_tbl_datasource_class(pname, modul, tbl)/]
 [/file]
 [/comment]
+
+
+[file ('com.uisleandro.Store.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/sync/'+tbl.name.ToCamelCase()+'OfflineDataSync.java', false, 'UTF-8')]
+[updater_class(pname, modul, tbl) /]
+[/file]
 
 [file ('com.uisleandro.Store.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/view/'+tbl.name.ToCamelCase()+'DataView.java', false, 'UTF-8')]
 [android_create_tblviewclass(pname, modul, tbl) /]
