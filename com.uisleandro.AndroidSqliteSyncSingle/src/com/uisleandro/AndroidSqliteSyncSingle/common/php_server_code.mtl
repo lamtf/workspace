@@ -1,0 +1,466 @@
+[comment encoding = UTF-8 /]
+[module php_server_code('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+[query public gotStereotype(arg : NamedElement, sname : String) : Boolean = 
+	self.getAppliedStereotypes()->exists(s : Stereotype | s.name = sname) /]
+
+[comment TODO: NEW /]
+[query public getIdentityClass(arg : Class) : Class = 
+if (self.eContents(Class)->exists(x : Class | x.gotStereotype('itself'))) then
+	self.eContents(Class)->select(x : Class | x.gotStereotype('itself'))->first()
+else
+	null
+endif
+ /]
+
+[query public get_configuration_baseurl(arg : Model) : String = 
+self.eContents(Class)->select(x|x.name='custom_config')->first().eContents(Property)
+	->select(x|x.type.name.toString().equalsIgnoreCase('app_baseurl'))->first().name
+/]
+
+[comment TODO: NEW /]
+[comment use it only in identity classes? /]
+[query public getRelationsProp(arg : Class) : Sequence(Property) = 
+	self.eContents(Property)->select(x: Property | x.type.name.toString().equalsIgnoreCase(x.name))
+ /]
+
+[query public getName(arg : Property) : String = 
+if(self.type.name.toString().equalsIgnoreCase(self.name.toString())) then
+	'fk_'+self.name
+else 
+	self.name
+endif
+/]
+
+[template public ToCamelCase(name : String)][for (s : String | name.replaceAll('_', ' ').tokenize())][s.toUpperFirst() /][/for][/template]
+
+[template public lcase(name : String)][name.replaceAll('_', '').toLowerCase() /][/template]
+
+[comment notice that i have an android model /]
+[query public getConversion(arg : Property) : OclAny =
+if(self.type.name.equalsIgnoreCase(self.name)) then
+'\\db::number($fk_'+self.name+')'
+else
+if(self.type.name.equalsIgnoreCase('int')) then
+'\\db::number($'+self.name+')'
+else
+if(self.type.name.equalsIgnoreCase('float') or
+		self.type.name.equalsIgnoreCase('double')) then
+'\\db::float($'+self.name+')'
+else
+if(self.type.name.equalsIgnoreCase('date')) then
+	if (self.name.equalsIgnoreCase('last_update_time')) then
+	'$last_update_time'
+	else
+	'\\db::timestamp($'+self.name+')'
+	endif
+else
+if(self.type.name.equalsIgnoreCase('boolean')) then
+'\\db::boolean($'+self.name+')'
+else
+'\\db::string($'+self.name+')'
+endif
+endif
+endif
+endif
+endif
+ /]
+
+[template public jsonDefinition(arg : Class, forUpdate: Boolean)]{[let props : Sequence(Property) = arg.eContents(Property)
+->select(x: Property | not x.name.equalsIgnoreCase('last_update_time'))]
+\\\"client_id\\\" : (long),[if (forUpdate)]\\\"server_id\\\" : (long),[/if][for (prop : Property | props)
+separator (',')]\\\"[prop.getName() /]\\\" : ([prop.type.name.toLowerCase() /])[/for][/let]}[/template]
+
+[template public jsonArguments(arg : Class, sname : String, forUpdate: Boolean)]
+[if (forUpdate)]$[sname /]->server_id,[/if][let props : Sequence(Property) = arg.eContents(Property)->select(x: Property | not x.name.equalsIgnoreCase('last_update_time'))][for (prop : Property | props
+) separator (',')]$[sname /]->[prop.getName() /][/for][/let]
+[/template]
+
+[template public getArguments(arg : Class)]
+[for (prop : Property | arg.eContents(Property)
+	->select(x: Property | not x.name.equalsIgnoreCase('last_update_time')))
+separator (',')]$[prop.getName() /][/for]
+[/template]
+
+[template public getInsertArguments(arg : Class)]
+[for (prop : Property | arg.eContents(Property))
+separator ('\n"," .')]
+[prop.getConversion() /] .[/for]
+[/template]
+
+[template public getSelectFields(arg : Class)]
+[for (prop : Property | arg.eContents(Property)) 
+separator ('\n",')]\"[prop.getName() /]\"".[/for]
+[/template]
+
+[template public getUpdateFields(arg : Class)]
+[for (prop : Property | arg.eContents(Property)) 
+separator ('",')]
+[if (prop.name.equalsIgnoreCase('last_update_time'))]
+\"[prop.getName() /]\" = ". $last_update_time .
+[else]
+\"[prop.getName() /]\" = ".[prop.getConversion() /] .
+[/if][/for]
+[/template]
+
+[comment why not creating a controller instead of a model from it?? /]
+[template public postgres_sync_model_cls(modul: Package, cls: Class, schemaname : String)]
+<?php
+namespace Sync\Model;
+
+class [ToCamelCase(cls.name)/] {
+
+	private $db;
+
+	public function __construct(){
+		$this->db = \db::getInstance();
+	}
+
+[comment]
+		TODO: allow to the user to use the local or remote database as he/she wants through configuration
+		These functions here are only for sync propourses, the returning value is different
+[/comment]
+	//SYNC PROTOCOL: insert-on-client step 1,2
+	public function get_for_client_insert($fk_[cls.name /], $page_number, $page_size){
+		$query = "SELECT \"id\" as \"server_id\", [cls.getSelectFields()/]
+		" FROM \"[schemaname /]\".\"[cls.name /]\"".
+		" WHERE \"id\" > ". \db::number($fk_[cls.name /]).
+		" LIMIT $page_size OFFSET " . ($page_size * $page_number) .";";
+
+		$stmt = $this->db->query($query);
+		$res = $stmt->fetchAll(\PDO::FETCH_OBJ);
+
+[comment]
+		foreach ($res as $o){
+		[for (prop : Property | cls.eContents(Property))]
+			[if (prop.type.name.equalsIgnoreCase('float') or
+					 prop.type.name.equalsIgnoreCase('double') )]
+			$o->[prop.getName() /] = \db::float($o->[prop.getName() /]);
+			[else]
+			[if (prop.name.equalsIgnoreCase('last_update_time'))]
+			$o->last_update_time = trim($o->last_update_time);
+			[else]
+			$o->[prop.getName() /] = trim($o->[prop.getName() /]);
+			[/if]
+			[/if]
+		[/for]
+		}
+[/comment]
+
+		return $res;
+	}
+
+
+	//SYNC PROTOCOL: insert-on-server step 2,2
+	public function insert([cls.getArguments()/]){
+		$last_update_time = \db::timestamp();
+
+		$query = "INSERT INTO \"[schemaname /]\".\"[cls.name /]\"(".
+		"[cls.getSelectFields()/]") VALUES (".
+		[cls.getInsertArguments()/]");";
+
+		$this->db->query($query);
+		$query = "SELECT currval(pg_get_serial_sequence('[schemaname /].[cls.name /]','id'));";
+		$stmt = $this->db->query($query);
+		$id = $stmt->fetch(\PDO::FETCH_NUM)['['/]0[']'/];
+
+		$res = new \stdClass();
+		$res->server_id = $id;
+		$res->last_update_time = $last_update_time;
+
+		return $res;
+	}
+
+[comment]
+	//SYNC PROTOCOL: update-on-client step 3,1
+	//SYNC PROTOCOL: update-on-server step 4,1
+	public function getLastUpdateTime(){
+
+		$query = "SELECT max(\"last_update_time\") as \"last_update_time\" FROM \"[schemaname /]\".\"[cls.name /]\";";
+
+		$stmt = $this->db->query($query);
+		$res = $stmt->fetch(\PDO::FETCH_OBJ);
+
+		return $res;
+	}
+ 
+	//SYNC PROTOCOL: update-on-client step 3,3
+	public function selectWhereIdIN($ids){
+		$query = "SELECT \"id\" as \"server_id\", [cls.getSelectFields() /]
+		"FROM \"[schemaname /]\".\"[cls.name /]\"".
+		"WHERE \"id\" IN ($ids)";
+
+		$stmt = $this->db->query($query);
+
+		$res = $stmt->fetchAll(\PDO::FETCH_OBJ);
+
+		return $res;
+//comment
+		foreach ($res as $o){
+		[for (prop : Property | cls.eContents(Property))]
+			[if (prop.type.name.equalsIgnoreCase('float') or
+					 prop.type.name.equalsIgnoreCase('double') )]
+			$o->[prop.getName() /] = \db::float($o->[prop.getName() /]);
+			[else]
+			[if (prop.name.equalsIgnoreCase('last_update_time'))]
+			$o->last_update_time = \db::pg2javaLong(str_replace("'","",trim($o->last_update_time) ));
+			[else]
+			$o->[prop.getName() /] = trim($o->[prop.getName() /]);
+			[/if]
+			[/if]
+		[/for]
+		}
+//comment
+	}
+[/comment]
+
+	//SYNC PROTOCOL: update-on-server step 4,3
+	public function update($id, [cls.getArguments()/]){
+
+		$last_update_time = \db::timestamp();
+
+		$query = "UPDATE \"[schemaname /]\".\"[cls.name /]\" SET ".
+		"[cls.getUpdateFields()/]" WHERE id = ". $id.";";
+
+		$this->db->query($query);
+
+		$res = new \stdClass();
+
+		$res->server_id = $id;
+
+		return $res;
+	}
+
+
+	function get_for_client_update($last_update_time, $page_number, $page_size){
+
+		$query = "SELECT \"id\" as \"server_id\", [for (prop : Property | cls.eContents(Property)) separator (', ')]\"[prop.getName()/]\"[/for] FROM \"[schemaname /]\".\"[cls.name /]\" WHERE last_update_time > " . $last_update_time;
+
+		if(0 < $page_size){
+			$query .= " LIMIT " . $page_size . " OFFSET " . ($page_number * $page_size);
+		}
+
+		$query .= ";";
+
+		try{
+			$stmt = $this->db->query($query);
+		}catch(\Exception $ex){
+			echo $query . "\n";
+		}
+
+		$res = $stmt->fetchAll(\PDO::FETCH_OBJ);
+
+		return $res;
+
+	}
+
+}
+[/template]
+
+[comment all the functions over here are very known /]
+[comment maybe i should have an spetial sync package /]
+[template public postgres_sync_controller_cls(modul: Package, cls: Class, schemaname : String)]
+<?php
+
+namespace Sync\Controller;
+
+use Sync\Model\[cls.name.ToCamelCase() /] as [cls.name.ToCamelCase() /]Model;
+
+class [cls.name.ToCamelCase() /] {
+
+	public function __construct(){
+		if(empty($GLOBALS['['/]"ENABLE_SYNC_MODULE"[']'/])){
+			die();
+		}
+	}
+
+	//SYNC PROTOCOL: insert-on-client step 1,2
+	public function get_for_client_insert(){
+		$error_msg = "{\"status\":\"error\", \"usage\":\"{ \\\"server_id\\\" : (number), \\\"page_number\\\" : (number), \\\"page_size\\\" : (number)}\" }";
+		if(isset($_REQUEST['['/]"json"[']'/])){
+			$obj = json_decode($_REQUEST['['/]"json"[']'/]);
+			if(NULL == $obj){
+				echo $error_msg;
+				die();
+			}
+			$[ cls.name /] = new [ cls.name.ToCamelCase() /]Model();
+			$result = $[ cls.name /]->get_for_client_insert($obj->server_id, $obj->page_number, $obj->page_size);
+			echo json_encode($result, JSON_NUMERIC_CHECK);
+		} else {
+			echo $error_msg;
+			die();
+		}
+	}
+
+	//SYNC PROTOCOL: insert-on-server step 2,2
+	function bash_insert(){
+		$error_msg = "{\"status\":\"error\", \"usage\":\"['['/][cls.jsonDefinition(false)/][']'/]\"}";
+		if(isset($_REQUEST['['/]"json"[']'/])){
+			$rows = json_decode($_REQUEST['['/]"json"[']'/]);
+			if(NULL == $rows || empty($rows)){
+				echo $error_msg;
+				die();
+			}
+			$[ cls.name /] = new [ cls.name.ToCamelCase() /]Model();
+			$result = "['['/]";
+			for($i = 0; $i < sizeof($rows); $i++){
+				$ret = $[ cls.name /]->insert([cls.jsonArguments('rows[$i]', false)/]);
+				$ret->client_id = $rows['['/]$i[']'/]->client_id;
+				if($i > 0){
+					$result .= ",";
+				}
+				$result .= json_encode($ret, JSON_NUMERIC_CHECK);
+			}
+			$result .= "[']'/]";
+			echo $result;
+		} else {
+			echo $error_msg;
+		}
+	}
+
+[comment]
+	//SYNC PROTOCOL: update-on-client step 3,1
+	//SYNC PROTOCOL: update-on-server step 4,1
+	function get_last_update_time(){
+		$[ cls.name /] = new [ cls.name.ToCamelCase() /]Model();
+		$result = $[ cls.name /]->getLastUpdateTime();
+		echo json_encode($result, JSON_NUMERIC_CHECK);
+	}
+[/comment]
+
+[comment json, dont forget /]
+[comment]
+	//SYNC PROTOCOL: update-on-client step 3,3
+	function get_these(){
+
+		$error_msg = "{ \"status\" : \"error\" , \"usage\" : \"{\\\"ids\\\" : (int-csv)}\" }";
+
+		if(isset($_REQUEST['['/]"json"[']'/])){
+
+			$obj = json_decode($_REQUEST['['/]"json"[']'/]);
+
+			if(NULL == $obj){
+				echo $error_msg;
+				die();
+			}
+
+			$[ cls.name /] = new [ cls.name.ToCamelCase() /]Model();
+			$result = $[ cls.name /]->selectWhereIdIN($obj->ids);
+
+			echo json_encode($result, JSON_NUMERIC_CHECK);
+
+		} else {
+
+			echo $error_msg;
+
+		}
+	}
+[/comment]
+
+[comment i'll get these as json, in this case it'll be a list /]
+[comment TODO: maybe i would request/validate the request-key-token 
+from the user at each request, this way i can figure who is the user /]
+	//SYNC PROTOCOL: update-on-server step 4,3
+	function bash_update(){
+		$error_msg = "{ \"status\" : \"error\" , \"usage\" : \"['['/][cls.jsonDefinition(true)/][']'/]\"}"; 
+		if(isset($_REQUEST['['/]"json"[']'/])){
+			$rows = json_decode($_REQUEST['['/]"json"[']'/]);
+			if(NULL == $rows || empty($rows)){
+				echo $error_msg;
+				die();
+			}
+			$[ cls.name /] = new [ cls.name.ToCamelCase() /]Model();
+			$result = "['['/]";
+			for($i = 0; $i < sizeof($rows); $i++){
+				$ret = $[ cls.name /]->update([cls.jsonArguments('rows[$i]', true)/]);
+				$ret->client_id = $rows['['/]$i[']'/]->client_id;
+				if($i > 0){
+					$result .= ",";
+				}
+				$result .= json_encode($ret, JSON_NUMERIC_CHECK);
+			}
+			$result .= "[']'/]";
+			echo $result;
+		} else {
+			echo $error_msg;
+		}
+	}
+
+
+	function get_for_client_update(){
+		$error_msg = "{ \"status\" : \"error\" , \"usage\" : \"{ \"last_update_time\": (number), \"page_number\":  (number), \"page_size\": (number) }\"}"; 
+		if(isset($_REQUEST['['/]"json"[']'/])){
+			$obj = json_decode($_REQUEST['['/]"json"[']'/]);
+			if(NULL == $obj){
+				echo $error_msg;
+				return;
+			}
+			if(0 == $obj->last_update_time){
+					echo "['['/][']'/]";
+					return;
+			}
+			$[ cls.name /] = new [ cls.name.ToCamelCase() /]Model();
+			$result = $[ cls.name /]->get_for_client_update($obj->last_update_time, $obj->page_number, $obj->page_size);
+			echo json_encode($ret, JSON_NUMERIC_CHECK);
+		} else {
+			echo $error_msg;
+		}
+	}
+
+}
+[/template]
+
+[query public get_config_db_schema_name(arg : Model) : String = 
+self.eContents(Class)->select(x|x.name='custom_config')->first().eContents(Property)
+->select(x|x.type.name.toString().equalsIgnoreCase('db_schema_name'))->first().name
+ /]
+
+[comment 
+copy from ANdroidSqliteSync
+ /]
+[query public get_modules(root : Model) : Sequence(Package) = 
+eContents(Package)
+	->select(x|x.name = 'mvc')
+	->first() 
+	.eContents(Package)
+/]
+
+[comment 
+copy from ANdroidSqliteSync
+ /]
+[query public get_tables(modul : Package) : Sequence(Class) =  
+eContents(Package)
+	->select(x|x.name = 'dataModels')
+	->first() 
+	.eContents(Class)
+/]
+
+
+[**
+ * todo now im generating only the model classes
+ * and controller classes for update on android
+ * @param root
+ */]
+[template public php_server_code(root : Model)]
+[comment @main/]
+
+[let schemaname : String = 'simpledb']
+[for (modul : Package | get_modules(root))]
+[for (cls : Class | get_tables(modul))]
+
+[comment]
+This application should have only model and controller
+and ofcourse user validation
+[/comment]
+[file ('php-website/modules/sync/model/'+lcase(cls.name)+'.class.php', false, 'UTF-8')]
+[postgres_sync_model_cls(modul, cls, schemaname) /]
+[/file]
+[file ('php-website/modules/sync/controller/'+lcase(cls.name)+'.class.php', false, 'UTF-8')]
+[postgres_sync_controller_cls(modul, cls, schemaname) /]
+[/file]
+
+[/for]
+[/for]
+[/let]
+
+[/template]

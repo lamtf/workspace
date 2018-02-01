@@ -1,6 +1,8 @@
 [comment encoding = UTF-8 /]
 [module AndroidSqliteSyncSingle('http://www.eclipse.org/uml2/5.0.0/UML')]
 
+[import com::uisleandro::AndroidSqliteSyncSingle::common::php_server_code /]
+
 [comment CPF is a unique key, please fix it on all databases /]
 
 
@@ -1103,6 +1105,9 @@ I will need to create the views which im returning :'D
 [/for]
 
 [/let][/let][/let][/let]
+
+[php_server_code(root) /]
+
 [/template]
 
 
