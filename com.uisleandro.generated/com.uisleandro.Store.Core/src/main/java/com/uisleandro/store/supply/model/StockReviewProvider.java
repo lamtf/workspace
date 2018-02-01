@@ -129,7 +129,7 @@ public class StockReviewProvider extends ContentProvider {
 		DbHelper.STOCK_REVIEW_MISSING_AMOUNT
 	};
 
-	public StockReviewDataSource (Context context) {
+	public StockReviewProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

@@ -39,8 +39,7 @@ public class InvoiceDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      InvoiceView that = InvoiceView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(InvoiceView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class InvoiceDataSource {
 	    return that;
 	}
 
-	public List<InvoiceView listSome (long page_count, long page_size) {
+	public List<InvoiceView> listSome (long page_count, long page_size) {
 		List<InvoiceView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(INVOICE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      InvoiceView that = InvoiceView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(InvoiceView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

@@ -39,8 +39,7 @@ public class DbLogDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      DbLogView that = DbLogView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(DbLogView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class DbLogDataSource {
 	    return that;
 	}
 
-	public List<DbLogView listSome (long page_count, long page_size) {
+	public List<DbLogView> listSome (long page_count, long page_size) {
 		List<DbLogView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(DB_LOG_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      DbLogView that = DbLogView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(DbLogView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

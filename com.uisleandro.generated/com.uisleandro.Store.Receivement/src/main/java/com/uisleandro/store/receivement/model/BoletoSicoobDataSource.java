@@ -39,8 +39,7 @@ public class BoletoSicoobDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      BoletoSicoobView that = BoletoSicoobView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(BoletoSicoobView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class BoletoSicoobDataSource {
 	    return that;
 	}
 
-	public List<BoletoSicoobView listSome (long page_count, long page_size) {
+	public List<BoletoSicoobView> listSome (long page_count, long page_size) {
 		List<BoletoSicoobView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(BOLETO_SICOOB_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      BoletoSicoobView that = BoletoSicoobView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(BoletoSicoobView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

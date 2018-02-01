@@ -39,8 +39,7 @@ public class DistributorContactDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      DistributorContactView that = DistributorContactView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(DistributorContactView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class DistributorContactDataSource {
 	    return that;
 	}
 
-	public List<DistributorContactView listSome (long page_count, long page_size) {
+	public List<DistributorContactView> listSome (long page_count, long page_size) {
 		List<DistributorContactView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(DISTRIBUTOR_CONTACT_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      DistributorContactView that = DistributorContactView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(DistributorContactView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

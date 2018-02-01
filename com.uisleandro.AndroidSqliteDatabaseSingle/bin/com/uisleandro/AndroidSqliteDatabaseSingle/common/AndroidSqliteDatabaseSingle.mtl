@@ -829,7 +829,6 @@ public class [tbl.name.ToCamelCase() /]Provider extends ContentProvider {
 
 [end_reserve('reserved-for:AndroidSqliteDatabase002') /]
 
-
 // [protected ('reserved-for:AndroidSqliteSyncSingle002')]
 // reserved-for:AndroidSqliteSyncSingle003
 // [/protected]
@@ -870,7 +869,7 @@ separator (', \n')]
 
 	};
 
-	public [tbl.name.ToCamelCase() /]DataSource (Context context) {
+	public [tbl.name.ToCamelCase() /]Provider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -1110,8 +1109,7 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      [tbl.name.ToCamelCase() /]View that = [tbl.name.ToCamelCase() /]View.FromCursor(cursor);
-		      those.add(that);
+		      those.add([tbl.name.ToCamelCase() /]View.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -1132,14 +1130,13 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 	    return that;
 	}
 
-	public List<[tbl.name.ToCamelCase() /]View listSome (long page_count, long page_size) {
+	public List<[tbl.name.ToCamelCase() /]View> listSome (long page_count, long page_size) {
 		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query([tbl.name.toUpperCase() /]_SOME, new String[ '[' /][ ']' /]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      [tbl.name.ToCamelCase() /]View that = [tbl.name.ToCamelCase() /]View.FromCursor(cursor);
-		      those.add(that);
+		      those.add([tbl.name.ToCamelCase() /]View.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

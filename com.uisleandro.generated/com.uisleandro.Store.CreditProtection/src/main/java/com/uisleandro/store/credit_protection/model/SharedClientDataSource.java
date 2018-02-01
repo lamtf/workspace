@@ -39,8 +39,7 @@ public class SharedClientDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      SharedClientView that = SharedClientView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(SharedClientView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class SharedClientDataSource {
 	    return that;
 	}
 
-	public List<SharedClientView listSome (long page_count, long page_size) {
+	public List<SharedClientView> listSome (long page_count, long page_size) {
 		List<SharedClientView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SHARED_CLIENT_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      SharedClientView that = SharedClientView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(SharedClientView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

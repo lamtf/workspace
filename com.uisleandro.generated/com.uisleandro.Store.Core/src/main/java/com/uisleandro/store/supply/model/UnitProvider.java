@@ -125,7 +125,7 @@ public class UnitProvider extends ContentProvider {
 		DbHelper.UNIT_NAME
 	};
 
-	public UnitDataSource (Context context) {
+	public UnitProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

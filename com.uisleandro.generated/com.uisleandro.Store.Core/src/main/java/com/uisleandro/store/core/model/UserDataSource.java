@@ -40,8 +40,7 @@ public class UserDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      UserView that = UserView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(UserView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -62,14 +61,13 @@ public class UserDataSource {
 	    return that;
 	}
 
-	public List<UserView listSome (long page_count, long page_size) {
+	public List<UserView> listSome (long page_count, long page_size) {
 		List<UserView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(USER_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      UserView that = UserView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(UserView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

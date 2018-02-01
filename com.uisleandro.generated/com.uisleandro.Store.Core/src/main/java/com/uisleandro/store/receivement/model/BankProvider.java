@@ -126,7 +126,7 @@ public class BankProvider extends ContentProvider {
 		DbHelper.BANK_NAME
 	};
 
-	public BankDataSource (Context context) {
+	public BankProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

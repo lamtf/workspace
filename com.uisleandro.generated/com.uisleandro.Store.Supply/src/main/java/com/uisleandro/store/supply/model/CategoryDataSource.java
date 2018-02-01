@@ -39,8 +39,7 @@ public class CategoryDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      CategoryView that = CategoryView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(CategoryView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class CategoryDataSource {
 	    return that;
 	}
 
-	public List<CategoryView listSome (long page_count, long page_size) {
+	public List<CategoryView> listSome (long page_count, long page_size) {
 		List<CategoryView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(CATEGORY_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      CategoryView that = CategoryView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(CategoryView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

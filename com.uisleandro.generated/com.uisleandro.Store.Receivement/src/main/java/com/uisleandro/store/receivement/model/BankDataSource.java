@@ -39,8 +39,7 @@ public class BankDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      BankView that = BankView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(BankView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class BankDataSource {
 	    return that;
 	}
 
-	public List<BankView listSome (long page_count, long page_size) {
+	public List<BankView> listSome (long page_count, long page_size) {
 		List<BankView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(BANK_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      BankView that = BankView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(BankView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

@@ -88,7 +88,7 @@ public class ResellerProvider extends ContentProvider {
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteSyncSingle002
-// reserved-for:AndroidSqliteSyncSingle002
+// reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
@@ -131,7 +131,7 @@ public class ResellerProvider extends ContentProvider {
 		DbHelper.RESELLER_ZIP_CODE
 	};
 
-	public ResellerDataSource (Context context) {
+	public ResellerProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

@@ -136,7 +136,7 @@ public class BoletoSicoobProvider extends ContentProvider {
 		DbHelper.BOLETO_SICOOB_FK_INVOICE
 	};
 
-	public BoletoSicoobDataSource (Context context) {
+	public BoletoSicoobProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

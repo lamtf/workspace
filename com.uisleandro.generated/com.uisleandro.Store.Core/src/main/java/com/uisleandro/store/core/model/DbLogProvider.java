@@ -127,7 +127,7 @@ public class DbLogProvider extends ContentProvider {
 		DbHelper.DB_LOG_FK_USER
 	};
 
-	public DbLogDataSource (Context context) {
+	public DbLogProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

@@ -125,7 +125,7 @@ public class InterestRateTypeProvider extends ContentProvider {
 		DbHelper.INTEREST_RATE_TYPE_NAME
 	};
 
-	public InterestRateTypeDataSource (Context context) {
+	public InterestRateTypeProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

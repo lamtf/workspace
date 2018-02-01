@@ -137,7 +137,7 @@ public class SystemProvider extends ContentProvider {
 		DbHelper.SYSTEM_FK_RESELLER
 	};
 
-	public SystemDataSource (Context context) {
+	public SystemProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

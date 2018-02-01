@@ -39,8 +39,7 @@ public class StockReviewDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      StockReviewView that = StockReviewView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(StockReviewView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class StockReviewDataSource {
 	    return that;
 	}
 
-	public List<StockReviewView listSome (long page_count, long page_size) {
+	public List<StockReviewView> listSome (long page_count, long page_size) {
 		List<StockReviewView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(STOCK_REVIEW_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      StockReviewView that = StockReviewView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(StockReviewView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

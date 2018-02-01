@@ -126,7 +126,7 @@ public class CurrencyProvider extends ContentProvider {
 		DbHelper.CURRENCY_DESCRIPTION
 	};
 
-	public CurrencyDataSource (Context context) {
+	public CurrencyProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

@@ -144,7 +144,7 @@ public class IssueProvider extends ContentProvider {
 		DbHelper.ISSUE_FK_ISSUE
 	};
 
-	public IssueDataSource (Context context) {
+	public IssueProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

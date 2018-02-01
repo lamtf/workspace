@@ -172,7 +172,7 @@ public class SaleProvider extends ContentProvider {
 		DbHelper.SALE_FK_CLIENT_FROM_SYSTEM
 	};
 
-	public SaleDataSource (Context context) {
+	public SaleProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

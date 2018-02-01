@@ -39,8 +39,7 @@ public class ResellerDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      ResellerView that = ResellerView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(ResellerView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class ResellerDataSource {
 	    return that;
 	}
 
-	public List<ResellerView listSome (long page_count, long page_size) {
+	public List<ResellerView> listSome (long page_count, long page_size) {
 		List<ResellerView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(RESELLER_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      ResellerView that = ResellerView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(ResellerView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

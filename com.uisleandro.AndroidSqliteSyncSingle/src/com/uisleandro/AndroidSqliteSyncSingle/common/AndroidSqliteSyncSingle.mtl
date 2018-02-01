@@ -330,28 +330,46 @@ owner.owner.oclAsType(NamedElement).name)
 /][/if][/template]
 
 
-[template public android_create_tbl_datasource_class(pname: String, modul: Package, tbl: Class)]
-//[protected ('reserved-for:android-sqlite-db.imports')]
-//reserved-for:android-sqlite-db.imports
-//[/protected]
+[template public android_create_offline_helper_class(pname: String, modul: Package, tbl: Class)]
+package [pname /].[modul.name/].model;
 
-[begin_reserve('reserved-for:android-sqlite-sync.imports') /]
-[end_reserve('reserved-for:android-sqlite-sync.imports') /]
+import java.util.ArrayList;
+import java.util.List;
+import android.database.Cursor;
+import android.util.Log;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 
-//[protected ('reserved-for:query3.imports')]
-// reserved-for:query3.imports
-//[/protected]
+import [pname /].[modul.name/].view.[tbl.name.ToCamelCase() /]DataView
 
-//[protected ('reserved-for:android-sqlite-db.functions')]
-//reserved-for:android-sqlite-db.functions
-[/protected]
+public class [tbl.name.ToCamelCase() /]OfflineHelper {
 
-[begin_reserve('reserved-for:android-sqlite-sync.functions') /]
-/* DESCOMENTAR QUANDO RESOLVER O PROBLEMA
-	[comment RENAMED /]
-	//list for insert on server
-	//translates the foreign keys
-	public List<[tbl.name.ToCamelCase() /]View> listForInsertOnServer(long page_count, long page_size){
+	private Context context;
+	private SQLiteDatabase database;
+	private DbHelper db_helper;
+
+	public [tbl.name.ToCamelCase() /]OfflineHelper (Context context) {
+		this.context = context;
+	}
+
+	public [tbl.name.ToCamelCase() /]OfflineHelper (Context context) {
+		db_helper = DbHelper.getInstance(context);
+		try{
+			database = db_helper.getWritableDatabase();
+		}catch(SQLException e){
+			Log.wtf("[tbl.name.ToCamelCase() /]DataSource", "Exception: "+Log.getStackTraceString(e));
+		}
+	}
+
+	public void open () throws SQLException {
+		database = db_helper.getWritableDatabase();
+	}
+
+	public void close () {
+		db_helper.close();
+	}
+
+	public List<[tbl.name.ToCamelCase() /]DataView> listForInsertOnServer(long page_count, long page_size){
 
 		String query = "[let fks : Sequence(Property) = 
 tbl.eContents(Property)
@@ -379,12 +397,19 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 
-		return cursorToListOf[tbl.name.ToCamelCase() /]View(cursor);
+		cursor.moveToFirst();
+	    while(!cursor.isAfterLast()){
+	      those.add([tbl.name.ToCamelCase() /]View.FromCursor(cursor));
+	      cursor.moveToNext();
+	    }
+	    cursor.close();
+
+		return those;
 	}
 
 	//list for update on server
 	//translates the foreign keys
-	public List<[tbl.name.ToCamelCase() /]View> listForUpdateOnServer(long page_count, long page_size){
+	public List<[tbl.name.ToCamelCase() /]DataView> listForUpdateOnServer(long page_count, long page_size){
 
 		//Log.wtf("rest-api", "listSomeDirty");
 		[comment // Estou com um erro pois nao gero as tabelas que nao fazem parte deste modulo /]
@@ -413,7 +438,13 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 
-		return cursorToListOf[tbl.name.ToCamelCase() /]View(cursor);
+		cursor.moveToFirst();
+	    while(!cursor.isAfterLast()){
+	      those.add([tbl.name.ToCamelCase() /]View.FromCursor(cursor));
+	      cursor.moveToNext();
+	    }
+	    cursor.close();
+
 	}
 
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
@@ -498,7 +529,7 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 
 
 [/let][else]
-	// this class doesn't need to fix client foreign keys
+	// this class don't need to fix client foreign keys
 [/if]
 
 	[comment
@@ -510,13 +541,6 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 	pois não posso usar uma flag dirty no servidor como no cliente..
 	não quero usar todos os dados, acho que fiz alguma alteracao no php /]
 
-DESCOMENTAR QUANDO RESOLVER O PROBLEMA */
-
-[end_reserve('reserved-for:android-sqlite-sync.functions') /]
-
-//[protected ('reserved-for:query3.functions')]
-//reserved-for:query3.functions
-//[/protected]
 
 }
 [/template]
@@ -526,6 +550,185 @@ DESCOMENTAR QUANDO RESOLVER O PROBLEMA */
 ][for (name : String | tokenize('.')) separator ('.')
 ][name /][/for][/template]
 
+
+[comment
+copy from: ANdroidSqliteDatabseSIngle.mtl
+/]
+[template public android_create_tblviewclass(pname: String, modul: Package, tbl: Class)]
+package [pname /].[modul.name /].view; [comment Core is modul.name /]
+
+import org.json.JSONException;
+import org.json.JSONObject;
+import android.database.Cursor;
+
+public class [tbl.name.ToCamelCase() /]DataView {
+
+	private long id;
+	private long server_id;
+	private boolean dirty;
+[for (prop : Property | get_fields(tbl) )]
+	private [get_java_type(prop) /] [prop.getName() /];
+[/for]
+
+	public [tbl.name.ToCamelCase()/]DataView () {
+		this.id = 0L;
+		this.server_id = 0L;
+		this.dirty = false;
+[for (prop : Property | get_fields(tbl))
+]		this.[getName() /] = [default_zero() /];
+[/for]
+	}
+
+	public long getId () {
+		return id;
+	}
+
+	public void setId (long id) {
+		this.id = id;
+	}
+
+	public long getServerId () {
+		return server_id;
+	}
+
+	public void setServerId (long server_id) {
+		this.server_id = server_id;
+	}
+
+	public boolean isDirty () {
+		return dirty;
+	}
+
+	public void setDirty (boolean dirty) {
+		this.dirty = dirty;
+	}
+
+	[for (prop : Property | get_fields(tbl))]
+	public [get_java_type(prop)/] get[prop.getName().ToCamelCase()/] () {
+		return [prop.getName() /];
+	}
+
+	public void set[prop.getName().ToCamelCase()/] ([get_java_type(prop)/] [prop.getName()/]) {
+		this.[prop.getName()/] = [prop.getName()/];
+	}
+
+	[/for]
+	public String toJsonString () {
+		String result = "{" +
+			"\"client_id\":\"" + this.id + "\"," +
+			"\"server_id\":\"" + this.server_id + "\"," +
+[for (prop : Property | get_fields(tbl)
+) separator ('+ "\\"," + \n') after ('+ "\\"" + \n')][if (the_client_cant_change(prop))]
+		"\"[prop.getName() /]\": " + DbHelper.CONST_FK_[prop.name.toUpperCase() /]
+[else]
+			"\"[prop.getName() /]\":\"" + this.[prop.getName() /][/if][/for]
+		"}";
+		return result;
+	}
+
+	public String toString () {
+[if (tbl.eContents(Property)->exists(x: Property |
+	x.name.toString().indexOf('name') > 0 or
+	x.name.toString().indexOf('nome') > 0))
+]
+		return this.[tbl.eContents(Property)->select(x: Property |
+	x.name.toString().indexOf('name') > 0 or
+	x.name.toString().indexOf('nome') > 0)->first().name /];
+[else][if (tbl.eContents(Property)
+->exists(x: Property | is_string(x)) )]
+		return this.[tbl.eContents(Property)->select(x: Property | is_string(x) )->first().name /];
+[else]
+		return "[tbl.name.ToCamelCase() /]View";
+[/if][/if]
+
+	}
+
+	public static [tbl.name.ToCamelCase() /]View FromJson(String json){
+		if(json != null) {
+			try {
+				JSONObject obj = new JSONObject(json);
+				return [tbl.name.ToCamelCase() /]View.FromJsonObj(obj);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	public static [tbl.name.ToCamelCase() /]View FromJsonObj (JSONObject obj) {
+		if(null != obj) {
+			try {
+				[tbl.name.ToCamelCase() /]View result = new [tbl.name.ToCamelCase() /]View();
+				if(obj.has("client_id") && !obj.isNull("client_id")){
+					result.setId(obj.getLong("client_id"));
+				}
+				if(obj.has("server_id") && !obj.isNull("server_id")){
+					result.setServerId(obj.getLong("server_id"));
+				}
+				/* if(obj.has("dirty") && !obj.isNull("dirty")){
+					result.setDirty(obj.getInt("dirty") > 0);
+				} */
+[for (prop : Property | get_fields(tbl))]
+[if (prop.isFk())]
+				if(obj.has("[prop.getName() /]") && !obj.isNull("[prop.getName() /]")){
+					result.set[prop.getName().ToCamelCase()/]([getter_named(prop, 'obj') /]);
+				}
+[else]
+				result.set[prop.getName().ToCamelCase()/]([getter_named(prop, 'obj') /]);
+[/if]
+[/for]
+				return result;
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+
+	public static [tbl.name.ToCamelCase() /]View FromCursor (Cursor cursor) {
+		if(null != cursor){
+			[tbl.name.ToCamelCase() /]View result = new [tbl.name.ToCamelCase() /]View();
+			result.setId(cursor.getLong(0));
+			result.setServerId(cursor.getLong(1));
+			result.setDirty(cursor.getInt(2) > 0);
+[for (prop : Property | get_fields(tbl))]
+			result.set[prop.getName().ToCamelCase() /]([getter_indexed(prop,'cursor', i+2) /]);
+[/for]
+			return result;		
+		}
+		return null;
+	}
+
+	public String[ '[' /][ ']' /] toInsertArray () {
+		return new String[ '[' /][ ']' /]{[for (prop : Property | get_fields(tbl)) separator (', ')][to_java_string(prop) /][/for]};
+	}
+
+	public String[ '[' /][ ']' /] toUpdateArray () {
+		return new String[ '[' /][ ']' /]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), [for (prop : Property | get_fields(tbl)) separator (', ')][to_java_string(prop) /][/for]};
+	}
+
+}
+[/template]
+
+[comment
+copy from: ANdroidSqliteDatabseSIngle.mtl
+/]
+[query public to_java_string(arg: Property): String =
+if null = arg.type
+or arg.type.name.equalsIgnoreCase('BarcodeType')
+or arg.type.name.equalsIgnoreCase('File')
+or arg.type.name.equalsIgnoreCase('GuidType')
+or arg.type.name.equalsIgnoreCase('BigText')
+or arg.type.name.equalsIgnoreCase('SmallText')
+or arg.type.name.equalsIgnoreCase('Abbreviature')
+or arg.type.name.equalsIgnoreCase('MediumText') then
+arg.name
+else
+'String.valueOf('+arg.name+')'
+endif/]
+
+
+
 [template public generateElement(root : Model)]
 [comment @main/]
 
@@ -534,6 +737,8 @@ DESCOMENTAR QUANDO RESOLVER O PROBLEMA */
 
 I think its better to have
 one for each module
+
+I will need to create the views which im returning :'D
 
  /]
 [comment] 
@@ -545,8 +750,18 @@ one for each module
 [for (modul : Package | get_modules(root))]
 [for (tbl : Class | get_tables(modul))]
 
-[file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'DataSource.java', false, 'UTF-8')]
+[comment] 
+[file ('com.uisleandro.Store.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'Provider.java', false, 'UTF-8')]
 [android_create_tbl_datasource_class(pname, modul, tbl)/]
+[/file]
+[/comment]
+
+[file ('com.uisleandro.Store.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/view/'+tbl.name.ToCamelCase()+'DataView.java', false, 'UTF-8')]
+[android_create_tblviewclass(pname, modul, tbl) /]
+[/file]
+
+[file ('com.uisleandro.Store.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+tbl.name.ToCamelCase()+'OfflineHelper.java', false, 'UTF-8')]
+[android_create_offline_helper_class(pname, modul, tbl)/]
 [/file]
 
 [/for]

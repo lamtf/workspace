@@ -125,7 +125,7 @@ public class CountryProvider extends ContentProvider {
 		DbHelper.COUNTRY_NAME
 	};
 
-	public CountryDataSource (Context context) {
+	public CountryProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

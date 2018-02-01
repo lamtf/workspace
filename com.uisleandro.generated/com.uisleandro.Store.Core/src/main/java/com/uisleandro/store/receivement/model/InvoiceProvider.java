@@ -144,7 +144,7 @@ public class InvoiceProvider extends ContentProvider {
 		DbHelper.INVOICE_FK_BANK
 	};
 
-	public InvoiceDataSource (Context context) {
+	public InvoiceProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

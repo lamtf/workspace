@@ -39,8 +39,7 @@ public class ClientFromSystemDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      ClientFromSystemView that = ClientFromSystemView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(ClientFromSystemView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class ClientFromSystemDataSource {
 	    return that;
 	}
 
-	public List<ClientFromSystemView listSome (long page_count, long page_size) {
+	public List<ClientFromSystemView> listSome (long page_count, long page_size) {
 		List<ClientFromSystemView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(CLIENT_FROM_SYSTEM_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      ClientFromSystemView that = ClientFromSystemView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(ClientFromSystemView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

@@ -39,8 +39,7 @@ public class GenderDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      GenderView that = GenderView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(GenderView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class GenderDataSource {
 	    return that;
 	}
 
-	public List<GenderView listSome (long page_count, long page_size) {
+	public List<GenderView> listSome (long page_count, long page_size) {
 		List<GenderView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(GENDER_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      GenderView that = GenderView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(GenderView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

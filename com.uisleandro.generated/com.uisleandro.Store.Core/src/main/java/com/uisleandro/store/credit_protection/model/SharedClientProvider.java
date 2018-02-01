@@ -138,7 +138,7 @@ public class SharedClientProvider extends ContentProvider {
 		DbHelper.SHARED_CLIENT_FK_COUNTRY
 	};
 
-	public SharedClientDataSource (Context context) {
+	public SharedClientProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

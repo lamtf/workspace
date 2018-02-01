@@ -126,7 +126,7 @@ public class CategoryProvider extends ContentProvider {
 		DbHelper.CATEGORY_NAME
 	};
 
-	public CategoryDataSource (Context context) {
+	public CategoryProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

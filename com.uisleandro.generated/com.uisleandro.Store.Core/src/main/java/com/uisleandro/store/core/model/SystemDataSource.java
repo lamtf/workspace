@@ -39,8 +39,7 @@ public class SystemDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      SystemView that = SystemView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(SystemView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class SystemDataSource {
 	    return that;
 	}
 
-	public List<SystemView listSome (long page_count, long page_size) {
+	public List<SystemView> listSome (long page_count, long page_size) {
 		List<SystemView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SYSTEM_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      SystemView that = SystemView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(SystemView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

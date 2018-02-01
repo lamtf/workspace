@@ -125,7 +125,7 @@ public class RoleProvider extends ContentProvider {
 		DbHelper.ROLE_NAME
 	};
 
-	public RoleDataSource (Context context) {
+	public RoleProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

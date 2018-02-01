@@ -39,8 +39,7 @@ public class IssueDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      IssueView that = IssueView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(IssueView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class IssueDataSource {
 	    return that;
 	}
 
-	public List<IssueView listSome (long page_count, long page_size) {
+	public List<IssueView> listSome (long page_count, long page_size) {
 		List<IssueView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(ISSUE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      IssueView that = IssueView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(IssueView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

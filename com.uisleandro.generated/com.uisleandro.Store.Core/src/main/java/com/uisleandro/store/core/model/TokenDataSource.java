@@ -39,8 +39,7 @@ public class TokenDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      TokenView that = TokenView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(TokenView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class TokenDataSource {
 	    return that;
 	}
 
-	public List<TokenView listSome (long page_count, long page_size) {
+	public List<TokenView> listSome (long page_count, long page_size) {
 		List<TokenView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(TOKEN_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      TokenView that = TokenView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(TokenView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

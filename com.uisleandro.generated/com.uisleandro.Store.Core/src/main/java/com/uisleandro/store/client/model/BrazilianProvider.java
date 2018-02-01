@@ -127,7 +127,7 @@ public class BrazilianProvider extends ContentProvider {
 		DbHelper.BRAZILIAN_FK_BASIC_CLIENT
 	};
 
-	public BrazilianDataSource (Context context) {
+	public BrazilianProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

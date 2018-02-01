@@ -39,8 +39,7 @@ public class InstallmentTypeDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      InstallmentTypeView that = InstallmentTypeView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(InstallmentTypeView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class InstallmentTypeDataSource {
 	    return that;
 	}
 
-	public List<InstallmentTypeView listSome (long page_count, long page_size) {
+	public List<InstallmentTypeView> listSome (long page_count, long page_size) {
 		List<InstallmentTypeView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(INSTALLMENT_TYPE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      InstallmentTypeView that = InstallmentTypeView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(InstallmentTypeView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

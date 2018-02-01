@@ -39,8 +39,7 @@ public class SaleTypeDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      SaleTypeView that = SaleTypeView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(SaleTypeView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class SaleTypeDataSource {
 	    return that;
 	}
 
-	public List<SaleTypeView listSome (long page_count, long page_size) {
+	public List<SaleTypeView> listSome (long page_count, long page_size) {
 		List<SaleTypeView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SALE_TYPE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      SaleTypeView that = SaleTypeView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(SaleTypeView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

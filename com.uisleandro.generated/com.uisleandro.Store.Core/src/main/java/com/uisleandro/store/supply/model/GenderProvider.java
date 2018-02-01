@@ -125,7 +125,7 @@ public class GenderProvider extends ContentProvider {
 		DbHelper.GENDER_NAME
 	};
 
-	public GenderDataSource (Context context) {
+	public GenderProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

@@ -131,7 +131,7 @@ public class DiscountProvider extends ContentProvider {
 		DbHelper.DISCOUNT_FK_GENDER
 	};
 
-	public DiscountDataSource (Context context) {
+	public DiscountProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

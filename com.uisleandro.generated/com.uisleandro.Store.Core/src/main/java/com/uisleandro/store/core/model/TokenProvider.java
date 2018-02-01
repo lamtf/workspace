@@ -130,7 +130,7 @@ public class TokenProvider extends ContentProvider {
 		DbHelper.TOKEN_EXPIRATION_TIME
 	};
 
-	public TokenDataSource (Context context) {
+	public TokenProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

@@ -43,8 +43,7 @@ public class ProductDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      ProductView that = ProductView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(ProductView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -65,14 +64,13 @@ public class ProductDataSource {
 	    return that;
 	}
 
-	public List<ProductView listSome (long page_count, long page_size) {
+	public List<ProductView> listSome (long page_count, long page_size) {
 		List<ProductView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(PRODUCT_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      ProductView that = ProductView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(ProductView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

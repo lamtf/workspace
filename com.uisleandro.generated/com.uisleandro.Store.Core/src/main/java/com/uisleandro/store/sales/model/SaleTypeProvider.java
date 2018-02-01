@@ -125,7 +125,7 @@ public class SaleTypeProvider extends ContentProvider {
 		DbHelper.SALE_TYPE_NAME
 	};
 
-	public SaleTypeDataSource (Context context) {
+	public SaleTypeProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

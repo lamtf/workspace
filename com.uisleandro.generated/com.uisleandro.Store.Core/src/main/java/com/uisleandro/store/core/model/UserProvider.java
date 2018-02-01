@@ -149,7 +149,7 @@ public class UserProvider extends ContentProvider {
 		DbHelper.USER_ACTIVE
 	};
 
-	public UserDataSource (Context context) {
+	public UserProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

@@ -42,8 +42,7 @@ public class BasicClientDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      BasicClientView that = BasicClientView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(BasicClientView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -64,14 +63,13 @@ public class BasicClientDataSource {
 	    return that;
 	}
 
-	public List<BasicClientView listSome (long page_count, long page_size) {
+	public List<BasicClientView> listSome (long page_count, long page_size) {
 		List<BasicClientView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(BASIC_CLIENT_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      BasicClientView that = BasicClientView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(BasicClientView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

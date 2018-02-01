@@ -126,7 +126,7 @@ public class BrandProvider extends ContentProvider {
 		DbHelper.BRAND_FANTASY_NAME
 	};
 
-	public BrandDataSource (Context context) {
+	public BrandProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

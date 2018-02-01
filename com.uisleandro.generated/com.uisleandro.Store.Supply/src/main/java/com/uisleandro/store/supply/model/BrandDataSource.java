@@ -39,8 +39,7 @@ public class BrandDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      BrandView that = BrandView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(BrandView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class BrandDataSource {
 	    return that;
 	}
 
-	public List<BrandView listSome (long page_count, long page_size) {
+	public List<BrandView> listSome (long page_count, long page_size) {
 		List<BrandView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(BRAND_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      BrandView that = BrandView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(BrandView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

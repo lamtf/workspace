@@ -132,7 +132,7 @@ public class DistributorContactProvider extends ContentProvider {
 		DbHelper.DISTRIBUTOR_CONTACT_FK_BRAND
 	};
 
-	public DistributorContactDataSource (Context context) {
+	public DistributorContactProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

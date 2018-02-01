@@ -40,8 +40,7 @@ public class CashRegisterDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      CashRegisterView that = CashRegisterView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(CashRegisterView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -62,14 +61,13 @@ public class CashRegisterDataSource {
 	    return that;
 	}
 
-	public List<CashRegisterView listSome (long page_count, long page_size) {
+	public List<CashRegisterView> listSome (long page_count, long page_size) {
 		List<CashRegisterView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(CASH_REGISTER_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      CashRegisterView that = CashRegisterView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(CashRegisterView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

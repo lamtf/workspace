@@ -39,8 +39,7 @@ public class BrazilianDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      BrazilianView that = BrazilianView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(BrazilianView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class BrazilianDataSource {
 	    return that;
 	}
 
-	public List<BrazilianView listSome (long page_count, long page_size) {
+	public List<BrazilianView> listSome (long page_count, long page_size) {
 		List<BrazilianView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(BRAZILIAN_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      BrazilianView that = BrazilianView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(BrazilianView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

@@ -162,7 +162,7 @@ public class BasicClientProvider extends ContentProvider {
 		DbHelper.BASIC_CLIENT_FK_COUNTRY
 	};
 
-	public BasicClientDataSource (Context context) {
+	public BasicClientProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

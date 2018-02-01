@@ -171,7 +171,7 @@ public class CashRegisterProvider extends ContentProvider {
 		DbHelper.CASH_REGISTER_CLOSING_VALUE
 	};
 
-	public CashRegisterDataSource (Context context) {
+	public CashRegisterProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

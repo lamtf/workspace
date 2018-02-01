@@ -125,7 +125,7 @@ public class TokenTypeProvider extends ContentProvider {
 		DbHelper.TOKEN_TYPE_NAME
 	};
 
-	public TokenTypeDataSource (Context context) {
+	public TokenTypeProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

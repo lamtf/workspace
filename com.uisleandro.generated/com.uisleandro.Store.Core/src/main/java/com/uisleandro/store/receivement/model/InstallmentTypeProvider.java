@@ -125,7 +125,7 @@ public class InstallmentTypeProvider extends ContentProvider {
 		DbHelper.INSTALLMENT_TYPE_NAME
 	};
 
-	public InstallmentTypeDataSource (Context context) {
+	public InstallmentTypeProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

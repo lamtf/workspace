@@ -39,8 +39,7 @@ public class CountryDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      CountryView that = CountryView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(CountryView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class CountryDataSource {
 	    return that;
 	}
 
-	public List<CountryView listSome (long page_count, long page_size) {
+	public List<CountryView> listSome (long page_count, long page_size) {
 		List<CountryView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(COUNTRY_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      CountryView that = CountryView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(CountryView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

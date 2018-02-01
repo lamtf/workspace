@@ -39,8 +39,7 @@ public class RoleDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      RoleView that = RoleView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(RoleView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class RoleDataSource {
 	    return that;
 	}
 
-	public List<RoleView listSome (long page_count, long page_size) {
+	public List<RoleView> listSome (long page_count, long page_size) {
 		List<RoleView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(ROLE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      RoleView that = RoleView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(RoleView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

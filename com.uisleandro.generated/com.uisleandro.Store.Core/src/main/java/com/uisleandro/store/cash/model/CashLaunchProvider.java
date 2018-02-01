@@ -127,7 +127,7 @@ public class CashLaunchProvider extends ContentProvider {
 		DbHelper.CASH_LAUNCH_AMOUNT_SPENT
 	};
 
-	public CashLaunchDataSource (Context context) {
+	public CashLaunchProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

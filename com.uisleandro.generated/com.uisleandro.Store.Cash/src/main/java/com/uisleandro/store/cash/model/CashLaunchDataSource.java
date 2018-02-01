@@ -39,8 +39,7 @@ public class CashLaunchDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      CashLaunchView that = CashLaunchView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(CashLaunchView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class CashLaunchDataSource {
 	    return that;
 	}
 
-	public List<CashLaunchView listSome (long page_count, long page_size) {
+	public List<CashLaunchView> listSome (long page_count, long page_size) {
 		List<CashLaunchView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(CASH_LAUNCH_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      CashLaunchView that = CashLaunchView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(CashLaunchView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

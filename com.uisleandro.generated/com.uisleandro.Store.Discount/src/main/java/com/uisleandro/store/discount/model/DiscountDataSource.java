@@ -39,8 +39,7 @@ public class DiscountDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      DiscountView that = DiscountView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(DiscountView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class DiscountDataSource {
 	    return that;
 	}
 
-	public List<DiscountView listSome (long page_count, long page_size) {
+	public List<DiscountView> listSome (long page_count, long page_size) {
 		List<DiscountView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(DISCOUNT_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      DiscountView that = DiscountView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(DiscountView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

@@ -39,8 +39,7 @@ public class InterestRateTypeDataSource {
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      InterestRateTypeView that = InterestRateTypeView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(InterestRateTypeView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -61,14 +60,13 @@ public class InterestRateTypeDataSource {
 	    return that;
 	}
 
-	public List<InterestRateTypeView listSome (long page_count, long page_size) {
+	public List<InterestRateTypeView> listSome (long page_count, long page_size) {
 		List<InterestRateTypeView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(INTEREST_RATE_TYPE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      InterestRateTypeView that = InterestRateTypeView.FromCursor(cursor);
-		      those.add(that);
+		      those.add(InterestRateTypeView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();

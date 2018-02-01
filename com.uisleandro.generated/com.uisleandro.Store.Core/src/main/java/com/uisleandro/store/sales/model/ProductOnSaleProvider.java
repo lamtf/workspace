@@ -126,7 +126,7 @@ public class ProductOnSaleProvider extends ContentProvider {
 		DbHelper.PRODUCT_ON_SALE_FK_PRODUCT
 	};
 
-	public ProductOnSaleDataSource (Context context) {
+	public ProductOnSaleProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

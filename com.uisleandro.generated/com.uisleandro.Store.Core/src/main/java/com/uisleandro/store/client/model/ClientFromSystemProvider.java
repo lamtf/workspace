@@ -128,7 +128,7 @@ public class ClientFromSystemProvider extends ContentProvider {
 		DbHelper.CLIENT_FROM_SYSTEM_FK_USER
 	};
 
-	public ClientFromSystemDataSource (Context context) {
+	public ClientFromSystemProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();

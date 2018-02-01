@@ -183,7 +183,7 @@ public class ProductProvider extends ContentProvider {
 		DbHelper.PRODUCT_FK_BRAND
 	};
 
-	public ProductDataSource (Context context) {
+	public ProductProvider (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
