@@ -20,13 +20,22 @@ public class RoleDataSource {
 	public static final String AUTHORITY = "com.uisleandro.role";
 	public static final String SCHEME = "content://";
 
-	public static final String ROLE_INSERT = SCHEME + AUTHORITY + "/insert";
-	public static final String ROLE_UPDATE = SCHEME + AUTHORITY + "/update";
-	public static final String ROLE_DELETE = SCHEME + AUTHORITY + "/delete";
-	public static final String ROLE_ALL = SCHEME + AUTHORITY + "/all";
-	public static final String ROLE_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String ROLE_BY_ID = SCHEME + AUTHORITY + "/by_id";
-	public static final String ROLE_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Integer FN_ROLE_INSERT = 998571;
+	public static final Integer FN_ROLE_UPDATE = 998572;
+	public static final Integer FN_ROLE_DELETE = 998573;
+	public static final Integer FN_ROLE_ALL = 998574;
+	public static final Integer FN_ROLE_SOME = 998575;
+	public static final Integer FN_ROLE_BY_ID = 998576;
+	public static final Integer FN_ROLE_LAST_ID = 998577;
+
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle001.1
+// reserved-for:AndroidSqliteQuerySingle001.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.1
 
 	Context context;
 	public RoleDataSource (Context context) {
@@ -35,7 +44,7 @@ public class RoleDataSource {
 
 	public List<RoleView> listAll () {
 		List<RoleView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(ROLE_ALL, null, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -49,7 +58,7 @@ public class RoleDataSource {
 
 	public RoleView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(ROLE_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -62,7 +71,7 @@ public class RoleDataSource {
 
 	public List<RoleView> listSome (long page_count, long page_size) {
 		List<RoleView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(ROLE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -76,7 +85,7 @@ public class RoleDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(ROLE_LAST_ID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -87,22 +96,19 @@ public class RoleDataSource {
 	}
 
 	public int insert (RoleView that) {
-		context.getContentResolver().insert(ROLE_INSERT, that.toInsertArray());
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
 	public int update (RoleView that) {
-		return context.getContentResolver().update(ROLE_UPDATE, that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
 	public int delete (RoleView that) {
-		return context.getContentResolver().delete(ROLE_DELETE, null, new String[]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById (long id) {
-		return context.getContentResolver().delete(ROLE_DELETE, null, new String[]{ String.valueOf(id) });
-	}
-// reserved-for:AndroidSqliteDatabaseSingle002
+// reserved-for:AndroidSqliteDatabaseSingle002.1
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002

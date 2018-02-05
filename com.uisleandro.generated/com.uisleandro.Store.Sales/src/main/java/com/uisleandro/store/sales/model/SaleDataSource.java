@@ -21,13 +21,28 @@ public class SaleDataSource {
 	public static final String AUTHORITY = "com.uisleandro.sale";
 	public static final String SCHEME = "content://";
 
-	public static final String SALE_INSERT = SCHEME + AUTHORITY + "/insert";
-	public static final String SALE_UPDATE = SCHEME + AUTHORITY + "/update";
-	public static final String SALE_DELETE = SCHEME + AUTHORITY + "/delete";
-	public static final String SALE_ALL = SCHEME + AUTHORITY + "/all";
-	public static final String SALE_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String SALE_BY_ID = SCHEME + AUTHORITY + "/by_id";
-	public static final String SALE_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Integer FN_SALE_INSERT = 998431;
+	public static final Integer FN_SALE_UPDATE = 998432;
+	public static final Integer FN_SALE_DELETE = 998433;
+	public static final Integer FN_SALE_ALL = 998434;
+	public static final Integer FN_SALE_SOME = 998435;
+	public static final Integer FN_SALE_BY_ID = 998436;
+	public static final Integer FN_SALE_LAST_ID = 998437;
+
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle001.1
+	public static final Integer FN_SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART = 999411;
+	public static final Integer FN_SALE_CREATE_SALES_CHART = 999412;
+	public static final Integer FN_SALE_LIST_PRODUCTS_ON_SALES_CHART = 999413;
+	public static final Integer FN_SALE_ADD_PRODUCT_TO_SALES_CHART = 999414;
+	public static final Integer FN_SALE_CANCEL_SALES_CHART = 999415;
+	public static final Integer FN_SALE_REMOVE_PRODUCT_FROM_SALES_CHART = 999416;
+// reserved-for:AndroidSqliteQuerySingle001.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.1
 
 	Context context;
 	public SaleDataSource (Context context) {
@@ -36,7 +51,7 @@ public class SaleDataSource {
 
 	public List<SaleView> listAll () {
 		List<SaleView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(SALE_ALL, null, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -50,7 +65,7 @@ public class SaleDataSource {
 
 	public SaleView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(SALE_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -63,7 +78,7 @@ public class SaleDataSource {
 
 	public List<SaleView> listSome (long page_count, long page_size) {
 		List<SaleView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(SALE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -77,7 +92,7 @@ public class SaleDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(SALE_LAST_ID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -88,29 +103,26 @@ public class SaleDataSource {
 	}
 
 	public int insert (SaleView that) {
-		context.getContentResolver().insert(SALE_INSERT, that.toInsertArray());
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
 	public int update (SaleView that) {
-		return context.getContentResolver().update(SALE_UPDATE, that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
 	public int delete (SaleView that) {
-		return context.getContentResolver().delete(SALE_DELETE, null, new String[]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById (long id) {
-		return context.getContentResolver().delete(SALE_DELETE, null, new String[]{ String.valueOf(id) });
-	}
-// reserved-for:AndroidSqliteDatabaseSingle002
+// reserved-for:AndroidSqliteDatabaseSingle002.1
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
 	/* @DeleteWhere */
 	public int remove_all_products_from_sales_chart(Long fk_sale){
 		String selectionArgs = new String[]{ String.valueOf(fk_sale) };
-		return context.getContentResolver().delete("content://com.uisleandro.sale/remove_all_products_from_sales_chart", null, selectionArgs);
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/remove_all_products_from_sales_chart", null, selectionArgs);
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @Insert */
@@ -121,7 +133,7 @@ public class SaleDataSource {
 		contentValues.put("fk_system",com.uisleandro.util.config.getSystemIdString());
 		contentValues.put("fk_user",com.uisleandro.util.config.getUserIdString());
 	
-		context.getContentResolver().insert("content://com.uisleandro.sale/create_sales_chart", contentValues);
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/create_sales_chart", contentValues);
 	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
 	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
 	}
@@ -130,7 +142,7 @@ public class SaleDataSource {
 	/* @SelectListWhere */
 	public List<ListProductsOnSalesChartOut> list_products_on_sales_chart (Long fk_sale, long page_count, long page_size){
 		String selectionArgs = new String[]{ String.valueOf(fk_sale) }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.sale/list_products_on_sales_chart",null, null, selectionArgs, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/list_products_on_sales_chart",null, null, selectionArgs, null);
 		List<ListProductsOnSalesChartOut> those = null;
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()){
@@ -147,7 +159,7 @@ public class SaleDataSource {
 		contentValues.put("fk_sale",fk_sale);
 		contentValues.put("fk_product",fk_product);
 	
-		context.getContentResolver().insert("content://com.uisleandro.sale/add_product_to_sales_chart", contentValues);
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/add_product_to_sales_chart", contentValues);
 	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
 	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
 	}
@@ -156,13 +168,13 @@ public class SaleDataSource {
 	/* @DeleteWhere */
 	public int cancel_sales_chart(Long id){
 		String selectionArgs = new String[]{ String.valueOf(id) };
-		return context.getContentResolver().delete("content://com.uisleandro.sale/cancel_sales_chart", null, selectionArgs);
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/cancel_sales_chart", null, selectionArgs);
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @DeleteWhere */
 	public int remove_product_from_sales_chart(Long fk_sale, Long fk_product){
 		String selectionArgs = new String[]{ String.valueOf(fk_sale), String.valueOf(fk_product) };
-		return context.getContentResolver().delete("content://com.uisleandro.sale/remove_product_from_sales_chart", null, selectionArgs);
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/remove_product_from_sales_chart", null, selectionArgs);
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 // reserved-for:AndroidSqliteQuerySingle002

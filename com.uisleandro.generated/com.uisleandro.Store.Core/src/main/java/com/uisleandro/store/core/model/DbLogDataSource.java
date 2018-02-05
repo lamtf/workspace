@@ -20,13 +20,22 @@ public class DbLogDataSource {
 	public static final String AUTHORITY = "com.uisleandro.db_log";
 	public static final String SCHEME = "content://";
 
-	public static final String DB_LOG_INSERT = SCHEME + AUTHORITY + "/insert";
-	public static final String DB_LOG_UPDATE = SCHEME + AUTHORITY + "/update";
-	public static final String DB_LOG_DELETE = SCHEME + AUTHORITY + "/delete";
-	public static final String DB_LOG_ALL = SCHEME + AUTHORITY + "/all";
-	public static final String DB_LOG_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String DB_LOG_BY_ID = SCHEME + AUTHORITY + "/by_id";
-	public static final String DB_LOG_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Integer FN_DB_LOG_INSERT = 998511;
+	public static final Integer FN_DB_LOG_UPDATE = 998512;
+	public static final Integer FN_DB_LOG_DELETE = 998513;
+	public static final Integer FN_DB_LOG_ALL = 998514;
+	public static final Integer FN_DB_LOG_SOME = 998515;
+	public static final Integer FN_DB_LOG_BY_ID = 998516;
+	public static final Integer FN_DB_LOG_LAST_ID = 998517;
+
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle001.1
+// reserved-for:AndroidSqliteQuerySingle001.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.1
 
 	Context context;
 	public DbLogDataSource (Context context) {
@@ -35,7 +44,7 @@ public class DbLogDataSource {
 
 	public List<DbLogView> listAll () {
 		List<DbLogView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(DB_LOG_ALL, null, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -49,7 +58,7 @@ public class DbLogDataSource {
 
 	public DbLogView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(DB_LOG_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -62,7 +71,7 @@ public class DbLogDataSource {
 
 	public List<DbLogView> listSome (long page_count, long page_size) {
 		List<DbLogView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(DB_LOG_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -76,7 +85,7 @@ public class DbLogDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(DB_LOG_LAST_ID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -87,22 +96,19 @@ public class DbLogDataSource {
 	}
 
 	public int insert (DbLogView that) {
-		context.getContentResolver().insert(DB_LOG_INSERT, that.toInsertArray());
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
 	public int update (DbLogView that) {
-		return context.getContentResolver().update(DB_LOG_UPDATE, that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
 	public int delete (DbLogView that) {
-		return context.getContentResolver().delete(DB_LOG_DELETE, null, new String[]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById (long id) {
-		return context.getContentResolver().delete(DB_LOG_DELETE, null, new String[]{ String.valueOf(id) });
-	}
-// reserved-for:AndroidSqliteDatabaseSingle002
+// reserved-for:AndroidSqliteDatabaseSingle002.1
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002

@@ -20,13 +20,24 @@ public class InvoiceDataSource {
 	public static final String AUTHORITY = "com.uisleandro.invoice";
 	public static final String SCHEME = "content://";
 
-	public static final String INVOICE_INSERT = SCHEME + AUTHORITY + "/insert";
-	public static final String INVOICE_UPDATE = SCHEME + AUTHORITY + "/update";
-	public static final String INVOICE_DELETE = SCHEME + AUTHORITY + "/delete";
-	public static final String INVOICE_ALL = SCHEME + AUTHORITY + "/all";
-	public static final String INVOICE_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String INVOICE_BY_ID = SCHEME + AUTHORITY + "/by_id";
-	public static final String INVOICE_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Integer FN_INVOICE_INSERT = 998821;
+	public static final Integer FN_INVOICE_UPDATE = 998822;
+	public static final Integer FN_INVOICE_DELETE = 998823;
+	public static final Integer FN_INVOICE_ALL = 998824;
+	public static final Integer FN_INVOICE_SOME = 998825;
+	public static final Integer FN_INVOICE_BY_ID = 998826;
+	public static final Integer FN_INVOICE_LAST_ID = 998827;
+
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle001.1
+	public static final Integer FN_INVOICE_INSERT_INSTALLMENT_SICOOB = 999811;
+	public static final Integer FN_INVOICE_INSERT_INSTALLMENT = 999812;
+// reserved-for:AndroidSqliteQuerySingle001.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.1
 
 	Context context;
 	public InvoiceDataSource (Context context) {
@@ -35,7 +46,7 @@ public class InvoiceDataSource {
 
 	public List<InvoiceView> listAll () {
 		List<InvoiceView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(INVOICE_ALL, null, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -49,7 +60,7 @@ public class InvoiceDataSource {
 
 	public InvoiceView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(INVOICE_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -62,7 +73,7 @@ public class InvoiceDataSource {
 
 	public List<InvoiceView> listSome (long page_count, long page_size) {
 		List<InvoiceView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(INVOICE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -76,7 +87,7 @@ public class InvoiceDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(INVOICE_LAST_ID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -87,22 +98,19 @@ public class InvoiceDataSource {
 	}
 
 	public int insert (InvoiceView that) {
-		context.getContentResolver().insert(INVOICE_INSERT, that.toInsertArray());
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
 	public int update (InvoiceView that) {
-		return context.getContentResolver().update(INVOICE_UPDATE, that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
 	public int delete (InvoiceView that) {
-		return context.getContentResolver().delete(INVOICE_DELETE, null, new String[]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById (long id) {
-		return context.getContentResolver().delete(INVOICE_DELETE, null, new String[]{ String.valueOf(id) });
-	}
-// reserved-for:AndroidSqliteDatabaseSingle002
+// reserved-for:AndroidSqliteDatabaseSingle002.1
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
@@ -191,7 +199,7 @@ public class InvoiceDataSource {
 		contentValues.put("last_update",last_update);
 		contentValues.put("name",name);
 	
-		context.getContentResolver().insert("content://com.uisleandro.invoice/insert_installment_sicoob", contentValues);
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert_installment_sicoob", contentValues);
 	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
 	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
 	}
@@ -281,7 +289,7 @@ public class InvoiceDataSource {
 		contentValues.put("last_update",last_update);
 		contentValues.put("name",name);
 	
-		context.getContentResolver().insert("content://com.uisleandro.invoice/insert_installment", contentValues);
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert_installment", contentValues);
 	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
 	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
 	}

@@ -20,13 +20,22 @@ public class GenderDataSource {
 	public static final String AUTHORITY = "com.uisleandro.gender";
 	public static final String SCHEME = "content://";
 
-	public static final String GENDER_INSERT = SCHEME + AUTHORITY + "/insert";
-	public static final String GENDER_UPDATE = SCHEME + AUTHORITY + "/update";
-	public static final String GENDER_DELETE = SCHEME + AUTHORITY + "/delete";
-	public static final String GENDER_ALL = SCHEME + AUTHORITY + "/all";
-	public static final String GENDER_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String GENDER_BY_ID = SCHEME + AUTHORITY + "/by_id";
-	public static final String GENDER_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Integer FN_GENDER_INSERT = 998251;
+	public static final Integer FN_GENDER_UPDATE = 998252;
+	public static final Integer FN_GENDER_DELETE = 998253;
+	public static final Integer FN_GENDER_ALL = 998254;
+	public static final Integer FN_GENDER_SOME = 998255;
+	public static final Integer FN_GENDER_BY_ID = 998256;
+	public static final Integer FN_GENDER_LAST_ID = 998257;
+
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle001.1
+// reserved-for:AndroidSqliteQuerySingle001.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.1
 
 	Context context;
 	public GenderDataSource (Context context) {
@@ -35,7 +44,7 @@ public class GenderDataSource {
 
 	public List<GenderView> listAll () {
 		List<GenderView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(GENDER_ALL, null, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -49,7 +58,7 @@ public class GenderDataSource {
 
 	public GenderView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(GENDER_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -62,7 +71,7 @@ public class GenderDataSource {
 
 	public List<GenderView> listSome (long page_count, long page_size) {
 		List<GenderView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(GENDER_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -76,7 +85,7 @@ public class GenderDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(GENDER_LAST_ID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -87,22 +96,19 @@ public class GenderDataSource {
 	}
 
 	public int insert (GenderView that) {
-		context.getContentResolver().insert(GENDER_INSERT, that.toInsertArray());
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
 	public int update (GenderView that) {
-		return context.getContentResolver().update(GENDER_UPDATE, that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
 	public int delete (GenderView that) {
-		return context.getContentResolver().delete(GENDER_DELETE, null, new String[]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById (long id) {
-		return context.getContentResolver().delete(GENDER_DELETE, null, new String[]{ String.valueOf(id) });
-	}
-// reserved-for:AndroidSqliteDatabaseSingle002
+// reserved-for:AndroidSqliteDatabaseSingle002.1
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002

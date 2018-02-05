@@ -20,13 +20,22 @@ public class ProductOnSaleDataSource {
 	public static final String AUTHORITY = "com.uisleandro.product_on_sale";
 	public static final String SCHEME = "content://";
 
-	public static final String PRODUCT_ON_SALE_INSERT = SCHEME + AUTHORITY + "/insert";
-	public static final String PRODUCT_ON_SALE_UPDATE = SCHEME + AUTHORITY + "/update";
-	public static final String PRODUCT_ON_SALE_DELETE = SCHEME + AUTHORITY + "/delete";
-	public static final String PRODUCT_ON_SALE_ALL = SCHEME + AUTHORITY + "/all";
-	public static final String PRODUCT_ON_SALE_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String PRODUCT_ON_SALE_BY_ID = SCHEME + AUTHORITY + "/by_id";
-	public static final String PRODUCT_ON_SALE_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Integer FN_PRODUCT_ON_SALE_INSERT = 998411;
+	public static final Integer FN_PRODUCT_ON_SALE_UPDATE = 998412;
+	public static final Integer FN_PRODUCT_ON_SALE_DELETE = 998413;
+	public static final Integer FN_PRODUCT_ON_SALE_ALL = 998414;
+	public static final Integer FN_PRODUCT_ON_SALE_SOME = 998415;
+	public static final Integer FN_PRODUCT_ON_SALE_BY_ID = 998416;
+	public static final Integer FN_PRODUCT_ON_SALE_LAST_ID = 998417;
+
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle001.1
+// reserved-for:AndroidSqliteQuerySingle001.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.1
 
 	Context context;
 	public ProductOnSaleDataSource (Context context) {
@@ -35,7 +44,7 @@ public class ProductOnSaleDataSource {
 
 	public List<ProductOnSaleView> listAll () {
 		List<ProductOnSaleView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(PRODUCT_ON_SALE_ALL, null, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -49,7 +58,7 @@ public class ProductOnSaleDataSource {
 
 	public ProductOnSaleView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(PRODUCT_ON_SALE_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -62,7 +71,7 @@ public class ProductOnSaleDataSource {
 
 	public List<ProductOnSaleView> listSome (long page_count, long page_size) {
 		List<ProductOnSaleView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(PRODUCT_ON_SALE_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -76,7 +85,7 @@ public class ProductOnSaleDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(PRODUCT_ON_SALE_LAST_ID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -87,22 +96,19 @@ public class ProductOnSaleDataSource {
 	}
 
 	public int insert (ProductOnSaleView that) {
-		context.getContentResolver().insert(PRODUCT_ON_SALE_INSERT, that.toInsertArray());
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
 	public int update (ProductOnSaleView that) {
-		return context.getContentResolver().update(PRODUCT_ON_SALE_UPDATE, that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
 	public int delete (ProductOnSaleView that) {
-		return context.getContentResolver().delete(PRODUCT_ON_SALE_DELETE, null, new String[]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById (long id) {
-		return context.getContentResolver().delete(PRODUCT_ON_SALE_DELETE, null, new String[]{ String.valueOf(id) });
-	}
-// reserved-for:AndroidSqliteDatabaseSingle002
+// reserved-for:AndroidSqliteDatabaseSingle002.1
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002

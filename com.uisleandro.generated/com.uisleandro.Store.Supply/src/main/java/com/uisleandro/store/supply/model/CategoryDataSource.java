@@ -20,13 +20,22 @@ public class CategoryDataSource {
 	public static final String AUTHORITY = "com.uisleandro.category";
 	public static final String SCHEME = "content://";
 
-	public static final String CATEGORY_INSERT = SCHEME + AUTHORITY + "/insert";
-	public static final String CATEGORY_UPDATE = SCHEME + AUTHORITY + "/update";
-	public static final String CATEGORY_DELETE = SCHEME + AUTHORITY + "/delete";
-	public static final String CATEGORY_ALL = SCHEME + AUTHORITY + "/all";
-	public static final String CATEGORY_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String CATEGORY_BY_ID = SCHEME + AUTHORITY + "/by_id";
-	public static final String CATEGORY_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Integer FN_CATEGORY_INSERT = 998231;
+	public static final Integer FN_CATEGORY_UPDATE = 998232;
+	public static final Integer FN_CATEGORY_DELETE = 998233;
+	public static final Integer FN_CATEGORY_ALL = 998234;
+	public static final Integer FN_CATEGORY_SOME = 998235;
+	public static final Integer FN_CATEGORY_BY_ID = 998236;
+	public static final Integer FN_CATEGORY_LAST_ID = 998237;
+
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle001.1
+// reserved-for:AndroidSqliteQuerySingle001.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.1
 
 	Context context;
 	public CategoryDataSource (Context context) {
@@ -35,7 +44,7 @@ public class CategoryDataSource {
 
 	public List<CategoryView> listAll () {
 		List<CategoryView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(CATEGORY_ALL, null, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -49,7 +58,7 @@ public class CategoryDataSource {
 
 	public CategoryView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(CATEGORY_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -62,7 +71,7 @@ public class CategoryDataSource {
 
 	public List<CategoryView> listSome (long page_count, long page_size) {
 		List<CategoryView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(CATEGORY_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -76,7 +85,7 @@ public class CategoryDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(CATEGORY_LAST_ID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -87,22 +96,19 @@ public class CategoryDataSource {
 	}
 
 	public int insert (CategoryView that) {
-		context.getContentResolver().insert(CATEGORY_INSERT, that.toInsertArray());
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
 	public int update (CategoryView that) {
-		return context.getContentResolver().update(CATEGORY_UPDATE, that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
 	public int delete (CategoryView that) {
-		return context.getContentResolver().delete(CATEGORY_DELETE, null, new String[]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById (long id) {
-		return context.getContentResolver().delete(CATEGORY_DELETE, null, new String[]{ String.valueOf(id) });
-	}
-// reserved-for:AndroidSqliteDatabaseSingle002
+// reserved-for:AndroidSqliteDatabaseSingle002.1
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002

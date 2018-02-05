@@ -23,13 +23,25 @@ public class BasicClientDataSource {
 	public static final String AUTHORITY = "com.uisleandro.basic_client";
 	public static final String SCHEME = "content://";
 
-	public static final String BASIC_CLIENT_INSERT = SCHEME + AUTHORITY + "/insert";
-	public static final String BASIC_CLIENT_UPDATE = SCHEME + AUTHORITY + "/update";
-	public static final String BASIC_CLIENT_DELETE = SCHEME + AUTHORITY + "/delete";
-	public static final String BASIC_CLIENT_ALL = SCHEME + AUTHORITY + "/all";
-	public static final String BASIC_CLIENT_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String BASIC_CLIENT_BY_ID = SCHEME + AUTHORITY + "/by_id";
-	public static final String BASIC_CLIENT_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Integer FN_BASIC_CLIENT_INSERT = 998741;
+	public static final Integer FN_BASIC_CLIENT_UPDATE = 998742;
+	public static final Integer FN_BASIC_CLIENT_DELETE = 998743;
+	public static final Integer FN_BASIC_CLIENT_ALL = 998744;
+	public static final Integer FN_BASIC_CLIENT_SOME = 998745;
+	public static final Integer FN_BASIC_CLIENT_BY_ID = 998746;
+	public static final Integer FN_BASIC_CLIENT_LAST_ID = 998747;
+
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle001.1
+	public static final Integer FN_BASIC_CLIENT_FIND_BY_ID = 999711;
+	public static final Integer FN_BASIC_CLIENT_FIND_BY_CPF = 999712;
+	public static final Integer FN_BASIC_CLIENT_FIND_BY_NAME = 999713;
+// reserved-for:AndroidSqliteQuerySingle001.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.1
 
 	Context context;
 	public BasicClientDataSource (Context context) {
@@ -38,7 +50,7 @@ public class BasicClientDataSource {
 
 	public List<BasicClientView> listAll () {
 		List<BasicClientView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(BASIC_CLIENT_ALL, null, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -52,7 +64,7 @@ public class BasicClientDataSource {
 
 	public BasicClientView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(BASIC_CLIENT_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -65,7 +77,7 @@ public class BasicClientDataSource {
 
 	public List<BasicClientView> listSome (long page_count, long page_size) {
 		List<BasicClientView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(BASIC_CLIENT_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -79,7 +91,7 @@ public class BasicClientDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(BASIC_CLIENT_LAST_ID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -90,29 +102,26 @@ public class BasicClientDataSource {
 	}
 
 	public int insert (BasicClientView that) {
-		context.getContentResolver().insert(BASIC_CLIENT_INSERT, that.toInsertArray());
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
 	public int update (BasicClientView that) {
-		return context.getContentResolver().update(BASIC_CLIENT_UPDATE, that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
 	public int delete (BasicClientView that) {
-		return context.getContentResolver().delete(BASIC_CLIENT_DELETE, null, new String[]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById (long id) {
-		return context.getContentResolver().delete(BASIC_CLIENT_DELETE, null, new String[]{ String.valueOf(id) });
-	}
-// reserved-for:AndroidSqliteDatabaseSingle002
+// reserved-for:AndroidSqliteDatabaseSingle002.1
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
 	/* @SelectOneWhere */
 	public FindByCpfOut find_by_id(long id){
 		String selectionArgs = new String[]{ String.valueOf(id) }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.basic_client/find_by_id",null, null, selectionArgs, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/find_by_id",null, null, selectionArgs, null);
 		FindByCpfOut that = null;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
@@ -124,7 +133,7 @@ public class BasicClientDataSource {
 	/* @SelectOneWhere */
 	public FindByCpfOut find_by_cpf(String cpf){
 		String selectionArgs = new String[]{ cpf }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.basic_client/find_by_cpf",null, null, selectionArgs, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/find_by_cpf",null, null, selectionArgs, null);
 		FindByCpfOut that = null;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
@@ -136,7 +145,7 @@ public class BasicClientDataSource {
 	/* @SelectOneWhere */
 	public FindByCpfOut find_by_name(String name){
 		String selectionArgs = new String[]{ name }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.basic_client/find_by_name",null, null, selectionArgs, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/find_by_name",null, null, selectionArgs, null);
 		FindByCpfOut that = null;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){

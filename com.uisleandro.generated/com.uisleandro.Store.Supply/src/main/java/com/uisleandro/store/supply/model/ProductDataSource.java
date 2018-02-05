@@ -24,13 +24,28 @@ public class ProductDataSource {
 	public static final String AUTHORITY = "com.uisleandro.product";
 	public static final String SCHEME = "content://";
 
-	public static final String PRODUCT_INSERT = SCHEME + AUTHORITY + "/insert";
-	public static final String PRODUCT_UPDATE = SCHEME + AUTHORITY + "/update";
-	public static final String PRODUCT_DELETE = SCHEME + AUTHORITY + "/delete";
-	public static final String PRODUCT_ALL = SCHEME + AUTHORITY + "/all";
-	public static final String PRODUCT_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String PRODUCT_BY_ID = SCHEME + AUTHORITY + "/by_id";
-	public static final String PRODUCT_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Integer FN_PRODUCT_INSERT = 998261;
+	public static final Integer FN_PRODUCT_UPDATE = 998262;
+	public static final Integer FN_PRODUCT_DELETE = 998263;
+	public static final Integer FN_PRODUCT_ALL = 998264;
+	public static final Integer FN_PRODUCT_SOME = 998265;
+	public static final Integer FN_PRODUCT_BY_ID = 998266;
+	public static final Integer FN_PRODUCT_LAST_ID = 998267;
+
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle001.1
+	public static final Integer FN_PRODUCT_MISSING_PRODUCTS_RELATORY = 999211;
+	public static final Integer FN_PRODUCT_GET_BY_ID = 999212;
+	public static final Integer FN_PRODUCT_GET_BY_REPEATED_PRODUCT_CODE = 999213;
+	public static final Integer FN_PRODUCT_START_PRODUCT_RECOUNTING = 999214;
+	public static final Integer FN_PRODUCT_GET_BY_QRCODE = 999215;
+	public static final Integer FN_PRODUCT_PRODUCT_RECOUNTING = 999216;
+// reserved-for:AndroidSqliteQuerySingle001.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.1
 
 	Context context;
 	public ProductDataSource (Context context) {
@@ -39,7 +54,7 @@ public class ProductDataSource {
 
 	public List<ProductView> listAll () {
 		List<ProductView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(PRODUCT_ALL, null, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -53,7 +68,7 @@ public class ProductDataSource {
 
 	public ProductView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(PRODUCT_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -66,7 +81,7 @@ public class ProductDataSource {
 
 	public List<ProductView> listSome (long page_count, long page_size) {
 		List<ProductView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(PRODUCT_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -80,7 +95,7 @@ public class ProductDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(PRODUCT_LAST_ID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -91,29 +106,26 @@ public class ProductDataSource {
 	}
 
 	public int insert (ProductView that) {
-		context.getContentResolver().insert(PRODUCT_INSERT, that.toInsertArray());
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
 	public int update (ProductView that) {
-		return context.getContentResolver().update(PRODUCT_UPDATE, that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
 	public int delete (ProductView that) {
-		return context.getContentResolver().delete(PRODUCT_DELETE, null, new String[]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById (long id) {
-		return context.getContentResolver().delete(PRODUCT_DELETE, null, new String[]{ String.valueOf(id) });
-	}
-// reserved-for:AndroidSqliteDatabaseSingle002
+// reserved-for:AndroidSqliteDatabaseSingle002.1
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
 	/* @SelectListWhere */
 	public List<MissingProductsRelatoryOut> missing_products_relatory (long page_count, long page_size){
 		String selectionArgs = new String[]{ com.uisleandro.util.config.getTodayString() }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/missing_products_relatory",null, null, selectionArgs, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/missing_products_relatory",null, null, selectionArgs, null);
 		List<MissingProductsRelatoryOut> those = null;
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()){
@@ -126,7 +138,7 @@ public class ProductDataSource {
 	/* @SelectOneWhere */
 	public GetByIdOut get_by_id(Long id){
 		String selectionArgs = new String[]{ String.valueOf(id) }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/get_by_id",null, null, selectionArgs, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/get_by_id",null, null, selectionArgs, null);
 		GetByIdOut that = null;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
@@ -138,7 +150,7 @@ public class ProductDataSource {
 	/* @SelectListWhere */
 	public List<GetByRepeatedProductCodeOut> get_by_repeated_product_code (Long fk_systen, String barcode, long page_count, long page_size){
 		String selectionArgs = new String[]{ String.valueOf(fk_systen), barcode }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/get_by_repeated_product_code",null, null, selectionArgs, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/get_by_repeated_product_code",null, null, selectionArgs, null);
 		List<GetByRepeatedProductCodeOut> those = null;
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()){
@@ -151,7 +163,7 @@ public class ProductDataSource {
 	/* @SelectOneWhere */
 	public GetByQrcodeOut get_by_qrcode(String barcode){
 		String selectionArgs = new String[]{  }; 
-		Cursor cursor = context.getContentResolver().query("content://com.uisleandro.product/get_by_qrcode",null, null, selectionArgs, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/get_by_qrcode",null, null, selectionArgs, null);
 		GetByQrcodeOut that = null;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
@@ -173,7 +185,7 @@ public class ProductDataSource {
 	
 		String[] selectionArgs = new String[]{ com.uisleandro.util.config.getRightNowString(), String.valueOf(fk_product), "actual_amount + 1" }
 	
-		Cursor cursor = context.getContentResolver().update("content://com.uisleandro.product/product_recounting", contentValues, null, selectionArgs); 
+		Cursor cursor = context.getContentResolver().update(SCHEME + AUTHORITY + "/product_recounting", contentValues, null, selectionArgs); 
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
 			result = cursor.getInt(0);

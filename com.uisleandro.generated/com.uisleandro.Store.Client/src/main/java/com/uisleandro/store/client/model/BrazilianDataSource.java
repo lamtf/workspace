@@ -20,13 +20,22 @@ public class BrazilianDataSource {
 	public static final String AUTHORITY = "com.uisleandro.brazilian";
 	public static final String SCHEME = "content://";
 
-	public static final String BRAZILIAN_INSERT = SCHEME + AUTHORITY + "/insert";
-	public static final String BRAZILIAN_UPDATE = SCHEME + AUTHORITY + "/update";
-	public static final String BRAZILIAN_DELETE = SCHEME + AUTHORITY + "/delete";
-	public static final String BRAZILIAN_ALL = SCHEME + AUTHORITY + "/all";
-	public static final String BRAZILIAN_SOME = SCHEME + AUTHORITY + "/some";
-	public static final String BRAZILIAN_BY_ID = SCHEME + AUTHORITY + "/by_id";
-	public static final String BRAZILIAN_LAST_ID = SCHEME + AUTHORITY + "/last_id";
+	public static final Integer FN_BRAZILIAN_INSERT = 998721;
+	public static final Integer FN_BRAZILIAN_UPDATE = 998722;
+	public static final Integer FN_BRAZILIAN_DELETE = 998723;
+	public static final Integer FN_BRAZILIAN_ALL = 998724;
+	public static final Integer FN_BRAZILIAN_SOME = 998725;
+	public static final Integer FN_BRAZILIAN_BY_ID = 998726;
+	public static final Integer FN_BRAZILIAN_LAST_ID = 998727;
+
+// reserved-for:AndroidSqliteDatabaseSingle002
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle001.1
+// reserved-for:AndroidSqliteQuerySingle001.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.1
 
 	Context context;
 	public BrazilianDataSource (Context context) {
@@ -35,7 +44,7 @@ public class BrazilianDataSource {
 
 	public List<BrazilianView> listAll () {
 		List<BrazilianView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(BRAZILIAN_ALL, null, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -49,7 +58,7 @@ public class BrazilianDataSource {
 
 	public BrazilianView getById (long id) {
 		CashRegister that = null;
-		Cursor cursor = context.getContentResolver().query(BRAZILIAN_BY_ID, null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -62,7 +71,7 @@ public class BrazilianDataSource {
 
 	public List<BrazilianView> listSome (long page_count, long page_size) {
 		List<BrazilianView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(BRAZILIAN_SOME, new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -76,7 +85,7 @@ public class BrazilianDataSource {
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(BRAZILIAN_LAST_ID, null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -87,22 +96,19 @@ public class BrazilianDataSource {
 	}
 
 	public int insert (BrazilianView that) {
-		context.getContentResolver().insert(BRAZILIAN_INSERT, that.toInsertArray());
+		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
 	public int update (BrazilianView that) {
-		return context.getContentResolver().update(BRAZILIAN_UPDATE, that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
 	public int delete (BrazilianView that) {
-		return context.getContentResolver().delete(BRAZILIAN_DELETE, null, new String[]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
 	}
 
-	public int deleteById (long id) {
-		return context.getContentResolver().delete(BRAZILIAN_DELETE, null, new String[]{ String.valueOf(id) });
-	}
-// reserved-for:AndroidSqliteDatabaseSingle002
+// reserved-for:AndroidSqliteDatabaseSingle002.1
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002

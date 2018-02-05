@@ -573,7 +573,7 @@ else recursiveFlatProperties(getSubject(outView),1)->reverse() endif]
 		* Create Agruments and Then (maybe) Convert them to String;
 		* Pass the Arguments to the Function which will will use them;
 [/comment]
-[template public create_android_content_provider_ds(controller : Class, mName: String)]
+[template public create_android_content_provider_ds(controller : Class, mName: String, packageIndex : Integer, classIndex: Integer)]
 // [protected ('reserved-for:AndroidSqliteDatabaseSingle001')]
 // reserved-for:AndroidSqliteDatabaseSingle001
 // [/protected]
@@ -586,6 +586,16 @@ import [mName /].view.[ToCamelCase(out_parameter_definition(op).name) /];
 
 // [protected ('reserved-for:AndroidSqliteDatabaseSingle002')]
 // reserved-for:AndroidSqliteDatabaseSingle002
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle001.1') /]
+[for (op : Operation | getValidOperations(controller))]
+	public static final Integer FN_[controller.name.toUpperCase() /]_[name.toUpperCase() /] = 999[packageIndex /][classIndex /][i /];
+[/for]
+[end_reserve('reserved-for:AndroidSqliteQuerySingle001.1') /]
+
+// [protected ('reserved-for:AndroidSqliteDatabaseSingle002.1')]
+// reserved-for:AndroidSqliteDatabaseSingle002.1
 // [/protected]
 
 [begin_reserve('reserved-for:AndroidSqliteQuerySingle002') /]
@@ -679,8 +689,12 @@ i must call it just 'queries'
 		.eContents(Package)
 		->select(x|x.name = 'mvc')
 		->first()
-][for (modul : Package | pack.eContents(Package))
-][for (ctrl : Class | modul
+]
+[for (modul : Package | pack.eContents(Package))]
+
+[let j : Integer = i]
+
+[for (ctrl : Class | modul
 		.eContents(Package)
 		->select(p|p.name = 'controller')
 		->first()
@@ -700,10 +714,10 @@ TODO: temporarialy removed
 
 
 [file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+ToCamelCase(ctrl.name)+'DataSource.java', false, 'UTF-8')]
-[create_android_content_provider_ds(ctrl, pname +'.'+ modul.name) /]
+[create_android_content_provider_ds(ctrl, pname +'.'+ modul.name, j, i) /]
 [/file]
 
-[/for][/for][/let]
+[/for][/let][/for][/let]
 
 [/let]
 [/let]
@@ -758,7 +772,7 @@ public int [functionName /] ([query_parameters_definition(queryIns) /]){
 	contentValues.put("id",id);
 [/if]
 
-	context.getContentResolver().insert("content://com.uisleandro.[className /]/[functionName /]", contentValues);
+	context.getContentResolver().insert(SCHEME + AUTHORITY + "/[functionName /]", contentValues);
 // TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
 // TODO: PLEASE DONT USE SYNCHRONIZED CODE
 }
@@ -799,7 +813,7 @@ queryIns: Sequence(Property)
 /* @ExistsWhere */
 public boolean [functionName /] ([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]) {
 	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
-	Cursor cursor = context.getContentResolver().query("content://com.uisleandro.[className /]/[functionName /]",null, null, selectionArgs, null);
+	Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/[functionName /]",null, null, selectionArgs, null);
 	boolean that = false;
 	cursor.moveToFirst();
 	if(!cursor.isAfterLast()){
@@ -847,7 +861,7 @@ separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 public [returnName.ToCamelCase() /] [functionName 
 /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
 	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
-	Cursor cursor = context.getContentResolver().query("content://com.uisleandro.[className /]/[functionName /]",null, null, selectionArgs, null);
+	Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/[functionName /]",null, null, selectionArgs, null);
 	[returnName.ToCamelCase() /] that = null;
 	cursor.moveToFirst();
 	if(!cursor.isAfterLast()){
@@ -893,7 +907,7 @@ separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 public List<[returnName.ToCamelCase() /]> [functionName 
 /] ([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /], [else][if (not HasDefaultValuey(queryIns))]long id, [/if][/if]long page_count, long page_size){
 	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
-	Cursor cursor = context.getContentResolver().query("content://com.uisleandro.[className /]/[functionName /]",null, null, selectionArgs, null);
+	Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/[functionName /]",null, null, selectionArgs, null);
 	List<[returnName.ToCamelCase() /]> those = null;
 	cursor.moveToFirst();
 	while(!cursor.isAfterLast()){
@@ -937,7 +951,7 @@ public [(if queryOuts->notEmpty()
 then get_java_type(queryOuts->at(1)) else 'long' endif) /] [functionName
 /] ([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]) {
 	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
-	Cursor cursor = context.getContentResolver().query("content://com.uisleandro.[className /]/[functionName /]",null, null, selectionArgs, null);
+	Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/[functionName /]",null, null, selectionArgs, null);
 	[(if queryOuts->notEmpty()
 then get_java_type(queryOuts->at(1)) else 'long' endif) /] that = [(if queryOuts->notEmpty()
 then 'null' else '0' endif) /];
@@ -1018,7 +1032,7 @@ public int [functionName
 
 	String['['/][']'/] selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }
 
-	Cursor cursor = context.getContentResolver().update("content://com.uisleandro.[className /]/[functionName /]", contentValues, null, selectionArgs); 
+	Cursor cursor = context.getContentResolver().update(SCHEME + AUTHORITY + "/[functionName /]", contentValues, null, selectionArgs); 
 	cursor.moveToFirst();
 	if(!cursor.isAfterLast()){
 		result = cursor.getInt(0);
@@ -1064,7 +1078,7 @@ separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 /* @DeleteWhere */
 public int [functionName /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
 	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] };
-	return context.getContentResolver().delete("content://com.uisleandro.[className /]/[functionName /]", null, selectionArgs);
+	return context.getContentResolver().delete(SCHEME + AUTHORITY + "/[functionName /]", null, selectionArgs);
 // TODO: PLEASE DONT USE SYNC CODE
 }
 [/template]
