@@ -104,15 +104,15 @@ public class ClientFromSystemDataView {
 	}
 
 	public String toString () {
-		return "ClientFromSystemView";
+		return "ClientFromSystemDataView";
 
 	}
 
-	public static ClientFromSystemView FromJson(String json){
+	public static ClientFromSystemDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return ClientFromSystemView.FromJsonObj(obj);
+				return ClientFromSystemDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -120,10 +120,10 @@ public class ClientFromSystemDataView {
 		return null;
 	}
 
-	public static ClientFromSystemView FromJsonObj (JSONObject obj) {
+	public static ClientFromSystemDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				ClientFromSystemView result = new ClientFromSystemView();
+				ClientFromSystemDataView result = new ClientFromSystemDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -154,9 +154,9 @@ public class ClientFromSystemDataView {
 		return null;
 	}
 
-	public static ClientFromSystemView FromCursor (Cursor cursor) {
+	public static ClientFromSystemDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			ClientFromSystemView result = new ClientFromSystemView();
+			ClientFromSystemDataView result = new ClientFromSystemDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

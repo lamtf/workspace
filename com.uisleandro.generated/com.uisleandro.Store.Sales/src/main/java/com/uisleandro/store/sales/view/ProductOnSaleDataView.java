@@ -82,15 +82,15 @@ public class ProductOnSaleDataView {
 	}
 
 	public String toString () {
-		return "ProductOnSaleView";
+		return "ProductOnSaleDataView";
 
 	}
 
-	public static ProductOnSaleView FromJson(String json){
+	public static ProductOnSaleDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return ProductOnSaleView.FromJsonObj(obj);
+				return ProductOnSaleDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -98,10 +98,10 @@ public class ProductOnSaleDataView {
 		return null;
 	}
 
-	public static ProductOnSaleView FromJsonObj (JSONObject obj) {
+	public static ProductOnSaleDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				ProductOnSaleView result = new ProductOnSaleView();
+				ProductOnSaleDataView result = new ProductOnSaleDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -126,9 +126,9 @@ public class ProductOnSaleDataView {
 		return null;
 	}
 
-	public static ProductOnSaleView FromCursor (Cursor cursor) {
+	public static ProductOnSaleDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			ProductOnSaleView result = new ProductOnSaleView();
+			ProductOnSaleDataView result = new ProductOnSaleDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

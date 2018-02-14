@@ -196,11 +196,11 @@ public class ProductDataView {
 
 	}
 
-	public static ProductView FromJson(String json){
+	public static ProductDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return ProductView.FromJsonObj(obj);
+				return ProductDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -208,10 +208,10 @@ public class ProductDataView {
 		return null;
 	}
 
-	public static ProductView FromJsonObj (JSONObject obj) {
+	public static ProductDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				ProductView result = new ProductView();
+				ProductDataView result = new ProductDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -252,9 +252,9 @@ public class ProductDataView {
 		return null;
 	}
 
-	public static ProductView FromCursor (Cursor cursor) {
+	public static ProductDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			ProductView result = new ProductView();
+			ProductDataView result = new ProductDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

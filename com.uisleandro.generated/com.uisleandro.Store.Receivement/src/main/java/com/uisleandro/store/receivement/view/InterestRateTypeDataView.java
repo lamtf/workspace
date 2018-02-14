@@ -75,11 +75,11 @@ public class InterestRateTypeDataView {
 
 	}
 
-	public static InterestRateTypeView FromJson(String json){
+	public static InterestRateTypeDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return InterestRateTypeView.FromJsonObj(obj);
+				return InterestRateTypeDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -87,10 +87,10 @@ public class InterestRateTypeDataView {
 		return null;
 	}
 
-	public static InterestRateTypeView FromJsonObj (JSONObject obj) {
+	public static InterestRateTypeDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				InterestRateTypeView result = new InterestRateTypeView();
+				InterestRateTypeDataView result = new InterestRateTypeDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -110,9 +110,9 @@ public class InterestRateTypeDataView {
 		return null;
 	}
 
-	public static InterestRateTypeView FromCursor (Cursor cursor) {
+	public static InterestRateTypeDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			InterestRateTypeView result = new InterestRateTypeView();
+			InterestRateTypeDataView result = new InterestRateTypeDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

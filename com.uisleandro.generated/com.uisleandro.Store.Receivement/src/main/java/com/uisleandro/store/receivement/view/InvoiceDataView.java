@@ -126,15 +126,15 @@ public class InvoiceDataView {
 	}
 
 	public String toString () {
-		return "InvoiceView";
+		return "InvoiceDataView";
 
 	}
 
-	public static InvoiceView FromJson(String json){
+	public static InvoiceDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return InvoiceView.FromJsonObj(obj);
+				return InvoiceDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -142,10 +142,10 @@ public class InvoiceDataView {
 		return null;
 	}
 
-	public static InvoiceView FromJsonObj (JSONObject obj) {
+	public static InvoiceDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				InvoiceView result = new InvoiceView();
+				InvoiceDataView result = new InvoiceDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -182,9 +182,9 @@ public class InvoiceDataView {
 		return null;
 	}
 
-	public static InvoiceView FromCursor (Cursor cursor) {
+	public static InvoiceDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			InvoiceView result = new InvoiceView();
+			InvoiceDataView result = new InvoiceDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

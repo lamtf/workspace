@@ -75,11 +75,11 @@ public class SaleTypeDataView {
 
 	}
 
-	public static SaleTypeView FromJson(String json){
+	public static SaleTypeDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return SaleTypeView.FromJsonObj(obj);
+				return SaleTypeDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -87,10 +87,10 @@ public class SaleTypeDataView {
 		return null;
 	}
 
-	public static SaleTypeView FromJsonObj (JSONObject obj) {
+	public static SaleTypeDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				SaleTypeView result = new SaleTypeView();
+				SaleTypeDataView result = new SaleTypeDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -110,9 +110,9 @@ public class SaleTypeDataView {
 		return null;
 	}
 
-	public static SaleTypeView FromCursor (Cursor cursor) {
+	public static SaleTypeDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			SaleTypeView result = new SaleTypeView();
+			SaleTypeDataView result = new SaleTypeDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

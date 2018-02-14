@@ -137,15 +137,15 @@ public class DiscountDataView {
 	}
 
 	public String toString () {
-		return "DiscountView";
+		return "DiscountDataView";
 
 	}
 
-	public static DiscountView FromJson(String json){
+	public static DiscountDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return DiscountView.FromJsonObj(obj);
+				return DiscountDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -153,10 +153,10 @@ public class DiscountDataView {
 		return null;
 	}
 
-	public static DiscountView FromJsonObj (JSONObject obj) {
+	public static DiscountDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				DiscountView result = new DiscountView();
+				DiscountDataView result = new DiscountDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -192,9 +192,9 @@ public class DiscountDataView {
 		return null;
 	}
 
-	public static DiscountView FromCursor (Cursor cursor) {
+	public static DiscountDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			DiscountView result = new DiscountView();
+			DiscountDataView result = new DiscountDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

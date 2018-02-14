@@ -12,7 +12,6 @@
       <module fileurl="file://$PROJECT_DIR$/com.uisleandro.Store.Sales/com.uisleandro.Store.Sales.iml" filepath="$PROJECT_DIR$/com.uisleandro.Store.Sales/com.uisleandro.Store.Sales.iml" />
       <module fileurl="file://$PROJECT_DIR$/com.uisleandro.Store.Supply/com.uisleandro.Store.Supply.iml" filepath="$PROJECT_DIR$/com.uisleandro.Store.Supply/com.uisleandro.Store.Supply.iml" />
       <module fileurl="file://$PROJECT_DIR$/com.uisleandro.generated.iml" filepath="$PROJECT_DIR$/com.uisleandro.generated.iml" />
-      <module fileurl="file://$PROJECT_DIR$/manwmtf-com.uisleandro.generated.iml" filepath="$PROJECT_DIR$/manwmtf-com.uisleandro.generated.iml" />
     </modules>
   </component>
 </project>

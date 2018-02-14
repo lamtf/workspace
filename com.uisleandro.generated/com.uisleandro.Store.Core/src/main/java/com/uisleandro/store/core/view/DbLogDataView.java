@@ -97,11 +97,11 @@ public class DbLogDataView {
 
 	}
 
-	public static DbLogView FromJson(String json){
+	public static DbLogDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return DbLogView.FromJsonObj(obj);
+				return DbLogDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -109,10 +109,10 @@ public class DbLogDataView {
 		return null;
 	}
 
-	public static DbLogView FromJsonObj (JSONObject obj) {
+	public static DbLogDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				DbLogView result = new DbLogView();
+				DbLogDataView result = new DbLogDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -136,9 +136,9 @@ public class DbLogDataView {
 		return null;
 	}
 
-	public static DbLogView FromCursor (Cursor cursor) {
+	public static DbLogDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			DbLogView result = new DbLogView();
+			DbLogDataView result = new DbLogDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

@@ -86,11 +86,11 @@ public class CategoryDataView {
 
 	}
 
-	public static CategoryView FromJson(String json){
+	public static CategoryDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return CategoryView.FromJsonObj(obj);
+				return CategoryDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -98,10 +98,10 @@ public class CategoryDataView {
 		return null;
 	}
 
-	public static CategoryView FromJsonObj (JSONObject obj) {
+	public static CategoryDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				CategoryView result = new CategoryView();
+				CategoryDataView result = new CategoryDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -124,9 +124,9 @@ public class CategoryDataView {
 		return null;
 	}
 
-	public static CategoryView FromCursor (Cursor cursor) {
+	public static CategoryDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			CategoryView result = new CategoryView();
+			CategoryDataView result = new CategoryDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

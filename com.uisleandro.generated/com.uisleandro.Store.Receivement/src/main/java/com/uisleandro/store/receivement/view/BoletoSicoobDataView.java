@@ -196,11 +196,11 @@ public class BoletoSicoobDataView {
 
 	}
 
-	public static BoletoSicoobView FromJson(String json){
+	public static BoletoSicoobDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return BoletoSicoobView.FromJsonObj(obj);
+				return BoletoSicoobDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -208,10 +208,10 @@ public class BoletoSicoobDataView {
 		return null;
 	}
 
-	public static BoletoSicoobView FromJsonObj (JSONObject obj) {
+	public static BoletoSicoobDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				BoletoSicoobView result = new BoletoSicoobView();
+				BoletoSicoobDataView result = new BoletoSicoobDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -244,9 +244,9 @@ public class BoletoSicoobDataView {
 		return null;
 	}
 
-	public static BoletoSicoobView FromCursor (Cursor cursor) {
+	public static BoletoSicoobDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			BoletoSicoobView result = new BoletoSicoobView();
+			BoletoSicoobDataView result = new BoletoSicoobDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

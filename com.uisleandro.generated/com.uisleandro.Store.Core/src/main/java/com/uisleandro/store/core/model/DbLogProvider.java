@@ -26,10 +26,6 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteDatabase001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteSyncSingle001
-// reserved-for:AndroidSqliteSyncSingle001
-// End of user code
-
 // Start of user code reserved-for:AndroidSqliteQuerySingle001// reserved-for:AndroidSqliteQuerySingle001
 // End of user code
 
@@ -85,10 +81,6 @@ public class DbLogProvider extends ContentProvider {
 
 
 // reserved-for:AndroidSqliteDatabase002
-// End of user code
-
-// Start of user code reserved-for:AndroidSqliteSyncSingle002
-// reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
@@ -284,10 +276,6 @@ public class DbLogProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteSyncSingle003
-// reserved-for:AndroidSqliteSyncSingle003
-// End of user code
-
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
 // reserved-for:AndroidSqliteQuerySingle006
 // End of user code
@@ -311,10 +299,6 @@ public class DbLogProvider extends ContentProvider {
 			result = getLastId();
 		}
 // reserved-for:AndroidSqliteDatabase010
-// End of user code
-
-// Start of user code reserved-for:AndroidSqliteSyncSingle004
-// reserved-for:AndroidSqliteSyncSingle004
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle007

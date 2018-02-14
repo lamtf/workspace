@@ -86,11 +86,11 @@ public class CurrencyDataView {
 
 	}
 
-	public static CurrencyView FromJson(String json){
+	public static CurrencyDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return CurrencyView.FromJsonObj(obj);
+				return CurrencyDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -98,10 +98,10 @@ public class CurrencyDataView {
 		return null;
 	}
 
-	public static CurrencyView FromJsonObj (JSONObject obj) {
+	public static CurrencyDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				CurrencyView result = new CurrencyView();
+				CurrencyDataView result = new CurrencyDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -122,9 +122,9 @@ public class CurrencyDataView {
 		return null;
 	}
 
-	public static CurrencyView FromCursor (Cursor cursor) {
+	public static CurrencyDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			CurrencyView result = new CurrencyView();
+			CurrencyDataView result = new CurrencyDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

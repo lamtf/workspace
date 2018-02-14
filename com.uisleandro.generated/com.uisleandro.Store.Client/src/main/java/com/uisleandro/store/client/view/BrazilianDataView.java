@@ -97,11 +97,11 @@ public class BrazilianDataView {
 
 	}
 
-	public static BrazilianView FromJson(String json){
+	public static BrazilianDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return BrazilianView.FromJsonObj(obj);
+				return BrazilianDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -109,10 +109,10 @@ public class BrazilianDataView {
 		return null;
 	}
 
-	public static BrazilianView FromJsonObj (JSONObject obj) {
+	public static BrazilianDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				BrazilianView result = new BrazilianView();
+				BrazilianDataView result = new BrazilianDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -136,9 +136,9 @@ public class BrazilianDataView {
 		return null;
 	}
 
-	public static BrazilianView FromCursor (Cursor cursor) {
+	public static BrazilianDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			BrazilianView result = new BrazilianView();
+			BrazilianDataView result = new BrazilianDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

@@ -218,11 +218,11 @@ public class SharedClientDataView {
 
 	}
 
-	public static SharedClientView FromJson(String json){
+	public static SharedClientDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return SharedClientView.FromJsonObj(obj);
+				return SharedClientDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -230,10 +230,10 @@ public class SharedClientDataView {
 		return null;
 	}
 
-	public static SharedClientView FromJsonObj (JSONObject obj) {
+	public static SharedClientDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				SharedClientView result = new SharedClientView();
+				SharedClientDataView result = new SharedClientDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -268,9 +268,9 @@ public class SharedClientDataView {
 		return null;
 	}
 
-	public static SharedClientView FromCursor (Cursor cursor) {
+	public static SharedClientDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			SharedClientView result = new SharedClientView();
+			SharedClientDataView result = new SharedClientDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

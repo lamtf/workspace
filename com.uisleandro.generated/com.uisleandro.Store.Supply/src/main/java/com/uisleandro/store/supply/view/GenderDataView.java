@@ -75,11 +75,11 @@ public class GenderDataView {
 
 	}
 
-	public static GenderView FromJson(String json){
+	public static GenderDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return GenderView.FromJsonObj(obj);
+				return GenderDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -87,10 +87,10 @@ public class GenderDataView {
 		return null;
 	}
 
-	public static GenderView FromJsonObj (JSONObject obj) {
+	public static GenderDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				GenderView result = new GenderView();
+				GenderDataView result = new GenderDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -110,9 +110,9 @@ public class GenderDataView {
 		return null;
 	}
 
-	public static GenderView FromCursor (Cursor cursor) {
+	public static GenderDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			GenderView result = new GenderView();
+			GenderDataView result = new GenderDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

@@ -1,12 +1,20 @@
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle001
 package com.uisleandro.store.cash.model;  
 
-import java.util.ArrayList;
-import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
-import com.uisleandro.store.cash.view.CashRegisterDataView
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.uisleandro.util.LoaderInterface;
+import com.uisleandro.store.cash.view.CashRegisterDataView;
 // reserved-for:AndroidSqliteDatabaseSingle001
 // End of user code
 
@@ -16,46 +24,55 @@ import com.uisleandro.store.cash.view.CheckHistoryOut;
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002
-public class CashRegisterDataSource {
+public class CashRegisterDataSource implements LoaderManager.LoaderCallbacks<Cursor> {
+
+/* Yep this class implements the loaderCallbacks 
+
+context.getloadermanager().init(FN_id, bundle, this)
+I need to know about the class Bundle, which seems cary the data
+
+*/
 
 	public static final String AUTHORITY = "com.uisleandro.cash_register";
 	public static final String SCHEME = "content://";
 
-	public static final Integer FN_CASH_REGISTER_INSERT = 998111;
-	public static final Integer FN_CASH_REGISTER_UPDATE = 998112;
-	public static final Integer FN_CASH_REGISTER_DELETE = 998113;
-	public static final Integer FN_CASH_REGISTER_ALL = 998114;
-	public static final Integer FN_CASH_REGISTER_SOME = 998115;
-	public static final Integer FN_CASH_REGISTER_BY_ID = 998116;
-	public static final Integer FN_CASH_REGISTER_LAST_ID = 998117;
+	public static final int FN_CASH_REGISTER_INSERT = 998111;
+	public static final int FN_CASH_REGISTER_UPDATE = 998112;
+	public static final int FN_CASH_REGISTER_DELETE = 998113;
+	public static final int FN_CASH_REGISTER_ALL = 998114;
+	public static final int FN_CASH_REGISTER_SOME = 998115;
+	public static final int FN_CASH_REGISTER_BY_ID = 998116;
+	public static final int FN_CASH_REGISTER_LAST_ID = 998117;
 
 // reserved-for:AndroidSqliteDatabaseSingle002
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle001.1
-	public static final Integer FN_CASH_REGISTER_IS_OPEN_TODAY = 999111;
-	public static final Integer FN_CASH_REGISTER_SUM_CASH_LAUNCHES = 999112;
-	public static final Integer FN_CASH_REGISTER_CHECK_HISTORY = 999113;
-	public static final Integer FN_CASH_REGISTER_CLOSE_CASH_REGISTER = 999114;
-	public static final Integer FN_CASH_REGISTER_OPEN_CASH_REGISTER = 999115;
-	public static final Integer FN_CASH_REGISTER_EVENTUAL_CASH_USAGE = 999116;
+	public static final int FN_CASH_REGISTER_IS_OPEN_TODAY = 999111;
+	public static final int FN_CASH_REGISTER_SUM_CASH_LAUNCHES = 999112;
+	public static final int FN_CASH_REGISTER_CHECK_HISTORY = 999113;
+	public static final int FN_CASH_REGISTER_CLOSE_CASH_REGISTER = 999114;
+	public static final int FN_CASH_REGISTER_OPEN_CASH_REGISTER = 999115;
+	public static final int FN_CASH_REGISTER_EVENTUAL_CASH_USAGE = 999116;
 // reserved-for:AndroidSqliteQuerySingle001.1
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002.1
 
 	Context context;
+	LoaderManager.LoaderCallbacks<Cursor> cursorLoader;
 	public CashRegisterDataSource (Context context) {
 		this.context = context;
+		cursorLoader = (LoaderManager.LoaderCallbacks<Cursor>) context; 
 	}
 
-	public List<CashRegisterView> listAll () {
-		List<CashRegisterView> those = new ArrayList<>();
+	public List<CashRegisterDataView> listAll () {
+		List<CashRegisterDataView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      those.add(CashRegisterView.FromCursor(cursor));
+		      those.add(CashRegisterDataView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -63,26 +80,26 @@ public class CashRegisterDataSource {
 	    return those;
 	}
 
-	public CashRegisterView getById (long id) {
-		CashRegister that = null;
+	public CashRegisterDataView getById (long id) {
+		CashRegisterDataView that = null;
 		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
-		      that = CashRegisterView.FromCursor(cursor);
+		      that = CashRegisterDataView.FromCursor(cursor);
 		    }
 			cursor.close();
 		}
 	    return that;
 	}
 
-	public List<CashRegisterView> listSome (long page_count, long page_size) {
-		List<CashRegisterView> those = new ArrayList<>();
+	public List<CashRegisterDataView> listSome (long page_count, long page_size) {
+		List<CashRegisterDataView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      those.add(CashRegisterView.FromCursor(cursor));
+		      those.add(CashRegisterDataView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -102,16 +119,16 @@ public class CashRegisterDataSource {
 	    return result;	
 	}
 
-	public int insert (CashRegisterView that) {
+	public int insert (CashRegisterDataView that) {
 		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
-	public int update (CashRegisterView that) {
+	public int update (CashRegisterDataView that) {
 		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
-	public int delete (CashRegisterView that) {
+	public int delete (CashRegisterDataView that) {
 		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
 	}
 
@@ -173,22 +190,108 @@ public class CashRegisterDataSource {
 	
 	/* @Insert */
 	public int eventual_cash_usage (Long fk_cash_register, String justification, Float amount_spent){
-		ContentValues contentValues = new ContentValues(4);
-		contentValues.put("last_update",com.uisleandro.util.config.getRightNowString());
-		contentValues.put("fk_cash_register",fk_cash_register);
-		contentValues.put("justification",justification);
-		contentValues.put("amount_spent",amount_spent);
-	
-		context.getContentResolver().insert(SCHEME + AUTHORITY + "/eventual_cash_usage", contentValues);
-	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
+		Bundle bundle = new Bundle();
+		bundle.putString("last_update", com.uisleandro.util.config.getRightNowString());
+		bundle.putString("fk_cash_register", String.ValueOf(fk_cash_register));
+		Bundle.putString("justification", String.ValueOf(justification));
+		Bundle.putString("amount_spent", String.ValueOf(amount_spent));
+		context.getLoaderManager().initLoader(FN_CASH_REGISTER_EVENTUAL_CASH_USAGE, bundle, this);
 	}
 	
 	
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteDatabaseSingle003
-}
-// reserved-for:AndroidSqliteDatabaseSingle003
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.2
+  public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+// reserved-for:AndroidSqliteDatabaseSingle002.2
 // End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.1
+
+// reserved-for:AndroidSqliteQuerySingle002.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.3
+  }
+// reserved-for:AndroidSqliteDatabaseSingle002.3
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.4
+  public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+
+    if (FN_CASH_REGISTER_INSERT == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/insert"), null, null, null, null);
+    }
+    else if (FN_CASH_REGISTER_UPDATE == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/update"), null, null, null, null);
+    }
+    else if (FN_CASH_REGISTER_DELETE == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/delete"), null, null, null, null);
+    }
+    else if (FN_CASH_REGISTER_ALL == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/all"), null, null, null, null);
+    }
+    else if (FN_CASH_REGISTER_SOME == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/some"), new String[]{ bundle.getString("page_count"), bundle.getString("page_size") }, null, null, null);
+    }
+    else if (FN_CASH_REGISTER_BY_ID == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ bundle.getString("id") }, null);
+    }
+    else if (FN_CASH_REGISTER_LAST_ID == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/last_id"), null, null, null, null);
+    }
+// reserved-for:AndroidSqliteDatabaseSingle002.4
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.2
+	else if (FN_CASH_REGISTER_IS_OPEN_TODAY == i){
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/is_open_today"), new String[]{}, null, null, null);
+    }
+	else if (FN_CASH_REGISTER_SUM_CASH_LAUNCHES == i){
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/sum_cash_launches"), new String[]{}, null, null, null);
+    }
+	else if (FN_CASH_REGISTER_CHECK_HISTORY == i){
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/check_history"), new String[]{}, null, null, null);
+    }
+	else if (FN_CASH_REGISTER_CLOSE_CASH_REGISTER == i){
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/close_cash_register"), new String[]{}, null, null, null);
+    }
+	else if (FN_CASH_REGISTER_OPEN_CASH_REGISTER == i){
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/open_cash_register"), new String[]{}, null, null, null);
+    }
+	else if (FN_CASH_REGISTER_EVENTUAL_CASH_USAGE == i){
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/eventual_cash_usage"), new String[]{}, null, null, null);
+    }
+// reserved-for:AndroidSqliteQuerySingle002.2
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.5
+  }
+// reserved-for:AndroidSqliteDatabaseSingle002.5
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.6
+  public Loader<Cursor> onLoaderReset(Loader<Cursor> cursorLoader) {
+// reserved-for:AndroidSqliteDatabaseSingle002.6
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.3
+
+// reserved-for:AndroidSqliteQuerySingle002.3
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.7
+  }
+// reserved-for:AndroidSqliteDatabaseSingle002.7
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.8
+  public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+	((LoaderInterface)this.context).onLoadFinished(cursorLoader,cursor);
+  }
+}
+// reserved-for:AndroidSqliteDatabaseSingle002.8
+// End of user code
+

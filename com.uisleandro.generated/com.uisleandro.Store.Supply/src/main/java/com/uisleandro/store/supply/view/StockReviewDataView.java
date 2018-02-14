@@ -115,15 +115,15 @@ public class StockReviewDataView {
 	}
 
 	public String toString () {
-		return "StockReviewView";
+		return "StockReviewDataView";
 
 	}
 
-	public static StockReviewView FromJson(String json){
+	public static StockReviewDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return StockReviewView.FromJsonObj(obj);
+				return StockReviewDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -131,10 +131,10 @@ public class StockReviewDataView {
 		return null;
 	}
 
-	public static StockReviewView FromJsonObj (JSONObject obj) {
+	public static StockReviewDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				StockReviewView result = new StockReviewView();
+				StockReviewDataView result = new StockReviewDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -160,9 +160,9 @@ public class StockReviewDataView {
 		return null;
 	}
 
-	public static StockReviewView FromCursor (Cursor cursor) {
+	public static StockReviewDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			StockReviewView result = new StockReviewView();
+			StockReviewDataView result = new StockReviewDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

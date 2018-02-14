@@ -1,12 +1,20 @@
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle001
 package com.uisleandro.store.supply.model;  
 
-import java.util.ArrayList;
-import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
-import com.uisleandro.store.supply.view.GenderDataView
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.uisleandro.util.LoaderInterface;
+import com.uisleandro.store.supply.view.GenderDataView;
 // reserved-for:AndroidSqliteDatabaseSingle001
 // End of user code
 
@@ -15,18 +23,25 @@ import com.uisleandro.store.supply.view.GenderDataView
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002
-public class GenderDataSource {
+public class GenderDataSource implements LoaderManager.LoaderCallbacks<Cursor> {
+
+/* Yep this class implements the loaderCallbacks 
+
+context.getloadermanager().init(FN_id, bundle, this)
+I need to know about the class Bundle, which seems cary the data
+
+*/
 
 	public static final String AUTHORITY = "com.uisleandro.gender";
 	public static final String SCHEME = "content://";
 
-	public static final Integer FN_GENDER_INSERT = 998251;
-	public static final Integer FN_GENDER_UPDATE = 998252;
-	public static final Integer FN_GENDER_DELETE = 998253;
-	public static final Integer FN_GENDER_ALL = 998254;
-	public static final Integer FN_GENDER_SOME = 998255;
-	public static final Integer FN_GENDER_BY_ID = 998256;
-	public static final Integer FN_GENDER_LAST_ID = 998257;
+	public static final int FN_GENDER_INSERT = 998251;
+	public static final int FN_GENDER_UPDATE = 998252;
+	public static final int FN_GENDER_DELETE = 998253;
+	public static final int FN_GENDER_ALL = 998254;
+	public static final int FN_GENDER_SOME = 998255;
+	public static final int FN_GENDER_BY_ID = 998256;
+	public static final int FN_GENDER_LAST_ID = 998257;
 
 // reserved-for:AndroidSqliteDatabaseSingle002
 // End of user code
@@ -38,17 +53,19 @@ public class GenderDataSource {
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002.1
 
 	Context context;
+	LoaderManager.LoaderCallbacks<Cursor> cursorLoader;
 	public GenderDataSource (Context context) {
 		this.context = context;
+		cursorLoader = (LoaderManager.LoaderCallbacks<Cursor>) context; 
 	}
 
-	public List<GenderView> listAll () {
-		List<GenderView> those = new ArrayList<>();
+	public List<GenderDataView> listAll () {
+		List<GenderDataView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      those.add(GenderView.FromCursor(cursor));
+		      those.add(GenderDataView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -56,26 +73,26 @@ public class GenderDataSource {
 	    return those;
 	}
 
-	public GenderView getById (long id) {
-		CashRegister that = null;
+	public GenderDataView getById (long id) {
+		GenderDataView that = null;
 		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
-		      that = GenderView.FromCursor(cursor);
+		      that = GenderDataView.FromCursor(cursor);
 		    }
 			cursor.close();
 		}
 	    return that;
 	}
 
-	public List<GenderView> listSome (long page_count, long page_size) {
-		List<GenderView> those = new ArrayList<>();
+	public List<GenderDataView> listSome (long page_count, long page_size) {
+		List<GenderDataView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      those.add(GenderView.FromCursor(cursor));
+		      those.add(GenderDataView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -95,16 +112,16 @@ public class GenderDataSource {
 	    return result;	
 	}
 
-	public int insert (GenderView that) {
+	public int insert (GenderDataView that) {
 		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
-	public int update (GenderView that) {
+	public int update (GenderDataView that) {
 		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
-	public int delete (GenderView that) {
+	public int delete (GenderDataView that) {
 		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
 	}
 
@@ -115,7 +132,78 @@ public class GenderDataSource {
 // reserved-for:AndroidSqliteQuerySingle002
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteDatabaseSingle003
-}
-// reserved-for:AndroidSqliteDatabaseSingle003
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.2
+  public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+// reserved-for:AndroidSqliteDatabaseSingle002.2
 // End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.1
+
+// reserved-for:AndroidSqliteQuerySingle002.1
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.3
+  }
+// reserved-for:AndroidSqliteDatabaseSingle002.3
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.4
+  public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+
+    if (FN_GENDER_INSERT == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/insert"), null, null, null, null);
+    }
+    else if (FN_GENDER_UPDATE == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/update"), null, null, null, null);
+    }
+    else if (FN_GENDER_DELETE == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/delete"), null, null, null, null);
+    }
+    else if (FN_GENDER_ALL == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/all"), null, null, null, null);
+    }
+    else if (FN_GENDER_SOME == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/some"), new String[]{ bundle.getString("page_count"), bundle.getString("page_size") }, null, null, null);
+    }
+    else if (FN_GENDER_BY_ID == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ bundle.getString("id") }, null);
+    }
+    else if (FN_GENDER_LAST_ID == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/last_id"), null, null, null, null);
+    }
+// reserved-for:AndroidSqliteDatabaseSingle002.4
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.2
+// reserved-for:AndroidSqliteQuerySingle002.2
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.5
+  }
+// reserved-for:AndroidSqliteDatabaseSingle002.5
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.6
+  public Loader<Cursor> onLoaderReset(Loader<Cursor> cursorLoader) {
+// reserved-for:AndroidSqliteDatabaseSingle002.6
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteQuerySingle002.3
+
+// reserved-for:AndroidSqliteQuerySingle002.3
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.7
+  }
+// reserved-for:AndroidSqliteDatabaseSingle002.7
+// End of user code
+
+// Start of user code reserved-for:AndroidSqliteDatabaseSingle002.8
+  public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+	((LoaderInterface)this.context).onLoadFinished(cursorLoader,cursor);
+  }
+}
+// reserved-for:AndroidSqliteDatabaseSingle002.8
+// End of user code
+

@@ -75,11 +75,11 @@ public class InstallmentTypeDataView {
 
 	}
 
-	public static InstallmentTypeView FromJson(String json){
+	public static InstallmentTypeDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return InstallmentTypeView.FromJsonObj(obj);
+				return InstallmentTypeDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -87,10 +87,10 @@ public class InstallmentTypeDataView {
 		return null;
 	}
 
-	public static InstallmentTypeView FromJsonObj (JSONObject obj) {
+	public static InstallmentTypeDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				InstallmentTypeView result = new InstallmentTypeView();
+				InstallmentTypeDataView result = new InstallmentTypeDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -110,9 +110,9 @@ public class InstallmentTypeDataView {
 		return null;
 	}
 
-	public static InstallmentTypeView FromCursor (Cursor cursor) {
+	public static InstallmentTypeDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			InstallmentTypeView result = new InstallmentTypeView();
+			InstallmentTypeDataView result = new InstallmentTypeDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

@@ -86,11 +86,11 @@ public class BrandDataView {
 
 	}
 
-	public static BrandView FromJson(String json){
+	public static BrandDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return BrandView.FromJsonObj(obj);
+				return BrandDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -98,10 +98,10 @@ public class BrandDataView {
 		return null;
 	}
 
-	public static BrandView FromJsonObj (JSONObject obj) {
+	public static BrandDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				BrandView result = new BrandView();
+				BrandDataView result = new BrandDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -122,9 +122,9 @@ public class BrandDataView {
 		return null;
 	}
 
-	public static BrandView FromCursor (Cursor cursor) {
+	public static BrandDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			BrandView result = new BrandView();
+			BrandDataView result = new BrandDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

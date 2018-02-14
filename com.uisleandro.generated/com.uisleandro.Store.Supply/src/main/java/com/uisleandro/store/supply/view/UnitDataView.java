@@ -75,11 +75,11 @@ public class UnitDataView {
 
 	}
 
-	public static UnitView FromJson(String json){
+	public static UnitDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return UnitView.FromJsonObj(obj);
+				return UnitDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -87,10 +87,10 @@ public class UnitDataView {
 		return null;
 	}
 
-	public static UnitView FromJsonObj (JSONObject obj) {
+	public static UnitDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				UnitView result = new UnitView();
+				UnitDataView result = new UnitDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -110,9 +110,9 @@ public class UnitDataView {
 		return null;
 	}
 
-	public static UnitView FromCursor (Cursor cursor) {
+	public static UnitDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			UnitView result = new UnitView();
+			UnitDataView result = new UnitDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

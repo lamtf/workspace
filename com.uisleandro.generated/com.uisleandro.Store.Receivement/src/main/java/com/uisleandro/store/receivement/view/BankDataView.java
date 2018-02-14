@@ -86,11 +86,11 @@ public class BankDataView {
 
 	}
 
-	public static BankView FromJson(String json){
+	public static BankDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return BankView.FromJsonObj(obj);
+				return BankDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -98,10 +98,10 @@ public class BankDataView {
 		return null;
 	}
 
-	public static BankView FromJsonObj (JSONObject obj) {
+	public static BankDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				BankView result = new BankView();
+				BankDataView result = new BankDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -122,9 +122,9 @@ public class BankDataView {
 		return null;
 	}
 
-	public static BankView FromCursor (Cursor cursor) {
+	public static BankDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			BankView result = new BankView();
+			BankDataView result = new BankDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

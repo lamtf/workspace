@@ -26,10 +26,6 @@ import com.uisleandro.store.DbHelper;
 // reserved-for:AndroidSqliteDatabase001
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteSyncSingle001
-// reserved-for:AndroidSqliteSyncSingle001
-// End of user code
-
 // Start of user code reserved-for:AndroidSqliteQuerySingle001import com.uisleandro.store.supply.view.MissingProductsRelatoryOut;
 import com.uisleandro.store.supply.view.GetByIdOut;
 import com.uisleandro.store.supply.view.GetByRepeatedProductCodeOut;
@@ -90,10 +86,6 @@ public class ProductProvider extends ContentProvider {
 
 
 // reserved-for:AndroidSqliteDatabase002
-// End of user code
-
-// Start of user code reserved-for:AndroidSqliteSyncSingle002
-// reserved-for:AndroidSqliteSyncSingle003
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
@@ -364,10 +356,6 @@ public class ProductProvider extends ContentProvider {
 // reserved-for:AndroidSqliteDatabase009
 // End of user code
 
-// Start of user code reserved-for:AndroidSqliteSyncSingle003
-// reserved-for:AndroidSqliteSyncSingle003
-// End of user code
-
 // Start of user code reserved-for:AndroidSqliteQuerySingle006
 	/* @SelectListWhere */
 	public Cursor missing_products_relatory (String[] selectionArgs,long page_count, long page_size) {
@@ -442,10 +430,6 @@ public class ProductProvider extends ContentProvider {
 			result = getLastId();
 		}
 // reserved-for:AndroidSqliteDatabase010
-// End of user code
-
-// Start of user code reserved-for:AndroidSqliteSyncSingle004
-// reserved-for:AndroidSqliteSyncSingle004
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle007

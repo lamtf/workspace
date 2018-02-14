@@ -4,7 +4,7 @@
             "outputFile": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Supply/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-xhdpi-v4/values-xhdpi-v4.xml",
             "map": [
                 {
-                    "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/core-1.9.8.aar/c78dd34db88024e5961ffd7430b03c20/res/values-xhdpi-v4/values-xhdpi-v4.xml",
+                    "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/core-1.9.8.aar/c02d20e567d47967a2c3d83db3d2e12b/res/values-xhdpi-v4/values-xhdpi-v4.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

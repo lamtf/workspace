@@ -207,11 +207,11 @@ public class SystemDataView {
 
 	}
 
-	public static SystemView FromJson(String json){
+	public static SystemDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return SystemView.FromJsonObj(obj);
+				return SystemDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -219,10 +219,10 @@ public class SystemDataView {
 		return null;
 	}
 
-	public static SystemView FromJsonObj (JSONObject obj) {
+	public static SystemDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				SystemView result = new SystemView();
+				SystemDataView result = new SystemDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -258,9 +258,9 @@ public class SystemDataView {
 		return null;
 	}
 
-	public static SystemView FromCursor (Cursor cursor) {
+	public static SystemDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			SystemView result = new SystemView();
+			SystemDataView result = new SystemDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

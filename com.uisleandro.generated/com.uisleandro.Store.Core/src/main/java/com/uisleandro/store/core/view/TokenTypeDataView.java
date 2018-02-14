@@ -75,11 +75,11 @@ public class TokenTypeDataView {
 
 	}
 
-	public static TokenTypeView FromJson(String json){
+	public static TokenTypeDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return TokenTypeView.FromJsonObj(obj);
+				return TokenTypeDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -87,10 +87,10 @@ public class TokenTypeDataView {
 		return null;
 	}
 
-	public static TokenTypeView FromJsonObj (JSONObject obj) {
+	public static TokenTypeDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				TokenTypeView result = new TokenTypeView();
+				TokenTypeDataView result = new TokenTypeDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -110,9 +110,9 @@ public class TokenTypeDataView {
 		return null;
 	}
 
-	public static TokenTypeView FromCursor (Cursor cursor) {
+	public static TokenTypeDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			TokenTypeView result = new TokenTypeView();
+			TokenTypeDataView result = new TokenTypeDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

@@ -130,11 +130,11 @@ public class IssueDataView {
 
 	}
 
-	public static IssueView FromJson(String json){
+	public static IssueDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return IssueView.FromJsonObj(obj);
+				return IssueDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -142,10 +142,10 @@ public class IssueDataView {
 		return null;
 	}
 
-	public static IssueView FromJsonObj (JSONObject obj) {
+	public static IssueDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				IssueView result = new IssueView();
+				IssueDataView result = new IssueDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -176,9 +176,9 @@ public class IssueDataView {
 		return null;
 	}
 
-	public static IssueView FromCursor (Cursor cursor) {
+	public static IssueDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			IssueView result = new IssueView();
+			IssueDataView result = new IssueDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

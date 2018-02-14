@@ -130,11 +130,11 @@ public class TokenDataView {
 
 	}
 
-	public static TokenView FromJson(String json){
+	public static TokenDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return TokenView.FromJsonObj(obj);
+				return TokenDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -142,10 +142,10 @@ public class TokenDataView {
 		return null;
 	}
 
-	public static TokenView FromJsonObj (JSONObject obj) {
+	public static TokenDataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				TokenView result = new TokenView();
+				TokenDataView result = new TokenDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -176,9 +176,9 @@ public class TokenDataView {
 		return null;
 	}
 
-	public static TokenView FromCursor (Cursor cursor) {
+	public static TokenDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			TokenView result = new TokenView();
+			TokenDataView result = new TokenDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);
