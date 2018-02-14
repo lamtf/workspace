@@ -39,7 +39,7 @@
 reserved-for:AndroidProject001
 End of user code
         -->
-<!-- Start of user code reserved-for:AndroidSqliteDatabaseSingle001 -->
+<!-- // Start of user code reserved-for:AndroidSqliteDatabaseSingle001 -->
 
         <provider
             android:name="com.uisleandro.store.cash.model.CashRegisterProvider"

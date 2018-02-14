@@ -644,16 +644,16 @@ public class [tbl.name.ToCamelCase() /]DataView {
 ->exists(x: Property | is_string(x)) )]
 		return this.[tbl.eContents(Property)->select(x: Property | is_string(x) )->first().name /];
 [else]
-		return "[tbl.name.ToCamelCase() /]View";
+		return "[tbl.name.ToCamelCase() /]DataView";
 [/if][/if]
 
 	}
 
-	public static [tbl.name.ToCamelCase() /]View FromJson(String json){
+	public static [tbl.name.ToCamelCase() /]DataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return [tbl.name.ToCamelCase() /]View.FromJsonObj(obj);
+				return [tbl.name.ToCamelCase() /]DataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -661,10 +661,10 @@ public class [tbl.name.ToCamelCase() /]DataView {
 		return null;
 	}
 
-	public static [tbl.name.ToCamelCase() /]View FromJsonObj (JSONObject obj) {
+	public static [tbl.name.ToCamelCase() /]DataView FromJsonObj (JSONObject obj) {
 		if(null != obj) {
 			try {
-				[tbl.name.ToCamelCase() /]View result = new [tbl.name.ToCamelCase() /]View();
+				[tbl.name.ToCamelCase() /]DataView result = new [tbl.name.ToCamelCase() /]DataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -691,9 +691,9 @@ public class [tbl.name.ToCamelCase() /]DataView {
 		return null;
 	}
 
-	public static [tbl.name.ToCamelCase() /]View FromCursor (Cursor cursor) {
+	public static [tbl.name.ToCamelCase() /]DataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			[tbl.name.ToCamelCase() /]View result = new [tbl.name.ToCamelCase() /]View();
+			[tbl.name.ToCamelCase() /]DataView result = new [tbl.name.ToCamelCase() /]DataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);
@@ -765,10 +765,6 @@ import java.util.List;
 import [pname /].DbHelper;
 [end_reserve('reserved-for:AndroidSqliteDatabase001') /]
 
-// [protected ('reserved-for:AndroidSqliteSyncSingle001')]
-// reserved-for:AndroidSqliteSyncSingle001
-// [/protected]
-
 // [protected ('reserved-for:AndroidSqliteQuerySingle001')]
 // reserved-for:AndroidSqliteQuerySingle001
 // [/protected]
@@ -828,10 +824,6 @@ public class [tbl.name.ToCamelCase() /]Provider extends ContentProvider {
 
 
 [end_reserve('reserved-for:AndroidSqliteDatabase002') /]
-
-// [protected ('reserved-for:AndroidSqliteSyncSingle002')]
-// reserved-for:AndroidSqliteSyncSingle003
-// [/protected]
 
 // [protected ('reserved-for:AndroidSqliteQuerySingle002')]
 // reserved-for:AndroidSqliteQuerySingle002
@@ -1012,10 +1004,6 @@ separator (', \n')]
 
 // end content-provider-interface
 
-// [protected ('reserved-for:AndroidSqliteSyncSingle003')]
-// reserved-for:AndroidSqliteSyncSingle003
-// [/protected]
-
 // [protected ('reserved-for:AndroidSqliteQuerySingle006')]
 // reserved-for:AndroidSqliteQuerySingle006
 // [/protected]
@@ -1039,10 +1027,6 @@ separator (', \n')]
 			result = getLastId();
 		}
 [end_reserve('reserved-for:AndroidSqliteDatabase010') /]
-
-// [protected ('reserved-for:AndroidSqliteSyncSingle004')]
-// reserved-for:AndroidSqliteSyncSingle004
-// [/protected]
 
 // [protected ('reserved-for:AndroidSqliteQuerySingle007')]
 // reserved-for:AndroidSqliteQuerySingle007
@@ -1069,12 +1053,20 @@ ON [tbl.getQualifiedName() /]
 [begin_reserve('reserved-for:AndroidSqliteDatabaseSingle001') /]
 package [pname /].[modul.name/].model;  
 
-import java.util.ArrayList;
-import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.util.Log;
-import [pname /].[modul.name/].view.[tbl.name.ToCamelCase() /]DataView
+import android.os.Bundle;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.uisleandro.util.LoaderInterface;
+import [pname /].[modul.name/].view.[tbl.name.ToCamelCase() /]DataView;
 [end_reserve('reserved-for:AndroidSqliteDatabaseSingle001') /]
 
 // [protected ('reserved-for:AndroidSqliteQuerySingle001')]
@@ -1082,18 +1074,25 @@ import [pname /].[modul.name/].view.[tbl.name.ToCamelCase() /]DataView
 // [/protected]
 
 [begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002') /]
-public class [tbl.name.ToCamelCase() /]DataSource {
+public class [tbl.name.ToCamelCase() /]DataSource implements LoaderManager.LoaderCallbacks<Cursor> {
+
+/* Yep this class implements the loaderCallbacks 
+
+context.getloadermanager().init(FN_id, bundle, this)
+I need to know about the class Bundle, which seems cary the data
+
+*/
 
 	public static final String AUTHORITY = "com.uisleandro.[tbl.name /]";
 	public static final String SCHEME = "content://";
 
-	public static final Integer FN_[tbl.name.toUpperCase() /]_INSERT = 998[pakageIndex /][classIndex /]1;
-	public static final Integer FN_[tbl.name.toUpperCase() /]_UPDATE = 998[pakageIndex /][classIndex /]2;
-	public static final Integer FN_[tbl.name.toUpperCase() /]_DELETE = 998[pakageIndex /][classIndex /]3;
-	public static final Integer FN_[tbl.name.toUpperCase() /]_ALL = 998[pakageIndex /][classIndex /]4;
-	public static final Integer FN_[tbl.name.toUpperCase() /]_SOME = 998[pakageIndex /][classIndex /]5;
-	public static final Integer FN_[tbl.name.toUpperCase() /]_BY_ID = 998[pakageIndex /][classIndex /]6;
-	public static final Integer FN_[tbl.name.toUpperCase() /]_LAST_ID = 998[pakageIndex /][classIndex /]7;
+	public static final int FN_[tbl.name.toUpperCase() /]_INSERT = 998[pakageIndex /][classIndex /]1;
+	public static final int FN_[tbl.name.toUpperCase() /]_UPDATE = 998[pakageIndex /][classIndex /]2;
+	public static final int FN_[tbl.name.toUpperCase() /]_DELETE = 998[pakageIndex /][classIndex /]3;
+	public static final int FN_[tbl.name.toUpperCase() /]_ALL = 998[pakageIndex /][classIndex /]4;
+	public static final int FN_[tbl.name.toUpperCase() /]_SOME = 998[pakageIndex /][classIndex /]5;
+	public static final int FN_[tbl.name.toUpperCase() /]_BY_ID = 998[pakageIndex /][classIndex /]6;
+	public static final int FN_[tbl.name.toUpperCase() /]_LAST_ID = 998[pakageIndex /][classIndex /]7;
 
 [end_reserve('reserved-for:AndroidSqliteDatabaseSingle002') /]
 
@@ -1107,17 +1106,19 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 		The name of the functions will be place here
 	[/comment]
 	Context context;
+	LoaderManager.LoaderCallbacks<Cursor> cursorLoader;
 	public [tbl.name.ToCamelCase() /]DataSource (Context context) {
 		this.context = context;
+		cursorLoader = (LoaderManager.LoaderCallbacks<Cursor>) context; 
 	}
 
-	public List<[tbl.name.ToCamelCase() /]View> listAll () {
-		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
+	public List<[tbl.name.ToCamelCase() /]DataView> listAll () {
+		List<[tbl.name.ToCamelCase() /]DataView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      those.add([tbl.name.ToCamelCase() /]View.FromCursor(cursor));
+		      those.add([tbl.name.ToCamelCase() /]DataView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -1125,26 +1126,26 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 	    return those;
 	}
 
-	public [tbl.name.ToCamelCase() /]View getById (long id) {
-		CashRegister that = null;
+	public [tbl.name.ToCamelCase() /]DataView getById (long id) {
+		[tbl.name.ToCamelCase() /]DataView that = null;
 		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[ '[' /][ ']' /]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
-		      that = [tbl.name.ToCamelCase() /]View.FromCursor(cursor);
+		      that = [tbl.name.ToCamelCase() /]DataView.FromCursor(cursor);
 		    }
 			cursor.close();
 		}
 	    return that;
 	}
 
-	public List<[tbl.name.ToCamelCase() /]View> listSome (long page_count, long page_size) {
-		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
+	public List<[tbl.name.ToCamelCase() /]DataView> listSome (long page_count, long page_size) {
+		List<[tbl.name.ToCamelCase() /]DataView> those = new ArrayList<>();
 		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[ '[' /][ ']' /]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
-		      those.add([tbl.name.ToCamelCase() /]View.FromCursor(cursor));
+		      those.add([tbl.name.ToCamelCase() /]DataView.FromCursor(cursor));
 		      cursor.moveToNext();
 		    }
 		    cursor.close();
@@ -1164,16 +1165,16 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 	    return result;	
 	}
 
-	public int insert ([tbl.name.ToCamelCase() /]View that) {
+	public int insert ([tbl.name.ToCamelCase() /]DataView that) {
 		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
 		return 0;
 	}
 
-	public int update ([tbl.name.ToCamelCase() /]View that) {
+	public int update ([tbl.name.ToCamelCase() /]DataView that) {
 		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
 	}
 
-	public int delete ([tbl.name.ToCamelCase() /]View that) {
+	public int delete ([tbl.name.ToCamelCase() /]DataView that) {
 		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[ '[' /][ ']' /]{ String.valueOf(that.getId()) });
 	}
 
@@ -1183,9 +1184,70 @@ public class [tbl.name.ToCamelCase() /]DataSource {
 // reserved-for:AndroidSqliteQuerySingle002
 // [/protected]
 
-[begin_reserve('reserved-for:AndroidSqliteDatabaseSingle003') /]
+[begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002.2') /]
+  public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+[end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.2') /]
+
+// [protected ('reserved-for:AndroidSqliteQuerySingle002.1')]
+// reserved-for:AndroidSqliteQuerySingle002.1
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002.3') /]
+  }
+[end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.3') /]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002.4') /]
+  public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+
+    if (FN_[tbl.name.toUpperCase() /]_INSERT == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/insert"), null, null, null, null);
+    }
+    else if (FN_[tbl.name.toUpperCase() /]_UPDATE == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/update"), null, null, null, null);
+    }
+    else if (FN_[tbl.name.toUpperCase() /]_DELETE == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/delete"), null, null, null, null);
+    }
+    else if (FN_[tbl.name.toUpperCase() /]_ALL == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/all"), null, null, null, null);
+    }
+    else if (FN_[tbl.name.toUpperCase() /]_SOME == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/some"), new String['['/][']'/]{ bundle.getString("page_count"), bundle.getString("page_size") }, null, null, null);
+    }
+    else if (FN_[tbl.name.toUpperCase() /]_BY_ID == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/by_id", null, null, new String[ '[' /][ ']' /]{ bundle.getString("id") }, null);
+    }
+    else if (FN_[tbl.name.toUpperCase() /]_LAST_ID == i) {
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/last_id"), null, null, null, null);
+    }
+[end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.4') /]
+
+// [protected ('reserved-for:AndroidSqliteQuerySingle002.2')]
+// reserved-for:AndroidSqliteQuerySingle002.2
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002.5') /]
+  }
+[end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.5') /]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002.6') /]
+  public Loader<Cursor> onLoaderReset(Loader<Cursor> cursorLoader) {
+[end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.6') /]
+
+// [protected ('reserved-for:AndroidSqliteQuerySingle002.3')]
+// reserved-for:AndroidSqliteQuerySingle002.3
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002.7') /]
+  }
+[end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.7') /]
+
+[begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002.8') /]
+  public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+	((LoaderInterface)this.context).onLoadFinished(cursorLoader,cursor);
+  }
 }
-[end_reserve('reserved-for:AndroidSqliteDatabaseSingle003') /]
+[end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.8') /]
 [/if]
 [/template]
 

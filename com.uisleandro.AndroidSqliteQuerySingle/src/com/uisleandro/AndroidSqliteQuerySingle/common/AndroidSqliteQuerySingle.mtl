@@ -392,10 +392,6 @@ endif
 // reserved-for:reserved-for:AndroidSqliteDatabase001
 // [/protected]
 
-// [protected ('reserved-for:AndroidSqliteSyncSingle001')]
-// reserved-for:AndroidSqliteSyncSingle001
-// [/protected]
-
 [begin_reserve('reserved-for:AndroidSqliteQuerySingle001')
 /][for (op : Operation | getValidOperations(controller)
 ->select(x | not(gotStereotype(x, 'SelectValueWhere')) and (null <> out_parameter_definition(x)) )
@@ -406,10 +402,6 @@ import [mName /].view.[ToCamelCase(out_parameter_definition(op).name) /];
 
 // [protected ('reserved-for:AndroidSqliteDatabase002')]
 // reserved-for:AndroidSqliteDatabase002
-// [/protected]
-
-// [protected ('reserved-for:AndroidSqliteSyncSingle002')]
-// reserved-for:AndroidSqliteSyncSingle002
 // [/protected]
 
 [begin_reserve('reserved-for:AndroidSqliteQuerySingle002') /]
@@ -500,10 +492,6 @@ import [mName /].view.[ToCamelCase(out_parameter_definition(op).name) /];
 // reserved-for:AndroidSqliteDatabase009
 // [/protected]
 
-// [protected ('reserved-for:AndroidSqliteSyncSingle003')]
-// reserved-for:AndroidSqliteSyncSingle003
-// [/protected]
-
 [begin_reserve('reserved-for:AndroidSqliteQuerySingle006') /]
 [for (op : Operation | getValidOperations(controller))]
 [let inView : Class = in_parameter_definition()
@@ -550,10 +538,6 @@ else recursiveFlatProperties(getSubject(outView),1)->reverse() endif]
 // reserved-for:AndroidSqliteDatabase010
 // [/protected]
 
-// [protected ('reserved-for:AndroidSqliteSyncSingle004')]
-// reserved-for:AndroidSqliteSyncSingle004
-// [/protected]
-
 [begin_reserve('reserved-for:AndroidSqliteQuerySingle007') /]
 /* @ExistsWhere||@SelectValueWhere||@SelectOneWhere||@SelectListWhere */
 [for (op : Operation | getValidOperations(controller)->select(x| gotStereotype(x, 'ExistsWhere') or gotStereotype(x, 'SelectValueWhere') or gotStereotype(x, 'SelectOneWhere') or gotStereotype(x, 'SelectListWhere')))]
@@ -590,7 +574,7 @@ import [mName /].view.[ToCamelCase(out_parameter_definition(op).name) /];
 
 [begin_reserve('reserved-for:AndroidSqliteQuerySingle001.1') /]
 [for (op : Operation | getValidOperations(controller))]
-	public static final Integer FN_[controller.name.toUpperCase() /]_[name.toUpperCase() /] = 999[packageIndex /][classIndex /][i /];
+	public static final int FN_[controller.name.toUpperCase() /]_[name.toUpperCase() /] = 999[packageIndex /][classIndex /][i /];
 [/for]
 [end_reserve('reserved-for:AndroidSqliteQuerySingle001.1') /]
 
@@ -640,9 +624,51 @@ else recursiveFlatProperties(getSubject(outView),1)->reverse() endif]
 [/for]
 [end_reserve('reserved-for:AndroidSqliteQuerySingle002') /]
 
-// [protected ('reserved-for:AndroidSqliteDatabaseSingle003')]
-// reserved-for:AndroidSqliteDatabaseSingle003
+
+// [protected ('reserved-for:AndroidSqliteDatabaseSingle002.2')]
+// reserved-for:AndroidSqliteDatabaseSingle002.2
 // [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle002.1') /]
+
+[end_reserve('reserved-for:AndroidSqliteQuerySingle002.1') /]
+
+// [protected ('reserved-for:AndroidSqliteDatabaseSingle002.3')]
+// reserved-for:AndroidSqliteDatabaseSingle002.3
+// [/protected]
+
+// [protected ('reserved-for:AndroidSqliteDatabaseSingle002.4')]
+// reserved-for:AndroidSqliteDatabaseSingle002.4
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle002.2') /]
+[for (op : Operation | getValidOperations(controller))]
+	else if (FN_[controller.name.toUpperCase() /]_[name.toUpperCase() /] == i){
+		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/[op.name /]"), new String['['/][']'/]{}, null, null, null);
+    }
+[/for]
+[end_reserve('reserved-for:AndroidSqliteQuerySingle002.2') /]
+
+// [protected ('reserved-for:AndroidSqliteDatabaseSingle002.5')]
+// reserved-for:AndroidSqliteDatabaseSingle002.5
+// [/protected]
+
+// [protected ('reserved-for:AndroidSqliteDatabaseSingle002.6')]
+// reserved-for:AndroidSqliteDatabaseSingle002.6
+// [/protected]
+
+[begin_reserve('reserved-for:AndroidSqliteQuerySingle002.3') /]
+
+[end_reserve('reserved-for:AndroidSqliteQuerySingle002.3') /]
+
+// [protected ('reserved-for:AndroidSqliteDatabaseSingle002.7')]
+// reserved-for:AndroidSqliteDatabaseSingle002.7
+// [/protected]
+
+// [protected ('reserved-for:AndroidSqliteDatabaseSingle002.8')]
+// reserved-for:AndroidSqliteDatabaseSingle002.8
+// [/protected]
+
 [/template]
 
 [template public create_out_classes(controller : Class, folder_name : String, pName: String)
@@ -700,14 +726,12 @@ i must call it just 'queries'
 		->first()
 		.eContents(Class)
 )]
-[comment]
-TODO: temporarialy removed
-[create_out_classes(
-	ctrl,
+[create_out_classes(ctrl,
 	cName+'.'+ToCamelCase(modul.name)+'/src/main/java/'+FolderName(pname)+modul.name+'/view',
 	pname +'.'+ modul.name+'.view'
 ) /]
-[/comment]
+
+
 [file (cName+'.Core/src/main/java/'+FolderName(pname)+'/'+modul.name+'/model/'+ToCamelCase(ctrl.name)+'Provider.java', false, 'UTF-8')]
 [create_android_content_provider(ctrl, pname +'.'+ modul.name) /]
 [/file]
@@ -736,8 +760,7 @@ functionName : String,
 queryIns: Sequence(Property)
 )]
 /* @Insert */
-public int [functionName 
-/] (String[ '[' /][ ']' /] selectionArgs) {
+public int [functionName /] (String[ '[' /][ ']' /] selectionArgs) {
 	//TODO: I might have some data from 'selectionArgs' and also some predefined data
 	//TODO: the way it is the transformation is wrong
 	String query = "[insert_query(queryIns)/]";
