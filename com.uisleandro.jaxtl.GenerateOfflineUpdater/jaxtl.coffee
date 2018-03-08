@@ -5,9 +5,31 @@
 	License:   https://creativecommons.org/licenses/by/4.0/
 ###
 
-
 uml_model = "../com.uisleandro.localdiagram/__out2017/behavior_model_v4.uml"
-target_file = "../com.uisleandro.generated/com.uisleandro.Store.Core/src/main/java/com/uisleandro/store/OfflineDatabaseUptader.java"
+# target_file = "../com.uisleandro.generated/com.uisleandro.Store.Core/src/main/java/com/uisleandro/store/OfflineDatabaseUptader2.java"
+target_file = "./result.java"
+
+###
+# now it do accept arguments????
+i = 0
+while i < process.argv.length
+  if process.argv[i] is "-x"
+    uml_model = process.argv[i+1]
+    i++
+  else if process.argv[i].indexOf("-x") is 0
+    uml_model = process.argv[i].substr(2)
+  else if process.argv[i] is "-f"
+    target_file = process.argv[i+1]
+    i++
+  else if process.argv[i].indexOf("-f") is 0
+    target_file = process.argv[i].substr(2)
+  i++
+console.log uml_model
+console.log target_file
+###
+
+
+
 
 ###
 Agora eu preciso fazer um parsing
@@ -683,6 +705,7 @@ fs.readFile uml_model,(err,data)->
 		console.log "error reading"
 	else
 		jsonData = (new XmlParser()).parse data.toString()
+		console.log "jsonData"
 		#ALL_STEREOTYPES = getAllStereotypes(jsonData)
 
 		root_model = jsonData.children[0]
@@ -699,7 +722,8 @@ fs.readFile uml_model,(err,data)->
 				allClasses[allClasses.length] = named_classes[j]
 				j++
 			i++
-
+		
+		console.log "allClasses"
 		# funciona mas nao funciona
 		#xxx = getStereotypeById("_n2sWIFFIEeesvOUB-zZRiA")
 		#console.log JSON.stringify xxx,null,'\t'
@@ -741,15 +765,22 @@ fs.readFile uml_model,(err,data)->
 				j++
 			#console.log JSON.stringify
 			i++
+		
+		console.log "foreign-keys"
 
 		SORTED = special_sort_for_updating_1 to_sort
+		
+		console.log "sorted"
 
 		targetFileContent = first_code_generation_for_updating SORTED
+		
+		console.log "template-ready"
 
 		fs.writeFile target_file, targetFileContent,
 		(err)->
 			if(err)
 				console.log err
+			console.log "finished"
 
 		# println JSON.stringify to_sort,null,'  '
 

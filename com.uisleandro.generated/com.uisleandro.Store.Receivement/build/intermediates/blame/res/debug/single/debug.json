@@ -124,16 +124,16 @@
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-mdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_ic_star_half_black_16dp.png.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-xxhdpi-v4/abc_ic_star_half_black_16dp.png"
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable_design_password_eye.xml.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/dc2071f4d2f6431f98c9680a1425f7ba/res/drawable/design_password_eye.xml"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_scrubber_control_off_mtrl_alpha.png.flat",
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-xhdpi-v4/abc_scrubber_control_off_mtrl_alpha.png"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable_design_password_eye.xml.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/dc2071f4d2f6431f98c9680a1425f7ba/res/drawable/design_password_eye.xml"
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_ic_star_half_black_16dp.png.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-xxhdpi-v4/abc_ic_star_half_black_16dp.png"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-ldrtl-hdpi-v17_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
@@ -188,12 +188,12 @@
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/dc2071f4d2f6431f98c9680a1425f7ba/res/layout/design_navigation_menu_item.xml"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-hdpi-v4/abc_btn_check_to_on_mtrl_015.png"
-    },
-    {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/color_abc_primary_text_disable_only_material_light.xml.flat",
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/color/abc_primary_text_disable_only_material_light.xml"
+    },
+    {
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-hdpi-v4/abc_btn_check_to_on_mtrl_015.png"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/layout_notification_template_big_media_narrow_custom.xml.flat",
@@ -308,12 +308,12 @@
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/dc2071f4d2f6431f98c9680a1425f7ba/res/layout/design_layout_tab_icon.xml"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/layout_abc_activity_chooser_view_list_item.xml.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/layout/abc_activity_chooser_view_list_item.xml"
-    },
-    {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_ic_star_half_black_16dp.png.flat",
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-xhdpi-v4/abc_ic_star_half_black_16dp.png"
+    },
+    {
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/layout_abc_activity_chooser_view_list_item.xml.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/layout/abc_activity_chooser_view_list_item.xml"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-xhdpi-v4_abc_ic_star_black_48dp.png.flat",
@@ -404,12 +404,12 @@
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-xxxhdpi-v4/abc_btn_switch_to_on_mtrl_00012.9.png"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4_design_ic_visibility.png.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/dc2071f4d2f6431f98c9680a1425f7ba/res/drawable-xxxhdpi-v4/design_ic_visibility.png"
-    },
-    {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable_ic_cloud_upload_black_24dp.xml.flat",
         "source": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/src/main/res/drawable/ic_cloud_upload_black_24dp.xml"
+    },
+    {
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-xxxhdpi-v4_design_ic_visibility.png.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/dc2071f4d2f6431f98c9680a1425f7ba/res/drawable-xxxhdpi-v4/design_ic_visibility.png"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_ic_menu_copy_mtrl_am_alpha.png.flat",
@@ -572,12 +572,12 @@
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/design-26.1.0.aar/dc2071f4d2f6431f98c9680a1425f7ba/res/drawable-anydpi-v21/design_ic_visibility.xml"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_btn_check_to_on_mtrl_000.png.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-hdpi-v4/abc_btn_check_to_on_mtrl_000.png"
-    },
-    {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-xxhdpi-v4_abc_scrubber_primary_mtrl_alpha.9.png.flat",
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-xxhdpi-v4/abc_scrubber_primary_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_btn_check_to_on_mtrl_000.png.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-hdpi-v4/abc_btn_check_to_on_mtrl_000.png"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Receivement/build/intermediates/res/merged/debug/drawable-mdpi-v4_abc_list_divider_mtrl_alpha.9.png.flat",

@@ -4,12 +4,12 @@
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-hdpi-v4/abc_scrubber_track_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable_abc_seekbar_tick_mark_material.xml.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable/abc_seekbar_tick_mark_material.xml"
-    },
-    {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-ldrtl-xhdpi-v17_abc_spinner_mtrl_am_alpha.9.png.flat",
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-ldrtl-xhdpi-v17/abc_spinner_mtrl_am_alpha.9.png"
+    },
+    {
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable_abc_seekbar_tick_mark_material.xml.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable/abc_seekbar_tick_mark_material.xml"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable_notification_bg.xml.flat",
@@ -224,24 +224,24 @@
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-ldrtl-hdpi-v17/abc_spinner_mtrl_am_alpha.9.png"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/layout_notification_template_icon_group.xml.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/468e56ba773510960d3ec38c71429748/res/layout/notification_template_icon_group.xml"
-    },
-    {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4_notification_bg_normal.9.png.flat",
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/468e56ba773510960d3ec38c71429748/res/drawable-hdpi-v4/notification_bg_normal.9.png"
+    },
+    {
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/layout_notification_template_icon_group.xml.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/support-compat-26.1.0.aar/468e56ba773510960d3ec38c71429748/res/layout/notification_template_icon_group.xml"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable_abc_list_selector_background_transition_holo_light.xml.flat",
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable/abc_list_selector_background_transition_holo_light.xml"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4_abc_scrubber_control_to_pressed_mtrl_000.png.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-mdpi-v4/abc_scrubber_control_to_pressed_mtrl_000.png"
-    },
-    {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable_abc_ic_menu_overflow_material.xml.flat",
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable/abc_ic_menu_overflow_material.xml"
+    },
+    {
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4_abc_scrubber_control_to_pressed_mtrl_000.png.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-mdpi-v4/abc_scrubber_control_to_pressed_mtrl_000.png"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/layout_design_bottom_sheet_dialog.xml.flat",
@@ -280,12 +280,12 @@
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-xxhdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-hdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
-    },
-    {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4_abc_ic_star_black_36dp.png.flat",
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-hdpi-v4/abc_ic_star_black_36dp.png"
+    },
+    {
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-hdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/color_abc_tint_default.xml.flat",
@@ -372,12 +372,12 @@
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/color/abc_search_url_text.xml"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-xhdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
-    },
-    {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4_abc_btn_radio_to_on_mtrl_000.png.flat",
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-xhdpi-v4/abc_btn_radio_to_on_mtrl_000.png"
+    },
+    {
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4_abc_ic_commit_search_api_mtrl_alpha.png.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-xhdpi-v4/abc_ic_commit_search_api_mtrl_alpha.png"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-xhdpi-v4_abc_textfield_search_activated_mtrl_alpha.9.png.flat",
@@ -444,12 +444,12 @@
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-mdpi-v4/abc_scrubber_track_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/layout_abc_screen_toolbar.xml.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/layout/abc_screen_toolbar.xml"
-    },
-    {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/layout_abc_alert_dialog_material.xml.flat",
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/layout/abc_alert_dialog_material.xml"
+    },
+    {
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/layout_abc_screen_toolbar.xml.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/layout/abc_screen_toolbar.xml"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-hdpi-v4_abc_text_select_handle_left_mtrl_dark.png.flat",
@@ -684,12 +684,12 @@
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-xhdpi-v4/abc_tab_indicator_mtrl_alpha.9.png"
     },
     {
-        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable_abc_ic_clear_material.xml.flat",
-        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable/abc_ic_clear_material.xml"
-    },
-    {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-mdpi-v4_abc_ic_menu_paste_mtrl_am_alpha.png.flat",
         "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable-mdpi-v4/abc_ic_menu_paste_mtrl_am_alpha.png"
+    },
+    {
+        "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable_abc_ic_clear_material.xml.flat",
+        "source": "/home/uis/.gradle/caches/transforms-1/files-1.1/appcompat-v7-26.1.0.aar/0ff110a378f1e79ace1da770e45009ea/res/drawable/abc_ic_clear_material.xml"
     },
     {
         "merged": "/home/uis/git/manwmtf/com.uisleandro.generated/com.uisleandro.Store.Referral/build/intermediates/res/merged/androidTest/debug/drawable-xxhdpi-v4_design_ic_visibility.png.flat",
