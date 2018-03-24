@@ -47,8 +47,8 @@ public class DbLogOfflineHelper {
 		values.put(DbHelper.DB_LOG_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.DB_LOG_ACTION_NAME, that.getActionName());
 		values.put(DbHelper.DB_LOG_PARAMETER, that.getParameter());
-		if(that.getFkFkUser() > 0){
-			values.put(DbHelper.DB_LOG_FK_USER, that.getFkFkUser());
+		if(that.getFkUser() > 0){
+			values.put(DbHelper.DB_LOG_FK_USER, that.getFkUser());
 		}
 		long last_id = database.insert(DbHelper.TABLE_DB_LOG, null, values);
 		return last_id;
@@ -64,8 +64,8 @@ public class DbLogOfflineHelper {
 		values.put(DbHelper.DB_LOG_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.DB_LOG_ACTION_NAME, that.getActionName());
 		values.put(DbHelper.DB_LOG_PARAMETER, that.getParameter());
-		if(that.getFkFkUser() > 0){
-			values.put(DbHelper.DB_LOG_FK_USER, that.getFkFkUser());
+		if(that.getFkUser() > 0){
+			values.put(DbHelper.DB_LOG_FK_USER, that.getFkUser());
 		}
 		int rows_affected = database.update(DbHelper.TABLE_DB_LOG, values, DbHelper.DB_LOG_ID + " = " + String.valueOf(that.getId()), null);
 		return rows_affected;
@@ -125,7 +125,7 @@ public class DbLogOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.DB_LOG_SERVER_ID, remote_id);
-		values.put(DbHelper.DB_LOG_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.DB_LOG_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.DB_LOG_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_DB_LOG,

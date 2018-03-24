@@ -47,8 +47,8 @@ public class SystemOfflineHelper {
 		values.put(DbHelper.SYSTEM_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.SYSTEM_NAME, that.getName());
 		values.put(DbHelper.SYSTEM_ENABLED, that.getEnabled());
-		if(that.getFkFkCurrency() > 0){
-			values.put(DbHelper.SYSTEM_FK_CURRENCY, that.getFkFkCurrency());
+		if(that.getFkCurrency() > 0){
+			values.put(DbHelper.SYSTEM_FK_CURRENCY, that.getFkCurrency());
 		}
 		values.put(DbHelper.SYSTEM_FANTASY_NAME, that.getFantasyName());
 		values.put(DbHelper.SYSTEM_STORES_ADDRESS, that.getStoresAddress());
@@ -59,8 +59,8 @@ public class SystemOfflineHelper {
 		values.put(DbHelper.SYSTEM_STORES_STATE, that.getStoresState());
 		values.put(DbHelper.SYSTEM_STORES_EMAIL, that.getStoresEmail());
 		values.put(DbHelper.SYSTEM_STORES_PHONENUMBER, that.getStoresPhonenumber());
-		if(that.getFkFkReseller() > 0){
-			values.put(DbHelper.SYSTEM_FK_RESELLER, that.getFkFkReseller());
+		if(that.getFkReseller() > 0){
+			values.put(DbHelper.SYSTEM_FK_RESELLER, that.getFkReseller());
 		}
 		long last_id = database.insert(DbHelper.TABLE_SYSTEM, null, values);
 		return last_id;
@@ -76,8 +76,8 @@ public class SystemOfflineHelper {
 		values.put(DbHelper.SYSTEM_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.SYSTEM_NAME, that.getName());
 		values.put(DbHelper.SYSTEM_ENABLED, that.getEnabled());
-		if(that.getFkFkCurrency() > 0){
-			values.put(DbHelper.SYSTEM_FK_CURRENCY, that.getFkFkCurrency());
+		if(that.getFkCurrency() > 0){
+			values.put(DbHelper.SYSTEM_FK_CURRENCY, that.getFkCurrency());
 		}
 		values.put(DbHelper.SYSTEM_FANTASY_NAME, that.getFantasyName());
 		values.put(DbHelper.SYSTEM_STORES_ADDRESS, that.getStoresAddress());
@@ -88,8 +88,8 @@ public class SystemOfflineHelper {
 		values.put(DbHelper.SYSTEM_STORES_STATE, that.getStoresState());
 		values.put(DbHelper.SYSTEM_STORES_EMAIL, that.getStoresEmail());
 		values.put(DbHelper.SYSTEM_STORES_PHONENUMBER, that.getStoresPhonenumber());
-		if(that.getFkFkReseller() > 0){
-			values.put(DbHelper.SYSTEM_FK_RESELLER, that.getFkFkReseller());
+		if(that.getFkReseller() > 0){
+			values.put(DbHelper.SYSTEM_FK_RESELLER, that.getFkReseller());
 		}
 		int rows_affected = database.update(DbHelper.TABLE_SYSTEM, values, DbHelper.SYSTEM_ID + " = " + String.valueOf(that.getId()), null);
 		return rows_affected;
@@ -170,7 +170,7 @@ public class SystemOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.SYSTEM_SERVER_ID, remote_id);
-		values.put(DbHelper.SYSTEM_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.SYSTEM_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.SYSTEM_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_SYSTEM,

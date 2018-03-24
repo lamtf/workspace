@@ -45,11 +45,11 @@ public class ProductOnSaleOfflineHelper {
 
 		values.put(DbHelper.PRODUCT_ON_SALE_DIRTY, that.isDirty());
 		values.put(DbHelper.PRODUCT_ON_SALE_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkSale() > 0){
-			values.put(DbHelper.PRODUCT_ON_SALE_FK_SALE, that.getFkFkSale());
+		if(that.getFkSale() > 0){
+			values.put(DbHelper.PRODUCT_ON_SALE_FK_SALE, that.getFkSale());
 		}
-		if(that.getFkFkProduct() > 0){
-			values.put(DbHelper.PRODUCT_ON_SALE_FK_PRODUCT, that.getFkFkProduct());
+		if(that.getFkProduct() > 0){
+			values.put(DbHelper.PRODUCT_ON_SALE_FK_PRODUCT, that.getFkProduct());
 		}
 		long last_id = database.insert(DbHelper.TABLE_PRODUCT_ON_SALE, null, values);
 		return last_id;
@@ -63,11 +63,11 @@ public class ProductOnSaleOfflineHelper {
 		values.put(DbHelper.PRODUCT_ON_SALE_DIRTY, that.isDirty());
 
 		values.put(DbHelper.PRODUCT_ON_SALE_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkSale() > 0){
-			values.put(DbHelper.PRODUCT_ON_SALE_FK_SALE, that.getFkFkSale());
+		if(that.getFkSale() > 0){
+			values.put(DbHelper.PRODUCT_ON_SALE_FK_SALE, that.getFkSale());
 		}
-		if(that.getFkFkProduct() > 0){
-			values.put(DbHelper.PRODUCT_ON_SALE_FK_PRODUCT, that.getFkFkProduct());
+		if(that.getFkProduct() > 0){
+			values.put(DbHelper.PRODUCT_ON_SALE_FK_PRODUCT, that.getFkProduct());
 		}
 		int rows_affected = database.update(DbHelper.TABLE_PRODUCT_ON_SALE, values, DbHelper.PRODUCT_ON_SALE_ID + " = " + String.valueOf(that.getId()), null);
 		return rows_affected;
@@ -126,7 +126,7 @@ public class ProductOnSaleOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.PRODUCT_ON_SALE_SERVER_ID, remote_id);
-		values.put(DbHelper.PRODUCT_ON_SALE_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.PRODUCT_ON_SALE_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.PRODUCT_ON_SALE_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_PRODUCT_ON_SALE,

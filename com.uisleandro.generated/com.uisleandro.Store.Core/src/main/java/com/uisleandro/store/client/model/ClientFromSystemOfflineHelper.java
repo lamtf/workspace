@@ -45,17 +45,17 @@ public class ClientFromSystemOfflineHelper {
 
 		values.put(DbHelper.CLIENT_FROM_SYSTEM_DIRTY, that.isDirty());
 		values.put(DbHelper.CLIENT_FROM_SYSTEM_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkSystem() > 0){
-			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_SYSTEM, that.getFkFkSystem());
+		if(that.getFkSystem() > 0){
+			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_SYSTEM, that.getFkSystem());
 		}
-		if(that.getFkFkBasicClient() > 0){
-			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_BASIC_CLIENT, that.getFkFkBasicClient());
+		if(that.getFkBasicClient() > 0){
+			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_BASIC_CLIENT, that.getFkBasicClient());
 		}
-		if(that.getFkFkSharedClient() > 0){
-			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_SHARED_CLIENT, that.getFkFkSharedClient());
+		if(that.getFkSharedClient() > 0){
+			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_SHARED_CLIENT, that.getFkSharedClient());
 		}
-		if(that.getFkFkUser() > 0){
-			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_USER, that.getFkFkUser());
+		if(that.getFkUser() > 0){
+			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_USER, that.getFkUser());
 		}
 		long last_id = database.insert(DbHelper.TABLE_CLIENT_FROM_SYSTEM, null, values);
 		return last_id;
@@ -69,17 +69,17 @@ public class ClientFromSystemOfflineHelper {
 		values.put(DbHelper.CLIENT_FROM_SYSTEM_DIRTY, that.isDirty());
 
 		values.put(DbHelper.CLIENT_FROM_SYSTEM_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkSystem() > 0){
-			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_SYSTEM, that.getFkFkSystem());
+		if(that.getFkSystem() > 0){
+			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_SYSTEM, that.getFkSystem());
 		}
-		if(that.getFkFkBasicClient() > 0){
-			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_BASIC_CLIENT, that.getFkFkBasicClient());
+		if(that.getFkBasicClient() > 0){
+			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_BASIC_CLIENT, that.getFkBasicClient());
 		}
-		if(that.getFkFkSharedClient() > 0){
-			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_SHARED_CLIENT, that.getFkFkSharedClient());
+		if(that.getFkSharedClient() > 0){
+			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_SHARED_CLIENT, that.getFkSharedClient());
 		}
-		if(that.getFkFkUser() > 0){
-			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_USER, that.getFkFkUser());
+		if(that.getFkUser() > 0){
+			values.put(DbHelper.CLIENT_FROM_SYSTEM_FK_USER, that.getFkUser());
 		}
 		int rows_affected = database.update(DbHelper.TABLE_CLIENT_FROM_SYSTEM, values, DbHelper.CLIENT_FROM_SYSTEM_ID + " = " + String.valueOf(that.getId()), null);
 		return rows_affected;
@@ -144,7 +144,7 @@ public class ClientFromSystemOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.CLIENT_FROM_SYSTEM_SERVER_ID, remote_id);
-		values.put(DbHelper.CLIENT_FROM_SYSTEM_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.CLIENT_FROM_SYSTEM_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.CLIENT_FROM_SYSTEM_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_CLIENT_FROM_SYSTEM,

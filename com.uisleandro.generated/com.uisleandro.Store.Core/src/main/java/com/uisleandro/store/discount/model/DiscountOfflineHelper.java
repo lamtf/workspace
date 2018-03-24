@@ -47,20 +47,20 @@ public class DiscountOfflineHelper {
 		values.put(DbHelper.DISCOUNT_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.DISCOUNT_VALUE, that.getValue());
 		values.put(DbHelper.DISCOUNT_PERCENTAGE, that.getPercentage());
-		if(that.getFkFkProduct() > 0){
-			values.put(DbHelper.DISCOUNT_FK_PRODUCT, that.getFkFkProduct());
+		if(that.getFkProduct() > 0){
+			values.put(DbHelper.DISCOUNT_FK_PRODUCT, that.getFkProduct());
 		}
-		if(that.getFkFkCategory() > 0){
-			values.put(DbHelper.DISCOUNT_FK_CATEGORY, that.getFkFkCategory());
+		if(that.getFkCategory() > 0){
+			values.put(DbHelper.DISCOUNT_FK_CATEGORY, that.getFkCategory());
 		}
-		if(that.getFkFkBrand() > 0){
-			values.put(DbHelper.DISCOUNT_FK_BRAND, that.getFkFkBrand());
+		if(that.getFkBrand() > 0){
+			values.put(DbHelper.DISCOUNT_FK_BRAND, that.getFkBrand());
 		}
-		if(that.getFkFkClientFromSystem() > 0){
-			values.put(DbHelper.DISCOUNT_FK_CLIENT_FROM_SYSTEM, that.getFkFkClientFromSystem());
+		if(that.getFkClientFromSystem() > 0){
+			values.put(DbHelper.DISCOUNT_FK_CLIENT_FROM_SYSTEM, that.getFkClientFromSystem());
 		}
-		if(that.getFkFkGender() > 0){
-			values.put(DbHelper.DISCOUNT_FK_GENDER, that.getFkFkGender());
+		if(that.getFkGender() > 0){
+			values.put(DbHelper.DISCOUNT_FK_GENDER, that.getFkGender());
 		}
 		long last_id = database.insert(DbHelper.TABLE_DISCOUNT, null, values);
 		return last_id;
@@ -76,20 +76,20 @@ public class DiscountOfflineHelper {
 		values.put(DbHelper.DISCOUNT_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.DISCOUNT_VALUE, that.getValue());
 		values.put(DbHelper.DISCOUNT_PERCENTAGE, that.getPercentage());
-		if(that.getFkFkProduct() > 0){
-			values.put(DbHelper.DISCOUNT_FK_PRODUCT, that.getFkFkProduct());
+		if(that.getFkProduct() > 0){
+			values.put(DbHelper.DISCOUNT_FK_PRODUCT, that.getFkProduct());
 		}
-		if(that.getFkFkCategory() > 0){
-			values.put(DbHelper.DISCOUNT_FK_CATEGORY, that.getFkFkCategory());
+		if(that.getFkCategory() > 0){
+			values.put(DbHelper.DISCOUNT_FK_CATEGORY, that.getFkCategory());
 		}
-		if(that.getFkFkBrand() > 0){
-			values.put(DbHelper.DISCOUNT_FK_BRAND, that.getFkFkBrand());
+		if(that.getFkBrand() > 0){
+			values.put(DbHelper.DISCOUNT_FK_BRAND, that.getFkBrand());
 		}
-		if(that.getFkFkClientFromSystem() > 0){
-			values.put(DbHelper.DISCOUNT_FK_CLIENT_FROM_SYSTEM, that.getFkFkClientFromSystem());
+		if(that.getFkClientFromSystem() > 0){
+			values.put(DbHelper.DISCOUNT_FK_CLIENT_FROM_SYSTEM, that.getFkClientFromSystem());
 		}
-		if(that.getFkFkGender() > 0){
-			values.put(DbHelper.DISCOUNT_FK_GENDER, that.getFkFkGender());
+		if(that.getFkGender() > 0){
+			values.put(DbHelper.DISCOUNT_FK_GENDER, that.getFkGender());
 		}
 		int rows_affected = database.update(DbHelper.TABLE_DISCOUNT, values, DbHelper.DISCOUNT_ID + " = " + String.valueOf(that.getId()), null);
 		return rows_affected;
@@ -161,7 +161,7 @@ public class DiscountOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.DISCOUNT_SERVER_ID, remote_id);
-		values.put(DbHelper.DISCOUNT_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.DISCOUNT_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.DISCOUNT_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_DISCOUNT,

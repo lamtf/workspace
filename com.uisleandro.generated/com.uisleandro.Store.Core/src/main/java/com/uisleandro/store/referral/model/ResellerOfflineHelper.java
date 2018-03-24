@@ -138,7 +138,7 @@ public class ResellerOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.RESELLER_SERVER_ID, remote_id);
-		values.put(DbHelper.RESELLER_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.RESELLER_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.RESELLER_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_RESELLER,

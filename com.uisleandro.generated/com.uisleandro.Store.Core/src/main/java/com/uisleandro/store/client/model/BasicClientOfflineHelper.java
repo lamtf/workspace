@@ -58,8 +58,8 @@ public class BasicClientOfflineHelper {
 		values.put(DbHelper.BASIC_CLIENT_CITY, that.getCity());
 		values.put(DbHelper.BASIC_CLIENT_STATE, that.getState());
 		values.put(DbHelper.BASIC_CLIENT_COMPLEMENT, that.getComplement());
-		if(that.getFkFkCountry() > 0){
-			values.put(DbHelper.BASIC_CLIENT_FK_COUNTRY, that.getFkFkCountry());
+		if(that.getFkCountry() > 0){
+			values.put(DbHelper.BASIC_CLIENT_FK_COUNTRY, that.getFkCountry());
 		}
 		long last_id = database.insert(DbHelper.TABLE_BASIC_CLIENT, null, values);
 		return last_id;
@@ -86,8 +86,8 @@ public class BasicClientOfflineHelper {
 		values.put(DbHelper.BASIC_CLIENT_CITY, that.getCity());
 		values.put(DbHelper.BASIC_CLIENT_STATE, that.getState());
 		values.put(DbHelper.BASIC_CLIENT_COMPLEMENT, that.getComplement());
-		if(that.getFkFkCountry() > 0){
-			values.put(DbHelper.BASIC_CLIENT_FK_COUNTRY, that.getFkFkCountry());
+		if(that.getFkCountry() > 0){
+			values.put(DbHelper.BASIC_CLIENT_FK_COUNTRY, that.getFkCountry());
 		}
 		int rows_affected = database.update(DbHelper.TABLE_BASIC_CLIENT, values, DbHelper.BASIC_CLIENT_ID + " = " + String.valueOf(that.getId()), null);
 		return rows_affected;
@@ -169,7 +169,7 @@ public class BasicClientOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.BASIC_CLIENT_SERVER_ID, remote_id);
-		values.put(DbHelper.BASIC_CLIENT_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.BASIC_CLIENT_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.BASIC_CLIENT_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_BASIC_CLIENT,

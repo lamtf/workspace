@@ -2,7 +2,6 @@ package com.uisleandro.store.core.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.content.ContentValues;
 import android.database.Cursor;
 
 public class RoleDataView {
@@ -88,7 +87,7 @@ public class RoleDataView {
 		return null;
 	}
 
-	public static RoleDataView FromJsonObj (JSONObject obj) {
+	public static RoleDataView FromJsonObj(JSONObject obj) {
 		if(null != obj) {
 			try {
 				RoleDataView result = new RoleDataView();
@@ -124,22 +123,12 @@ public class RoleDataView {
 		return null;
 	}
 
-	public ContentValues toInsertValues () {
-
-		ContentValues contentValues = new ContentValues();
-		contentValues.put("last_update",last_update);
-		contentValues.put("name",name);
-		return contentValues;
-
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), name};
 	}
 
-	public ContentValues toUpdateValues () {
-
-		ContentValues contentValues = new ContentValues();
-		contentValues.put("last_update",last_update);
-		contentValues.put("name",name);
-		return contentValues;
-
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name};
 	}
 
 }

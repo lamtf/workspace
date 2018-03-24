@@ -45,18 +45,18 @@ public class SaleOfflineHelper {
 
 		values.put(DbHelper.SALE_DIRTY, that.isDirty());
 		values.put(DbHelper.SALE_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkSaleType() > 0){
-			values.put(DbHelper.SALE_FK_SALE_TYPE, that.getFkFkSaleType());
+		if(that.getFkSaleType() > 0){
+			values.put(DbHelper.SALE_FK_SALE_TYPE, that.getFkSaleType());
 		}
-		if(that.getFkFkSystem() > 0){
-			values.put(DbHelper.SALE_FK_SYSTEM, that.getFkFkSystem());
+		if(that.getFkSystem() > 0){
+			values.put(DbHelper.SALE_FK_SYSTEM, that.getFkSystem());
 		}
 		values.put(DbHelper.SALE_TOTAL_VALUE, that.getTotalValue());
-		if(that.getFkFkUser() > 0){
-			values.put(DbHelper.SALE_FK_USER, that.getFkFkUser());
+		if(that.getFkUser() > 0){
+			values.put(DbHelper.SALE_FK_USER, that.getFkUser());
 		}
-		if(that.getFkFkClientFromSystem() > 0){
-			values.put(DbHelper.SALE_FK_CLIENT_FROM_SYSTEM, that.getFkFkClientFromSystem());
+		if(that.getFkClientFromSystem() > 0){
+			values.put(DbHelper.SALE_FK_CLIENT_FROM_SYSTEM, that.getFkClientFromSystem());
 		}
 		long last_id = database.insert(DbHelper.TABLE_SALE, null, values);
 		return last_id;
@@ -70,18 +70,18 @@ public class SaleOfflineHelper {
 		values.put(DbHelper.SALE_DIRTY, that.isDirty());
 
 		values.put(DbHelper.SALE_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkSaleType() > 0){
-			values.put(DbHelper.SALE_FK_SALE_TYPE, that.getFkFkSaleType());
+		if(that.getFkSaleType() > 0){
+			values.put(DbHelper.SALE_FK_SALE_TYPE, that.getFkSaleType());
 		}
-		if(that.getFkFkSystem() > 0){
-			values.put(DbHelper.SALE_FK_SYSTEM, that.getFkFkSystem());
+		if(that.getFkSystem() > 0){
+			values.put(DbHelper.SALE_FK_SYSTEM, that.getFkSystem());
 		}
 		values.put(DbHelper.SALE_TOTAL_VALUE, that.getTotalValue());
-		if(that.getFkFkUser() > 0){
-			values.put(DbHelper.SALE_FK_USER, that.getFkFkUser());
+		if(that.getFkUser() > 0){
+			values.put(DbHelper.SALE_FK_USER, that.getFkUser());
 		}
-		if(that.getFkFkClientFromSystem() > 0){
-			values.put(DbHelper.SALE_FK_CLIENT_FROM_SYSTEM, that.getFkFkClientFromSystem());
+		if(that.getFkClientFromSystem() > 0){
+			values.put(DbHelper.SALE_FK_CLIENT_FROM_SYSTEM, that.getFkClientFromSystem());
 		}
 		int rows_affected = database.update(DbHelper.TABLE_SALE, values, DbHelper.SALE_ID + " = " + String.valueOf(that.getId()), null);
 		return rows_affected;
@@ -148,7 +148,7 @@ public class SaleOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.SALE_SERVER_ID, remote_id);
-		values.put(DbHelper.SALE_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.SALE_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.SALE_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_SALE,

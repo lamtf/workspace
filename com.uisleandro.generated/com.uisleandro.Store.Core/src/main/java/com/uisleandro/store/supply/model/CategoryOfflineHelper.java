@@ -45,8 +45,8 @@ public class CategoryOfflineHelper {
 
 		values.put(DbHelper.CATEGORY_DIRTY, that.isDirty());
 		values.put(DbHelper.CATEGORY_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkCategory() > 0){
-			values.put(DbHelper.CATEGORY_FK_CATEGORY, that.getFkFkCategory());
+		if(that.getFkCategory() > 0){
+			values.put(DbHelper.CATEGORY_FK_CATEGORY, that.getFkCategory());
 		}
 		values.put(DbHelper.CATEGORY_NAME, that.getName());
 		long last_id = database.insert(DbHelper.TABLE_CATEGORY, null, values);
@@ -61,8 +61,8 @@ public class CategoryOfflineHelper {
 		values.put(DbHelper.CATEGORY_DIRTY, that.isDirty());
 
 		values.put(DbHelper.CATEGORY_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkCategory() > 0){
-			values.put(DbHelper.CATEGORY_FK_CATEGORY, that.getFkFkCategory());
+		if(that.getFkCategory() > 0){
+			values.put(DbHelper.CATEGORY_FK_CATEGORY, that.getFkCategory());
 		}
 		values.put(DbHelper.CATEGORY_NAME, that.getName());
 		int rows_affected = database.update(DbHelper.TABLE_CATEGORY, values, DbHelper.CATEGORY_ID + " = " + String.valueOf(that.getId()), null);
@@ -121,7 +121,7 @@ public class CategoryOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.CATEGORY_SERVER_ID, remote_id);
-		values.put(DbHelper.CATEGORY_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.CATEGORY_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.CATEGORY_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_CATEGORY,

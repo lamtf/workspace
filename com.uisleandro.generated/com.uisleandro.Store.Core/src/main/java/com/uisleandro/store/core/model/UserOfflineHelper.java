@@ -45,11 +45,11 @@ public class UserOfflineHelper {
 
 		values.put(DbHelper.USER_DIRTY, that.isDirty());
 		values.put(DbHelper.USER_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkSystem() > 0){
-			values.put(DbHelper.USER_FK_SYSTEM, that.getFkFkSystem());
+		if(that.getFkSystem() > 0){
+			values.put(DbHelper.USER_FK_SYSTEM, that.getFkSystem());
 		}
-		if(that.getFkFkRole() > 0){
-			values.put(DbHelper.USER_FK_ROLE, that.getFkFkRole());
+		if(that.getFkRole() > 0){
+			values.put(DbHelper.USER_FK_ROLE, that.getFkRole());
 		}
 		values.put(DbHelper.USER_USERNAME, that.getUsername());
 		values.put(DbHelper.USER_PASSWORD, that.getPassword());
@@ -71,11 +71,11 @@ public class UserOfflineHelper {
 		values.put(DbHelper.USER_DIRTY, that.isDirty());
 
 		values.put(DbHelper.USER_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkSystem() > 0){
-			values.put(DbHelper.USER_FK_SYSTEM, that.getFkFkSystem());
+		if(that.getFkSystem() > 0){
+			values.put(DbHelper.USER_FK_SYSTEM, that.getFkSystem());
 		}
-		if(that.getFkFkRole() > 0){
-			values.put(DbHelper.USER_FK_ROLE, that.getFkFkRole());
+		if(that.getFkRole() > 0){
+			values.put(DbHelper.USER_FK_ROLE, that.getFkRole());
 		}
 		values.put(DbHelper.USER_USERNAME, that.getUsername());
 		values.put(DbHelper.USER_PASSWORD, that.getPassword());
@@ -158,7 +158,7 @@ public class UserOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.USER_SERVER_ID, remote_id);
-		values.put(DbHelper.USER_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.USER_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.USER_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_USER,

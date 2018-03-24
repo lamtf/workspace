@@ -2,7 +2,6 @@ package com.uisleandro.store.core.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.content.ContentValues;
 import android.database.Cursor;
 
 public class CurrencyDataView {
@@ -99,7 +98,7 @@ public class CurrencyDataView {
 		return null;
 	}
 
-	public static CurrencyDataView FromJsonObj (JSONObject obj) {
+	public static CurrencyDataView FromJsonObj(JSONObject obj) {
 		if(null != obj) {
 			try {
 				CurrencyDataView result = new CurrencyDataView();
@@ -137,24 +136,12 @@ public class CurrencyDataView {
 		return null;
 	}
 
-	public ContentValues toInsertValues () {
-
-		ContentValues contentValues = new ContentValues();
-		contentValues.put("last_update",last_update);
-		contentValues.put("abbreviature",abbreviature);
-		contentValues.put("description",description);
-		return contentValues;
-
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), abbreviature, description};
 	}
 
-	public ContentValues toUpdateValues () {
-
-		ContentValues contentValues = new ContentValues();
-		contentValues.put("last_update",last_update);
-		contentValues.put("abbreviature",abbreviature);
-		contentValues.put("description",description);
-		return contentValues;
-
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), abbreviature, description};
 	}
 
 }

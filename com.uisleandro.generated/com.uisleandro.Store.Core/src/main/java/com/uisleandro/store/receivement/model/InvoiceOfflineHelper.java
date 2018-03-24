@@ -45,23 +45,23 @@ public class InvoiceOfflineHelper {
 
 		values.put(DbHelper.INVOICE_DIRTY, that.isDirty());
 		values.put(DbHelper.INVOICE_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkSystem() > 0){
-			values.put(DbHelper.INVOICE_FK_SYSTEM, that.getFkFkSystem());
+		if(that.getFkSystem() > 0){
+			values.put(DbHelper.INVOICE_FK_SYSTEM, that.getFkSystem());
 		}
-		if(that.getFkFkSale() > 0){
-			values.put(DbHelper.INVOICE_FK_SALE, that.getFkFkSale());
+		if(that.getFkSale() > 0){
+			values.put(DbHelper.INVOICE_FK_SALE, that.getFkSale());
 		}
-		if(that.getFkFkClientFromSystem() > 0){
-			values.put(DbHelper.INVOICE_FK_CLIENT_FROM_SYSTEM, that.getFkFkClientFromSystem());
+		if(that.getFkClientFromSystem() > 0){
+			values.put(DbHelper.INVOICE_FK_CLIENT_FROM_SYSTEM, that.getFkClientFromSystem());
 		}
-		if(that.getFkFkInstallmentType() > 0){
-			values.put(DbHelper.INVOICE_FK_INSTALLMENT_TYPE, that.getFkFkInstallmentType());
+		if(that.getFkInstallmentType() > 0){
+			values.put(DbHelper.INVOICE_FK_INSTALLMENT_TYPE, that.getFkInstallmentType());
 		}
-		if(that.getFkFkInterestRateType() > 0){
-			values.put(DbHelper.INVOICE_FK_INTEREST_RATE_TYPE, that.getFkFkInterestRateType());
+		if(that.getFkInterestRateType() > 0){
+			values.put(DbHelper.INVOICE_FK_INTEREST_RATE_TYPE, that.getFkInterestRateType());
 		}
-		if(that.getFkFkBank() > 0){
-			values.put(DbHelper.INVOICE_FK_BANK, that.getFkFkBank());
+		if(that.getFkBank() > 0){
+			values.put(DbHelper.INVOICE_FK_BANK, that.getFkBank());
 		}
 		long last_id = database.insert(DbHelper.TABLE_INVOICE, null, values);
 		return last_id;
@@ -75,23 +75,23 @@ public class InvoiceOfflineHelper {
 		values.put(DbHelper.INVOICE_DIRTY, that.isDirty());
 
 		values.put(DbHelper.INVOICE_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkSystem() > 0){
-			values.put(DbHelper.INVOICE_FK_SYSTEM, that.getFkFkSystem());
+		if(that.getFkSystem() > 0){
+			values.put(DbHelper.INVOICE_FK_SYSTEM, that.getFkSystem());
 		}
-		if(that.getFkFkSale() > 0){
-			values.put(DbHelper.INVOICE_FK_SALE, that.getFkFkSale());
+		if(that.getFkSale() > 0){
+			values.put(DbHelper.INVOICE_FK_SALE, that.getFkSale());
 		}
-		if(that.getFkFkClientFromSystem() > 0){
-			values.put(DbHelper.INVOICE_FK_CLIENT_FROM_SYSTEM, that.getFkFkClientFromSystem());
+		if(that.getFkClientFromSystem() > 0){
+			values.put(DbHelper.INVOICE_FK_CLIENT_FROM_SYSTEM, that.getFkClientFromSystem());
 		}
-		if(that.getFkFkInstallmentType() > 0){
-			values.put(DbHelper.INVOICE_FK_INSTALLMENT_TYPE, that.getFkFkInstallmentType());
+		if(that.getFkInstallmentType() > 0){
+			values.put(DbHelper.INVOICE_FK_INSTALLMENT_TYPE, that.getFkInstallmentType());
 		}
-		if(that.getFkFkInterestRateType() > 0){
-			values.put(DbHelper.INVOICE_FK_INTEREST_RATE_TYPE, that.getFkFkInterestRateType());
+		if(that.getFkInterestRateType() > 0){
+			values.put(DbHelper.INVOICE_FK_INTEREST_RATE_TYPE, that.getFkInterestRateType());
 		}
-		if(that.getFkFkBank() > 0){
-			values.put(DbHelper.INVOICE_FK_BANK, that.getFkFkBank());
+		if(that.getFkBank() > 0){
+			values.put(DbHelper.INVOICE_FK_BANK, that.getFkBank());
 		}
 		int rows_affected = database.update(DbHelper.TABLE_INVOICE, values, DbHelper.INVOICE_ID + " = " + String.valueOf(that.getId()), null);
 		return rows_affected;
@@ -162,7 +162,7 @@ public class InvoiceOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.INVOICE_SERVER_ID, remote_id);
-		values.put(DbHelper.INVOICE_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.INVOICE_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.INVOICE_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_INVOICE,

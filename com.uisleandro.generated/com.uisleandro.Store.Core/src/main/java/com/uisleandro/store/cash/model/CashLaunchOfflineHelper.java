@@ -45,8 +45,8 @@ public class CashLaunchOfflineHelper {
 
 		values.put(DbHelper.CASH_LAUNCH_DIRTY, that.isDirty());
 		values.put(DbHelper.CASH_LAUNCH_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkCashRegister() > 0){
-			values.put(DbHelper.CASH_LAUNCH_FK_CASH_REGISTER, that.getFkFkCashRegister());
+		if(that.getFkCashRegister() > 0){
+			values.put(DbHelper.CASH_LAUNCH_FK_CASH_REGISTER, that.getFkCashRegister());
 		}
 		values.put(DbHelper.CASH_LAUNCH_JUSTIFICATION, that.getJustification());
 		values.put(DbHelper.CASH_LAUNCH_AMOUNT_SPENT, that.getAmountSpent());
@@ -62,8 +62,8 @@ public class CashLaunchOfflineHelper {
 		values.put(DbHelper.CASH_LAUNCH_DIRTY, that.isDirty());
 
 		values.put(DbHelper.CASH_LAUNCH_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkCashRegister() > 0){
-			values.put(DbHelper.CASH_LAUNCH_FK_CASH_REGISTER, that.getFkFkCashRegister());
+		if(that.getFkCashRegister() > 0){
+			values.put(DbHelper.CASH_LAUNCH_FK_CASH_REGISTER, that.getFkCashRegister());
 		}
 		values.put(DbHelper.CASH_LAUNCH_JUSTIFICATION, that.getJustification());
 		values.put(DbHelper.CASH_LAUNCH_AMOUNT_SPENT, that.getAmountSpent());
@@ -125,7 +125,7 @@ public class CashLaunchOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.CASH_LAUNCH_SERVER_ID, remote_id);
-		values.put(DbHelper.CASH_LAUNCH_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.CASH_LAUNCH_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.CASH_LAUNCH_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_CASH_LAUNCH,

@@ -52,8 +52,8 @@ public class DistributorContactOfflineHelper {
 		values.put(DbHelper.DISTRIBUTOR_CONTACT_PHONE_NUMBER2, that.getPhoneNumber2());
 		values.put(DbHelper.DISTRIBUTOR_CONTACT_PHONE_NUMBER3, that.getPhoneNumber3());
 		values.put(DbHelper.DISTRIBUTOR_CONTACT_PHONE_NUMBER4, that.getPhoneNumber4());
-		if(that.getFkFkBrand() > 0){
-			values.put(DbHelper.DISTRIBUTOR_CONTACT_FK_BRAND, that.getFkFkBrand());
+		if(that.getFkBrand() > 0){
+			values.put(DbHelper.DISTRIBUTOR_CONTACT_FK_BRAND, that.getFkBrand());
 		}
 		long last_id = database.insert(DbHelper.TABLE_DISTRIBUTOR_CONTACT, null, values);
 		return last_id;
@@ -74,8 +74,8 @@ public class DistributorContactOfflineHelper {
 		values.put(DbHelper.DISTRIBUTOR_CONTACT_PHONE_NUMBER2, that.getPhoneNumber2());
 		values.put(DbHelper.DISTRIBUTOR_CONTACT_PHONE_NUMBER3, that.getPhoneNumber3());
 		values.put(DbHelper.DISTRIBUTOR_CONTACT_PHONE_NUMBER4, that.getPhoneNumber4());
-		if(that.getFkFkBrand() > 0){
-			values.put(DbHelper.DISTRIBUTOR_CONTACT_FK_BRAND, that.getFkFkBrand());
+		if(that.getFkBrand() > 0){
+			values.put(DbHelper.DISTRIBUTOR_CONTACT_FK_BRAND, that.getFkBrand());
 		}
 		int rows_affected = database.update(DbHelper.TABLE_DISTRIBUTOR_CONTACT, values, DbHelper.DISTRIBUTOR_CONTACT_ID + " = " + String.valueOf(that.getId()), null);
 		return rows_affected;
@@ -145,7 +145,7 @@ public class DistributorContactOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.DISTRIBUTOR_CONTACT_SERVER_ID, remote_id);
-		values.put(DbHelper.DISTRIBUTOR_CONTACT_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.DISTRIBUTOR_CONTACT_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.DISTRIBUTOR_CONTACT_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_DISTRIBUTOR_CONTACT,

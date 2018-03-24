@@ -45,8 +45,8 @@ public class CashRegisterOfflineHelper {
 
 		values.put(DbHelper.CASH_REGISTER_DIRTY, that.isDirty());
 		values.put(DbHelper.CASH_REGISTER_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkUser() > 0){
-			values.put(DbHelper.CASH_REGISTER_FK_USER, that.getFkFkUser());
+		if(that.getFkUser() > 0){
+			values.put(DbHelper.CASH_REGISTER_FK_USER, that.getFkUser());
 		}
 		values.put(DbHelper.CASH_REGISTER_OPENING_VALUE, that.getOpeningValue());
 		values.put(DbHelper.CASH_REGISTER_RECEIVED_VALUE, that.getReceivedValue());
@@ -63,8 +63,8 @@ public class CashRegisterOfflineHelper {
 		values.put(DbHelper.CASH_REGISTER_DIRTY, that.isDirty());
 
 		values.put(DbHelper.CASH_REGISTER_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkUser() > 0){
-			values.put(DbHelper.CASH_REGISTER_FK_USER, that.getFkFkUser());
+		if(that.getFkUser() > 0){
+			values.put(DbHelper.CASH_REGISTER_FK_USER, that.getFkUser());
 		}
 		values.put(DbHelper.CASH_REGISTER_OPENING_VALUE, that.getOpeningValue());
 		values.put(DbHelper.CASH_REGISTER_RECEIVED_VALUE, that.getReceivedValue());
@@ -129,7 +129,7 @@ public class CashRegisterOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.CASH_REGISTER_SERVER_ID, remote_id);
-		values.put(DbHelper.CASH_REGISTER_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.CASH_REGISTER_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.CASH_REGISTER_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_CASH_REGISTER,

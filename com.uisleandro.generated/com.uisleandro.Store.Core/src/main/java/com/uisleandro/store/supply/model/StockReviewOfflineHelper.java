@@ -45,8 +45,8 @@ public class StockReviewOfflineHelper {
 
 		values.put(DbHelper.STOCK_REVIEW_DIRTY, that.isDirty());
 		values.put(DbHelper.STOCK_REVIEW_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkProduct() > 0){
-			values.put(DbHelper.STOCK_REVIEW_FK_PRODUCT, that.getFkFkProduct());
+		if(that.getFkProduct() > 0){
+			values.put(DbHelper.STOCK_REVIEW_FK_PRODUCT, that.getFkProduct());
 		}
 		values.put(DbHelper.STOCK_REVIEW_ACTUAL_AMOUNT, that.getActualAmount());
 		values.put(DbHelper.STOCK_REVIEW_SOLD_ITEMS, that.getSoldItems());
@@ -64,8 +64,8 @@ public class StockReviewOfflineHelper {
 		values.put(DbHelper.STOCK_REVIEW_DIRTY, that.isDirty());
 
 		values.put(DbHelper.STOCK_REVIEW_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkProduct() > 0){
-			values.put(DbHelper.STOCK_REVIEW_FK_PRODUCT, that.getFkFkProduct());
+		if(that.getFkProduct() > 0){
+			values.put(DbHelper.STOCK_REVIEW_FK_PRODUCT, that.getFkProduct());
 		}
 		values.put(DbHelper.STOCK_REVIEW_ACTUAL_AMOUNT, that.getActualAmount());
 		values.put(DbHelper.STOCK_REVIEW_SOLD_ITEMS, that.getSoldItems());
@@ -133,7 +133,7 @@ public class StockReviewOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.STOCK_REVIEW_SERVER_ID, remote_id);
-		values.put(DbHelper.STOCK_REVIEW_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.STOCK_REVIEW_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.STOCK_REVIEW_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_STOCK_REVIEW,

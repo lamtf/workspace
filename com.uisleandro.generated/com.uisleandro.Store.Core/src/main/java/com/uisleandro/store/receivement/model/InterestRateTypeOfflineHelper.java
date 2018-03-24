@@ -114,7 +114,7 @@ public class InterestRateTypeOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.INTEREST_RATE_TYPE_SERVER_ID, remote_id);
-		values.put(DbHelper.INTEREST_RATE_TYPE_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.INTEREST_RATE_TYPE_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.INTEREST_RATE_TYPE_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_INTEREST_RATE_TYPE,

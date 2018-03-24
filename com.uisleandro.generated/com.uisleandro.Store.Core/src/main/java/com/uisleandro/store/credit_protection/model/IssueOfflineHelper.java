@@ -45,17 +45,17 @@ public class IssueOfflineHelper {
 
 		values.put(DbHelper.ISSUE_DIRTY, that.isDirty());
 		values.put(DbHelper.ISSUE_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkSharedClient() > 0){
-			values.put(DbHelper.ISSUE_FK_SHARED_CLIENT, that.getFkFkSharedClient());
+		if(that.getFkSharedClient() > 0){
+			values.put(DbHelper.ISSUE_FK_SHARED_CLIENT, that.getFkSharedClient());
 		}
-		if(that.getFkFkSystem() > 0){
-			values.put(DbHelper.ISSUE_FK_SYSTEM, that.getFkFkSystem());
+		if(that.getFkSystem() > 0){
+			values.put(DbHelper.ISSUE_FK_SYSTEM, that.getFkSystem());
 		}
 		values.put(DbHelper.ISSUE_DESCRIPTION, that.getDescription());
 		values.put(DbHelper.ISSUE_ACTIVE, that.getActive());
 		values.put(DbHelper.ISSUE_ISANSWER, that.getIsAnswer());
-		if(that.getFkFkIssue() > 0){
-			values.put(DbHelper.ISSUE_FK_ISSUE, that.getFkFkIssue());
+		if(that.getFkIssue() > 0){
+			values.put(DbHelper.ISSUE_FK_ISSUE, that.getFkIssue());
 		}
 		long last_id = database.insert(DbHelper.TABLE_ISSUE, null, values);
 		return last_id;
@@ -69,17 +69,17 @@ public class IssueOfflineHelper {
 		values.put(DbHelper.ISSUE_DIRTY, that.isDirty());
 
 		values.put(DbHelper.ISSUE_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkSharedClient() > 0){
-			values.put(DbHelper.ISSUE_FK_SHARED_CLIENT, that.getFkFkSharedClient());
+		if(that.getFkSharedClient() > 0){
+			values.put(DbHelper.ISSUE_FK_SHARED_CLIENT, that.getFkSharedClient());
 		}
-		if(that.getFkFkSystem() > 0){
-			values.put(DbHelper.ISSUE_FK_SYSTEM, that.getFkFkSystem());
+		if(that.getFkSystem() > 0){
+			values.put(DbHelper.ISSUE_FK_SYSTEM, that.getFkSystem());
 		}
 		values.put(DbHelper.ISSUE_DESCRIPTION, that.getDescription());
 		values.put(DbHelper.ISSUE_ACTIVE, that.getActive());
 		values.put(DbHelper.ISSUE_ISANSWER, that.getIsAnswer());
-		if(that.getFkFkIssue() > 0){
-			values.put(DbHelper.ISSUE_FK_ISSUE, that.getFkFkIssue());
+		if(that.getFkIssue() > 0){
+			values.put(DbHelper.ISSUE_FK_ISSUE, that.getFkIssue());
 		}
 		int rows_affected = database.update(DbHelper.TABLE_ISSUE, values, DbHelper.ISSUE_ID + " = " + String.valueOf(that.getId()), null);
 		return rows_affected;
@@ -147,7 +147,7 @@ public class IssueOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.ISSUE_SERVER_ID, remote_id);
-		values.put(DbHelper.ISSUE_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.ISSUE_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.ISSUE_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_ISSUE,

@@ -2,7 +2,6 @@ package com.uisleandro.store.core.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.content.ContentValues;
 import android.database.Cursor;
 
 public class DbLogDataView {
@@ -110,7 +109,7 @@ public class DbLogDataView {
 		return null;
 	}
 
-	public static DbLogDataView FromJsonObj (JSONObject obj) {
+	public static DbLogDataView FromJsonObj(JSONObject obj) {
 		if(null != obj) {
 			try {
 				DbLogDataView result = new DbLogDataView();
@@ -152,26 +151,12 @@ public class DbLogDataView {
 		return null;
 	}
 
-	public ContentValues toInsertValues () {
-
-		ContentValues contentValues = new ContentValues();
-		contentValues.put("last_update",last_update);
-		contentValues.put("action_name",action_name);
-		contentValues.put("parameter",parameter);
-		contentValues.put("fk_user",fk_user);
-		return contentValues;
-
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), action_name, parameter, String.valueOf(fk_user)};
 	}
 
-	public ContentValues toUpdateValues () {
-
-		ContentValues contentValues = new ContentValues();
-		contentValues.put("last_update",last_update);
-		contentValues.put("action_name",action_name);
-		contentValues.put("parameter",parameter);
-		contentValues.put("fk_user",fk_user);
-		return contentValues;
-
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), action_name, parameter, String.valueOf(fk_user)};
 	}
 
 }

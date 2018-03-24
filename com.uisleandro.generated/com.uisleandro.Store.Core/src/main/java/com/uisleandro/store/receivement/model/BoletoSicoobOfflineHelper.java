@@ -56,8 +56,8 @@ public class BoletoSicoobOfflineHelper {
 		values.put(DbHelper.BOLETO_SICOOB_FOI_PAGO, that.getFoiPago());
 		values.put(DbHelper.BOLETO_SICOOB_DATA_DE_PAGAMENTO, that.getDataDePagamento());
 		values.put(DbHelper.BOLETO_SICOOB_VALOR_RECEBIDO, that.getValorRecebido());
-		if(that.getFkFkInvoice() > 0){
-			values.put(DbHelper.BOLETO_SICOOB_FK_INVOICE, that.getFkFkInvoice());
+		if(that.getFkInvoice() > 0){
+			values.put(DbHelper.BOLETO_SICOOB_FK_INVOICE, that.getFkInvoice());
 		}
 		long last_id = database.insert(DbHelper.TABLE_BOLETO_SICOOB, null, values);
 		return last_id;
@@ -82,8 +82,8 @@ public class BoletoSicoobOfflineHelper {
 		values.put(DbHelper.BOLETO_SICOOB_FOI_PAGO, that.getFoiPago());
 		values.put(DbHelper.BOLETO_SICOOB_DATA_DE_PAGAMENTO, that.getDataDePagamento());
 		values.put(DbHelper.BOLETO_SICOOB_VALOR_RECEBIDO, that.getValorRecebido());
-		if(that.getFkFkInvoice() > 0){
-			values.put(DbHelper.BOLETO_SICOOB_FK_INVOICE, that.getFkFkInvoice());
+		if(that.getFkInvoice() > 0){
+			values.put(DbHelper.BOLETO_SICOOB_FK_INVOICE, that.getFkInvoice());
 		}
 		int rows_affected = database.update(DbHelper.TABLE_BOLETO_SICOOB, values, DbHelper.BOLETO_SICOOB_ID + " = " + String.valueOf(that.getId()), null);
 		return rows_affected;
@@ -161,7 +161,7 @@ public class BoletoSicoobOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.BOLETO_SICOOB_SERVER_ID, remote_id);
-		values.put(DbHelper.BOLETO_SICOOB_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.BOLETO_SICOOB_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.BOLETO_SICOOB_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_BOLETO_SICOOB,

@@ -45,14 +45,14 @@ public class TokenOfflineHelper {
 
 		values.put(DbHelper.TOKEN_DIRTY, that.isDirty());
 		values.put(DbHelper.TOKEN_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkUser() > 0){
-			values.put(DbHelper.TOKEN_FK_USER, that.getFkFkUser());
+		if(that.getFkUser() > 0){
+			values.put(DbHelper.TOKEN_FK_USER, that.getFkUser());
 		}
-		if(that.getFkFkSystem() > 0){
-			values.put(DbHelper.TOKEN_FK_SYSTEM, that.getFkFkSystem());
+		if(that.getFkSystem() > 0){
+			values.put(DbHelper.TOKEN_FK_SYSTEM, that.getFkSystem());
 		}
-		if(that.getFkFkTokenType() > 0){
-			values.put(DbHelper.TOKEN_FK_TOKEN_TYPE, that.getFkFkTokenType());
+		if(that.getFkTokenType() > 0){
+			values.put(DbHelper.TOKEN_FK_TOKEN_TYPE, that.getFkTokenType());
 		}
 		values.put(DbHelper.TOKEN_GUID, that.getGuid());
 		values.put(DbHelper.TOKEN_LAST_USE_TIME, that.getLastUseTime());
@@ -69,14 +69,14 @@ public class TokenOfflineHelper {
 		values.put(DbHelper.TOKEN_DIRTY, that.isDirty());
 
 		values.put(DbHelper.TOKEN_LAST_UPDATE, that.getLastUpdate());
-		if(that.getFkFkUser() > 0){
-			values.put(DbHelper.TOKEN_FK_USER, that.getFkFkUser());
+		if(that.getFkUser() > 0){
+			values.put(DbHelper.TOKEN_FK_USER, that.getFkUser());
 		}
-		if(that.getFkFkSystem() > 0){
-			values.put(DbHelper.TOKEN_FK_SYSTEM, that.getFkFkSystem());
+		if(that.getFkSystem() > 0){
+			values.put(DbHelper.TOKEN_FK_SYSTEM, that.getFkSystem());
 		}
-		if(that.getFkFkTokenType() > 0){
-			values.put(DbHelper.TOKEN_FK_TOKEN_TYPE, that.getFkFkTokenType());
+		if(that.getFkTokenType() > 0){
+			values.put(DbHelper.TOKEN_FK_TOKEN_TYPE, that.getFkTokenType());
 		}
 		values.put(DbHelper.TOKEN_GUID, that.getGuid());
 		values.put(DbHelper.TOKEN_LAST_USE_TIME, that.getLastUseTime());
@@ -147,7 +147,7 @@ public class TokenOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.TOKEN_SERVER_ID, remote_id);
-		values.put(DbHelper.TOKEN_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.TOKEN_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.TOKEN_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_TOKEN,

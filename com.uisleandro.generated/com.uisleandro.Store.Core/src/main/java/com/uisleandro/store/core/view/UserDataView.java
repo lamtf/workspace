@@ -2,7 +2,6 @@ package com.uisleandro.store.core.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import android.content.ContentValues;
 import android.database.Cursor;
 
 public class UserDataView {
@@ -187,7 +186,7 @@ public class UserDataView {
 		return null;
 	}
 
-	public static UserDataView FromJsonObj (JSONObject obj) {
+	public static UserDataView FromJsonObj(JSONObject obj) {
 		if(null != obj) {
 			try {
 				UserDataView result = new UserDataView();
@@ -245,40 +244,12 @@ public class UserDataView {
 		return null;
 	}
 
-	public ContentValues toInsertValues () {
-
-		ContentValues contentValues = new ContentValues();
-		contentValues.put("last_update",last_update);
-		contentValues.put("fk_system",fk_system);
-		contentValues.put("fk_role",fk_role);
-		contentValues.put("username",username);
-		contentValues.put("password",password);
-		contentValues.put("name",name);
-		contentValues.put("email",email);
-		contentValues.put("last_use_time",last_use_time);
-		contentValues.put("last_error_time",last_error_time);
-		contentValues.put("error_count",error_count);
-		contentValues.put("active",active);
-		return contentValues;
-
+	public String[] toInsertArray () {
+		return new String[]{String.valueOf(last_update), String.valueOf(fk_system), String.valueOf(fk_role), username, password, name, email, String.valueOf(last_use_time), String.valueOf(last_error_time), String.valueOf(error_count), String.valueOf(active)};
 	}
 
-	public ContentValues toUpdateValues () {
-
-		ContentValues contentValues = new ContentValues();
-		contentValues.put("last_update",last_update);
-		contentValues.put("fk_system",fk_system);
-		contentValues.put("fk_role",fk_role);
-		contentValues.put("username",username);
-		contentValues.put("password",password);
-		contentValues.put("name",name);
-		contentValues.put("email",email);
-		contentValues.put("last_use_time",last_use_time);
-		contentValues.put("last_error_time",last_error_time);
-		contentValues.put("error_count",error_count);
-		contentValues.put("active",active);
-		return contentValues;
-
+	public String[] toUpdateArray () {
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(fk_system), String.valueOf(fk_role), username, password, name, email, String.valueOf(last_use_time), String.valueOf(last_error_time), String.valueOf(error_count), String.valueOf(active)};
 	}
 
 }

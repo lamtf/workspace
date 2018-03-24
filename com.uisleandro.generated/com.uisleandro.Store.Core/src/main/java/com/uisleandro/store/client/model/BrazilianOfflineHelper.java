@@ -47,8 +47,8 @@ public class BrazilianOfflineHelper {
 		values.put(DbHelper.BRAZILIAN_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.BRAZILIAN_CPF, that.getCpf());
 		values.put(DbHelper.BRAZILIAN_RG, that.getRg());
-		if(that.getFkFkBasicClient() > 0){
-			values.put(DbHelper.BRAZILIAN_FK_BASIC_CLIENT, that.getFkFkBasicClient());
+		if(that.getFkBasicClient() > 0){
+			values.put(DbHelper.BRAZILIAN_FK_BASIC_CLIENT, that.getFkBasicClient());
 		}
 		long last_id = database.insert(DbHelper.TABLE_BRAZILIAN, null, values);
 		return last_id;
@@ -64,8 +64,8 @@ public class BrazilianOfflineHelper {
 		values.put(DbHelper.BRAZILIAN_LAST_UPDATE, that.getLastUpdate());
 		values.put(DbHelper.BRAZILIAN_CPF, that.getCpf());
 		values.put(DbHelper.BRAZILIAN_RG, that.getRg());
-		if(that.getFkFkBasicClient() > 0){
-			values.put(DbHelper.BRAZILIAN_FK_BASIC_CLIENT, that.getFkFkBasicClient());
+		if(that.getFkBasicClient() > 0){
+			values.put(DbHelper.BRAZILIAN_FK_BASIC_CLIENT, that.getFkBasicClient());
 		}
 		int rows_affected = database.update(DbHelper.TABLE_BRAZILIAN, values, DbHelper.BRAZILIAN_ID + " = " + String.valueOf(that.getId()), null);
 		return rows_affected;
@@ -125,7 +125,7 @@ public class BrazilianOfflineHelper {
 	public int fixAfterServerInsertAndUpdate(long local_id, long remote_id, long last_update_time){
 		ContentValues values = new ContentValues();
 		values.put(DbHelper.BRAZILIAN_SERVER_ID, remote_id);
-		values.put(DbHelper.BRAZILIAN_LAST_UPDATE_TIME, last_update_time);
+		values.put(DbHelper.BRAZILIAN_LAST_UPDATE, last_update_time);
 		values.put(DbHelper.BRAZILIAN_DIRTY, 0);
 		int rows_affected = database.update(
 			DbHelper.TABLE_BRAZILIAN,
