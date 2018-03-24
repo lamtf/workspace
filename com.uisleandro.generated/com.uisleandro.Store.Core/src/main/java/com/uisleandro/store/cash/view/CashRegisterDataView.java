@@ -104,15 +104,15 @@ public class CashRegisterDataView {
 	}
 
 	public String toString () {
-		return "CashRegisterView";
+		return "CashRegisterDataView";
 
 	}
 
-	public static CashRegisterView FromJson(String json){
+	public static CashRegisterDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return CashRegisterView.FromJsonObj(obj);
+				return CashRegisterDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -120,10 +120,10 @@ public class CashRegisterDataView {
 		return null;
 	}
 
-	public static CashRegisterView FromJsonObj (JSONObject obj) {
+	public static CashRegisterDataView FromJsonObj(JSONObject obj) {
 		if(null != obj) {
 			try {
-				CashRegisterView result = new CashRegisterView();
+				CashRegisterDataView result = new CashRegisterDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -148,9 +148,9 @@ public class CashRegisterDataView {
 		return null;
 	}
 
-	public static CashRegisterView FromCursor (Cursor cursor) {
+	public static CashRegisterDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			CashRegisterView result = new CashRegisterView();
+			CashRegisterDataView result = new CashRegisterDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);
@@ -165,11 +165,11 @@ public class CashRegisterDataView {
 	}
 
 	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(user), String.valueOf(opening_value), String.valueOf(received_value), String.valueOf(closing_value)};
+		return new String[]{String.valueOf(last_update), String.valueOf(fk_user), String.valueOf(opening_value), String.valueOf(received_value), String.valueOf(closing_value)};
 	}
 
 	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(user), String.valueOf(opening_value), String.valueOf(received_value), String.valueOf(closing_value)};
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(fk_user), String.valueOf(opening_value), String.valueOf(received_value), String.valueOf(closing_value)};
 	}
 
 }

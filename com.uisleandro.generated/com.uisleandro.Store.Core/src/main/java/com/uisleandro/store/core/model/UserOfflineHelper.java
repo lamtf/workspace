@@ -2,12 +2,14 @@ package com.uisleandro.store.core.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.core.view.UserDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.core.view.UserDataView;
 
 public class UserOfflineHelper {
 
@@ -17,9 +19,6 @@ public class UserOfflineHelper {
 
 	public UserOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public UserOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class UserOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(UserView that){
+	public long insert(UserDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -64,7 +63,7 @@ public class UserOfflineHelper {
 		return last_id;
 	}
 
-	public int update(UserView that){
+	public int update(UserDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.USER_SERVER_ID, that.getServerId());
@@ -112,11 +111,11 @@ public class UserOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<UserView> those = new ArrayList<>();
+		List<UserDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(UserView.FromCursor(cursor));
+	      those.add(UserDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -146,11 +145,11 @@ public class UserOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<UserView> those = new ArrayList<>();
+		List<UserDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(UserView.FromCursor(cursor));
+	      those.add(UserDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -175,7 +174,9 @@ public class UserOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_USER +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -186,7 +187,9 @@ public class UserOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_USER+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null
@@ -210,7 +213,9 @@ public class UserOfflineHelper {
 		"fk_system = ( SELECT id FROM " + DbHelper.TABLE_SYSTEM + " WHERE " + DbHelper.TABLE_SYSTEM + ".server_id = " + DbHelper.TABLE_USER + ".fk_system ), " +
 		"fk_role = ( SELECT id FROM " + DbHelper.TABLE_ROLE + " WHERE " + DbHelper.TABLE_ROLE + ".server_id = " + DbHelper.TABLE_USER + ".fk_role );";		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToInteger(cursor);
+		int res = cursor.getInt(0);
+		cursor.close();
+		return res;
 	}
 
 

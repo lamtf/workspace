@@ -218,11 +218,11 @@ public class BasicClientDataView {
 
 	}
 
-	public static BasicClientView FromJson(String json){
+	public static BasicClientDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return BasicClientView.FromJsonObj(obj);
+				return BasicClientDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -230,10 +230,10 @@ public class BasicClientDataView {
 		return null;
 	}
 
-	public static BasicClientView FromJsonObj (JSONObject obj) {
+	public static BasicClientDataView FromJsonObj(JSONObject obj) {
 		if(null != obj) {
 			try {
-				BasicClientView result = new BasicClientView();
+				BasicClientDataView result = new BasicClientDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -268,9 +268,9 @@ public class BasicClientDataView {
 		return null;
 	}
 
-	public static BasicClientView FromCursor (Cursor cursor) {
+	public static BasicClientDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			BasicClientView result = new BasicClientView();
+			BasicClientDataView result = new BasicClientDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);
@@ -295,11 +295,11 @@ public class BasicClientDataView {
 	}
 
 	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), name, String.valueOf(birth_date), birth_city, birth_state, mothers_name, fathers_name, profession, zip_code, address, neighborhood, city, state, complement, String.valueOf(country)};
+		return new String[]{String.valueOf(last_update), name, String.valueOf(birth_date), birth_city, birth_state, mothers_name, fathers_name, profession, zip_code, address, neighborhood, city, state, complement, String.valueOf(fk_country)};
 	}
 
 	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name, String.valueOf(birth_date), birth_city, birth_state, mothers_name, fathers_name, profession, zip_code, address, neighborhood, city, state, complement, String.valueOf(country)};
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name, String.valueOf(birth_date), birth_city, birth_state, mothers_name, fathers_name, profession, zip_code, address, neighborhood, city, state, complement, String.valueOf(fk_country)};
 	}
 
 }

@@ -1,0 +1,5 @@
+[comment encoding = UTF-8 /]
+[module util('http://www.eclipse.org/uml2/5.0.0/UML')]
+
+
+[query public generateElement (aClass : Class) : OclAny = self/]

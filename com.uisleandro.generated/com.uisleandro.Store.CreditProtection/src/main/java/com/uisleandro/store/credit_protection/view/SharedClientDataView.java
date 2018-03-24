@@ -2,6 +2,7 @@ package com.uisleandro.store.credit_protection.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class SharedClientDataView {
@@ -294,12 +295,48 @@ public class SharedClientDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), name, String.valueOf(birth_date), birth_city, birth_state, mothers_name, fathers_name, profession, zip_code, address, neighborhood, city, state, complement, String.valueOf(country)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("name",name);
+		contentValues.put("birth_date",birth_date);
+		contentValues.put("birth_city",birth_city);
+		contentValues.put("birth_state",birth_state);
+		contentValues.put("mothers_name",mothers_name);
+		contentValues.put("fathers_name",fathers_name);
+		contentValues.put("profession",profession);
+		contentValues.put("zip_code",zip_code);
+		contentValues.put("address",address);
+		contentValues.put("neighborhood",neighborhood);
+		contentValues.put("city",city);
+		contentValues.put("state",state);
+		contentValues.put("complement",complement);
+		contentValues.put("fk_country",fk_country);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name, String.valueOf(birth_date), birth_city, birth_state, mothers_name, fathers_name, profession, zip_code, address, neighborhood, city, state, complement, String.valueOf(country)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("name",name);
+		contentValues.put("birth_date",birth_date);
+		contentValues.put("birth_city",birth_city);
+		contentValues.put("birth_state",birth_state);
+		contentValues.put("mothers_name",mothers_name);
+		contentValues.put("fathers_name",fathers_name);
+		contentValues.put("profession",profession);
+		contentValues.put("zip_code",zip_code);
+		contentValues.put("address",address);
+		contentValues.put("neighborhood",neighborhood);
+		contentValues.put("city",city);
+		contentValues.put("state",state);
+		contentValues.put("complement",complement);
+		contentValues.put("fk_country",fk_country);
+		return contentValues;
+
 	}
 
 }

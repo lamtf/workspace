@@ -2,12 +2,14 @@ package com.uisleandro.store.discount.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.discount.view.DiscountDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.discount.view.DiscountDataView;
 
 public class DiscountOfflineHelper {
 
@@ -17,9 +19,6 @@ public class DiscountOfflineHelper {
 
 	public DiscountOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public DiscountOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class DiscountOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(DiscountView that){
+	public long insert(DiscountDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -67,7 +66,7 @@ public class DiscountOfflineHelper {
 		return last_id;
 	}
 
-	public int update(DiscountView that){
+	public int update(DiscountDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.DISCOUNT_SERVER_ID, that.getServerId());
@@ -118,11 +117,11 @@ public class DiscountOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<DiscountView> those = new ArrayList<>();
+		List<DiscountDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(DiscountView.FromCursor(cursor));
+	      those.add(DiscountDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -149,11 +148,11 @@ public class DiscountOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<DiscountView> those = new ArrayList<>();
+		List<DiscountDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(DiscountView.FromCursor(cursor));
+	      those.add(DiscountDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -178,7 +177,9 @@ public class DiscountOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_DISCOUNT +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -189,7 +190,9 @@ public class DiscountOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_DISCOUNT+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null
@@ -216,7 +219,9 @@ public class DiscountOfflineHelper {
 		"fk_client_from_system = ( SELECT id FROM " + DbHelper.TABLE_CLIENT_FROM_SYSTEM + " WHERE " + DbHelper.TABLE_CLIENT_FROM_SYSTEM + ".server_id = " + DbHelper.TABLE_DISCOUNT + ".fk_client_from_system ), " +
 		"fk_gender = ( SELECT id FROM " + DbHelper.TABLE_GENDER + " WHERE " + DbHelper.TABLE_GENDER + ".server_id = " + DbHelper.TABLE_DISCOUNT + ".fk_gender );";		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToInteger(cursor);
+		int res = cursor.getInt(0);
+		cursor.close();
+		return res;
 	}
 
 

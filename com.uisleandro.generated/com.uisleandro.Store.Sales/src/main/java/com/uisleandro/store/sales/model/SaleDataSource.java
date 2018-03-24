@@ -68,7 +68,7 @@ I need to know about the class Bundle, which seems cary the data
 
 	public List<SaleDataView> listAll () {
 		List<SaleDataView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/all"), null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -82,7 +82,7 @@ I need to know about the class Bundle, which seems cary the data
 
 	public SaleDataView getById (long id) {
 		SaleDataView that = null;
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/by_id"), null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -95,7 +95,7 @@ I need to know about the class Bundle, which seems cary the data
 
 	public List<SaleDataView> listSome (long page_count, long page_size) {
 		List<SaleDataView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/some"), new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -109,27 +109,27 @@ I need to know about the class Bundle, which seems cary the data
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/last_id"), null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
-		      result = cursor.getLong(0)
+		      result = cursor.getLong(0);
 		    }
 		}
 	    return result;	
 	}
 
-	public int insert (SaleDataView that) {
-		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
-		return 0;
+	public Uri insert (SaleDataView that) {
+		Uri result = context.getContentResolver().insert(Uri.parse(SCHEME + AUTHORITY + "/insert"), that.toInsertValues());
+		return result;
 	}
 
 	public int update (SaleDataView that) {
-		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(Uri.parse(SCHEME + AUTHORITY + "/update"), that.toUpdateValues(), null, new String[]{ String.valueOf(that.getId()) });
 	}
 
 	public int delete (SaleDataView that) {
-		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(Uri.parse(SCHEME + AUTHORITY + "/delete"), null, new String[]{ String.valueOf(that.getId()) });
 	}
 
 // reserved-for:AndroidSqliteDatabaseSingle002.1
@@ -138,28 +138,28 @@ I need to know about the class Bundle, which seems cary the data
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
 	/* @DeleteWhere */
 	public int remove_all_products_from_sales_chart(Long fk_sale){
-		String selectionArgs = new String[]{ String.valueOf(fk_sale) };
-		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/remove_all_products_from_sales_chart", null, selectionArgs);
+		String[] selectionArgs = new String[]{ String.valueOf(fk_sale) };
+		return context.getContentResolver().delete(Uri.parse(SCHEME + AUTHORITY + "/remove_all_products_from_sales_chart"), null, selectionArgs);
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @Insert */
-	public int create_sales_chart (){
+	public Uri create_sales_chart (){
 		ContentValues contentValues = new ContentValues(4);
 		contentValues.put("last_update",com.uisleandro.util.config.getRightNowString());
 		contentValues.put("total_value","0");
 		contentValues.put("fk_system",com.uisleandro.util.config.getSystemIdString());
 		contentValues.put("fk_user",com.uisleandro.util.config.getUserIdString());
 	
-		context.getContentResolver().insert(SCHEME + AUTHORITY + "/create_sales_chart", contentValues);
-	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
+		Uri result = context.getContentResolver().insert(Uri.parse(SCHEME + AUTHORITY + "/create_sales_chart"), contentValues);
+	
+	    return result;
 	}
 	
 	
 	/* @SelectListWhere */
 	public List<ListProductsOnSalesChartOut> list_products_on_sales_chart (Long fk_sale, long page_count, long page_size){
-		String selectionArgs = new String[]{ String.valueOf(fk_sale) }; 
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/list_products_on_sales_chart",null, null, selectionArgs, null);
+		String[] selectionArgs = new String[]{ String.valueOf(fk_sale) }; 
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/list_products_on_sales_chart"),null, null, selectionArgs, null);
 		List<ListProductsOnSalesChartOut> those = null;
 		cursor.moveToFirst();
 		while(!cursor.isAfterLast()){
@@ -170,28 +170,28 @@ I need to know about the class Bundle, which seems cary the data
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @Insert */
-	public int add_product_to_sales_chart (Long fk_sale, Long fk_product){
+	public Uri add_product_to_sales_chart (Long fk_sale, Long fk_product){
 		ContentValues contentValues = new ContentValues(3);
 		contentValues.put("last_update",com.uisleandro.util.config.getRightNowString());
 		contentValues.put("fk_sale",fk_sale);
 		contentValues.put("fk_product",fk_product);
 	
-		context.getContentResolver().insert(SCHEME + AUTHORITY + "/add_product_to_sales_chart", contentValues);
-	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
+		Uri result = context.getContentResolver().insert(Uri.parse(SCHEME + AUTHORITY + "/add_product_to_sales_chart"), contentValues);
+	
+	    return result;
 	}
 	
 	
 	/* @DeleteWhere */
 	public int cancel_sales_chart(Long id){
-		String selectionArgs = new String[]{ String.valueOf(id) };
-		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/cancel_sales_chart", null, selectionArgs);
+		String[] selectionArgs = new String[]{ String.valueOf(id) };
+		return context.getContentResolver().delete(Uri.parse(SCHEME + AUTHORITY + "/cancel_sales_chart"), null, selectionArgs);
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @DeleteWhere */
 	public int remove_product_from_sales_chart(Long fk_sale, Long fk_product){
-		String selectionArgs = new String[]{ String.valueOf(fk_sale), String.valueOf(fk_product) };
-		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/remove_product_from_sales_chart", null, selectionArgs);
+		String[] selectionArgs = new String[]{ String.valueOf(fk_sale), String.valueOf(fk_product) };
+		return context.getContentResolver().delete(Uri.parse(SCHEME + AUTHORITY + "/remove_product_from_sales_chart"), null, selectionArgs);
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 // reserved-for:AndroidSqliteQuerySingle002
@@ -199,7 +199,8 @@ I need to know about the class Bundle, which seems cary the data
 
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002.2
-  public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+  //TODO: PLEASE REVIEW THIS CODE
+  public void please_remake_it(int i, Bundle bundle) {
 // reserved-for:AndroidSqliteDatabaseSingle002.2
 // End of user code
 
@@ -214,61 +215,64 @@ I need to know about the class Bundle, which seems cary the data
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002.4
+  @Override
   public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
     if (FN_SALE_INSERT == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/insert"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/insert"), null, null, null, null);
     }
     else if (FN_SALE_UPDATE == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/update"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/update"), null, null, null, null);
     }
     else if (FN_SALE_DELETE == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/delete"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/delete"), null, null, null, null);
     }
     else if (FN_SALE_ALL == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/all"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/all"), null, null, null, null);
     }
     else if (FN_SALE_SOME == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/some"), new String[]{ bundle.getString("page_count"), bundle.getString("page_size") }, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/some"), new String[]{ bundle.getString("page_count"), bundle.getString("page_size") }, null, null, null);
     }
     else if (FN_SALE_BY_ID == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ bundle.getString("id") }, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/by_id"), null, null, new String[]{ bundle.getString("id") }, null);
     }
     else if (FN_SALE_LAST_ID == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/last_id"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/last_id"), null, null, null, null);
     }
 // reserved-for:AndroidSqliteDatabaseSingle002.4
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.2
 	else if (FN_SALE_REMOVE_ALL_PRODUCTS_FROM_SALES_CHART == i){
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/remove_all_products_from_sales_chart"), new String[]{}, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/remove_all_products_from_sales_chart"), new String[]{}, null, null, null);
     }
 	else if (FN_SALE_CREATE_SALES_CHART == i){
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/create_sales_chart"), new String[]{}, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/create_sales_chart"), new String[]{}, null, null, null);
     }
 	else if (FN_SALE_LIST_PRODUCTS_ON_SALES_CHART == i){
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/list_products_on_sales_chart"), new String[]{}, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/list_products_on_sales_chart"), new String[]{}, null, null, null);
     }
 	else if (FN_SALE_ADD_PRODUCT_TO_SALES_CHART == i){
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/add_product_to_sales_chart"), new String[]{}, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/add_product_to_sales_chart"), new String[]{}, null, null, null);
     }
 	else if (FN_SALE_CANCEL_SALES_CHART == i){
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/cancel_sales_chart"), new String[]{}, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/cancel_sales_chart"), new String[]{}, null, null, null);
     }
 	else if (FN_SALE_REMOVE_PRODUCT_FROM_SALES_CHART == i){
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/remove_product_from_sales_chart"), new String[]{}, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/remove_product_from_sales_chart"), new String[]{}, null, null, null);
     }
 // reserved-for:AndroidSqliteQuerySingle002.2
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002.5
+    return null;
   }
 // reserved-for:AndroidSqliteDatabaseSingle002.5
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002.6
-  public Loader<Cursor> onLoaderReset(Loader<Cursor> cursorLoader) {
+  @Override
+  public void onLoaderReset(Loader<Cursor> cursorLoader) {
 // reserved-for:AndroidSqliteDatabaseSingle002.6
 // End of user code
 
@@ -283,6 +287,7 @@ I need to know about the class Bundle, which seems cary the data
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002.8
+  @Override
   public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
 	((LoaderInterface)this.context).onLoadFinished(cursorLoader,cursor);
   }

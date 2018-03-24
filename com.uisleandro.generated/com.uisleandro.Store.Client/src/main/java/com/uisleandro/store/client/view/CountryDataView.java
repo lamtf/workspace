@@ -2,6 +2,7 @@ package com.uisleandro.store.client.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class CountryDataView {
@@ -123,12 +124,22 @@ public class CountryDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), name};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("name",name);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("name",name);
+		return contentValues;
+
 	}
 
 }

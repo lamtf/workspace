@@ -2,12 +2,14 @@ package com.uisleandro.store.core.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.core.view.CurrencyDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.core.view.CurrencyDataView;
 
 public class CurrencyOfflineHelper {
 
@@ -17,9 +19,6 @@ public class CurrencyOfflineHelper {
 
 	public CurrencyOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public CurrencyOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class CurrencyOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(CurrencyView that){
+	public long insert(CurrencyDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -52,7 +51,7 @@ public class CurrencyOfflineHelper {
 		return last_id;
 	}
 
-	public int update(CurrencyView that){
+	public int update(CurrencyDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.CURRENCY_SERVER_ID, that.getServerId());
@@ -79,11 +78,11 @@ public class CurrencyOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<CurrencyView> those = new ArrayList<>();
+		List<CurrencyDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(CurrencyView.FromCursor(cursor));
+	      those.add(CurrencyDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -106,11 +105,11 @@ public class CurrencyOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<CurrencyView> those = new ArrayList<>();
+		List<CurrencyDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(CurrencyView.FromCursor(cursor));
+	      those.add(CurrencyDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -135,7 +134,9 @@ public class CurrencyOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_CURRENCY +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -146,7 +147,9 @@ public class CurrencyOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_CURRENCY+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null

@@ -183,7 +183,7 @@ endif
 
 
 if i <= vert.eContents(Property)->size() then
-	if isfk(cls.eContents(Property)->at(i)) then
+	if isFk(cls.eContents(Property)->at(i)) then
 		recursiveFlatProperties(
 			cls.eContents(Property)
 			->at(i).type.oclAsType(Class), 1)
@@ -759,7 +759,7 @@ if i <= cls.eContents(Property)->size() then
 	if selfFk(cls.eContents(Property)->at(i)) then
 		recursiveFlatProperties(cls, i+1)
 	else
-		if isfk(cls.eContents(Property)->at(i)) then
+		if isFk(cls.eContents(Property)->at(i)) then
 			recursiveFlatProperties(
 				cls.eContents(Property)
 				->at(i).type.oclAsType(Class), 1)
@@ -777,7 +777,7 @@ endif
 
 [query public recursiveFlatProperties_cpy(cls: Class, i : Integer) : Sequence(Property) =
 if i <= cls.eContents(Property)->size() then
-	if isfk(cls.eContents(Property)->at(i)) then
+	if isFk(cls.eContents(Property)->at(i)) then
 		recursiveFlatProperties(
 			cls.eContents(Property)
 			->at(i).type.oclAsType(Class), 1)
@@ -811,7 +811,7 @@ endif
 type.name.equalsIgnoreCase(owner.oclAsType(NamedElement).name)
  /]
 
-[query public isfk(arg: Property) : Boolean = 
+[query public isFk(arg: Property) : Boolean = 
 type.name = name and not selfFk(arg)
 /]
 

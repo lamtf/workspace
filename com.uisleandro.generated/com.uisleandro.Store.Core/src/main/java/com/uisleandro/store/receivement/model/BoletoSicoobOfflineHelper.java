@@ -2,12 +2,14 @@ package com.uisleandro.store.receivement.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.receivement.view.BoletoSicoobDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.receivement.view.BoletoSicoobDataView;
 
 public class BoletoSicoobOfflineHelper {
 
@@ -17,9 +19,6 @@ public class BoletoSicoobOfflineHelper {
 
 	public BoletoSicoobOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public BoletoSicoobOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class BoletoSicoobOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(BoletoSicoobView that){
+	public long insert(BoletoSicoobDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -64,7 +63,7 @@ public class BoletoSicoobOfflineHelper {
 		return last_id;
 	}
 
-	public int update(BoletoSicoobView that){
+	public int update(BoletoSicoobDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.BOLETO_SICOOB_SERVER_ID, that.getServerId());
@@ -113,11 +112,11 @@ public class BoletoSicoobOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<BoletoSicoobView> those = new ArrayList<>();
+		List<BoletoSicoobDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(BoletoSicoobView.FromCursor(cursor));
+	      those.add(BoletoSicoobDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -149,11 +148,11 @@ public class BoletoSicoobOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<BoletoSicoobView> those = new ArrayList<>();
+		List<BoletoSicoobDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(BoletoSicoobView.FromCursor(cursor));
+	      those.add(BoletoSicoobDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -178,7 +177,9 @@ public class BoletoSicoobOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_BOLETO_SICOOB +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -189,7 +190,9 @@ public class BoletoSicoobOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_BOLETO_SICOOB+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null
@@ -212,7 +215,9 @@ public class BoletoSicoobOfflineHelper {
 		String query = "UPDATE " + DbHelper.TABLE_BOLETO_SICOOB + " SET "+
 		"fk_invoice = ( SELECT id FROM " + DbHelper.TABLE_INVOICE + " WHERE " + DbHelper.TABLE_INVOICE + ".server_id = " + DbHelper.TABLE_BOLETO_SICOOB + ".fk_invoice );";		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToInteger(cursor);
+		int res = cursor.getInt(0);
+		cursor.close();
+		return res;
 	}
 
 

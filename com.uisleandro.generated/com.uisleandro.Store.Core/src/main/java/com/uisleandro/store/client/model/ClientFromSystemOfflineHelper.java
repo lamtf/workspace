@@ -2,12 +2,14 @@ package com.uisleandro.store.client.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.client.view.ClientFromSystemDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.client.view.ClientFromSystemDataView;
 
 public class ClientFromSystemOfflineHelper {
 
@@ -17,9 +19,6 @@ public class ClientFromSystemOfflineHelper {
 
 	public ClientFromSystemOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public ClientFromSystemOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class ClientFromSystemOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(ClientFromSystemView that){
+	public long insert(ClientFromSystemDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -62,7 +61,7 @@ public class ClientFromSystemOfflineHelper {
 		return last_id;
 	}
 
-	public int update(ClientFromSystemView that){
+	public int update(ClientFromSystemDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.CLIENT_FROM_SYSTEM_SERVER_ID, that.getServerId());
@@ -104,11 +103,11 @@ public class ClientFromSystemOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<ClientFromSystemView> those = new ArrayList<>();
+		List<ClientFromSystemDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(ClientFromSystemView.FromCursor(cursor));
+	      those.add(ClientFromSystemDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -132,11 +131,11 @@ public class ClientFromSystemOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<ClientFromSystemView> those = new ArrayList<>();
+		List<ClientFromSystemDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(ClientFromSystemView.FromCursor(cursor));
+	      those.add(ClientFromSystemDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -161,7 +160,9 @@ public class ClientFromSystemOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_CLIENT_FROM_SYSTEM +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -172,7 +173,9 @@ public class ClientFromSystemOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_CLIENT_FROM_SYSTEM+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null
@@ -198,7 +201,9 @@ public class ClientFromSystemOfflineHelper {
 		"fk_shared_client = ( SELECT id FROM " + DbHelper.TABLE_SHARED_CLIENT + " WHERE " + DbHelper.TABLE_SHARED_CLIENT + ".server_id = " + DbHelper.TABLE_CLIENT_FROM_SYSTEM + ".fk_shared_client ), " +
 		"fk_user = ( SELECT id FROM " + DbHelper.TABLE_USER + " WHERE " + DbHelper.TABLE_USER + ".server_id = " + DbHelper.TABLE_CLIENT_FROM_SYSTEM + ".fk_user );";		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToInteger(cursor);
+		int res = cursor.getInt(0);
+		cursor.close();
+		return res;
 	}
 
 

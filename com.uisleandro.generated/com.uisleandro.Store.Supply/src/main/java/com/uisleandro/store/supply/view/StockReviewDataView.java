@@ -2,6 +2,7 @@ package com.uisleandro.store.supply.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class StockReviewDataView {
@@ -177,12 +178,30 @@ public class StockReviewDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(product), String.valueOf(actual_amount), String.valueOf(sold_items), String.valueOf(previous_amount), String.valueOf(missing_amount)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_product",fk_product);
+		contentValues.put("actual_amount",actual_amount);
+		contentValues.put("sold_items",sold_items);
+		contentValues.put("previous_amount",previous_amount);
+		contentValues.put("missing_amount",missing_amount);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(product), String.valueOf(actual_amount), String.valueOf(sold_items), String.valueOf(previous_amount), String.valueOf(missing_amount)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_product",fk_product);
+		contentValues.put("actual_amount",actual_amount);
+		contentValues.put("sold_items",sold_items);
+		contentValues.put("previous_amount",previous_amount);
+		contentValues.put("missing_amount",missing_amount);
+		return contentValues;
+
 	}
 
 }

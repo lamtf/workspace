@@ -2,6 +2,7 @@ package com.uisleandro.store.credit_protection.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class IssueDataView {
@@ -194,12 +195,32 @@ public class IssueDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(shared_client), String.valueOf(system), description, String.valueOf(active), String.valueOf(isAnswer), String.valueOf(issue)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_shared_client",fk_shared_client);
+		contentValues.put("fk_system",fk_system);
+		contentValues.put("description",description);
+		contentValues.put("active",active);
+		contentValues.put("isAnswer",isAnswer);
+		contentValues.put("fk_issue",fk_issue);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(shared_client), String.valueOf(system), description, String.valueOf(active), String.valueOf(isAnswer), String.valueOf(issue)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_shared_client",fk_shared_client);
+		contentValues.put("fk_system",fk_system);
+		contentValues.put("description",description);
+		contentValues.put("active",active);
+		contentValues.put("isAnswer",isAnswer);
+		contentValues.put("fk_issue",fk_issue);
+		return contentValues;
+
 	}
 
 }

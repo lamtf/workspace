@@ -2,6 +2,7 @@ package com.uisleandro.store.supply.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class ProductDataView {
@@ -276,12 +277,44 @@ public class ProductDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(system), barcode, description, String.valueOf(amount), String.valueOf(gender), String.valueOf(purchase_price), String.valueOf(sale_price), String.valueOf(category), size, String.valueOf(unit), String.valueOf(expiration_date), String.valueOf(brand)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_system",fk_system);
+		contentValues.put("barcode",barcode);
+		contentValues.put("description",description);
+		contentValues.put("amount",amount);
+		contentValues.put("fk_gender",fk_gender);
+		contentValues.put("purchase_price",purchase_price);
+		contentValues.put("sale_price",sale_price);
+		contentValues.put("fk_category",fk_category);
+		contentValues.put("size",size);
+		contentValues.put("fk_unit",fk_unit);
+		contentValues.put("expiration_date",expiration_date);
+		contentValues.put("fk_brand",fk_brand);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(system), barcode, description, String.valueOf(amount), String.valueOf(gender), String.valueOf(purchase_price), String.valueOf(sale_price), String.valueOf(category), size, String.valueOf(unit), String.valueOf(expiration_date), String.valueOf(brand)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_system",fk_system);
+		contentValues.put("barcode",barcode);
+		contentValues.put("description",description);
+		contentValues.put("amount",amount);
+		contentValues.put("fk_gender",fk_gender);
+		contentValues.put("purchase_price",purchase_price);
+		contentValues.put("sale_price",sale_price);
+		contentValues.put("fk_category",fk_category);
+		contentValues.put("size",size);
+		contentValues.put("fk_unit",fk_unit);
+		contentValues.put("expiration_date",expiration_date);
+		contentValues.put("fk_brand",fk_brand);
+		return contentValues;
+
 	}
 
 }

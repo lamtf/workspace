@@ -341,12 +341,14 @@ package [pname /].[modul.name/].model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import [pname /].[modul.name/].view.[tbl.name.ToCamelCase() /]DataView
+import com.uisleandro.store.DbHelper;
+import [pname /].[modul.name/].view.[tbl.name.ToCamelCase() /]DataView;
 
 public class [tbl.name.ToCamelCase() /]OfflineHelper {
 
@@ -356,9 +358,6 @@ public class [tbl.name.ToCamelCase() /]OfflineHelper {
 
 	public [tbl.name.ToCamelCase() /]OfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public [tbl.name.ToCamelCase() /]OfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -375,7 +374,7 @@ public class [tbl.name.ToCamelCase() /]OfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert([tbl.name.ToCamelCase() /]View that){
+	public long insert([tbl.name.ToCamelCase() /]DataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -396,7 +395,7 @@ public class [tbl.name.ToCamelCase() /]OfflineHelper {
 		return last_id;
 	}
 
-	public int update([tbl.name.ToCamelCase() /]View that){
+	public int update([tbl.name.ToCamelCase() /]DataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.[tbl.name.toUpperCase() /]_SERVER_ID, that.getServerId());
@@ -436,11 +435,11 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
+		List<[tbl.name.ToCamelCase() /]DataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add([tbl.name.ToCamelCase() /]View.FromCursor(cursor));
+	      those.add([tbl.name.ToCamelCase() /]DataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -468,11 +467,11 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<[tbl.name.ToCamelCase() /]View> those = new ArrayList<>();
+		List<[tbl.name.ToCamelCase() /]DataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add([tbl.name.ToCamelCase() /]View.FromCursor(cursor));
+	      those.add([tbl.name.ToCamelCase() /]DataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -498,7 +497,9 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_[tbl.name.toUpperCase() /] +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -510,7 +511,9 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 [comment]String query = "SELECT MAX(last_update_time) FROM " + DbHelper.TABLE_[tbl.name.toUpperCase() /] +";";[/comment]
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_[tbl.name.toUpperCase() /]+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null
@@ -537,7 +540,9 @@ SELECT t0.id, t0.server_id, t0.dirty, "+
 		"fk_[prop.name /] = ( SELECT id FROM " + DbHelper.TABLE_[prop.name.toUpperCase() /] + " WHERE " + DbHelper.TABLE_[prop.name.toUpperCase() /] + ".server_id = " + DbHelper.TABLE_[tbl.name.toUpperCase() /] + ".fk_[prop.name /] )[/for]
 		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToInteger(cursor);
+		int res = cursor.getInt(0);
+		cursor.close();
+		return res;
 	}
 
 [/let][else]
@@ -648,16 +653,16 @@ public class [tbl.name.ToCamelCase() /]DataView {
 ->exists(x: Property | is_string(x)) )]
 		return this.[tbl.eContents(Property)->select(x: Property | is_string(x) )->first().name /];
 [else]
-		return "[tbl.name.ToCamelCase() /]View";
+		return "[tbl.name.ToCamelCase() /]DataView";
 [/if][/if]
 
 	}
 
-	public static [tbl.name.ToCamelCase() /]View FromJson(String json){
+	public static [tbl.name.ToCamelCase() /]DataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return [tbl.name.ToCamelCase() /]View.FromJsonObj(obj);
+				return [tbl.name.ToCamelCase() /]DataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -665,10 +670,10 @@ public class [tbl.name.ToCamelCase() /]DataView {
 		return null;
 	}
 
-	public static [tbl.name.ToCamelCase() /]View FromJsonObj (JSONObject obj) {
+	public static [tbl.name.ToCamelCase() /]DataView FromJsonObj(JSONObject obj) {
 		if(null != obj) {
 			try {
-				[tbl.name.ToCamelCase() /]View result = new [tbl.name.ToCamelCase() /]View();
+				[tbl.name.ToCamelCase() /]DataView result = new [tbl.name.ToCamelCase() /]DataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -695,9 +700,9 @@ public class [tbl.name.ToCamelCase() /]DataView {
 		return null;
 	}
 
-	public static [tbl.name.ToCamelCase() /]View FromCursor (Cursor cursor) {
+	public static [tbl.name.ToCamelCase() /]DataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			[tbl.name.ToCamelCase() /]View result = new [tbl.name.ToCamelCase() /]View();
+			[tbl.name.ToCamelCase() /]DataView result = new [tbl.name.ToCamelCase() /]DataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);
@@ -733,8 +738,11 @@ or arg.type.name.equalsIgnoreCase('SmallText')
 or arg.type.name.equalsIgnoreCase('Abbreviature')
 or arg.type.name.equalsIgnoreCase('MediumText') then
 arg.name
+else if isFk(arg) then
+'String.valueOf(fk_'+arg.name+')'
 else
 'String.valueOf('+arg.name+')'
+endif
 endif/]
 
 

@@ -2,6 +2,7 @@ package com.uisleandro.store.sales.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class ProductOnSaleDataView {
@@ -140,12 +141,24 @@ public class ProductOnSaleDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(sale), String.valueOf(product)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_sale",fk_sale);
+		contentValues.put("fk_product",fk_product);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(sale), String.valueOf(product)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_sale",fk_sale);
+		contentValues.put("fk_product",fk_product);
+		return contentValues;
+
 	}
 
 }

@@ -2,12 +2,14 @@ package com.uisleandro.store.core.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.core.view.TokenDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.core.view.TokenDataView;
 
 public class TokenOfflineHelper {
 
@@ -17,9 +19,6 @@ public class TokenOfflineHelper {
 
 	public TokenOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public TokenOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class TokenOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(TokenView that){
+	public long insert(TokenDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -62,7 +61,7 @@ public class TokenOfflineHelper {
 		return last_id;
 	}
 
-	public int update(TokenView that){
+	public int update(TokenDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.TOKEN_SERVER_ID, that.getServerId());
@@ -105,11 +104,11 @@ public class TokenOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<TokenView> those = new ArrayList<>();
+		List<TokenDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(TokenView.FromCursor(cursor));
+	      those.add(TokenDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -135,11 +134,11 @@ public class TokenOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<TokenView> those = new ArrayList<>();
+		List<TokenDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(TokenView.FromCursor(cursor));
+	      those.add(TokenDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -164,7 +163,9 @@ public class TokenOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_TOKEN +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -175,7 +176,9 @@ public class TokenOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_TOKEN+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null
@@ -200,7 +203,9 @@ public class TokenOfflineHelper {
 		"fk_system = ( SELECT id FROM " + DbHelper.TABLE_SYSTEM + " WHERE " + DbHelper.TABLE_SYSTEM + ".server_id = " + DbHelper.TABLE_TOKEN + ".fk_system ), " +
 		"fk_token_type = ( SELECT id FROM " + DbHelper.TABLE_TOKEN_TYPE + " WHERE " + DbHelper.TABLE_TOKEN_TYPE + ".server_id = " + DbHelper.TABLE_TOKEN + ".fk_token_type );";		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToInteger(cursor);
+		int res = cursor.getInt(0);
+		cursor.close();
+		return res;
 	}
 
 

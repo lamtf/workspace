@@ -1,4 +1,4 @@
-package com.uisleandro.store.sqlite;
+package com.uisleandro.store;
 
 import android.content.ContentValues;
 import android.content.Context;

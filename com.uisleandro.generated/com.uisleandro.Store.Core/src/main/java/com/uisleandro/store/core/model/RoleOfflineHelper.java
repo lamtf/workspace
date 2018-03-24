@@ -2,12 +2,14 @@ package com.uisleandro.store.core.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.core.view.RoleDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.core.view.RoleDataView;
 
 public class RoleOfflineHelper {
 
@@ -17,9 +19,6 @@ public class RoleOfflineHelper {
 
 	public RoleOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public RoleOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class RoleOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(RoleView that){
+	public long insert(RoleDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -51,7 +50,7 @@ public class RoleOfflineHelper {
 		return last_id;
 	}
 
-	public int update(RoleView that){
+	public int update(RoleDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.ROLE_SERVER_ID, that.getServerId());
@@ -76,11 +75,11 @@ public class RoleOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<RoleView> those = new ArrayList<>();
+		List<RoleDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(RoleView.FromCursor(cursor));
+	      those.add(RoleDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -102,11 +101,11 @@ public class RoleOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<RoleView> those = new ArrayList<>();
+		List<RoleDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(RoleView.FromCursor(cursor));
+	      those.add(RoleDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -131,7 +130,9 @@ public class RoleOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_ROLE +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -142,7 +143,9 @@ public class RoleOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_ROLE+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null

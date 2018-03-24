@@ -854,7 +854,6 @@ separator (', " + \n') after (' " + \n')]
 self.type.name.toString().equalsIgnoreCase('date') /]
 
 [template public android_create_tblviewclass(pname: String, modul: Package, tbl: Class)]
-
 package [pname /].[modul.name /].view;
 
 import org.json.JSONException;

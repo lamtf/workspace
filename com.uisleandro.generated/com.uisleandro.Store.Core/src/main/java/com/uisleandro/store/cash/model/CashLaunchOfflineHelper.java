@@ -2,12 +2,14 @@ package com.uisleandro.store.cash.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.cash.view.CashLaunchDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.cash.view.CashLaunchDataView;
 
 public class CashLaunchOfflineHelper {
 
@@ -17,9 +19,6 @@ public class CashLaunchOfflineHelper {
 
 	public CashLaunchOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public CashLaunchOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class CashLaunchOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(CashLaunchView that){
+	public long insert(CashLaunchDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -55,7 +54,7 @@ public class CashLaunchOfflineHelper {
 		return last_id;
 	}
 
-	public int update(CashLaunchView that){
+	public int update(CashLaunchDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.CASH_LAUNCH_SERVER_ID, that.getServerId());
@@ -86,11 +85,11 @@ public class CashLaunchOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<CashLaunchView> those = new ArrayList<>();
+		List<CashLaunchDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(CashLaunchView.FromCursor(cursor));
+	      those.add(CashLaunchDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -113,11 +112,11 @@ public class CashLaunchOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<CashLaunchView> those = new ArrayList<>();
+		List<CashLaunchDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(CashLaunchView.FromCursor(cursor));
+	      those.add(CashLaunchDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -142,7 +141,9 @@ public class CashLaunchOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_CASH_LAUNCH +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -153,7 +154,9 @@ public class CashLaunchOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_CASH_LAUNCH+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null
@@ -176,7 +179,9 @@ public class CashLaunchOfflineHelper {
 		String query = "UPDATE " + DbHelper.TABLE_CASH_LAUNCH + " SET "+
 		"fk_cash_register = ( SELECT id FROM " + DbHelper.TABLE_CASH_REGISTER + " WHERE " + DbHelper.TABLE_CASH_REGISTER + ".server_id = " + DbHelper.TABLE_CASH_LAUNCH + ".fk_cash_register );";		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToInteger(cursor);
+		int res = cursor.getInt(0);
+		cursor.close();
+		return res;
 	}
 
 

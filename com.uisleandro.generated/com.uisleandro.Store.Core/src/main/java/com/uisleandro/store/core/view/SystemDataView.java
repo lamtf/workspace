@@ -2,6 +2,7 @@ package com.uisleandro.store.core.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class SystemDataView {
@@ -283,12 +284,46 @@ public class SystemDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), name, String.valueOf(enabled), String.valueOf(currency), fantasy_name, stores_address, srores_address_number, stores_city, stores_neighborhood, stores_zip_code, stores_state, stores_email, stores_phonenumber, String.valueOf(reseller)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("name",name);
+		contentValues.put("enabled",enabled);
+		contentValues.put("fk_currency",fk_currency);
+		contentValues.put("fantasy_name",fantasy_name);
+		contentValues.put("stores_address",stores_address);
+		contentValues.put("srores_address_number",srores_address_number);
+		contentValues.put("stores_city",stores_city);
+		contentValues.put("stores_neighborhood",stores_neighborhood);
+		contentValues.put("stores_zip_code",stores_zip_code);
+		contentValues.put("stores_state",stores_state);
+		contentValues.put("stores_email",stores_email);
+		contentValues.put("stores_phonenumber",stores_phonenumber);
+		contentValues.put("fk_reseller",fk_reseller);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name, String.valueOf(enabled), String.valueOf(currency), fantasy_name, stores_address, srores_address_number, stores_city, stores_neighborhood, stores_zip_code, stores_state, stores_email, stores_phonenumber, String.valueOf(reseller)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("name",name);
+		contentValues.put("enabled",enabled);
+		contentValues.put("fk_currency",fk_currency);
+		contentValues.put("fantasy_name",fantasy_name);
+		contentValues.put("stores_address",stores_address);
+		contentValues.put("srores_address_number",srores_address_number);
+		contentValues.put("stores_city",stores_city);
+		contentValues.put("stores_neighborhood",stores_neighborhood);
+		contentValues.put("stores_zip_code",stores_zip_code);
+		contentValues.put("stores_state",stores_state);
+		contentValues.put("stores_email",stores_email);
+		contentValues.put("stores_phonenumber",stores_phonenumber);
+		contentValues.put("fk_reseller",fk_reseller);
+		return contentValues;
+
 	}
 
 }

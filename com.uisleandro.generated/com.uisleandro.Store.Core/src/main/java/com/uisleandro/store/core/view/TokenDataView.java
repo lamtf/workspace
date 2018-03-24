@@ -2,6 +2,7 @@ package com.uisleandro.store.core.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class TokenDataView {
@@ -194,12 +195,32 @@ public class TokenDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(user), String.valueOf(system), String.valueOf(token_type), guid, String.valueOf(last_use_time), String.valueOf(expiration_time)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_user",fk_user);
+		contentValues.put("fk_system",fk_system);
+		contentValues.put("fk_token_type",fk_token_type);
+		contentValues.put("guid",guid);
+		contentValues.put("last_use_time",last_use_time);
+		contentValues.put("expiration_time",expiration_time);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(user), String.valueOf(system), String.valueOf(token_type), guid, String.valueOf(last_use_time), String.valueOf(expiration_time)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_user",fk_user);
+		contentValues.put("fk_system",fk_system);
+		contentValues.put("fk_token_type",fk_token_type);
+		contentValues.put("guid",guid);
+		contentValues.put("last_use_time",last_use_time);
+		contentValues.put("expiration_time",expiration_time);
+		return contentValues;
+
 	}
 
 }

@@ -152,11 +152,11 @@ public class DistributorContactDataView {
 
 	}
 
-	public static DistributorContactView FromJson(String json){
+	public static DistributorContactDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return DistributorContactView.FromJsonObj(obj);
+				return DistributorContactDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -164,10 +164,10 @@ public class DistributorContactDataView {
 		return null;
 	}
 
-	public static DistributorContactView FromJsonObj (JSONObject obj) {
+	public static DistributorContactDataView FromJsonObj(JSONObject obj) {
 		if(null != obj) {
 			try {
-				DistributorContactView result = new DistributorContactView();
+				DistributorContactDataView result = new DistributorContactDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -196,9 +196,9 @@ public class DistributorContactDataView {
 		return null;
 	}
 
-	public static DistributorContactView FromCursor (Cursor cursor) {
+	public static DistributorContactDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			DistributorContactView result = new DistributorContactView();
+			DistributorContactDataView result = new DistributorContactDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);
@@ -217,11 +217,11 @@ public class DistributorContactDataView {
 	}
 
 	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), name, email1, email2, phone_number1, phone_number2, phone_number3, phone_number4, String.valueOf(brand)};
+		return new String[]{String.valueOf(last_update), name, email1, email2, phone_number1, phone_number2, phone_number3, phone_number4, String.valueOf(fk_brand)};
 	}
 
 	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name, email1, email2, phone_number1, phone_number2, phone_number3, phone_number4, String.valueOf(brand)};
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name, email1, email2, phone_number1, phone_number2, phone_number3, phone_number4, String.valueOf(fk_brand)};
 	}
 
 }

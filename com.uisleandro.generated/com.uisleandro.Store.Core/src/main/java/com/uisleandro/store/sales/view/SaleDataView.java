@@ -115,15 +115,15 @@ public class SaleDataView {
 	}
 
 	public String toString () {
-		return "SaleView";
+		return "SaleDataView";
 
 	}
 
-	public static SaleView FromJson(String json){
+	public static SaleDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return SaleView.FromJsonObj(obj);
+				return SaleDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -131,10 +131,10 @@ public class SaleDataView {
 		return null;
 	}
 
-	public static SaleView FromJsonObj (JSONObject obj) {
+	public static SaleDataView FromJsonObj(JSONObject obj) {
 		if(null != obj) {
 			try {
-				SaleView result = new SaleView();
+				SaleDataView result = new SaleDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -166,9 +166,9 @@ public class SaleDataView {
 		return null;
 	}
 
-	public static SaleView FromCursor (Cursor cursor) {
+	public static SaleDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			SaleView result = new SaleView();
+			SaleDataView result = new SaleDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);
@@ -184,11 +184,11 @@ public class SaleDataView {
 	}
 
 	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(sale_type), String.valueOf(system), String.valueOf(total_value), String.valueOf(user), String.valueOf(client_from_system)};
+		return new String[]{String.valueOf(last_update), String.valueOf(fk_sale_type), String.valueOf(fk_system), String.valueOf(total_value), String.valueOf(fk_user), String.valueOf(fk_client_from_system)};
 	}
 
 	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(sale_type), String.valueOf(system), String.valueOf(total_value), String.valueOf(user), String.valueOf(client_from_system)};
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(fk_sale_type), String.valueOf(fk_system), String.valueOf(total_value), String.valueOf(fk_user), String.valueOf(fk_client_from_system)};
 	}
 
 }

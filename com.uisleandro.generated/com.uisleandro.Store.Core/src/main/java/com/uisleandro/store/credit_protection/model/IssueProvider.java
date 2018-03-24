@@ -239,9 +239,10 @@ public class IssueProvider extends ContentProvider {
 	@Nullable
 	@Override
 	public Uri insert (@NonNull Uri uri, @Nullable ContentValues values) {
-		Cursor result = null;
+		long result = 0;
 		if (URI_ISSUE_INSERT.equals(uri)) {
 			result = database.insert(DbHelper.TABLE_ISSUE, null, values);
+			return Uri.parse(SCHEME + AUTHORITY + "/get/"+String.valueOf(result));
 		}
 // reserved-for:AndroidSqliteDatabase004
 // End of user code
@@ -357,8 +358,5 @@ public class IssueProvider extends ContentProvider {
 // Start of user code reserved-for:AndroidSqliteQuerySingle007
 
 // Start of user code reserved-for:AndroidSqliteDatabase011
-		return result;
-	}
-}
 // reserved-for:AndroidSqliteDatabase011
 // End of user code

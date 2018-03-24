@@ -2,6 +2,7 @@ package com.uisleandro.store.cash.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class CashRegisterDataView {
@@ -164,12 +165,28 @@ public class CashRegisterDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(user), String.valueOf(opening_value), String.valueOf(received_value), String.valueOf(closing_value)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_user",fk_user);
+		contentValues.put("opening_value",opening_value);
+		contentValues.put("received_value",received_value);
+		contentValues.put("closing_value",closing_value);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(user), String.valueOf(opening_value), String.valueOf(received_value), String.valueOf(closing_value)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_user",fk_user);
+		contentValues.put("opening_value",opening_value);
+		contentValues.put("received_value",received_value);
+		contentValues.put("closing_value",closing_value);
+		return contentValues;
+
 	}
 
 }

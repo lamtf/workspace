@@ -2,12 +2,14 @@ package com.uisleandro.store.client.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.client.view.BrazilianDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.client.view.BrazilianDataView;
 
 public class BrazilianOfflineHelper {
 
@@ -17,9 +19,6 @@ public class BrazilianOfflineHelper {
 
 	public BrazilianOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public BrazilianOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class BrazilianOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(BrazilianView that){
+	public long insert(BrazilianDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -55,7 +54,7 @@ public class BrazilianOfflineHelper {
 		return last_id;
 	}
 
-	public int update(BrazilianView that){
+	public int update(BrazilianDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.BRAZILIAN_SERVER_ID, that.getServerId());
@@ -86,11 +85,11 @@ public class BrazilianOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<BrazilianView> those = new ArrayList<>();
+		List<BrazilianDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(BrazilianView.FromCursor(cursor));
+	      those.add(BrazilianDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -113,11 +112,11 @@ public class BrazilianOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<BrazilianView> those = new ArrayList<>();
+		List<BrazilianDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(BrazilianView.FromCursor(cursor));
+	      those.add(BrazilianDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -142,7 +141,9 @@ public class BrazilianOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_BRAZILIAN +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -153,7 +154,9 @@ public class BrazilianOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_BRAZILIAN+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null
@@ -176,7 +179,9 @@ public class BrazilianOfflineHelper {
 		String query = "UPDATE " + DbHelper.TABLE_BRAZILIAN + " SET "+
 		"fk_basic_client = ( SELECT id FROM " + DbHelper.TABLE_BASIC_CLIENT + " WHERE " + DbHelper.TABLE_BASIC_CLIENT + ".server_id = " + DbHelper.TABLE_BRAZILIAN + ".fk_basic_client );";		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToInteger(cursor);
+		int res = cursor.getInt(0);
+		cursor.close();
+		return res;
 	}
 
 

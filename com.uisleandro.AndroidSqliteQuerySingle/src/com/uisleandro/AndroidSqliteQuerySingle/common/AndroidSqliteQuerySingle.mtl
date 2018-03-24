@@ -78,7 +78,7 @@ endif endif endif endif endif endif endif endif endif endif endif endif
 
 [query public gotNoValue(arg : Property) : Boolean = not gotValue(arg) /]
 
-[query public get_properties_with_no_value(arg : Sequence(Property)) : Sequence(Property) = self->select(x|gotNoValue(x) and not isfk(x))->asSequence() /]
+[query public get_properties_with_no_value(arg : Sequence(Property)) : Sequence(Property) = self->select(x|gotNoValue(x) and not isFk(x))->asSequence() /]
 
 [comment] 
 [query public getIndexOf(noValues : Sequence(Property), p: Property, i: Integer) : Integer = 0 /]
@@ -168,8 +168,11 @@ or arg.type.name.equalsIgnoreCase('SmallText')
 or arg.type.name.equalsIgnoreCase('Abbreviature')
 or arg.type.name.equalsIgnoreCase('MediumText') then
 arg.name
+else if isFk(arg) then
+'String.valueOf(fk_'+arg.name+')'
 else
 'String.valueOf('+arg.name+')'
+endif
 endif/]
 
 [query public get_java_value_of(arg: Property): String =
@@ -277,7 +280,7 @@ pelo nome da variavel ou pelo valor padrão
 
 
 [query public fieldName(arg : Property, p : Boolean) : String =
-if arg.isfk() then
+if arg.isFk() then
 if p then
 arg.owner.oclAsType(NamedElement).name+'.fk_'+arg.name
 else
@@ -644,7 +647,7 @@ else recursiveFlatProperties(getSubject(outView),1)->reverse() endif]
 [begin_reserve('reserved-for:AndroidSqliteQuerySingle002.2') /]
 [for (op : Operation | getValidOperations(controller))]
 	else if (FN_[controller.name.toUpperCase() /]_[name.toUpperCase() /] == i){
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/[op.name /]"), new String['['/][']'/]{}, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/[op.name /]"), new String['['/][']'/]{}, null, null, null);
     }
 [/for]
 [end_reserve('reserved-for:AndroidSqliteQuerySingle002.2') /]
@@ -782,7 +785,7 @@ queryIns: Sequence(Property)
 )]
 [let queryIns_notEmpty : Sequence(Property) = query_parameters_filter_empty(queryIns)]
 /* @Insert */
-public int [functionName /] ([query_parameters_definition(queryIns) /]){
+public Uri [functionName /] ([query_parameters_definition(queryIns) /]){
 	[comment]
 	String[ '[' /][ ']' /] insertArgs = new String['['/][']'/]{ [if (queryIns_notEmpty->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] };
 	[/comment]
@@ -795,9 +798,9 @@ public int [functionName /] ([query_parameters_definition(queryIns) /]){
 	contentValues.put("id",id);
 [/if]
 
-	context.getContentResolver().insert(SCHEME + AUTHORITY + "/[functionName /]", contentValues);
-// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-// TODO: PLEASE DONT USE SYNCHRONIZED CODE
+	Uri result = context.getContentResolver().insert(Uri.parse(SCHEME + AUTHORITY + "/[functionName /]"), contentValues);
+
+    return result;
 }
 
 [/let]
@@ -815,7 +818,7 @@ public Cursor [functionName /] (String[ '[' /][ ']' /] selectionArgs) {
 	String query = "[exists_query(queryIns)/]";
 [let noValues : Sequence(Property) = get_properties_with_no_value(queryIns) ]
 	Cursor cursor = database.rawQuery(query, [if (noValues->size() = queryIns->size())
-]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isfk(x) )) 
+]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isFk(x) )) 
 separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 ][value_to_database_v2(it, hintIndex)/][else]selectionArgs['['/][getIndexOf(noValues, it, 1)-1 
 /][']'/][/if][/let][/for]}[/if]);
@@ -835,8 +838,8 @@ queryIns: Sequence(Property)
 )]
 /* @ExistsWhere */
 public boolean [functionName /] ([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]) {
-	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
-	Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/[functionName /]",null, null, selectionArgs, null);
+	String['['/][']'/] selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
+	Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/[functionName /]"),null, null, selectionArgs, null);
 	boolean that = false;
 	cursor.moveToFirst();
 	if(!cursor.isAfterLast()){
@@ -865,7 +868,7 @@ public Cursor [functionName
 	String query = "[select_query(queryIns,queryOuts)/]";
 [let noValues : Sequence(Property) = get_properties_with_no_value(queryIns) ]
 	Cursor cursor = database.rawQuery(query, [if (noValues->size() = queryIns->size())
-]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isfk(x) )) 
+]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isFk(x) )) 
 separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 ][value_to_database_v2(it, hintIndex)/][else]selectionArgs['['/][getIndexOf(noValues, it, 1)-1 
 /][']'/][/if][/let][/for]}[/if]);
@@ -883,8 +886,8 @@ separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 /* @SelectOneWhere */
 public [returnName.ToCamelCase() /] [functionName 
 /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
-	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
-	Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/[functionName /]",null, null, selectionArgs, null);
+	String['['/][']'/] selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
+	Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/[functionName /]"),null, null, selectionArgs, null);
 	[returnName.ToCamelCase() /] that = null;
 	cursor.moveToFirst();
 	if(!cursor.isAfterLast()){
@@ -911,7 +914,7 @@ public Cursor [functionName
 	}
 [let noValues : Sequence(Property) = get_properties_with_no_value(queryIns) ]
 	Cursor cursor = database.rawQuery(query, [if (noValues->size() = queryIns->size())
-]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isfk(x) )) 
+]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isFk(x) )) 
 separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 ][value_to_database_v2(it, hintIndex)/][else]selectionArgs['['/][getIndexOf(noValues, it, 1)-1 
 /][']'/][/if][/let][/for]}[/if]);
@@ -929,8 +932,8 @@ separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 /* @SelectListWhere */
 public List<[returnName.ToCamelCase() /]> [functionName 
 /] ([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /], [else][if (not HasDefaultValuey(queryIns))]long id, [/if][/if]long page_count, long page_size){
-	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
-	Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/[functionName /]",null, null, selectionArgs, null);
+	String['['/][']'/] selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
+	Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/[functionName /]"),null, null, selectionArgs, null);
 	List<[returnName.ToCamelCase() /]> those = null;
 	cursor.moveToFirst();
 	while(!cursor.isAfterLast()){
@@ -955,7 +958,7 @@ public Cursor [functionName
 	String query = "[select_query(queryIns,queryOuts)/]";
 [let noValues : Sequence(Property) = get_properties_with_no_value(queryIns) ]
 	Cursor cursor = database.rawQuery(query, [if (noValues->size() = queryIns->size())
-]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isfk(x) )) 
+]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isFk(x) )) 
 separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 ][value_to_database_v2(it, hintIndex)/][else]selectionArgs['['/][getIndexOf(noValues, it, 1)-1 
 /][']'/][/if][/let][/for]}[/if]);
@@ -973,8 +976,8 @@ separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 public [(if queryOuts->notEmpty()
 then get_java_type(queryOuts->at(1)) else 'long' endif) /] [functionName
 /] ([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]) {
-	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
-	Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/[functionName /]",null, null, selectionArgs, null);
+	String['['/][']'/] selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }; 
+	Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/[functionName /]"),null, null, selectionArgs, null);
 	[(if queryOuts->notEmpty()
 then get_java_type(queryOuts->at(1)) else 'long' endif) /] that = [(if queryOuts->notEmpty()
 then 'null' else '0' endif) /];
@@ -1020,7 +1023,7 @@ public int [functionName
 	String query = "[update_query(queryIns,queryOuts)/]";
 [let noValues : Sequence(Property) = get_properties_with_no_value(queryIns) ]
 	Cursor cursor = database.rawQuery(query, [if (noValues->size() = queryIns->size())
-]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isfk(x) )) 
+]selectionArgs[else]new String['['/][']'/]{[for (it : Property | queryIns->select(x| not(gotStereotype(x, 'isEmpty')) and not isFk(x) )) 
 separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 ][value_to_database_v2(it, hintIndex)/][else]selectionArgs['['/][getIndexOf(noValues, it, 1)-1 
 /][']'/][/if][/let][/for]}[/if]);
@@ -1055,7 +1058,7 @@ public int [functionName
 
 	String['['/][']'/] selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] }
 
-	Cursor cursor = context.getContentResolver().update(SCHEME + AUTHORITY + "/[functionName /]", contentValues, null, selectionArgs); 
+	Cursor cursor = context.getContentResolver().update(Uri.parse(SCHEME + AUTHORITY + "/[functionName /]"), contentValues, null, selectionArgs); 
 	cursor.moveToFirst();
 	if(!cursor.isAfterLast()){
 		result = cursor.getInt(0);
@@ -1100,8 +1103,8 @@ separator (', ')][let hintIndex: Integer = getHintIndex(it)][if (hintIndex > 0)
 	queryIns: Sequence(Property))]
 /* @DeleteWhere */
 public int [functionName /]([if (params_not_empty(queryIns))][query_parameters_definition(queryIns) /][else][if (not HasDefaultValuey(queryIns))]long id[/if][/if]){
-	String selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] };
-	return context.getContentResolver().delete(SCHEME + AUTHORITY + "/[functionName /]", null, selectionArgs);
+	String['['/][']'/] selectionArgs = new String['['/][']'/]{ [if (queryIns->notEmpty())][query_parameters_usage(queryIns) /][else]String.valueOf(id)[/if] };
+	return context.getContentResolver().delete(Uri.parse(SCHEME + AUTHORITY + "/[functionName /]"), null, selectionArgs);
 // TODO: PLEASE DONT USE SYNC CODE
 }
 [/template]
@@ -1161,7 +1164,7 @@ endif endif endif endif /]
 
 [query public propertiesWithNoHint(arg : Sequence(Property)) : Sequence(Property) = 
 self->select(x|
-not (isfk(x) or selfFk(x))
+not (isFk(x) or selfFk(x))
 and gotNoQueryHint(x)
 ) /]
 
@@ -1219,24 +1222,24 @@ Propriedades recursivas: cuidado com loop infinito
 [template public recursive_join(table : Class)
 ][for (foreign : Property | table
 .eContents(Property)
-->select(x| isfk(x))
+->select(x| isFk(x))
 )] INNER JOIN [foreign.name /] ON [table.name /].[comment 
 /]fk_[foreign.name /] = [foreign.name /].id[/for][comment 
 /][for (foreign : Property | table
 .eContents(Property)
-->select(x| isfk(x))
+->select(x| isFk(x))
 )][recursive_join(foreign.type.oclAsType(Class))/][/for][/template]
 
 [comment new /]
 [template public recursive_where_fk_and(table : Class)
 ][for (foreign : Property | table
 .eContents(Property)
-->select(x| isfk(x))
+->select(x| isFk(x))
 ) separator (' AND ')] [table.name /].[comment 
 /]fk_[foreign.name /] = [foreign.name /].id[/for][comment 
 /][for (foreign : Property | table
 .eContents(Property)
-->select(x| isfk(x))
+->select(x| isFk(x))
 )][recursive_where_fk_and(foreign.type.oclAsType(Class))/][/for][/template]
 
 [comment]
@@ -1261,7 +1264,7 @@ queryOuts : Sequence(Property)
 
 error-generating: queryOuts is empty somehow
  
-}}[/if] WHERE [if (queryIns->notEmpty())][for (it : Property | queryIns->select(x|not isfk(x))) 
+}}[/if] WHERE [if (queryIns->notEmpty())][for (it : Property | queryIns->select(x|not isFk(x))) 
 separator(' AND ')][getWhereQ(it, true) /][/for][else]id = ?[/if];[/template]
 
 
@@ -1274,7 +1277,7 @@ queryOuts : Sequence(Property)
 ->select(x| gotStereotype(x.owner, 'Subject'))
 ->first().owner][itself.name /] SET ([for (it : Property | queryOuts) separator(',')
 ] [itself.name /].[it.name /] = ?[/for]) WHERE [if (itself.eContents(Property)
-->exists(x| isfk(x)) )]
+->exists(x| isFk(x)) )]
 [recursive_where_fk_and(itself) /] AND [/if][for (it : Property | queryIns) separator(',')
 ] [itself.name /].[it.name /] = ?[/for][/let][comment
 << itself /][/if][/if];[/template]
@@ -1285,7 +1288,7 @@ queryIns : Sequence(Property)
 ->notEmpty())]DELETE FROM [let itself : Class = queryIns
 ->select(x| gotStereotype(x.owner, 'Subject'))
 ->first().owner][itself.name /] WHERE [if (itself.eContents(Property)
-->exists(x| isfk(x)) )]
+->exists(x| isFk(x)) )]
 [recursive_where_fk_and(itself) /] AND [/if][for (it : Property | queryIns) separator(',')
 ] [itself.name /].[it.name /] = ?[/for][/let][comment
 << itself /][/if];[/template]
@@ -1293,7 +1296,7 @@ queryIns : Sequence(Property)
 [template public exists_query(
 queryIns : Sequence(Property))]SELECT exists(*) FROM [let itself : Class = queryIns->select(x| gotStereotype(x.owner, 'Subject'))->first().owner
 ][itself.name /][recursive_join(itself)
-/][/let] WHERE [for (it : Property | queryIns->select(x|not isfk(x))) separator(' AND ')][getWhereQ(it, true) /][/for];[/template]
+/][/let] WHERE [for (it : Property | queryIns->select(x|not isFk(x))) separator(' AND ')][getWhereQ(it, true) /][/for];[/template]
 
 
 [template public insert_query(

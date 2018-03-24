@@ -2,12 +2,14 @@ package com.uisleandro.store.receivement.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.receivement.view.InvoiceDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.receivement.view.InvoiceDataView;
 
 public class InvoiceOfflineHelper {
 
@@ -17,9 +19,6 @@ public class InvoiceOfflineHelper {
 
 	public InvoiceOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public InvoiceOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class InvoiceOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(InvoiceView that){
+	public long insert(InvoiceDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -68,7 +67,7 @@ public class InvoiceOfflineHelper {
 		return last_id;
 	}
 
-	public int update(InvoiceView that){
+	public int update(InvoiceDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.INVOICE_SERVER_ID, that.getServerId());
@@ -120,11 +119,11 @@ public class InvoiceOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<InvoiceView> those = new ArrayList<>();
+		List<InvoiceDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(InvoiceView.FromCursor(cursor));
+	      those.add(InvoiceDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -150,11 +149,11 @@ public class InvoiceOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<InvoiceView> those = new ArrayList<>();
+		List<InvoiceDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(InvoiceView.FromCursor(cursor));
+	      those.add(InvoiceDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -179,7 +178,9 @@ public class InvoiceOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_INVOICE +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -190,7 +191,9 @@ public class InvoiceOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_INVOICE+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null
@@ -218,7 +221,9 @@ public class InvoiceOfflineHelper {
 		"fk_interest_rate_type = ( SELECT id FROM " + DbHelper.TABLE_INTEREST_RATE_TYPE + " WHERE " + DbHelper.TABLE_INTEREST_RATE_TYPE + ".server_id = " + DbHelper.TABLE_INVOICE + ".fk_interest_rate_type ), " +
 		"fk_bank = ( SELECT id FROM " + DbHelper.TABLE_BANK + " WHERE " + DbHelper.TABLE_BANK + ".server_id = " + DbHelper.TABLE_INVOICE + ".fk_bank );";		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToInteger(cursor);
+		int res = cursor.getInt(0);
+		cursor.close();
+		return res;
 	}
 
 

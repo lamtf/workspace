@@ -2,6 +2,7 @@ package com.uisleandro.store.supply.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class DistributorContactDataView {
@@ -216,12 +217,36 @@ public class DistributorContactDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), name, email1, email2, phone_number1, phone_number2, phone_number3, phone_number4, String.valueOf(brand)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("name",name);
+		contentValues.put("email1",email1);
+		contentValues.put("email2",email2);
+		contentValues.put("phone_number1",phone_number1);
+		contentValues.put("phone_number2",phone_number2);
+		contentValues.put("phone_number3",phone_number3);
+		contentValues.put("phone_number4",phone_number4);
+		contentValues.put("fk_brand",fk_brand);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), name, email1, email2, phone_number1, phone_number2, phone_number3, phone_number4, String.valueOf(brand)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("name",name);
+		contentValues.put("email1",email1);
+		contentValues.put("email2",email2);
+		contentValues.put("phone_number1",phone_number1);
+		contentValues.put("phone_number2",phone_number2);
+		contentValues.put("phone_number3",phone_number3);
+		contentValues.put("phone_number4",phone_number4);
+		contentValues.put("fk_brand",fk_brand);
+		return contentValues;
+
 	}
 
 }

@@ -141,11 +141,11 @@ public class ResellerDataView {
 
 	}
 
-	public static ResellerView FromJson(String json){
+	public static ResellerDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return ResellerView.FromJsonObj(obj);
+				return ResellerDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -153,10 +153,10 @@ public class ResellerDataView {
 		return null;
 	}
 
-	public static ResellerView FromJsonObj (JSONObject obj) {
+	public static ResellerDataView FromJsonObj(JSONObject obj) {
 		if(null != obj) {
 			try {
-				ResellerView result = new ResellerView();
+				ResellerDataView result = new ResellerDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -182,9 +182,9 @@ public class ResellerDataView {
 		return null;
 	}
 
-	public static ResellerView FromCursor (Cursor cursor) {
+	public static ResellerDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			ResellerView result = new ResellerView();
+			ResellerDataView result = new ResellerDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);

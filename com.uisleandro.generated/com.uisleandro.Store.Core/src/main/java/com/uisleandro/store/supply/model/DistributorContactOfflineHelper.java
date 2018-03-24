@@ -2,12 +2,14 @@ package com.uisleandro.store.supply.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.supply.view.DistributorContactDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.supply.view.DistributorContactDataView;
 
 public class DistributorContactOfflineHelper {
 
@@ -17,9 +19,6 @@ public class DistributorContactOfflineHelper {
 
 	public DistributorContactOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public DistributorContactOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class DistributorContactOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(DistributorContactView that){
+	public long insert(DistributorContactDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -60,7 +59,7 @@ public class DistributorContactOfflineHelper {
 		return last_id;
 	}
 
-	public int update(DistributorContactView that){
+	public int update(DistributorContactDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.DISTRIBUTOR_CONTACT_SERVER_ID, that.getServerId());
@@ -101,11 +100,11 @@ public class DistributorContactOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<DistributorContactView> those = new ArrayList<>();
+		List<DistributorContactDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(DistributorContactView.FromCursor(cursor));
+	      those.add(DistributorContactDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -133,11 +132,11 @@ public class DistributorContactOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<DistributorContactView> those = new ArrayList<>();
+		List<DistributorContactDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(DistributorContactView.FromCursor(cursor));
+	      those.add(DistributorContactDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -162,7 +161,9 @@ public class DistributorContactOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_DISTRIBUTOR_CONTACT +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -173,7 +174,9 @@ public class DistributorContactOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_DISTRIBUTOR_CONTACT+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null
@@ -196,7 +199,9 @@ public class DistributorContactOfflineHelper {
 		String query = "UPDATE " + DbHelper.TABLE_DISTRIBUTOR_CONTACT + " SET "+
 		"fk_brand = ( SELECT id FROM " + DbHelper.TABLE_BRAND + " WHERE " + DbHelper.TABLE_BRAND + ".server_id = " + DbHelper.TABLE_DISTRIBUTOR_CONTACT + ".fk_brand );";		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToInteger(cursor);
+		int res = cursor.getInt(0);
+		cursor.close();
+		return res;
 	}
 
 

@@ -2,6 +2,7 @@ package com.uisleandro.store.supply.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class BrandDataView {
@@ -136,12 +137,24 @@ public class BrandDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), company_name, fantasy_name};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("company_name",company_name);
+		contentValues.put("fantasy_name",fantasy_name);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), company_name, fantasy_name};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("company_name",company_name);
+		contentValues.put("fantasy_name",fantasy_name);
+		return contentValues;
+
 	}
 
 }

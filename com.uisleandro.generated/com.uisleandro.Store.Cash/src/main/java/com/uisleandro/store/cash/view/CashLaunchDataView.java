@@ -2,6 +2,7 @@ package com.uisleandro.store.cash.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class CashLaunchDataView {
@@ -151,12 +152,26 @@ public class CashLaunchDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(cash_register), justification, String.valueOf(amount_spent)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_cash_register",fk_cash_register);
+		contentValues.put("justification",justification);
+		contentValues.put("amount_spent",amount_spent);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(cash_register), justification, String.valueOf(amount_spent)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_cash_register",fk_cash_register);
+		contentValues.put("justification",justification);
+		contentValues.put("amount_spent",amount_spent);
+		return contentValues;
+
 	}
 
 }

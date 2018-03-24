@@ -2,6 +2,7 @@ package com.uisleandro.store.discount.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class DiscountDataView {
@@ -211,12 +212,34 @@ public class DiscountDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(value), String.valueOf(percentage), String.valueOf(product), String.valueOf(category), String.valueOf(brand), String.valueOf(client_from_system), String.valueOf(gender)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("value",value);
+		contentValues.put("percentage",percentage);
+		contentValues.put("fk_product",fk_product);
+		contentValues.put("fk_category",fk_category);
+		contentValues.put("fk_brand",fk_brand);
+		contentValues.put("fk_client_from_system",fk_client_from_system);
+		contentValues.put("fk_gender",fk_gender);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(value), String.valueOf(percentage), String.valueOf(product), String.valueOf(category), String.valueOf(brand), String.valueOf(client_from_system), String.valueOf(gender)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("value",value);
+		contentValues.put("percentage",percentage);
+		contentValues.put("fk_product",fk_product);
+		contentValues.put("fk_category",fk_category);
+		contentValues.put("fk_brand",fk_brand);
+		contentValues.put("fk_client_from_system",fk_client_from_system);
+		contentValues.put("fk_gender",fk_gender);
+		return contentValues;
+
 	}
 
 }

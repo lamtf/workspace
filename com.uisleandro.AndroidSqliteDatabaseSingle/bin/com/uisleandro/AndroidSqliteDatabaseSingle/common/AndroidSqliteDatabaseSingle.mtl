@@ -316,7 +316,7 @@ x.eContents(Class)->exists(c : Class | c.name = name)
 
 
 [template public android_create_dbhelper(root : Model, pname: String)]
-package [pname /].sqlite;
+package [pname /];
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -555,8 +555,11 @@ or arg.type.name.equalsIgnoreCase('SmallText')
 or arg.type.name.equalsIgnoreCase('Abbreviature')
 or arg.type.name.equalsIgnoreCase('MediumText') then
 arg.name
+else if isFk(arg) then
+'String.valueOf(fk_'+arg.name+')'
 else
 'String.valueOf('+arg.name+')'
+endif
 endif/]
 
 
@@ -565,6 +568,7 @@ package [pname /].[modul.name /].view; [comment Core is modul.name /]
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class [tbl.name.ToCamelCase() /]DataView {
@@ -705,12 +709,34 @@ public class [tbl.name.ToCamelCase() /]DataView {
 		return null;
 	}
 
-	public String[ '[' /][ ']' /] toInsertArray () {
-		return new String[ '[' /][ ']' /]{[for (prop : Property | get_fields(tbl)) separator (', ')][to_java_string(prop) /][/for]};
-	}
+	[comment ]//public String[ '[' /][ ']' /] toInsertValues () {[/comment]
+	public ContentValues toInsertValues () {
 
-	public String[ '[' /][ ']' /] toUpdateArray () {
+		ContentValues contentValues = new ContentValues();
+		[for (prop : Property | get_fields(tbl))]
+		contentValues.put("[if(isFk(prop))]fk_[/if][name/]",[if(isFk(prop))]fk_[/if][name/]);
+		[/for]
+		return contentValues;
+
+[comment] 
+		return new String[ '[' /][ ']' /]{[for (prop : Property | get_fields(tbl)) separator (', ')][to_java_string(prop) /][/for]};
+[/comment]
+	}
+[comment]
+	public String[ '[' /][ ']' /] toUpdateValues () {
+[/comment]
+
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		[for (prop : Property | get_fields(tbl))]
+		contentValues.put("[if(isFk(prop))]fk_[/if][name/]",[if(isFk(prop))]fk_[/if][name/]);
+		[/for]
+		return contentValues;
+
+[comment] 
 		return new String[ '[' /][ ']' /]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), [for (prop : Property | get_fields(tbl)) separator (', ')][to_java_string(prop) /][/for]};
+[/comment]
 	}
 
 }
@@ -951,9 +977,10 @@ separator (', \n')]
 	@Nullable
 	@Override
 	public Uri insert (@NonNull Uri uri, @Nullable ContentValues values) {
-		Cursor result = null;
+		long result = 0;
 		if (URI_[tbl.name.toUpperCase() /]_INSERT.equals(uri)) {
 			result = database.insert(DbHelper.TABLE_[tbl.name.toUpperCase() /], null, values);
+			return Uri.parse(SCHEME + AUTHORITY + "/get/"+String.valueOf(result));
 		}
 [end_reserve('reserved-for:AndroidSqliteDatabase004') /]
 
@@ -1114,7 +1141,7 @@ I need to know about the class Bundle, which seems cary the data
 
 	public List<[tbl.name.ToCamelCase() /]DataView> listAll () {
 		List<[tbl.name.ToCamelCase() /]DataView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/all"), null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -1128,7 +1155,7 @@ I need to know about the class Bundle, which seems cary the data
 
 	public [tbl.name.ToCamelCase() /]DataView getById (long id) {
 		[tbl.name.ToCamelCase() /]DataView that = null;
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[ '[' /][ ']' /]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/by_id"), null, null, new String[ '[' /][ ']' /]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -1141,7 +1168,7 @@ I need to know about the class Bundle, which seems cary the data
 
 	public List<[tbl.name.ToCamelCase() /]DataView> listSome (long page_count, long page_size) {
 		List<[tbl.name.ToCamelCase() /]DataView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[ '[' /][ ']' /]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/some"), new String[ '[' /][ ']' /]{ String.valueOf(page_count), String.valueOf(page_size) }, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -1155,27 +1182,27 @@ I need to know about the class Bundle, which seems cary the data
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/last_id"), null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
-		      result = cursor.getLong(0)
+		      result = cursor.getLong(0);
 		    }
 		}
 	    return result;	
 	}
 
-	public int insert ([tbl.name.ToCamelCase() /]DataView that) {
-		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
-		return 0;
+	public Uri insert ([tbl.name.ToCamelCase() /]DataView that) {
+		Uri result = context.getContentResolver().insert(Uri.parse(SCHEME + AUTHORITY + "/insert"), that.toInsertValues());
+		return result;
 	}
 
 	public int update ([tbl.name.ToCamelCase() /]DataView that) {
-		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(Uri.parse(SCHEME + AUTHORITY + "/update"), that.toUpdateValues(), null, new String[ '[' /][ ']' /]{ String.valueOf(that.getId()) });
 	}
 
 	public int delete ([tbl.name.ToCamelCase() /]DataView that) {
-		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[ '[' /][ ']' /]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(Uri.parse(SCHEME + AUTHORITY + "/delete"), null, new String[ '[' /][ ']' /]{ String.valueOf(that.getId()) });
 	}
 
 [end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.1') /]
@@ -1185,7 +1212,8 @@ I need to know about the class Bundle, which seems cary the data
 // [/protected]
 
 [begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002.2') /]
-  public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+  //TODO: PLEASE REVIEW THIS CODE
+  public void please_remake_it(int i, Bundle bundle) {
 [end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.2') /]
 
 // [protected ('reserved-for:AndroidSqliteQuerySingle002.1')]
@@ -1196,29 +1224,42 @@ I need to know about the class Bundle, which seems cary the data
   }
 [end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.3') /]
 
+[comment]
+/* @Insert */
+	public int eventual_cash_usage (Long fk_cash_register, String justification, Float amount_spent){
+		Bundle bundle = new Bundle();
+		bundle.putString("last_update", com.uisleandro.util.config.getRightNowString());
+		bundle.putString("fk_cash_register", String.ValueOf(fk_cash_register));
+		Bundle.putString("justification", String.ValueOf(justification));
+		Bundle.putString("amount_spent", String.ValueOf(amount_spent));
+		context.getLoaderManager().initLoader(FN_CASH_REGISTER_EVENTUAL_CASH_USAGE, bundle, this);
+        context.getLoaderManager().restartLoader(FN_CASH_REGISTER_EVENTUAL_CASH_USAGE, bundle, this);
+	}
+[/comment]
 [begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002.4') /]
+  @Override
   public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
     if (FN_[tbl.name.toUpperCase() /]_INSERT == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/insert"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/insert"), null, null, null, null);
     }
     else if (FN_[tbl.name.toUpperCase() /]_UPDATE == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/update"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/update"), null, null, null, null);
     }
     else if (FN_[tbl.name.toUpperCase() /]_DELETE == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/delete"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/delete"), null, null, null, null);
     }
     else if (FN_[tbl.name.toUpperCase() /]_ALL == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/all"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/all"), null, null, null, null);
     }
     else if (FN_[tbl.name.toUpperCase() /]_SOME == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/some"), new String['['/][']'/]{ bundle.getString("page_count"), bundle.getString("page_size") }, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/some"), new String['['/][']'/]{ bundle.getString("page_count"), bundle.getString("page_size") }, null, null, null);
     }
     else if (FN_[tbl.name.toUpperCase() /]_BY_ID == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/by_id", null, null, new String[ '[' /][ ']' /]{ bundle.getString("id") }, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/by_id"), null, null, new String[ '[' /][ ']' /]{ bundle.getString("id") }, null);
     }
     else if (FN_[tbl.name.toUpperCase() /]_LAST_ID == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/last_id"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/last_id"), null, null, null, null);
     }
 [end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.4') /]
 
@@ -1227,11 +1268,13 @@ I need to know about the class Bundle, which seems cary the data
 // [/protected]
 
 [begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002.5') /]
+    return null;
   }
 [end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.5') /]
 
 [begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002.6') /]
-  public Loader<Cursor> onLoaderReset(Loader<Cursor> cursorLoader) {
+  @Override
+  public void onLoaderReset(Loader<Cursor> cursorLoader) {
 [end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.6') /]
 
 // [protected ('reserved-for:AndroidSqliteQuerySingle002.3')]
@@ -1243,6 +1286,7 @@ I need to know about the class Bundle, which seems cary the data
 [end_reserve('reserved-for:AndroidSqliteDatabaseSingle002.7') /]
 
 [begin_reserve('reserved-for:AndroidSqliteDatabaseSingle002.8') /]
+  @Override
   public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
 	((LoaderInterface)this.context).onLoadFinished(cursorLoader,cursor);
   }
@@ -1316,8 +1360,27 @@ I need to know about the class Bundle, which seems cary the data
 
 [/comment]
 [for (modul : Package | get_modules(root))]
-[let j : Integer = i]
 
+
+[comment]
+	NEW: LOADER INTERFACE
+[/comment]
+[file (cName+'.'+ToCamelCase(modul.name)+'/src/main/java/com/uisleandro/util/LoaderInterface.java', false, 'UTF-8')]
+package com.uisleandro.util;
+
+import android.database.Cursor;
+import android.support.v4.content.Loader;
+
+public interface LoaderInterface {
+
+   void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor);
+
+};
+
+[/file]
+
+
+[let j : Integer = i]
 
 [for (tbl : Class | get_tables(modul))]
 

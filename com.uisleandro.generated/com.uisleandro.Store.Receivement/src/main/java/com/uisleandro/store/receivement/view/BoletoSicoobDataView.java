@@ -2,6 +2,7 @@ package com.uisleandro.store.receivement.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class BoletoSicoobDataView {
@@ -268,12 +269,44 @@ public class BoletoSicoobDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), cpf, numero, String.valueOf(data), String.valueOf(vencimento), String.valueOf(valor), nosso_numero, String.valueOf(quantidade), String.valueOf(parcela), String.valueOf(foi_pago), String.valueOf(data_de_pagamento), String.valueOf(valor_recebido), String.valueOf(invoice)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("cpf",cpf);
+		contentValues.put("numero",numero);
+		contentValues.put("data",data);
+		contentValues.put("vencimento",vencimento);
+		contentValues.put("valor",valor);
+		contentValues.put("nosso_numero",nosso_numero);
+		contentValues.put("quantidade",quantidade);
+		contentValues.put("parcela",parcela);
+		contentValues.put("foi_pago",foi_pago);
+		contentValues.put("data_de_pagamento",data_de_pagamento);
+		contentValues.put("valor_recebido",valor_recebido);
+		contentValues.put("fk_invoice",fk_invoice);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), cpf, numero, String.valueOf(data), String.valueOf(vencimento), String.valueOf(valor), nosso_numero, String.valueOf(quantidade), String.valueOf(parcela), String.valueOf(foi_pago), String.valueOf(data_de_pagamento), String.valueOf(valor_recebido), String.valueOf(invoice)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("cpf",cpf);
+		contentValues.put("numero",numero);
+		contentValues.put("data",data);
+		contentValues.put("vencimento",vencimento);
+		contentValues.put("valor",valor);
+		contentValues.put("nosso_numero",nosso_numero);
+		contentValues.put("quantidade",quantidade);
+		contentValues.put("parcela",parcela);
+		contentValues.put("foi_pago",foi_pago);
+		contentValues.put("data_de_pagamento",data_de_pagamento);
+		contentValues.put("valor_recebido",valor_recebido);
+		contentValues.put("fk_invoice",fk_invoice);
+		return contentValues;
+
 	}
 
 }

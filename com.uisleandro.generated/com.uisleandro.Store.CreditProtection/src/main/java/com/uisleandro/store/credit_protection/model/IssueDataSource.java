@@ -63,7 +63,7 @@ I need to know about the class Bundle, which seems cary the data
 
 	public List<IssueDataView> listAll () {
 		List<IssueDataView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/all", null, null null, null);
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/all"), null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -77,7 +77,7 @@ I need to know about the class Bundle, which seems cary the data
 
 	public IssueDataView getById (long id) {
 		IssueDataView that = null;
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ String.valueOf(id) }, null);
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/by_id"), null, null, new String[]{ String.valueOf(id) }, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
@@ -90,7 +90,7 @@ I need to know about the class Bundle, which seems cary the data
 
 	public List<IssueDataView> listSome (long page_count, long page_size) {
 		List<IssueDataView> those = new ArrayList<>();
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/some", new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null null, null);
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/some"), new String[]{ String.valueOf(page_count), String.valueOf(page_size) }, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    while(!cursor.isAfterLast()){
@@ -104,27 +104,27 @@ I need to know about the class Bundle, which seems cary the data
 
 	public long getLastId () {
 		long result = 0;
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/last_id", null, null, null, null);
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/last_id"), null, null, null, null);
 		if (null != cursor) {
 			cursor.moveToFirst();
 		    if(!cursor.isAfterLast()){
-		      result = cursor.getLong(0)
+		      result = cursor.getLong(0);
 		    }
 		}
 	    return result;	
 	}
 
-	public int insert (IssueDataView that) {
-		context.getContentResolver().insert(SCHEME + AUTHORITY + "/insert", that.toInsertArray());
-		return 0;
+	public Uri insert (IssueDataView that) {
+		Uri result = context.getContentResolver().insert(Uri.parse(SCHEME + AUTHORITY + "/insert"), that.toInsertValues());
+		return result;
 	}
 
 	public int update (IssueDataView that) {
-		return context.getContentResolver().update(SCHEME + AUTHORITY + "/update", that.toUpdateArray(), that.getId());
+		return context.getContentResolver().update(Uri.parse(SCHEME + AUTHORITY + "/update"), that.toUpdateValues(), null, new String[]{ String.valueOf(that.getId()) });
 	}
 
 	public int delete (IssueDataView that) {
-		return context.getContentResolver().delete(SCHEME + AUTHORITY + "/delete", null, new String[]{ String.valueOf(that.getId()) });
+		return context.getContentResolver().delete(Uri.parse(SCHEME + AUTHORITY + "/delete"), null, new String[]{ String.valueOf(that.getId()) });
 	}
 
 // reserved-for:AndroidSqliteDatabaseSingle002.1
@@ -133,8 +133,8 @@ I need to know about the class Bundle, which seems cary the data
 // Start of user code reserved-for:AndroidSqliteQuerySingle002
 	/* @ExistsWhere */
 	public boolean check_client (Long fk_shared_client) {
-		String selectionArgs = new String[]{ String.valueOf(fk_shared_client), "1" }; 
-		Cursor cursor = context.getContentResolver().query(SCHEME + AUTHORITY + "/check_client",null, null, selectionArgs, null);
+		String[] selectionArgs = new String[]{ String.valueOf(fk_shared_client), "1" }; 
+		Cursor cursor = context.getContentResolver().query(Uri.parse(SCHEME + AUTHORITY + "/check_client"),null, null, selectionArgs, null);
 		boolean that = false;
 		cursor.moveToFirst();
 		if(!cursor.isAfterLast()){
@@ -144,7 +144,7 @@ I need to know about the class Bundle, which seems cary the data
 	// TODO: PLEASE DONT USE SYNC CODE
 	}
 	/* @Insert */
-	public int register_issue (Long fk_shared_client, String description){
+	public Uri register_issue (Long fk_shared_client, String description){
 		ContentValues contentValues = new ContentValues(5);
 		contentValues.put("last_update",com.uisleandro.util.config.getRightNowString());
 		contentValues.put("fk_shared_client",fk_shared_client);
@@ -152,9 +152,9 @@ I need to know about the class Bundle, which seems cary the data
 		contentValues.put("active","0");
 		contentValues.put("isAnswer","0");
 	
-		context.getContentResolver().insert(SCHEME + AUTHORITY + "/register_issue", contentValues);
-	// TODO: PLEASE SOLVE THE RETURN OF THE CURRENT FUNCTION
-	// TODO: PLEASE DONT USE SYNCHRONIZED CODE
+		Uri result = context.getContentResolver().insert(Uri.parse(SCHEME + AUTHORITY + "/register_issue"), contentValues);
+	
+	    return result;
 	}
 	
 	
@@ -163,7 +163,8 @@ I need to know about the class Bundle, which seems cary the data
 
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002.2
-  public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+  //TODO: PLEASE REVIEW THIS CODE
+  public void please_remake_it(int i, Bundle bundle) {
 // reserved-for:AndroidSqliteDatabaseSingle002.2
 // End of user code
 
@@ -178,49 +179,52 @@ I need to know about the class Bundle, which seems cary the data
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002.4
+  @Override
   public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
     if (FN_ISSUE_INSERT == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/insert"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/insert"), null, null, null, null);
     }
     else if (FN_ISSUE_UPDATE == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/update"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/update"), null, null, null, null);
     }
     else if (FN_ISSUE_DELETE == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/delete"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/delete"), null, null, null, null);
     }
     else if (FN_ISSUE_ALL == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/all"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/all"), null, null, null, null);
     }
     else if (FN_ISSUE_SOME == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/some"), new String[]{ bundle.getString("page_count"), bundle.getString("page_size") }, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/some"), new String[]{ bundle.getString("page_count"), bundle.getString("page_size") }, null, null, null);
     }
     else if (FN_ISSUE_BY_ID == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/by_id", null, null, new String[]{ bundle.getString("id") }, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/by_id"), null, null, new String[]{ bundle.getString("id") }, null);
     }
     else if (FN_ISSUE_LAST_ID == i) {
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/last_id"), null, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/last_id"), null, null, null, null);
     }
 // reserved-for:AndroidSqliteDatabaseSingle002.4
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteQuerySingle002.2
 	else if (FN_ISSUE_CHECK_CLIENT == i){
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/check_client"), new String[]{}, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/check_client"), new String[]{}, null, null, null);
     }
 	else if (FN_ISSUE_REGISTER_ISSUE == i){
-		return new CursorLoader(this, Uri.parse(SCHEME + AUTHORITY + "/register_issue"), new String[]{}, null, null, null);
+		return new CursorLoader(this.context, Uri.parse(SCHEME + AUTHORITY + "/register_issue"), new String[]{}, null, null, null);
     }
 // reserved-for:AndroidSqliteQuerySingle002.2
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002.5
+    return null;
   }
 // reserved-for:AndroidSqliteDatabaseSingle002.5
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002.6
-  public Loader<Cursor> onLoaderReset(Loader<Cursor> cursorLoader) {
+  @Override
+  public void onLoaderReset(Loader<Cursor> cursorLoader) {
 // reserved-for:AndroidSqliteDatabaseSingle002.6
 // End of user code
 
@@ -235,6 +239,7 @@ I need to know about the class Bundle, which seems cary the data
 // End of user code
 
 // Start of user code reserved-for:AndroidSqliteDatabaseSingle002.8
+  @Override
   public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
 	((LoaderInterface)this.context).onLoadFinished(cursorLoader,cursor);
   }

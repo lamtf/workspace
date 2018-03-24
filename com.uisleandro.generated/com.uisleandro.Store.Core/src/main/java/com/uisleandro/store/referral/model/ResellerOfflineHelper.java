@@ -2,12 +2,14 @@ package com.uisleandro.store.referral.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.referral.view.ResellerDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.referral.view.ResellerDataView;
 
 public class ResellerOfflineHelper {
 
@@ -17,9 +19,6 @@ public class ResellerOfflineHelper {
 
 	public ResellerOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public ResellerOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class ResellerOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(ResellerView that){
+	public long insert(ResellerDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -57,7 +56,7 @@ public class ResellerOfflineHelper {
 		return last_id;
 	}
 
-	public int update(ResellerView that){
+	public int update(ResellerDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.RESELLER_SERVER_ID, that.getServerId());
@@ -94,11 +93,11 @@ public class ResellerOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<ResellerView> those = new ArrayList<>();
+		List<ResellerDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(ResellerView.FromCursor(cursor));
+	      those.add(ResellerDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -126,11 +125,11 @@ public class ResellerOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<ResellerView> those = new ArrayList<>();
+		List<ResellerDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(ResellerView.FromCursor(cursor));
+	      those.add(ResellerDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -155,7 +154,9 @@ public class ResellerOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_RESELLER +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -166,7 +167,9 @@ public class ResellerOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_RESELLER+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null

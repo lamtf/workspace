@@ -2,6 +2,7 @@ package com.uisleandro.store.sales.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class SaleDataView {
@@ -183,12 +184,30 @@ public class SaleDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(sale_type), String.valueOf(system), String.valueOf(total_value), String.valueOf(user), String.valueOf(client_from_system)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_sale_type",fk_sale_type);
+		contentValues.put("fk_system",fk_system);
+		contentValues.put("total_value",total_value);
+		contentValues.put("fk_user",fk_user);
+		contentValues.put("fk_client_from_system",fk_client_from_system);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(sale_type), String.valueOf(system), String.valueOf(total_value), String.valueOf(user), String.valueOf(client_from_system)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_sale_type",fk_sale_type);
+		contentValues.put("fk_system",fk_system);
+		contentValues.put("total_value",total_value);
+		contentValues.put("fk_user",fk_user);
+		contentValues.put("fk_client_from_system",fk_client_from_system);
+		return contentValues;
+
 	}
 
 }

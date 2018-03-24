@@ -403,7 +403,7 @@
               </children>
               <styles xmi:type="notation:HintedDiagramLinkStyle" xmi:id="_xNn8gS2qEeeIZO8-MXuEvg"/>
               <element xmi:type="uml:Comment" href="behavior_model_v4.uml#_xMpFEC2qEeeIZO8-MXuEvg"/>
-              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xNn8gi2qEeeIZO8-MXuEvg" x="379" y="266" width="184"/>
+              <layoutConstraint xmi:type="notation:Bounds" xmi:id="_xNn8gi2qEeeIZO8-MXuEvg" x="479" y="246" width="184"/>
             </children>
             <children xmi:type="notation:Shape" xmi:id="_ZuwWVJb9EeeUDPcc3wuSpg" type="StereotypeComment">
               <styles xmi:type="notation:TitleStyle" xmi:id="_ZuwWVZb9EeeUDPcc3wuSpg"/>
@@ -809,7 +809,7 @@
       <styles xmi:type="notation:FontStyle" xmi:id="_8ReEcS2qEeeIZO8-MXuEvg"/>
       <element xsi:nil="true"/>
       <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_8ReEci2qEeeIZO8-MXuEvg" points="[553, 134, -643984, -643984]$[526, 88, -643984, -643984]"/>
-      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_8TCxwC2qEeeIZO8-MXuEvg" id="(0.5054347826086957,0.0)"/>
+      <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_8TCxwC2qEeeIZO8-MXuEvg" id="(0.0,0.38333333333333336)"/>
     </edges>
     <edges xmi:type="notation:Connector" xmi:id="_Qk8SJJb9EeeUDPcc3wuSpg" type="StereotypeCommentLink" source="_Ba3T4CYbEeeSuPMOH0JV4A" target="_Qk8SIJb9EeeUDPcc3wuSpg">
       <styles xmi:type="notation:FontStyle" xmi:id="_Qk8SJZb9EeeUDPcc3wuSpg"/>

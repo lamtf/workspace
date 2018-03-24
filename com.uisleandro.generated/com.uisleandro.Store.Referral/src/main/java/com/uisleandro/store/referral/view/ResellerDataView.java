@@ -2,6 +2,7 @@ package com.uisleandro.store.referral.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class ResellerDataView {
@@ -201,12 +202,34 @@ public class ResellerDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(system_amount), name, address, neighborhood, city, state, zip_code};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("system_amount",system_amount);
+		contentValues.put("name",name);
+		contentValues.put("address",address);
+		contentValues.put("neighborhood",neighborhood);
+		contentValues.put("city",city);
+		contentValues.put("state",state);
+		contentValues.put("zip_code",zip_code);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(system_amount), name, address, neighborhood, city, state, zip_code};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("system_amount",system_amount);
+		contentValues.put("name",name);
+		contentValues.put("address",address);
+		contentValues.put("neighborhood",neighborhood);
+		contentValues.put("city",city);
+		contentValues.put("state",state);
+		contentValues.put("zip_code",zip_code);
+		return contentValues;
+
 	}
 
 }

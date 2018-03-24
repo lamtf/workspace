@@ -130,11 +130,11 @@ public class IssueDataView {
 
 	}
 
-	public static IssueView FromJson(String json){
+	public static IssueDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return IssueView.FromJsonObj(obj);
+				return IssueDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -142,10 +142,10 @@ public class IssueDataView {
 		return null;
 	}
 
-	public static IssueView FromJsonObj (JSONObject obj) {
+	public static IssueDataView FromJsonObj(JSONObject obj) {
 		if(null != obj) {
 			try {
-				IssueView result = new IssueView();
+				IssueDataView result = new IssueDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -176,9 +176,9 @@ public class IssueDataView {
 		return null;
 	}
 
-	public static IssueView FromCursor (Cursor cursor) {
+	public static IssueDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			IssueView result = new IssueView();
+			IssueDataView result = new IssueDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);
@@ -195,11 +195,11 @@ public class IssueDataView {
 	}
 
 	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(shared_client), String.valueOf(system), description, String.valueOf(active), String.valueOf(isAnswer), String.valueOf(issue)};
+		return new String[]{String.valueOf(last_update), String.valueOf(fk_shared_client), String.valueOf(fk_system), description, String.valueOf(active), String.valueOf(isAnswer), String.valueOf(fk_issue)};
 	}
 
 	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(shared_client), String.valueOf(system), description, String.valueOf(active), String.valueOf(isAnswer), String.valueOf(issue)};
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(fk_shared_client), String.valueOf(fk_system), description, String.valueOf(active), String.valueOf(isAnswer), String.valueOf(fk_issue)};
 	}
 
 }

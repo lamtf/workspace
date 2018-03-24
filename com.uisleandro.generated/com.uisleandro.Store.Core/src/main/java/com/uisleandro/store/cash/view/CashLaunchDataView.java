@@ -97,11 +97,11 @@ public class CashLaunchDataView {
 
 	}
 
-	public static CashLaunchView FromJson(String json){
+	public static CashLaunchDataView FromJson(String json){
 		if(json != null) {
 			try {
 				JSONObject obj = new JSONObject(json);
-				return CashLaunchView.FromJsonObj(obj);
+				return CashLaunchDataView.FromJsonObj(obj);
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
@@ -109,10 +109,10 @@ public class CashLaunchDataView {
 		return null;
 	}
 
-	public static CashLaunchView FromJsonObj (JSONObject obj) {
+	public static CashLaunchDataView FromJsonObj(JSONObject obj) {
 		if(null != obj) {
 			try {
-				CashLaunchView result = new CashLaunchView();
+				CashLaunchDataView result = new CashLaunchDataView();
 				if(obj.has("client_id") && !obj.isNull("client_id")){
 					result.setId(obj.getLong("client_id"));
 				}
@@ -136,9 +136,9 @@ public class CashLaunchDataView {
 		return null;
 	}
 
-	public static CashLaunchView FromCursor (Cursor cursor) {
+	public static CashLaunchDataView FromCursor (Cursor cursor) {
 		if(null != cursor){
-			CashLaunchView result = new CashLaunchView();
+			CashLaunchDataView result = new CashLaunchDataView();
 			result.setId(cursor.getLong(0));
 			result.setServerId(cursor.getLong(1));
 			result.setDirty(cursor.getInt(2) > 0);
@@ -152,11 +152,11 @@ public class CashLaunchDataView {
 	}
 
 	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(cash_register), justification, String.valueOf(amount_spent)};
+		return new String[]{String.valueOf(last_update), String.valueOf(fk_cash_register), justification, String.valueOf(amount_spent)};
 	}
 
 	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(cash_register), justification, String.valueOf(amount_spent)};
+		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(fk_cash_register), justification, String.valueOf(amount_spent)};
 	}
 
 }

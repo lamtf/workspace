@@ -2,6 +2,7 @@ package com.uisleandro.store.receivement.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class InvoiceDataView {
@@ -200,12 +201,32 @@ public class InvoiceDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), String.valueOf(system), String.valueOf(sale), String.valueOf(client_from_system), String.valueOf(installment_type), String.valueOf(interest_rate_type), String.valueOf(bank)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_system",fk_system);
+		contentValues.put("fk_sale",fk_sale);
+		contentValues.put("fk_client_from_system",fk_client_from_system);
+		contentValues.put("fk_installment_type",fk_installment_type);
+		contentValues.put("fk_interest_rate_type",fk_interest_rate_type);
+		contentValues.put("fk_bank",fk_bank);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), String.valueOf(system), String.valueOf(sale), String.valueOf(client_from_system), String.valueOf(installment_type), String.valueOf(interest_rate_type), String.valueOf(bank)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("fk_system",fk_system);
+		contentValues.put("fk_sale",fk_sale);
+		contentValues.put("fk_client_from_system",fk_client_from_system);
+		contentValues.put("fk_installment_type",fk_installment_type);
+		contentValues.put("fk_interest_rate_type",fk_interest_rate_type);
+		contentValues.put("fk_bank",fk_bank);
+		return contentValues;
+
 	}
 
 }

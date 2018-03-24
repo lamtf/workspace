@@ -213,7 +213,7 @@
         <children xmi:type="notation:Shape" xmi:id="_Y0g0MNIDEeao-7rxcgX3fg" type="Comment_Shape_CN">
           <children xmi:type="notation:DecorationNode" xmi:id="_Y0g0MtIDEeao-7rxcgX3fg" type="Comment_BodyLabel_CN"/>
           <element xmi:type="uml:Comment" href="basic_structure.uml#_Y0EvUNIDEeao-7rxcgX3fg"/>
-          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Y0g0MdIDEeao-7rxcgX3fg" x="265" y="409"/>
+          <layoutConstraint xmi:type="notation:Bounds" xmi:id="_Y0g0MdIDEeao-7rxcgX3fg" x="232" y="409"/>
         </children>
         <children xmi:type="notation:Shape" xmi:id="_sj1H8O_SEeaQ4OY13ZoO6w" type="Class_Shape_CN">
           <children xmi:type="notation:DecorationNode" xmi:id="_sj1H8u_SEeaQ4OY13ZoO6w" type="Class_NameLabel_CN"/>

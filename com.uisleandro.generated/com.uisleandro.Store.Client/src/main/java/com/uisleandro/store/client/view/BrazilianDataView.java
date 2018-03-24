@@ -2,6 +2,7 @@ package com.uisleandro.store.client.view;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import android.content.ContentValues;
 import android.database.Cursor;
 
 public class BrazilianDataView {
@@ -151,12 +152,26 @@ public class BrazilianDataView {
 		return null;
 	}
 
-	public String[] toInsertArray () {
-		return new String[]{String.valueOf(last_update), cpf, rg, String.valueOf(basic_client)};
+	public ContentValues toInsertValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("cpf",cpf);
+		contentValues.put("rg",rg);
+		contentValues.put("fk_basic_client",fk_basic_client);
+		return contentValues;
+
 	}
 
-	public String[] toUpdateArray () {
-		return new String[]{String.valueOf(id), String.valueOf(server_id), String.valueOf(dirty), String.valueOf(last_update), cpf, rg, String.valueOf(basic_client)};
+	public ContentValues toUpdateValues () {
+
+		ContentValues contentValues = new ContentValues();
+		contentValues.put("last_update",last_update);
+		contentValues.put("cpf",cpf);
+		contentValues.put("rg",rg);
+		contentValues.put("fk_basic_client",fk_basic_client);
+		return contentValues;
+
 	}
 
 }

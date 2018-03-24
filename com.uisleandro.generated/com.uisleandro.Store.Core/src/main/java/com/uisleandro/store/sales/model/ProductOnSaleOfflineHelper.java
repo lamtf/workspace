@@ -2,12 +2,14 @@ package com.uisleandro.store.sales.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-
-import com.uisleandro.store.sales.view.ProductOnSaleDataView
+import com.uisleandro.store.DbHelper;
+import com.uisleandro.store.sales.view.ProductOnSaleDataView;
 
 public class ProductOnSaleOfflineHelper {
 
@@ -17,9 +19,6 @@ public class ProductOnSaleOfflineHelper {
 
 	public ProductOnSaleOfflineHelper (Context context) {
 		this.context = context;
-	}
-
-	public ProductOnSaleOfflineHelper (Context context) {
 		db_helper = DbHelper.getInstance(context);
 		try{
 			database = db_helper.getWritableDatabase();
@@ -36,7 +35,7 @@ public class ProductOnSaleOfflineHelper {
 		db_helper.close();
 	}
 
-	public long insert(ProductOnSaleView that){
+	public long insert(ProductOnSaleDataView that){
 		ContentValues values = new ContentValues();
 		//should not set the server id
 
@@ -56,7 +55,7 @@ public class ProductOnSaleOfflineHelper {
 		return last_id;
 	}
 
-	public int update(ProductOnSaleView that){
+	public int update(ProductOnSaleDataView that){
 		ContentValues values = new ContentValues();
 		if(that.getServerId() > 0){
 			values.put(DbHelper.PRODUCT_ON_SALE_SERVER_ID, that.getServerId());
@@ -88,11 +87,11 @@ public class ProductOnSaleOfflineHelper {
 		}
 		query += ";";
 		Log.wtf("rest-api", query);
-		List<ProductOnSaleView> those = new ArrayList<>();
+		List<ProductOnSaleDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(ProductOnSaleView.FromCursor(cursor));
+	      those.add(ProductOnSaleDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -114,11 +113,11 @@ public class ProductOnSaleOfflineHelper {
 		}
 		query += ";";
 		//Log.wtf("rest-api", query);
-		List<ProductOnSaleView> those = new ArrayList<>();
+		List<ProductOnSaleDataView> those = new ArrayList<>();
 		Cursor cursor = database.rawQuery(query, null);
 		cursor.moveToFirst();
 	    while(!cursor.isAfterLast()){
-	      those.add(ProductOnSaleView.FromCursor(cursor));
+	      those.add(ProductOnSaleDataView.FromCursor(cursor));
 	      cursor.moveToNext();
 	    }
 	    cursor.close();
@@ -143,7 +142,9 @@ public class ProductOnSaleOfflineHelper {
 		long result = 0;
 		String query = "SELECT MAX(server_id) FROM " + DbHelper.TABLE_PRODUCT_ON_SALE +";";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	}
 
 	//the idea is that i don't want to iterate over all the data,
@@ -154,7 +155,9 @@ public class ProductOnSaleOfflineHelper {
 		long result = 0;
 		String query = "SELECT last_update_time FROM " + DbHelper.TABLE_UPDATE_HISTORY +" WHERE table_name = '"+DbHelper.TABLE_PRODUCT_ON_SALE+"';";
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToLong(cursor);
+		long res = cursor.getLong(0);
+		cursor.close();
+		return res;
 	} 
 
 	//get the last_update_time, from this table, if if null
@@ -178,7 +181,9 @@ public class ProductOnSaleOfflineHelper {
 		"fk_sale = ( SELECT id FROM " + DbHelper.TABLE_SALE + " WHERE " + DbHelper.TABLE_SALE + ".server_id = " + DbHelper.TABLE_PRODUCT_ON_SALE + ".fk_sale ), " +
 		"fk_product = ( SELECT id FROM " + DbHelper.TABLE_PRODUCT + " WHERE " + DbHelper.TABLE_PRODUCT + ".server_id = " + DbHelper.TABLE_PRODUCT_ON_SALE + ".fk_product );";		int result = 0;
 		Cursor cursor = database.rawQuery(query, null);
-		return cursorToInteger(cursor);
+		int res = cursor.getInt(0);
+		cursor.close();
+		return res;
 	}
 
 
