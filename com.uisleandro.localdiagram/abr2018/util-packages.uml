@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_nX_H0EEBEeig-q3oooo_iA" name="util-packages">
+  <packagedElement xmi:type="uml:Class" xmi:id="_qDJGgEEBEeig-q3oooo_iA" name="Reservation">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_svsMUEEBEeig-q3oooo_iA" name="jsBeginReserve"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_vE2F0EEBEeig-q3oooo_iA" name="jsEndReserve"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_wguN8EEBEeig-q3oooo_iA" name="xmlBeginReserve"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_xj7-cEEBEeig-q3oooo_iA" name="xmlEndReserve"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_3a81IEEBEeig-q3oooo_iA" name="pyBeginReserve"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_5HxjUEEBEeig-q3oooo_iA" name="pyEndReserve"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_8wZP0EEBEeig-q3oooo_iA" name="Structure">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_A4efgEECEeig-q3oooo_iA" name="getModules"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_C8Y4AEECEeig-q3oooo_iA" name="getTables"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Dzp3MEECEeig-q3oooo_iA" name="getFields"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Z_3lQEEDEeig-q3oooo_iA" name="getNonFks"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_cDFaMEEDEeig-q3oooo_iA" name="getFks"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_dnMRQEEDEeig-q3oooo_iA" name="getConfNamespace"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_3DZl4EEDEeig-q3oooo_iA" name="getModelClasses"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_5VDfcEEDEeig-q3oooo_iA" name="getViewClasses"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_hb_OAEECEeig-q3oooo_iA" name="String">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_iWaO4EECEeig-q3oooo_iA" name="toCamelCase"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_jd5bYEECEeig-q3oooo_iA" name="toCamelCaseSpaced"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_oF6IUEECEeig-q3oooo_iA" name="toFolderName"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_yvD4UEECEeig-q3oooo_iA" name="getName"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_1D8sEEECEeig-q3oooo_iA" name="Imported">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_2ZRgQEECEeig-q3oooo_iA" name="isString"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_3IunQEECEeig-q3oooo_iA" name="isBoolean"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_3gPvYEECEeig-q3oooo_iA" name="getZero"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_3zpzkEECEeig-q3oooo_iA" name="getterIndexed"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_4GmkwEECEeig-q3oooo_iA" name="getterNamed"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_-lLVQEEDEeig-q3oooo_iA" name="getJavaType"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="__nwzoEEDEeig-q3oooo_iA" name="getSqliteType"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_BNQKwEEEEeig-q3oooo_iA" name="getPostgresType"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_Dc0ZoEEEEeig-q3oooo_iA" name="getMysqlType"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Class" xmi:id="_oV1lQEEDEeig-q3oooo_iA" name="Questions">
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_rGPQUEEDEeig-q3oooo_iA" name="isFk"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_r5Sd4EEDEeig-q3oooo_iA" name="isSelfFk"/>
+    <ownedOperation xmi:type="uml:Operation" xmi:id="_u5_OwEEDEeig-q3oooo_iA" name="gotStereotype"/>
+  </packagedElement>
+</uml:Model>

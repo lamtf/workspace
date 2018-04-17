@@ -83,7 +83,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	public static final String COOKIE_CREATION_TIME = "creationTime";
 	public static final String COOKIE_IS_SECURE = "isSecure";
 	public static final String COOKIE_LAST_ACESSED = "lastAcessed";
-	public static final String COOKIE_IS_HTTP_ONLY = "isHttpOnly"; 
+	public static final String COOKIE_IS_HTTP_ONLY = "isHttpOnly";
 
 	private static final String CREATE_TABLE_COOKIE = "CREATE TABLE IF NOT EXISTS "+TABLE_COOKIE+" ("+
 		COOKIE_ID + " INTEGER PRIMARY KEY ASC AUTOINCREMENT,"+
