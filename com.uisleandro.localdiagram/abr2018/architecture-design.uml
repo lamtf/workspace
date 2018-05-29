@@ -1,62 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_RG4qQDuQEeici7jz4YuRyA" name="architecture-design">
-  <ownedComment xmi:type="uml:Comment" xmi:id="_6YNnADucEeici7jz4YuRyA" annotatedElement="_X8pg0DuTEeici7jz4YuRyA _aCi2UDuTEeici7jz4YuRyA _H3aMgDucEeici7jz4YuRyA _1VYf8DuUEeici7jz4YuRyA _fewK4DuUEeici7jz4YuRyA">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_6YNnADucEeici7jz4YuRyA" annotatedElement="_aCi2UDuTEeici7jz4YuRyA _H3aMgDucEeici7jz4YuRyA _1VYf8DuUEeici7jz4YuRyA _fewK4DuUEeici7jz4YuRyA _X8pg0DuTEeici7jz4YuRyA">
     <body>Requires Design work, so needs to be replaceble (generated separately)</body>
   </ownedComment>
-  <ownedComment xmi:type="uml:Comment" xmi:id="_2e8LIDxnEeiILdYZz7kV0A" annotatedElement="_XLLH8DuQEeici7jz4YuRyA">
-    <body>3 different layers</body>
-  </ownedComment>
-  <packagedElement xmi:type="uml:Component" xmi:id="_XLLH8DuQEeici7jz4YuRyA" name="ContentProvider">
-    <generalization xmi:type="uml:Generalization" xmi:id="_wvYTQDuWEeici7jz4YuRyA" general="_sS3rsDuWEeici7jz4YuRyA"/>
-    <packagedElement xmi:type="uml:Usage" xmi:id="_H9jqEDuXEeici7jz4YuRyA" client="_XLLH8DuQEeici7jz4YuRyA" supplier="_-MxFcDuWEeici7jz4YuRyA"/>
-  </packagedElement>
   <packagedElement xmi:type="uml:Component" xmi:id="_Y-9ZwDuQEeici7jz4YuRyA" name="DirectDataSource">
-    <generalization xmi:type="uml:Generalization" xmi:id="_2vspMDuREeici7jz4YuRyA" general="_wDUQwDuREeici7jz4YuRyA"/>
-    <packagedElement xmi:type="uml:Usage" xmi:id="_FjHA4DuXEeici7jz4YuRyA" client="_Y-9ZwDuQEeici7jz4YuRyA" supplier="_-MxFcDuWEeici7jz4YuRyA"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_2vspMDuREeici7jz4YuRyA" general="_PCbdYGBqEeiFcZnUVRq_4g"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_pjq0UGBSEeiFcZnUVRq_4g" general="_jjEj0GBSEeiFcZnUVRq_4g"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Component" xmi:id="_c12LwDuQEeici7jz4YuRyA" name="ContentDataSource">
-    <generalization xmi:type="uml:Generalization" xmi:id="_3m-PcDuREeici7jz4YuRyA" general="_wDUQwDuREeici7jz4YuRyA"/>
-    <generalization xmi:type="uml:Generalization" xmi:id="_vZCycDuWEeici7jz4YuRyA" general="_sS3rsDuWEeici7jz4YuRyA"/>
-    <packagedElement xmi:type="uml:Dependency" xmi:id="_FXWSQDuWEeici7jz4YuRyA" name="call" client="_c12LwDuQEeici7jz4YuRyA" supplier="_XLLH8DuQEeici7jz4YuRyA"/>
-    <packagedElement xmi:type="uml:Usage" xmi:id="_ghARADxjEeiILdYZz7kV0A" client="_c12LwDuQEeici7jz4YuRyA" supplier="_UElMkDxjEeiILdYZz7kV0A"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_3m-PcDuREeici7jz4YuRyA" general="_PCbdYGBqEeiFcZnUVRq_4g"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_CIxzwGBREeiFcZnUVRq_4g" client="_c12LwDuQEeici7jz4YuRyA" supplier="_fz_3YFZJEeiIMYjFrUA3gA"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Component" xmi:id="_f42pwDuQEeici7jz4YuRyA" name="OnlineDataService"/>
   <packagedElement xmi:type="uml:Component" xmi:id="_pvleUDuQEeici7jz4YuRyA" name="BidirectionalOfflineHelper">
     <generalization xmi:type="uml:Generalization" xmi:id="_KPuTQDuSEeici7jz4YuRyA" general="_4zBBQDuQEeici7jz4YuRyA"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Component" xmi:id="_0qnogDuQEeici7jz4YuRyA" name="SingleDirectionOfflineHelper">
-    <generalization xmi:type="uml:Generalization" xmi:id="_LvrDEDuSEeici7jz4YuRyA" general="_4zBBQDuQEeici7jz4YuRyA"/>
-  </packagedElement>
   <packagedElement xmi:type="uml:Component" xmi:id="_4zBBQDuQEeici7jz4YuRyA" name="OfflineHelper">
-    <packagedElement xmi:type="uml:Usage" xmi:id="_JLPlMDuXEeici7jz4YuRyA" client="_4zBBQDuQEeici7jz4YuRyA" supplier="_-MxFcDuWEeici7jz4YuRyA"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_JLPlMDuXEeici7jz4YuRyA" name="" client="_4zBBQDuQEeici7jz4YuRyA" supplier="_-MxFcDuWEeici7jz4YuRyA"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Component" xmi:id="_8ps-8DuQEeici7jz4YuRyA" name="OfflineUpdater">
     <packagedElement xmi:type="uml:Usage" xmi:id="_N3SP0DuSEeici7jz4YuRyA" client="_8ps-8DuQEeici7jz4YuRyA" supplier="_4zBBQDuQEeici7jz4YuRyA"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Component" xmi:id="_wDUQwDuREeici7jz4YuRyA" name="DataSource">
-    <ownedAttribute xmi:type="uml:Port" xmi:id="_5pfrYDuSEeici7jz4YuRyA" name="items" visibility="public" type="_2FfZIDuSEeici7jz4YuRyA" aggregation="composite">
-      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_G0cCsDuTEeici7jz4YuRyA"/>
-      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_G08ZADuTEeici7jz4YuRyA" value="*"/>
-    </ownedAttribute>
-    <ownedAttribute xmi:type="uml:Port" xmi:id="_JEW24DuTEeici7jz4YuRyA" name="item" type="_2FfZIDuSEeici7jz4YuRyA" aggregation="composite"/>
-    <packagedElement xmi:type="uml:Usage" xmi:id="_7Nlw0DuREeici7jz4YuRyA" name="" client="_wDUQwDuREeici7jz4YuRyA" supplier="_f42pwDuQEeici7jz4YuRyA"/>
-  </packagedElement>
-  <packagedElement xmi:type="uml:Interface" xmi:id="_2FfZIDuSEeici7jz4YuRyA" name="Item"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_wDUQwDuREeici7jz4YuRyA" name="DataSource"/>
   <packagedElement xmi:type="uml:Component" xmi:id="_X8pg0DuTEeici7jz4YuRyA" name="Formulary">
-    <packagedElement xmi:type="uml:Usage" xmi:id="_EYGCcDubEeici7jz4YuRyA" client="_X8pg0DuTEeici7jz4YuRyA" supplier="_JEW24DuTEeici7jz4YuRyA"/>
-    <packagedElement xmi:type="uml:Usage" xmi:id="_Z8s98DucEeici7jz4YuRyA" client="_X8pg0DuTEeici7jz4YuRyA" supplier="_-7G_4DubEeici7jz4YuRyA"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_Z8s98DucEeici7jz4YuRyA" name="" client="_X8pg0DuTEeici7jz4YuRyA" supplier="_-7G_4DubEeici7jz4YuRyA"/>
     <packagedElement xmi:type="uml:Usage" xmi:id="_lWW90DucEeici7jz4YuRyA" client="_X8pg0DuTEeici7jz4YuRyA" supplier="_hsmo4DucEeici7jz4YuRyA"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Component" xmi:id="_aCi2UDuTEeici7jz4YuRyA" name="List">
-    <packagedElement xmi:type="uml:Usage" xmi:id="_C4QAUDubEeici7jz4YuRyA" client="_aCi2UDuTEeici7jz4YuRyA" supplier="_5pfrYDuSEeici7jz4YuRyA"/>
     <packagedElement xmi:type="uml:Usage" xmi:id="_b-yKcDucEeici7jz4YuRyA" name="" client="_aCi2UDuTEeici7jz4YuRyA" supplier="_D9bDMDucEeici7jz4YuRyA"/>
     <packagedElement xmi:type="uml:Usage" xmi:id="_oknpkDucEeici7jz4YuRyA" client="_aCi2UDuTEeici7jz4YuRyA" supplier="_hsmo4DucEeici7jz4YuRyA"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Component" xmi:id="_cynKMDuTEeici7jz4YuRyA" name="Behavior">
-    <packagedElement xmi:type="uml:Usage" xmi:id="_gUNBoDuTEeici7jz4YuRyA" client="_cynKMDuTEeici7jz4YuRyA" supplier="_wDUQwDuREeici7jz4YuRyA"/>
     <packagedElement xmi:type="uml:Usage" xmi:id="_igLJ8DuTEeici7jz4YuRyA" name="" client="_cynKMDuTEeici7jz4YuRyA" supplier="_X8pg0DuTEeici7jz4YuRyA"/>
     <packagedElement xmi:type="uml:Usage" xmi:id="_kBX28DuTEeici7jz4YuRyA" name="" client="_cynKMDuTEeici7jz4YuRyA" supplier="_aCi2UDuTEeici7jz4YuRyA"/>
     <packagedElement xmi:type="uml:Usage" xmi:id="_NGC0kDucEeici7jz4YuRyA" client="_cynKMDuTEeici7jz4YuRyA" supplier="_H3aMgDucEeici7jz4YuRyA"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_ZtnTEGB9EeijpdpxZ6BtJg" name="" client="_cynKMDuTEeici7jz4YuRyA" supplier="_PCbdYGBqEeiFcZnUVRq_4g"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Component" xmi:id="_LF40UDuUEeici7jz4YuRyA" name="Activity">
     <generalization xmi:type="uml:Generalization" xmi:id="_taRqkDuUEeici7jz4YuRyA" general="_fewK4DuUEeici7jz4YuRyA"/>
@@ -69,11 +46,6 @@
     <packagedElement xmi:type="uml:Usage" xmi:id="_3YJB4DuUEeici7jz4YuRyA" name="" client="_fewK4DuUEeici7jz4YuRyA" supplier="_1VYf8DuUEeici7jz4YuRyA"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Component" xmi:id="_1VYf8DuUEeici7jz4YuRyA" name="Menu"/>
-  <packagedElement xmi:type="uml:Interface" xmi:id="_sS3rsDuWEeici7jz4YuRyA" name="IContentProvider">
-    <substitution xmi:type="uml:Substitution" xmi:id="_PJyf4DuaEeici7jz4YuRyA" client="_sS3rsDuWEeici7jz4YuRyA" supplier="_iNtusDuYEeici7jz4YuRyA" contract="_iNtusDuYEeici7jz4YuRyA"/>
-    <substitution xmi:type="uml:Substitution" xmi:id="_UEnbIDuaEeici7jz4YuRyA" client="_sS3rsDuWEeici7jz4YuRyA" supplier="_j8oHkDuYEeici7jz4YuRyA" contract="_j8oHkDuYEeici7jz4YuRyA"/>
-    <substitution xmi:type="uml:Substitution" xmi:id="_V7T3ADuaEeici7jz4YuRyA" client="_sS3rsDuWEeici7jz4YuRyA" supplier="_njT6YDuYEeici7jz4YuRyA" contract="_njT6YDuYEeici7jz4YuRyA"/>
-  </packagedElement>
   <packagedElement xmi:type="uml:Interface" xmi:id="_-MxFcDuWEeici7jz4YuRyA" name="IDbHelper"/>
   <packagedElement xmi:type="uml:Component" xmi:id="_SXggcDuXEeici7jz4YuRyA" name="DbHelper">
     <generalization xmi:type="uml:Generalization" xmi:id="_Y2hyUDuXEeici7jz4YuRyA" general="_-MxFcDuWEeici7jz4YuRyA"/>
@@ -99,5 +71,21 @@
     <packagedElement xmi:type="uml:Usage" xmi:id="_qiwxQDucEeici7jz4YuRyA" client="_H3aMgDucEeici7jz4YuRyA" supplier="_hsmo4DucEeici7jz4YuRyA"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Component" xmi:id="_hsmo4DucEeici7jz4YuRyA" name="Translation"/>
-  <packagedElement xmi:type="uml:Component" xmi:id="_UElMkDxjEeiILdYZz7kV0A" name="SystemDefaults"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_UElMkDxjEeiILdYZz7kV0A" name="SystemConfig"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_fz_3YFZJEeiIMYjFrUA3gA" name="ContentProvider">
+    <generalization xmi:type="uml:Generalization" xmi:id="_OB_dcGBREeiFcZnUVRq_4g" general="_PCbdYGBqEeiFcZnUVRq_4g"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_o2iokGBSEeiFcZnUVRq_4g" general="_jjEj0GBSEeiFcZnUVRq_4g"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_jjEj0GBSEeiFcZnUVRq_4g" name="IDirectDataSource"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_t_eRQGBSEeiFcZnUVRq_4g" client="_jjEj0GBSEeiFcZnUVRq_4g" supplier="_RG4qQDuQEeici7jz4YuRyA"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_LOgacGBXEeiFcZnUVRq_4g" name="RemoteDataSource">
+    <generalization xmi:type="uml:Generalization" xmi:id="_RKOK8GBXEeiFcZnUVRq_4g" general="_PCbdYGBqEeiFcZnUVRq_4g"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_TbpbAGBXEeiFcZnUVRq_4g" name="" client="_jjEj0GBSEeiFcZnUVRq_4g" supplier="_LOgacGBXEeiFcZnUVRq_4g"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_PCbdYGBqEeiFcZnUVRq_4g" name="IDataSource">
+    <generalization xmi:type="uml:Generalization" xmi:id="_2okb8GB8EeijpdpxZ6BtJg" general="_iNtusDuYEeici7jz4YuRyA"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_3waNwGB8EeijpdpxZ6BtJg" general="_j8oHkDuYEeici7jz4YuRyA"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_4pH-cGB8EeijpdpxZ6BtJg" general="_njT6YDuYEeici7jz4YuRyA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_Y82AoGCBEeijpdpxZ6BtJg" client="_PCbdYGBqEeiFcZnUVRq_4g" supplier="_RG4qQDuQEeici7jz4YuRyA"/>
 </uml:Model>
