@@ -1,6 +1,6 @@
-package org.lamtf.contract.remotedb;
+package org.lamtf.db.remote.offline;
 
-import org.lamtf.contract.db.IDbHelper;
+import org.lamtf.db.local.IDbHelper;
 
 /*
  It's used to update the database when needed

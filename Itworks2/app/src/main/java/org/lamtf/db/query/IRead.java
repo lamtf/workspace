@@ -1,4 +1,4 @@
-package org.lamtf.contract.db.queries;
+package org.lamtf.db.query;
 
 import java.util.List;
 

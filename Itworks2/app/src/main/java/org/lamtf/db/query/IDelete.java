@@ -1,4 +1,4 @@
-package org.lamtf.contract.db.queries;
+package org.lamtf.db.query;
 
 public interface IDelete<T> {
 

@@ -1,4 +1,4 @@
-package org.lamtf.contract;
+package org.lamtf.db;
 
 public interface IConfig {
 

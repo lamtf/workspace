@@ -60,22 +60,6 @@
     <element xmi:type="uml:Component" href="architecture-design.uml#_8ps-8DuQEeici7jz4YuRyA"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_8pvbMTuQEeici7jz4YuRyA" x="340" y="-180"/>
   </children>
-  <children xmi:type="notation:Shape" xmi:id="_wDXUEDuREeici7jz4YuRyA" type="Component_PackagedElementShape">
-    <children xmi:type="notation:DecorationNode" xmi:id="_wDX7IDuREeici7jz4YuRyA" type="Component_NameLabel"/>
-    <children xmi:type="notation:DecorationNode" xmi:id="_wDX7ITuREeici7jz4YuRyA" type="Component_FloatingNameLabel">
-      <layoutConstraint xmi:type="notation:Location" xmi:id="_wDX7IjuREeici7jz4YuRyA" y="15"/>
-    </children>
-    <children xmi:type="notation:BasicCompartment" xmi:id="_wDX7IzuREeici7jz4YuRyA" type="Component_StructureCompartment">
-      <styles xmi:type="notation:TitleStyle" xmi:id="_wDX7JDuREeici7jz4YuRyA"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wDX7JTuREeici7jz4YuRyA"/>
-    </children>
-    <children xmi:type="notation:BasicCompartment" xmi:id="_wDeo0DuREeici7jz4YuRyA" type="compartment_shape_display">
-      <styles xmi:type="notation:TitleStyle" xmi:id="_wDeo0TuREeici7jz4YuRyA"/>
-      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wDeo0juREeici7jz4YuRyA"/>
-    </children>
-    <element xmi:type="uml:Component" href="architecture-design.uml#_wDUQwDuREeici7jz4YuRyA"/>
-    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_wDXUETuREeici7jz4YuRyA" x="760" y="100"/>
-  </children>
   <children xmi:type="notation:Shape" xmi:id="_X8skIDuTEeici7jz4YuRyA" type="Component_PackagedElementShape">
     <children xmi:type="notation:DecorationNode" xmi:id="_X8tLMDuTEeici7jz4YuRyA" type="Component_NameLabel"/>
     <children xmi:type="notation:DecorationNode" xmi:id="_X8tLMTuTEeici7jz4YuRyA" type="Component_FloatingNameLabel">

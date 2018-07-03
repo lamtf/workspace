@@ -1,4 +1,4 @@
-package org.lamtf.contract.remotedb;
+package org.lamtf.db.remote.offline;
 
 /*
  It's used to update the database when needed

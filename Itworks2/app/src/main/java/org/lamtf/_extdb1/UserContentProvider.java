@@ -7,21 +7,18 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import org.lamtf.contract.db.IDbHelper;
-import org.lamtf.contract.db.queries.ICreate;
-import org.lamtf.contract.db.queries.ICustom;
-import org.lamtf.contract.db.queries.IDelete;
-import org.lamtf.contract.db.queries.IQuery;
-import org.lamtf.contract.db.queries.IRead;
-import org.lamtf.contract.db.queries.IUpdate;
-import org.lamtf.contract.localdb.IGotDbHelper;
+import org.lamtf.db.IConfig;
+import org.lamtf.db.IDataSource;
+import org.lamtf.db.local.IDbHelper;
+import org.lamtf.db.local.IDirectDataAccess;
+import org.lamtf.db.remote.IRemoteDataSource;
+
+import java.util.List;
 
 public class UserContentProvider extends ContentProvider
-implements IGotDbHelper,
-		ICreate<Uri>, IRead<Cursor>, IUpdate<Integer>, IDelete<Integer>,
-		IQuery<Cursor>, ICustom<Cursor>
+implements IDirectDataAccess,
+		IDataSource<Cursor, Uri>
 {
-
 	@Override
 	public boolean onCreate() {
 		return false;
@@ -56,7 +53,37 @@ implements IGotDbHelper,
 	}
 
 	@Override
+	public void setConfig(IConfig iConfig) {
+
+	}
+
+	@Override
 	public void setDbHelper(IDbHelper dbHelper) {
 
+	}
+
+	@Override
+	public void setRemoteDataSource(IRemoteDataSource onlineDataSource) {
+
+	}
+
+	@Override
+	public int delete(Uri that) {
+		return 0;
+	}
+
+	@Override
+	public Cursor findOne(long Id) {
+		return null;
+	}
+
+	@Override
+	public List<Cursor> find(long pn, long ps) {
+		return null;
+	}
+
+	@Override
+	public Uri update(Uri that) {
+		return null;
 	}
 }

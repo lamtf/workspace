@@ -20,8 +20,7 @@
   <packagedElement xmi:type="uml:Component" xmi:id="_8ps-8DuQEeici7jz4YuRyA" name="OfflineUpdater">
     <packagedElement xmi:type="uml:Usage" xmi:id="_N3SP0DuSEeici7jz4YuRyA" client="_8ps-8DuQEeici7jz4YuRyA" supplier="_4zBBQDuQEeici7jz4YuRyA"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Component" xmi:id="_wDUQwDuREeici7jz4YuRyA" name="DataSource"/>
-  <packagedElement xmi:type="uml:Component" xmi:id="_X8pg0DuTEeici7jz4YuRyA" name="Formulary">
+  <packagedElement xmi:type="uml:Component" xmi:id="_X8pg0DuTEeici7jz4YuRyA" name="Form">
     <packagedElement xmi:type="uml:Usage" xmi:id="_Z8s98DucEeici7jz4YuRyA" name="" client="_X8pg0DuTEeici7jz4YuRyA" supplier="_-7G_4DubEeici7jz4YuRyA"/>
     <packagedElement xmi:type="uml:Usage" xmi:id="_lWW90DucEeici7jz4YuRyA" client="_X8pg0DuTEeici7jz4YuRyA" supplier="_hsmo4DucEeici7jz4YuRyA"/>
   </packagedElement>
@@ -67,7 +66,7 @@
   </packagedElement>
   <packagedElement xmi:type="uml:Component" xmi:id="_-7G_4DubEeici7jz4YuRyA" name="Input"/>
   <packagedElement xmi:type="uml:Component" xmi:id="_D9bDMDucEeici7jz4YuRyA" name="Output"/>
-  <packagedElement xmi:type="uml:Component" xmi:id="_H3aMgDucEeici7jz4YuRyA" name="Alert">
+  <packagedElement xmi:type="uml:Component" xmi:id="_H3aMgDucEeici7jz4YuRyA" name="Dialog">
     <packagedElement xmi:type="uml:Usage" xmi:id="_qiwxQDucEeici7jz4YuRyA" client="_H3aMgDucEeici7jz4YuRyA" supplier="_hsmo4DucEeici7jz4YuRyA"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Component" xmi:id="_hsmo4DucEeici7jz4YuRyA" name="Translation"/>
@@ -76,7 +75,7 @@
     <generalization xmi:type="uml:Generalization" xmi:id="_OB_dcGBREeiFcZnUVRq_4g" general="_PCbdYGBqEeiFcZnUVRq_4g"/>
     <generalization xmi:type="uml:Generalization" xmi:id="_o2iokGBSEeiFcZnUVRq_4g" general="_jjEj0GBSEeiFcZnUVRq_4g"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Interface" xmi:id="_jjEj0GBSEeiFcZnUVRq_4g" name="IDirectDataSource"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_jjEj0GBSEeiFcZnUVRq_4g" name="IDirectDataAccess"/>
   <packagedElement xmi:type="uml:Usage" xmi:id="_t_eRQGBSEeiFcZnUVRq_4g" client="_jjEj0GBSEeiFcZnUVRq_4g" supplier="_RG4qQDuQEeici7jz4YuRyA"/>
   <packagedElement xmi:type="uml:Component" xmi:id="_LOgacGBXEeiFcZnUVRq_4g" name="RemoteDataSource">
     <generalization xmi:type="uml:Generalization" xmi:id="_RKOK8GBXEeiFcZnUVRq_4g" general="_PCbdYGBqEeiFcZnUVRq_4g"/>

@@ -1,4 +1,4 @@
-package org.lamtf.contract.remotedb;
+package org.lamtf.db.remote.offline;
 
 public interface ISingleDirectionalOfflineHelper<T> {
 }
