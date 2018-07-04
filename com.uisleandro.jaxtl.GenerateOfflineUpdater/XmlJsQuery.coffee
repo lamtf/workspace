@@ -106,8 +106,7 @@ contains_tagName=(tagName)->
     a.tagName.toUpperCase() is tagName.toUpperCase()
     
     
-    
-module.exports
+module.exports =
   "condition":condition
   "select": select
   "testall":testall

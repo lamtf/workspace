@@ -1,4 +1,4 @@
-import * from "./XmlJsQuery.coffee"
+{ condition, select, testall, query, queryR, like, contains_text_like, contains_attribute_equals, attribute_name_is_like, is_named, contains_tagName } = require './XmlJsQuery.coffee'
 
 ALL_STEREOTYPES = null
 
@@ -36,7 +36,7 @@ getPackageByName=(jPackage, name)->
 		contains_attribute_equals("xmi:type","uml:Package")(a) and contains_attribute_equals("name",name)(a)
 	return queryR select(jPackage).where is_mvc
 
-module.exports
+module.exports =
   "getAllStereotypes":getAllStereotypes
   "getStereotypeById":getStereotypeById
   "getAllClasses":getAllClasses

@@ -209,6 +209,6 @@ class XmlParser
 
 ### eu preciso ter properties like props = [{name: value}] ###
 
-module.exports
+module.exports =
   "XmlParser":XmlParser
 

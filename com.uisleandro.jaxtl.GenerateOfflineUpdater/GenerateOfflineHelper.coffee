@@ -1,9 +1,39 @@
-import * from "./Util.coffee"
-import * from "./XmlParser.coffee"
-import * from "./XmlJsQuery.coffee"
-import * from "./XmiJsQuery.coffee"
-import * from "./XmlJsPresenter.coffee"
-import * from "./config.coffee"
+{ special_sort_for_updating_1, println } = require './Util.coffee'
+{ XmlParser } = require './XmlParser.coffee'
+{
+  getAllStereotypes,
+  getStereotypeById,
+  getAllClasses,
+  getAllNamedClasses,
+  getForeignKeys,
+  getUmlElementById,
+  getPackageByName,
+  ALL_STEREOTYPES
+} = require './XmiJsQuery.coffee'
+{ XmlJsPresenter } = require './XmlJsPresenter.coffee'
+{ config } = require './config.coffee'
+
+fs  = require 'fs'
+
+uml_model = config.in
+target_file = config.out
+
+i = 0
+while i < process.argv.length
+  if process.argv[i] is "-x"
+    uml_model = process.argv[i+1]
+    i++
+  else if process.argv[i].indexOf("-x") is 0
+    uml_model = process.argv[i].substr(2)
+  else if process.argv[i] is "-o"
+    target_file = process.argv[i+1]
+    i++
+  else if process.argv[i].indexOf("-o") is 0
+    target_file = process.argv[i].substr(2)
+  i++
+console.log uml_model
+console.log target_file
+
 
 main_update_class_template=(loops)->
   x = """

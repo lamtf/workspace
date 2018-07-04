@@ -1,4 +1,4 @@
-XmlJsPresenter
+class XmlJsPresenter
   constructor:(obj, tabs)->
     value = ""
     if not tabs?
@@ -25,5 +25,5 @@ XmlJsPresenter
   
       value += "</"+obj.tagName+">"
       
-module.exports
+module.exports =
   "XmlJsPresenter":XmlJsPresenter

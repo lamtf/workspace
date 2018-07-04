@@ -48,6 +48,7 @@ special_sort_for_updating_1=(x)->
   while(i < z.length)
     y[y.length] = z[i]
     i++
+  return y
     
 
 String.prototype.toCamelCase =()->
@@ -60,8 +61,8 @@ String.prototype.toCamelCase =()->
   return res
 
   
-module.exports
-  "special_sort_for_updating":special_sort_for_updating_1
+module.exports =
+  "special_sort_for_updating_1":special_sort_for_updating_1
   "println":println
 
 
