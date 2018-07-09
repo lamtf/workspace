@@ -49,7 +49,7 @@ special_sort_for_updating_1=(x)->
     y[y.length] = z[i]
     i++
   return y
-    
+
 
 String.prototype.toCamelCase =()->
   words = this.split('_')
@@ -60,9 +60,7 @@ String.prototype.toCamelCase =()->
     i++
   return res
 
-  
+
 module.exports =
   "special_sort_for_updating_1":special_sort_for_updating_1
   "println":println
-
-

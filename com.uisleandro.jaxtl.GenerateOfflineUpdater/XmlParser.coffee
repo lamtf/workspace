@@ -1,4 +1,21 @@
 class XmlParser
+
+  constructor:()->
+    @observers = []
+
+  addObserver:(o)->
+    @observers.push o
+    return
+  removeObserver:(o)->
+    @observers = @observers.filter (x)-> x != o
+    return
+
+  tell:(event)->
+    @observers.forEach (obs)->
+      obs.update(event)
+      return
+    return
+
   ### line = 0 ###
   class Stack
     lastid = 0|0
@@ -176,6 +193,14 @@ class XmlParser
         while(null isnt prop)
           ### If i found a property id be inserting it here ###
           add_property stack.peek(),prop.name,prop.value
+
+          @tell {
+            what: "ADD_PROPERTY"
+            subject: stack.peek()
+            key: prop.name
+            value: prop.value
+          }
+
           ### stack.peek()[prop.name]=prop.value ###
           i = prop.index
           prop = getNextProperty x,i
@@ -209,6 +234,4 @@ class XmlParser
 
 ### eu preciso ter properties like props = [{name: value}] ###
 
-module.exports =
-  "XmlParser":XmlParser
-
+module.exports = XmlParser

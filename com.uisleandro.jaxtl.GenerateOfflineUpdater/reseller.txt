@@ -1,0 +1,1834 @@
+../com.uisleandro.localdiagram/__out2017/behavior_model_v4.uml
+./result2.java
+boleto_sicoob
+example_op
+t1 = boleto_sicoob_vw
+cl1 = boleto_sicoob
+chi-n >>>> cpf
+{ tagName: 'ownedAttribute',
+  tagId: 4032,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBdaYAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'cpf' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4033,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> numero
+{ tagName: 'ownedAttribute',
+  tagId: 4034,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBdaYQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'numero' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4035,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> data
+{ tagName: 'ownedAttribute',
+  tagId: 4036,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBdaYgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'data' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4037,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> vencimento
+{ tagName: 'ownedAttribute',
+  tagId: 4038,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBdaYwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'vencimento' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4039,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> valor
+{ tagName: 'ownedAttribute',
+  tagId: 4040,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBdaZAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'valor' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4041,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> nosso_numero
+{ tagName: 'ownedAttribute',
+  tagId: 4042,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBdaZQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'nosso_numero' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4043,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> quantidade
+{ tagName: 'ownedAttribute',
+  tagId: 4044,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBdaZgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'quantidade' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4045,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> parcela
+{ tagName: 'ownedAttribute',
+  tagId: 4046,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBdaZwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'parcela' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4047,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> foi_pago
+{ tagName: 'ownedAttribute',
+  tagId: 4048,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBdaaAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'foi_pago' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4049,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> data_de_pagamento
+{ tagName: 'ownedAttribute',
+  tagId: 4050,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBdaaQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'data_de_pagamento' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4051,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> valor_recebido
+{ tagName: 'ownedAttribute',
+  tagId: 4052,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBdaagVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'valor_recebido' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4053,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> invoice
+{ tagName: 'ownedAttribute',
+  tagId: 4054,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBdaawVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'invoice' },
+     { name: 'type', value: '_SGAjMAVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4055,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SBtSAAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4056,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = invoice
+chi-n >>>> system
+{ tagName: 'ownedAttribute',
+  tagId: 4058,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKQAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'system' },
+     { name: 'type', value: '_SGBKRwVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> sale
+{ tagName: 'ownedAttribute',
+  tagId: 4059,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKQQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'sale' },
+     { name: 'type', value: '_SGBKVgVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> client_from_system
+{ tagName: 'ownedAttribute',
+  tagId: 4060,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKQgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'client_from_system' },
+     { name: 'type', value: '_SGBKXQVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> installment_type
+{ tagName: 'ownedAttribute',
+  tagId: 4061,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKQwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'installment_type' },
+     { name: 'type', value: '_SGBKYwVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> interest_rate_type
+{ tagName: 'ownedAttribute',
+  tagId: 4062,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKRAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'interest_rate_type' },
+     { name: 'type', value: '_SGBKZgVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> bank
+{ tagName: 'ownedAttribute',
+  tagId: 4063,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKRQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'bank' },
+     { name: 'type', value: '_SGBKaQVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4064,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKRgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4065,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = system
+chi-n >>>> name
+{ tagName: 'ownedAttribute',
+  tagId: 4067,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKSAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4068,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> enabled
+{ tagName: 'ownedAttribute',
+  tagId: 4069,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKSQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'enabled' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4070,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> currency
+{ tagName: 'ownedAttribute',
+  tagId: 4071,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKSgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'currency' },
+     { name: 'type', value: '_SGBKbQVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> fantasy_name
+{ tagName: 'ownedAttribute',
+  tagId: 4072,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKSwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'fantasy_name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4073,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> stores_address
+{ tagName: 'ownedAttribute',
+  tagId: 4074,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKTAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'stores_address' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4075,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> srores_address_number
+{ tagName: 'ownedAttribute',
+  tagId: 4076,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKTQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'srores_address_number' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4077,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> stores_city
+{ tagName: 'ownedAttribute',
+  tagId: 4078,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKTgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'stores_city' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4079,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> stores_neighborhood
+{ tagName: 'ownedAttribute',
+  tagId: 4080,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKTwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'stores_neighborhood' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4081,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> stores_zip_code
+{ tagName: 'ownedAttribute',
+  tagId: 4082,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKUAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'stores_zip_code' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4083,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> stores_state
+{ tagName: 'ownedAttribute',
+  tagId: 4084,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKUQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'stores_state' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4085,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> stores_email
+{ tagName: 'ownedAttribute',
+  tagId: 4086,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKUgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'stores_email' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4087,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> stores_phonenumber
+{ tagName: 'ownedAttribute',
+  tagId: 4088,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKUwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'stores_phonenumber' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4089,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> reseller
+{ tagName: 'ownedAttribute',
+  tagId: 4090,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKVAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'reseller' },
+     { name: 'type', value: '_SGBKcQVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4091,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKVQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4092,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = sale
+chi-n >>>> sale_type
+{ tagName: 'ownedAttribute',
+  tagId: 4094,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKVwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'sale_type' },
+     { name: 'type', value: '_SGBKhQVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> system
+{ tagName: 'ownedAttribute',
+  tagId: 4095,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKWAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'system' },
+     { name: 'type', value: '_SGBKRwVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> total_value
+{ tagName: 'ownedAttribute',
+  tagId: 4096,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKWQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'total_value' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4097,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> user
+{ tagName: 'ownedAttribute',
+  tagId: 4098,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKWgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'user' },
+     { name: 'type', value: '_SGBKiAVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> client_from_system
+{ tagName: 'ownedAttribute',
+  tagId: 4099,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKWwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'client_from_system' },
+     { name: 'type', value: '_SGBKXQVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4100,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKXAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4101,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = client_from_system
+chi-n >>>> system
+{ tagName: 'ownedAttribute',
+  tagId: 4103,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKXgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'system' },
+     { name: 'type', value: '_SGBKRwVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> basic_client
+{ tagName: 'ownedAttribute',
+  tagId: 4104,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKXwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'basic_client' },
+     { name: 'type', value: '_SGBKlAVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> shared_client
+{ tagName: 'ownedAttribute',
+  tagId: 4105,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKYAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'shared_client' },
+     { name: 'type', value: '_SGBKpAVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> user
+{ tagName: 'ownedAttribute',
+  tagId: 4106,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKYQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'user' },
+     { name: 'type', value: '_SGBKiAVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4107,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKYgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4108,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = installment_type
+chi-n >>>> name
+{ tagName: 'ownedAttribute',
+  tagId: 4110,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKZAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4111,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4112,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKZQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4113,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = interest_rate_type
+chi-n >>>> name
+{ tagName: 'ownedAttribute',
+  tagId: 4115,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKZwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4116,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4117,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKaAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4118,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = bank
+chi-n >>>> code
+{ tagName: 'ownedAttribute',
+  tagId: 4120,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKagVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'code' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4121,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> name
+{ tagName: 'ownedAttribute',
+  tagId: 4122,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKawVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4123,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4124,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKbAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4125,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = currency
+chi-n >>>> abbreviature
+{ tagName: 'ownedAttribute',
+  tagId: 4127,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKbgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'abbreviature' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4128,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> description
+{ tagName: 'ownedAttribute',
+  tagId: 4129,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKbwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'description' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4130,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4131,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKcAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4132,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = reseller
+chi-n >>>> system_amount
+{ tagName: 'ownedAttribute',
+  tagId: 4134,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKcgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'system_amount' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4135,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> name
+{ tagName: 'ownedAttribute',
+  tagId: 4136,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKcwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4137,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> address
+{ tagName: 'ownedAttribute',
+  tagId: 4138,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKdAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'address' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4139,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> neighborhood
+{ tagName: 'ownedAttribute',
+  tagId: 4140,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKdQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'neighborhood' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4141,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> city
+{ tagName: 'ownedAttribute',
+  tagId: 4142,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKdgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'city' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4143,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> state
+{ tagName: 'ownedAttribute',
+  tagId: 4144,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKdwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'state' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4145,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> zip_code
+{ tagName: 'ownedAttribute',
+  tagId: 4146,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKeAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'zip_code' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4147,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> system
+{ tagName: 'ownedAttribute',
+  tagId: 4148,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKeQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'system' },
+     { name: 'type', value: '_SGBKRwVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> role
+{ tagName: 'ownedAttribute',
+  tagId: 4149,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKegVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'role' },
+     { name: 'type', value: '_SGBKtAVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> username
+{ tagName: 'ownedAttribute',
+  tagId: 4150,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKewVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'username' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4151,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> password
+{ tagName: 'ownedAttribute',
+  tagId: 4152,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKfAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'password' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4153,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_use_time
+{ tagName: 'ownedAttribute',
+  tagId: 4154,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKfwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_use_time' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4155,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_error_time
+{ tagName: 'ownedAttribute',
+  tagId: 4156,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKgAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_error_time' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4157,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> error_count
+{ tagName: 'ownedAttribute',
+  tagId: 4158,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKgQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'error_count' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4159,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> active
+{ tagName: 'ownedAttribute',
+  tagId: 4160,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKggVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'active' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4161,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4162,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKhAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4163,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> email
+{ tagName: 'ownedAttribute',
+  tagId: 4164,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_oYMzhQaEEeiIDqCdm8mp0A' },
+     { name: 'name', value: 'email' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4165,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = sale_type
+chi-n >>>> name
+{ tagName: 'ownedAttribute',
+  tagId: 4167,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKhgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4168,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4169,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKhwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4170,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = user
+chi-n >>>> system
+{ tagName: 'ownedAttribute',
+  tagId: 4172,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKiQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'system' },
+     { name: 'type', value: '_SGBKRwVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> role
+{ tagName: 'ownedAttribute',
+  tagId: 4173,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKigVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'role' },
+     { name: 'type', value: '_SGBKtAVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> username
+{ tagName: 'ownedAttribute',
+  tagId: 4174,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKiwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'username' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4175,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> password
+{ tagName: 'ownedAttribute',
+  tagId: 4176,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKjAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'password' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4177,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> name
+{ tagName: 'ownedAttribute',
+  tagId: 4178,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKjQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'name' },
+     { name: 'visibility', value: 'public' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4179,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> email
+{ tagName: 'ownedAttribute',
+  tagId: 4180,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKjgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'email' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4181,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_use_time
+{ tagName: 'ownedAttribute',
+  tagId: 4182,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKjwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_use_time' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4183,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_error_time
+{ tagName: 'ownedAttribute',
+  tagId: 4184,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKkAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_error_time' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4185,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> error_count
+{ tagName: 'ownedAttribute',
+  tagId: 4186,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKkQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'error_count' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4187,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> active
+{ tagName: 'ownedAttribute',
+  tagId: 4188,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKkgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'active' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4189,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4190,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKkwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4191,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = basic_client
+chi-n >>>> name
+{ tagName: 'ownedAttribute',
+  tagId: 4193,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKlQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4194,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> birth_date
+{ tagName: 'ownedAttribute',
+  tagId: 4195,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKlgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'birth_date' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4196,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> birth_city
+{ tagName: 'ownedAttribute',
+  tagId: 4197,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKlwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'birth_city' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4198,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> birth_state
+{ tagName: 'ownedAttribute',
+  tagId: 4199,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKmAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'birth_state' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4200,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> mothers_name
+{ tagName: 'ownedAttribute',
+  tagId: 4201,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKmQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'mothers_name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4202,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> fathers_name
+{ tagName: 'ownedAttribute',
+  tagId: 4203,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKmgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'fathers_name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4204,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> profession
+{ tagName: 'ownedAttribute',
+  tagId: 4205,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKmwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'profession' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4206,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> zip_code
+{ tagName: 'ownedAttribute',
+  tagId: 4207,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKnAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'zip_code' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4208,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> address
+{ tagName: 'ownedAttribute',
+  tagId: 4209,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKnQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'address' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4210,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> neighborhood
+{ tagName: 'ownedAttribute',
+  tagId: 4211,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKngVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'neighborhood' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4212,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> city
+{ tagName: 'ownedAttribute',
+  tagId: 4213,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKnwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'city' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4214,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> state
+{ tagName: 'ownedAttribute',
+  tagId: 4215,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKoAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'state' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4216,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> complement
+{ tagName: 'ownedAttribute',
+  tagId: 4217,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKoQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'complement' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4218,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> country
+{ tagName: 'ownedAttribute',
+  tagId: 4219,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKogVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'country' },
+     { name: 'type', value: '_SGBKtwVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4220,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKowVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4221,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = shared_client
+chi-n >>>> name
+{ tagName: 'ownedAttribute',
+  tagId: 4223,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKpQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4224,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> birth_date
+{ tagName: 'ownedAttribute',
+  tagId: 4225,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKpgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'birth_date' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4226,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> birth_city
+{ tagName: 'ownedAttribute',
+  tagId: 4227,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKpwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'birth_city' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4228,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> birth_state
+{ tagName: 'ownedAttribute',
+  tagId: 4229,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKqAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'birth_state' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4230,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> mothers_name
+{ tagName: 'ownedAttribute',
+  tagId: 4231,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKqQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'mothers_name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4232,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> fathers_name
+{ tagName: 'ownedAttribute',
+  tagId: 4233,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKqgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'fathers_name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4234,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> profession
+{ tagName: 'ownedAttribute',
+  tagId: 4235,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKqwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'profession' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4236,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> zip_code
+{ tagName: 'ownedAttribute',
+  tagId: 4237,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKrAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'zip_code' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4238,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> address
+{ tagName: 'ownedAttribute',
+  tagId: 4239,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKrQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'address' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4240,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> neighborhood
+{ tagName: 'ownedAttribute',
+  tagId: 4241,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKrgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'neighborhood' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4242,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> city
+{ tagName: 'ownedAttribute',
+  tagId: 4243,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKrwVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'city' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4244,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> state
+{ tagName: 'ownedAttribute',
+  tagId: 4245,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKsAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'state' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4246,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> complement
+{ tagName: 'ownedAttribute',
+  tagId: 4247,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKsQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'complement' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4248,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> country
+{ tagName: 'ownedAttribute',
+  tagId: 4249,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKsgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'country' },
+     { name: 'type', value: '_SGBKtwVREeidc7hVVg8deQ' } ],
+  getXmiId: [Function],
+  getXmiType: [Function] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4250,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKswVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4251,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = role
+chi-n >>>> name
+{ tagName: 'ownedAttribute',
+  tagId: 4253,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKtQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4254,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4255,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKtgVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4256,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+cl1 = country
+chi-n >>>> name
+{ tagName: 'ownedAttribute',
+  tagId: 4258,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKuAVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'name' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4259,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
+chi-n >>>> last_update
+{ tagName: 'ownedAttribute',
+  tagId: 4260,
+  getParent: [Function: getParent],
+  getAttr: [Function: getAttr],
+  properties: 
+   [ { name: 'xmi:type', value: 'uml:Property' },
+     { name: 'xmi:id', value: '_SGBKuQVREeidc7hVVg8deQ' },
+     { name: 'name', value: 'last_update' } ],
+  getXmiId: [Function],
+  children: 
+   [ { tagName: 'type',
+       tagId: 4261,
+       getParent: [Function: getParent],
+       getAttr: [Function: getAttr],
+       properties: [Array] } ] }
