@@ -17,7 +17,7 @@ class XmiParser
           @stmap[e.value] = []
         @stmap[e.value].push e.subject
       if e.key is "type"
-        e.subject.getXmiType = ()-> that.get e.value
+        e.subject.getXmiType = ()-> that.getElementById e.value
       # if e.subject
       if e.key is "xmi:type" and e.value is "uml:Parameter" and not e.subject.getXmiType?
         e.subject.getXmiType = ()-> null

@@ -1,0 +1,2 @@
+find -name '*.coffee' -exec coffee -c {} +
+find -name '*.js' -exec sed -i "s/coffee/js/g" {} +

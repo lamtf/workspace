@@ -7,8 +7,8 @@ XmiParser = require './XmiParser.coffee'
 fs  = require 'fs'
 
 xmiQuery = new XmiQuery()
-xmiParser = new XmlParser()
-xmiParser = new XmiParser().observe xmiParser
+xmlParser = new XmlParser()
+xmiParser = new XmiParser().observe xmlParser
 
 uml_model = config.in
 target_file = config.out
@@ -51,7 +51,7 @@ fs.readFile uml_model,(err,data)->
   if err?
     console.log "error reading"
   else
-    jsonData = (xmiParser).parse data.toString()
+    jsonData = xmlParser.parse data.toString()
     # console.log jsonData
 
 

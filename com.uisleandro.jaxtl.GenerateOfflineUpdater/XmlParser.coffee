@@ -3,6 +3,9 @@ class XmlParser
   constructor:()->
     @observers = []
 
+  @newInstance:()->
+    new @
+
   addObserver:(o)->
     @observers.push o
     return
@@ -19,7 +22,7 @@ class XmlParser
   ### line = 0 ###
   class Stack
     lastid = 0|0
-    constructor: ()->
+    constructor:()->
       @data = []
       lastid = 0
     push:(obj) ->
