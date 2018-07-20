@@ -1,13 +1,14 @@
-{ special_sort_for_updating_1, println } = require './Util.coffee'
-XmlParser = require './XmlParser.coffee'
-XmiQuery = require './XmiQuery.coffee'
-XmiParser = require './XmiParser.coffee'
-{ config } = require './config.coffee'
+{ special_sort_for_updating_1, println } = require './Util'
+XmlParser = require './XmlParser'
+XmiQuery = require './XmiQuery'
+XmiParser = require './XmiParser'
+{ config } = require './config'
+XmiFileWatcher = require './XmiFileWatcher'
 
 fs  = require 'fs'
 
 xmiQuery = new XmiQuery()
-xmlParser = new XmlParser()
+xmlParser = new XmlParser("#AdvancedQuery")
 xmiParser = new XmiParser().observe xmlParser
 
 uml_model = config.in
@@ -26,8 +27,12 @@ while i < process.argv.length
   else if process.argv[i].indexOf("-o") is 0
     target_file = process.argv[i].substr(2)
   i++
-console.log uml_model
+console.log "UML_IN", uml_model
 console.log target_file
+
+
+XmiFileWatcher = new XmiFileWatcher(xmiParser).baseFolderFromFile(uml_model).observe xmlParser
+
 
 select_query=(what, where)->
   null
@@ -41,11 +46,6 @@ update_query=(what, where)->
 delete_query=(what)->
   null
 
-
-
-
-
-
 # @main
 fs.readFile uml_model,(err,data)->
   if err?
@@ -54,6 +54,13 @@ fs.readFile uml_model,(err,data)->
     jsonData = xmlParser.parse data.toString()
     # console.log jsonData
 
+
+    console.log "WTF", xmiParser
+    ###
+    xmiParser.ids.forEach (id)->
+      console.log id
+    ###
+    return
 
     ###
     stereos = xmiQuery.getAllStereotypes jsonData
@@ -75,17 +82,17 @@ fs.readFile uml_model,(err,data)->
         ops = xmiQuery.getAllOperations(mClass)
         .filter((op)-> op.getAttr("name") is "example_op")[0]
 
-        console.log "#{mClass.getAttr("name")}"
-        console.log "example_op"
+        #console.log "#{mClass.getAttr("name")}"
+        #console.log "example_op"
         ops.getXmiParams().forEach (p1)->
 
           t1 = p1.getXmiType()
-          console.log "t1 = #{t1.getAttr("name")}"
+          #console.log "t1 = #{t1.getAttr("name")}"
           t1.getXmiNextClassifers().forEach (cl1)->
-            console.log "cl1 = #{cl1.getAttr("name")}"
+            #console.log "cl1 = #{cl1.getAttr("name")}"
             cl1.children.forEach (chi1)->
-              console.log "chi-n >>>> #{chi1.getAttr("name")}"
-              console.log chi1
+              #console.log "chi-n >>>> #{chi1.getAttr("name")}"
+              #console.log chi1
           ###
           if t1
             t1.getXmiNextClassifers().forEach (cl1)->

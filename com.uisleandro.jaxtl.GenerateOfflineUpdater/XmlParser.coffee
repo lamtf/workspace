@@ -1,10 +1,13 @@
 class XmlParser
 
-  constructor:()->
+  constructor:(@Id)->
     @observers = []
+    console.log "new Instance of XmlParser", @Id
 
-  @newInstance:()->
-    new @
+  newInstance:(id)->
+    $new = new XmlParser(id)
+    @observers.forEach (o)-> $new.addObserver o
+    $new
 
   addObserver:(o)->
     @observers.push o
@@ -21,13 +24,12 @@ class XmlParser
 
   ### line = 0 ###
   class Stack
-    lastid = 0|0
     constructor:()->
       @data = []
-      lastid = 0
+      @lastid = 0|0
     push:(obj) ->
-      @data[@data.length] = create_node obj,lastid,if @data.length is 0 then 0 else @data[@data.length - 1]
-      lastid++
+      @data[@data.length] = create_node obj,@lastid,if @data.length is 0 then 0 else @data[@data.length - 1]
+      @lastid++
       return @data[@data.length-1]
     peek:()->
       @data[@data.length-1]
@@ -175,7 +177,7 @@ class XmlParser
   ###
 
   parse : (x)->
-    stack = new Stack()
+    @stack = new Stack()
     result = null
     i = 0
     while(i < x.length)
@@ -187,7 +189,9 @@ class XmlParser
       else if isOpeningTag x,i
         i++
         t = getTagName x,i
-        stack.push t.tagName
+        @stack.push t.tagName
+        if @Id is 2
+          console.log @Id, "=>", @stack.peek()
         i = t.index
         ### What is previously on the top be the parent of this new node ###
 
@@ -195,16 +199,17 @@ class XmlParser
 
         while(null isnt prop)
           ### If i found a property id be inserting it here ###
-          add_property stack.peek(),prop.name,prop.value
+          add_property @stack.peek(),prop.name,prop.value
 
           @tell {
+            from: @Id
             what: "ADD_PROPERTY"
-            subject: stack.peek()
+            subject: @stack.peek()
             key: prop.name
             value: prop.value
           }
 
-          ### stack.peek()[prop.name]=prop.value ###
+          ### @stack.peek()[prop.name]=prop.value ###
           i = prop.index
           prop = getNextProperty x,i
 
@@ -215,13 +220,13 @@ class XmlParser
 
         if isClosedTag x,i
           ### Add the actual node to the parent ###
-          result = stack.pop()
+          result = @stack.pop()
           i += 2
 
       else if isClosingTag x,i
         t = getTagName x,i+2
         i = t.index
-        result = stack.popcheck t.tagName
+        result = @stack.popcheck t.tagName
         ### Add the actual node to the parent ###
       else
         while(x[i] is '/' or x[i] is '>' or isSpace x[i])
@@ -231,8 +236,12 @@ class XmlParser
           while(x[i] isnt '<')
             text += x[i]
             i++
-            stack.peek()["innerText"]=text
-            ### add_property stack.peek(),"innerText",text ###
+            try 
+              @stack.peek()["innerText"]=text
+            catch e
+              console.log "ERROR", x
+              throw e
+            ### add_property @stack.peek(),"innerText",text ###
     return result
 
 ### eu preciso ter properties like props = [{name: value}] ###

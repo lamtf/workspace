@@ -5,7 +5,8 @@ class XmiParser
   observe:(parser)->
     parser.addObserver @
     return @
-
+  setPrefix:(@prefix)->
+    return @
   update:(e)->
     that = @
     if e.what is"ADD_PROPERTY"
@@ -28,14 +29,10 @@ class XmiParser
       if e.key is "xmi:type" and e.value is "uml:Class"
         e.subject.getXmiNextClassifers=()->
           e.subject.children.filter (x)-> x.tagName is "nestedClassifier"
-
-
-
       ###
       if e.key is "xmi:type" and e.value is "uml:Class"
         if e.subject.getParent().getParent()
       ###
-
       ###
       what: "ADD_PROPERTY"
       subject: stack.peek()
@@ -44,6 +41,5 @@ class XmiParser
       ###
   getElementById:(key)-> @ids[key]
   getAppliedStereotypes:(key)-> @stmap[key]
-
 
 module.exports = XmiParser
