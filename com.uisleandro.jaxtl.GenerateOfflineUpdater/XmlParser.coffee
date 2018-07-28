@@ -2,7 +2,7 @@ class XmlParser
 
   constructor:(@Id)->
     @observers = []
-    console.log "new Instance of XmlParser", @Id
+    #console.log "new Instance of XmlParser", @Id
 
   newInstance:(id)->
     $new = new XmlParser(id)
@@ -124,9 +124,9 @@ class XmlParser
       parentNode
     getAttr:(a)->
       i = 0
-      while i < @.properties.length
-        if @.properties[i].name is a
-          return @.properties[i].value
+      while i < @properties.length
+        if @properties[i].name is a
+          return @properties[i].value
         i++
 
 
@@ -236,7 +236,7 @@ class XmlParser
           while(x[i] isnt '<')
             text += x[i]
             i++
-            try 
+            try
               @stack.peek()["innerText"]=text
             catch e
               console.log "ERROR", x
