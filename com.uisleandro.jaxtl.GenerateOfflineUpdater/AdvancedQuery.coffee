@@ -5,7 +5,7 @@ XmiParser = require './XmiParser'
 { config } = require './config'
 XmiFileWatcher = require './XmiFileWatcher'
 # Semaphore = require './Semaphore'
-
+DependencySort = require './DependencySort'
 fs  = require 'fs'
 
 uml_model = config.in
@@ -34,6 +34,7 @@ xmiParser = new XmiParser().observe xmlParser
 xmiFileWatcher = new XmiFileWatcher().baseFolderFromFile(uml_model).observe xmlParser
 xmiFileWatcher.setXmiParser xmiParser
 semaphore = xmiFileWatcher.semaphore()
+dependencySort = new DependencySort()
 
 findType=(e)->
   if e.children
@@ -66,10 +67,14 @@ semaphore.then (results)->
     .forEach (mClass)->
       ops = xmiQuery.getAllOperations(mClass)
       .filter((op)-> op.name is "example_op")[0]
-      #console.log "#{mClass.name}"
+      console.log "class = #{mClass.name}"
       #console.log "example_op"
       ops.getXmiParams().forEach (p1)->
         t1 = p1.getXmiObject()
+        
+        # OVER-HERE we have the view class
+        console.log t1.name, t1.xmiType
+        
         #console.log "t1 = #{t1.name}"
         # t1.getXmiNextClassifers().forEach (cl1)->
           #console.log "cl1 = #{cl1.name}"
@@ -77,15 +82,22 @@ semaphore.then (results)->
             # clconsole.log "chi-n >>>> #{chi1.name}"
             #console.log chi1
         if t1
+          # TODO: preciso identificar quais atributos sao foreign keys
+          #dependencySort.sort(t1.getXmiNextClassifers()).forEach (cl1)->
           t1.getXmiNextClassifers().forEach (cl1)->
-            console.log cl1.name
+            
+            # OVER-HERE we have each child class
+            console.log "\t",cl1.name, cl1.xmiType
+            
+            console.log "FKS", cl1.getXmiForeignKeys()
+            
             chi = cl1.children
             if chi
               # com isso eu percebo que vou ter que carregar outro arquivo dinamicamente
               # propriedade href -> { name: 'href', value: 'types.uml#_4UmrY39YEeaVP9RPox9M_A' }
               # minha intencao era achar um conjunto de classes.. nao consegui
               chi.forEach (e)->
-                console.log e.name, e.getXmiObject().name
+                console.log "\t\t", e.tagName, e.name, e.getXmiObject().xmiType, e.getXmiObject().name
                 # console.log e
 
       ###

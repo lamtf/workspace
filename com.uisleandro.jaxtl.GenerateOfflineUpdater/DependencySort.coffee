@@ -29,7 +29,8 @@ class DependencySort
     #println infiniteLoop
     return z
 
-  ifItGotNoForeignKeysItWillComeFirst:(x)->
+  sort:(x)->
+  #ifItGotNoForeignKeysItWillComeFirst:(x)->
     #console.log "quickSorting"
     i = 0
     y = []
@@ -46,3 +47,6 @@ class DependencySort
       y[y.length] = z[i]
       i++
     return y
+
+
+module.exports = DependencySort

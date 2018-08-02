@@ -33,11 +33,17 @@ class XmiParser
           e.subject.getXmiObject = ()-> null
         else if e.value is "uml:Operation"
           e.subject.getXmiParams = ()->
-            props = []
             e.subject.children.filter (x)-> x.tagName is "ownedParameter"
         else if e.value is "uml:Class"
           e.subject.getXmiNextClassifers=()->
             e.subject.children.filter (x)-> x.tagName is "nestedClassifier"
+          e.subject.getXmiForeignKeys=()->
+            $this = e.subject
+            if not $this.fks
+              $this.fks = e.subject.children.filter((x)-> x.getXmiObject().xmiType is "uml:Class" and x.tagName is "ownedAttribute").map((x)-> x.name)
+            $this.fks
+          e.subject.getXmiAttributes=()->
+            e.subject.children.filter((x)-> x.getXmiObject().xmiType isnt "uml:Class" and x.tagName is "ownedAttribute").map((x)-> x.name)
       ###
       if e.key is "xmi:type" and e.value is "uml:Class"
         if e.subject.getParent().getParent()
