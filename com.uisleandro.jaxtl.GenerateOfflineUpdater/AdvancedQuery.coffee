@@ -59,7 +59,7 @@ semaphore.then (results)->
   root_model = jsonData.children[0]
   mvc_package = xmiQuery.getPackageByName(root_model,'mvc')[0]
   viewClss = xmiQuery.getAllClasses xmiQuery.getPackageByName(mvc_package,'queryViews')
-
+  
   xmiQuery.getPackageByName(mvc_package,'controller')
   .forEach (mCont)->
     xmiQuery.getAllClasses(mCont)
@@ -71,6 +71,9 @@ semaphore.then (results)->
       #console.log "example_op"
       ops.getXmiParams().forEach (p1)->
         t1 = p1.getXmiObject()
+        
+        # TODO: process fks before using it
+        t1.preProcessXmiNextClassifersForeignKeys()
         
         # OVER-HERE we have the view class
         console.log t1.name, t1.xmiType

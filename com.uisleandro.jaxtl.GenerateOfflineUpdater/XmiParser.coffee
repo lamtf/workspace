@@ -44,6 +44,10 @@ class XmiParser
             $this.fks
           e.subject.getXmiAttributes=()->
             e.subject.children.filter((x)-> x.getXmiObject().xmiType isnt "uml:Class" and x.tagName is "ownedAttribute").map((x)-> x.name)
+          e.subject.preProcessXmiNextClassifersForeignKeys=()->
+            console.log "# preProcessXmiNextClassifersForeignKeys()"
+            e.subject.getXmiNextClassifers().forEach (cl) -> cl.getXmiForeignKeys()
+            
       ###
       if e.key is "xmi:type" and e.value is "uml:Class"
         if e.subject.getParent().getParent()
