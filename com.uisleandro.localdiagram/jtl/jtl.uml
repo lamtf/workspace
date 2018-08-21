@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_c5RQsJ6MEeip56mw8IcUSQ" name="jtl">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_dwX30J6MEeip56mw8IcUSQ">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Component" xmi:id="_QQAQ0J6REeip56mw8IcUSQ" name="Util"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_Q54UQJ6REeip56mw8IcUSQ" name="XmlParser">
+    <packagedElement xmi:type="uml:Usage" xmi:id="_atWkAJ6SEeip56mw8IcUSQ" name="update" client="_Q54UQJ6REeip56mw8IcUSQ" supplier="_PxBZUJ6SEeip56mw8IcUSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_RXby8J6REeip56mw8IcUSQ" name="XmiQuery">
+    <packagedElement xmi:type="uml:Dependency" xmi:id="_6XsugJ6VEeiWafse6AyBdw" client="_RXby8J6REeip56mw8IcUSQ" supplier="_29resJ6VEeiWafse6AyBdw"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_82JDsJ6REeip56mw8IcUSQ" name="XmiParser">
+    <generalization xmi:type="uml:Generalization" xmi:id="_TfufsJ6SEeip56mw8IcUSQ" general="_PxBZUJ6SEeip56mw8IcUSQ"/>
+    <ownedAttribute xmi:type="uml:Port" xmi:id="_q3srsJ6SEeip56mw8IcUSQ" name="ids" type="_3S4aAJ6SEeip56mw8IcUSQ" aggregation="composite">
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_9DZAEJ6SEeip56mw8IcUSQ"/>
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_9D4vUJ6SEeip56mw8IcUSQ" value="*"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_AlLhQJ6SEeip56mw8IcUSQ" name="config"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_DuD9wJ6SEeip56mw8IcUSQ" name="XmiFileWatcher">
+    <generalization xmi:type="uml:Generalization" xmi:id="_Sz4GUJ6SEeip56mw8IcUSQ" general="_PxBZUJ6SEeip56mw8IcUSQ"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_oAvssJ6SEeip56mw8IcUSQ" name="UpdateIds" client="_DuD9wJ6SEeip56mw8IcUSQ" supplier="_82JDsJ6REeip56mw8IcUSQ"/>
+    <packagedElement xmi:type="uml:Usage" xmi:id="_Ebi5YJ6TEeip56mw8IcUSQ" name="creates" client="_DuD9wJ6SEeip56mw8IcUSQ" supplier="_Epvi4J6SEeip56mw8IcUSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_Epvi4J6SEeip56mw8IcUSQ" name="Semaphore">
+    <packagedElement xmi:type="uml:Usage" xmi:id="_BSiPIJ6VEeip56mw8IcUSQ" name="StartGenerating" client="_Epvi4J6SEeip56mw8IcUSQ" supplier="_5amCgJ6UEeip56mw8IcUSQ"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Component" xmi:id="_IsY48J6SEeip56mw8IcUSQ" name="DependencySort"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_PxBZUJ6SEeip56mw8IcUSQ" name="Observer"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_3S4aAJ6SEeip56mw8IcUSQ" name="map"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_rPQlMJ6UEeip56mw8IcUSQ" client="_5amCgJ6UEeip56mw8IcUSQ" supplier="_RXby8J6REeip56mw8IcUSQ"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_tYdtYJ6UEeip56mw8IcUSQ" client="_5amCgJ6UEeip56mw8IcUSQ" supplier="_IsY48J6SEeip56mw8IcUSQ"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_w4znoJ6UEeip56mw8IcUSQ" client="_5amCgJ6UEeip56mw8IcUSQ" supplier="_QQAQ0J6REeip56mw8IcUSQ"/>
+  <packagedElement xmi:type="uml:Usage" xmi:id="_yPpewJ6UEeip56mw8IcUSQ" client="_5amCgJ6UEeip56mw8IcUSQ" supplier="_AlLhQJ6SEeip56mw8IcUSQ"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_5amCgJ6UEeip56mw8IcUSQ" name="MainClass"/>
+  <packagedElement xmi:type="uml:Component" xmi:id="_29resJ6VEeiWafse6AyBdw" name="XmlJsQuery"/>
+</uml:Model>
