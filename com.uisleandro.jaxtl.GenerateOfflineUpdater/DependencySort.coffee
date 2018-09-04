@@ -10,7 +10,7 @@ class DependencySort
       return -1
     buble = true
     infiniteLoop = 0
-    while(buble && infiniteLoop < 100)
+    while(buble && infiniteLoop < 500)
       buble = false
       infiniteLoop++;
       hi = 0
