@@ -5,7 +5,7 @@ XmiParser = require './XmiParser'
 { config } = require './config'
 XmiFileWatcher = require './XmiFileWatcher'
 # Semaphore = require './Semaphore'
-DependencySort = require './DependencySort'
+DependencySort = require './DependencySort3'
 fs  = require 'fs'
 
 uml_model = config.in
@@ -35,11 +35,6 @@ xmiFileWatcher = new XmiFileWatcher().baseFolderFromFile(uml_model).observe xmlP
 xmiFileWatcher.setXmiParser xmiParser
 semaphore = xmiFileWatcher.semaphore()
 dependencySort = new DependencySort()
-
-findType=(e)->
-  if e.children
-    $ret = xmiParser.ids["#{e.children[0].getAttr("href").split("#")[1]}"].name
-  return $ret
 
 semaphore.begin ()->
   #console.log "BEGIN reading File1 #{uml_model}"
@@ -71,15 +66,16 @@ semaphore.then (results)->
       #console.log "example_op"
       ops.getXmiParams().forEach (p1)->
         if !p1.getXmiObject
-            console.error "XmiMissingObjectException", p1.getAttr("name"), p1.getParent().getAttr("name"), p1.getParent().getParent().getAttr("name")
+            console.error "XmiMissingObjectException at '#{p1.getParent().getParent().getAttr("name")}.#{p1.getParent().getAttr("name")}.#{p1.getAttr("name")}'"
             return null
         t1 = p1.getXmiObject()
 
-        # TODO: process fks before using it
+        # Processes the Foreign Keys before using it
         t1.preProcessXmiNextClassifersForeignKeys()
 
         # OVER-HERE we have the view class
-        console.error "view?", t1.name, t1.xmiType
+        # console.log "view?", t1.name, t1.xmiType
+
 
         #console.log "t1 = #{t1.name}"
         # t1.getXmiNextClassifers().forEach (cl1)->
@@ -87,13 +83,25 @@ semaphore.then (results)->
           # cl1.children.forEach (chi1)->
             # clconsole.log "chi-n >>>> #{chi1.name}"
             #console.log chi1
-        if t1
-          # TODO: preciso identificar quais atributos sao foreign keys
-          dependencySort.sort(t1.getXmiNextClassifers()).forEach (cl1)->
+
+        # temporary double restriction
+        # it must be onlu "if t1"
+
+        # I must make it only for a single view
+        if t1 and (t1.name is 'db_log_vw')
+
+          console.log "#{t1.name.ToCamelCase()}"
+
+          # console.log 'sorting..'
+          sortedData = dependencySort.sort(t1.getXmiNextClassifers())
+
+          sortedData.forEach (cl1)->
           #t1.getXmiNextClassifers().forEach (cl1)->
 
             # OVER-HERE we have each child class
-            console.error "\t",cl1.name, cl1.xmiType
+            #console.log "\t ALWAYS A CLASS"
+            #console.log "\t",cl1.name, cl1.xmiType
+            console.log "\t", cl1.name.ToCamelCase()
 
             console.error "\t\tfks:", cl1.getXmiForeignKeys()
 
@@ -103,8 +111,12 @@ semaphore.then (results)->
               # propriedade href -> { name: 'href', value: 'types.uml#_4UmrY39YEeaVP9RPox9M_A' }
               # minha intencao era achar um conjunto de classes.. nao consegui
               chi.forEach (e)->
-                console.log "\t\t", e.tagName, e.name, e.getXmiObject().xmiType, e.getXmiObject().name
-                # console.log e
+                #console.log "\t\t", e.tagName, e.name, e.getXmiObject().xmiType, e.getXmiObject().name
+                if ! e.isFk
+                  console.log "\t\t", e.name.ToCamelCase(), e.getXmiObject().name
+                else
+                  console.log "\t\t", e.name.ToCamelCase(), "<-", e.getXmiObject().name.ToCamelCase()
+
 
       ###
       if ops.length > 0

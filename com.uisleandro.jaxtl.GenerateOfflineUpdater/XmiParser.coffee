@@ -21,6 +21,7 @@ class XmiParser
         @stmap[e.value].push e.subject
       if e.key is "type"
         e.subject.getXmiObject = ()-> that.getElementById e.value
+        e.subject.isFk = true
       else if e.key is "name"
         e.subject.name = e.value
       else if e.key is "xmi:type"
@@ -31,6 +32,7 @@ class XmiParser
         ###
         if e.value is "uml:Property" and not e.subject.getXmiObject?
           e.subject.getXmiObject = ()-> null
+          e.subject.isFk = false
         else if e.value is "uml:Operation"
           e.subject.getXmiParams = ()->
             e.subject.children.filter (x)-> x.tagName is "ownedParameter"
@@ -45,9 +47,9 @@ class XmiParser
           e.subject.getXmiAttributes=()->
             e.subject.children.filter((x)-> x.getXmiObject().xmiType isnt "uml:Class" and x.tagName is "ownedAttribute").map((x)-> x.name)
           e.subject.preProcessXmiNextClassifersForeignKeys=()->
-            console.log "# preProcessXmiNextClassifersForeignKeys()"
+            # console.error "# preProcessXmiNextClassifersForeignKeys()"
             e.subject.getXmiNextClassifers().forEach (cl) -> cl.getXmiForeignKeys()
-            
+
       ###
       if e.key is "xmi:type" and e.value is "uml:Class"
         if e.subject.getParent().getParent()

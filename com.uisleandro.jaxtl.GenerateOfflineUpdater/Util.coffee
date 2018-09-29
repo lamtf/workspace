@@ -56,6 +56,18 @@ String.prototype.toCamelCase =()->
   i = 0
   res = ""
   while i < words.length
+    if i is 0
+      res += words[i].substr(0,1).toLowerCase()+words[i].substr(1)
+    else
+      res += words[i].substr(0,1).toUpperCase()+words[i].substr(1)
+    i++
+  return res
+
+String.prototype.ToCamelCase =()->
+  words = this.split('_')
+  i = 0
+  res = ""
+  while i < words.length
     res += words[i].substr(0,1).toUpperCase()+words[i].substr(1)
     i++
   return res

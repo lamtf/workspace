@@ -10,7 +10,7 @@ class DependencySort
       return -1
     buble = true
     infiniteLoop = 0
-    while(buble && infiniteLoop < 500)
+    while(buble && infiniteLoop < 1000)
       buble = false
       infiniteLoop++;
       hi = 0
@@ -48,5 +48,21 @@ class DependencySort
       i++
     return y
 
+
+test1=()->
+
+  x = []
+  x[0] = { className: "token", fks : ["user","system","token_type"]}
+  x[1] = { className: "user", fks : ["country", "system", "role"]}
+  x[2] = { className: "country", fks : []}
+  x[3] = { className: "system", fks : ["currency","reseller"]}
+  x[4] = { className: "role", fks : []}
+  x[5] = { className: "currency", fks : []}
+  x[6] = { className: "reseller", fks : []}
+  s = new DependencySort()
+  console.log(s.sort(x))
+
+
+test1()
 
 module.exports = DependencySort
