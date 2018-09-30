@@ -1,2 +1,4 @@
 # Android template for insert in the database
-module.exports = InsertView: (View)->
+class AndroidQuery
+  InsertView: (View)->
+    
