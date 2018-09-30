@@ -6,6 +6,8 @@ XmiParser = require './XmiParser'
 XmiFileWatcher = require './XmiFileWatcher'
 # Semaphore = require './Semaphore'
 DependencySort = require './DependencySort3'
+{ DatabaseInsert } = require './SqliteInsert'
+
 fs  = require 'fs'
 
 uml_model = config.in
@@ -96,27 +98,7 @@ semaphore.then (results)->
           sortedData = dependencySort.sort(t1.getXmiNextClassifers())
 
           sortedData.forEach (cl1)->
-          #t1.getXmiNextClassifers().forEach (cl1)->
-
-            # OVER-HERE we have each child class
-            #console.log "\t ALWAYS A CLASS"
-            #console.log "\t",cl1.name, cl1.xmiType
-            console.log "\t", cl1.name.ToCamelCase()
-
-            console.error "\t\tfks:", cl1.getXmiForeignKeys()
-
-            chi = cl1.children
-            if chi
-              # com isso eu percebo que vou ter que carregar outro arquivo dinamicamente
-              # propriedade href -> { name: 'href', value: 'types.uml#_4UmrY39YEeaVP9RPox9M_A' }
-              # minha intencao era achar um conjunto de classes.. nao consegui
-              chi.forEach (e)->
-                #console.log "\t\t", e.tagName, e.name, e.getXmiObject().xmiType, e.getXmiObject().name
-                if ! e.isFk
-                  console.log "\t\t", e.name.ToCamelCase(), e.getXmiObject().name
-                else
-                  console.log "\t\t", e.name.ToCamelCase(), "<-", e.getXmiObject().name.ToCamelCase()
-
+            console.log DatabaseInsert cl1
 
       ###
       if ops.length > 0

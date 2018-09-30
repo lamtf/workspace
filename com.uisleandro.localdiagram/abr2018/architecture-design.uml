@@ -49,7 +49,7 @@
   <packagedElement xmi:type="uml:Component" xmi:id="_SXggcDuXEeici7jz4YuRyA" name="DbHelper">
     <generalization xmi:type="uml:Generalization" xmi:id="_Y2hyUDuXEeici7jz4YuRyA" general="_-MxFcDuWEeici7jz4YuRyA"/>
   </packagedElement>
-  <packagedElement xmi:type="uml:Interface" xmi:id="_iNtusDuYEeici7jz4YuRyA" name="ICRUD"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_iNtusDuYEeici7jz4YuRyA" name="IInsert"/>
   <packagedElement xmi:type="uml:Interface" xmi:id="_j8oHkDuYEeici7jz4YuRyA" name="IQuery"/>
   <packagedElement xmi:type="uml:Interface" xmi:id="_njT6YDuYEeici7jz4YuRyA" name="ICustom"/>
   <packagedElement xmi:type="uml:Component" xmi:id="_vWHA8DubEeici7jz4YuRyA" name="QrcodeInput">
@@ -85,6 +85,18 @@
     <generalization xmi:type="uml:Generalization" xmi:id="_2okb8GB8EeijpdpxZ6BtJg" general="_iNtusDuYEeici7jz4YuRyA"/>
     <generalization xmi:type="uml:Generalization" xmi:id="_3waNwGB8EeijpdpxZ6BtJg" general="_j8oHkDuYEeici7jz4YuRyA"/>
     <generalization xmi:type="uml:Generalization" xmi:id="_4pH-cGB8EeijpdpxZ6BtJg" general="_njT6YDuYEeici7jz4YuRyA"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_NkqR8MROEeiVtMsr65-0sw" general="_l3O6cMRNEeiVtMsr65-0sw"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_ORGhMMROEeiVtMsr65-0sw" general="_9FyrwMRNEeiVtMsr65-0sw"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_O7XmMMROEeiVtMsr65-0sw" general="_9sKIMMRNEeiVtMsr65-0sw"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_Pw0ngMROEeiVtMsr65-0sw" general="_ntFBwMRNEeiVtMsr65-0sw"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_QtjVgMROEeiVtMsr65-0sw" general="_qPmo4MRNEeiVtMsr65-0sw"/>
+    <generalization xmi:type="uml:Generalization" xmi:id="_RVNycMROEeiVtMsr65-0sw" general="_wvonYMRNEeiVtMsr65-0sw"/>
   </packagedElement>
   <packagedElement xmi:type="uml:Usage" xmi:id="_Y82AoGCBEeijpdpxZ6BtJg" client="_PCbdYGBqEeiFcZnUVRq_4g" supplier="_RG4qQDuQEeici7jz4YuRyA"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_l3O6cMRNEeiVtMsr65-0sw" name="ISelectOne"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_ntFBwMRNEeiVtMsr65-0sw" name="IUpdate"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_qPmo4MRNEeiVtMsr65-0sw" name="IDelete"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_wvonYMRNEeiVtMsr65-0sw" name="IExists"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_9FyrwMRNEeiVtMsr65-0sw" name="ISelectList"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_9sKIMMRNEeiVtMsr65-0sw" name="ISelectValue"/>
 </uml:Model>
