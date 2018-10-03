@@ -8,7 +8,7 @@ XmiFileWatcher = require './XmiFileWatcher'
 DependencySort = require './DependencySort3'
 
 # this class is no more inserted this way. it will insert itself
-#{ DatabaseInsert } = require './SqliteInsert'
+#{ databaseInsert } = require './SqliteInsert'
 
 fs  = require 'fs'
 
@@ -43,7 +43,8 @@ dependencySort = new DependencySort()
 class GenerateQuery
   registerPlugin:(plugin)->
     plugin.configure(@)
-  injectInsert:(@DatabaseInsert)->
+  # injectInsert:(@databaseInsert)->
+  injectDoSomeWork:(@doSomeWork)->
   run:()->
     $this = @
     semaphore.begin ()->
@@ -71,11 +72,18 @@ class GenerateQuery
         #.filter((x)->x.name is "boleto_sicoob")
         .forEach (mClass)->
           ops = xmiQuery.getAllOperations(mClass)
-          .filter((op)-> op.name is "open_cash_register")[0]
+          # .filter((op)-> op.name is "open_cash_register")[0]
           console.error "class = #{mClass.name}"
           #console.log "example_op"
-          if ops
-            ops.getXmiParams().forEach (p1)->
+
+
+          # 001 the new class must generate the operation
+          # and it will take the paramaters in and out
+          ops.forEach (op)->
+
+            # 002 I can make this processing here before sending the parameters?
+            # how can i enable or disable it?
+            op.getXmiParams().forEach (p1)->
               if !p1.getXmiObject
                   console.error "XmiMissingObjectException at '#{p1.getParent().getParent().getAttr("name")}.#{p1.getParent().getAttr("name")}.#{p1.getAttr("name")}'"
                   return null
@@ -101,24 +109,30 @@ class GenerateQuery
               # I must make it only for a single view
               if t1 # and (t1.name is 'db_log_vw')
 
-                console.log "#{t1.name.ToCamelCase()}"
+                # console.log "#{t1.name.ToCamelCase()}"
 
                 # console.log 'sorting..'
                 sortedData = dependencySort.sort t1.getXmiNextClassifers()
 
                 # Here at this point i got the "view" and the "sorted data"
                 # I still need the stereotypes
-                stereotypes = xmiParser.getAppliedStereotypes ops.getAttr "xmi:id"
+                stereotypes = xmiParser.getAppliedStereotypes op.getAttr "xmi:id"
 
+                ###
                 if stereotypes and stereotypes.length > 0
                   stereotypes
                   .map (stereo)->
                     return stereo.tagName
                   .forEach (stereo)->
                     console.log stereo
+                ###
 
+                $this.doSomeWork op.name, t1.name, sortedData, stereotypes
+
+                ###
                 sortedData.forEach (cl1)->
-                  console.log $this.DatabaseInsert cl1
+                  console.log $this.databaseInsert cl1
+                ###
 
             ###
             if ops.length > 0
@@ -156,8 +170,6 @@ class GenerateQuery
                     # if s.tagName is 'query:RunBefore'
                     #  console.log "rbf"
             ###
-
-
                     ###
                     xmiQuery.getAllParameters(op)
                     .forEach (par)->

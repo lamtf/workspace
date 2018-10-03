@@ -98,5 +98,5 @@
   <packagedElement xmi:type="uml:Interface" xmi:id="_qPmo4MRNEeiVtMsr65-0sw" name="IDelete"/>
   <packagedElement xmi:type="uml:Interface" xmi:id="_wvonYMRNEeiVtMsr65-0sw" name="IExists"/>
   <packagedElement xmi:type="uml:Interface" xmi:id="_9FyrwMRNEeiVtMsr65-0sw" name="ISelectList"/>
-  <packagedElement xmi:type="uml:Interface" xmi:id="_9sKIMMRNEeiVtMsr65-0sw" name="ISelectValue"/>
+  <packagedElement xmi:type="uml:Interface" xmi:id="_9sKIMMRNEeiVtMsr65-0sw" name="ISelectValue*"/>
 </uml:Model>

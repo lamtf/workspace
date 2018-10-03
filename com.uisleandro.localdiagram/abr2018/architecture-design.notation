@@ -176,7 +176,7 @@
     <element xmi:type="uml:Component" href="architecture-design.uml#_SXggcDuXEeici7jz4YuRyA"/>
     <layoutConstraint xmi:type="notation:Bounds" xmi:id="_SXhukTuXEeici7jz4YuRyA" x="180" y="-80"/>
   </children>
-  <children xmi:type="notation:Shape" xmi:id="_iNwyADuYEeici7jz4YuRyA" type="Interface_ClassifierShape">
+  <children xmi:type="notation:Shape" xmi:id="_iNwyADuYEeici7jz4YuRyA" type="Interface_ClassifierShape" fillColor="12621752">
     <children xmi:type="notation:DecorationNode" xmi:id="_iNxZEDuYEeici7jz4YuRyA" type="Interface_ClassifierNameLabel"/>
     <children xmi:type="notation:DecorationNode" xmi:id="_iNxZETuYEeici7jz4YuRyA" type="Interface_ClassifierFloatingNameLabel">
       <layoutConstraint xmi:type="notation:Location" xmi:id="_iNxZEjuYEeici7jz4YuRyA" y="15"/>
