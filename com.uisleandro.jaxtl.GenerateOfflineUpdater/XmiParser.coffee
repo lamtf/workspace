@@ -42,7 +42,11 @@ class XmiParser
           e.subject.getXmiForeignKeys=()->
             $this = e.subject
             if not $this.fks
-              $this.fks = e.subject.children.filter((x)-> x.getXmiObject().xmiType is "uml:Class" and x.tagName is "ownedAttribute").map((x)-> x.name)
+              if e.subject.children?
+                $this.fks = e.subject.children.filter((x)-> x.getXmiObject().xmiType is "uml:Class" and x.tagName is "ownedAttribute").map((x)-> x.name)
+              else
+                console.error "WARN01 #{$this.getParent().getAttr('name')}.#{$this.getAttr('name')} class has no children"
+                $this.fks = []
             $this.fks
           e.subject.getXmiAttributes=()->
             e.subject.children.filter((x)-> x.getXmiObject().xmiType isnt "uml:Class" and x.tagName is "ownedAttribute").map((x)-> x.name)

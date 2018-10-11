@@ -1,0 +1,5 @@
+after i would like to?
+   * find out about the stereotypes and use them
+   * find out about apache kafka and find ways
+     to use it in my project if possible
+   * find out if my project is for front-end or back-end

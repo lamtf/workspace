@@ -13,6 +13,28 @@ GenerateQuery = require './GenerateQuery'
     O codigo de Acesso Direto
     O codigo de acesso via Content Provider
     TODO: as consultas tem paramatro xxxIn e xxxOut
+
+  what will i generate?
+
+    the database
+    various interfaces withe the database
+      -> Basic CRUD  (IInsert, IUpdate, IDelete, ISelectOne, ISelectList, ISelectValue* IExists)
+      -> IQuery  (More complicated, do it first: Insert e Update e Select)
+      -> ICustom
+    The database-sync code
+    the Contend Provider
+    the database access code via Content Provider
+    the database direct access code
+
+    TODO: the queries have parameter xxxIn and xxxOut
+    
+    this code works in the uml:Operations,
+    it's operation-specific
+###
+
+###
+    this code works in the uml:Operations,
+    it's operation-specific
 ###
 
 
