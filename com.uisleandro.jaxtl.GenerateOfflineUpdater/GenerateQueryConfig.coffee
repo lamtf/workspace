@@ -1,5 +1,5 @@
 GenerateQuery = require './GenerateQuery'
-InsertPlugin = require './SqliteInsert'
+InsertPlugin = require './plugins/SqliteInsert'
 
 # The ideal scenario is when the class is auto configured
 # so for this i would need an observer pattern
