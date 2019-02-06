@@ -61,7 +61,7 @@ class InsertPlugin
 
             inParameter.sortedData.forEach (cl1)->
               queryString += "string query=\""
-              queryString += "INSERT INTO #{cl1.name} "
+              queryString += "INSERT INTO #{cl1.name} ("
               chi = cl1.children
               if chi
                 comma = "";
@@ -71,7 +71,7 @@ class InsertPlugin
                   else
                     queryString += "#{comma}fk_#{e.name}"
                   comma = ", "
-                queryString += " VALUES "
+                queryString += ") VALUES ("
                 comma = "";
                 chi.forEach (e)->
                   if ! e.isFk
@@ -79,7 +79,7 @@ class InsertPlugin
                   else
                     queryString += "#{comma}?#{e.name}_id"
                   comma = ", "
-              queryString += "\"";
+              queryString += ");\"";
               queryString += ";\n# SELECT #{cl1.name}_id FROM #{cl1.name} ORDER BY #{cl1.name}_id DESC LIMIT 1 OFFSET 1;\n\n"
             console.log queryString
 
