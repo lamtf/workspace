@@ -46,3 +46,5 @@ class XmlTokenStream
         if @status is TAG_NAME and args[1][0] is SPACE
         #content
     else #EOF
+
+module.exports = XmlTokenStream

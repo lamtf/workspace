@@ -46,4 +46,4 @@ class CharStream
       #console.log "FIHISH READING", chunkNumber
     return
 
-module.exports = FileStream
+module.exports = CharStream
