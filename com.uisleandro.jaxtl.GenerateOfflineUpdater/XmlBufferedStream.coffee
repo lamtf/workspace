@@ -5,7 +5,7 @@ ATTRIB_NAME = 2|0
 ATTRIB_VALUE = 4|0
 TAG_TEXT = 8|0
 
-class XmlTokenStream
+class XmlBufferedStream
 
   constructor:()->
     @data = -1
@@ -54,4 +54,4 @@ class XmlTokenStream
       else
         @tell([END_OF_FILE, null])
 
-module.exports = XmlTokenStream
+module.exports = XmlBufferedStream

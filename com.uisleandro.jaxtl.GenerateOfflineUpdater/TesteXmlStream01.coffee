@@ -1,12 +1,12 @@
 CharStream = require "./CharStream"
-XmlTokenStream = require "./XmlTokenStream"
+XmlBufferedStream = require "./XmlBufferedStream"
 LogStream = require "./LogStream"
 
 charStream = new CharStream("teste01.xml")
-xmlTokenStream = new XmlTokenStream()
+xmlBufferedStream = new XmlBufferedStream()
 logStream = new LogStream()
 
 xmlTokenStream.observe charStream
-logStream.observe xmlTokenStream
+logStream.observe xmlBufferedStream
 
 charStream.start()
