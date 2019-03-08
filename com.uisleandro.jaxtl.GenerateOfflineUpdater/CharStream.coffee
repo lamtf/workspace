@@ -23,7 +23,7 @@ class CharStream
     @ob.push b
     return
 
-  run:()->
+  start:()->
     $this = @
     _stream = fs.createReadStream(@fileName, { highWaterMark: CHUNK_LENGTH })
     chunkNumber = 0
@@ -32,7 +32,7 @@ class CharStream
       chunkNumber++
       chunkIndex = 0
       if read
-        while chunkIndex < CHUNK_LENGTH
+        while typeof(chunk[chunkIndex]) isnt 'undefined' and chunkIndex < CHUNK_LENGTH
           $this.tell([READ, chunk[chunkIndex]])
           chunkIndex++
           # console.log(ByteToString(buffer))

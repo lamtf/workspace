@@ -7,8 +7,8 @@ EQ = "=".charCodeAt(0)
 SLASH = "/".charCodeAt(0)
 SPACE = " ".charCodeAt(0)
 TAB = "\t".charCodeAt(0)
-CR = "\r".charCodeAt(0)
-NL = "\n".charCodeAt(0)
+_R = "\r".charCodeAt(0)
+_N = "\n".charCodeAt(0)
 Q = "\'".charCodeAt(0)
 QQ = "\"".charCodeAt(0)
 
@@ -21,8 +21,8 @@ module.exports = {
   SLASH: SLASH
   SPACE: SPACE
   TAB: TAB
-  CR: CR
-  NL: NL
+  _R: _R
+  _N: _N
   Q: Q
   QQ: QQ
 }
