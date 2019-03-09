@@ -1,8 +1,10 @@
+{ DATA,EOF,LT,GT,EQ,SL,SP,TA,CR,LF,SQ,DQ,QM,CHa,CHz,CHA,CHZ } = require "./StateMachine"
+
 class XmlParser
 
   constructor:(@Id)->
     @observers = []
-    #console.log "new Instance of XmlParser", @Id
+    # console.log "new Instance of XmlParser", @Id
 
   newInstance:(id)->
     $new = new XmlParser(id)
@@ -22,26 +24,23 @@ class XmlParser
       return
     return
 
-  isOpeningTag = (x,i) ->
-    x[i] == '<' and ((x[i+1] >= 'a' and x[i+1] <= 'z') or (x[i+1] >= 'A' and x[i+1] <= 'Z'))
-  isClosingTag = (x,i) ->
-    x[i] == '<' and x[i+1] == '/'
-  isClosedTag = (x,i) ->
-    x[i] == '/' and x[i+1] == '>'
-
-  isOpenXmldef = (x,i) ->
-    x[i] is '<' and x[i+1] is '?'
-
-  isCloseXmldef = (x,i) ->
-    x[i] is '?' and x[i+1] is '>'
-
+  isOpeningTag = (x) ->
+    x[1][0] is LT and not x[1][1]
+  isClosingTag = (x) ->
+    x[1][0] is SL and x[1][1] is GT
+  isClosedTag = (x) ->
+    x[1][0] is LT and x[1][1] is SL
+  isOpenXmldef = (x) ->
+    x[1][0] is LT and x[1][1] is QM
+  isCloseXmldef = (x) ->
+    x[1][0] is QM and x[1][1] is GT
   isSpace = (x) ->
-    x is ' ' or x is '\r' or x is '\n' or x is '\t'
+    x[1][0] is SP or x[1][0] is CR or x[1][0] is LN or x[1][0] is TA
 
   getNextProperty = (x,i) ->
     n = ""
     v = ""
-    ### novo ###
+    # novo
     if not isSpace x[i]
       return null
     while(isSpace x[i])
@@ -88,7 +87,6 @@ class XmlParser
           return @properties[i].value
         i++
 
-
   add_children = (parent, child)->
     if parent?
       if not parent.children?
@@ -106,16 +104,37 @@ class XmlParser
       value : propertyValue
     element
 
+  # i want to process <b> various <b/> strings </b>
   parse : (x)->
     if x[0] isnt END_OF_FILE
+      # ignore spaces
+      if isSpace x
+        # do nothing
+        return
+      else if isOpenXmldef x
+        # do nothing
+        return
+      else if isCloseXmldef x
+        # do nothing
+        return
+      else if isOpeningTag x
+        # next time it will process the xmlTagName
+
+        # then it will process the properties
+        return
+      else if isClosedTag x
+        # remove it from the stack
+      else if isClosingTag x
+        # remove it from the stack
+        # after processing its name
+
+
+
 
     else
       @tell([END_OF_FILE, null])
 
-
-
-    if(x[0] is ' ' or ) return
-
+###
     result = null
     i = 0
     while(i < x.length)
@@ -131,12 +150,12 @@ class XmlParser
         if @Id is 2
           console.log @Id, "=>", @stack.peek()
         i = t.index
-        ### What is previously on the top be the parent of this new node ###
+        # What is previously on the top be the parent of this new node
 
         prop = getNextProperty x,i
 
         while(null isnt prop)
-          ### If i found a property id be inserting it here ###
+          # If i found a property id be inserting it here
           add_property @stack.peek(),prop.name,prop.value
 
           @tell {
@@ -147,17 +166,17 @@ class XmlParser
             value: prop.value
           }
 
-          ### @stack.peek()[prop.name]=prop.value ###
+          # @stack.peek()[prop.name]=prop.value
           i = prop.index
           prop = getNextProperty x,i
 
         while(x[i] == ' ')
           i++
 
-        ### nao conseguiu fechar o BR ###
+        # nao conseguiu fechar o BR
 
         if isClosedTag x,i
-          ### Add the actual node to the parent ###
+          # Add the actual node to the parent
           result = @stack.pop()
           i += 2
 
@@ -165,7 +184,7 @@ class XmlParser
         t = getTagName x,i+2
         i = t.index
         result = @stack.popcheck t.tagName
-        ### Add the actual node to the parent ###
+        # Add the actual node to the parent
       else
         while(x[i] is '/' or x[i] is '>' or isSpace x[i])
           i++
@@ -179,9 +198,11 @@ class XmlParser
             catch e
               console.log "ERROR", x
               throw e
-            ### add_property @stack.peek(),"innerText",text ###
+            # add_property @stack.peek(),"innerText",text
     return result
 
-### eu preciso ter properties like props = [{name: value}] ###
+###
+
+# eu preciso ter properties like props = [{name: value}]
 
 module.exports = XmlParser

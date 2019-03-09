@@ -1,6 +1,6 @@
 fs = require "fs"
 
-{ READ, END_OF_FILE, SLASH, LT, GT } = require "./StateMachine"
+{ DATA,EOF,LT,GT,EQ,SL,SP,TA,CR,LF,SQ,DQ,QM } = require "./StateMachine"
 
 class CharStream
   CHUNK_LENGTH = 0|0
@@ -33,7 +33,7 @@ class CharStream
       chunkIndex = 0
       if read
         while typeof(chunk[chunkIndex]) isnt 'undefined' and chunkIndex < CHUNK_LENGTH
-          $this.tell([READ, chunk[chunkIndex]])
+          $this.tell([DATA, chunk[chunkIndex]])
           chunkIndex++
           # console.log(ByteToString(buffer))
       _stream.resume()
@@ -42,7 +42,7 @@ class CharStream
       console.error err
 
     _stream.on 'end', ()->
-      $this.tell([END_OF_FILE, null])
+      $this.tell([EOF, null])
       #console.log "FIHISH READING", chunkNumber
     return
 
