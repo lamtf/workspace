@@ -11,6 +11,7 @@ _R = "\r".charCodeAt(0)
 _N = "\n".charCodeAt(0)
 Q = "\'".charCodeAt(0)
 QQ = "\"".charCodeAt(0)
+QM = "?".charCodeAt(0)
 
 module.exports = {
   READ: READ
@@ -25,4 +26,5 @@ module.exports = {
   _N: _N
   Q: Q
   QQ: QQ
+  QM: QM
 }

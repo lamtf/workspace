@@ -6,7 +6,7 @@ charStream = new CharStream("teste01.xml")
 xmlBufferedStream = new XmlBufferedStream()
 logStream = new LogStream()
 
-xmlTokenStream.observe charStream
+xmlBufferedStream.observe charStream
 logStream.observe xmlBufferedStream
 
 charStream.start()

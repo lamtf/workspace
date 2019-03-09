@@ -1,9 +1,13 @@
-{ READ, END_OF_FILE, LT, GT, EQ, SLASH, SPACE, TAB, _R, _N, Q, QQ } = require "./StateMachine"
+{ READ, END_OF_FILE, LT, GT, EQ, SLASH, SPACE, TAB, _R, _N, Q, QQ, QM } = require "./StateMachine"
 
 TAG_NAME = 0|0
 ATTRIB_NAME = 2|0
 ATTRIB_VALUE = 4|0
 TAG_TEXT = 8|0
+
+###
+  buffer do ['<','?'] e ['?','>']
+###
 
 class XmlBufferedStream
 
@@ -26,12 +30,8 @@ class XmlBufferedStream
   update:(args)->
     if args[0] is READ
       if @data isnt -1
-        if @data is LT and args[1] is SLASH
+        if @data is LT and (args[1] is SLASH or args[1] is QM) or args[1] is GT and (@data is SLASH or @data is QM)
           # console.log "start closing tag"
-          @tell([READ, [@data, args[1]]])
-          @data = -1
-        else if @data is SLASH and args[1] is GT
-          # console.log "send closed tag"
           @tell([READ, [@data, args[1]]])
           @data = -1
         else
@@ -42,6 +42,9 @@ class XmlBufferedStream
         # console.log "opening tag with attributes"
         @data = args[1]
       else if args[1] is SLASH
+        # console.log "send tag"
+        @data = args[1]
+      else if args[1] is QM
         # console.log "send tag"
         @data = args[1]
         # @status = TAG_TEXT
