@@ -1,5 +1,5 @@
-READ = 0|0
-END_OF_FILE = 0xFFFFFFFF|0
+DATA = 0|0
+EOF = 0xFFFFFFFF|0
 
 LT = "<".charCodeAt(0)
 GT = ">".charCodeAt(0)

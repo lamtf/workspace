@@ -1,12 +1,14 @@
 CharStream = require "./CharStream"
 XmlBufferedStream = require "./XmlBufferedStream"
 LogStream = require "./LogStream"
+pipe = require "./Pipe"
 
 charStream = new CharStream("teste01.xml")
 xmlBufferedStream = new XmlBufferedStream()
 logStream = new LogStream()
 
-xmlBufferedStream.observe charStream
-logStream.observe xmlBufferedStream
+pipe logStream,
+xmlBufferedStream,
+charStream
 
 charStream.start()

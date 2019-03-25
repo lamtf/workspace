@@ -1,4 +1,4 @@
-{ READ, END_OF_FILE, LT, GT, EQ, SLASH, SPACE, TAB, _R, _N, Q, QQ } = require "./StateMachine"
+{ DATA,EOF,LT,GT,EQ,SL,SP,TA,CR,LF,SQ,DQ,QM } = require "./StateMachine"
 
 TAG_NAME = 0|0
 ATTRIB_NAME = 2|0
@@ -28,7 +28,10 @@ class XmlTokenStream
     return
 
   update:(args)->
-    if args[0] is READ
+    ###
+    if args[0] is DATA
+      console.log args
+    ###
 
 
 module.exports = XmlTokenStream
