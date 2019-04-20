@@ -5,22 +5,34 @@ ATTRIB_NAME = 2|0
 ATTRIB_VALUE = 4|0
 TAG_TEXT = 8|0
 
+EMPTY = 0
+
 ###
-  buffer do ['<','?'] e ['?','>']
+  [ ['<','?'],['?','>'],['<','/'],['/','>'] ]
+  <?xml version="1.0" encoding="utf-8" ?>
+  <html>
+    <head>
+      <title>Teste</title>
+    </head>
+  <body>
+    <br />
+    <div class="teste">Hello <i>Brazil</i></div>
+  </body>
+  </html>
+
 ###
 
 class XmlBufferedStream
 
   constructor:()->
-    @data = -1
+    @data = EMPTY
     @ob = []
-    @status = TAG_NAME
 
   observe:(source)->
     source.addObserver @
 
   tell:(a)->
-    @ob.forEach((x)-> x.update(a))
+    @ob.forEach (x)-> x.update(a)
     return
 
   addObserver:(b)->
@@ -29,14 +41,13 @@ class XmlBufferedStream
 
   update:(args)->
     if args[0] is DATA
-      if @data isnt -1
+      if @data isnt EMPTY
         if @data is LT and (args[1] is SL or args[1] is QM) or args[1] is GT and (@data is SL or @data is QM)
-          # console.log "start closing tag"
           @tell([DATA, [@data, args[1]]])
-          @data = -1
+          @data = EMPTY
         else
           @tell([DATA, [@data]])
-          @data = -1
+          @data = EMPTY
           @tell([DATA, [args[1]]])
       else if args[1] is LT
         # console.log "opening tag with attributes"
@@ -51,10 +62,9 @@ class XmlBufferedStream
       else
         @tell([DATA, [args[1]]])
     else #EOF
-      if @data isnt -1
-        @tell([EOF, [@data]])
-        @data = -1
-      else
-        @tell([EOF, null])
+      if @data isnt EMPTY
+        @tell([DATA, [@data]])
+        @data = EMPTY
+      @tell([EOF, null])
 
 module.exports = XmlBufferedStream
