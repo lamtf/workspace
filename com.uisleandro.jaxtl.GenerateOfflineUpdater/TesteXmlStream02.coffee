@@ -11,7 +11,6 @@ logStream = new LogStream()
 
 pipe logStream,
 xmlTokenStream,
-xmlBufferedStream,
 charStream
 
 charStream.start()

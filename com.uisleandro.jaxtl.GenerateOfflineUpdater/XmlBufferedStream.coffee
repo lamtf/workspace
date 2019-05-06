@@ -9,11 +9,13 @@ EMPTY = 0
 
 ###
   [ ['<','?'],['?','>'],['<','/'],['/','>'] ]
+  new: ['<','!','-','-'],['-','-','>']
   <?xml version="1.0" encoding="utf-8" ?>
   <html>
     <head>
       <title>Teste</title>
     </head>
+    <!-- COMMENT -->
   <body>
     <br />
     <div class="teste">Hello <i>Brazil</i></div>

@@ -16,7 +16,11 @@ CHa = "a".charCodeAt(0)
 CHz = "z".charCodeAt(0)
 CHA = "A".charCodeAt(0)
 CHZ = "Z".charCodeAt(0)
-
+CH0 = "0".charCodeAt(0)
+CH9 = "9".charCodeAt(0)
+U_ = "_".charCodeAt(0)
+DOTS = ":".charCodeAt(0)
+EXC = "!".charCodeAt(0)
 
 module.exports = {
   DATA: DATA
@@ -36,4 +40,9 @@ module.exports = {
   CHz: CHz
   CHA: CHA
   CHZ: CHZ
+  CH0: CH0
+  CH9: CH9
+  U_: U_
+  DOTS: DOTS
+  EXC: EXC
 }
