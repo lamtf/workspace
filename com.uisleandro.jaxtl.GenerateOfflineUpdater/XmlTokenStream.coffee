@@ -82,8 +82,19 @@ class XmlTokenStream
         return
       if @data.length is 0
         @data[0] = args[1]
+        return
       else if @data.length is 1
-        if @data[0] is LT
+        if IS_CHARACTER @data[0]
+          # segundo caractere
+          if IS_CHARACTER args[1]
+            @data.push args[1]
+            return
+          else
+            @tell TAG_NAME, @data.map((x)->)
+            @data = EMPTY_ARRAY.slice 0
+            @data[0] = args[1]
+            return;
+        else if @data[0] is LT
           # console.log "<"+ String.fromCharCode args[1]
           if args[1] is QM
             @status = OPENING_XML_PAYLOAD_TAG
@@ -111,31 +122,21 @@ class XmlTokenStream
         else if @data[0] is QM and args[1] is GT
             @tell CLOSING_XML_PAYLOAD_TAG, null
             @data = EMPTY_ARRAY.slice 0
-          else if @data[0] is SL
+        else if @data[0] is SL
             @tell CLOSING_XML_TAG, null
             @data = EMPTY_ARRAY.slice 0
-          else
+        else
             # TODO: possible unused code??
             console.log "POSSIBLE UNUSED CODE NEAR #{String.fromCharCode(@data[0])}>"
             @tell CLOSING_XML_TAG, null
-        else if IS_CHARACTER @data[0]
-          # segundo caractere
-          if IS_CHARACTER args[1]
-            @data.push args[1]
-            return
-          else
-            @tell TAG_NAME, null
-        else # LENGTH IS 
-          # console.log "empty data NOLT", String.fromCharCode(@data[0]), String.fromCharCode(args[1])
-          @data = EMPTY_ARRAY.slice 0
-          # adiciona < ou /
-          # TODO saber o que quebra o token em cada caso
-          @data[0] = args[1]
-      # data.length > 1
+      else
+        @data = EMPTY_ARRAY.slice 0
+        # adiciona < ou /
+        # TODO saber o que quebra o token em cada caso
+        @data[0] = args[1]
 
 
-
-      ###
+          ###
       if @data.length is 1
         console.log("1")
         if @data[0] is LT
