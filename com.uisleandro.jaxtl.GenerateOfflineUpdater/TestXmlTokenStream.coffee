@@ -15,9 +15,12 @@ class MemoryCharStream
     @i = 0
   update:(s)->
     @tell(s)
-  start:()->
-    @update(@data[@i].charCodeAt(0))
-    @i = @i + 1
+  start:(n)->
+    x = 0
+    while x < n
+      @update(@data[@i].charCodeAt(0))
+      @i = @i + 1
+      x++
 
 memoryCharStream = new MemoryCharStream("""
 <?xml version="1.0" encoding="UTF-8"?>
@@ -32,7 +35,7 @@ class ExpectedResultStream
     new Observable(@)
     @stream = stream
   expect:(@expected)->
-    @stream.start()
+    @stream.start(2)
   update:(s)->
     if s isnt @expected
       throw "Error: Expecting #{@expected} but got #{s}"
