@@ -78,19 +78,22 @@ class XmlTokenStream
   # TODO XML comments
   update:(args)->
     if args[0] is DATA
-      if IGNORE_SPACE(@status) and IS_SPACE(args[1])
-        return
+      #if IGNORE_SPACE(@status) and IS_SPACE(args[1])
+      #  return
       if @data.length is 0
         @data[0] = args[1]
         return
       else if @data.length is 1
         if IS_CHARACTER @data[0]
-          # segundo caractere
+          # console.log "segundo caractere"
           if IS_CHARACTER args[1]
             @data.push args[1]
             return
           else
-            @tell TAG_NAME, @data.map((x)->)
+            @status = TAG_NAME
+            @tell [TAG_NAME, @data]
+            # something is wrong
+            console.log String.fromCharCode @data
             @data = EMPTY_ARRAY.slice 0
             @data[0] = args[1]
             return;
@@ -98,20 +101,20 @@ class XmlTokenStream
           # console.log "<"+ String.fromCharCode args[1]
           if args[1] is QM
             @status = OPENING_XML_PAYLOAD_TAG
-            @tell(@status, null)
+            @tell [@status, null]
             # console.log "empty data 1"
             @data = EMPTY_ARRAY.slice 0
             return
           else if args[1] is SL
             @status = CLOSED_XML_TAG
-            @tell(@status, null)
+            @tell [@status, null]
             # console.log "empty data 2"
             @data = EMPTY_ARRAY.slice 0
             return
           else
             # Do not consumes.. So some 'TELLs' consumes and another don't
             @status = OPENING_XML_TAG
-            @tell(@status, null)
+            @tell [@status, null]
             @data = EMPTY_ARRAY.slice 0
             @data[0] = args[1]
             return
@@ -120,15 +123,15 @@ class XmlTokenStream
             # console.log String.fromCharCode args[1]
             # console.log "empty data 3"
         else if @data[0] is QM and args[1] is GT
-            @tell CLOSING_XML_PAYLOAD_TAG, null
+            @tell [CLOSING_XML_PAYLOAD_TAG, null]
             @data = EMPTY_ARRAY.slice 0
         else if @data[0] is SL
-            @tell CLOSING_XML_TAG, null
+            @tell [CLOSING_XML_TAG, null]
             @data = EMPTY_ARRAY.slice 0
         else
             # TODO: possible unused code??
             console.log "POSSIBLE UNUSED CODE NEAR #{String.fromCharCode(@data[0])}>"
-            @tell CLOSING_XML_TAG, null
+            @tell [CLOSING_XML_TAG, null]
       else
         @data = EMPTY_ARRAY.slice 0
         # adiciona < ou /

@@ -69,10 +69,10 @@ class ExpectedResultStream
   update:(s)->
     @changed = true
     @i = @i - 1
-    if s isnt @expected
+    if s[0] isnt @expected
       throw "Error: Expecting #{@expected} but got #{s}"
     else
-      console.log "Passed"
+      console.log "Passed #{s}"
   expectChange:()->
 
 
@@ -81,4 +81,4 @@ expected = new ExpectedResultStream memoryCharStream
 pipe expected, xmlTokenStream, memoryCharStream
 
 expected.expect 2, OPENING_XML_PAYLOAD_TAG
-expected.expect 3, TAG_NAME
+expected.expect 4, TAG_NAME
