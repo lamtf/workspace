@@ -8,6 +8,8 @@ Observable = require "./Observable"
 DATA = 0|0
 EOF = 0xFFFFFFFF|0
 
+NOTHING = 0
+
 OPENING_XML_PAYLOAD_TAG = 1 #
 CLOSING_XML_PAYLOAD_TAG = 2 #
 
@@ -41,14 +43,15 @@ class MemoryCharStream
   start:(n)->
     x = 0
     while x < n
-      @update @data[@i].charCodeAt 0
+      s = @data[@i].charCodeAt 0
+      @update s
       @i = @i + 1
       x = x + 1
 
 # what about <secao><![CDATA[<sexo>Feminino</sexo>]]><secao> ???
 
 memoryCharStream = new MemoryCharStream("""
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version = "1.0" encoding="UTF-8"?>
 <root>
   <!-- this is a comment -->
   <contact name="name" address="address"/>
@@ -56,23 +59,47 @@ memoryCharStream = new MemoryCharStream("""
 </root>
 """)
 
+str = (s)->
+  if(s) and typeof(s) isnt "string" and s.length > 0
+    val = s.map((x)->String.fromCharCode x).join('')
+    return val
+  else
+    return s
+
 class ExpectedResultStream
   constructor:(stream)->
     new Observable @
     @stream = stream
-    @i = 0
+    @queue = []
+  testQueue:()->
+    if @expected is NOTHING
+      return
+    if @queue.length is 0
+      throw "Error: No data"
+    else if @queue[0][0] isnt @expected
+      throw "Error: Expecting #{@expected} but got #{@queue[0][0]} #{str @queue[0][1]}"
+    else
+      console.log "Passed #{@queue[0][0]} #{str @queue[0][1]}"
+    @queue = @queue.slice 1, @queue.length
   expect:(n, @expected)->
+    if n is 0
+      @testQueue()
+      return
     @stream.start n
-    if !@changed
+    if @expected isnt NOTHING and !@changed
       throw "Error: Nothing happend"
+    if @expected is NOTHING
+      if @changed
+       throw "Error: Expecting NOTHING"
+      console.log "Passed, NO RESULTS"
     @changed = false
   update:(s)->
-    @changed = true
-    @i = @i - 1
-    if s[0] isnt @expected
-      throw "Error: Expecting #{@expected} but got #{s}"
-    else
-      console.log "Passed #{s}"
+    @queue.push s
+    if !@changed
+      @changed = true
+      @testQueue()
+
+
   expectChange:()->
 
 
@@ -80,5 +107,12 @@ expected = new ExpectedResultStream memoryCharStream
 
 pipe expected, xmlTokenStream, memoryCharStream
 
-expected.expect 2, OPENING_XML_PAYLOAD_TAG
-expected.expect 4, TAG_NAME
+expected.expect 5, OPENING_XML_PAYLOAD_TAG
+expected.expect 9, ATTR_NAME
+expected.expect 7, DOUBLE_QUOTED_ATTR_VALUE
+expected.expect 10, ATTR_NAME
+expected.expect 7, DOUBLE_QUOTED_ATTR_VALUE
+expected.expect 2, CLOSING_XML_PAYLOAD_TAG
+expected.expect 7, OPENING_XML_TAG
+expected.expect 0, CLOSING_XML_TAG
+expected.expect 32, NOTHING

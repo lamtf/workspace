@@ -22,6 +22,21 @@ U_ = "_".charCodeAt(0)
 DOTS = ":".charCodeAt(0)
 EXC = "!".charCodeAt(0)
 
+CHx = "x".charCodeAt(0)
+CHm = "m".charCodeAt(0)
+CHl = "l".charCodeAt(0)
+CHX = "X".charCodeAt(0)
+CHM = "M".charCodeAt(0)
+CHL = "L".charCodeAt(0)
+MINUS = "-".charCodeAt(0)
+
+CHC = "C".charCodeAt(0)
+CHD = "D".charCodeAt(0)
+CHT = "T".charCodeAt(0)
+
+OPEN_BRACKET = "[".charCodeAt(0)
+CLOSE_BRACKET = "]".charCodeAt(0)
+
 module.exports = {
   DATA: DATA
   EOF: EOF
@@ -45,4 +60,16 @@ module.exports = {
   U_: U_
   DOTS: DOTS
   EXC: EXC
+  CHx: CHx
+  CHm: CHm
+  CHl: CHl
+  CHX: CHX
+  CHM: CHM
+  CHL: CHL
+  MINUS: MINUS
+  CHC: CHC
+  CHD: CHD
+  CHT: CHT
+  OPEN_BRACKET: OPEN_BRACKET
+  CLOSE_BRACKET: CLOSE_BRACKET
 }
