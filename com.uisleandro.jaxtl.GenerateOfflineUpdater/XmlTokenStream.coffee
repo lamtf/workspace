@@ -22,11 +22,11 @@
 ###
 
 ###
-XML_DOCUMENT = (OPENING_XML_PAYLOAD_TAG){0,1} MAYBE_OPENING_XML_TAG{1,*}
+XML_DOCUMENT = (OPENING_XML_PAYLOAD_TAG){0,1} OPENING_XML_OR_PAYLOAD_OR_COMMENT{1,*}
 
 OPENING_XML_PAYLOAD_TAG -> '<?xml' (ATTR_NAME)+ | '?>'
 
-MAYBE_OPENING_XML_TAG -> '<' TAG_NAME | '?>'
+OPENING_XML_OR_PAYLOAD_OR_COMMENT -> '<' TAG_NAME | '?>'
 
 TAG_NAME -> (ATTR_NAME){1,*}
 ATTR_NAME -> ATTR_VALUE
@@ -61,14 +61,15 @@ END_XML_COMMENT = 13 # ?????????????? -->
 IGNORE_SPACES = 14
 
 ATTR_VALUE = 15
-MAYBE_OPENING_XML_TAG = 16
+OPENING_XML_OR_PAYLOAD_OR_COMMENT = 16
 
 COMMENT_OR_CDATA = 17
-MAYBE_COMMENT = 18
+BEGIN_XML_COMMENT_EXPECT_MINUS = 18
 
-MAYBE_CLOSE_COMMENT1 = 19
-MAYBE_CLOSE_COMMENT2 = 20
+END_XML_COMMENT_EXPECT_MINUS = 19
+END_XML_COMMENT_EXPECT_GT = 20
 
+READY_FOR_ATTRIBUTE = 21
 
 
 IGNORE_SPACE = (s)->
@@ -129,6 +130,7 @@ class XmlTokenStream
 
   # the next state will be ATTR_VALUE
   handleAttrName:(args)->
+    console.log "handleAttrName()"
     if IS_ALPHA_NUM_DOTS_U args[1]
       @data.push args[1]
       return
@@ -138,42 +140,63 @@ class XmlTokenStream
       if not IS_SPACE args[1]
         @update args
 
+  handleOpenXmlTag:(args)->
+    console.log "handleOpenXmlTag()"
+    if args[1] is GT
+      @emmitEvent @data
+      @emptyData()
+      @status = CLOSING_XML_TAG
+      @emmitEvent null
+      @emptyData()
+      # console.log "StatusChange 002"
+    else if IS_ALPHA_NUM_DOTS_U args[1]
+      @data.push args[1]
+    else
+      @emmitEvent @data
+      @emptyData()
+      @status = READY_FOR_ATTRIBUTE
+      # console.log "StatusChange 001"
+
+  handleXmlCommend:()->
+    return
+
   # TODO XML comments
   update:(args)->
     console.log "ch2 '#{str @data}','#{String.fromCharCode(args[1])}'"
+    console.log "STATUS #{@status}"
     if args[0] is DATA
-      #if IGNORE_SPACE(@status) and IS_SPACE(args[1])
-      #  return
-      if @status is MAYBE_CLOSE_COMMENT2
+      if (@status is READY_FOR_ATTRIBUTE) and (IS_CHARACTER args[1])
+        console.log "READY_FOR_ATTRIBUTE"
+        @status = ATTR_NAME
+        @data.push args[1]
+      else if @status is END_XML_COMMENT_EXPECT_GT
+        console.log "END_XML_COMMENT_EXPECT_GT"
         if args[1] is GT
           @status = END_XML_COMMENT
-      else if @status is MAYBE_CLOSE_COMMENT1
+      else if @status is END_XML_COMMENT_EXPECT_MINUS
+        console.log "END_XML_COMMENT_EXPECT_MINUS"
         if args[1] is MINUS
-          @status = MAYBE_CLOSE_COMMENT2
+          @status = END_XML_COMMENT_EXPECT_GT
       else if @status is BEGIN_XML_COMMENT
-        #console.log "BEGIN_XML_COMMENT"
+        console.log "BEGIN_XML_COMMENT"
         if args[1] is MINUS
-          @status = MAYBE_CLOSE_COMMENT1
-      else if @status is MAYBE_COMMENT
-        console.log "MAYBE_COMMENT"
+          @status = END_XML_COMMENT_EXPECT_MINUS
+      else if @status is BEGIN_XML_COMMENT_EXPECT_MINUS
+        console.log "BEGIN_XML_COMMENT_EXPECT_MINUS"
         if args[1] is MINUS
+          console.log "BEGIN_XML_COMMENT"
           @status = BEGIN_XML_COMMENT
           @emptyDataKeepStatus()
+
       else if @status is COMMENT_OR_CDATA
         console.log "COMMENT_OR_CDATA"
         if args[1] is MINUS
-          @status = MAYBE_COMMENT
+          @status = BEGIN_XML_COMMENT_EXPECT_MINUS
+        else if args[1] is OPEN_BRACKET
+          @status = CDATA_EXPECT_C
       else if @status is OPENING_XML_TAG
         console.log "OPENING_XML_TAG"
-        if IS_ALPHA_NUM_DOTS_U args[1]
-          @data.push args[1]
-        else
-          @emmitEvent @data
-          @emptyData()
-          if args[1] is GT
-            @status = CLOSING_XML_TAG
-            @emmitEvent null
-            @emptyData()
+        @handleOpenXmlTag(args)
       else if @status is CLOSING_XML_PAYLOAD_TAG
         console.log "CLOSING_XML_PAYLOAD_TAG"
         if args[1] is GT
@@ -182,6 +205,7 @@ class XmlTokenStream
           console.log "status ="+ @status
           return
       else if @status is DOUBLE_QUOTED_ATTR_VALUE
+        console.log "DOUBLE_QUOTED_ATTR_VALUE"
         if args[1] isnt DQ
           @data.push args[1]
         else
@@ -190,6 +214,7 @@ class XmlTokenStream
           @status = ATTR_NAME
         return
       else if @status is OPENING_XML_PAYLOAD_TAG
+        console.log "OPENING_XML_PAYLOAD_TAG"
         if @data.length is 2
           if (args[1] is CHx) or (args[1] is CHX)
             @data.push CHx
@@ -207,15 +232,18 @@ class XmlTokenStream
             @emmitEvent null
             @emptyData()
             #expected to be
-            @status = ATTR_NAME
+            @status = READY_FOR_ATTRIBUTE
+            console.log "READY_FOR_ATTRIBUTE"
             return
           else
             throw "error parsing OPENING_XML_PAYLOAD_TAG, expecting 'l' but got '#{String.fromCharCode args[1]}'"
       else if @data.length > 1
         if @status is ATTR_NAME
+          console.log("ATTR_NAME", "len", @data.length)
           @handleAttrName args
       else if @data.length is 1
-        if @status is MAYBE_OPENING_XML_TAG
+        if @status is OPENING_XML_OR_PAYLOAD_OR_COMMENT
+          console.log "OPENING_XML_OR_PAYLOAD_OR_COMMENT"
           if args[1] is QM
             @status = OPENING_XML_PAYLOAD_TAG
             @data[1] = args[1]
@@ -230,14 +258,15 @@ class XmlTokenStream
         else if @status is ATTR_NAME
           @handleAttrName args
       else if @data.length is 0
+        console.log "EMPTY_DATA"
         if IS_SPACE args[1]
-          console.log "EMPTY_DATA IGNORE_SPACE"
+          console.log "IGNORE_SPACE"
           return
         else if (args[1] is DQ) and (@status is ATTR_VALUE)
           @status = DOUBLE_QUOTED_ATTR_VALUE
         else if args[1] is LT
-          @status = MAYBE_OPENING_XML_TAG
-          console.log "MAYBE_OPENING_XML_TAG"
+          @status = OPENING_XML_OR_PAYLOAD_OR_COMMENT
+          console.log "OPENING_XML_OR_PAYLOAD_OR_COMMENT"
           @data[0] = args[1]
         else if args[1] is EQ
           @status = ATTR_VALUE
@@ -245,6 +274,10 @@ class XmlTokenStream
           @status = CLOSING_XML_PAYLOAD_TAG
         else if IS_CHARACTER args[1]
           if @status is ATTR_NAME
+            @data[0] = args[1]
+          else
+            # em qual estado eu tenho que estar?
+            @status = ATTR_NAME
             @data[0] = args[1]
           return
         else
@@ -311,7 +344,7 @@ class XmlTokenStream
             return
           else
             # Do not consumes.. So some 'TELLs' consumes and another don't
-            @status = MAYBE_OPENING_XML_TAG
+            @status = OPENING_XML_OR_PAYLOAD_OR_COMMENT
             @emmitEvent null
             @resetData args
             return
@@ -349,7 +382,7 @@ class XmlTokenStream
             @data = EMPTY_ARRAY
           else
             # I must delay it if i find a commenet
-            tell(MAYBE_OPENING_XML_TAG, null)
+            tell(OPENING_XML_OR_PAYLOAD_OR_COMMENT, null)
             @data[0] = args[1]
         else if args[1] is GT
             if @data[0] is QM

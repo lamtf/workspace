@@ -48,13 +48,12 @@ class MemoryCharStream
       @i = @i + 1
       x = x + 1
 
-# what about <secao><![CDATA[<sexo>Feminino</sexo>]]><secao> ???
-
 memoryCharStream = new MemoryCharStream("""
 <?xml version = "1.0" encoding="UTF-8"?>
 <root>
   <!-- this is a comment -->
   <contact name="name" address="address"/>
+  <![CDATA[<sexo>Feminino</sexo>]]>
   <hastext>text <div>another</div> and another</hastext>
 </root>
 """)
@@ -116,3 +115,9 @@ expected.expect 2, CLOSING_XML_PAYLOAD_TAG
 expected.expect 7, OPENING_XML_TAG
 expected.expect 0, CLOSING_XML_TAG
 expected.expect 32, NOTHING
+expected.expect 9, OPENING_XML_TAG
+expected.expect 5, ATTR_NAME
+###
+
+
+###
