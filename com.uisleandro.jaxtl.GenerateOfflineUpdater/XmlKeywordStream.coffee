@@ -32,7 +32,7 @@ EMPTY = []
 str = (x)->
   x.map((y)-> String.fromCharCode y).join("")
 
-class XmlBufferedStream
+class XmlKeywordStream
 
   constructor:()->
     @data = EMPTY.slice(0)
@@ -167,4 +167,4 @@ class XmlBufferedStream
         @data = EMPTY.slice(0)
       @tell([EOF, null])
 
-module.exports = XmlBufferedStream
+module.exports = XmlKeywordStream

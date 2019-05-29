@@ -1,5 +1,5 @@
 CharStream = require "./CharStream"
-XmlBufferedStream = require "./XmlBufferedStream"
+XmlKeywordStream = require "./XmlKeywordStream"
 LogStream = require "./LogStream"
 XmlTokenStream = require "./XmlTokenStream"
 pipe = require "./Pipe"
@@ -30,7 +30,7 @@ CHILD_TEXT = 11
 BEGIN_XML_COMMENT = 12 # ????????????? <!--
 END_XML_COMMENT = 13 # ?????????????? -->
 
-#xmlBufferedStream = new XmlBufferedStream()
+#xmlKeywordStream = new XmlKeywordStream()
 xmlTokenStream = new XmlTokenStream()
 logStream = new LogStream()
 
