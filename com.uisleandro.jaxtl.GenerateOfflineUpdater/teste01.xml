@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <root>
   <contact name="name" address="address"/>
+  <!-- comment -->
   <hastext>text <div>another</div> and another</hastext>
+  <test><![CDATA[ <xml /> ]]></test>
 </root>

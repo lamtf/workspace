@@ -157,12 +157,12 @@ class XmlTokenStream
       @status = READY_FOR_ATTRIBUTE
       # console.log "StatusChange 001"
 
-  handleXmlCommend:()->
+  handleXmlComment:()->
     return
 
   # TODO XML comments
   update:(args)->
-    console.log "ch2 '#{str @data}','#{String.fromCharCode(args[1])}'"
+    console.log "ch2 '#{str @data}', '#{String.fromCharCode(args[1])}'"
     console.log "STATUS #{@status}"
     if args[0] is DATA
       if (@status is READY_FOR_ATTRIBUTE) and (IS_CHARACTER args[1])
@@ -187,7 +187,6 @@ class XmlTokenStream
           console.log "BEGIN_XML_COMMENT"
           @status = BEGIN_XML_COMMENT
           @emptyDataKeepStatus()
-
       else if @status is COMMENT_OR_CDATA
         console.log "COMMENT_OR_CDATA"
         if args[1] is MINUS
@@ -285,9 +284,6 @@ class XmlTokenStream
           throw "Error ????"
           return
     return
-
-
-
 
         ###
         else if IS_CHARACTER args[1]
