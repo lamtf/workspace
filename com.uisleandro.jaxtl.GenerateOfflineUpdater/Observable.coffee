@@ -4,6 +4,7 @@ class Observable
     obj.observe = @.observe
     obj.tell = @.tell
     obj.addObserver = @.addObserver
+    # console.log obj.type
 
   observe:(source)->
     source.addObserver @

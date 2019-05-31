@@ -2,6 +2,7 @@
   CHx, CHm, CHl, CHX, CHM, CHL, MINUS, OPEN_BRACKET, CLOSE_BRACKET, CHC, CHD, CHT
    } = require "./StateMachine"
 
+Observable = require "./Observable"
 
 
 TAG_NAME = 0|0
@@ -32,22 +33,22 @@ EMPTY = []
 str = (x)->
   x.map((y)-> String.fromCharCode y).join("")
 
+###
+this class groups some keywords
+so it will be easier to identify them
+in general keywords are next to some xml data
+its used to identify tag-names, the header and
+attribute names, attribute values, comments and cdata
+the inner-text will be identified as well by
+the position they assume, relative to these
+so called keywords
+###
 class XmlKeywordStream
 
   constructor:()->
     @data = EMPTY.slice(0)
-    @ob = EMPTY.slice(0)
-
-  observe:(source)->
-    source.addObserver @
-
-  tell:(a)->
-    @ob.forEach (x)-> x.update(a)
-    return
-
-  addObserver:(b)->
-    @ob.push b
-    return
+    @type = "XmlKeywordStream"
+    new Observable @
 
   flushData:()->
     $this = @
