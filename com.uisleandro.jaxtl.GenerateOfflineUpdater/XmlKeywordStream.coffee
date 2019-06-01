@@ -180,7 +180,7 @@ class XmlKeywordStream
           @tell [SEND_DATA, [args[1]]]
     else
       if @data.length > 0
-        @tell [SEND_DATA, [@data[0]]]
+        @flushData()
         @data = EMPTY.slice(0)
       @tell [SEND_END_OF_FILE, null]
 
