@@ -57,11 +57,17 @@ class XmlKeywordStream
     @data = EMPTY.slice(0)
     @type = "XmlKeywordStream"
     new Observable @
+    @logall = false
 
   flushData:()->
+    console.log "flushData()"
     $this = @
+    if @logall
+      console.log "d=", str(@data), @data
+      console.log arguments[0]
     @data.forEach (d)-> $this.tell [SEND_DATA, [d]]
     @data = EMPTY.slice(0)
+
 
   update:(args)->
     if args[0] is SEND_DATA
@@ -73,6 +79,7 @@ class XmlKeywordStream
           @data = EMPTY.slice(0)
         else
           @flushData()
+          console.log "flush 81"
           # nao sei como vai ser usado
           @data.push args[1]
       else if @data.length == 7
@@ -85,6 +92,7 @@ class XmlKeywordStream
           @data.push CHAR_CODE_T
         else
           @flushData()
+          console.log "flush 93"
           # nao sei como vai ser usado
           @data.push args[1]
       else if @data.length == 5
@@ -93,51 +101,66 @@ class XmlKeywordStream
           @data.push CHAR_CODE_A
         else
           @flushData()
+          console.log "flush 101"
           # nao sei como vai ser usado
           @data.push args[1]
       else if @data.length == 4
-        if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_QUESTION_MARK and @data[2] is CHAR_CODE_x and @data[3] is CHAR_CODE_m and (args[1] is CHAR_CODE_L or args[1] is CHAR_CODE_l)
+        #if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_QUESTION_MARK and @data[2] is CHAR_CODE_x and @data[3] is CHAR_CODE_m and (args[1] is CHAR_CODE_L or args[1] is CHAR_CODE_l)
+        if @data[3] is CHAR_CODE_m and (args[1] is CHAR_CODE_L or args[1] is CHAR_CODE_l)
           @data.push CHAR_CODE_l
           @tell [SEND_DATA, @data]
           @data = EMPTY.slice(0)
-        else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_EXCLAMATION_POINT and @data[2] is CHAR_CODE_OPEN_SQUARE_BRACES and @data[3] is CHAR_CODE_C and args[1] is CHAR_CODE_D
+        #else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_EXCLAMATION_POINT and @data[2] is CHAR_CODE_OPEN_SQUARE_BRACES and @data[3] is CHAR_CODE_C and args[1] is CHAR_CODE_D
+        else if @data[3] is CHAR_CODE_C and args[1] is CHAR_CODE_D
           @data.push CHAR_CODE_D
         else
           @flushData()
+          console.log "flush 144"
           # nao sei como vai ser usado
           @data.push args[1]
       else if @data.length == 3
-        if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_EXCLAMATION_POINT and @data[2] is CHAR_CODE_OPEN_SQUARE_BRACES and args[1] is CHAR_CODE_C
+        #if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_EXCLAMATION_POINT and @data[2] is CHAR_CODE_OPEN_SQUARE_BRACES and args[1] is CHAR_CODE_C
+        if @data[2] is CHAR_CODE_OPEN_SQUARE_BRACES and args[1] is CHAR_CODE_C
           @data.push CHAR_CODE_C
-        else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_EXCLAMATION_POINT and @data[2] is CHAR_CODE_MUNIS
+        #else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_EXCLAMATION_POINT and @data[2] is CHAR_CODE_MUNIS
+        else if @data[2] is CHAR_CODE_MUNIS
           if args[1] is CHAR_CODE_MUNIS
-            @data.push args[1]
+            @data.push CHAR_CODE_MUNIS
             @tell [SEND_DATA, @data]
             @data = EMPTY.slice(0)
-        else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_QUESTION_MARK and @data[2] is CHAR_CODE_x and (args[1] is CHAR_CODE_M or args[1] is CHAR_CODE_m)
+        #else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_QUESTION_MARK and @data[2] is CHAR_CODE_x and (args[1] is CHAR_CODE_M or args[1] is CHAR_CODE_m)
+        else if @data[2] is CHAR_CODE_x and (args[1] is CHAR_CODE_M or args[1] is CHAR_CODE_m)
           @data.push CHAR_CODE_m
         else
           @flushData()
           # nao sei como vai ser usado
           @data.push args[1]
       else if @data.length == 2
-        if @data[0] is CHAR_CODE_CLOSE_SQUARE_BRACES and @data[0] is CHAR_CODE_CLOSE_SQUARE_BRACES and args[1] is CHAR_CODE_GREATHER_THAN
+        #if @data[0] is CHAR_CODE_CLOSE_SQUARE_BRACES and @data[1] is CHAR_CODE_CLOSE_SQUARE_BRACES and args[1] is CHAR_CODE_GREATHER_THAN
+        if @data[1] is CHAR_CODE_CLOSE_SQUARE_BRACES and args[1] is CHAR_CODE_GREATHER_THAN
           @data.push args[1]
           @tell [SEND_DATA, @data]
           @data = EMPTY.slice(0)
-        if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_EXCLAMATION_POINT
+          console.log "what happend", @data.length, str @data
+          @logall = true
+        #else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_EXCLAMATION_POINT
+        else if @data[1] is CHAR_CODE_EXCLAMATION_POINT
           if args[1] is CHAR_CODE_OPEN_SQUARE_BRACES
-            @data.push args[1]
+            @data.push CHAR_CODE_OPEN_SQUARE_BRACES
           else if args[1] is CHAR_CODE_MUNIS
-            @data.push args[1]
-        else if @data[0] is CHAR_CODE_MUNIS and @data[1] is CHAR_CODE_MUNIS and args[1] is CHAR_CODE_GREATHER_THAN
+            @data.push CHAR_CODE_MUNIS
+        #else if @data[0] is CHAR_CODE_MUNIS and @data[1] is CHAR_CODE_MUNIS and args[1] is CHAR_CODE_GREATHER_THAN
+        else if @data[1] is CHAR_CODE_MUNIS and args[1] is CHAR_CODE_GREATHER_THAN
           @data.push args[1]
           @tell [SEND_DATA, @data]
           @data = EMPTY.slice(0)
-        else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_QUESTION_MARK and (args[1] is CHAR_CODE_X or args[1] is CHAR_CODE_x)
+          return
+        #else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_QUESTION_MARK and (args[1] is CHAR_CODE_X or args[1] is CHAR_CODE_x)
+        else if @data[1] is CHAR_CODE_QUESTION_MARK and (args[1] is CHAR_CODE_X or args[1] is CHAR_CODE_x)
           @data.push CHAR_CODE_x
         else
           @flushData()
+          console.log "flush 164"
           # nao sei como vai ser usado
           @data.push args[1]
       else if @data.length == 1
@@ -162,6 +185,9 @@ class XmlKeywordStream
         else if args[1] is CHAR_CODE_LOWER_THAN
           # console.log "opening tag with attributes"
           @data.push args[1]
+        else if args[1] is CHAR_CODE_GREATHER_THAN
+          @tell [SEND_DATA, [args[1]]]
+          @data = EMPTY.slice(0)
         else if args[1] is CHAR_CODE_SLASH
           # console.log "send tag"
           @data.push args[1]
