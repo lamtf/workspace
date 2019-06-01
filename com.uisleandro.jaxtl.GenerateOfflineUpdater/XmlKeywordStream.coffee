@@ -21,8 +21,6 @@ TAG_TEXT = 8|0
 EMPTY = []
 
 ###
-  [ ['<','?'],['?','>'],['<','/'],['/','>'] ]
-  new: ['<','!','-','-'],['-','-','>']
   <?xml version="1.0" encoding="utf-8" ?>
   <html>
     <head>
@@ -31,11 +29,10 @@ EMPTY = []
     <!-- COMMENT -->
   <body>
     <br />
-    <div><![CSEND_DATA[<sexo>Feminino</sexo>]]></div>
+    <div><![CDATA[<sexo>Feminino</sexo>]]></div>
     <div class="teste">Hello <i>Brazil</i></div>
   </body>
   </html>
-
 ###
 
 str = (x)->
@@ -57,17 +54,11 @@ class XmlKeywordStream
     @data = EMPTY.slice(0)
     @type = "XmlKeywordStream"
     new Observable @
-    @logall = false
 
   flushData:()->
-    console.log "flushData()"
     $this = @
-    if @logall
-      console.log "d=", str(@data), @data
-      console.log arguments[0]
     @data.forEach (d)-> $this.tell [SEND_DATA, [d]]
     @data = EMPTY.slice(0)
-
 
   update:(args)->
     if args[0] is SEND_DATA
@@ -79,7 +70,6 @@ class XmlKeywordStream
           @data = EMPTY.slice(0)
         else
           @flushData()
-          console.log "flush 81"
           # nao sei como vai ser usado
           @data.push args[1]
       else if @data.length == 7
@@ -92,7 +82,6 @@ class XmlKeywordStream
           @data.push CHAR_CODE_T
         else
           @flushData()
-          console.log "flush 93"
           # nao sei como vai ser usado
           @data.push args[1]
       else if @data.length == 5
@@ -101,7 +90,6 @@ class XmlKeywordStream
           @data.push CHAR_CODE_A
         else
           @flushData()
-          console.log "flush 101"
           # nao sei como vai ser usado
           @data.push args[1]
       else if @data.length == 4
@@ -115,7 +103,6 @@ class XmlKeywordStream
           @data.push CHAR_CODE_D
         else
           @flushData()
-          console.log "flush 144"
           # nao sei como vai ser usado
           @data.push args[1]
       else if @data.length == 3
@@ -141,8 +128,6 @@ class XmlKeywordStream
           @data.push args[1]
           @tell [SEND_DATA, @data]
           @data = EMPTY.slice(0)
-          console.log "what happend", @data.length, str @data
-          @logall = true
         #else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_EXCLAMATION_POINT
         else if @data[1] is CHAR_CODE_EXCLAMATION_POINT
           if args[1] is CHAR_CODE_OPEN_SQUARE_BRACES
@@ -160,7 +145,6 @@ class XmlKeywordStream
           @data.push CHAR_CODE_x
         else
           @flushData()
-          console.log "flush 164"
           # nao sei como vai ser usado
           @data.push args[1]
       else if @data.length == 1
