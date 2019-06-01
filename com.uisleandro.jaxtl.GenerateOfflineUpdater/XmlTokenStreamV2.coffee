@@ -10,14 +10,17 @@ CHAR_CODE_EQUAL,CHAR_CODE_TAB,CHAR_CODE_CARRIAGE_RETURN,
 CHAR_CODE_LINE_FEED,CHAR_CODE_SPACE,CHAR_CODE_SINGLE_QUOTE,
 CHAR_CODE_DOUBLE_QUOTE,SEND_DATA,SEND_END_OF_FILE} = require './constants'
 
+{EMPTY_STATUS,OPENING_PAYLOAD,CLOSING_PAYLOAD,CLOSED_TAG,
+OPENING_TAG,CLOSING_TAG,OPENING_COMMENT,CLOSING_COMMENT,
+OPENING_CDATA,CLOSING_CDATA,TAG_NAME,ATTRIBUTE_NAME,
+ATTRIBUTE_VALUE,SINGLE_QUOTED_ATTRIBUTE_VALUE,
+DOUBLE_QUOTED_ATTRIBUTE_VALUE,TAG_CONTENTS} = require './states'
+
 Observable = require "./Observable"
 
+EMPTY = []
+
 ###
-
-  CH0, CH9, UNL, DT
-
-  [ ['<','?'],['?','>'],['<','/'],['/','>'] ]
-  new: ['<','!','-','-'],['-','-','>']
   <?xml version="1.0" encoding="utf-8" ?>
   <html>
     <head>
@@ -32,74 +35,24 @@ Observable = require "./Observable"
 
 ###
 
-###
-XML_DOCUMENT = (OPENING_XML_PAYLOAD_TAG){0,1} OPENING_XML_OR_PAYLOAD_OR_COMMENT{1,*}
-
-OPENING_XML_PAYLOAD_TAG -> '<?xml' (ATTR_NAME)+ | '?>'
-
-OPENING_XML_OR_PAYLOAD_OR_COMMENT -> '<' TAG_NAME | '?>'
-
-TAG_NAME -> (ATTR_NAME){1,*}
-ATTR_NAME -> ATTR_VALUE
-
-###
-
-
-EMPTY_ARRAY = []
-
-EMPTY_STATUS = 0
-
-OPENING_XML_PAYLOAD_TAG = 1 #
-CLOSING_XML_PAYLOAD_TAG = 2 #
-
-OPENING_XML_TAG = 3 #
-CLOSING_XML_TAG = 4
-
-CLOSED_XML_TAG = 5 #
-
-TAG_NAME = 6
-TAG_SPACE = 7
-ATTR_NAME = 8
-
-SINGLE_QUOTED_ATTR_VALUE = 9
-DOUBLE_QUOTED_ATTR_VALUE = 10
-
-CHILD_TEXT = 11
-
-BEGIN_XML_COMMENT = 12 # ????????????? <!--
-END_XML_COMMENT = 13 # ?????????????? -->
-
-IGNORE_SPACES = 14
-
-ATTR_VALUE = 15
-OPENING_XML_OR_PAYLOAD_OR_COMMENT = 16
-
-COMMENT_OR_CDATA = 17
-BEGIN_XML_COMMENT_EXPECT_MINUS = 18
-
-END_XML_COMMENT_EXPECT_MINUS = 19
-END_XML_COMMENT_EXPECT_GT = 20
-
-READY_FOR_ATTRIBUTE = 21
-
 
 IGNORE_SPACE = (s)->
   s isnt SINGLE_QUOTED_ATTR_VALUE and s isnt DOUBLE_QUOTED_ATTR_VALUE
 
 IS_SPACE = (s)->
-  return s is SP or s is TA or s is CR or s is LF
+  return (s is CHAR_CODE_SPACE or
+  s is CHAR_CODE_TAB or
+  s is CHAR_CODE_CARRIAGE_RETURN or
+  s is CHAR_CODE_LINE_FEED)
 
 IS_CHARACTER = (s)->
-  return (s >= CHA and s <= CHZ) or (s >= CHa and s <= CHz)
+  return (s >= CHAR_CODE_A and s <= CHAR_CODE_Z) or (s >= CHAR_CODE_a and s <= CHAR_CODE_z)
 
 IS_NUMERIC = (s)->
-  return (s >= CH0 and s <= CH9)
+  return (s >= CHAR_CODE_9 and s <= CHAR_CODE_9)
 
 IS_ALPHA_NUM_DOTS_U = (s)->
-  return IS_NUMERIC(s) or IS_CHARACTER(s) or (s is U_) or (s is DOTS)
-
-IS_PARSEABLE = (s)->
-  return (s is LT) or (s is SL)
+  return IS_NUMERIC(s) or IS_CHARACTER(s) or (s is CHAR_CODE_UNDERSCORE) or (s is CHAR_CODE_COLON) or (s is CHAR_CODE_PERIOD)
 
 str = (s)->
   if s isnt null and typeof(s) isnt "string" and s.length > 0
@@ -111,14 +64,37 @@ str = (s)->
 class XmlTokenStreamV2
 
   constructor:()->
-    @data = EMPTY_ARRAY.slice 0
+    @data = EMPTY.slice 0
     @ob = []
     @status = EMPTY_STATUS
     @type = "XmlTokenStreamV2"
     new Observable @
 
   update:(args)->
-    console.log args
+    v = args[1]
+    if v.length is 9
+      console.log "OPENING_CDATA", OPENING_CDATA, str v
+    else if v.length is 5
+      console.log "OPENING_PAYLOAD", OPENING_PAYLOAD, str v
+    else if v.length is 4
+      console.log "OPENING_COMMENT", OPENING_COMMENT, str v
+    else if v.length is 3
+      if v[0] is CHAR_CODE_CLOSE_SQUARE_BRACES
+        console.log "CLOSING_CDATA", CLOSING_CDATA, str v
+      else
+        console.log "CLOSING_COMMENT", CLOSING_COMMENT, str v
+    else if v.length is 2
+      if v[0] is CHAR_CODE_SLASH
+        console.log "CLOSING_TAG", CLOSING_TAG, str v
+      if v[1] is CHAR_CODE_SLASH
+        console.log "CLOSED_TAG", CLOSED_TAG, str v
+    else if v.length is 1
+      if v[0] is CHAR_CODE_LOWER_THAN
+        console.log "OPENING_TAG", OPENING_TAG, str v
+      else if v[0] is CHAR_CODE_GREATHER_THAN
+        console.log "CLOSING_TAG", CLOSING_TAG, str v
+      else if v[0] is CHAR_CODE_EQUAL
+        console.log "ATTRIBUTE_VALUE", ATTRIBUTE_VALUE, str v
 
 
 module.exports = XmlTokenStreamV2
