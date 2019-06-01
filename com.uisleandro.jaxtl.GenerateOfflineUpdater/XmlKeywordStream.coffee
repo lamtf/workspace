@@ -12,12 +12,6 @@ CHAR_CODE_DOUBLE_QUOTE,SEND_DATA,SEND_END_OF_FILE} = require './constants'
 
 Observable = require "./Observable"
 
-
-TAG_NAME = 0|0
-ATTRIB_NAME = 2|0
-ATTRIB_VALUE = 4|0
-TAG_TEXT = 8|0
-
 EMPTY = []
 
 ###
