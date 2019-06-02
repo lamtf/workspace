@@ -10,11 +10,11 @@ CHAR_CODE_EQUAL,CHAR_CODE_TAB,CHAR_CODE_CARRIAGE_RETURN,
 CHAR_CODE_LINE_FEED,CHAR_CODE_SPACE,CHAR_CODE_SINGLE_QUOTE,
 CHAR_CODE_DOUBLE_QUOTE,SEND_DATA,SEND_END_OF_FILE} = require './constants'
 
-{EMPTY_STATUS,OPENING_PAYLOAD,CLOSING_PAYLOAD,CLOSED_TAG,
-OPENING_TAG,CLOSING_TAG,OPENING_COMMENT,CLOSING_COMMENT,
-OPENING_CDATA,CLOSING_CDATA,TAG_NAME,ATTRIBUTE_NAME,
-ATTRIBUTE_VALUE,SINGLE_QUOTED_ATTRIBUTE_VALUE,
-DOUBLE_QUOTED_ATTRIBUTE_VALUE,TAG_CONTENTS} = require './states'
+{EMPTY_STATUS,OPENING_PAYLOAD,XML_HEAD,CLOSING_PAYLOAD,CLOSED_TAG,
+OPENING_TAG,OPENING_TAG,CLOSING_TAG,OPENING_COMMENT,
+CLOSING_COMMENT,OPENING_CDATA,CLOSING_CDATA,TAG_NAME,
+ATTRIBUTE_NAME,ATTRIBUTE_VALUE,SINGLE_QUOTED_ATTRIBUTE_VALUE,
+DOUBLE_QUOTED_ATTRIBUTE_VALUE,TAG_HEAD,TAG_CONTENTS,END_TAG} = require './states'
 
 Observable = require "./Observable"
 
@@ -45,14 +45,14 @@ IS_SPACE = (s)->
   s is CHAR_CODE_CARRIAGE_RETURN or
   s is CHAR_CODE_LINE_FEED)
 
-IS_CHARACTER = (s)->
+IS_TAGNAME_PREFIX = (s)->
   return (s >= CHAR_CODE_A and s <= CHAR_CODE_Z) or (s >= CHAR_CODE_a and s <= CHAR_CODE_z)
 
 IS_NUMERIC = (s)->
   return (s >= CHAR_CODE_9 and s <= CHAR_CODE_9)
 
-IS_ALPHA_NUM_DOTS_U = (s)->
-  return IS_NUMERIC(s) or IS_CHARACTER(s) or (s is CHAR_CODE_UNDERSCORE) or (s is CHAR_CODE_COLON) or (s is CHAR_CODE_PERIOD)
+IS_TAGNAME_SUFIX = (s)->
+  return IS_NUMERIC(s) or IS_TAGNAME_PREFIX(s) or (s is CHAR_CODE_UNDERSCORE) or (s is CHAR_CODE_COLON) or (s is CHAR_CODE_PERIOD)
 
 str = (s)->
   if s isnt null and typeof(s) isnt "string" and s.length > 0
@@ -71,30 +71,124 @@ class XmlTokenStreamV2
     new Observable @
 
   update:(args)->
+    $this = @
     v = args[1]
-    if v.length is 9
+    if @status is XML_HEAD
+      if v.length is 2 and v[0] is CHAR_CODE_QUESTION_MARK
+        @status = CLOSING_PAYLOAD
+        console.log "CLOSING_PAYLOAD", CLOSING_PAYLOAD, str v
+      else
+        console.log "XML_HEAD", str v
+    else if @status is TAG_HEAD
+      if v.length is 1 and v[0] is CHAR_CODE_GREATHER_THAN
+        @status = END_TAG
+        console.log "END_TAG", str v
+      if v[0] is CHAR_CODE_SLASH
+        @status = CLOSED_TAG  #<<<< />
+        console.log "CLOSED_TAG", CLOSED_TAG, str v
+      else
+        console.log "TAG_HEAD", str v
+    else if @status is OPENING_TAG
+      if @data.length is 0
+        if IS_TAGNAME_PREFIX v[0]
+          @data.push v[0]
+        else
+          console.log "ERROR???", '"',str(v),'"'
+      else
+        if IS_TAGNAME_SUFIX v[0]
+          @data.push v[0]
+        else if v[0] is CHAR_CODE_GREATHER_THAN
+          console.log "OPENING_TAG", str @data
+          @data = EMPTY.slice 0
+          @status = END_TAG
+        else
+          console.log "OPENING_TAG", str @data
+          @data = EMPTY.slice 0
+          @status = TAG_HEAD
+    else if @status is CLOSING_TAG
+      if @data.length is 0
+        if IS_TAGNAME_PREFIX v[0]
+          @data.push v[0]
+        else
+          console.log "ERROR???", '"',str(v),'"'
+      else
+        if IS_TAGNAME_SUFIX v[0]
+          @data.push v[0]
+        else if v[0] is CHAR_CODE_GREATHER_THAN
+          console.log "CLOSING_TAG", str @data
+          @data = EMPTY.slice 0
+          @status = END_TAG
+    else if @status is OPENING_COMMENT
+      # console.log "only treats the CLOSING_COMMENT, and return"
+      if v.length is 3 and v[2] is CHAR_CODE_GREATHER_THAN
+        @status = CLOSING_COMMENT
+        console.log "CLOSING_COMMENT", CLOSING_COMMENT, str v
+      return
+    else if @status is OPENING_CDATA
+      #console.log "only treats CLOSING_CDATA, and return"
+      if v.length is 3 and v[0] is CHAR_CODE_CLOSE_SQUARE_BRACES
+        @status = CLOSING_CDATA
+        console.log str(@data)
+        console.log "CLOSING_CDATA", CLOSING_CDATA, str v
+        @data = EMPTY.slice 0
+      else
+        v.forEach (x)-> $this.data.push x
+      return
+    else if v.length is 9 # and v[8] is CHAR_CODE_OPEN_SQUARE_BRACES
+      @status = OPENING_CDATA
       console.log "OPENING_CDATA", OPENING_CDATA, str v
-    else if v.length is 5
+    else if v.length is 5 # and v[4] is CHAR_CODE_l
       console.log "OPENING_PAYLOAD", OPENING_PAYLOAD, str v
-    else if v.length is 4
+      @status = XML_HEAD
+    else if v.length is 4 # and v[3] is CHAR_CODE_MUNIS
+      @status = OPENING_COMMENT
       console.log "OPENING_COMMENT", OPENING_COMMENT, str v
+    ###
     else if v.length is 3
       if v[0] is CHAR_CODE_CLOSE_SQUARE_BRACES
+        @status = CLOSING_CDATA
         console.log "CLOSING_CDATA", CLOSING_CDATA, str v
-      else
+      else if v[2] is CHAR_CODE_GREATHER_THAN
+        @status = CLOSING_COMMENT
         console.log "CLOSING_COMMENT", CLOSING_COMMENT, str v
+      # else console.log "XmlTokenStreamV2::errorParsing", str v
+    ###
     else if v.length is 2
       if v[0] is CHAR_CODE_SLASH
+        @status = CLOSED_TAG  #<<<< />
+        console.log "CLOSED_TAG v2", CLOSED_TAG, str v
+      ###
+      else if v[0] is CHAR_CODE_QUESTION_MARK
+        @status = CLOSING_PAYLOAD
+        console.log "CLOSING_PAYLOAD", CLOSING_PAYLOAD, str v
+      ###
+      else if v[1] is CHAR_CODE_SLASH
+        @status = CLOSING_TAG
         console.log "CLOSING_TAG", CLOSING_TAG, str v
-      if v[1] is CHAR_CODE_SLASH
-        console.log "CLOSED_TAG", CLOSED_TAG, str v
     else if v.length is 1
       if v[0] is CHAR_CODE_LOWER_THAN
+        @status = OPENING_TAG
         console.log "OPENING_TAG", OPENING_TAG, str v
       else if v[0] is CHAR_CODE_GREATHER_THAN
-        console.log "CLOSING_TAG", CLOSING_TAG, str v
+        if @status is OPENING_TAG or @status is CLOSED_TAG
+          console.log "TAG_NAME", str @data
+          @data = EMPTY.slice 0
+        @status = END_TAG # <<< I need different names, like end_opening_tag
+        console.log "END_TAG", END_TAG, str v
+        # tag contents??
       else if v[0] is CHAR_CODE_EQUAL
+        @status = ATTRIBUTE_VALUE
         console.log "ATTRIBUTE_VALUE", ATTRIBUTE_VALUE, str v
+      else
+        if @status is OPENING_TAG
+          console.log "TAG", str V
+        else if IS_SPACE v[0]
+          console.log "SPACE"
+        else
+          console.log "TAG_CONTENTS", TAG_CONTENTS, v, str v
+          # I should treat here the tag contents
+    # else console.log "ERROR???", str v
+
 
 
 module.exports = XmlTokenStreamV2
