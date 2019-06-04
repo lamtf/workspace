@@ -24,9 +24,14 @@ states = [
 console.log "module.exports = {"
 i = 0
 while i < states.length
-  console.log "  #{states[i]}: #{i}"
+  console.log "  #{states[i]}: 0x#{(1<<(i)>>1).toString(16)}"
   i++
 
+console.log "  MASK: 0xFFFFFFFF"
+
 console.log "}"
+
+
+states.push "MASK"
 
 console.log "# {#{states.join(",")}} = require './states'"
