@@ -5,7 +5,7 @@ CHAR_CODE_m,CHAR_CODE_l,CHAR_CODE_z,CHAR_CODE_SLASH,
 CHAR_CODE_LOWER_THAN,CHAR_CODE_GREATHER_THAN,
 CHAR_CODE_OPEN_SQUARE_BRACES,CHAR_CODE_CLOSE_SQUARE_BRACES,
 CHAR_CODE_COLON,CHAR_CODE_PERIOD,CHAR_CODE_QUESTION_MARK,
-CHAR_CODE_EXCLAMATION_POINT,CHAR_CODE_UNDERSCORE,CHAR_CODE_MUNIS,
+CHAR_CODE_EXCLAMATION_POINT,CHAR_CODE_UNDERSCORE,CHAR_CODE_MINUS,
 CHAR_CODE_EQUAL,CHAR_CODE_TAB,CHAR_CODE_CARRIAGE_RETURN,
 CHAR_CODE_LINE_FEED,CHAR_CODE_SPACE,CHAR_CODE_SINGLE_QUOTE,
 CHAR_CODE_DOUBLE_QUOTE,SEND_DATA,SEND_END_OF_FILE} = require './constants'
@@ -103,10 +103,10 @@ class XmlKeywordStream
         #if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_EXCLAMATION_POINT and @data[2] is CHAR_CODE_OPEN_SQUARE_BRACES and args[1] is CHAR_CODE_C
         if @data[2] is CHAR_CODE_OPEN_SQUARE_BRACES and args[1] is CHAR_CODE_C
           @data.push CHAR_CODE_C
-        #else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_EXCLAMATION_POINT and @data[2] is CHAR_CODE_MUNIS
-        else if @data[2] is CHAR_CODE_MUNIS
-          if args[1] is CHAR_CODE_MUNIS
-            @data.push CHAR_CODE_MUNIS
+        #else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_EXCLAMATION_POINT and @data[2] is CHAR_CODE_MINUS
+        else if @data[2] is CHAR_CODE_MINUS
+          if args[1] is CHAR_CODE_MINUS
+            @data.push CHAR_CODE_MINUS
             @tell [SEND_DATA, @data]
             @data = EMPTY.slice(0)
         #else if @data[0] is CHAR_CODE_LOWER_THAN and @data[1] is CHAR_CODE_QUESTION_MARK and @data[2] is CHAR_CODE_x and (args[1] is CHAR_CODE_M or args[1] is CHAR_CODE_m)
@@ -126,10 +126,10 @@ class XmlKeywordStream
         else if @data[1] is CHAR_CODE_EXCLAMATION_POINT
           if args[1] is CHAR_CODE_OPEN_SQUARE_BRACES
             @data.push CHAR_CODE_OPEN_SQUARE_BRACES
-          else if args[1] is CHAR_CODE_MUNIS
-            @data.push CHAR_CODE_MUNIS
-        #else if @data[0] is CHAR_CODE_MUNIS and @data[1] is CHAR_CODE_MUNIS and args[1] is CHAR_CODE_GREATHER_THAN
-        else if @data[1] is CHAR_CODE_MUNIS and args[1] is CHAR_CODE_GREATHER_THAN
+          else if args[1] is CHAR_CODE_MINUS
+            @data.push CHAR_CODE_MINUS
+        #else if @data[0] is CHAR_CODE_MINUS and @data[1] is CHAR_CODE_MINUS and args[1] is CHAR_CODE_GREATHER_THAN
+        else if @data[1] is CHAR_CODE_MINUS and args[1] is CHAR_CODE_GREATHER_THAN
           @data.push args[1]
           @tell [SEND_DATA, @data]
           @data = EMPTY.slice(0)
@@ -144,7 +144,7 @@ class XmlKeywordStream
       else if @data.length == 1
         if @data[0] is CHAR_CODE_CLOSE_SQUARE_BRACES and args[1] is CHAR_CODE_CLOSE_SQUARE_BRACES
           @data.push args[1]
-        else if @data[0] is CHAR_CODE_MUNIS and args[1] is CHAR_CODE_MUNIS
+        else if @data[0] is CHAR_CODE_MINUS and args[1] is CHAR_CODE_MINUS
           @data.push args[1]
         else if @data[0] is CHAR_CODE_LOWER_THAN and args[1] is CHAR_CODE_EXCLAMATION_POINT
           @data.push args[1]
@@ -158,7 +158,7 @@ class XmlKeywordStream
           @data = EMPTY.slice(0)
           @tell [SEND_DATA, [args[1]]]
       else if @data.length == 0
-        if args[1] is CHAR_CODE_MUNIS
+        if args[1] is CHAR_CODE_MINUS
           @data.push args[1]
         else if args[1] is CHAR_CODE_LOWER_THAN
           # console.log "opening tag with attributes"

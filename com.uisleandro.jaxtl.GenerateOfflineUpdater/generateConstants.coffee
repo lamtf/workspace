@@ -23,7 +23,7 @@ charName=(c)->
   else if c is "_"
     return "UNDERSCORE"
   else if c is "-"
-    return "MUNIS"
+    return "MINUS"
   else if c is "="
     return "EQUAL"
   else if c is "\t"
