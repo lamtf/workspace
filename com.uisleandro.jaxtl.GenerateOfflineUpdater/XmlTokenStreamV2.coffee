@@ -131,7 +131,7 @@ class XmlTokenStreamV2
       else
         console.log "TAG_CONTENTS", str v
     else if @status & TAG_HEAD_OR_FOOTER
-      console.log("TAG_HEAD_OR_FOOTER")
+      # sconsole.log "TAG_HEAD_OR_FOOTER", str v
       if IS_TAGNAME_PREFIX v[0]
         @data.push v[0]
         @status = @status | TAG_NAME
@@ -143,19 +143,19 @@ class XmlTokenStreamV2
       else if v.length is 5 and v[2] is CHAR_CODE_x
         console.log '<?xml'
         @status = @status | OPENING_PAYLOAD
-        console.log("OPENING_PAYLOAD")
+        #console.log("OPENING_PAYLOAD")
       else if v.length is 4 and v[2] is CHAR_CODE_MINUS
         console.log "<!--"
         @status = @status | OPENING_COMMENT
-        console.log("OPENING_COMMENT")
+        #console.log("OPENING_COMMENT")
       else if v.length is 2 and v[0] is CHAR_CODE_LOWER_THAN
         console.log "</"
         @status = @status | CLOSED_TAG
-        console.log("CLOSED_TAG")
+        #console.log("CLOSED_TAG")
       else if v.length is 1 and v[0] is CHAR_CODE_LOWER_THAN
         console.log "<"
         @status = @status | TAG_HEAD_OR_FOOTER
-        console.log("TAG_HEAD_OR_FOOTER2")
+        #console.log("TAG_HEAD_OR_FOOTER2")
 
 
     ###
