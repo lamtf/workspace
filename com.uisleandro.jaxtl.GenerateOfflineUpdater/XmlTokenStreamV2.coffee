@@ -47,13 +47,13 @@ isSpace = (s)->
   s is CHAR_CODE_LINE_FEED)
 
 isPrefix = (s)->
-  return (s >= CHAR_CODE_A and s <= CHAR_CODE_Z) or (s >= CHAR_CODE_a and s <= CHAR_CODE_z)
+  return (s >= CHAR_CODE_A and s <= CHAR_CODE_Z) or (s >= CHAR_CODE_a and s <= CHAR_CODE_z) or (s is CHAR_CODE_UNDERSCORE)
 
 isNumber = (s)->
   return (s >= CHAR_CODE_9 and s <= CHAR_CODE_9)
 
 isSufix = (s)->
-  return isNumber(s) or isPrefix(s) or (s is CHAR_CODE_UNDERSCORE) or (s is CHAR_CODE_COLON) or (s is CHAR_CODE_PERIOD)
+  return isNumber(s) or isPrefix(s) or (s is CHAR_CODE_COLON) or (s is CHAR_CODE_PERIOD)
 
 str = (s)->
   if s isnt null and typeof(s) isnt "string" and s.length > 0
@@ -74,9 +74,10 @@ class XmlTokenStreamV2
     @type = "XmlTokenStreamV2"
     new Observable @
 
-  flushData:()->
-    console.log str @data
-    @data = EMPTY.slice 0
+  flushData:(s)->
+    if @data.length > 0
+      console.log s, str @data
+      @data = EMPTY.slice 0
 
   # I must not change the state if its closing
   update:(args)->
@@ -89,7 +90,7 @@ class XmlTokenStreamV2
           @data[@data.length-1] = v[0]
           return
         else
-          @flushData()
+          @flushData("VAL")
           @status = @status & (DOUBLE_QUOTTED^MASK)
           return
       else
@@ -101,7 +102,7 @@ class XmlTokenStreamV2
           @data[@data.length-1] = v[0]
           return
         else
-          @flushData()
+          @flushData("VAL")
           @status = @status & (SINGLE_QUOTTED^MASK)
           return
       else
@@ -123,7 +124,7 @@ class XmlTokenStreamV2
         @status = (@status & (SPACE1^MASK)) | SPACE2
         return
       else if isPrefix v[0]
-        @flushData()
+        @flushData("ATTR?")
         @data.push v[0]
         @status = (@status & (SPACE1^MASK)) | BEGIN_ATTRIBUTE
         return
@@ -134,11 +135,11 @@ class XmlTokenStreamV2
         @data.push v[0]
         return
       else if isSpace v[0]
-        @flushData()
+        @flushData("ATTR 1")
         @status = (@status & (BEGIN_ATTRIBUTE^MASK)) | SPACE1
         return
       else if v[0] is CHAR_CODE_EQUAL
-        @flushData()
+        @flushData("ATTR 2")
         @status = (@status & (BEGIN_ATTRIBUTE^MASK)) | SPACE2
         return
     else if @status & READY_FOR_ATTR
@@ -155,18 +156,18 @@ class XmlTokenStreamV2
     ###
     if @status & BEGIN_CDATA
       if v.length is 3 and v[0] is CHAR_CODE_CLOSE_SQUARE_BRACES
-        @flushData()
-        console.log "]]>"
+        @flushData("CDATA")
+        #console.log "]]>"
         @status = @status & (BEGIN_CDATA^MASK)
       else
         @data.push v[0]
     else if @status & COMMENT
       if v.length is 3 and v[0] is CHAR_CODE_MINUS
-        console.log "-->"
+        #console.log "-->"
         @status = @status & (COMMENT^MASK)
     else if @status & BEGIN_PAYLOAD
       if v.length is 2 and v[0] is CHAR_CODE_QUESTION_MARK
-        console.log "?>"
+        #console.log "?>"
         @status = @status & (BEGIN_PAYLOAD^MASK)
       else
         if isSpace v[0]
@@ -177,35 +178,50 @@ class XmlTokenStreamV2
       else if isSufix v[0] and @data.length > 0
         @data.push v[0]
       else if v.length is 2 and v[0] is CHAR_CODE_SLASH
-        console.log "/>"
+        #console.log "/>"
+        @flushData("END_TAG2")
         @status = @status & (TAG_HEAD^MASK)
-        console.log "TAG_FOOTER"
-        @flushData()
       else if v.length is 1 and v[0] is CHAR_CODE_GREATHER_THAN
-        console.log ">"
+        #console.log ">"
+        @flushData("TAG_HEAD")
         @status = @status & (TAG_HEAD^MASK)
-        console.log "TAG_HEAD"
-        @flushData()
       else
-        console.log "?2", str v
+        if isSpace v[0]
+          @flushData("TAG_HEAD")
+          @status = @status | READY_FOR_ATTR
+    else if @status & ENDING_TAG
+      if isPrefix v[0]
+        @data.push v[0]
+      else if isSufix v[0] and @data.length > 0
+        @data.push v[0]
+      else if v[0] is CHAR_CODE_GREATHER_THAN
+        #console.log ">"
+        @flushData("END_TAG")
+        @status = @status & (ENDING_TAG^MASK)
+      else
+        return
     else
       if v.length is 9 and v[2] is CHAR_CODE_OPEN_SQUARE_BRACES
-        console.log '<![CDATA['
+        #console.log '<![CDATA['
         @status = @status | BEGIN_CDATA
       else if v.length is 5 and v[2] is CHAR_CODE_x
-        console.log '<?xml'
+        #console.log '<?xml'
         @status = @status | BEGIN_PAYLOAD
       else if v.length is 4 and v[2] is CHAR_CODE_MINUS
-        console.log "<!--"
+        #console.log "<!--"
         @status = @status | COMMENT
       else if v.length is 2 and v[0] is CHAR_CODE_LOWER_THAN
-        console.log "</"
+        @flushData("DATA")
+        #console.log "</"
         @status = @status | ENDING_TAG
       else if v.length is 1 and v[0] is CHAR_CODE_LOWER_THAN
-        console.log "<"
+        @flushData("DATA")
+        #console.log "<"
         @status = @status | TAG_HEAD
-
-
-
+      else if @data.length is 0
+        if not isSpace v[0]
+          @data.push v[0]
+      else if @data.length > 0
+        @data.push v[0]
 
 module.exports = XmlTokenStreamV2

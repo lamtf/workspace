@@ -50,6 +50,9 @@ memoryCharStream = new MemoryCharStream("""
 <?xml version = "1.0" encoding="UTF-8"?>
 <root>
   <!-- this is a comment -->
+  <br/>
+  <li supported></li><!-- this one did not pass -->
+  <li supported enabled="1"></li>
   <contact name="name" address="address"/>
   <![CDATA[<sexo>Feminino</sexo>]]>
   <hastext>text <div>another</div> and another</hastext>
