@@ -63,7 +63,7 @@ str = (s)->
 
 b = (s)->
   return s.toString('2')
-
+# TODO: BACKSLASH IN CDATA
 class XmlTokenStreamV2
 
   constructor:()->
@@ -160,7 +160,7 @@ class XmlTokenStreamV2
         #console.log "]]>"
         @status = @status & (BEGIN_CDATA^MASK)
       else
-        @data.push v[0]
+        v.forEach (x)-> @data.push x
     else if @status & COMMENT
       if v.length is 3 and v[0] is CHAR_CODE_MINUS
         #console.log "-->"
