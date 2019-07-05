@@ -142,6 +142,9 @@ class XmlTokenStreamV2
         @flushData("ATTR 2")
         @status = (@status & (BEGIN_ATTRIBUTE^MASK)) | SPACE2
         return
+      else
+        @flushData("ATTR 0")
+        @status = (@status & (BEGIN_ATTRIBUTE^MASK))
     else if @status & READY_FOR_ATTR
       if isPrefix v[0]
         @data.push v[0]

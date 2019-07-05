@@ -52,6 +52,7 @@ memoryCharStream = new MemoryCharStream("""
   <!-- this is a comment -->
   <br/>
   <li supported></li><!-- this one did not pass -->
+  <li supported ></li>
   <li supported enabled="1"></li>
   <contact name="name" address="address"/>
   <![CDATA[<sexo>Feminino</sexo>]]>
