@@ -64,6 +64,7 @@ str = (s)->
 b = (s)->
   return s.toString('2')
 # TODO: BACKSLASH IN CDATA
+# MY CDATA WOULD FAIL IF IT HAS ANOTHER CDATA INSIDE, BECAUSE IT WILL NOT STACK CDATA
 class XmlTokenStreamV2
 
   constructor:()->
