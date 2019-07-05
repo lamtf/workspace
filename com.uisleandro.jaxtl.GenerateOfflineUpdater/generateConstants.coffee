@@ -4,6 +4,8 @@ console.log "module.exports = {"
 charName=(c)->
   if c is "/"
     return "SLASH"
+  if c is "\\"
+    return "BACK_SLASH"
   else if c is "<"
     return "LOWER_THAN"
   else if c is ">"
@@ -43,7 +45,7 @@ charName=(c)->
 
 
 i = 0
-constants = ['0','9','C','D','A','T','X','M','L','Z','c','d','a','t','x','m','l','z','/','<','>','[',']',':','.','?','!','_','-','=','\t','\r','\n',' ','\'','"']
+constants = ['0','9','C','D','A','T','X','M','L','Z','c','d','a','t','x','m','l','z','/','\\','<','>','[',']',':','.','?','!','_','-','=','\t','\r','\n',' ','\'','"']
 constantNames = constants.map (c)-> "CHAR_CODE_#{charName(c)}"
 constantValues = constants.map (c)-> c.charCodeAt(0)
 

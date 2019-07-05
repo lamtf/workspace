@@ -54,11 +54,15 @@ memoryCharStream = new MemoryCharStream("""
   <li supported></li><!-- this one did not pass -->
   <li supported ></li>
   <li supported enabled="1"></li>
-  <contact name="name" address="address"/>
+  <contact name="Contact \\" Name" address='Contact Address'/>
   <![CDATA[<sexo>Feminino</sexo>]]>
-  <hastext>text <div>another</div> and another</hastext>
+  <hastext>text \\"hahaha<div>another</div> and another</hastext>
 </root>
 """)
+
+# error In Contact \" Name
+# I must send two characters everytime i found \
+# then threat it
 
 str = (s)->
   if(s) and typeof(s) isnt "string" and s.length > 0

@@ -1,12 +1,11 @@
 {CHAR_CODE_0,CHAR_CODE_9,CHAR_CODE_C,CHAR_CODE_D,CHAR_CODE_A,
 CHAR_CODE_T,CHAR_CODE_X,CHAR_CODE_M,CHAR_CODE_L,CHAR_CODE_Z,
 CHAR_CODE_c,CHAR_CODE_d,CHAR_CODE_a,CHAR_CODE_t,CHAR_CODE_x,
-CHAR_CODE_m,CHAR_CODE_l,CHAR_CODE_z,CHAR_CODE_SLASH,
-CHAR_CODE_LOWER_THAN,CHAR_CODE_GREATHER_THAN,
-CHAR_CODE_OPEN_SQUARE_BRACES,CHAR_CODE_CLOSE_SQUARE_BRACES,
-CHAR_CODE_COLON,CHAR_CODE_PERIOD,CHAR_CODE_QUESTION_MARK,
-CHAR_CODE_EXCLAMATION_POINT,CHAR_CODE_UNDERSCORE,CHAR_CODE_MINUS,
-CHAR_CODE_EQUAL,CHAR_CODE_TAB,CHAR_CODE_CARRIAGE_RETURN,
+CHAR_CODE_m,CHAR_CODE_l,CHAR_CODE_z,CHAR_CODE_SLASH,CHAR_CODE_BACK_SLASH,
+CHAR_CODE_LOWER_THAN,CHAR_CODE_GREATHER_THAN,CHAR_CODE_OPEN_SQUARE_BRACES,
+CHAR_CODE_CLOSE_SQUARE_BRACES,CHAR_CODE_COLON,CHAR_CODE_PERIOD,
+CHAR_CODE_QUESTION_MARK,CHAR_CODE_EXCLAMATION_POINT,CHAR_CODE_UNDERSCORE,
+CHAR_CODE_MINUS,CHAR_CODE_EQUAL,CHAR_CODE_TAB,CHAR_CODE_CARRIAGE_RETURN,
 CHAR_CODE_LINE_FEED,CHAR_CODE_SPACE,CHAR_CODE_SINGLE_QUOTE,
 CHAR_CODE_DOUBLE_QUOTE,SEND_DATA,SEND_END_OF_FILE} = require './constants'
 
@@ -86,27 +85,25 @@ class XmlTokenStreamV2
     v = args[1]
     if @status & DOUBLE_QUOTTED
       if v[0] is CHAR_CODE_DOUBLE_QUOTE
-        if @data[@data.length-1] is CHAR_CODE_SLASH
-          @data[@data.length-1] = v[0]
-          return
-        else
-          @flushData("VAL")
-          @status = @status & (DOUBLE_QUOTTED^MASK)
-          return
+        @flushData("VAL")
+        @status = @status & (DOUBLE_QUOTTED^MASK)
+        return
       else
-        @data.push v[0]
+        if v.length is 2 and v[0] is CHAR_CODE_BACK_SLASH
+          @data.push v[1]
+        else
+          @data.push v[0]
         return
     else if @status & SINGLE_QUOTTED
       if v[0] is CHAR_CODE_SINGLE_QUOTE
-        if @data[@data.length-1] is CHAR_CODE_SLASH
-          @data[@data.length-1] = v[0]
-          return
-        else
-          @flushData("VAL")
-          @status = @status & (SINGLE_QUOTTED^MASK)
-          return
+        @flushData("VAL")
+        @status = @status & (SINGLE_QUOTTED^MASK)
+        return
       else
-        @data.push v[0]
+        if v.length is 2 and v[0] is CHAR_CODE_BACK_SLASH
+          @data.push v[1]
+        else
+          @data.push v[0]
         return
     else if @status & SPACE2
       if isSpace v[0]
@@ -223,8 +220,14 @@ class XmlTokenStreamV2
         @status = @status | TAG_HEAD
       else if @data.length is 0
         if not isSpace v[0]
-          @data.push v[0]
+          if v.length > 0 and v[0] is CHAR_CODE_BACK_SLASH
+            @data.push v[1]
+          else
+            @data.push v[0]
       else if @data.length > 0
-        @data.push v[0]
+        if v.length > 0 and v[0] is CHAR_CODE_BACK_SLASH
+          @data.push v[1]
+        else
+          @data.push v[0]
 
 module.exports = XmlTokenStreamV2
