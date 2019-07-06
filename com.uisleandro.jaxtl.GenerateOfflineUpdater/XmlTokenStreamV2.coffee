@@ -161,7 +161,8 @@ class XmlTokenStreamV2
         #console.log "]]>"
         @status = @status & (BEGIN_CDATA^MASK)
       else
-        v.forEach (x)-> @data.push x
+        $this = @
+        v.forEach (x)-> $this.data.push x
     else if @status & COMMENT
       if v.length is 3 and v[0] is CHAR_CODE_MINUS
         #console.log "-->"
