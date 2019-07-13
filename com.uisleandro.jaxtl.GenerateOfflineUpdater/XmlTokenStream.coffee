@@ -69,7 +69,6 @@ class XmlTokenStream
 
   constructor:()->
     @data = EMPTY.slice 0
-    @ob = []
     @status = 0|0
     @type = "XmlTokenStream"
     Observable.extends @
@@ -79,6 +78,10 @@ class XmlTokenStream
       console.log s, str @data
       @data = EMPTY.slice 0
 
+  flushState:(s)->
+    console.log s, str @data
+    @data = EMPTY.slice 0
+
   # I must not change the state if its closing
   update:(args)->
     $this = @
@@ -86,7 +89,7 @@ class XmlTokenStream
     v = args[1]
     if @status & DOUBLE_QUOTTED
       if v[0] is CHAR_CODE_DOUBLE_QUOTE
-        @flushData("ATTR_VALUE")
+        @flushData("ATTR_VALUE 1")
         @status = @status & (DOUBLE_QUOTTED^MASK)
         return
       else
@@ -97,7 +100,7 @@ class XmlTokenStream
         return
     else if @status & SINGLE_QUOTTED
       if v[0] is CHAR_CODE_SINGLE_QUOTE
-        @flushData("ATTR_VALUE")
+        @flushData("ATTR_VALUE 2")
         @status = @status & (SINGLE_QUOTTED^MASK)
         return
       else
@@ -119,11 +122,12 @@ class XmlTokenStream
       if isSpace v[0]
         return
       else if v[0] is CHAR_CODE_EQUAL
+        @flushData("ATTR_NAME 3")
         @status = (@status & (SPACE1^MASK)) | SPACE2
         return
       else if isPrefix v[0]
         # TODO: never used
-        @flushData("EMPTY_ATTR ?")
+        @flushData("EMPTY_ATTR 1")
         @data.push v[0]
         @status = (@status & (SPACE1^MASK)) | BEGIN_ATTRIBUTE
         return
@@ -134,7 +138,6 @@ class XmlTokenStream
         @data.push v[0]
         return
       else if isSpace v[0]
-        @flushData("EMPTY_ATTR 1")
         @status = (@status & (BEGIN_ATTRIBUTE^MASK)) | SPACE1
         return
       else if v[0] is CHAR_CODE_EQUAL
@@ -182,7 +185,7 @@ class XmlTokenStream
         @data.push v[0]
       else if v.length is 2 and v[0] is CHAR_CODE_SLASH
         #console.log "/>"
-        @flushData("END_TAG2")
+        @flushState("END_TAG2")
         @status = @status & (TAG_HEAD^MASK)
       else if v.length is 1 and v[0] is CHAR_CODE_GREATHER_THAN
         #console.log ">"
