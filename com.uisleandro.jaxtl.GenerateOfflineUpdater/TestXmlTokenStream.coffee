@@ -73,7 +73,7 @@ str = (s)->
 
 class ExpectedResultStream
   constructor:(stream)->
-    new Observable @
+    Observable.extends @
     @stream = stream
     @queue = []
   testQueue:()->
