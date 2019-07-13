@@ -56,7 +56,7 @@ memoryCharStream = new MemoryCharStream("""
   <li supported enabled="1"></li>
   <contact name="Contact \\" Name" address='Contact Address'/>
   <![CDATA[<sexo>Feminino</sexo>]]>
-  <hastext>text \\"hahaha<div>another</div> and another</hastext>
+  <hastext>text \\"slash something<div>another</div> and another</hastext>
 </root>
 """)
 
@@ -114,7 +114,6 @@ class ExpectedResultStream
 logs = new LogStream()
 
 pipe logs, xmlTokenStream, xmlCharacterStream, memoryCharStream
-
 
 memoryCharStream.start(500)
 
