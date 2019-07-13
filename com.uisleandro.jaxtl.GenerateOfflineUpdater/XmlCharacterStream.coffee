@@ -41,12 +41,12 @@ the inner-text will be identified as well by
 the position they assume, relative to these
 so called keywords
 ###
-class XmlKeywordStream
+class XmlCharacterStream
 
   constructor:()->
     @data = EMPTY.slice(0)
-    @type = "XmlKeywordStream"
-    new Observable @
+    @type = "XmlCharacterStream"
+    Observable.extends @
 
   flushData:()->
     $this = @
@@ -188,4 +188,4 @@ class XmlKeywordStream
         @data = EMPTY.slice(0)
       @tell [SEND_END_OF_FILE, null]
 
-module.exports = XmlKeywordStream
+module.exports = XmlCharacterStream

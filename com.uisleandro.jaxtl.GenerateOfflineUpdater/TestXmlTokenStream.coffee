@@ -1,46 +1,44 @@
 CharStream = require "./CharStream"
-XmlKeywordStream = require "./XmlKeywordStream"
+XmlCharacterStream = require "./XmlCharacterStream"
 LogStream = require "./LogStream"
 XmlTokenStream = require "./XmlTokenStream"
 pipe = require "./Pipe"
 Observable = require "./Observable"
 
-DATA = 0|0
-EOF = 0xFFFFFFFF|0
+{CHAR_CODE_0,CHAR_CODE_9,CHAR_CODE_C,CHAR_CODE_D,CHAR_CODE_A,
+CHAR_CODE_T,CHAR_CODE_X,CHAR_CODE_M,CHAR_CODE_L,CHAR_CODE_Z,
+CHAR_CODE_c,CHAR_CODE_d,CHAR_CODE_a,CHAR_CODE_t,CHAR_CODE_x,
+CHAR_CODE_m,CHAR_CODE_l,CHAR_CODE_z,CHAR_CODE_SLASH,
+CHAR_CODE_LOWER_THAN,CHAR_CODE_GREATHER_THAN,
+CHAR_CODE_OPEN_SQUARE_BRACES,CHAR_CODE_CLOSE_SQUARE_BRACES,
+CHAR_CODE_COLON,CHAR_CODE_PERIOD,CHAR_CODE_QUESTION_MARK,
+CHAR_CODE_EXCLAMATION_POINT,CHAR_CODE_UNDERSCORE,CHAR_CODE_MUNIS,
+CHAR_CODE_EQUAL,CHAR_CODE_TAB,CHAR_CODE_CARRIAGE_RETURN,
+CHAR_CODE_LINE_FEED,CHAR_CODE_SPACE,CHAR_CODE_SINGLE_QUOTE,
+CHAR_CODE_DOUBLE_QUOTE,SEND_DATA,SEND_END_OF_FILE} = require './constants'
 
-NOTHING = 0
+{EMPTY_STATUS,OPENING_PAYLOAD,CLOSING_PAYLOAD,CLOSED_TAG,
+OPENING_TAG,CLOSING_TAG,OPENING_COMMENT,CLOSING_COMMENT,
+OPENING_CDATA,CLOSING_CDATA,TAG_NAME,ATTRIBUTE_NAME,
+ATTRIBUTE_VALUE,SINGLE_QUOTED_ATTRIBUTE_VALUE,
+DOUBLE_QUOTED_ATTRIBUTE_VALUE,TAG_CONTENTS} = require './states'
 
-OPENING_XML_PAYLOAD_TAG = 1 #
-CLOSING_XML_PAYLOAD_TAG = 2 #
+NOTHING = -1
 
-OPENING_XML_TAG = 3 #
-CLOSING_XML_TAG = 4
-
-CLOSED_XML_TAG = 5 #
-
-TAG_NAME = 6
-TAG_SPACE = 7
-ATTR_NAME = 8
-
-SINGLE_QUOTED_ATTR_VALUE = 9
-DOUBLE_QUOTED_ATTR_VALUE = 10
-
-CHILD_TEXT = 11
-
-BEGIN_XML_COMMENT = 12 # ????????????? <!--
-END_XML_COMMENT = 13 # ?????????????? -->
-
-#xmlKeywordStream = new XmlKeywordStream()
+xmlCharacterStream = new XmlCharacterStream()
 xmlTokenStream = new XmlTokenStream()
 logStream = new LogStream()
 
 class MemoryCharStream
   constructor:(@data)->
-    new Observable @
     @i = 0
+    @type = "MemoryCharStream"
+    Observable.extends @
   update:(s)->
-    @tell [DATA ,s]
+    @tell [SEND_DATA ,s]
   start:(n)->
+    if n > @data.length
+      n = @data.length
     x = 0
     while x < n
       s = @data[@i].charCodeAt 0
@@ -52,11 +50,19 @@ memoryCharStream = new MemoryCharStream("""
 <?xml version = "1.0" encoding="UTF-8"?>
 <root>
   <!-- this is a comment -->
-  <contact name="name" address="address"/>
+  <br/>
+  <li supported></li><!-- this one did not pass -->
+  <li supported ></li>
+  <li supported enabled="1"></li>
+  <contact name="Contact \\" Name" address='Contact Address'/>
   <![CDATA[<sexo>Feminino</sexo>]]>
-  <hastext>text <div>another</div> and another</hastext>
+  <hastext>text \\"hahaha<div>another</div> and another</hastext>
 </root>
 """)
+
+# error In Contact \" Name
+# I must send two characters everytime i found \
+# then threat it
 
 str = (s)->
   if(s) and typeof(s) isnt "string" and s.length > 0
@@ -102,11 +108,19 @@ class ExpectedResultStream
   expectChange:()->
 
 
-expected = new ExpectedResultStream memoryCharStream
 
-pipe expected, xmlTokenStream, memoryCharStream
+# expected = new ExpectedResultStream memoryCharStream
 
-expected.expect 5, OPENING_XML_PAYLOAD_TAG
+logs = new LogStream()
+
+pipe logs, xmlTokenStream, xmlCharacterStream, memoryCharStream
+
+
+memoryCharStream.start(500)
+
+# expected.expect 5, OPENING_XML_PAYLOAD_TAG
+
+###
 expected.expect 9, ATTR_NAME
 expected.expect 7, DOUBLE_QUOTED_ATTR_VALUE
 expected.expect 10, ATTR_NAME
@@ -117,7 +131,4 @@ expected.expect 0, CLOSING_XML_TAG
 expected.expect 32, NOTHING
 expected.expect 9, OPENING_XML_TAG
 expected.expect 5, ATTR_NAME
-###
-
-
 ###

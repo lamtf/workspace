@@ -1,16 +1,14 @@
 CharStream = require "./CharStream"
-XmlKeywordStream = require "./XmlKeywordStream"
+XmlCharacterStream = require "./XmlCharacterStream"
 LogStream = require "./LogStream"
-XmlTokenStream = require "./XmlTokenStream"
 pipe = require "./Pipe"
 
 charStream = new CharStream("teste02.xml")
-xmlKeywordStream = new XmlKeywordStream()
-xmlTokenStream = new XmlTokenStream()
+xmlCharacterStream = new XmlCharacterStream()
 logStream = new LogStream()
 
 pipe logStream,
-xmlTokenStream,
+xmlCharacterStream,
 charStream
 
 charStream.start()

@@ -21,4 +21,5 @@ class Observable
 #  update:($self, args)->
 #    $self.run(args)
 
-module.exports = Observable
+module.exports = extends: (ob)->
+  return new Observable ob

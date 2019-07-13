@@ -1,8 +1,10 @@
+Observable = require "./Observable"
 
 class XmlStackStream
   constructor:()->
     @stack = []
     @ob = []
+    Observable.extends @
 
   observe:(source)->
     source.addObserver @

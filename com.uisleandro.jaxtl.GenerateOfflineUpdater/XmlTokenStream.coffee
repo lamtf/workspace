@@ -1,12 +1,25 @@
-{ DATA,EOF,LT,GT,EQ,SL,SP,TA,CR,LF,SQ,DQ,QM,CHa,CHz,CHA,CHZ,CH0,CH9,U_,DOTS,EXC,
-  CHx, CHm, CHl, CHX, CHM, CHL, MINUS, OPEN_BRACKET, CLOSE_BRACKET } = require "./StateMachine"
+{CHAR_CODE_0,CHAR_CODE_9,CHAR_CODE_C,CHAR_CODE_D,CHAR_CODE_A,
+CHAR_CODE_T,CHAR_CODE_X,CHAR_CODE_M,CHAR_CODE_L,CHAR_CODE_Z,
+CHAR_CODE_c,CHAR_CODE_d,CHAR_CODE_a,CHAR_CODE_t,CHAR_CODE_x,
+CHAR_CODE_m,CHAR_CODE_l,CHAR_CODE_z,CHAR_CODE_SLASH,CHAR_CODE_BACK_SLASH,
+CHAR_CODE_LOWER_THAN,CHAR_CODE_GREATHER_THAN,CHAR_CODE_OPEN_SQUARE_BRACES,
+CHAR_CODE_CLOSE_SQUARE_BRACES,CHAR_CODE_COLON,CHAR_CODE_PERIOD,
+CHAR_CODE_QUESTION_MARK,CHAR_CODE_EXCLAMATION_POINT,CHAR_CODE_UNDERSCORE,
+CHAR_CODE_MINUS,CHAR_CODE_EQUAL,CHAR_CODE_TAB,CHAR_CODE_CARRIAGE_RETURN,
+CHAR_CODE_LINE_FEED,CHAR_CODE_SPACE,CHAR_CODE_SINGLE_QUOTE,
+CHAR_CODE_DOUBLE_QUOTE,SEND_DATA,SEND_END_OF_FILE} = require './constants'
+
+{NULL,BEGIN_PAYLOAD,TAG_HEAD,ENDING_TAG,COMMENT,BEGIN_CDATA,
+LOW_PRIORITY_CONTENT,BEGIN_TAG,END_TAG,END_COMMENT,END_CDATA,
+END_PAYLOAD,ENDING_TAG,BEGINNING_TAG,READY_FOR_ATTR,BEGIN_ATTRIBUTE,
+SPACE1,SPACE2,DOUBLE_QUOTTED,SINGLE_QUOTTED,END_ATTRIBUTE,
+MASK} = require './states'
+
+Observable = require "./Observable"
+
+EMPTY = []
 
 ###
-
-  CH0, CH9, UNL, DT
-
-  [ ['<','?'],['?','>'],['<','/'],['/','>'] ]
-  new: ['<','!','-','-'],['-','-','>']
   <?xml version="1.0" encoding="utf-8" ?>
   <html>
     <head>
@@ -22,73 +35,24 @@
 ###
 
 ###
-XML_DOCUMENT = (OPENING_XML_PAYLOAD_TAG){0,1} OPENING_XML_OR_PAYLOAD_OR_COMMENT{1,*}
-
-OPENING_XML_PAYLOAD_TAG -> '<?xml' (ATTR_NAME)+ | '?>'
-
-OPENING_XML_OR_PAYLOAD_OR_COMMENT -> '<' TAG_NAME | '?>'
-
-TAG_NAME -> (ATTR_NAME){1,*}
-ATTR_NAME -> ATTR_VALUE
-
+REMOVE_STATE = (s, t)->
+  return s & (t^MASK)
 ###
 
+isSpace = (s)->
+  return (s is CHAR_CODE_SPACE or
+  s is CHAR_CODE_TAB or
+  s is CHAR_CODE_CARRIAGE_RETURN or
+  s is CHAR_CODE_LINE_FEED)
 
-EMPTY_ARRAY = []
+isPrefix = (s)->
+  return (s >= CHAR_CODE_A and s <= CHAR_CODE_Z) or (s >= CHAR_CODE_a and s <= CHAR_CODE_z) or (s is CHAR_CODE_UNDERSCORE)
 
-EMPTY_STATUS = 0
+isNumber = (s)->
+  return (s >= CHAR_CODE_9 and s <= CHAR_CODE_9)
 
-OPENING_XML_PAYLOAD_TAG = 1 #
-CLOSING_XML_PAYLOAD_TAG = 2 #
-
-OPENING_XML_TAG = 3 #
-CLOSING_XML_TAG = 4
-
-CLOSED_XML_TAG = 5 #
-
-TAG_NAME = 6
-TAG_SPACE = 7
-ATTR_NAME = 8
-
-SINGLE_QUOTED_ATTR_VALUE = 9
-DOUBLE_QUOTED_ATTR_VALUE = 10
-
-CHILD_TEXT = 11
-
-BEGIN_XML_COMMENT = 12 # ????????????? <!--
-END_XML_COMMENT = 13 # ?????????????? -->
-
-IGNORE_SPACES = 14
-
-ATTR_VALUE = 15
-OPENING_XML_OR_PAYLOAD_OR_COMMENT = 16
-
-COMMENT_OR_CDATA = 17
-BEGIN_XML_COMMENT_EXPECT_MINUS = 18
-
-END_XML_COMMENT_EXPECT_MINUS = 19
-END_XML_COMMENT_EXPECT_GT = 20
-
-READY_FOR_ATTRIBUTE = 21
-
-
-IGNORE_SPACE = (s)->
-  s isnt SINGLE_QUOTED_ATTR_VALUE and s isnt DOUBLE_QUOTED_ATTR_VALUE
-
-IS_SPACE = (s)->
-  return s is SP or s is TA or s is CR or s is LF
-
-IS_CHARACTER = (s)->
-  return (s >= CHA and s <= CHZ) or (s >= CHa and s <= CHz)
-
-IS_NUMERIC = (s)->
-  return (s >= CH0 and s <= CH9)
-
-IS_ALPHA_NUM_DOTS_U = (s)->
-  return IS_NUMERIC(s) or IS_CHARACTER(s) or (s is U_) or (s is DOTS)
-
-IS_PARSEABLE = (s)->
-  return (s is LT) or (s is SL)
+isSufix = (s)->
+  return isNumber(s) or isPrefix(s) or (s is CHAR_CODE_COLON) or (s is CHAR_CODE_PERIOD)
 
 str = (s)->
   if s isnt null and typeof(s) isnt "string" and s.length > 0
@@ -97,332 +61,176 @@ str = (s)->
   else
     return s
 
+b = (s)->
+  return s.toString('2')
+# TODO: BACKSLASH IN CDATA
+# MY CDATA WOULD FAIL IF IT HAS ANOTHER CDATA INSIDE, BECAUSE IT WILL NOT STACK CDATA
 class XmlTokenStream
 
   constructor:()->
-    @data = EMPTY_ARRAY.slice 0
+    @data = EMPTY.slice 0
     @ob = []
-    @status = EMPTY_STATUS
+    @status = 0|0
+    @type = "XmlTokenStream"
+    Observable.extends @
 
-  observe:(source)->
-    source.addObserver @
+  flushData:(s)->
+    if @data.length > 0
+      console.log s, str @data
+      @data = EMPTY.slice 0
 
-  tell:(a)->
-    @ob.forEach (x)-> x.update(a)
-    return
-
-  addObserver:(b)->
-    @ob.push b
-    return
-
-  emmitEvent:(data)->
-    @tell [@status, data]
-    console.log String.fromCharCode data
-  resetData:(args)->
-    @data = EMPTY_ARRAY.slice 0
-    @data[0] = args[1]
-    @status = EMPTY_STATUS
-  emptyData:()->
-    @data = EMPTY_ARRAY.slice 0
-    @status = EMPTY_STATUS
-  emptyDataKeepStatus:()->
-    @data = EMPTY_ARRAY.slice 0
-
-  # the next state will be ATTR_VALUE
-  handleAttrName:(args)->
-    console.log "handleAttrName()"
-    if IS_ALPHA_NUM_DOTS_U args[1]
-      @data.push args[1]
-      return
-    else
-      @emmitEvent @data
-      @emptyData()
-      if not IS_SPACE args[1]
-        @update args
-
-  handleOpenXmlTag:(args)->
-    console.log "handleOpenXmlTag()"
-    if args[1] is GT
-      @emmitEvent @data
-      @emptyData()
-      @status = CLOSING_XML_TAG
-      @emmitEvent null
-      @emptyData()
-      # console.log "StatusChange 002"
-    else if IS_ALPHA_NUM_DOTS_U args[1]
-      @data.push args[1]
-    else
-      @emmitEvent @data
-      @emptyData()
-      @status = READY_FOR_ATTRIBUTE
-      # console.log "StatusChange 001"
-
-  handleXmlComment:()->
-    return
-
-  # TODO XML comments
+  # I must not change the state if its closing
   update:(args)->
-    console.log "ch2 '#{str @data}', '#{String.fromCharCode(args[1])}'"
-    console.log "STATUS #{@status}"
-    if args[0] is DATA
-      if (@status is READY_FOR_ATTRIBUTE) and (IS_CHARACTER args[1])
-        console.log "READY_FOR_ATTRIBUTE"
-        @status = ATTR_NAME
-        @data.push args[1]
-      else if @status is END_XML_COMMENT_EXPECT_GT
-        console.log "END_XML_COMMENT_EXPECT_GT"
-        if args[1] is GT
-          @status = END_XML_COMMENT
-      else if @status is END_XML_COMMENT_EXPECT_MINUS
-        console.log "END_XML_COMMENT_EXPECT_MINUS"
-        if args[1] is MINUS
-          @status = END_XML_COMMENT_EXPECT_GT
-      else if @status is BEGIN_XML_COMMENT
-        console.log "BEGIN_XML_COMMENT"
-        if args[1] is MINUS
-          @status = END_XML_COMMENT_EXPECT_MINUS
-      else if @status is BEGIN_XML_COMMENT_EXPECT_MINUS
-        console.log "BEGIN_XML_COMMENT_EXPECT_MINUS"
-        if args[1] is MINUS
-          console.log "BEGIN_XML_COMMENT"
-          @status = BEGIN_XML_COMMENT
-          @emptyDataKeepStatus()
-      else if @status is COMMENT_OR_CDATA
-        console.log "COMMENT_OR_CDATA"
-        if args[1] is MINUS
-          @status = BEGIN_XML_COMMENT_EXPECT_MINUS
-        else if args[1] is OPEN_BRACKET
-          @status = CDATA_EXPECT_C
-      else if @status is OPENING_XML_TAG
-        console.log "OPENING_XML_TAG"
-        @handleOpenXmlTag(args)
-      else if @status is CLOSING_XML_PAYLOAD_TAG
-        console.log "CLOSING_XML_PAYLOAD_TAG"
-        if args[1] is GT
-          @emmitEvent null
-          @emptyData()
-          console.log "status ="+ @status
-          return
-      else if @status is DOUBLE_QUOTED_ATTR_VALUE
-        console.log "DOUBLE_QUOTED_ATTR_VALUE"
-        if args[1] isnt DQ
-          @data.push args[1]
-        else
-          @emmitEvent @data
-          @emptyData()
-          @status = ATTR_NAME
+    $this = @
+    x = 0
+    v = args[1]
+    if @status & DOUBLE_QUOTTED
+      if v[0] is CHAR_CODE_DOUBLE_QUOTE
+        @flushData("ATTR_VALUE")
+        @status = @status & (DOUBLE_QUOTTED^MASK)
         return
-      else if @status is OPENING_XML_PAYLOAD_TAG
-        console.log "OPENING_XML_PAYLOAD_TAG"
-        if @data.length is 2
-          if (args[1] is CHx) or (args[1] is CHX)
-            @data.push CHx
-            return
-          else
-            throw "error parsing OPENING_XML_PAYLOAD_TAG, expecting 'x' but got '#{String.fromCharCode args[1]}'"
-        if @data.length is 3
-          if (args[1] is CHm) or (args[1] is CHM)
-            @data.push CHm
-            return
-          else
-            throw "error parsing OPENING_XML_PAYLOAD_TAG, expecting 'm' but got '#{String.fromCharCode args[1]}'"
-        if @data.length is 4
-          if (args[1] is CHl) or (args[1] is CHL)
-            @emmitEvent null
-            @emptyData()
-            #expected to be
-            @status = READY_FOR_ATTRIBUTE
-            console.log "READY_FOR_ATTRIBUTE"
-            return
-          else
-            throw "error parsing OPENING_XML_PAYLOAD_TAG, expecting 'l' but got '#{String.fromCharCode args[1]}'"
-      else if @data.length > 1
-        if @status is ATTR_NAME
-          console.log("ATTR_NAME", "len", @data.length)
-          @handleAttrName args
-      else if @data.length is 1
-        if @status is OPENING_XML_OR_PAYLOAD_OR_COMMENT
-          console.log "OPENING_XML_OR_PAYLOAD_OR_COMMENT"
-          if args[1] is QM
-            @status = OPENING_XML_PAYLOAD_TAG
-            @data[1] = args[1]
-          else if args[1] is SL
-            @status = CLOSED_XML_TAG
-            @data[1] = args[1]
-          else if args[1] is EXC
-            @status = COMMENT_OR_CDATA
-          else if IS_CHARACTER args[1]
-            @status = OPENING_XML_TAG
-            @data[0] = args[1]
-        else if @status is ATTR_NAME
-          @handleAttrName args
-      else if @data.length is 0
-        console.log "EMPTY_DATA"
-        if IS_SPACE args[1]
-          console.log "IGNORE_SPACE"
-          return
-        else if (args[1] is DQ) and (@status is ATTR_VALUE)
-          @status = DOUBLE_QUOTED_ATTR_VALUE
-        else if args[1] is LT
-          @status = OPENING_XML_OR_PAYLOAD_OR_COMMENT
-          console.log "OPENING_XML_OR_PAYLOAD_OR_COMMENT"
-          @data[0] = args[1]
-        else if args[1] is EQ
-          @status = ATTR_VALUE
-        else if args[1] is QM
-          @status = CLOSING_XML_PAYLOAD_TAG
-        else if IS_CHARACTER args[1]
-          if @status is ATTR_NAME
-            @data[0] = args[1]
-          else
-            # em qual estado eu tenho que estar?
-            @status = ATTR_NAME
-            @data[0] = args[1]
-          return
-        else
-          console.log @status
-          throw "Error ????"
-          return
-    return
-
-        ###
-        else if IS_CHARACTER args[1]
-          @data[0] = args[1]
-          if @status isnt ATTR_NAME
-            @status = TAG_NAME
-          return
-        else if IS_PARSEABLE args[1]
-          @data[0] = args[1]
-          return
-        ###
-
-
-
-
-      ###
-      else if @data.length > 1
-        if @status is TAG_NAME or @status is ATTR_NAME
-          if IS_CHARACTER args[1]
-            @data.push args[1]
-            return
-          else if IS_SPACE args[1]
-            @emmitEvent @data
-            @emptyData()
-            @status = ATTR_NAME
-          else
-            @emmitEvent @data
-            @resetData(args)
-        else
-          throw "Fatal error, Not Parsed '#{String.fromCharCode args[1]}'"
-      else if @data.length is 1
-        if IS_CHARACTER @data[0]
-          console.log "ch3 '#{String.fromCharCode(@data)}','#{String.fromCharCode(args[1])}'"
-          # console.log "segundo caractere"
-          if IS_CHARACTER args[1]
-            @data.push args[1]
-            return
-          else
-            #@status = TAG_NAME
-            @emmitEvent null
-            @resetData(args)
-            return;
-        else if @data[0] is LT
-          # console.log "<"+ String.fromCharCode args[1]
-          if args[1] is QM
-            @status = OPENING_XML_PAYLOAD_TAG
-            @emmitEvent null
-            @emptyData()
-            return
-          else if args[1] is SL
-            @status = CLOSED_XML_TAG
-            @emmitEvent null
-            @emptyData()
-            return
-          else
-            # Do not consumes.. So some 'TELLs' consumes and another don't
-            @status = OPENING_XML_OR_PAYLOAD_OR_COMMENT
-            @emmitEvent null
-            @resetData args
-            return
-
-            # TODO: It seems here occours a break of string
-            # console.log String.fromCharCode args[1]
-            # console.log "empty data 3"
-        else if @data[0] is QM and args[1] is GT
-            @tell [CLOSING_XML_PAYLOAD_TAG, null]
-            @data = EMPTY_ARRAY.slice 0
-        else if @data[0] is SL
-            @tell [CLOSING_XML_TAG, null]
-            @data = EMPTY_ARRAY.slice 0
-        else
-            # TODO: possible unused code??
-            console.log "POSSIBLE UNUSED CODE NEAR #{String.fromCharCode(@data[0])}>"
-            @tell [CLOSING_XML_TAG, null]
       else
-        @data = EMPTY_ARRAY.slice 0
-        # adiciona < ou /
-        # TODO saber o que quebra o token em cada caso
-        @data[0] = args[1]
-      ###
-
-
-          ###
-      if @data.length is 1
-        console.log("1")
-        if @data[0] is LT
-          if args[1] is QM
-            tell(OPENING_XML_PAYLOAD_TAG, null)
-            @data = EMPTY_ARRAY
-          else if args[1] is SL
-            tell(CLOSED_XML_TAG, null)
-            @data = EMPTY_ARRAY
-          else
-            # I must delay it if i find a commenet
-            tell(OPENING_XML_OR_PAYLOAD_OR_COMMENT, null)
-            @data[0] = args[1]
-        else if args[1] is GT
-            if @data[0] is QM
-              tell(CLOSING_XML_PAYLOAD_TAG, null)
-            else if @data[0] is SL
-              tell(CLOSING_XML_TAG, null)
-            else
-              # IDK if it will even RUN
-              @data[@data.length] = args[1]
+        if v.length is 2 and v[0] is CHAR_CODE_BACK_SLASH
+          @data.push v[1]
         else
-    else #EOF
-      if @data.length > 0
-        @tell([DATA, [@data]])
-        @data = EMPTY_ARRAY
-      @tell([EOF, null])
+          @data.push v[0]
+        return
+    else if @status & SINGLE_QUOTTED
+      if v[0] is CHAR_CODE_SINGLE_QUOTE
+        @flushData("ATTR_VALUE")
+        @status = @status & (SINGLE_QUOTTED^MASK)
+        return
+      else
+        if v.length is 2 and v[0] is CHAR_CODE_BACK_SLASH
+          @data.push v[1]
+        else
+          @data.push v[0]
+        return
+    else if @status & SPACE2
+      if isSpace v[0]
+        return
+      else if v[0] is CHAR_CODE_DOUBLE_QUOTE
+        @status = (@status & (SPACE2^MASK)) | DOUBLE_QUOTTED
+        return
+      else if v[0] is CHAR_CODE_SINGLE_QUOTE
+        @status = (@status & (SPACE2^MASK)) | SINGLE_QUOTTED
+        return
+    else if @status & SPACE1
+      if isSpace v[0]
+        return
+      else if v[0] is CHAR_CODE_EQUAL
+        @status = (@status & (SPACE1^MASK)) | SPACE2
+        return
+      else if isPrefix v[0]
+        # TODO: never used
+        @flushData("EMPTY_ATTR ?")
+        @data.push v[0]
+        @status = (@status & (SPACE1^MASK)) | BEGIN_ATTRIBUTE
+        return
+      else
+        @status = @status & (SPACE1^MASK)
+    else if @status & BEGIN_ATTRIBUTE
+      if isSufix v[0]
+        @data.push v[0]
+        return
+      else if isSpace v[0]
+        @flushData("EMPTY_ATTR 1")
+        @status = (@status & (BEGIN_ATTRIBUTE^MASK)) | SPACE1
+        return
+      else if v[0] is CHAR_CODE_EQUAL
+        @flushData("ATTR_NAME 2")
+        @status = (@status & (BEGIN_ATTRIBUTE^MASK)) | SPACE2
+        return
+      else
+        @flushData("EMPTY_ATTR 0")
+        @status = (@status & (BEGIN_ATTRIBUTE^MASK))
+    else if @status & READY_FOR_ATTR
+      if isPrefix v[0]
+        @data.push v[0]
+        # @status - READY_FOR_ATTR + BEGIN_ATTRIBUTE
+        @status = (@status & (READY_FOR_ATTR^MASK)) | BEGIN_ATTRIBUTE
+        return
+      else
+        # @status - READY_FOR_ATTR
+        @status = @status & (READY_FOR_ATTR^MASK)
     ###
-
-###
-if args[0] is DATA
-  if @data isnt EMPTY
-    if @data is LT and (args[1] is SL or args[1] is QM) or args[1] is GT and (@data is SL or @data is QM)
-      @tell([DATA, [@data, args[1]]])
-      @data = EMPTY
+    SEGUNDA PARTE
+    ###
+    if @status & BEGIN_CDATA
+      if v.length is 3 and v[0] is CHAR_CODE_CLOSE_SQUARE_BRACES
+        @flushData("CDATA")
+        #console.log "]]>"
+        @status = @status & (BEGIN_CDATA^MASK)
+      else
+        $this = @
+        v.forEach (x)-> $this.data.push x
+    else if @status & COMMENT
+      if v.length is 3 and v[0] is CHAR_CODE_MINUS
+        #console.log "-->"
+        @status = @status & (COMMENT^MASK)
+    else if @status & BEGIN_PAYLOAD
+      if v.length is 2 and v[0] is CHAR_CODE_QUESTION_MARK
+        #console.log "?>"
+        @status = @status & (BEGIN_PAYLOAD^MASK)
+      else
+        if isSpace v[0]
+          @status = @status | READY_FOR_ATTR
+    else if @status & TAG_HEAD
+      if isPrefix v[0]
+        @data.push v[0]
+      else if isSufix v[0] and @data.length > 0
+        @data.push v[0]
+      else if v.length is 2 and v[0] is CHAR_CODE_SLASH
+        #console.log "/>"
+        @flushData("END_TAG2")
+        @status = @status & (TAG_HEAD^MASK)
+      else if v.length is 1 and v[0] is CHAR_CODE_GREATHER_THAN
+        #console.log ">"
+        @flushData("TAG_HEAD")
+        @status = @status & (TAG_HEAD^MASK)
+      else
+        if isSpace v[0]
+          @flushData("TAG_HEAD")
+          @status = @status | READY_FOR_ATTR
+    else if @status & ENDING_TAG
+      if isPrefix v[0]
+        @data.push v[0]
+      else if isSufix v[0] and @data.length > 0
+        @data.push v[0]
+      else if v[0] is CHAR_CODE_GREATHER_THAN
+        #console.log ">"
+        @flushData("END_TAG")
+        @status = @status & (ENDING_TAG^MASK)
+      else
+        return
     else
-      @tell([DATA, [@data]])
-      @data = EMPTY
-      @tell([DATA, [args[1]]])
-  else if args[1] is LT
-    # console.log "opening tag with attributes"
-    @data = args[1]
-  else if args[1] is SL
-    # console.log "send tag"
-    @data = args[1]
-  else if args[1] is QM
-    # console.log "send tag"
-    @data = args[1]
-    # @status = TAG_TEXT
-  else
-    @tell([DATA, [args[1]]])
-else #EOF
-  if @data isnt EMPTY
-    @tell([DATA, [@data]])
-    @data = EMPTY
-  @tell([EOF, null])
-###
+      if v.length is 9 and v[2] is CHAR_CODE_OPEN_SQUARE_BRACES
+        #console.log '<![CDATA['
+        @status = @status | BEGIN_CDATA
+      else if v.length is 5 and v[2] is CHAR_CODE_x
+        #console.log '<?xml'
+        @status = @status | BEGIN_PAYLOAD
+      else if v.length is 4 and v[2] is CHAR_CODE_MINUS
+        #console.log "<!--"
+        @status = @status | COMMENT
+      else if v.length is 2 and v[0] is CHAR_CODE_LOWER_THAN
+        @flushData("DATA")
+        #console.log "</"
+        @status = @status | ENDING_TAG
+      else if v.length is 1 and v[0] is CHAR_CODE_LOWER_THAN
+        @flushData("DATA")
+        #console.log "<"
+        @status = @status | TAG_HEAD
+      else if @data.length is 0
+        if not isSpace v[0]
+          if v.length > 0 and v[0] is CHAR_CODE_BACK_SLASH
+            @data.push v[1]
+          else
+            @data.push v[0]
+      else if @data.length > 0
+        if v.length > 0 and v[0] is CHAR_CODE_BACK_SLASH
+          @data.push v[1]
+        else
+          @data.push v[0]
 
 module.exports = XmlTokenStream

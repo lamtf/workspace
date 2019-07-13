@@ -2,6 +2,8 @@ fs = require "fs"
 
 { DATA,EOF,LT,GT,EQ,SL,SP,TA,CR,LF,SQ,DQ,QM } = require "./StateMachine"
 
+Observable = require "./Observable"
+
 class CharStream
   CHUNK_LENGTH = 0|0
   _stream = null
@@ -14,7 +16,8 @@ class CharStream
     #CHUNK_LENGTH = 16384
     CHUNK_LENGTH = 4096
     @ob = []
-
+    Observable.extends @
+  ###
   tell:(a)->
     @ob.forEach((x)-> x.update(a))
     return
@@ -22,6 +25,7 @@ class CharStream
   addObserver:(b)->
     @ob.push b
     return
+  ###
 
   start:()->
     $this = @
