@@ -15,42 +15,12 @@ CHAR_CODE_DOUBLE_QUOTE,SEND_DATA,SEND_END_OF_FILE} = require './constants'
 {TOKEN_BEGIN_XML, TOKEN_EMPTY_ATTR, TOKEN_ATTR_NAME, TOKEN_ATTR_VALUE,
 TOKEN_TAG_HEAD, TOKEN_END_TAG, TOKEN_DATA} = require './TokenType'
 
-
 str = (s)->
   if s isnt null and typeof(s) isnt "string" and s.length > 0
     val = s.map((x)->String.fromCharCode x).join('')
     return val
   else
     return s
-
-create_node = (nodeName, id, parentNode)->
-  tagName : nodeName
-  tagId: id
-  getParent : ()->
-    parentNode
-  getAttr:(a)->
-    i = 0
-    while i < @properties.length
-      if @properties[i].name is a
-        return @properties[i].value
-      i++
-
-add_children = (parent, child)->
-  if parent?
-    if not parent.children?
-      parent.children = []
-    parent.children[parent.children.length] = child
-    return parent
-  else
-    child
-
-add_property = (element, propertyName, propertyValue)->
-  if not element.properties?
-    element.properties = []
-  element.properties[element.properties.length] =
-    name: propertyName
-    value : propertyValue
-  element
 
 class XmlStackStream
   constructor:()->
@@ -65,23 +35,60 @@ class XmlStackStream
     return stack.pop()
   peek:(data)->
     return stack[stack.length-1]
+
+  createNode:(nodeName, parentNode)->
+    tagName : nodeName
+    tagId: @nodeId
+    getParent : ()->
+      parentNode
+    getAttr:(a)->
+      i = 0
+      while i < @properties.length
+        if @properties[i].name is a
+          return @properties[i].value
+        i++
+
+  addPropertyName:(propertyName)->
+    if not @peek().properties?
+      @peek().properties = []
+    @peek().properties.push { name: propertyName }
+    return
+
+  addPropertyValue:(propertyName)->
+    if not @peek().properties?
+      @peek().properties = []
+    @peek()
+    .properties[element.properties.length-1]
+    .value = propertyName
+    return
+
+  addContents:(strContents)->
+    if not @peek().contents?
+      @peek().contents = []
+    @peek().contents.push strContents
+    return
+
   update:(args)->
 
     if args[0] is TOKEN_BEGIN_XML
-      @push create_node "xml", nodeId, null
-      nodeId = nodeId + 1
+      @createNode "xml", nodeId, null
+      @nodeId = @nodeId + 1
     else if args[0] is TOKEN_EMPTY_ATTR
-      add_property
+      @addPropertyName str args[1]
+      @addPropertyValue true
+      @nodeId = @nodeId + 1
     else if args[0] is TOKEN_ATTR_NAME
-      @push { type: null, value: null }
+      @addPropertyName str args[1]
     else if args[0] is TOKEN_ATTR_VALUE
-      @pop { type: null, value: null }
+      @addPropertyValue str args[1]
+      @nodeId = @nodeId + 1
     else if args[0] is TOKEN_TAG_HEAD
-      @push { type: null, value: null }
+      @createNode str(args[1]), nodeId, null
+      @nodeId = @nodeId + 1
     else if args[0] is TOKEN_END_TAG
-      @pop { type: null, value: null }
+      @pop()
     else if args[0] is TOKEN_DATA
-      @push { type: null, value: null }
+      @addContents str(args[1])
 
     console.log args[0], str args[1]
     #@tell args
