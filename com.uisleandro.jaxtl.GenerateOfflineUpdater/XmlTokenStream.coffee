@@ -15,6 +15,9 @@ END_PAYLOAD,ENDING_TAG,BEGINNING_TAG,READY_FOR_ATTR,BEGIN_ATTRIBUTE,
 SPACE1,SPACE2,DOUBLE_QUOTTED,SINGLE_QUOTTED,END_ATTRIBUTE,
 MASK} = require './states'
 
+{TOKEN_BEGIN_XML, TOKEN_EMPTY_ATTR, TOKEN_ATTR_NAME, TOKEN_ATTR_VALUE,
+TOKEN_TAG_HEAD, TOKEN_END_TAG, TOKEN_DATA} = require './TokenType'
+
 Observable = require "./Observable"
 
 EMPTY = []
@@ -75,11 +78,13 @@ class XmlTokenStream
 
   flushData:(s)->
     if @data.length > 0
-      console.log s, str @data
+      @tell [s, @data]
+      #console.log s, str @data
       @data = EMPTY.slice 0
 
   flushState:(s)->
-    console.log s, str @data
+    #console.log s, str @data
+    @tell [s, null]
     @data = EMPTY.slice 0
 
   # I must not change the state if its closing
@@ -89,7 +94,7 @@ class XmlTokenStream
     v = args[1]
     if @status & DOUBLE_QUOTTED
       if v[0] is CHAR_CODE_DOUBLE_QUOTE
-        @flushData("ATTR_VALUE 1")
+        @flushData(TOKEN_ATTR_VALUE)
         @status = @status & (DOUBLE_QUOTTED^MASK)
         return
       else
@@ -100,7 +105,7 @@ class XmlTokenStream
         return
     else if @status & SINGLE_QUOTTED
       if v[0] is CHAR_CODE_SINGLE_QUOTE
-        @flushData("ATTR_VALUE 2")
+        @flushData(TOKEN_ATTR_VALUE)
         @status = @status & (SINGLE_QUOTTED^MASK)
         return
       else
@@ -122,12 +127,12 @@ class XmlTokenStream
       if isSpace v[0]
         return
       else if v[0] is CHAR_CODE_EQUAL
-        @flushData("ATTR_NAME 3")
+        @flushData(TOKEN_ATTR_NAME)
         @status = (@status & (SPACE1^MASK)) | SPACE2
         return
       else if isPrefix v[0]
         # TODO: never used
-        @flushData("EMPTY_ATTR 1")
+        @flushData(TOKEN_EMPTY_ATTR)
         @data.push v[0]
         @status = (@status & (SPACE1^MASK)) | BEGIN_ATTRIBUTE
         return
@@ -141,11 +146,11 @@ class XmlTokenStream
         @status = (@status & (BEGIN_ATTRIBUTE^MASK)) | SPACE1
         return
       else if v[0] is CHAR_CODE_EQUAL
-        @flushData("ATTR_NAME 2")
+        @flushData(TOKEN_ATTR_NAME)
         @status = (@status & (BEGIN_ATTRIBUTE^MASK)) | SPACE2
         return
       else
-        @flushData("EMPTY_ATTR 0")
+        @flushData(TOKEN_EMPTY_ATTR)
         @status = (@status & (BEGIN_ATTRIBUTE^MASK))
     else if @status & READY_FOR_ATTR
       if isPrefix v[0]
@@ -161,7 +166,7 @@ class XmlTokenStream
     ###
     if @status & BEGIN_CDATA
       if v.length is 3 and v[0] is CHAR_CODE_CLOSE_SQUARE_BRACES
-        @flushData("CDATA")
+        @flushData(TOKEN_DATA)
         #console.log "]]>"
         @status = @status & (BEGIN_CDATA^MASK)
       else
@@ -185,15 +190,15 @@ class XmlTokenStream
         @data.push v[0]
       else if v.length is 2 and v[0] is CHAR_CODE_SLASH
         #console.log "/>"
-        @flushState("END_TAG2")
+        @flushState(TOKEN_END_TAG)
         @status = @status & (TAG_HEAD^MASK)
       else if v.length is 1 and v[0] is CHAR_CODE_GREATHER_THAN
         #console.log ">"
-        @flushData("TAG_HEAD")
+        @flushData(TOKEN_TAG_HEAD)
         @status = @status & (TAG_HEAD^MASK)
       else
         if isSpace v[0]
-          @flushData("TAG_HEAD")
+          @flushData(TOKEN_TAG_HEAD)
           @status = @status | READY_FOR_ATTR
     else if @status & ENDING_TAG
       if isPrefix v[0]
@@ -202,7 +207,7 @@ class XmlTokenStream
         @data.push v[0]
       else if v[0] is CHAR_CODE_GREATHER_THAN
         #console.log ">"
-        @flushData("END_TAG")
+        @flushData(TOKEN_END_TAG)
         @status = @status & (ENDING_TAG^MASK)
       else
         return
@@ -212,16 +217,17 @@ class XmlTokenStream
         @status = @status | BEGIN_CDATA
       else if v.length is 5 and v[2] is CHAR_CODE_x
         #console.log '<?xml'
+        @flushState(TOKEN_BEGIN_XML)
         @status = @status | BEGIN_PAYLOAD
       else if v.length is 4 and v[2] is CHAR_CODE_MINUS
         #console.log "<!--"
         @status = @status | COMMENT
       else if v.length is 2 and v[0] is CHAR_CODE_LOWER_THAN
-        @flushData("DATA")
+        @flushData(TOKEN_DATA)
         #console.log "</"
         @status = @status | ENDING_TAG
       else if v.length is 1 and v[0] is CHAR_CODE_LOWER_THAN
-        @flushData("DATA")
+        @flushData(TOKEN_DATA)
         #console.log "<"
         @status = @status | TAG_HEAD
       else if @data.length is 0
