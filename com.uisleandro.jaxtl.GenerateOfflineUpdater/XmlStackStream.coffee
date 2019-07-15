@@ -27,69 +27,106 @@ class XmlStackStream
     @stack = []
     Observable.extends @
     @nodeId = 0
+    @xml = null
 
   push:(data)->
     @stack.push data
     return
-  pop:()->
-    return stack.pop()
+  popCheck:(tagName)->
+    # TODO: veryfy the current node
+    child = @peek()
+    parent2 = @stack[@stack.length-2]
+    if child? and child.tagName is tagName
+      @stack.pop()
+      parent = @peek()
+      addChild parent, child
+    else
+      console.error "ERROR CLOSING TAG #{tagName}, #{JSON.stringify parent2}"
+
+
   peek:(data)->
-    return stack[stack.length-1]
+    return @stack[@stack.length-1]
 
   createNode:(nodeName, parentNode)->
-    tagName : nodeName
-    tagId: @nodeId
-    getParent : ()->
-      parentNode
-    getAttr:(a)->
-      i = 0
-      while i < @properties.length
-        if @properties[i].name is a
-          return @properties[i].value
-        i++
+    @stack.push {
+      tagName : nodeName
+      tagId: @nodeId
+      getParent : ()->
+        parentNode
+      getAttr:(a)->
+        i = 0
+        while i < @properties.length
+          if @properties[i].name is a
+            return @properties[i].value
+          i++
+    }
+
+  showStack:()->
+    i = @stack.length-1
+    while i > 0
+      console.log @peek()
+      i--
+
+  addChild = (parent, child)->
+    if parent?
+      if not parent.children?
+        console.log "reset??"
+        parent.children = []
+      #console.log "addChild01", parent, child
+      parent.children.push child
+      #console.log "addChild02", parent
+      return parent
+    else
+      return child
 
   addPropertyName:(propertyName)->
-    if not @peek().properties?
-      @peek().properties = []
-    @peek().properties.push { name: propertyName }
+    element = @peek()
+    if not element.properties?
+      element.properties = []
+    element.properties.push { name: propertyName }
     return
 
   addPropertyValue:(propertyName)->
-    if not @peek().properties?
-      @peek().properties = []
-    @peek()
-    .properties[element.properties.length-1]
-    .value = propertyName
+    element = @peek()
+    if not element.properties?
+      element.properties = []
+    element.properties[element.properties.length-1].value = propertyName
     return
 
   addContents:(strContents)->
-    if not @peek().contents?
-      @peek().contents = []
-    @peek().contents.push strContents
+    element = @peek()
+    if not element.contents?
+      element.contents = []
+    element.contents.push strContents
     return
 
   update:(args)->
-
+    #console.log args
     if args[0] is TOKEN_BEGIN_XML
-      @createNode "xml", nodeId, null
+      @createNode "xml", null
       @nodeId = @nodeId + 1
+      @xml = @peek()
     else if args[0] is TOKEN_EMPTY_ATTR
       @addPropertyName str args[1]
       @addPropertyValue true
-      @nodeId = @nodeId + 1
     else if args[0] is TOKEN_ATTR_NAME
       @addPropertyName str args[1]
     else if args[0] is TOKEN_ATTR_VALUE
       @addPropertyValue str args[1]
-      @nodeId = @nodeId + 1
     else if args[0] is TOKEN_TAG_HEAD
-      @createNode str(args[1]), nodeId, null
+      console.log "BEGIN TAG", str(args[1])
+      @createNode str(args[1]), str args[1]
       @nodeId = @nodeId + 1
     else if args[0] is TOKEN_END_TAG
-      @pop()
+      console.log "END TAG", str(args[1])
+      @popCheck str(args[1])
     else if args[0] is TOKEN_DATA
       @addContents str(args[1])
-
+    else
+      console.log args[0], str args[1]
+    #console.log "# ".repeat 50
+    #@showStack()
+    #console.log "# ".repeat 50
     console.log args[0], str args[1]
     #@tell args
 

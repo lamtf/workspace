@@ -174,11 +174,12 @@ class XmlTokenStream
         v.forEach (x)-> $this.data.push x
     else if @status & COMMENT
       if v.length is 3 and v[0] is CHAR_CODE_MINUS
-        #console.log "-->"
+        console.log "-->"
         @status = @status & (COMMENT^MASK)
     else if @status & BEGIN_PAYLOAD
       if v.length is 2 and v[0] is CHAR_CODE_QUESTION_MARK
         #console.log "?>"
+        console.log "END_PAYLOAD"
         @status = @status & (BEGIN_PAYLOAD^MASK)
       else
         if isSpace v[0]
@@ -190,10 +191,12 @@ class XmlTokenStream
         @data.push v[0]
       else if v.length is 2 and v[0] is CHAR_CODE_SLASH
         #console.log "/>"
+        console.log "preciso corrigir o <br/>, adicionando um novo status talvez"
+        console.log "e2",str(v), str @data
         @flushState(TOKEN_END_TAG)
         @status = @status & (TAG_HEAD^MASK)
       else if v.length is 1 and v[0] is CHAR_CODE_GREATHER_THAN
-        #console.log ">"
+        console.log ">"
         @flushData(TOKEN_TAG_HEAD)
         @status = @status & (TAG_HEAD^MASK)
       else
@@ -207,7 +210,9 @@ class XmlTokenStream
         @data.push v[0]
       else if v[0] is CHAR_CODE_GREATHER_THAN
         #console.log ">"
+        console.log "e1", str @data
         @flushData(TOKEN_END_TAG)
+
         @status = @status & (ENDING_TAG^MASK)
       else
         return
