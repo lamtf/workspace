@@ -33,15 +33,19 @@ class XmlStackStream
     @stack.push data
     return
   popCheck:(tagName)->
-    # TODO: veryfy the current node
-    child = @peek()
-    parent2 = @stack[@stack.length-2]
-    if child? and child.tagName is tagName
+    if tagName is null
+      child = @stack.pop()
+      console.log child.tagName, "is WTF closed"
+      parent = @peek()
+      addChild parent, child
+    else if child? and child.tagName is tagName
       @stack.pop()
+      console.log child.tagName, "is closed normally"
       parent = @peek()
       addChild parent, child
     else
-      console.error "ERROR CLOSING TAG #{tagName}, #{JSON.stringify parent2}"
+      console.error "ERROR CLOSING TAG >>>  #{tagName}"
+      @showStack()
 
 
   peek:(data)->
@@ -101,7 +105,7 @@ class XmlStackStream
     return
 
   update:(args)->
-    #console.log args
+    console.log args[0], str args[1]
     if args[0] is TOKEN_BEGIN_XML
       @createNode "xml", null
       @nodeId = @nodeId + 1
@@ -123,11 +127,7 @@ class XmlStackStream
     else if args[0] is TOKEN_DATA
       @addContents str(args[1])
     else
-      console.log args[0], str args[1]
-    #console.log "# ".repeat 50
-    #@showStack()
-    #console.log "# ".repeat 50
-    console.log args[0], str args[1]
-    #@tell args
+      console.log "???", args[0], str args[1]
+
 
 module.exports = XmlStackStream

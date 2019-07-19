@@ -11,12 +11,28 @@ CHAR_CODE_DOUBLE_QUOTE,SEND_DATA,SEND_END_OF_FILE} = require './constants'
 
 {NULL,BEGIN_PAYLOAD,TAG_HEAD,ENDING_TAG,COMMENT,BEGIN_CDATA,
 LOW_PRIORITY_CONTENT,BEGIN_TAG,END_TAG,END_COMMENT,END_CDATA,
-END_PAYLOAD,ENDING_TAG,BEGINNING_TAG,READY_FOR_ATTR,BEGIN_ATTRIBUTE,
+END_PAYLOAD,ENDING_TAG,READY_FOR_ATTR,BEGIN_ATTRIBUTE,
 SPACE1,SPACE2,DOUBLE_QUOTTED,SINGLE_QUOTTED,END_ATTRIBUTE,
 MASK} = require './states'
 
 {TOKEN_BEGIN_XML, TOKEN_EMPTY_ATTR, TOKEN_ATTR_NAME, TOKEN_ATTR_VALUE,
 TOKEN_TAG_HEAD, TOKEN_END_TAG, TOKEN_DATA} = require './TokenType'
+
+pt =(t)->
+  if t is TOKEN_BEGIN_XML
+    console.log ":TOKEN_BEGIN_XML:"
+  if t is TOKEN_EMPTY_ATTR
+    console.log ":TOKEN_EMPTY_ATTR:"
+  if t is TOKEN_ATTR_NAME
+    console.log ":TOKEN_ATTR_NAME:"
+  if t is TOKEN_ATTR_VALUE
+    console.log ":TOKEN_ATTR_VALUE:"
+  if t is TOKEN_TAG_HEAD
+    console.log ":TOKEN_TAG_HEAD:"
+  if t is TOKEN_END_TAG
+    console.log ":TOKEN_END_TAG:"
+  if t is TOKEN_DATA
+    console.log ":TOKEN_DATA:"
 
 Observable = require "./Observable"
 
@@ -78,12 +94,14 @@ class XmlTokenStream
 
   flushData:(s)->
     if @data.length > 0
+      pt s
       @tell [s, @data]
       #console.log s, str @data
       @data = EMPTY.slice 0
 
   flushState:(s)->
     #console.log s, str @data
+    pt s
     @tell [s, null]
     @data = EMPTY.slice 0
 
@@ -92,6 +110,7 @@ class XmlTokenStream
     $this = @
     x = 0
     v = args[1]
+    process.stdout.write str v
     if @status & DOUBLE_QUOTTED
       if v[0] is CHAR_CODE_DOUBLE_QUOTE
         @flushData(TOKEN_ATTR_VALUE)
@@ -124,20 +143,21 @@ class XmlTokenStream
         @status = (@status & (SPACE2^MASK)) | SINGLE_QUOTTED
         return
     else if @status & SPACE1
+      # AFTER THE ATTR NAME IT MAYBE HAS A SPACE
       if isSpace v[0]
         return
       else if v[0] is CHAR_CODE_EQUAL
         @flushData(TOKEN_ATTR_NAME)
         @status = (@status & (SPACE1^MASK)) | SPACE2
         return
-      else if isPrefix v[0]
-        # TODO: never used
-        @flushData(TOKEN_EMPTY_ATTR)
-        @data.push v[0]
-        @status = (@status & (SPACE1^MASK)) | BEGIN_ATTRIBUTE
-        return
       else
-        @status = @status & (SPACE1^MASK)
+        @flushData(TOKEN_EMPTY_ATTR)
+        @status = (@status & (SPACE1^MASK))
+        #??????????????????????????????
+        if (v[0] is CHAR_CODE_GREATHER_THAN) or ( (v.length is 2) and (v[0] is CHAR_CODE_SLASH) )
+          @flushState(TOKEN_END_TAG)
+          @status = @status & (TAG_HEAD^MASK)
+        return
     else if @status & BEGIN_ATTRIBUTE
       if isSufix v[0]
         @data.push v[0]
@@ -174,12 +194,12 @@ class XmlTokenStream
         v.forEach (x)-> $this.data.push x
     else if @status & COMMENT
       if v.length is 3 and v[0] is CHAR_CODE_MINUS
-        console.log "-->"
+        #console.log "-->"
         @status = @status & (COMMENT^MASK)
     else if @status & BEGIN_PAYLOAD
       if v.length is 2 and v[0] is CHAR_CODE_QUESTION_MARK
         #console.log "?>"
-        console.log "END_PAYLOAD"
+        #@flushState(TOKEN_END_PAYLOAD)
         @status = @status & (BEGIN_PAYLOAD^MASK)
       else
         if isSpace v[0]
@@ -191,28 +211,29 @@ class XmlTokenStream
         @data.push v[0]
       else if v.length is 2 and v[0] is CHAR_CODE_SLASH
         #console.log "/>"
-        console.log "preciso corrigir o <br/>, adicionando um novo status talvez"
-        console.log "e2",str(v), str @data
+        #console.log "#########e2",str(v), str @data
+        @flushData(TOKEN_TAG_HEAD)
         @flushState(TOKEN_END_TAG)
         @status = @status & (TAG_HEAD^MASK)
       else if v.length is 1 and v[0] is CHAR_CODE_GREATHER_THAN
-        console.log ">"
+        #console.log ">"
         @flushData(TOKEN_TAG_HEAD)
         @status = @status & (TAG_HEAD^MASK)
       else
         if isSpace v[0]
           @flushData(TOKEN_TAG_HEAD)
+          #console.log "TOKEN_TAG_HEAD"
           @status = @status | READY_FOR_ATTR
     else if @status & ENDING_TAG
+      #console.log "ENDING", str v
       if isPrefix v[0]
         @data.push v[0]
       else if isSufix v[0] and @data.length > 0
         @data.push v[0]
       else if v[0] is CHAR_CODE_GREATHER_THAN
         #console.log ">"
-        console.log "e1", str @data
+        #console.log "e1", str @data
         @flushData(TOKEN_END_TAG)
-
         @status = @status & (ENDING_TAG^MASK)
       else
         return
