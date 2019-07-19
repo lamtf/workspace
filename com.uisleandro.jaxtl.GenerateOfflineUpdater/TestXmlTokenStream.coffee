@@ -146,6 +146,7 @@ class ExpectedResultStream
   psOf:(@obj)->
   ps:()->
     ps @obj.status
+    console.log @queue
 
   testQueue:()->
     if @expected is NOTHING
@@ -155,19 +156,17 @@ class ExpectedResultStream
       throw "\x1b[31m\x1b[1mError: No data\x1b[0m"
     else if not (@queue[0][0] is @expected)
       @ps()
-      console.log @queue
       throw "\x1b[31m\x1b[1mError: Expecting #{tokenName(@expected)} but got #{tokenName(@queue[0][0])} #{str @queue[0][1]}\x1b[0m"
     else
       console.log '\x1b[32m\x1b[1mPassed: \x1b[0m', "#{@queue[0][0]} #{str @queue[0][1]}"
-      console.log "Q1", @queue
       @queue = @queue.slice 1, @queue.length
-      console.log "Q2", @queue
   expect:(n, @expected)->
     if n is 0
       @testQueue()
       return
     @stream.start n
     if @expected isnt NOTHING and !@changed
+      @ps()
       throw "\x1b[31m\x1b[1mError: Nothing happend\x1b[0m"
     if @expected is NOTHING
       if @changed
@@ -216,12 +215,29 @@ expected.expect 5, TOKEN_END_TAG
 expected.expect 33, NOTHING
 expected.expect 4, TOKEN_TAG_HEAD
 expected.expect 11, TOKEN_EMPTY_ATTR
-
-# TODO: it has been added two times to the queue
 expected.expect 5, TOKEN_END_TAG
-
-#expected.expect 7, TOKEN_TAG_HEAD
-expected.ps()
+expected.expect 7, TOKEN_TAG_HEAD
+expected.expect 11, TOKEN_EMPTY_ATTR
+expected.expect 7, TOKEN_ATTR_NAME
+expected.expect 3, TOKEN_ATTR_VALUE
+expected.expect 6, TOKEN_END_TAG
+expected.expect 3, NOTHING
+expected.expect 9, TOKEN_TAG_HEAD
+expected.expect 5, TOKEN_ATTR_NAME
+expected.expect 17, TOKEN_ATTR_VALUE
+expected.expect 9, TOKEN_ATTR_NAME
+expected.expect 17, TOKEN_ATTR_VALUE
+expected.expect 3, TOKEN_END_TAG
+expected.expect 35, TOKEN_DATA
+expected.expect 12, TOKEN_TAG_HEAD
+expected.expect 24, TOKEN_DATA
+expected.expect 3, TOKEN_TAG_HEAD
+expected.expect 9, TOKEN_DATA
+expected.expect 5, TOKEN_END_TAG
+expected.expect 13, TOKEN_DATA
+expected.expect 8, TOKEN_END_TAG
+expected.expect 8, TOKEN_END_TAG
+#expected.ps()
 
 #expected.expect 5, NOTHING
 #expected.expect 5, NOTHING

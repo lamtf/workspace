@@ -110,7 +110,7 @@ class XmlTokenStream
     $this = @
     x = 0
     v = args[1]
-    process.stdout.write str v
+    #process.stdout.write str v
     if @status & DOUBLE_QUOTTED
       if v[0] is CHAR_CODE_DOUBLE_QUOTE
         @flushData(TOKEN_ATTR_VALUE)
@@ -152,9 +152,18 @@ class XmlTokenStream
         return
       else
         @flushData(TOKEN_EMPTY_ATTR)
+        #console.log "??????????????", str v
         @status = (@status & (SPACE1^MASK))
-        #??????????????????????????????
-        if (v[0] is CHAR_CODE_GREATHER_THAN) or ( (v.length is 2) and (v[0] is CHAR_CODE_SLASH) )
+        # new attribute
+        if isPrefix v[0]
+          @data.push v[0]
+          @status = @status | BEGIN_ATTRIBUTE
+          return
+        if v[0] is CHAR_CODE_GREATHER_THAN
+          # do not emmit
+          @status = @status & (TAG_HEAD^MASK)
+          return
+        if (v.length is 2) and (v[0] is CHAR_CODE_SLASH)
           @flushState(TOKEN_END_TAG)
           @status = @status & (TAG_HEAD^MASK)
         return
@@ -231,6 +240,7 @@ class XmlTokenStream
       else if isSufix v[0] and @data.length > 0
         @data.push v[0]
       else if v[0] is CHAR_CODE_GREATHER_THAN
+        #console.log "strv#{str v}"
         #console.log ">"
         #console.log "e1", str @data
         @flushData(TOKEN_END_TAG)
