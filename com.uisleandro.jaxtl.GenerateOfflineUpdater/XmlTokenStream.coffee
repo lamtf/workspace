@@ -18,6 +18,7 @@ MASK} = require './states'
 {TOKEN_BEGIN_XML, TOKEN_EMPTY_ATTR, TOKEN_ATTR_NAME, TOKEN_ATTR_VALUE,
 TOKEN_TAG_HEAD, TOKEN_END_TAG, TOKEN_DATA} = require './TokenType'
 
+###
 pt =(t)->
   if t is TOKEN_BEGIN_XML
     console.log ":TOKEN_BEGIN_XML:"
@@ -33,6 +34,7 @@ pt =(t)->
     console.log ":TOKEN_END_TAG:"
   if t is TOKEN_DATA
     console.log ":TOKEN_DATA:"
+###
 
 Observable = require "./Observable"
 
@@ -94,14 +96,14 @@ class XmlTokenStream
 
   flushData:(s)->
     if @data.length > 0
-      pt s
+      # pt s
       @tell [s, @data]
       #console.log s, str @data
       @data = EMPTY.slice 0
 
   flushState:(s)->
     #console.log s, str @data
-    pt s
+    # pt s
     @tell [s, null]
     @data = EMPTY.slice 0
 

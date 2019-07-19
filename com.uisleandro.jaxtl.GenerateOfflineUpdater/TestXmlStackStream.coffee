@@ -64,59 +64,11 @@ memoryCharStream = new MemoryCharStream("""
 </root>
 """)
 
-# error In Contact \" Name
-# I must send two characters everytime i found \
-# then threat it
-
-str = (s)->
-  if(s) and typeof(s) isnt "string" and s.length > 0
-    val = s.map((x)->String.fromCharCode x).join('')
-    return val
-  else
-    return s
-
-class ExpectedResultStream
-  constructor:(stream)->
-    Observable.extends @
-    @stream = stream
-    @queue = []
-  testQueue:()->
-    if @expected is NOTHING
-      return
-    if @queue.length is 0
-      throw "Error: No data"
-    else if @queue[0][0] isnt @expected
-      throw "Error: Expecting #{@expected} but got #{@queue[0][0]} #{str @queue[0][1]}"
-    else
-      console.log "Passed #{@queue[0][0]} #{str @queue[0][1]}"
-    @queue = @queue.slice 1, @queue.length
-  expect:(n, @expected)->
-    if n is 0
-      @testQueue()
-      return
-    @stream.start n
-    if @expected isnt NOTHING and !@changed
-      throw "Error: Nothing happend"
-    if @expected is NOTHING
-      if @changed
-       throw "Error: Expecting NOTHING"
-      console.log "Passed, NO RESULTS"
-    @changed = false
-  update:(s)->
-    @queue.push s
-    if !@changed
-      @changed = true
-      @testQueue()
-
-
-  expectChange:()->
-
-
-
-# expected = new ExpectedResultStream memoryCharStream
 
 logs = new LogStream()
 
 pipe logs, xmlStackStream, xmlTokenStream, xmlCharacterStream, memoryCharStream
 
 memoryCharStream.start(500)
+
+console.log xmlStackStream.stack[0].children[0].children[8].children

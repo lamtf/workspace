@@ -33,29 +33,27 @@ class XmlStackStream
     @stack.push data
     return
   popCheck:(tagName)->
+    child = @peek()
     if tagName is null
-      child = @stack.pop()
-      console.log child.tagName, "is WTF closed"
-      parent = @peek()
-      addChild parent, child
-    else if child? and child.tagName is tagName
       @stack.pop()
-      console.log child.tagName, "is closed normally"
       parent = @peek()
-      addChild parent, child
+      @addChild parent, child
+    else if (child) and child.tagName is tagName
+      @stack.pop()
+      parent = @peek()
+      @addChild parent, child
     else
-      console.error "ERROR CLOSING TAG >>>  #{tagName}"
-      @showStack()
-
+      console.error "ERROR CLOSING TAG: #{tagName} != #{child.tagName}"
 
   peek:(data)->
     return @stack[@stack.length-1]
 
   createNode:(nodeName, parentNode)->
     @stack.push {
+      type: "node"
       tagName : nodeName
       tagId: @nodeId
-      getParent : ()->
+      getParent:()->
         parentNode
       getAttr:(a)->
         i = 0
@@ -65,23 +63,12 @@ class XmlStackStream
           i++
     }
 
-  showStack:()->
-    i = @stack.length-1
-    while i > 0
-      console.log @peek()
-      i--
-
-  addChild = (parent, child)->
+  addChild:(parent, child)->
     if parent?
       if not parent.children?
-        console.log "reset??"
         parent.children = []
-      #console.log "addChild01", parent, child
       parent.children.push child
-      #console.log "addChild02", parent
-      return parent
-    else
-      return child
+    return
 
   addPropertyName:(propertyName)->
     element = @peek()
@@ -98,18 +85,25 @@ class XmlStackStream
     return
 
   addContents:(strContents)->
-    element = @peek()
-    if not element.contents?
-      element.contents = []
-    element.contents.push strContents
+    parent = @peek()
+    if not parent.children?
+      parent.children = []
+    parent.children.push {
+      type: "data"
+      value: strContents
+    }
     return
 
   update:(args)->
-    console.log args[0], str args[1]
     if args[0] is TOKEN_BEGIN_XML
       @createNode "xml", null
       @nodeId = @nodeId + 1
       @xml = @peek()
+    else if args[0] is TOKEN_TAG_HEAD
+      @createNode str(args[1]), str args[1]
+      @nodeId = @nodeId + 1
+    else if args[0] is TOKEN_END_TAG
+      @popCheck str(args[1])
     else if args[0] is TOKEN_EMPTY_ATTR
       @addPropertyName str args[1]
       @addPropertyValue true
@@ -117,17 +111,9 @@ class XmlStackStream
       @addPropertyName str args[1]
     else if args[0] is TOKEN_ATTR_VALUE
       @addPropertyValue str args[1]
-    else if args[0] is TOKEN_TAG_HEAD
-      console.log "BEGIN TAG", str(args[1])
-      @createNode str(args[1]), str args[1]
-      @nodeId = @nodeId + 1
-    else if args[0] is TOKEN_END_TAG
-      console.log "END TAG", str(args[1])
-      @popCheck str(args[1])
     else if args[0] is TOKEN_DATA
       @addContents str(args[1])
-    else
-      console.log "???", args[0], str args[1]
+
 
 
 module.exports = XmlStackStream
