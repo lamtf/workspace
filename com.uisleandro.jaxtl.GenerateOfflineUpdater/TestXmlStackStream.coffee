@@ -71,4 +71,6 @@ pipe logs, xmlStackStream, xmlTokenStream, xmlCharacterStream, memoryCharStream
 
 memoryCharStream.start(500)
 
-console.log xmlStackStream.stack[0].children[0].children[8].children
+console.log JSON.stringify xmlStackStream.stack[0], null, 2
+
+#.children[0].children[8].children
