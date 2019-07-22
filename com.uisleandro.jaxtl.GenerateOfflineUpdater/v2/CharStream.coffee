@@ -1,6 +1,6 @@
 fs = require "fs"
 
-{ DATA,EOF,LT,GT,EQ,SL,SP,TA,CR,LF,SQ,DQ,QM } = require "./StateMachine"
+#{ DATA,EOF,LT,GT,EQ,SL,SP,TA,CR,LF,SQ,DQ,QM } = require "./StateMachine"
 
 Observable = require "./Observable"
 
