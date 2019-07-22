@@ -23,11 +23,10 @@ str = (s)->
     return s
 
 class XmlStackStream
-  constructor:()->
+  constructor:(@Id)->
     @stack = []
     Observable.extends @
     @nodeId = 0
-    @xml = null
 
   push:(data)->
     @stack.push data
@@ -94,11 +93,11 @@ class XmlStackStream
     }
     return
 
+  # TODO: I need to work with EOF
   update:(args)->
     if args[0] is TOKEN_BEGIN_XML
       @createNode "xml", null
       @nodeId = @nodeId + 1
-      @xml = @peek()
     else if args[0] is TOKEN_TAG_HEAD
       @createNode str(args[1]), str args[1]
       @nodeId = @nodeId + 1
@@ -107,13 +106,25 @@ class XmlStackStream
     else if args[0] is TOKEN_EMPTY_ATTR
       @addPropertyName str args[1]
       @addPropertyValue true
+      @tell {
+        from: @Id
+        what: "ADD_PROPERTY"
+        subject: @stack.peek()
+        key: @stack.peek().properties[element.properties.length-1].name
+        value: @stack.peek().properties[element.properties.length-1].value
+      }
     else if args[0] is TOKEN_ATTR_NAME
       @addPropertyName str args[1]
     else if args[0] is TOKEN_ATTR_VALUE
       @addPropertyValue str args[1]
+      @tell {
+        from: @Id
+        what: "ADD_PROPERTY"
+        subject: @stack.peek()
+        key: @stack.peek().properties[element.properties.length-1].name
+        value: @stack.peek().properties[element.properties.length-1].value
+      }
     else if args[0] is TOKEN_DATA
       @addContents str(args[1])
-
-
 
 module.exports = XmlStackStream
