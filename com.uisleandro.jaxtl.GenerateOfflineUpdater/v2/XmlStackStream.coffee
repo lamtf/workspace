@@ -129,6 +129,10 @@ class XmlStackStream
     else if args[0] is TOKEN_DATA
       @addContents str(args[1])
     else if args[0] is TOKEN_END_OF_FILE
-      console.log "END_OF_FILE"
+      @tell {
+        FROM: @Id
+        what: "END_OF_FILE"
+        subject: @stack[0]
+      }
 
 module.exports = XmlStackStream

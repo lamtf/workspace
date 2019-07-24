@@ -6,8 +6,8 @@ class LogStream
   observe:(source)->
     source.addObserver @
   update:(obj)->
-    if obj[1]
-      console.log str [obj[1]]
+    if obj
+      console.log obj #str [obj[1]]
   error:(obj)->
     console.error obj
 
