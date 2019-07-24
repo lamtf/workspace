@@ -44,10 +44,13 @@ class MemoryCharStream
       n = @data.length
     x = 0
     while x < n
-      s = @data[@i].charCodeAt 0
-      @update s
-      @i = @i + 1
+      if @i < @data.length
+        s = @data[@i].charCodeAt 0
+        @update s
+        @i = @i + 1
       x = x + 1
+
+
 
 memoryCharStream = new MemoryCharStream("""
 <?xml version = "1.0" encoding="UTF-8"?>
@@ -198,8 +201,10 @@ expected.expect 10, TOKEN_ATTR_NAME
 expected.expect 20, TOKEN_ATTR_VALUE
 expected.expect 15, NOTHING
 expected.expect 5, TOKEN_TAG_HEAD
-expected.expect 140, TOKEN_DATA
-expected.expect 5, TOKEN_END_TAG
+expected.expect 141, TOKEN_DATA
+expected.expect 8, TOKEN_END_TAG
+expected.expect 6, NOTHING
+expected.expect 18, TOKEN_END_TAG
 #expected.ps()
 
 #expected.expect 5, NOTHING

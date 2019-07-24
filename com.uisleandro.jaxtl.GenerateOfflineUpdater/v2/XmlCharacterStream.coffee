@@ -155,6 +155,9 @@ class XmlCharacterStream
         else if @data[0] is CHAR_CODE_BACK_SLASH
           @tell [SEND_DATA, [@data[0], args[1]]]
           @data = EMPTY.slice(0)
+        else if args[1] is CHAR_CODE_LOWER_THAN
+          @tell [SEND_DATA, [@data[0]]]
+          @data[0] = args[1]
         else
           @tell [SEND_DATA, [@data[0]]]
           @data = EMPTY.slice(0)

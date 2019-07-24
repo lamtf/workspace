@@ -115,7 +115,7 @@ class XmlTokenStream
     if args[0] is SEND_END_OF_FILE
       @flushState TOKEN_END_OF_FILE
       return
-    process.stdout.write "\x1b[36m\x1b[1m"+str(v)+"\x1b[0m"
+    #process.stdout.write "\x1b[36m\x1b[1m"+str(v)+"\x1b[0m"
     if @status & DOUBLE_QUOTTED
       if v[0] is CHAR_CODE_DOUBLE_QUOTE
         @flushData(TOKEN_ATTR_VALUE)
@@ -219,7 +219,6 @@ class XmlTokenStream
         if isSpace v[0]
           @status = @status | READY_FOR_ATTR
     else if @status & TAG_HEAD
-      console.log "XXXXXXXXXX", v[0] is CHAR_CODE_SLASH
       if isPrefix v[0]
         @data.push v[0]
       else if isSufix v[0] and @data.length > 0
