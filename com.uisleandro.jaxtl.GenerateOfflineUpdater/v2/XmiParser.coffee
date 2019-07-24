@@ -1,17 +1,21 @@
+Observable = require "./Observable"
+
+# all elements have xmi:type
+# all elements have xmi:id
+# some elements of xmi:type="uml:DataType" have "href=file.ext#internal_id"
+
 class XmiParser
   constructor:()->
     @ids = []
     @stmap = []
-  observe:(parser)->
-    parser.addObserver @
-    return @
+    Observable.extends @
   setPrefix:(@prefix)->
     return @
   set:(k,v)->
     @ids[k] = v
   update:(e)->
     that = @
-    if e.what is"ADD_PROPERTY"
+    if e.what is "ADD_PROPERTY"
       if e.key is "xmi:id"
         @ids[e.value] = e.subject
         e.subject.xmiId = e.value
@@ -51,19 +55,7 @@ class XmiParser
           e.subject.getXmiAttributes=()->
             e.subject.children.filter((x)-> x.getXmiObject().xmiType isnt "uml:Class" and x.tagName is "ownedAttribute").map((x)-> x.name)
           e.subject.preProcessXmiNextClassifersForeignKeys=()->
-            # console.error "# preProcessXmiNextClassifersForeignKeys()"
             e.subject.getXmiNextClassifers().forEach (cl) -> cl.getXmiForeignKeys()
-
-      ###
-      if e.key is "xmi:type" and e.value is "uml:Class"
-        if e.subject.getParent().getParent()
-      ###
-      ###
-      what: "ADD_PROPERTY"
-      subject: stack.peek()
-      key: prop.name
-      value: prop.value
-      ###
   getElementById:(key)-> @ids[key]
   getAppliedStereotypes:(key)-> @stmap[key]
 

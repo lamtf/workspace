@@ -12,8 +12,10 @@ pipe = require "./Pipe"
 charStream = new CharStream("./behavior_model_v4.uml")
 xmlCharacterStream = new XmlCharacterStream()
 xmlTokenStream = new XmlTokenStream()
-xmlStackStream = new XmlStackStream()
+xmlStackStream = new XmlStackStream("s1")
+
 logStream = new LogStream()
+xmiParser = new XmiParser()
 
 # TODO: Now i need to check if the tokens are being parsed correctly
 # and if no, what is wrong, in which character
