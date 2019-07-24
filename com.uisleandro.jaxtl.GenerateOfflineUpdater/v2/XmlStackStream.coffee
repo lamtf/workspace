@@ -13,7 +13,7 @@ CHAR_CODE_LINE_FEED,CHAR_CODE_SPACE,CHAR_CODE_SINGLE_QUOTE,
 CHAR_CODE_DOUBLE_QUOTE,SEND_DATA,SEND_END_OF_FILE} = require './constants'
 
 {TOKEN_BEGIN_XML, TOKEN_EMPTY_ATTR, TOKEN_ATTR_NAME, TOKEN_ATTR_VALUE,
-TOKEN_TAG_HEAD, TOKEN_END_TAG, TOKEN_DATA} = require './TokenType'
+TOKEN_TAG_HEAD, TOKEN_END_TAG, TOKEN_DATA, TOKEN_END_OF_FILE} = require './TokenType'
 
 str = (s)->
   if s isnt null and typeof(s) isnt "string" and s.length > 0
@@ -42,7 +42,7 @@ class XmlStackStream
       parent = @peek()
       @addChild parent, child
     else
-      console.error "ERROR CLOSING TAG: #{tagName} != #{child.tagName}"
+      process.stdout.write "\x1b[31m\x1b[1mERROR CLOSING TAG: #{tagName} != #{child.tagName}\x1b[0m"
 
   peek:(data)->
     return @stack[@stack.length-1]
@@ -106,25 +106,29 @@ class XmlStackStream
     else if args[0] is TOKEN_EMPTY_ATTR
       @addPropertyName str args[1]
       @addPropertyValue true
+      currentNode = @peek()
       @tell {
         from: @Id
         what: "ADD_PROPERTY"
-        subject: @stack.peek()
-        key: @stack.peek().properties[element.properties.length-1].name
-        value: @stack.peek().properties[element.properties.length-1].value
+        subject: currentNode
+        key: currentNode.properties[currentNode.properties.length-1].name
+        value: currentNode.properties[currentNode.properties.length-1].value
       }
     else if args[0] is TOKEN_ATTR_NAME
       @addPropertyName str args[1]
     else if args[0] is TOKEN_ATTR_VALUE
       @addPropertyValue str args[1]
+      currentNode = @peek()
       @tell {
         from: @Id
         what: "ADD_PROPERTY"
-        subject: @stack.peek()
-        key: @stack.peek().properties[element.properties.length-1].name
-        value: @stack.peek().properties[element.properties.length-1].value
+        subject: currentNode
+        key: currentNode.properties[currentNode.properties.length-1].name
+        value: currentNode.properties[currentNode.properties.length-1].value
       }
     else if args[0] is TOKEN_DATA
       @addContents str(args[1])
+    else if args[0] is TOKEN_END_OF_FILE
+      console.log "END_OF_FILE"
 
 module.exports = XmlStackStream

@@ -16,7 +16,7 @@ SPACE1,SPACE2,DOUBLE_QUOTTED,SINGLE_QUOTTED,END_ATTRIBUTE,
 MASK} = require './states'
 
 {TOKEN_BEGIN_XML, TOKEN_EMPTY_ATTR, TOKEN_ATTR_NAME, TOKEN_ATTR_VALUE,
-TOKEN_TAG_HEAD, TOKEN_END_TAG, TOKEN_DATA} = require './TokenType'
+TOKEN_TAG_HEAD, TOKEN_END_TAG, TOKEN_DATA, TOKEN_END_OF_FILE} = require './TokenType'
 
 ###
 pt =(t)->
@@ -112,7 +112,10 @@ class XmlTokenStream
     $this = @
     x = 0
     v = args[1]
-    #process.stdout.write str v
+    if args[0] is SEND_END_OF_FILE
+      @flushState TOKEN_END_OF_FILE
+      return
+    process.stdout.write "\x1b[36m\x1b[1m"+str(v)+"\x1b[0m"
     if @status & DOUBLE_QUOTTED
       if v[0] is CHAR_CODE_DOUBLE_QUOTE
         @flushData(TOKEN_ATTR_VALUE)
@@ -216,6 +219,7 @@ class XmlTokenStream
         if isSpace v[0]
           @status = @status | READY_FOR_ATTR
     else if @status & TAG_HEAD
+      console.log "XXXXXXXXXX", v[0] is CHAR_CODE_SLASH
       if isPrefix v[0]
         @data.push v[0]
       else if isSufix v[0] and @data.length > 0
@@ -263,6 +267,7 @@ class XmlTokenStream
       else if v.length is 2 and v[0] is CHAR_CODE_LOWER_THAN
         @flushData(TOKEN_DATA)
         #console.log "</"
+        #console.log "#############################################????"
         @status = @status | ENDING_TAG
       else if v.length is 1 and v[0] is CHAR_CODE_LOWER_THAN
         @flushData(TOKEN_DATA)

@@ -1,7 +1,9 @@
 fs = require "fs"
 
-#{ DATA,EOF,LT,GT,EQ,SL,SP,TA,CR,LF,SQ,DQ,QM } = require "./StateMachine"
+# DATA = 0
+# EOF = 1
 
+{ SEND_DATA, SEND_END_OF_FILE } = require "./constants"
 Observable = require "./Observable"
 
 class CharStream
@@ -37,7 +39,7 @@ class CharStream
       chunkIndex = 0
       if read
         while typeof(chunk[chunkIndex]) isnt 'undefined' and chunkIndex < CHUNK_LENGTH
-          $this.tell([DATA, chunk[chunkIndex]])
+          $this.tell([SEND_DATA, chunk[chunkIndex]])
           chunkIndex++
           # console.log(ByteToString(buffer))
       _stream.resume()
@@ -46,7 +48,7 @@ class CharStream
       console.error err
 
     _stream.on 'end', ()->
-      $this.tell([EOF, null])
+      $this.tell([SEND_END_OF_FILE, null])
       #console.log "FIHISH READING", chunkNumber
     return
 

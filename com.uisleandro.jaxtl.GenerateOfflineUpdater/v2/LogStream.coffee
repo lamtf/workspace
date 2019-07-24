@@ -7,7 +7,7 @@ class LogStream
     source.addObserver @
   update:(obj)->
     if obj[1]
-      console.log str obj[1]
+      console.log str [obj[1]]
   error:(obj)->
     console.error obj
 

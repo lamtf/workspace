@@ -6,4 +6,5 @@ module.exports = {
   TOKEN_TAG_HEAD : 32
   TOKEN_END_TAG : 64
   TOKEN_DATA : 128
+  TOKEN_END_OF_FILE : 256
 }
