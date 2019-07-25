@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ClientScope="http://www.uisleandro.com/client-scope" xmlns:behavior="http://www.uisleandro.com/behavior" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:project="http://www.uisleandro.com/project" xmlns:query="http://www.uisleandro.com/query" xmlns:screen="http://www.uisleandro.com/screen" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:web="http://www.uisleandro.com/web" xsi:schemaLocation="http://www.uisleandro.com/client-scope ../__set2017/client-scope.profile.uml#_sLVk8J7VEeeu3s25hTtceQ http://www.uisleandro.com/behavior ../__set2017/behavior.profile.uml#_1te10JtBEeeBsuemOaAMCQ http://www.uisleandro.com/project ../__set2017/project.profile.uml#_DlJ7wJv8EeeRy6NEWtzRPw http://www.uisleandro.com/query ../__set2017/query.profile.uml#_Zt1b4KlqEeeYqO41IHi8Hg http://www.uisleandro.com/screen ../__set2017/screen.profile.uml#_I9RdoK3cEeeEPdkkGPficg http://www.uisleandro.com/web ../__set2017/web.profile.uml#_mgGTYJtGEeeBsuemOaAMCQ">
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ClientScope="http://www.uisleandro.com/client-scope" xmlns:behavior="http://www.uisleandro.com/behavior" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:project="http://www.uisleandro.com/project" xmlns:query="http://www.uisleandro.com/query" xmlns:screen="http://www.uisleandro.com/screen" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmlns:web="http://www.uisleandro.com/web" xsi:schemaLocation="http://www.uisleandro.com/client-scope client-scope.profile.uml#_sLVk8J7VEeeu3s25hTtceQ http://www.uisleandro.com/behavior behavior.profile.uml#_1te10JtBEeeBsuemOaAMCQ http://www.uisleandro.com/project project.profile.uml#_DlJ7wJv8EeeRy6NEWtzRPw http://www.uisleandro.com/query query.profile.uml#_Zt1b4KlqEeeYqO41IHi8Hg http://www.uisleandro.com/screen screen.profile.uml#_I9RdoK3cEeeEPdkkGPficg http://www.uisleandro.com/web web.profile.uml#_mgGTYJtGEeeBsuemOaAMCQ">
   <uml:Model xmi:id="_3wSw0PnMEeaOHq9kL8mjZQ" name="RootModel" URI="">
     <packagedElement xmi:type="uml:Package" xmi:id="_0AqqYApUEee_sO_72Fl5KA" name="android_behavior">
       <packagedElement xmi:type="uml:StateMachine" xmi:id="_-51zYApUEee_sO_72Fl5KA" name="sales_point">
@@ -417,93 +417,93 @@ como vou pegar o resultado desta activity?</body>
           <packagedElement xmi:type="uml:Class" xmi:id="_cHjZk0WDEeeasKvfEI8-dw" name="login_form">
             <nestedClassifier xmi:type="uml:Class" xmi:id="_cHjZlEWDEeeasKvfEI8-dw" name="user">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_cHjZlUWDEeeasKvfEI8-dw" name="username">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_cHjZlkWDEeeasKvfEI8-dw" name="password">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_BbhMgE7eEeeYeLFZkFeMKQ" name="system">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_BbhMg07eEeeYeLFZkFeMKQ" name="enabled">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVah39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVah39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_m-_N8EupEeeDj9I2cXZNXg" name="login_data">
             <nestedClassifier xmi:type="uml:Class" xmi:id="_m-_N8UupEeeDj9I2cXZNXg" name="user">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N8kupEeeDj9I2cXZNXg" name="last_update_time">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N80upEeeDj9I2cXZNXg" name="system" type="_m-_N_UupEeeDj9I2cXZNXg"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N9EupEeeDj9I2cXZNXg" name="role" type="_m-_OAkupEeeDj9I2cXZNXg"/>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N9UupEeeDj9I2cXZNXg" name="username">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N9kupEeeDj9I2cXZNXg" name="password">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N90upEeeDj9I2cXZNXg" name="name">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N-EupEeeDj9I2cXZNXg" name="email">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N-UupEeeDj9I2cXZNXg" name="last_use_time">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N-kupEeeDj9I2cXZNXg" name="last_error_time">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N-0upEeeDj9I2cXZNXg" name="error_count">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVagX9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVagX9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N_EupEeeDj9I2cXZNXg" name="active">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVah39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVah39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_m-_N_UupEeeDj9I2cXZNXg" name="system">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N_kupEeeDj9I2cXZNXg" name="last_update_time">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_N_0upEeeDj9I2cXZNXg" name="name">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_OAEupEeeDj9I2cXZNXg" name="enabled">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVah39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVah39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_OAUupEeeDj9I2cXZNXg" name="currency" type="_m-_OBUupEeeDj9I2cXZNXg"/>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_m-_OAkupEeeDj9I2cXZNXg" name="role">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_OA0upEeeDj9I2cXZNXg" name="last_update_time">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_OBEupEeeDj9I2cXZNXg" name="name">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
             <nestedClassifier xmi:type="uml:Class" xmi:id="_m-_OBUupEeeDj9I2cXZNXg" name="currency">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_OBkupEeeDj9I2cXZNXg" name="last_update_time">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_OB0upEeeDj9I2cXZNXg" name="abbreviature">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_m-_OCEupEeeDj9I2cXZNXg" name="description">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_0Ij9EE-rEeeR8d93OBYcMg" name="token_out">
             <nestedClassifier xmi:type="uml:Class" xmi:id="_0Ij9EU-rEeeR8d93OBYcMg" name="token">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_0Ij9Fk-rEeeR8d93OBYcMg" name="guid">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_VYlzUE-sEeeR8d93OBYcMg" name="token_in">
             <nestedClassifier xmi:type="uml:Class" xmi:id="_VYlzUU-sEeeR8d93OBYcMg" name="token">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_VYlzWE-sEeeR8d93OBYcMg" name="expiration_time">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
@@ -514,7 +514,7 @@ como vou pegar o resultado desta activity?</body>
           <packagedElement xmi:type="uml:Class" xmi:id="_Ps3jzUbNEeeB9LfiTGxFCw" name="find_product_by_id">
             <nestedClassifier xmi:type="uml:Class" xmi:id="_Ps3jzkbNEeeB9LfiTGxFCw" name="product">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_Ps3j0EbNEeeB9LfiTGxFCw" name="id">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVagX9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVagX9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
@@ -532,26 +532,26 @@ como vou pegar o resultado desta activity?</body>
           <packagedElement xmi:type="uml:Class" xmi:id="_UX6EcEbPEeeB9LfiTGxFCw" name="in_cash_receivement">
             <nestedClassifier xmi:type="uml:Class" xmi:id="_UX6EcUbPEeeB9LfiTGxFCw" name="cash_launch">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_UX6EdUbPEeeB9LfiTGxFCw" name="amount_received">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_pm6Y0EbPEeeB9LfiTGxFCw" name="value">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_xPR4YEbPEeeB9LfiTGxFCw" name="difference">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
           <packagedElement xmi:type="uml:Class" xmi:id="_eYRm8E-zEeeR8d93OBYcMg" name="cash_register_in">
             <nestedClassifier xmi:type="uml:Class" xmi:id="_eYRm8U-zEeeR8d93OBYcMg" name="cash_register">
               <ownedAttribute xmi:type="uml:Property" xmi:id="_eYRm80-zEeeR8d93OBYcMg" name="fk_user">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVagX9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVagX9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_eYRm9k-zEeeR8d93OBYcMg" name="closing_value">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVagn9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
               <ownedAttribute xmi:type="uml:Property" xmi:id="_idDX8FFIEeesvOUB-zZRiA" name="last_update_time">
-                <type xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
+                <type xmi:type="uml:DataType" href="types_android.uml#_WoVahX9XEeaVP9RPox9M_A"/>
               </ownedAttribute>
             </nestedClassifier>
           </packagedElement>
@@ -6798,9 +6798,9 @@ como vou pegar o resultado desta activity?</body>
       </packagedElement>
       <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_NCr2QOzGEeecrJ5nJ-nmkA">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NDJwUOzGEeecrJ5nJ-nmkA" source="http://www.eclipse.org/uml2/2.0.0/UML">
-          <references xmi:type="ecore:EPackage" href="../__set2017/query.profile.uml#_Zt1b4KlqEeeYqO41IHi8Hg"/>
+          <references xmi:type="ecore:EPackage" href="query.profile.uml#_Zt1b4KlqEeeYqO41IHi8Hg"/>
         </eAnnotations>
-        <appliedProfile xmi:type="uml:Profile" href="../__set2017/query.profile.uml#_P_PNUEusEeeDj9I2cXZNXg"/>
+        <appliedProfile xmi:type="uml:Profile" href="query.profile.uml#_P_PNUEusEeeDj9I2cXZNXg"/>
       </profileApplication>
       <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_NMvKIOzGEeecrJ5nJ-nmkA">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NMwYQOzGEeecrJ5nJ-nmkA" source="http://www.eclipse.org/uml2/2.0.0/UML">
@@ -6810,9 +6810,9 @@ como vou pegar o resultado desta activity?</body>
       </profileApplication>
       <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_NNGWgOzGEeecrJ5nJ-nmkA">
         <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_NNG9kOzGEeecrJ5nJ-nmkA" source="http://www.eclipse.org/uml2/2.0.0/UML">
-          <references xmi:type="ecore:EPackage" href="../__set2017/client-scope.profile.uml#_sLVk8J7VEeeu3s25hTtceQ"/>
+          <references xmi:type="ecore:EPackage" href="client-scope.profile.uml#_sLVk8J7VEeeu3s25hTtceQ"/>
         </eAnnotations>
-        <appliedProfile xmi:type="uml:Profile" href="../__set2017/client-scope.profile.uml#_dtHdUJ7UEeeu3s25hTtceQ"/>
+        <appliedProfile xmi:type="uml:Profile" href="client-scope.profile.uml#_dtHdUJ7UEeeu3s25hTtceQ"/>
       </profileApplication>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_oQjKMEuuEeeDj9I2cXZNXg">
@@ -6824,9 +6824,9 @@ como vou pegar o resultado desta activity?</body>
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ifqodalrEeeYqO41IHi8Hg" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_oQk_YEuuEeeDj9I2cXZNXg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../__set2017/query.profile.uml#_Zt1b4KlqEeeYqO41IHi8Hg"/>
+        <references xmi:type="ecore:EPackage" href="query.profile.uml#_Zt1b4KlqEeeYqO41IHi8Hg"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../__set2017/query.profile.uml#_P_PNUEusEeeDj9I2cXZNXg"/>
+      <appliedProfile xmi:type="uml:Profile" href="query.profile.uml#_P_PNUEusEeeDj9I2cXZNXg"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_kmchsFLaEeeLUJhVMEnR3A">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_nckYsJ4lEeeiLrrsPoncUw" source="PapyrusVersion">
@@ -6837,9 +6837,9 @@ como vou pegar o resultado desta activity?</body>
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_nckYtZ4lEeeiLrrsPoncUw" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_kmeW4FLaEeeLUJhVMEnR3A" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../__set2017/event.profile.uml#_PaX9cJvUEeeRy6NEWtzRPw"/>
+        <references xmi:type="ecore:EPackage" href="event.profile.uml#_PaX9cJvUEeeRy6NEWtzRPw"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../__set2017/event.profile.uml#_9tN2AFLTEeeLUJhVMEnR3A"/>
+      <appliedProfile xmi:type="uml:Profile" href="event.profile.uml#_9tN2AFLTEeeLUJhVMEnR3A"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_DuBDAJb9EeeUDPcc3wuSpg">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_nhZOUJ4lEeeiLrrsPoncUw" source="PapyrusVersion">
@@ -6850,9 +6850,9 @@ como vou pegar o resultado desta activity?</body>
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_nhZOVZ4lEeeiLrrsPoncUw" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_DuCRIJb9EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../__set2017/behavior.profile.uml#_1te10JtBEeeBsuemOaAMCQ"/>
+        <references xmi:type="ecore:EPackage" href="behavior.profile.uml#_1te10JtBEeeBsuemOaAMCQ"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../__set2017/behavior.profile.uml#_JNRqsJWBEeeJmJS1Ay90PQ"/>
+      <appliedProfile xmi:type="uml:Profile" href="behavior.profile.uml#_JNRqsJWBEeeJmJS1Ay90PQ"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Dv-x4Jb9EeeUDPcc3wuSpg">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_MtC7AK3cEeeEPdkkGPficg" source="PapyrusVersion">
@@ -6863,9 +6863,9 @@ como vou pegar o resultado desta activity?</body>
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_MtC7Ba3cEeeEPdkkGPficg" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Dv-x4Zb9EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../__set2017/screen.profile.uml#_I9RdoK3cEeeEPdkkGPficg"/>
+        <references xmi:type="ecore:EPackage" href="screen.profile.uml#_I9RdoK3cEeeEPdkkGPficg"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../__set2017/screen.profile.uml#_R87icJWBEeeJmJS1Ay90PQ"/>
+      <appliedProfile xmi:type="uml:Profile" href="screen.profile.uml#_R87icJWBEeeJmJS1Ay90PQ"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Dwhkdpb9EeeUDPcc3wuSpg">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_nixHUJ4lEeeiLrrsPoncUw" source="PapyrusVersion">
@@ -6876,9 +6876,9 @@ como vou pegar o resultado desta activity?</body>
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_nixHVZ4lEeeiLrrsPoncUw" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_DwiLgJb9EeeUDPcc3wuSpg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../__set2017/web.profile.uml#_mgGTYJtGEeeBsuemOaAMCQ"/>
+        <references xmi:type="ecore:EPackage" href="web.profile.uml#_mgGTYJtGEeeBsuemOaAMCQ"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../__set2017/web.profile.uml#__bSJ4Jb5EeeUDPcc3wuSpg"/>
+      <appliedProfile xmi:type="uml:Profile" href="web.profile.uml#__bSJ4Jb5EeeUDPcc3wuSpg"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Ck6cMJcZEee2Tq5bQ4dezg">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_njankJ4lEeeiLrrsPoncUw" source="PapyrusVersion">
@@ -6889,39 +6889,39 @@ como vou pegar o resultado desta activity?</body>
         <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_njanlZ4lEeeiLrrsPoncUw" key="Author" value=""/>
       </eAnnotations>
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Ck9fgJcZEee2Tq5bQ4dezg" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../__set2017/project.profile.uml#_DlJ7wJv8EeeRy6NEWtzRPw"/>
+        <references xmi:type="ecore:EPackage" href="project.profile.uml#_DlJ7wJv8EeeRy6NEWtzRPw"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../__set2017/project.profile.uml#_CA2XwJcXEee2Tq5bQ4dezg"/>
+      <appliedProfile xmi:type="uml:Profile" href="project.profile.uml#_CA2XwJcXEee2Tq5bQ4dezg"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_HiKkEKXlEeeTxINAq2F67Q">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_HiLyMKXlEeeTxINAq2F67Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../__set2017/project.profile.uml#_DlJ7wJv8EeeRy6NEWtzRPw"/>
+        <references xmi:type="ecore:EPackage" href="project.profile.uml#_DlJ7wJv8EeeRy6NEWtzRPw"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../__set2017/project.profile.uml#_CA2XwJcXEee2Tq5bQ4dezg"/>
+      <appliedProfile xmi:type="uml:Profile" href="project.profile.uml#_CA2XwJcXEee2Tq5bQ4dezg"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_I8OHQKXlEeeTxINAq2F67Q">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_I8PVYKXlEeeTxINAq2F67Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../__set2017/screen.profile.uml#_5lGAkJtBEeeBsuemOaAMCQ"/>
+        <references xmi:type="ecore:EPackage" href="screen.profile.uml#_5lGAkJtBEeeBsuemOaAMCQ"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../__set2017/screen.profile.uml#_R87icJWBEeeJmJS1Ay90PQ"/>
+      <appliedProfile xmi:type="uml:Profile" href="screen.profile.uml#_R87icJWBEeeJmJS1Ay90PQ"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_KWKVsKXlEeeTxINAq2F67Q">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_KWMK4KXlEeeTxINAq2F67Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../__set2017/behavior.profile.uml#_1te10JtBEeeBsuemOaAMCQ"/>
+        <references xmi:type="ecore:EPackage" href="behavior.profile.uml#_1te10JtBEeeBsuemOaAMCQ"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../__set2017/behavior.profile.uml#_JNRqsJWBEeeJmJS1Ay90PQ"/>
+      <appliedProfile xmi:type="uml:Profile" href="behavior.profile.uml#_JNRqsJWBEeeJmJS1Ay90PQ"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_LkqwMqXlEeeTxINAq2F67Q">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_LktMcKXlEeeTxINAq2F67Q" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../__set2017/web.profile.uml#_mgGTYJtGEeeBsuemOaAMCQ"/>
+        <references xmi:type="ecore:EPackage" href="web.profile.uml#_mgGTYJtGEeeBsuemOaAMCQ"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../__set2017/web.profile.uml#__bSJ4Jb5EeeUDPcc3wuSpg"/>
+      <appliedProfile xmi:type="uml:Profile" href="web.profile.uml#__bSJ4Jb5EeeUDPcc3wuSpg"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_shyxUKlCEeesPvOgzuJ3Tw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_sh9JYKlCEeesPvOgzuJ3Tw" source="http://www.eclipse.org/uml2/2.0.0/UML">
-        <references xmi:type="ecore:EPackage" href="../__set2017/client-scope.profile.uml#_sLVk8J7VEeeu3s25hTtceQ"/>
+        <references xmi:type="ecore:EPackage" href="client-scope.profile.uml#_sLVk8J7VEeeu3s25hTtceQ"/>
       </eAnnotations>
-      <appliedProfile xmi:type="uml:Profile" href="../__set2017/client-scope.profile.uml#_dtHdUJ7UEeeu3s25hTtceQ"/>
+      <appliedProfile xmi:type="uml:Profile" href="client-scope.profile.uml#_dtHdUJ7UEeeu3s25hTtceQ"/>
     </profileApplication>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_Me69YKnUEeeVaO3AnJkwIw">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_MfBrEKnUEeeVaO3AnJkwIw" source="http://www.eclipse.org/uml2/2.0.0/UML">
@@ -6941,8 +6941,8 @@ como vou pegar o resultado desta activity?</body>
   <screen:Page xmi:id="_knIOEJb9EeeUDPcc3wuSpg" base_State="__5O8MCoDEee_ELQubcM8ZQ"/>
   <screen:FormRegion xmi:id="_8hq7oJb9EeeUDPcc3wuSpg" base_State="_OoF08ApVEee_sO_72Fl5KA"/>
   <behavior:DeclareFunction xmi:id="_Q0U8gJb-EeeUDPcc3wuSpg" base_State="_RugRQCxMEeegQ7hEsrQtvg">
-    <ArgumentTypes xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
-    <ArgumentTypes xmi:type="uml:DataType" href="../psm/types_android.uml#_WoVah39XEeaVP9RPox9M_A"/>
+    <ArgumentTypes xmi:type="uml:DataType" href="types_android.uml#_WoVag39XEeaVP9RPox9M_A"/>
+    <ArgumentTypes xmi:type="uml:DataType" href="types_android.uml#_WoVah39XEeaVP9RPox9M_A"/>
     <ArgumentNames>code</ArgumentNames>
     <ArgumentNames>byId</ArgumentNames>
   </behavior:DeclareFunction>

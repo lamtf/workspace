@@ -9,7 +9,7 @@ LogStream = require "./LogStream"
 
 pipe = require "./Pipe"
 
-charStream = new CharStream("./behavior_model_v4.uml")
+charStream = new CharStream("./xmi/behavior_model_v4.uml")
 xmlCharacterStream = new XmlCharacterStream()
 xmlTokenStream = new XmlTokenStream()
 xmlStackStream = new XmlStackStream("s1")
