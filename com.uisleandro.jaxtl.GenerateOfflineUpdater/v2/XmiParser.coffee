@@ -4,25 +4,37 @@ Observable = require "./Observable"
 # all elements have xmi:id
 # some elements of xmi:type="uml:DataType" have "href=file.ext#internal_id"
 
+ADD_PROPERTY = 0
+NEW_FILE = 1
+END_OF_FILE = 4294967295
+
 class XmiParser
   constructor:()->
     @ids = []
-    @stmap = []
+    @stereotypes = []
     Observable.extends @
   setPrefix:(@prefix)->
     return @
   set:(k,v)->
     @ids[k] = v
   update:(e)->
+    # TODO: identify and tell about new files
     that = @
-    if e.what is "ADD_PROPERTY"
+    if e.what is END_OF_FILE
+      @tell {
+        what: END_OF_FILE
+        elementById: @ids
+        appliedStereotypes: @stereotypes
+        xml: e.subject
+      }
+    else if e.what is ADD_PROPERTY
       if e.key is "xmi:id"
         @ids[e.value] = e.subject
         e.subject.xmiId = e.value
       if e.key.indexOf("base_") > -1
-        if not @stmap[e.value]
-          @stmap[e.value] = []
-        @stmap[e.value].push e.subject
+        if not @stereotypes[e.value]
+          @stereotypes[e.value] = []
+        @stereotypes[e.value].push e.subject
       if e.key is "type"
         e.subject.getXmiObject = ()-> that.getElementById e.value
         e.subject.isFk = true
@@ -30,10 +42,6 @@ class XmiParser
         e.subject.name = e.value
       else if e.key is "xmi:type"
         e.subject.xmiType = e.value
-        ###
-        if e.value is "uml:Parameter" and not e.subject.getXmiObject?
-          e.subject.getXmiObject = ()-> null
-        ###
         if e.value is "uml:Property" and not e.subject.getXmiObject?
           e.subject.getXmiObject = ()-> null
           e.subject.isFk = false
@@ -49,14 +57,12 @@ class XmiParser
               if e.subject.children?
                 $this.fks = e.subject.children.filter((x)-> x.getXmiObject().xmiType is "uml:Class" and x.tagName is "ownedAttribute").map((x)-> x.name)
               else
-                console.error "WARN01 #{$this.getParent().getAttr('name')}.#{$this.getAttr('name')} class has no children"
                 $this.fks = []
             $this.fks
           e.subject.getXmiAttributes=()->
             e.subject.children.filter((x)-> x.getXmiObject().xmiType isnt "uml:Class" and x.tagName is "ownedAttribute").map((x)-> x.name)
           e.subject.preProcessXmiNextClassifersForeignKeys=()->
             e.subject.getXmiNextClassifers().forEach (cl) -> cl.getXmiForeignKeys()
-  getElementById:(key)-> @ids[key]
-  getAppliedStereotypes:(key)-> @stmap[key]
+
 
 module.exports = XmiParser

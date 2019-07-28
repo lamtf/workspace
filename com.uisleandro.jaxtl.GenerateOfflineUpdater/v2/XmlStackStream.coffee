@@ -15,6 +15,9 @@ CHAR_CODE_DOUBLE_QUOTE,SEND_DATA,SEND_END_OF_FILE} = require './constants'
 {TOKEN_BEGIN_XML, TOKEN_EMPTY_ATTR, TOKEN_ATTR_NAME, TOKEN_ATTR_VALUE,
 TOKEN_TAG_HEAD, TOKEN_END_TAG, TOKEN_DATA, TOKEN_END_OF_FILE} = require './TokenType'
 
+ADD_PROPERTY = 0
+END_OF_FILE = 4294967295
+
 str = (s)->
   if s isnt null and typeof(s) isnt "string" and s.length > 0
     val = s.map((x)->String.fromCharCode x).join('')
@@ -23,7 +26,7 @@ str = (s)->
     return s
 
 class XmlStackStream
-  constructor:(@Id)->
+  constructor:()->
     @stack = []
     Observable.extends @
     @nodeId = 0
@@ -108,8 +111,7 @@ class XmlStackStream
       @addPropertyValue true
       currentNode = @peek()
       @tell {
-        from: @Id
-        what: "ADD_PROPERTY"
+        what: ADD_PROPERTY
         subject: currentNode
         key: currentNode.properties[currentNode.properties.length-1].name
         value: currentNode.properties[currentNode.properties.length-1].value
@@ -120,8 +122,7 @@ class XmlStackStream
       @addPropertyValue str args[1]
       currentNode = @peek()
       @tell {
-        from: @Id
-        what: "ADD_PROPERTY"
+        what: ADD_PROPERTY
         subject: currentNode
         key: currentNode.properties[currentNode.properties.length-1].name
         value: currentNode.properties[currentNode.properties.length-1].value
@@ -130,8 +131,7 @@ class XmlStackStream
       @addContents str(args[1])
     else if args[0] is TOKEN_END_OF_FILE
       @tell {
-        FROM: @Id
-        what: "END_OF_FILE"
+        what: END_OF_FILE
         subject: @stack[0]
       }
 
