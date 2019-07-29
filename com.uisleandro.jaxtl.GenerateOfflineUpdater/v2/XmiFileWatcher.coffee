@@ -2,7 +2,7 @@ Observable = require "./Observable"
 
 ADD_PROPERTY = 0
 NEW_FILE = 1
-END_OF_FILE = 4294967295
+# END_OF_FILE = 4294967295
 
 class XmiFileWatcher
   constructor:(@baseFolder)->

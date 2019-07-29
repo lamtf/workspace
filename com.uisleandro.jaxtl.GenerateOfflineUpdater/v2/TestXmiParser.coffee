@@ -6,6 +6,7 @@ XmlTokenStream = require './XmlTokenStream'
 XmiParser = require './XmiParser'
 
 XmiFileWatcher = require './XmiFileWatcher'
+Semaphore = require './Semaphore'
 
 LogStream = require "./LogStream"
 
@@ -17,6 +18,10 @@ xmlTokenStream = new XmlTokenStream()
 xmlStackStream = new XmlStackStream()
 xmiFileWatcher = new XmiFileWatcher("xmi")
 
+ADD_WORK = 1
+REMOVE_WORK = 2
+
+###
 class AndThen
   constructor:(@exec)->
   observe:(source)->
@@ -32,15 +37,18 @@ andThen = new AndThen( (event)=>
     console.log "ADD_PROPERTY"
   else if event.what is 1
     console.log "NEW_FILE", event.fileName
-  else
+  else if event.what is 4294967295
     console.log "END_OF_FILE"
     console.log event.elementById["_9d2ibqoJEee7s7jN2Y2F9A"]
   )
+###
 
 logStream = new LogStream()
 xmiParser = new XmiParser()
 
-pipe andThen, xmiParser, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
-pipe andThen, xmiFileWatcher, xmlStackStream
-
-charStream.start()
+semaphore = new Semaphore()
+pipe logStream, semaphore.start(($this)->
+  pipe xmiParser, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
+  pipe $this, xmiFileWatcher, xmlStackStream
+  charStream.start()
+)
