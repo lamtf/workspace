@@ -12,11 +12,7 @@ LogStream = require "./LogStream"
 
 pipe = require "./Pipe"
 
-charStream = new CharStream("./xmi/behavior_model_v4.uml")
-xmlCharacterStream = new XmlCharacterStream()
-xmlTokenStream = new XmlTokenStream()
-xmlStackStream = new XmlStackStream()
-xmiFileWatcher = new XmiFileWatcher("xmi")
+
 
 ADD_WORK = 1
 REMOVE_WORK = 2
@@ -44,11 +40,23 @@ andThen = new AndThen( (event)=>
 ###
 
 logStream = new LogStream()
-xmiParser = new XmiParser()
-
 semaphore = new Semaphore()
-pipe logStream, semaphore.start(($this)->
+
+xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->
+  #charStream = new CharStream("./xmi/behavior_model_v4.uml")
+  charStream = new CharStream("#{$this.baseFolder}/#{fileName}")
+  xmlCharacterStream = new XmlCharacterStream()
+  xmlTokenStream = new XmlTokenStream()
+  xmlStackStream = new XmlStackStream()
+  xmiParser = new XmiParser()
+
   pipe xmiParser, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
-  pipe $this, xmiFileWatcher, xmlStackStream
+  pipe $this, xmlStackStream
   charStream.start()
+
 )
+
+xmiFileWatcher.start("behavior_model_v4.uml");
+#xmiFileWatcher.start("basic_structure_v5_modular.uml");
+
+#pipe logStream, semaphore.start(($this)->)

@@ -50,6 +50,6 @@ class CharStream
     _stream.on 'end', ()->
       $this.tell([SEND_END_OF_FILE, null])
       #console.log "FIHISH READING", chunkNumber
-    return
+    return $this
 
 module.exports = CharStream

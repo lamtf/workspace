@@ -5,7 +5,7 @@
       <details xmi:id="_5WV8gn9VEeaVP9RPox9M_A" key="nature" value="UML_Nature"/>
     </eAnnotations>
     <ownedEnd xmi:id="_5WV8g39VEeaVP9RPox9M_A" name="precisenumber" association="_5WV8gH9VEeaVP9RPox9M_A">
-      <type xmi:type="uml:PrimitiveType" href="../pim/pim_v2_class_model.uml#_3gOYIH9EEeaVP9RPox9M_A"/>
+      <type xmi:type="uml:PrimitiveType" href="pim_v2_class_model.uml#_3gOYIH9EEeaVP9RPox9M_A"/>
     </ownedEnd>
   </packagedElement>
   <packagedElement xmi:type="uml:Package" xmi:id="_WoVagH9XEeaVP9RPox9M_A" name="android">
