@@ -102,7 +102,8 @@ class XmlStackStream
       @createNode "xml", null
       @nodeId = @nodeId + 1
     else if args[0] is TOKEN_TAG_HEAD
-      @createNode str(args[1]), str args[1]
+      console.log str(args[1])
+      @createNode str(args[1]), @peek()
       @nodeId = @nodeId + 1
     else if args[0] is TOKEN_END_TAG
       @popCheck str(args[1])

@@ -2,7 +2,7 @@ Observable = require "./Observable"
 
 ADD_PROPERTY = 0
 NEW_FILE = 1
-# END_OF_FILE = 4294967295
+END_OF_FILE = 4294967295
 
 class XmiFileWatcher
   constructor:(@baseFolder, @fn)->
@@ -14,7 +14,9 @@ class XmiFileWatcher
 
   update:(e)->
     $this = @
+    #console.log e.key,"=>", e.value
     if e.what is ADD_PROPERTY
+      #console.log e.key, e.value
       if e.key is "href"
         fileName = e.value.split("#")[0]
         if (fileName.indexOf('pathmap://') is -1) and ((@files[fileName] is false) or (@files[fileName] is undefined))

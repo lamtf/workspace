@@ -42,8 +42,32 @@ andThen = new AndThen( (event)=>
 logStream = new LogStream()
 semaphore = new Semaphore()
 
+
+
+class EofStream
+  END_OF_FILE = 4294967295
+  constructor:()->
+  observe:(source)->
+    source.addObserver @
+  update:(obj)->
+    if obj.what is END_OF_FILE
+      console.log JSON.stringify obj.subject, null, 2
+  error:(obj)->
+    console.error obj
+
+eof = new EofStream()
+
+###
+TODO: please verify that href appears 1656 times
+cat ./xmi/behavior_model_v4.uml | grep href | awk 'BEGIN{X=0} {X=X+1} END{print "x=",X}'
+seems not all attributes are showwn
+
+TODO: looking for "appliedProfile" elements
+
+###
 xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->
   #charStream = new CharStream("./xmi/behavior_model_v4.uml")
+  console.log "File=#{$this.baseFolder}/#{fileName}"
   charStream = new CharStream("#{$this.baseFolder}/#{fileName}")
   xmlCharacterStream = new XmlCharacterStream()
   xmlTokenStream = new XmlTokenStream()
@@ -52,6 +76,7 @@ xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->
 
   pipe xmiParser, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
   pipe $this, xmlStackStream
+  #pipe eof, xmlStackStream
   charStream.start()
 
 )
