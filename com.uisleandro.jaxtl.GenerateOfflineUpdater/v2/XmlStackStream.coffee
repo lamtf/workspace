@@ -102,11 +102,11 @@ class XmlStackStream
       @createNode "xml", null
       @nodeId = @nodeId + 1
     else if args[0] is TOKEN_TAG_HEAD
-      console.log str(args[1])
+      #console.log str(args[1])
       @createNode str(args[1]), @peek()
       @nodeId = @nodeId + 1
     else if args[0] is TOKEN_END_TAG
-      @popCheck str(args[1])
+      @popCheck str args[1]
     else if args[0] is TOKEN_EMPTY_ATTR
       @addPropertyName str args[1]
       @addPropertyValue true
@@ -129,7 +129,7 @@ class XmlStackStream
         value: currentNode.properties[currentNode.properties.length-1].value
       }
     else if args[0] is TOKEN_DATA
-      @addContents str(args[1])
+      @addContents str args[1]
     else if args[0] is TOKEN_END_OF_FILE
       @tell {
         what: END_OF_FILE

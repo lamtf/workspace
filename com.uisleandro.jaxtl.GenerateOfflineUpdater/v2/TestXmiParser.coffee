@@ -10,6 +10,9 @@ Semaphore = require './Semaphore'
 
 LogStream = require "./LogStream"
 
+#
+AttributeStream = require "./AttributeStream"
+
 pipe = require "./Pipe"
 
 
@@ -65,18 +68,26 @@ seems not all attributes are showwn
 TODO: looking for "appliedProfile" elements
 
 ###
-xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->
+xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->#
   #charStream = new CharStream("./xmi/behavior_model_v4.uml")
-  console.log "File=#{$this.baseFolder}/#{fileName}"
+  console.log "??File=#{$this.baseFolder}/#{fileName}"
   charStream = new CharStream("#{$this.baseFolder}/#{fileName}")
   xmlCharacterStream = new XmlCharacterStream()
   xmlTokenStream = new XmlTokenStream()
   xmlStackStream = new XmlStackStream()
   xmiParser = new XmiParser()
 
-  pipe xmiParser, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
-  pipe $this, xmlStackStream
+  #pipe xmiParser, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
+  #pipe $this, xmlStackStream
   #pipe eof, xmlStackStream
+
+
+  attr1 = new AttributeStream()
+
+  #pipe eof, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
+
+  pipe $this, attr1, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
+  #pipe $this, xmlStackStream
   charStream.start()
 
 )

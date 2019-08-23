@@ -15,13 +15,18 @@ class XmiFileWatcher
   update:(e)->
     $this = @
     #console.log e.key,"=>", e.value
-    if e.what is ADD_PROPERTY
+    if e.what is END_OF_FILE
+      fileName = @files[0]
+      @files = @files.slice(1)
+      @fn(@, fileName)
+    else if e.what is ADD_PROPERTY
       #console.log e.key, e.value
       if e.key is "href"
         fileName = e.value.split("#")[0]
         if (fileName.indexOf('pathmap://') is -1) and ((@files[fileName] is false) or (@files[fileName] is undefined))
-          @files[fileName] = true
-          @fn($this, fileName)
+          if @files.indexOf(fileName) is -1
+            @files.push fileName
+            console.log fileName
           ###
           @tell {
             what: NEW_FILE
