@@ -15,10 +15,17 @@ class XmiFileWatcher
   update:(e)->
     $this = @
     #console.log e.key,"=>", e.value
-    if (e.what is END_OF_FILE) and (@files.length > 0)
-      currentFileName = @files[0]
-      @files = @files.slice(1)
-      @fn(@, currentFileName)
+    if (e.what is END_OF_FILE)
+      if @files.length > 0
+        currentFileName = @files[0]
+        @files = @files.slice(1)
+        @fn(@, currentFileName)
+        return
+      else
+        @tell {
+          what: END_OF_FILE
+        }
+        return
     else if e.what is ADD_PROPERTY
       #console.log e.key, e.value
       if e.key is "href"
