@@ -7,6 +7,7 @@ END_OF_FILE = 4294967295
 class XmiFileWatcher
   constructor:(@baseFolder, @fn)->
     @files = []
+    @index = 0
     Observable.extends @
     @data = null
 
@@ -19,14 +20,13 @@ class XmiFileWatcher
     if (e.what is END_OF_FILE)
       if !@data
         @data = e.xml
-      if @files.length > 0
-        currentFileName = @files[0]
-        @files = @files.slice(1)
+      if @index < @files.length
+        currentFileName = @files[@index]
+        @index = @index+1
         @fn(@, currentFileName)
         return
       else
         @tell {
-          what: END_OF_FILE
           elementById: e.elementById
           appliedStereotypes: e.appliedStereotypes
           data: @data

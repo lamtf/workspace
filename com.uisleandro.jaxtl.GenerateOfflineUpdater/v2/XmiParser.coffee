@@ -28,6 +28,8 @@ class XmiParser
         xml: e.subject
       }
     else if e.what is ADD_PROPERTY
+      if e.key is "href"
+        @tell e
       if e.key is "xmi:id"
         @ids[e.value] = e.subject
         e.subject.xmiId = e.value

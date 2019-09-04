@@ -14,45 +14,18 @@ AttributeStream = require "./AttributeStream"
 
 pipe = require "./Pipe"
 
-ADD_WORK = 1
-REMOVE_WORK = 2
-
-###
-class AndThen
-  constructor:(@exec)->
-  observe:(source)->
-    source.addObserver @
-  update:(obj)->
-    if obj
-      @exec obj
-  error:(obj)->
-    console.error obj
-
-andThen = new AndThen( (event)=>
-  if event.what is 0
-    console.log "ADD_PROPERTY"
-  else if event.what is 1
-    console.log "NEW_FILE", event.fileName
-  else if event.what is 4294967295
-    console.log "END_OF_FILE"
-    console.log event.elementById["_9d2ibqoJEee7s7jN2Y2F9A"]
-  )
-###
-
 logStream = new LogStream()
 semaphore = new Semaphore()
 
 
 
 class EofStream
-  END_OF_FILE = 4294967295
   constructor:()->
   observe:(source)->
     source.addObserver @
   update:(obj)->
-    if obj.what is END_OF_FILE
-      console.log JSON.stringify obj, null, 2
-      console.log JSON.stringify obj.elementById["_OoF08ApVEee_sO_72Fl5KA"]
+    console.log obj
+#    console.log JSON.stringify obj.elementById["_OoF08ApVEee_sO_72Fl5KA"]
 
 
   error:(obj)->
@@ -70,6 +43,9 @@ TODO: looking for "appliedProfile" elements
 TODO: need to get everything at the end
 
 ###
+xmiParser = new XmiParser()
+
+
 xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->#
   #charStream = new CharStream("./xmi/behavior_model_v4.uml")
   console.log "File=#{$this.baseFolder}/#{fileName}"
@@ -77,7 +53,6 @@ xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->#
   xmlCharacterStream = new XmlCharacterStream()
   xmlTokenStream = new XmlTokenStream()
   xmlStackStream = new XmlStackStream()
-  xmiParser = new XmiParser()
 
   #pipe xmiParser, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
   #pipe $this, xmlStackStream
@@ -92,6 +67,7 @@ xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->#
   #pipe $this, xmlStackStream
 
   pipe $this, xmiParser, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
+  #pipe $this, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
   charStream.start()
 
 )
