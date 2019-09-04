@@ -8,6 +8,7 @@ class XmiFileWatcher
   constructor:(@baseFolder, @fn)->
     @files = []
     Observable.extends @
+    @data = null
 
   start:(fileName)->
     @fn(@, fileName)
@@ -16,6 +17,8 @@ class XmiFileWatcher
     $this = @
     #console.log e.key,"=>", e.value
     if (e.what is END_OF_FILE)
+      if !@data
+        @data = e.xml
       if @files.length > 0
         currentFileName = @files[0]
         @files = @files.slice(1)
@@ -24,6 +27,9 @@ class XmiFileWatcher
       else
         @tell {
           what: END_OF_FILE
+          elementById: e.elementById
+          appliedStereotypes: e.appliedStereotypes
+          data: @data
         }
         return
     else if e.what is ADD_PROPERTY

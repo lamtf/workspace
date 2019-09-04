@@ -10,12 +10,9 @@ Semaphore = require './Semaphore'
 
 LogStream = require "./LogStream"
 
-#
 AttributeStream = require "./AttributeStream"
 
 pipe = require "./Pipe"
-
-
 
 ADD_WORK = 1
 REMOVE_WORK = 2
@@ -55,6 +52,9 @@ class EofStream
   update:(obj)->
     if obj.what is END_OF_FILE
       console.log JSON.stringify obj, null, 2
+      console.log JSON.stringify obj.elementById["_OoF08ApVEee_sO_72Fl5KA"]
+
+
   error:(obj)->
     console.error obj
 
@@ -70,9 +70,6 @@ TODO: looking for "appliedProfile" elements
 TODO: need to get everything at the end
 
 ###
-
-xmiParser = new XmiParser()
-
 xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->#
   #charStream = new CharStream("./xmi/behavior_model_v4.uml")
   console.log "File=#{$this.baseFolder}/#{fileName}"
@@ -80,7 +77,7 @@ xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->#
   xmlCharacterStream = new XmlCharacterStream()
   xmlTokenStream = new XmlTokenStream()
   xmlStackStream = new XmlStackStream()
-
+  xmiParser = new XmiParser()
 
   #pipe xmiParser, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
   #pipe $this, xmlStackStream
@@ -94,7 +91,7 @@ xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->#
   #pipe $this, attr1, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
   #pipe $this, xmlStackStream
 
-  pipe $this, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
+  pipe $this, xmiParser, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
   charStream.start()
 
 )
