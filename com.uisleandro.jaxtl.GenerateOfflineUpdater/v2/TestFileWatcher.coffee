@@ -67,10 +67,12 @@ seems not all attributes are showwn
 
 TODO: looking for "appliedProfile" elements
 
+TODO: need to get everything at the end
+
 ###
 xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->#
   #charStream = new CharStream("./xmi/behavior_model_v4.uml")
-  console.log "??File=#{$this.baseFolder}/#{fileName}"
+  #console.log "File=#{$this.baseFolder}/#{fileName}"
   charStream = new CharStream("#{$this.baseFolder}/#{fileName}")
   xmlCharacterStream = new XmlCharacterStream()
   xmlTokenStream = new XmlTokenStream()
@@ -82,15 +84,20 @@ xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->#
   #pipe eof, xmlStackStream
 
 
-  attr1 = new AttributeStream()
+  #attr1 = new AttributeStream()
 
   #pipe eof, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
 
-  pipe $this, attr1, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
+  #pipe $this, attr1, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
   #pipe $this, xmlStackStream
+
+  pipe $this, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
   charStream.start()
 
 )
+
+pipe eof, xmiFileWatcher
+
 
 xmiFileWatcher.start("behavior_model_v4.uml");
 #xmiFileWatcher.start("basic_structure_v5_modular.uml");
