@@ -48,6 +48,7 @@ class CharStream
       console.error err
 
     _stream.on 'end', ()->
+      console.log $this.fileName
       $this.tell([SEND_END_OF_FILE, null])
       #console.log "FIHISH READING", chunkNumber
     return $this
