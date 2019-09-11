@@ -23,6 +23,7 @@ class XmiParser
     if e.what is END_OF_FILE
       @tell {
         what: END_OF_FILE
+        fileName: e.fileName
         elementById: @ids
         appliedStereotypes: @stereotypes
         xml: e.subject

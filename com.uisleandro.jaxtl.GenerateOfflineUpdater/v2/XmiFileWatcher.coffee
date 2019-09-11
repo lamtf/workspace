@@ -19,6 +19,7 @@ class XmiFileWatcher
     $this = @
     #console.log e.key,"=>", e.value
     if e.what is END_OF_FILE
+      console.log e.fileName
       if !@data
         @data = e.xml
       if @index < @files.length

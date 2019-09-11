@@ -101,10 +101,10 @@ class XmlTokenStream
       #console.log s, str @data
       @data = EMPTY.slice 0
 
-  flushState:(s)->
+  flushState:(s, d)->
     #console.log s, str @data
     # pt s
-    @tell [s, null]
+    @tell [s, null, d]
     @data = EMPTY.slice 0
 
   # I must not change the state if its closing
@@ -113,7 +113,7 @@ class XmlTokenStream
     x = 0
     v = args[1]
     if args[0] is SEND_END_OF_FILE
-      @flushState TOKEN_END_OF_FILE
+      @flushState TOKEN_END_OF_FILE, args[2]
       return
     #process.stdout.write "\x1b[36m\x1b[1m"+str(v)+"\x1b[0m"
     if @status & DOUBLE_QUOTTED

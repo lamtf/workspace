@@ -189,6 +189,6 @@ class XmlCharacterStream
       if @data.length > 0
         @flushData()
         @data = EMPTY.slice(0)
-      @tell [SEND_END_OF_FILE, null]
+      @tell [SEND_END_OF_FILE, null, args[2]]
 
 module.exports = XmlCharacterStream

@@ -134,6 +134,7 @@ class XmlStackStream
       @tell {
         what: END_OF_FILE
         subject: @stack[0]
+        fileName: args[2]
       }
 
 module.exports = XmlStackStream
