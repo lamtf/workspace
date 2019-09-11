@@ -24,8 +24,10 @@ class EofStream
   observe:(source)->
     source.addObserver @
   update:(obj)->
-    console.log obj
-#    console.log JSON.stringify obj.elementById["_OoF08ApVEee_sO_72Fl5KA"]
+    console.log JSON.stringify obj, null, " "
+    #console.log 'eof'
+    #console.log obj.elementById["_OoF08ApVEee_sO_72Fl5KA"]
+
 
 
   error:(obj)->

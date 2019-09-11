@@ -10,6 +10,7 @@ class XmiFileWatcher
     @index = 0
     Observable.extends @
     @data = null
+    @sent = false
 
   start:(fileName)->
     @fn(@, fileName)
@@ -17,7 +18,7 @@ class XmiFileWatcher
   update:(e)->
     $this = @
     #console.log e.key,"=>", e.value
-    if (e.what is END_OF_FILE)
+    if e.what is END_OF_FILE
       if !@data
         @data = e.xml
       if @index < @files.length
@@ -25,7 +26,11 @@ class XmiFileWatcher
         @index = @index+1
         @fn(@, currentFileName)
         return
-      else
+      if @index == @files.length
+        @index = @index+1
+        return
+      else if !@sent
+        @sent = true
         @tell {
           elementById: e.elementById
           appliedStereotypes: e.appliedStereotypes
@@ -33,10 +38,9 @@ class XmiFileWatcher
         }
         return
     else if e.what is ADD_PROPERTY
-      #console.log e.key, e.value
       if e.key is "href"
         fileName = e.value.split("#")[0]
-        if ((fileName.indexOf('http://') isnt -1) or (fileName.indexOf('https://') isnt -1))
+        if (fileName is undefined or (fileName.indexOf('http://') isnt -1) or (fileName.indexOf('https://') isnt -1))
           return
 
         if (fileName.indexOf('pathmap://') is -1) and ((@files[fileName] is false) or (@files[fileName] is undefined))
