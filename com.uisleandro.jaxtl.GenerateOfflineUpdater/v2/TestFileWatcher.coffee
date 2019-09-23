@@ -54,7 +54,8 @@ class EofStream
     source.addObserver @
   update:(obj)->
     if obj.what is END_OF_FILE
-      console.log JSON.stringify obj, null, 2
+      console.log "END OF FILE"
+      #console.log JSON.stringify obj, null, 2
   error:(obj)->
     console.error obj
 
@@ -68,6 +69,8 @@ seems not all attributes are showwn
 TODO: looking for "appliedProfile" elements
 
 TODO: need to get everything at the end
+
+TODO: this code do not pass through xmiparser
 
 ###
 
