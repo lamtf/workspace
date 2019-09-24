@@ -97,12 +97,14 @@ xmiFileWatcher = new XmiFileWatcher("./xmi", ($this, fileName)->#
   #pipe $this, attr1, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
   #pipe $this, xmlStackStream
 
-  pipe $this, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
+  #pipe $this, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
+
+  pipe xmiParser, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
   charStream.start()
 
 )
 
-pipe eof, xmiFileWatcher
+pipe eof, xmiFileWatcher, xmiParser
 
 
 xmiFileWatcher.start("behavior_model_v4.uml");
