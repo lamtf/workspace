@@ -53,6 +53,7 @@ class EofStream
   observe:(source)->
     source.addObserver @
   update:(obj)->
+    #console.log obj
     if obj.what is END_OF_FILE
       console.log "END OF FILE"
       #console.log JSON.stringify obj, null, 2

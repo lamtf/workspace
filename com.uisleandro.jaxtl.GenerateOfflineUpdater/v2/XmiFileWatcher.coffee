@@ -8,7 +8,7 @@ class XmiFileWatcher
   constructor:(@baseFolder, @fn)->
     @files = []
     @names = []
-    #@index = 0
+    @index = 0
     Observable.extends @
     @data = null
     @sent = false
@@ -23,37 +23,20 @@ class XmiFileWatcher
       #console.log "fileName=", e.fileName
       if !@data
         @data = e.xml
-      if not @names.find (name)-> name is e.fileName
+      if not @names.find (name)-> name is e.xmiParserfileName
         @names.push e.fileName
-        if @files.length > 0
-          currentFileName = @files[0]
+        #console.log "A", @files.length
+        if @files.length >= @names.length
+          currentFileName = @files[@index]
           @fn @, currentFileName
-          @files = @files.slice 1
-        else if @files.length = 0
-            @tell {
-              what: END_OF_FILE
-              elementById: e.elementById
-              appliedStereotypes: e.appliedStereotypes
-              data: @data
-            }
-      ###
-      if @index < @files.length
-        currentFileName = @files[@index]
-        @index = @index+1
-        console.log "index", @index
-        console.log "len=", @files.length
-        @fn(@, currentFileName)
-        return
-      if @index == @files.length
-        @index = @index+1
-        @tell {
-          what: END_OF_FILE
-          elementById: e.elementById
-          appliedStereotypes: e.appliedStereotypes
-          data: @data
-        }
-        return
-      ###
+          @index++
+        else
+          @tell {
+            what: END_OF_FILE
+            elementById: e.elementById
+            appliedStereotypes: e.appliedStereotypes
+            data: @data
+          }
     else if e.what is ADD_PROPERTY
       if e.key is "href"
         fileName = e.value.split("#")[0]
