@@ -21,7 +21,6 @@ class XmiParser
     # TODO: identify and tell about new files
     that = @
     if e.what is END_OF_FILE
-      console.log "eof8", e.fileName
       @tell {
         what: END_OF_FILE
         fileName: e.fileName
