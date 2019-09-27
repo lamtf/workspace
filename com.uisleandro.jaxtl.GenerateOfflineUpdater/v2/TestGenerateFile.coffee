@@ -14,9 +14,11 @@ AttributeStream = require "./AttributeStream"
 
 pipe = require "./Pipe"
 
+
+xmiQuery = require './XmiJsQuery'
+
 logStream = new LogStream()
 semaphore = new Semaphore()
-
 
 
 class EofStream
@@ -24,7 +26,12 @@ class EofStream
   observe:(source)->
     source.addObserver @
   update:(obj)->
-    console.log JSON.stringify obj
+    #
+    #console.log mvc_package
+    root = obj.data.children[0].children[0];
+    mvc_package = (xmiQuery.getPackageByName root,'mvc')[0]
+    console.log mvc_package
+    #console.log JSON.stringify obj
     #console.log 'eof'
     #console.log obj.elementById["_OoF08ApVEee_sO_72Fl5KA"]
   error:(obj)->
