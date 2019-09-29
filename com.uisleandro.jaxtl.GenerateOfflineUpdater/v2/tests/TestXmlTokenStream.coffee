@@ -1,9 +1,9 @@
-CharStream = require "./CharStream"
-XmlCharacterStream = require "./XmlCharacterStream"
-LogStream = require "./LogStream"
-XmlTokenStream = require "./XmlTokenStream"
-pipe = require "./Pipe"
-Observable = require "./Observable"
+CharStream = require "../streams/CharStream"
+XmlCharacterStream = require "../streams/XmlCharacterStream"
+LogStream = require "../streams/LogStream"
+XmlTokenStream = require "../streams/XmlTokenStream"
+pipe = require "../streams/Pipe"
+Observable = require "../streams/Observable"
 
 {CHAR_CODE_0,CHAR_CODE_9,CHAR_CODE_C,CHAR_CODE_D,CHAR_CODE_A,
 CHAR_CODE_T,CHAR_CODE_X,CHAR_CODE_M,CHAR_CODE_L,CHAR_CODE_Z,
@@ -31,6 +31,39 @@ NOTHING = -1
 xmlCharacterStream = new XmlCharacterStream()
 xmlTokenStream = new XmlTokenStream()
 logStream = new LogStream()
+
+class MemoryCharStream
+  constructor:(@data)->
+    @i = 0
+    @type = "MemoryCharStream"
+    Observable.extends @
+  update:(s)->
+    @tell [SEND_DATA ,s]
+  start:(n)->
+    if n > @data.length
+      n = @data.length
+    x = 0
+    while x < n
+      s = @data[@i].charCodeAt 0
+      @update s
+      @i = @i + 1
+      x = x + 1
+
+memoryCharStream = new MemoryCharStream("""
+<?xml version = "1.0" encoding="UTF-8"?>
+<root>
+  <!-- this is a comment -->
+  <br/>
+  <br bla />
+  <br bla="bla" />
+  <li supported></li><!-- this one did not pass -->
+  <li supported ></li>
+  <li supported enabled="1"></li>
+  <contact name="Contact \\" Name" address='Contact Address'/>
+  <![CDATA[<sexo>Feminino</sexo>]]>
+  <hastext>text \\"slash something<div>another</div> and another</hastext>
+</root>
+""")
 
 # error In Contact \" Name
 # I must send two characters everytime i found \
@@ -149,28 +182,65 @@ class ExpectedResultStream
   expectChange:()->
 
 
-###
+
 expected = new ExpectedResultStream memoryCharStream
 expected.psOf xmlTokenStream
-###
 
-class LogStream
-  constructor:()->
-  observe:(source)->
-    source.addObserver @
-  update:(obj)->
-    if obj
-      console.log "#{obj[0]};#{str obj[1]}"
-  error:(obj)->
-    console.error obj
-
-charStream = new CharStream("./xmi/behavior_model_v4.uml")
 logs = new LogStream()
 
-pipe logs, xmlTokenStream, xmlCharacterStream, charStream.start()
+pipe expected, xmlTokenStream, xmlCharacterStream, memoryCharStream
 
-###
 console.log '\x1b[40m\x1b[33mBEGIN TEST CASES \x1b[0m'
 
+expected.expect 5, TOKEN_BEGIN_XML
+expected.expect 10, TOKEN_ATTR_NAME
+expected.expect 6, TOKEN_ATTR_VALUE
+expected.expect 10, TOKEN_ATTR_NAME
+expected.expect 7, TOKEN_ATTR_VALUE
+expected.expect 3, NOTHING
+expected.expect 6, TOKEN_TAG_HEAD
+expected.expect 32, NOTHING
+expected.expect 5, TOKEN_TAG_HEAD
+expected.expect 0, TOKEN_END_TAG
+expected.expect 7, TOKEN_TAG_HEAD
+expected.expect 6, TOKEN_EMPTY_ATTR
+expected.expect 0, TOKEN_END_TAG
+expected.expect 7, TOKEN_TAG_HEAD
+expected.expect 4, TOKEN_ATTR_NAME
+expected.expect 5, TOKEN_ATTR_VALUE
+expected.expect 3, TOKEN_END_TAG
+expected.expect 7, TOKEN_TAG_HEAD
+expected.expect 10, TOKEN_EMPTY_ATTR
+expected.expect 5, TOKEN_END_TAG
+expected.expect 33, NOTHING
+expected.expect 4, TOKEN_TAG_HEAD
+expected.expect 11, TOKEN_EMPTY_ATTR
+expected.expect 5, TOKEN_END_TAG
+expected.expect 7, TOKEN_TAG_HEAD
+expected.expect 11, TOKEN_EMPTY_ATTR
+expected.expect 7, TOKEN_ATTR_NAME
+expected.expect 3, TOKEN_ATTR_VALUE
+expected.expect 6, TOKEN_END_TAG
+expected.expect 3, NOTHING
+expected.expect 9, TOKEN_TAG_HEAD
+expected.expect 5, TOKEN_ATTR_NAME
+expected.expect 17, TOKEN_ATTR_VALUE
+expected.expect 9, TOKEN_ATTR_NAME
+expected.expect 17, TOKEN_ATTR_VALUE
+expected.expect 3, TOKEN_END_TAG
+expected.expect 35, TOKEN_DATA
+expected.expect 12, TOKEN_TAG_HEAD
+expected.expect 24, TOKEN_DATA
+expected.expect 3, TOKEN_TAG_HEAD
+expected.expect 9, TOKEN_DATA
+expected.expect 5, TOKEN_END_TAG
+expected.expect 13, TOKEN_DATA
+expected.expect 8, TOKEN_END_TAG
+expected.expect 8, TOKEN_END_TAG
+#expected.ps()
+
+#expected.expect 5, NOTHING
+#expected.expect 5, NOTHING
+#expected.expect 5, NOTHING
+
 console.log '\x1b[40m\x1b[33mEND TEST CASES \x1b[0m'
-###

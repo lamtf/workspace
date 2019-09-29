@@ -30,6 +30,9 @@ class XmiParser
       }
     else if e.what is ADD_PROPERTY
       if e.key is "href"
+        if e.value.indexOf("#") > 0
+          val1 = e.value.split("#")[1]
+          e.subject.getXmiObject = ()-> that.ids[val1]
         @tell e
       if e.key is "xmi:id"
         @ids[e.value] = e.subject
@@ -39,7 +42,7 @@ class XmiParser
           @stereotypes[e.value] = []
         @stereotypes[e.value].push e.subject
       if e.key is "type"
-        e.subject.getXmiObject = ()-> that.getElementById e.value
+        e.subject.getXmiObject = ()-> that.ids[e.value]
         e.subject.isFk = true
       else if e.key is "name"
         e.subject.name = e.value

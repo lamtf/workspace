@@ -1,9 +1,9 @@
-CharStream = require "./CharStream"
-XmlCharacterStream = require "./XmlCharacterStream"
-LogStream = require "./LogStream"
-XmlTokenStream = require "./XmlTokenStream"
-pipe = require "./Pipe"
-Observable = require "./Observable"
+CharStream = require "../streams/CharStream"
+XmlCharacterStream = require "../streams/XmlCharacterStream"
+LogStream = require "../streams/LogStream"
+XmlTokenStream = require "../streams/XmlTokenStream"
+pipe = require "../streams/Pipe"
+Observable = require "../streams/Observable"
 
 {CHAR_CODE_0,CHAR_CODE_9,CHAR_CODE_C,CHAR_CODE_D,CHAR_CODE_A,
 CHAR_CODE_T,CHAR_CODE_X,CHAR_CODE_M,CHAR_CODE_L,CHAR_CODE_Z,
@@ -31,35 +31,6 @@ NOTHING = -1
 xmlCharacterStream = new XmlCharacterStream()
 xmlTokenStream = new XmlTokenStream()
 logStream = new LogStream()
-
-class MemoryCharStream
-  constructor:(@data)->
-    @i = 0
-    @type = "MemoryCharStream"
-    Observable.extends @
-  update:(s)->
-    @tell [SEND_DATA ,s]
-  start:(n)->
-    if n > @data.length
-      n = @data.length
-    x = 0
-    while x < n
-      if @i < @data.length
-        s = @data[@i].charCodeAt 0
-        @update s
-        @i = @i + 1
-      x = x + 1
-
-
-
-memoryCharStream = new MemoryCharStream("""
-<?xml version = "1.0" encoding="UTF-8"?>
-<ownedComment xmi:type="uml:Comment" xmi:id="_FrHCwCxKEeegQ7hEsrQtvg">
-            <body>eu tenho uma duvida aqui, como Ã© que eu vou fazer esta &quot;list_region&quot; se transformar?
-
-como vou pegar o resultado desta activity?</body>
-          </ownedComment>
-""")
 
 # error In Contact \" Name
 # I must send two characters everytime i found \
@@ -178,37 +149,28 @@ class ExpectedResultStream
   expectChange:()->
 
 
-
+###
 expected = new ExpectedResultStream memoryCharStream
 expected.psOf xmlTokenStream
+###
 
+class LogStream
+  constructor:()->
+  observe:(source)->
+    source.addObserver @
+  update:(obj)->
+    if obj
+      console.log "#{obj[0]};#{str obj[1]}"
+  error:(obj)->
+    console.error obj
+
+charStream = new CharStream("../xmi/behavior_model_v4.uml")
 logs = new LogStream()
 
-pipe expected, xmlTokenStream, xmlCharacterStream, memoryCharStream
+pipe logs, xmlTokenStream, xmlCharacterStream, charStream.start()
 
+###
 console.log '\x1b[40m\x1b[33mBEGIN TEST CASES \x1b[0m'
 
-expected.expect 5, TOKEN_BEGIN_XML
-expected.expect 10, TOKEN_ATTR_NAME
-expected.expect 6, TOKEN_ATTR_VALUE
-expected.expect 10, TOKEN_ATTR_NAME
-expected.expect 7, TOKEN_ATTR_VALUE
-expected.expect 3, NOTHING
-expected.expect 14, TOKEN_TAG_HEAD
-expected.expect 10, TOKEN_ATTR_NAME
-expected.expect 15, TOKEN_ATTR_VALUE
-expected.expect 10, TOKEN_ATTR_NAME
-expected.expect 20, TOKEN_ATTR_VALUE
-expected.expect 15, NOTHING
-expected.expect 5, TOKEN_TAG_HEAD
-expected.expect 141, TOKEN_DATA
-expected.expect 8, TOKEN_END_TAG
-expected.expect 6, NOTHING
-expected.expect 18, TOKEN_END_TAG
-#expected.ps()
-
-#expected.expect 5, NOTHING
-#expected.expect 5, NOTHING
-#expected.expect 5, NOTHING
-
 console.log '\x1b[40m\x1b[33mEND TEST CASES \x1b[0m'
+###

@@ -1,17 +1,17 @@
-CharStream = require "./CharStream"
-XmlCharacterStream = require "./XmlCharacterStream"
-LogStream = require "./LogStream"
-XmlTokenStream = require "./XmlTokenStream"
-pipe = require "./Pipe"
-Observable = require "./Observable"
-XmlStackStream = require "./XmlStackStream"
+CharStream = require "../streams/CharStream"
+XmlCharacterStream = require "../streams/XmlCharacterStream"
+LogStream = require "../streams/LogStream"
+XmlTokenStream = require "../streams/XmlTokenStream"
+pipe = require "../streams/Pipe"
+Observable = require "../streams/Observable"
+XmlStackStream = require "../streams/XmlStackStream"
 
 {CHAR_CODE_0,CHAR_CODE_9,CHAR_CODE_C,CHAR_CODE_D,CHAR_CODE_A,
 CHAR_CODE_T,CHAR_CODE_X,CHAR_CODE_M,CHAR_CODE_L,CHAR_CODE_Z,
 CHAR_CODE_c,CHAR_CODE_d,CHAR_CODE_a,CHAR_CODE_t,CHAR_CODE_x,
 CHAR_CODE_m,CHAR_CODE_l,CHAR_CODE_z,CHAR_CODE_SLASH,
 CHAR_CODE_LOWER_THAN,CHAR_CODE_GREATHER_THAN,
-CHAR_CODE_OPEN_SQUARE_BRACES,CHAR_CODE_CLOSE_SQUARE_BRACES,
+CHAR_CODE_OPEN_SQUARE_BRACES,CHA/R_CODE_CLOSE_SQUARE_BRACES,
 CHAR_CODE_COLON,CHAR_CODE_PERIOD,CHAR_CODE_QUESTION_MARK,
 CHAR_CODE_EXCLAMATION_POINT,CHAR_CODE_UNDERSCORE,CHAR_CODE_MUNIS,
 CHAR_CODE_EQUAL,CHAR_CODE_TAB,CHAR_CODE_CARRIAGE_RETURN,
@@ -33,7 +33,7 @@ logStream = new LogStream()
 
 class MemoryCharStream
   constructor:(@data)->
-    @i = 0
+    @i = 0/
     @type = "MemoryCharStream"
     Observable.extends @
   update:(s)->
