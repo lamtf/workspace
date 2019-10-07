@@ -1,7 +1,7 @@
 Observable = require "./Observable"
 xmiQuery = require "../json/XmiQuery"
 
-class EofClassStream
+class PackageStream
   constructor:()->
     Observable.extends @
   observe:(source)->
@@ -24,26 +24,6 @@ class EofClassStream
           "packageName": modelName
           "classObject": mClass
         }
-
-        ###
-        properties = xmiQuery.getChildrenByType mClass, 'uml:Property'
-        properties.filter( (x)-> x.name isnt null ).forEach (mProp)->
-          #console.log "\t\t#{mProp.name}", mProp
-          #console.log "Attr::#{mProp.name}"
-          if not mProp.children
-            #console.log "Type::#{mProp.getXmiObject().name}"
-            attr = {}
-            attr.name = mProp.name
-            attr.type = mProp.getXmiObject().name
-            classEvent.attr.push attr
-          else
-            mType = xmiQuery.getChildrenByTagName mProp, 'type'
-            #console.log "Type::#{(mType[0].getXmiObject()).name}"
-            attr = {}
-            attr.name = mProp.name
-            attr.type = (mType[0].getXmiObject()).name
-            classEvent.attr.push attr
-        ###
         $this.tell classEvent
     return
 
@@ -56,4 +36,4 @@ class EofClassStream
     console.error obj
 
 
-module.exports = EofClassStream
+module.exports = PackageStream

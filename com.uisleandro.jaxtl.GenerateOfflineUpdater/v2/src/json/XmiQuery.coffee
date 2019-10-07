@@ -37,7 +37,10 @@ getPackageByName=(jPackage, name)->
 	return queryR select(jPackage).where is_mvc
 
 getChildrenByType=(jElement, type)->
-  return jElement.children.filter (x)-> (x.xmiType is type)
+  if jElement.children
+    return jElement.children.filter (x)-> (x.xmiType is type)
+  else
+    return []
 
 getChildrenByTagName=(jElement, name)->
   return jElement.children.filter (x)-> (x.tagName is name)
