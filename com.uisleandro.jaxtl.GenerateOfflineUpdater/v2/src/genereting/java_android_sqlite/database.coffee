@@ -13,24 +13,23 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelper extends SQLiteOpenHelper {
 
+    public static string DATABASE_NAME = "[$]";
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
     }
-
     [$]
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         [$]
     }
-
     [$]
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         [$]
     }
-
     [$]
 }
 
@@ -38,6 +37,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
 global_model = """
 public class [$] {
+    \n
     [$]
 }
 """
@@ -53,47 +53,58 @@ class PackageStream
     console.log prop
     return ""
 
-  br:(i)->
-      #console.log $this.dbhelper.replace /\[\$\]/, "PLACEHOLDER"
-
-    s = ""
-    while i > 0
-      s += "\n"
-      i--
-    s
-
   declareClass:(packageName, contents)->
     """
     public class #{packageName.ToCamelCase()} {
+      \n
       #{contents}
     }
     """
 
-  declareTable:(className)->
-    """
+  declareVariable:(className,propertyName)->
+    """    public static final String #{className.toUpperCase()}_#{propertyName.toUpperCase()} = "#{propertyName}";\n"""
 
-      public static final String TABLE_#{className.toUpperCase()} = "#{className}";
-      public static final String #{className.toUpperCase()}_ID = "id";
-      public static final String #{className.toUpperCase()}_UUID = "uuid";
-      public static final String #{className.toUpperCase()}_DIRTY = "dirty";
+  declareField:(className,propertyName, last)->
+    "    #{className.toUpperCase()}_#{propertyName.toUpperCase()} + \" STRING NULL \""
 
-    """
+  declare_field_str:(className, attr, last)->
+    $this = @
+    result = ""
+    if attr.name
+      type = xmiQuery.getChildrenByType(attr, 'uml:PrimitiveType')[0]
+      if type
+        #console.log "\t#{attr.name} #{type.getXmiObject().name}"
+        result = $this.declareField className, attr.name
+      else if attr.getXmiObject()
+        #console.log "\tfk_#{attr.name} #{attr.getXmiObject().name}"
+        result = $this.declareField className, "FK_#{attr.name.toUpperCase()}"
+      else
+        type = xmiQuery.getChildrenByType(attr, 'uml:Class')[0]
+        #console.log "\tfk_#{attr.name} #{type.getXmiObjeclass ClassStream
+        result = $this.declareField className, "FK_#{attr.name.toUpperCase()}"
+      if last
+        result += ";\n"
+      else
+        result += "+\n"
+    return result
 
-  declareField:(className,propertyName)->
-    """
-    public static final String #{className.toUpperCase()}_#{propertyName.toUpperCase()} = "#{propertyName}";
-
-    """
-
-  beginCreatingTable:(className)->
-    """
-
-    private static final String CREATE_TABLE_#{className.toUpperCase()} = "CREATE TABLE " + TABLE_#{className.toUpperCase()} +
-     " ("+ #{className.toUpperCase()}_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-  	 #{className.toUpperCase()}_UUID + " STRING NULL, " +
-     #{className.toUpperCase()}_DIRTY + " BOOLEAN NOT NULL, " +
-
-    """
+  declare_static_variable:(className, attr, last)->
+    $this = @
+    result = ""
+    if attr.name
+      #console.log "  #{attr.name}"
+      type = xmiQuery.getChildrenByType(attr, 'uml:PrimitiveType')[0]
+      if type
+        #console.log "\t#{attr.name} #{type.getXmiObject().name}"
+        result += $this.declareVariable className, attr.name
+      else if attr.getXmiObject()
+        #console.log "\tfk_#{attr.name} #{attr.getXmiObject().name}"
+        result += this.declareVariable className, "fk_#{attr.name}"
+      else
+        type = xmiQuery.getChildrenByType(attr, 'uml:Class')[0]
+        #console.log "\tfk_#{attr.name} #{type.getXmiObjeclass ClassStream
+        result += $this.declareVariable className, "fk_#{attr.name}"
+    return result
 
   update:(obj)->
     $this = @
@@ -110,6 +121,7 @@ class PackageStream
 
       dbHelper = global_dbhelper
       dbHelper = dbHelper.replace global_placeholder, "lamtf.model.#{modelName.ToCamelCase()}"
+      dbHelper = dbHelper.replace global_placeholder, "#{modelName.ToCamelCase()}"
 
       (xmiQuery.getAllNamedClasses p)
       .forEach (mClass)->
@@ -117,26 +129,33 @@ class PackageStream
         #        console.log "#{modelName}.#{mClass.name}"
         #console.log mClass.children
         className = mClass.name
-        contents = $this.declareTable className
+        contents = ""
 
-        mClass.children.forEach (attr)->
-          if attr.name
-            #console.log "  #{attr.name}"
-            type = xmiQuery.getChildrenByType(attr, 'uml:PrimitiveType')[0]
-            if type
-              #console.log "\t#{attr.name} #{type.getXmiObject().name}"
-              contents += $this.declareField className, attr.name
-            else
-              if attr.getXmiObject()
-                #console.log "\tfk_#{attr.name} #{attr.getXmiObject().name}"
-                contents += $this.declareField className, "fk_#{attr.name}"
-              else
-                type = xmiQuery.getChildrenByType(attr, 'uml:Class')[0]
-                #console.log "\tfk_#{attr.name} #{type.getXmiObjeclass ClassStream
-                contents += $this.declareField className, "fk_#{attr.name}"
-        contents += $this.br 2
-        contents += $this.beginCreatingTable className
-        contents += $this.br 2
+        decl_vars = """
+        \n
+            public static final String TABLE_#{className.toUpperCase()} = "#{className}";
+            public static final String #{className.toUpperCase()}_ID = "id";
+            public static final String #{className.toUpperCase()}_UUID = "uuid";
+            public static final String #{className.toUpperCase()}_DIRTY = "dirty";\n
+        """
+
+        decl_class = """
+        \n
+            private static final String CREATE_TABLE_#{className.toUpperCase()} = "CREATE TABLE " + TABLE_#{className.toUpperCase()} +
+            " ("+ #{className.toUpperCase()}_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+            #{className.toUpperCase()}_UUID + " STRING NULL, " +
+            #{className.toUpperCase()}_DIRTY + " BOOLEAN NOT NULL" +\n
+        """
+
+        i = 0
+        while i < mClass.children.length
+          attr = mClass.children[i]
+          i++
+          decl_vars += $this.declare_static_variable className, attr, 0
+          decl_class += $this.declare_field_str className, attr, (i == mClass.children.length)
+
+        contents += decl_vars
+        contents += decl_class
 
         dbHelper = dbHelper.replace global_placeholder, "#{contents}[$]"
 
