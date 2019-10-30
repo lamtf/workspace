@@ -3,6 +3,69 @@ xmiQuery = require "../../json/XmiQuery"
 Util = require "../../json/Util"
 fs = require "fs"
 
+java_type = (type, name)->
+  if ( null is type or type.toLowerCase() is name.toLowerCase() or type.toLowerCase() is 'date' or type.toLowerCase() is 'datetime' or type.toLowerCase() is 'time' or type.toLowerCase() is 'identifier' )
+    return 'Long'
+  else if type.toLowerCase() is 'number' or type.toLowerCase() is 'picturetype'
+    return 'Integer'
+  else if type.toLowerCase() is 'money'
+    return 'Float'
+  else if type.toLowerCase() is 'precisenumber' or type.toLowerCase() is 'veryprecisenumber2'
+    return 'Double'
+  else if type.toLowerCase() is 'yesnoquestion'
+    return 'Boolean'
+  else
+    return 'String'
+
+sqlite_type = (type, name)->
+  if null is type
+    return 'INTEGER'
+  else if type.toLowerCase() is name
+    return 'INTEGER'
+  else if type.toLowerCase() is 'date'
+    return 'INTEGER'
+  else if type.toLowerCase() is 'datetime'
+    return 'INTEGER'
+  else if type.toLowerCase() is 'time'
+    return 'INTEGER'
+  else if type.toLowerCase() is 'number'
+    return 'INTEGER'
+  else if type.toLowerCase() is 'money'
+    return 'REAL(10,2)'
+  else if type.toLowerCase() is 'precisenumber'
+    return 'DOUBLE'
+  else if type.toLowerCase() is 'veryprecisenumber2'
+    return 'DOUBLE PRECISION'
+  else if type.toLowerCase() is 'yesnoquestion'
+    return 'BOOLEAN'
+  else if type.toLowerCase() is 'identifier'
+    return 'INTEGER'
+  else if type.toLowerCase() is 'guidtype'
+    return 'CHAR36'
+  else if type.toLowerCase() is 'abbreviature'
+    if (name.indexOf('uf') > -1 or name.indexOf('state') > -1)
+      return 'CHAR(2)'
+    else
+      return 'CHAR(8)'
+    endif
+  else if type.toLowerCase() is 'bigtext'
+    return 'VARCHAR(256)'
+  else if type.toLowerCase() is 'file'
+    return 'VARCHAR(128)'
+  else if type.toLowerCase() is 'smalltext'
+    if (name.indexOf('zip') > -1 or name.indexOf('cep') > -1)
+      return 'CHAR(15)'
+    else
+      return 'CHAR(30)'
+  else if type.toLowerCase() is 'mediumtext'
+    return 'VARCHAR(45)'
+  else if type.toLowerCase() is 'barcodetype'
+    return 'CHAR(64)'
+  else if type.toLowerCase() is 'picturetype'
+    return 'INTEGER'
+  else
+    return 'VARCHAR(45)'
+
 global_placeholder = /\[\$\]/
 
 global_dbhelper = """
@@ -61,11 +124,11 @@ class PackageStream
     }
     """
 
-  declareVariable:(className,propertyName)->
-    """    public static final String #{className.toUpperCase()}_#{propertyName.toUpperCase()} = "#{propertyName}";\n"""
+  declareVariable:(className,propertyName, type)->
+    """    public static final #{java_type type, propertyName} #{className.toUpperCase()}_#{propertyName.toUpperCase()} = "#{propertyName}";\n"""
 
-  declareField:(className,propertyName, last)->
-    "    #{className.toUpperCase()}_#{propertyName.toUpperCase()} + \" STRING NULL \""
+  declareField:(className,propertyName,type)->
+    "    #{className.toUpperCase()}_#{propertyName.toUpperCase()} + \" #{sqlite_type type, propertyName} NULL \""
 
   declare_field_str:(className, attr, last)->
     $this = @
@@ -74,14 +137,14 @@ class PackageStream
       type = xmiQuery.getChildrenByType(attr, 'uml:PrimitiveType')[0]
       if type
         #console.log "\t#{attr.name} #{type.getXmiObject().name}"
-        result = $this.declareField className, attr.name
+        result = $this.declareField className, attr.name, type.getXmiObject().name
       else if attr.getXmiObject()
         #console.log "\tfk_#{attr.name} #{attr.getXmiObject().name}"
-        result = $this.declareField className, "FK_#{attr.name.toUpperCase()}"
+        result = $this.declareField className, "FK_#{attr.name.toUpperCase()}", null
       else
         type = xmiQuery.getChildrenByType(attr, 'uml:Class')[0]
         #console.log "\tfk_#{attr.name} #{type.getXmiObjeclass ClassStream
-        result = $this.declareField className, "FK_#{attr.name.toUpperCase()}"
+        result = $this.declareField className, "FK_#{attr.name.toUpperCase()}", null
       if last
         result += ";\n"
       else
@@ -96,14 +159,15 @@ class PackageStream
       type = xmiQuery.getChildrenByType(attr, 'uml:PrimitiveType')[0]
       if type
         #console.log "\t#{attr.name} #{type.getXmiObject().name}"
-        result += $this.declareVariable className, attr.name
+        result += $this.declareVariable className, attr.name, type.getXmiObject().name
       else if attr.getXmiObject()
+        type = attr.getXmiObject()
         #console.log "\tfk_#{attr.name} #{attr.getXmiObject().name}"
-        result += this.declareVariable className, "fk_#{attr.name}"
+        result += this.declareVariable className, "fk_#{attr.name}", null
       else
         type = xmiQuery.getChildrenByType(attr, 'uml:Class')[0]
         #console.log "\tfk_#{attr.name} #{type.getXmiObjeclass ClassStream
-        result += $this.declareVariable className, "fk_#{attr.name}"
+        result += $this.declareVariable className, "fk_#{attr.name}", null
     return result
 
   update:(obj)->
