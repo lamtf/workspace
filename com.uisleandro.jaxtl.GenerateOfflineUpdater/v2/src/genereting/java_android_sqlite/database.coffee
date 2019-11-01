@@ -47,7 +47,6 @@ sqlite_type = (type, name)->
       return 'CHAR(2)'
     else
       return 'CHAR(8)'
-    endif
   else if type.toLowerCase() is 'bigtext'
     return 'VARCHAR(256)'
   else if type.toLowerCase() is 'file'
@@ -65,6 +64,9 @@ sqlite_type = (type, name)->
     return 'INTEGER'
   else
     return 'VARCHAR(45)'
+
+
+
 
 global_placeholder = /\[\$\]/
 
@@ -84,14 +86,15 @@ public class DbHelper extends SQLiteOpenHelper {
     [$]
 
     @Override
-    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+    public void onCreate(SQLiteDatabase db) {
         [$]
     }
     [$]
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         [$]
+        this.onCreate(db);
     }
     [$]
 }
@@ -112,46 +115,53 @@ class PackageStream
   observe:(source)->
     source.addObserver @
 
-  sqliteType:(prop)->
-    console.log prop
-    return ""
 
-  declareClass:(packageName, contents)->
+  declare_java_class:(packageName, contents)->
     """
     public class #{packageName.ToCamelCase()} {
       \n
       #{contents}
     }
     """
+  create_table:(className)->
+    """
+    \n
+      db.execSQL(CREATE_TABLE_#{className.toUpperCase()});
+    """
+  drop_table:(className)->
+    """
+    \n
+      db.execSQL("DROP TABLE IF EXISTS " + TABLE_#{className.toUpperCase()});
+    """
 
-  declareVariable:(className,propertyName, type)->
+  declare_java_variable:(className,propertyName, type)->
     """    public static final #{java_type type, propertyName} #{className.toUpperCase()}_#{propertyName.toUpperCase()} = "#{propertyName}";\n"""
 
-  declareField:(className,propertyName,type)->
+  declare_sqlite_field:(className,propertyName,type)->
     "    #{className.toUpperCase()}_#{propertyName.toUpperCase()} + \" #{sqlite_type type, propertyName} NULL \""
 
-  declare_field_str:(className, attr, last)->
+  declare_sqlite_field_java:(className, attr, last)->
     $this = @
     result = ""
     if attr.name
       type = xmiQuery.getChildrenByType(attr, 'uml:PrimitiveType')[0]
       if type
         #console.log "\t#{attr.name} #{type.getXmiObject().name}"
-        result = $this.declareField className, attr.name, type.getXmiObject().name
+        result = $this.declare_sqlite_field className, attr.name, type.getXmiObject().name
       else if attr.getXmiObject()
         #console.log "\tfk_#{attr.name} #{attr.getXmiObject().name}"
-        result = $this.declareField className, "FK_#{attr.name.toUpperCase()}", null
+        result = $this.declare_sqlite_field className, "FK_#{attr.name.toUpperCase()}", null
       else
         type = xmiQuery.getChildrenByType(attr, 'uml:Class')[0]
         #console.log "\tfk_#{attr.name} #{type.getXmiObjeclass ClassStream
-        result = $this.declareField className, "FK_#{attr.name.toUpperCase()}", null
+        result = $this.declare_sqlite_field className, "FK_#{attr.name.toUpperCase()}", null
       if last
         result += ";\n"
       else
         result += "+\n"
     return result
 
-  declare_static_variable:(className, attr, last)->
+  declare_static_java_variable:(className, attr, last)->
     $this = @
     result = ""
     if attr.name
@@ -159,15 +169,15 @@ class PackageStream
       type = xmiQuery.getChildrenByType(attr, 'uml:PrimitiveType')[0]
       if type
         #console.log "\t#{attr.name} #{type.getXmiObject().name}"
-        result += $this.declareVariable className, attr.name, type.getXmiObject().name
+        result += $this.declare_java_variable className, attr.name, type.getXmiObject().name
       else if attr.getXmiObject()
         type = attr.getXmiObject()
         #console.log "\tfk_#{attr.name} #{attr.getXmiObject().name}"
-        result += this.declareVariable className, "fk_#{attr.name}", null
+        result += this.declare_java_variable className, "fk_#{attr.name}", null
       else
         type = xmiQuery.getChildrenByType(attr, 'uml:Class')[0]
         #console.log "\tfk_#{attr.name} #{type.getXmiObjeclass ClassStream
-        result += $this.declareVariable className, "fk_#{attr.name}", null
+        result += $this.declare_java_variable className, "fk_#{attr.name}", null
     return result
 
   update:(obj)->
@@ -215,8 +225,8 @@ class PackageStream
         while i < mClass.children.length
           attr = mClass.children[i]
           i++
-          decl_vars += $this.declare_static_variable className, attr, 0
-          decl_class += $this.declare_field_str className, attr, (i == mClass.children.length)
+          decl_vars += $this.declare_static_java_variable className, attr, 0
+          decl_class += $this.declare_sqlite_field_java className, attr, (i == mClass.children.length)
 
         contents += decl_vars
         contents += decl_class
