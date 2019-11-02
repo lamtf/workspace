@@ -65,46 +65,44 @@ sqlite_type = (type, name)->
   else
     return 'VARCHAR(45)'
 
-
-
-
 global_placeholder = /\[\$\]/
 
 global_dbhelper = """
-package [$];
+package %%1%%;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    public static string DATABASE_NAME = "[$]";
+    public static string DATABASE_NAME = "%%2%%";
+    %%3%%
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
     }
-    [$]
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        [$]
+      %%4%%
+
     }
-    [$]
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
-        [$]
-        this.onCreate(db);
+      %%5%%
+      this.onCreate(db);
+
     }
-    [$]
+
 }
 
 """
 
 global_model = """
-public class [$] {
-    \n
-    [$]
+package %%1%%;
+public class %%2%% {
+    %%3%%
 }
 """
 
@@ -124,21 +122,15 @@ class PackageStream
     }
     """
   create_table:(className)->
-    """
-    \n
-      db.execSQL(CREATE_TABLE_#{className.toUpperCase()});
-    """
+    """\n      db.execSQL(CREATE_TABLE_#{className.toUpperCase()});"""
   drop_table:(className)->
-    """
-    \n
-      db.execSQL("DROP TABLE IF EXISTS " + TABLE_#{className.toUpperCase()});
-    """
+    """\n      db.execSQL("DROP TABLE IF EXISTS " + TABLE_#{className.toUpperCase()});"""
 
-  declare_java_variable:(className,propertyName, type)->
-    """    public static final #{java_type type, propertyName} #{className.toUpperCase()}_#{propertyName.toUpperCase()} = "#{propertyName}";\n"""
+  declare_java_static_string:(className,propertyName)->
+    """    public static final String #{className.toUpperCase()}_#{propertyName.toUpperCase()} = "#{propertyName}";\n"""
 
   declare_sqlite_field:(className,propertyName,type)->
-    "    #{className.toUpperCase()}_#{propertyName.toUpperCase()} + \" #{sqlite_type type, propertyName} NULL \""
+    "    #{className.toUpperCase()}_#{propertyName.toUpperCase()} + \" #{sqlite_type type, propertyName} NULL"
 
   declare_sqlite_field_java:(className, attr, last)->
     $this = @
@@ -156,9 +148,9 @@ class PackageStream
         #console.log "\tfk_#{attr.name} #{type.getXmiObjeclass ClassStream
         result = $this.declare_sqlite_field className, "FK_#{attr.name.toUpperCase()}", null
       if last
-        result += ";\n"
+        result += ";\";\n"
       else
-        result += "+\n"
+        result += ", \" +\n"
     return result
 
   declare_static_java_variable:(className, attr, last)->
@@ -169,15 +161,16 @@ class PackageStream
       type = xmiQuery.getChildrenByType(attr, 'uml:PrimitiveType')[0]
       if type
         #console.log "\t#{attr.name} #{type.getXmiObject().name}"
-        result += $this.declare_java_variable className, attr.name, type.getXmiObject().name
+        #result += $this.declare_java_static_string className, attr.name, type.getXmiObject().name
+        result += $this.declare_java_static_string className, attr.name
       else if attr.getXmiObject()
         type = attr.getXmiObject()
         #console.log "\tfk_#{attr.name} #{attr.getXmiObject().name}"
-        result += this.declare_java_variable className, "fk_#{attr.name}", null
+        result += this.declare_java_static_string className, "fk_#{attr.name}"
       else
         type = xmiQuery.getChildrenByType(attr, 'uml:Class')[0]
         #console.log "\tfk_#{attr.name} #{type.getXmiObjeclass ClassStream
-        result += $this.declare_java_variable className, "fk_#{attr.name}", null
+        result += $this.declare_java_static_string className, "fk_#{attr.name}"
     return result
 
   update:(obj)->
@@ -193,9 +186,12 @@ class PackageStream
       #console.log "Package::#{modelName}"
       contents = ""
 
+      str_create_table = "";
+      str_drop_table = "";
+
       dbHelper = global_dbhelper
-      dbHelper = dbHelper.replace global_placeholder, "lamtf.model.#{modelName.ToCamelCase()}"
-      dbHelper = dbHelper.replace global_placeholder, "#{modelName.ToCamelCase()}"
+      dbHelper = dbHelper.replace "%%1%%", "lamtf.model.#{modelName.ToCamelCase()}"
+      dbHelper = dbHelper.replace "%%2%%", "#{modelName.ToCamelCase()}"
 
       (xmiQuery.getAllNamedClasses p)
       .forEach (mClass)->
@@ -203,7 +199,9 @@ class PackageStream
         #        console.log "#{modelName}.#{mClass.name}"
         #console.log mClass.children
         className = mClass.name
-        contents = ""
+
+        str_create_table += $this.create_table className
+        str_drop_table += $this.drop_table className
 
         decl_vars = """
         \n
@@ -218,7 +216,7 @@ class PackageStream
             private static final String CREATE_TABLE_#{className.toUpperCase()} = "CREATE TABLE " + TABLE_#{className.toUpperCase()} +
             " ("+ #{className.toUpperCase()}_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             #{className.toUpperCase()}_UUID + " STRING NULL, " +
-            #{className.toUpperCase()}_DIRTY + " BOOLEAN NOT NULL" +\n
+            #{className.toUpperCase()}_DIRTY + " BOOLEAN NOT NULL, " +\n
         """
 
         i = 0
@@ -231,9 +229,10 @@ class PackageStream
         contents += decl_vars
         contents += decl_class
 
-        dbHelper = dbHelper.replace global_placeholder, "#{contents}[$]"
+      dbHelper = dbHelper.replace "%%3%%", contents
+      dbHelper = dbHelper.replace "%%4%%", str_create_table
+      dbHelper = dbHelper.replace "%%5%%", str_drop_table
 
-      dbHelper = dbHelper.replace global_placeholder, ""
       console.log dbHelper
       return
 
