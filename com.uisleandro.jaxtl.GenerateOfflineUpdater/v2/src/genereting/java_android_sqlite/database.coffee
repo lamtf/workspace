@@ -2,6 +2,13 @@ Observable = require "../../streams/Observable"
 xmiQuery = require "../../json/XmiQuery"
 Util = require "../../json/Util"
 fs = require "fs"
+path = require "path"
+
+writeFile = (fileName, data)->
+  fs.mkdir path.dirname(fileName),(recursive: true), (e)->
+    fs.writeFile fileName, data, (e)->
+      if e?
+        throw e
 
 java_type = (type, name)->
   if ( null is type or type.toLowerCase() is name.toLowerCase() or type.toLowerCase() is 'date' or type.toLowerCase() is 'datetime' or type.toLowerCase() is 'time' or type.toLowerCase() is 'identifier' )
@@ -190,8 +197,8 @@ class PackageStream
       str_drop_table = "";
 
       dbHelper = global_dbhelper
-      dbHelper = dbHelper.replace "%%1%%", "lamtf.model.#{modelName.ToCamelCase()}"
-      dbHelper = dbHelper.replace "%%2%%", "#{modelName.ToCamelCase()}"
+      dbHelper = dbHelper.replace "%%1%%", "lamtf.model.#{modelName.toCamelCase()}"
+      dbHelper = dbHelper.replace "%%2%%", "#{modelName}"
 
       (xmiQuery.getAllNamedClasses p)
       .forEach (mClass)->
@@ -233,7 +240,7 @@ class PackageStream
       dbHelper = dbHelper.replace "%%4%%", str_create_table
       dbHelper = dbHelper.replace "%%5%%", str_drop_table
 
-      console.log dbHelper
+      writeFile("tar/model/#{modelName.toCamelCase()}/DbHelper.java", dbHelper)
       return
 
 module.exports = {
