@@ -113,7 +113,7 @@ public class %%2%% {
 }
 """
 
-class PackageStream
+class DbHelper
   constructor:()->
     $this = @
     Observable.extends @
@@ -243,6 +243,4 @@ class PackageStream
       writeFile("tar/model/#{modelName.toCamelCase()}/DbHelper.java", dbHelper)
       return
 
-module.exports = {
-  PackageStream: PackageStream
-}
+module.exports = DbHelper

@@ -16,12 +16,14 @@ LogStream = require "./streams/LogStream"
 pipe = require "./streams/Pipe"
 
 
-{PackageStream} = require "./genereting/java_android_sqlite/database.coffee"
+DbHelper = require "./genereting/java_android_sqlite/DbHelper.coffee"
+DbModel = require "./genereting/java_android_sqlite/DbModel.coffee"
 
 log = new LogStream()
 #semaphore = new Semaphore()
 
-packageStream = new PackageStream()
+dbHelper = new DbHelper()
+dbModel = new DbModel()
 
 xmiParser = new XmiParser()
 
@@ -40,6 +42,7 @@ xmiFileWatcher = new XmiFileWatcher("./data", ($this, fileName)->
 #pipe log, classStream, xmiFileWatcher, xmiParser
 
 # nao vai ser androidTable
-pipe packageStream, xmiFileWatcher, xmiParser
+pipe dbHelper, xmiFileWatcher, xmiParser
+pipe dbModel, xmiFileWatcher
 
 xmiFileWatcher.start("behavior_model_v4.uml");
