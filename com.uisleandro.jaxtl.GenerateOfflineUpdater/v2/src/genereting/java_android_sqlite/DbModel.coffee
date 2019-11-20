@@ -34,16 +34,11 @@ getType=(attr)->
   type = xmiQuery.getChildrenByType(attr, 'uml:PrimitiveType')[0]
   if !type?
     type = xmiQuery.getChildrenByType(attr, 'uml:Class')[0]
-    attr.isFK = true;
+    attr.isFk = true;
     if !type?
       type = attr
-
-  return type.getXmiObject().getAttr("name")
-
-###
-  else
-    return "fk_"+attr.getXmiObject().getAttr("name")
-###
+  #console.log """#{attr.getAttr("name")}->#{type.getXmiObject().getAttr("name")}"""
+  return type.getXmiObject()
 
 class DbModel
   constructor:()->
@@ -52,10 +47,26 @@ class DbModel
   observe:(source)->
     source.addObserver @
   private_var:(attr)->
-    console.log getType(attr)
-    return ""
-  getset:(attr)->
-    return ""
+    type = getType attr
+    if attr.isFk
+      return """\n    private Long #{attr.getAttr("name").toCamelCase()};"""
+    return """\n    private #{java_type(type.getAttr("name"), attr.getAttr("name"))} #{attr.getAttr("name").toCamelCase()};"""
+  getSet:(attr)->
+    type = "Long"
+    Name = attr.getAttr("name").ToCamelCase()
+    name = attr.getAttr("name").toCamelCase()
+    if not attr.isFk
+      type = java_type (getType(attr)).getAttr("name"), attr.getAttr("name")
+    return """
+    \n
+        public Long get#{Name}(){
+          return #{name};
+        }
+
+        public void set#{Name}(Long #{name}){
+          this.#{name} = #{name};
+        }
+    """
   update:(obj)->
     $this = @
     #
@@ -76,16 +87,21 @@ class DbModel
         className = mClass.name
 
         dbModel = global_model
-        dbModel = dbModel.replace "%%1%%", "lamtf.model.#{modelName.toCamelCase()}"
-        dbModel = dbModel.replace "%%2%%", "#{modelName}"
+        dbModel = dbModel.replace "%%1%%", "lamtf.model.#{modelName.toLowerCase()}"
+        dbModel = dbModel.replace "%%2%%", "#{className.ToCamelCase()}"
         contents = ""
 
-        i = 0
         mClass.children
         .filter((x)->x.tagName is "ownedAttribute")
-        .forEach((x)-> $this.private_var x)
+        .forEach((x)-> contents += $this.private_var x)
 
-        #writeFile("tar/model/#{modelName.toCamelCase()}/DbHelper.java", dbHelper)
+        mClass.children
+        .filter((x)->x.tagName is "ownedAttribute")
+        .forEach((x)-> contents += $this.getSet x)
+
+        dbModel = dbModel.replace "%%3%%", contents
+
+        writeFile("tar/model/#{modelName.toCamelCase()}/#{className.ToCamelCase()}.java", dbModel)
 
       return
 

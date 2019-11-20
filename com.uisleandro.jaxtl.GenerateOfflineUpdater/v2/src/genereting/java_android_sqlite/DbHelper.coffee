@@ -106,13 +106,6 @@ public class DbHelper extends SQLiteOpenHelper {
 
 """
 
-global_model = """
-package %%1%%;
-public class %%2%% {
-    %%3%%
-}
-"""
-
 class DbHelper
   constructor:()->
     $this = @
