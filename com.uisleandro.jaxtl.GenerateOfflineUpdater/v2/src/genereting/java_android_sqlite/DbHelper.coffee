@@ -82,8 +82,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbHelper extends SQLiteOpenHelper {
 
-    public static string DATABASE_NAME = "%%2%%";
-    %%3%%
+    public static string DATABASE_NAME = "%%2%%";%%3%%
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME , null, 1);
@@ -190,7 +189,7 @@ class DbHelper
       str_drop_table = "";
 
       dbHelper = global_dbhelper
-      dbHelper = dbHelper.replace "%%1%%", "lamtf.model.#{modelName.toCamelCase()}"
+      dbHelper = dbHelper.replace "%%1%%", "#{modelName.ToCamelCase()}Project.model"
       dbHelper = dbHelper.replace "%%2%%", "#{modelName}"
 
       (xmiQuery.getAllNamedClasses p)
@@ -233,7 +232,7 @@ class DbHelper
       dbHelper = dbHelper.replace "%%4%%", str_create_table
       dbHelper = dbHelper.replace "%%5%%", str_drop_table
 
-      writeFile("tar/model/#{modelName.toCamelCase()}/DbHelper.java", dbHelper)
+      writeFile("generated/#{modelName.ToCamelCase()}Project/model/DbHelper.java", dbHelper)
       return
 
 module.exports = DbHelper

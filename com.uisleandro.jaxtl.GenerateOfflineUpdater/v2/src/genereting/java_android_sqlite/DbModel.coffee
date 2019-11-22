@@ -54,7 +54,7 @@ class DbModel
   getSet:(attr)->
     type = "Long"
     Name = attr.getAttr("name").ToCamelCase()
-    name = attr.getAttr("name").toCamelCase()
+    name = attr.getAttr("name").toCamelCase()#{modelName.ToCamelCase()}Project
     if not attr.isFk
       type = java_type (getType(attr)).getAttr("name"), attr.getAttr("name")
     return """
@@ -87,7 +87,7 @@ class DbModel
         className = mClass.name
 
         dbModel = global_model
-        dbModel = dbModel.replace "%%1%%", "lamtf.model.#{modelName.toLowerCase()}"
+        dbModel = dbModel.replace "%%1%%", "#{modelName.ToCamelCase()}Project.model"
         dbModel = dbModel.replace "%%2%%", "#{className.ToCamelCase()}"
         contents = ""
 
@@ -101,8 +101,10 @@ class DbModel
 
         dbModel = dbModel.replace "%%3%%", contents
 
-        writeFile("tar/model/#{modelName.toCamelCase()}/#{className.ToCamelCase()}.java", dbModel)
+        writeFile("generated/#{modelName.ToCamelCase()}Project/model/#{className.ToCamelCase()}.java", dbModel)
 
       return
+
+# Its not a module its an entire project
 
 module.exports = DbModel
