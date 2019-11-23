@@ -1,19 +1,19 @@
-CharStream = require "../streams/CharStream"
-XmlCharacterStream = require "../streams/XmlCharacterStream"
-XmlStackStream = require "../streams/XmlStackStream"
-XmlTokenStream = require "../streams/XmlTokenStream"
+CharStream = require "../transformation/streams/CharStream"
+XmlCharacterStream = require "../transformation/streams/XmlCharacterStream"
+XmlStackStream = require "../transformation/streams/XmlStackStream"
+XmlTokenStream = require "../transformation/streams/XmlTokenStream"
 
-XmiParser = require "../streams/XmiParser"
+XmiParser = require "../transformation/streams/XmiParser"
 
-XmiFileWatcher = require "../streams/XmiFileWatcher"
+XmiFileWatcher = require "../transformation/streams/XmiFileWatcher"
 
-#Semaphore = require "../streams/Semaphore"
+#Semaphore = require "../transformation/streams/Semaphore"
 
-LogStream = require "../streams/LogStream"
+LogStream = require "../transformation/streams/LogStream"
 
-#AttributeStream = require "../streams/AttributeStream"
+#AttributeStream = require "../transformation/streams/AttributeStream"
 
-pipe = require "../streams/Pipe"
+pipe = require "../transformation/streams/Pipe"
 
 xmiQuery = require "../json/XmiQuery"
 
@@ -60,7 +60,7 @@ eof = new EofStream()
 
 xmiParser = new XmiParser()
 
-xmiFileWatcher = new XmiFileWatcher("../data", ($this, fileName)->
+xmiFileWatcher = new XmiFileWatcher("./src/model", ($this, fileName)->
 
   charStream = new CharStream("#{$this.baseFolder}/#{fileName}")
   xmlCharacterStream = new XmlCharacterStream()

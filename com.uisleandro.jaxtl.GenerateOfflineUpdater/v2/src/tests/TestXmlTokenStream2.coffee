@@ -1,9 +1,9 @@
-CharStream = require "../streams/CharStream"
-XmlCharacterStream = require "../streams/XmlCharacterStream"
-LogStream = require "../streams/LogStream"
-XmlTokenStream = require "../streams/XmlTokenStream"
-pipe = require "../streams/Pipe"
-Observable = require "../streams/Observable"
+CharStream = require "../transformation/streams/CharStream"
+XmlCharacterStream = require "../transformation/streams/XmlCharacterStream"
+LogStream = require "../transformation/streams/LogStream"
+XmlTokenStream = require "../transformation/streams/XmlTokenStream"
+pipe = require "../transformation/streams/Pipe"
+Observable = require "../transformation/streams/Observable"
 
 {CHAR_CODE_0,CHAR_CODE_9,CHAR_CODE_C,CHAR_CODE_D,CHAR_CODE_A,
 CHAR_CODE_T,CHAR_CODE_X,CHAR_CODE_M,CHAR_CODE_L,CHAR_CODE_Z,

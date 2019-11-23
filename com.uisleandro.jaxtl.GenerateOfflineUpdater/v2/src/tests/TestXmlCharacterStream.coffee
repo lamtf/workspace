@@ -1,7 +1,7 @@
-CharStream = require "../streams/CharStream"
-XmlCharacterStream = require "../streams/XmlCharacterStream"
-LogStream = require "../streams/LogStream"
-pipe = require "../streams/Pipe"
+CharStream = require "../transformation/streams/CharStream"
+XmlCharacterStream = require "../transformation/streams/XmlCharacterStream"
+LogStream = require "../transformation/streams/LogStream"
+pipe = require "../transformation/streams/Pipe"
 
 charStream = new CharStream("teste02.xml")
 xmlCharacterStream = new XmlCharacterStream()

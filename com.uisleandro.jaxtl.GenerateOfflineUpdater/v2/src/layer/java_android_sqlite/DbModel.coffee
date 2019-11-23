@@ -1,6 +1,6 @@
-Observable = require "../../streams/Observable"
-xmiQuery = require "../../json/XmiQuery"
-Util = require "../../json/Util"
+Observable = require "../../transformation/streams/Observable"
+xmiQuery = require "../../transformation/json/XmiQuery"
+Util = require "../../transformation/json/Util"
 fs = require "fs"
 path = require "path"
 
@@ -41,7 +41,7 @@ getType=(attr)->
   return type.getXmiObject()
 
 class DbModel
-  constructor:()->
+  constructor:(@location)->
     $this = @
     Observable.extends @
   observe:(source)->
@@ -101,7 +101,7 @@ class DbModel
 
         dbModel = dbModel.replace "%%3%%", contents
 
-        writeFile("generated/#{modelName.ToCamelCase()}Project/model/#{className.ToCamelCase()}.java", dbModel)
+        writeFile("#{$this.location}/#{modelName.ToCamelCase()}Project/model/#{className.ToCamelCase()}.java", dbModel)
 
       return
 

@@ -1,6 +1,6 @@
-Observable = require "../../streams/Observable"
-xmiQuery = require "../../json/XmiQuery"
-Util = require "../../json/Util"
+Observable = require "../../transformation/streams/Observable"
+xmiQuery = require "../../transformation/json/XmiQuery"
+Util = require "../../transformation/json/Util"
 fs = require "fs"
 path = require "path"
 
@@ -106,7 +106,7 @@ public class DbHelper extends SQLiteOpenHelper {
 """
 
 class DbHelper
-  constructor:()->
+  constructor:(@location)->
     $this = @
     Observable.extends @
   observe:(source)->
@@ -232,7 +232,7 @@ class DbHelper
       dbHelper = dbHelper.replace "%%4%%", str_create_table
       dbHelper = dbHelper.replace "%%5%%", str_drop_table
 
-      writeFile("generated/#{modelName.ToCamelCase()}Project/model/DbHelper.java", dbHelper)
+      writeFile("#{$this.location}/#{modelName.ToCamelCase()}Project/model/DbHelper.java", dbHelper)
       return
 
 module.exports = DbHelper
