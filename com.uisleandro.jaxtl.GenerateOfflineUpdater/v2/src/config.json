@@ -1,0 +1,9 @@
+{
+  "android": {
+    "folder": "out/android"
+  },
+  "model": {
+    "folder":"./src/model",
+    "file":"behavior_model_v4.uml"
+  }
+}

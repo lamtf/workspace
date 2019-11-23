@@ -1,48 +1,27 @@
-CharStream = require "./transformation/streams/CharStream"
-XmlCharacterStream = require "./transformation/streams/XmlCharacterStream"
-XmlStackStream = require "./transformation/streams/XmlStackStream"
-XmlTokenStream = require "./transformation/streams/XmlTokenStream"
-
-XmiParser = require "./transformation/streams/XmiParser"
-
-XmiFileWatcher = require "./transformation/streams/XmiFileWatcher"
-
-#Semaphore = require "./transformation/streams/Semaphore"
-
-LogStream = require "./transformation/streams/LogStream"
-
-#AttributeStream = require "./transformation/streams/AttributeStream"
-
+lamtf = require "./transformation/injector"
 pipe = require "./transformation/streams/Pipe"
-
-
 DbHelper = require "./layer/java_android_sqlite/DbHelper.coffee"
 DbModel = require "./layer/java_android_sqlite/DbModel.coffee"
+config = require("./config.json")
 
-log = new LogStream()
-#semaphore = new Semaphore()
+dbHelper = new DbHelper(config.android.folder)
+dbModel = new DbModel(config.android.folder)
 
-dbHelper = new DbHelper("out/android")
-dbModel = new DbModel("out/android")
+log = lamtf.getLogStream()
+xmiParser = lamtf.getXmiParser()
+xmiFileWatcher = lamtf.getXmiFileWatcher(config.model.folder, ($this, fileName)->
 
-xmiParser = new XmiParser()
-
-xmiFileWatcher = new XmiFileWatcher("./src/model", ($this, fileName)->
-
-  charStream = new CharStream("#{$this.baseFolder}/#{fileName}")
-  xmlCharacterStream = new XmlCharacterStream()
-  xmlTokenStream = new XmlTokenStream()
-  xmlStackStream = new XmlStackStream()
+  charStream = lamtf.getCharStream("#{$this.baseFolder}/#{fileName}")
+  xmlCharacterStream = lamtf.getXmlCharacterStream()
+  xmlTokenStream = lamtf.getXmlTokenStream()
+  xmlStackStream = lamtf.getXmlStackStream()
 
   pipe xmiParser, xmlStackStream, xmlTokenStream, xmlCharacterStream, charStream
-  charStream.start()
 
+  charStream.start()
 )
 
-#pipe log, classStream, xmiFileWatcher, xmiParser
-
-# nao vai ser androidTable
 pipe dbHelper, xmiFileWatcher, xmiParser
 pipe dbModel, xmiFileWatcher
 
-xmiFileWatcher.start("behavior_model_v4.uml");
+xmiFileWatcher.start(config.model.file);
