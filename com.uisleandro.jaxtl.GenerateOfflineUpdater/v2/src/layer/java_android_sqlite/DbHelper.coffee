@@ -105,6 +105,17 @@ public class DbHelper extends SQLiteOpenHelper {
 
 """
 
+getType=(attr)->
+  type = xmiQuery.getChildrenByType(attr, 'uml:PrimitiveType')[0]
+  if !type?
+    type = xmiQuery.getChildrenByType(attr, 'uml:Class')[0]
+    attr.isFk = true;
+    if !type?
+      type = attr
+  #console.log """#{attr.getAttr("name")}->#{type.getXmiObject().getAttr("name")}"""
+  return type.getXmiObject()
+
+
 class DbHelper
   constructor:(@location)->
     $this = @
@@ -134,42 +145,29 @@ class DbHelper
   declare_sqlite_field_java:(className, attr, last)->
     $this = @
     result = ""
-    if attr.name
-      type = xmiQuery.getChildrenByType(attr, 'uml:PrimitiveType')[0]
-      if type
-        #console.log "\t#{attr.name} #{type.getXmiObject().name}"
-        result = $this.declare_sqlite_field className, attr.name, type.getXmiObject().name
-      else if attr.getXmiObject()
-        #console.log "\tfk_#{attr.name} #{attr.getXmiObject().name}"
-        result = $this.declare_sqlite_field className, "FK_#{attr.name.toUpperCase()}", null
-      else
-        type = xmiQuery.getChildrenByType(attr, 'uml:Class')[0]
-        #console.log "\tfk_#{attr.name} #{type.getXmiObjeclass ClassStream
-        result = $this.declare_sqlite_field className, "FK_#{attr.name.toUpperCase()}", null
-      if last
-        result += ";\";\n"
-      else
-        result += ", \" +\n"
+    type = getType attr
+
+    if attr.isFk
+      result = $this.declare_sqlite_field className, "FK_#{attr.name.toUpperCase()}", null
+    else
+      result = $this.declare_sqlite_field className, attr.name, type.name
+
+    if last
+      result += ";\";\n"
+    else
+      result += ", \" +\n"
     return result
 
   declare_static_java_variable:(className, attr, last)->
     $this = @
     result = ""
-    if attr.name
-      #console.log "  #{attr.name}"
-      type = xmiQuery.getChildrenByType(attr, 'uml:PrimitiveType')[0]
-      if type
-        #console.log "\t#{attr.name} #{type.getXmiObject().name}"
-        #result += $this.declare_java_static_string className, attr.name, type.getXmiObject().name
-        result += $this.declare_java_static_string className, attr.name
-      else if attr.getXmiObject()
-        type = attr.getXmiObject()
-        #console.log "\tfk_#{attr.name} #{attr.getXmiObject().name}"
-        result += this.declare_java_static_string className, "fk_#{attr.name}"
-      else
-        type = xmiQuery.getChildrenByType(attr, 'uml:Class')[0]
-        #console.log "\tfk_#{attr.name} #{type.getXmiObjeclass ClassStream
-        result += $this.declare_java_static_string className, "fk_#{attr.name}"
+    type = getType attr
+
+    if attr.isFk
+      result += $this.declare_java_static_string className, "fk_#{attr.name}"
+    else
+      result += $this.declare_java_static_string className, attr.name
+
     return result
 
   update:(obj)->
@@ -219,8 +217,9 @@ class DbHelper
         """
 
         i = 0
-        while i < mClass.children.length
-          attr = mClass.children[i]
+        attrs = mClass.children.filter((x)->x.tagName is "ownedAttribute")
+        while i < attrs.length
+          attr = attrs[i]
           i++
           decl_vars += $this.declare_static_java_variable className, attr, 0
           decl_class += $this.declare_sqlite_field_java className, attr, (i == mClass.children.length)
