@@ -40,7 +40,7 @@ getType=(attr)->
   #console.log """#{attr.getAttr("name")}->#{type.getXmiObject().getAttr("name")}"""
   return type.getXmiObject()
 
-class DbModel
+class DatabaseModel
   constructor:(@location)->
     $this = @
     Observable.extends @
@@ -107,4 +107,4 @@ class DbModel
 
 # Its not a module its an entire project
 
-module.exports = DbModel
+module.exports = DatabaseModel

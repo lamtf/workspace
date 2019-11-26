@@ -116,7 +116,7 @@ getType=(attr)->
   return type.getXmiObject()
 
 
-class DbHelper
+class DatabaseHelperForModule
   constructor:(@location)->
     $this = @
     Observable.extends @
@@ -234,4 +234,4 @@ class DbHelper
       writeFile("#{$this.location}/#{modelName.ToCamelCase()}Project/model/DbHelper.java", dbHelper)
       return
 
-module.exports = DbHelper
+module.exports = DatabaseHelperForModule

@@ -1,11 +1,11 @@
 lamtf = require "./transformation/injector"
 pipe = require "./transformation/streams/Pipe"
-DbHelper = require "./layer/java_android_sqlite/DbHelper.coffee"
-DbModel = require "./layer/java_android_sqlite/DbModel.coffee"
+DbHelper = require "./layer/java_android_sqlite/DatabaseHelperForModule.coffee"
+DatabaseModel = require "./layer/java_android_sqlite/DatabaseModel.coffee"
 config = require("./config.json")
 
-dbHelper = new DbHelper(config.android.folder)
-dbModel = new DbModel(config.android.folder)
+dbHelper = new DatabaseHelperForModule(config.android.folder)
+dbModel = new DatabaseModel(config.android.folder)
 
 log = lamtf.getLogStream()
 xmiParser = lamtf.getXmiParser()
