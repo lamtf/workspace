@@ -5,7 +5,7 @@ fs = require "fs"
 path = require "path"
 
 content = """
-%%package%%
+package %%package%%;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;

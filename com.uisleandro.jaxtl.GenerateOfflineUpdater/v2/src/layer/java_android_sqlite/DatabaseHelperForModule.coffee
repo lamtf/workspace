@@ -187,7 +187,7 @@ class DatabaseHelperForModule
       str_drop_table = "";
 
       dbHelper = global_dbhelper
-      dbHelper = dbHelper.replace "%%1%%", "#{modelName.ToCamelCase()}Project.model"
+      dbHelper = dbHelper.replace "%%1%%", "#{modelName.ToCamelCase()}Project.repository"
       dbHelper = dbHelper.replace "%%2%%", "#{modelName}"
 
       (xmiQuery.getAllNamedClasses p)
@@ -231,7 +231,7 @@ class DatabaseHelperForModule
       dbHelper = dbHelper.replace "%%4%%", str_create_table
       dbHelper = dbHelper.replace "%%5%%", str_drop_table
 
-      writeFile("#{$this.location}/#{modelName.ToCamelCase()}Project/model/DbHelper.java", dbHelper)
+      writeFile("#{$this.location}/#{modelName.ToCamelCase()}Project/repository/DbHelper.java", dbHelper)
       return
 
 module.exports = DatabaseHelperForModule
