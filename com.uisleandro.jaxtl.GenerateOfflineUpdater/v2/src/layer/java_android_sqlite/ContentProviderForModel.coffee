@@ -4,6 +4,12 @@ Util = require "../../transformation/json/Util"
 fs = require "fs"
 path = require "path"
 
+writeFile = (fileName, data)->
+  fs.mkdir path.dirname(fileName),(recursive: true), (e)->
+    fs.writeFile fileName, data, (e)->
+      if e?
+        throw e
+
 global_content = """
 package %%package%%;
 
@@ -18,25 +24,25 @@ import android.net.Uri;
 
 import %%DbHelper%%;
 
-public class %%ClassName%%Provider extends ContentProvider {
+public class %%TableName%%Provider extends ContentProvider {
 
-  public static final String AUTHORITY = %%authority%%
+  public static final String AUTHORITY = "%%authority%%";
 
-  public static final String %%TABLE%%_GET_PATH = %%GetTable%%
+  public static final String %%TABLE%%_GET_PATH = "Get%%TableName%%";
   public static final Uri %%TABLE%%_GET_URI = Uri.parse(
   ContentResolver.SCHEME_CONTENT + "://" + AUTHORITY + "/" + %%TABLE%%_GET_PATH
   );
   public static final String %%TABLE%%_GET_MIME_TYPE =
   ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + %%TABLE%%_GET_PATH;
 
-  public static final String %%TABLE%%_LIST_PATH = %%ListTables%%
+  public static final String %%TABLE%%_LIST_PATH = "List%%TableName%%s";
   public static final Uri %%TABLE%%_LIST_URI = Uri.parse(
   ContentResolver.SCHEME_CONTENT + "://" + AUTHORITY + "/" + %%TABLE%%_LIST_PATH
   );
   public static final String %%TABLE%%_LIST_MIME_TYPE =
   ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + %%TABLE%%_LIST_PATH;
 
-  public static final String %%TABLE%%_COUNT_PATH = %%CountTables%%
+  public static final String %%TABLE%%_COUNT_PATH = "Count%%TableName%%s";
   public static final Uri %%TABLE%%_COUNT_URI = Uri.parse(
   ContentResolver.SCHEME_CONTENT + "://" + AUTHORITY + "/" +
   %%TABLE%%_COUNT_PATH
@@ -74,11 +80,14 @@ public class %%ClassName%%Provider extends ContentProvider {
     String[] selectionArgs, String sortOrder) {
     Cursor cursor;
     switch(MATCHER.match(uri)){
-      case LIST:%%listQuery%%
+      case LIST:
+        cursor = getList(selectionArgs);
         break;
-      case GET:%%oneQuery%%
+      case GET:
+        cursor = getOne(selectionArgs);
         break;
-      case COUNT:%%countQuery%%
+      case COUNT:
+        cursor = getCount(selectionArgs);
         break;
       /*%%more_queries%%*/
     }
@@ -103,23 +112,38 @@ public class %%ClassName%%Provider extends ContentProvider {
     return result;
   }
 
+  public int getCount(String[] selectionArgs) {
+    %%countQuery%%
+  }
+
+  public Cursor getOne(String[] selectionArgs) {
+    %%oneQuery%%
+  }
+
+  public Cursor getList(String[] selectionArgs) {
+    %%listQuery%%
+  }
+
   @Override
   public Uri insert(Uri uri, ContentValues values) {
-    %%insert.body%%
+    long last_id = database.insert(DBHelper.TABLE_%%TABLE%%, null, values);
+    return last_id;
   }
 
   @Override
-  public int delete(Uri uri, String selection, String[] selectionArgs) {
-    %%delete.body%%
+  public int delete(Uri uri, String whereClause, String[] whereArgs) {
+    int rows_affected = database.delete(DBHelper.TABLE_%%TABLE%%, selection, selectionArgs);
+    return rows_affected;
   }
 
   @Override
-  public int update(Uri uri, ContentValues values, String selection,
-    String[] selectionArgs) {
-    %%update.body%%
+  public int update(Uri uri, ContentValues values, String whereClause,
+    String[] whereArgs) {
+    int rows_affected = database.update(DBHelper.TABLE_%%TABLE%%, values, selection, selectionArgs);
+    return rows_affected;
   }
 
-  %%body%%
+  /*%%more_body%%*/
 
 }
 """
@@ -140,16 +164,17 @@ listQuery=(tableName, attrs)->
         }
 
         query += ";";
-        cursor = database.rawQuery(query, null);
+
+        return database.rawQuery(query, null);
 
   """
 
 countQuery=(tableName)->
   """
 \n
-        query = "SELECT count(*) as count FROM " +
-        DBHelper.#{tableName.toUpperCase()} + ";";
-        cursor = database.rawQuery(query, null);
+        query = "SELECT count(*) as count FROM " + DBHelper.#{tableName.toUpperCase()} + ";";
+
+        return database.rawQuery(query, null);
 
   """
 
@@ -160,8 +185,15 @@ oneQuery=(tableName, attrs)->
 #{(attrs.map (attr)-> "          \"#{attr.getAttr "name"}").join(", \" + \n")} " +
           "FROM " + DBHelper.#{tableName.toUpperCase()} +
           " WHERE " + id = " + String.valueOf(Integer.valueOf(selectionArgs[0])) + ";";
-        cursor = database.rawQuery(query, null);
 
+        return database.rawQuery(query, null);
+
+  """
+
+insertQuery = ()->
+  """
+  long last_id = database.insert(DBHelper.TABLE_CASH_LAUNCH, null, values);
+		return last_id;
   """
 
 
@@ -196,15 +228,15 @@ class ContentProviderForModel
 
       moduleContent = moduleContent.replace "%%package%%", "#{modelName.toLowerCase()}project.repository"
       moduleContent = moduleContent.replace "%%DbHelper%%", "#{modelName.toLowerCase()}project.repository.DbHelper"
+      moduleContent = moduleContent.replace "%%authority%%", modelName.toLowerCase()
 
       (xmiQuery.getAllNamedClasses p)
       .forEach (mClass)->
         classContent = moduleContent;
         className = mClass.name
-        classContent = classContent.replace "%%ClassName%%", className.ToCamelCase()
-        classContent = classContent.replace "%%GetTable%%", "Get#{className.ToCamelCase()}"
-        classContent = classContent.replace "%%ListTable%%", "List#{className.ToCamelCase()}"
-        classContent = classContent.replace "%%CountTable%%", "Count#{className.ToCamelCase()}"
+        classContent = classContent.replace /%%TableName%%/g, className.ToCamelCase()
+        classContent = classContent.replace /%%TABLE%%/g, className.toUpperCase()
+
         #console.log classContent
         attrs = mClass.children.filter((x)->x.tagName is "ownedAttribute")
         strListQuery = listQuery className, attrs
@@ -213,7 +245,8 @@ class ContentProviderForModel
         classContent = classContent.replace "%%oneQuery%%", strOneQuery
         strCountQuery = countQuery className
         classContent = classContent.replace "%%countQuery%%", strCountQuery
-        console.log classContent
+        #console.log classContent
+        writeFile("#{$this.location}/#{modelName.ToCamelCase()}Project/repository/#{className.ToCamelCase()}Provider.java", classContent)
 
 
 module.exports = ContentProviderForModel
