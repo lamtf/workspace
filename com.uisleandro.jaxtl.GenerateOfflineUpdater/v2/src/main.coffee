@@ -1,3 +1,5 @@
+#!./node_modules/.bin/coffee
+
 lamtf = require "./transformation/injector"
 pipe = require "./transformation/streams/Pipe"
 
@@ -40,8 +42,8 @@ pipe dbModel, xmiFileWatcher
 ###
 
 
-#sequence group(cp, dbHelper, dbModel), xmiFileWatcher, xmiParser
+sequence group(cp, dbHelper, dbModel), xmiFileWatcher, xmiParser
 
-sequence group(cp), xmiFileWatcher, xmiParser
+#sequence group(cp), xmiFileWatcher, xmiParser
 
 xmiFileWatcher.start(config.model.file);

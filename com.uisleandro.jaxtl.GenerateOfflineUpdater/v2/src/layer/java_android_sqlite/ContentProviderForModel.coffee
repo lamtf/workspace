@@ -184,7 +184,7 @@ oneQuery=(tableName, attrs)->
         query = "SELECT id, server_id, dirty, " +
 #{(attrs.map (attr)-> "          \"#{attr.getAttr "name"}").join(", \" + \n")} " +
           "FROM " + DBHelper.#{tableName.toUpperCase()} +
-          " WHERE " + id = " + String.valueOf(Integer.valueOf(selectionArgs[0])) + ";";
+          " WHERE id = " + String.valueOf(Integer.valueOf(selectionArgs[0])) + ";";
 
         return database.rawQuery(query, null);
 
