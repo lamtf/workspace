@@ -42,7 +42,7 @@ pipe dbModel, xmiFileWatcher
 ###
 
 
-sequence group(cp, dbHelper, dbModel), xmiFileWatcher, xmiParser
+sequence(group(cp, dbHelper, dbModel), xmiFileWatcher, xmiParser)
 
 #sequence group(cp), xmiFileWatcher, xmiParser
 
