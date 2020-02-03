@@ -17,8 +17,8 @@ module.exports = {
     new XmlTokenStream()
   getXmiParser:()->
     new XmiParser()
-  getXmiFileWatcher:(models, callback)->
-    new XmiFileWatcher(models, callback)
+  getXmiFileWatcher:(callback)->
+    new XmiFileWatcher(callback)
   getLogStream:()->
     new LogStream()
 }

@@ -5,7 +5,7 @@ NEW_FILE = 1
 END_OF_FILE = 4294967295
 
 class XmiFileWatcher
-  constructor:(@baseFolder, @fn)->
+  constructor:(@fn)->
     @files = []
     @names = []
     @index = 0
@@ -13,8 +13,8 @@ class XmiFileWatcher
     @data = null
     @sent = false
 
-  start:(fileName)->
-    @fn @, fileName
+  start:(@fileName)->
+    @fn @
 
   update:(e)->
     $this = @
@@ -27,8 +27,8 @@ class XmiFileWatcher
         @names.push e.fileName
         #console.log "A", @files.length
         if @files.length >= @names.length
-          currentFileName = @files[@index]
-          @fn @, currentFileName
+          @fileName = @files[@index]
+          @fn @
           @index++
         else
           @tell {
@@ -44,6 +44,7 @@ class XmiFileWatcher
           return
 
         if (fileName.indexOf('pathmap://') is -1) and ((@files[fileName] is false) or (@files[fileName] is undefined))
+          fileName = @fileName.substr(0, @fileName.lastIndexOf("/")+1)+fileName
           if @files.indexOf(fileName) is -1
             @files.push fileName
             return

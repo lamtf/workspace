@@ -3,7 +3,7 @@
     "folder": "out/android"
   },
   "model": {
-    "folder":"./src/model",
+    "folder":"../../com.uisleandro.localdiagram/__out2017",
     "file":"behavior_model_v4.uml"
   }
 }

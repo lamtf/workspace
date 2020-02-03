@@ -18,9 +18,9 @@ dbModel = new DatabaseModel(config.android.folder)
 
 log = lamtf.getLogStream()
 xmiParser = lamtf.getXmiParser()
-xmiFileWatcher = lamtf.getXmiFileWatcher(config.model.folder, ($this, fileName)->
+xmiFileWatcher = lamtf.getXmiFileWatcher( ($this)->
 
-  charStream = lamtf.getCharStream("#{$this.baseFolder}/#{fileName}")
+  charStream = lamtf.getCharStream($this.fileName)
   xmlCharacterStream = lamtf.getXmlCharacterStream()
   xmlTokenStream = lamtf.getXmlTokenStream()
   xmlStackStream = lamtf.getXmlStackStream()
@@ -46,4 +46,4 @@ sequence(group(cp, dbHelper, dbModel), xmiFileWatcher, xmiParser)
 
 #sequence group(cp), xmiFileWatcher, xmiParser
 
-xmiFileWatcher.start(config.model.file);
+xmiFileWatcher.start("#{config.model.folder}/#{config.model.file}");
